@@ -1,5 +1,5 @@
 //
-//  ewww.h
+//  text.h
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/7/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ewww : UIViewController
+@interface text : UIViewController
 
 @end

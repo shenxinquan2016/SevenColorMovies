@@ -15,7 +15,6 @@
 		11BB37871D38B9A00002D487 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37851D38B9A00002D487 /* LaunchScreen.storyboard */; };
 		11BB37921D38B9A00002D487 /* SevenColorMoviesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37911D38B9A00002D487 /* SevenColorMoviesTests.m */; };
 		11BB379D1D38B9A00002D487 /* SevenColorMoviesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB379C1D38B9A00002D487 /* SevenColorMoviesUITests.m */; };
-		11BB37AF1D38CA660002D487 /* ewww.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37AE1D38CA660002D487 /* ewww.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +51,6 @@
 		11BB37981D38B9A00002D487 /* SevenColorMoviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SevenColorMoviesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BB379C1D38B9A00002D487 /* SevenColorMoviesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SevenColorMoviesUITests.m; sourceTree = "<group>"; };
 		11BB379E1D38B9A00002D487 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		11BB37AD1D38CA660002D487 /* ewww.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ewww.h; sourceTree = "<group>"; };
-		11BB37AE1D38CA660002D487 /* ewww.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ewww.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +105,6 @@
 				11BB377B1D38B9A00002D487 /* AppDelegate.m */,
 				11BB377D1D38B9A00002D487 /* ViewController.h */,
 				11BB377E1D38B9A00002D487 /* ViewController.m */,
-				11BB37AD1D38CA660002D487 /* ewww.h */,
-				11BB37AE1D38CA660002D487 /* ewww.m */,
 				11BB37801D38B9A00002D487 /* Main.storyboard */,
 				11BB37831D38B9A00002D487 /* Assets.xcassets */,
 				11BB37851D38B9A00002D487 /* LaunchScreen.storyboard */,
@@ -278,7 +273,6 @@
 				11BB377F1D38B9A00002D487 /* ViewController.m in Sources */,
 				11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
-				11BB37AF1D38CA660002D487 /* ewww.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

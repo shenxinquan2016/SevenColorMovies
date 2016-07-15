@@ -1,13 +1,13 @@
 //
-//  ewww.m
+//  text.m
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/7/15.
 //  Copyright © 2016年 yesdgq. All rights reserved.
 //
 
-#import "ewww.h"
+#import "text.h"
 
-@implementation ewww
+@implementation text
 
 @end
