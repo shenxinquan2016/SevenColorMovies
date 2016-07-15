@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>netType</key>
+	<string>开发环境</string>
+	<key>domainName</key>
+	<string>http://app.sitvs.com:</string>
+	<key>payPort</key>
+	<string>8000</string>
+	<key>commPort</key>
+	<string>8000</string>
+	<key>searchPort</key>
+	<string>8000</string>
+</dict>
+</plist>

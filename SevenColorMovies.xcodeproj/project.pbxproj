@@ -1,1176 +1,732 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>11BB376B1D38B9A00002D487</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>11BB37761D38B9A00002D487</string>
-				<string>11BB37901D38B9A00002D487</string>
-				<string>11BB379B1D38B9A00002D487</string>
-				<string>11BB37751D38B9A00002D487</string>
-				<string>56CA4D536ADE803AF87BD5DE</string>
-				<string>EA43CF5B333599320E8DB727</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB376C1D38B9A00002D487</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastUpgradeCheck</key>
-				<string>0730</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>yesdgq</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>11BB37731D38B9A00002D487</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3</string>
-					</dict>
-					<key>11BB378C1D38B9A00002D487</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3</string>
-						<key>TestTargetID</key>
-						<string>11BB37731D38B9A00002D487</string>
-					</dict>
-					<key>11BB37971D38B9A00002D487</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3</string>
-						<key>TestTargetID</key>
-						<string>11BB37731D38B9A00002D487</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>11BB376F1D38B9A00002D487</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-				<string>Base</string>
-			</array>
-			<key>mainGroup</key>
-			<string>11BB376B1D38B9A00002D487</string>
-			<key>productRefGroup</key>
-			<string>11BB37751D38B9A00002D487</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>11BB37731D38B9A00002D487</string>
-				<string>11BB378C1D38B9A00002D487</string>
-				<string>11BB37971D38B9A00002D487</string>
-			</array>
-		</dict>
-		<key>11BB376F1D38B9A00002D487</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>11BB379F1D38B9A00002D487</string>
-				<string>11BB37A01D38B9A00002D487</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>11BB37701D38B9A00002D487</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>11BB377F1D38B9A00002D487</string>
-				<string>11BB377C1D38B9A00002D487</string>
-				<string>11BB37791D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>11BB37711D38B9A00002D487</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>E295801C8EBB6E7149DD009D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>11BB37721D38B9A00002D487</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>11BB37871D38B9A00002D487</string>
-				<string>11BB37841D38B9A00002D487</string>
-				<string>11BB37821D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>11BB37731D38B9A00002D487</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>11BB37A11D38B9A00002D487</string>
-			<key>buildPhases</key>
-			<array>
-				<string>7F9C35CE23A7A99887354ED1</string>
-				<string>11BB37701D38B9A00002D487</string>
-				<string>11BB37711D38B9A00002D487</string>
-				<string>11BB37721D38B9A00002D487</string>
-				<string>76A379AB0C02107AB0C9423C</string>
-				<string>C8A738FC5EA155D379B4AEA1</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>SevenColorMovies</string>
-			<key>productName</key>
-			<string>SevenColorMovies</string>
-			<key>productReference</key>
-			<string>11BB37741D38B9A00002D487</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-		</dict>
-		<key>11BB37741D38B9A00002D487</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>SevenColorMovies.app</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>11BB37751D38B9A00002D487</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>11BB37741D38B9A00002D487</string>
-				<string>11BB378D1D38B9A00002D487</string>
-				<string>11BB37981D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37761D38B9A00002D487</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>11BB377A1D38B9A00002D487</string>
-				<string>11BB377B1D38B9A00002D487</string>
-				<string>11BB377D1D38B9A00002D487</string>
-				<string>11BB377E1D38B9A00002D487</string>
-				<string>11BB37801D38B9A00002D487</string>
-				<string>11BB37831D38B9A00002D487</string>
-				<string>11BB37851D38B9A00002D487</string>
-				<string>11BB37881D38B9A00002D487</string>
-				<string>11BB37771D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>SevenColorMovies</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37771D38B9A00002D487</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>11BB37781D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37781D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>main.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37791D38B9A00002D487</key>
-		<dict>
-			<key>fileRef</key>
-			<string>11BB37781D38B9A00002D487</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>11BB377A1D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>AppDelegate.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB377B1D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>AppDelegate.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB377C1D38B9A00002D487</key>
-		<dict>
-			<key>fileRef</key>
-			<string>11BB377B1D38B9A00002D487</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>11BB377D1D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>ViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB377E1D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>ViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB377F1D38B9A00002D487</key>
-		<dict>
-			<key>fileRef</key>
-			<string>11BB377E1D38B9A00002D487</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>11BB37801D38B9A00002D487</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>11BB37811D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>Main.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37811D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.storyboard</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>Base.lproj/Main.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37821D38B9A00002D487</key>
-		<dict>
-			<key>fileRef</key>
-			<string>11BB37801D38B9A00002D487</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>11BB37831D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Assets.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37841D38B9A00002D487</key>
-		<dict>
-			<key>fileRef</key>
-			<string>11BB37831D38B9A00002D487</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>11BB37851D38B9A00002D487</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>11BB37861D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>LaunchScreen.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37861D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.storyboard</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>Base.lproj/LaunchScreen.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37871D38B9A00002D487</key>
-		<dict>
-			<key>fileRef</key>
-			<string>11BB37851D38B9A00002D487</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>11BB37881D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37891D38B9A00002D487</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>11BB37921D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>11BB378A1D38B9A00002D487</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>11BB378B1D38B9A00002D487</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>11BB378C1D38B9A00002D487</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>11BB37A41D38B9A00002D487</string>
-			<key>buildPhases</key>
-			<array>
-				<string>11BB37891D38B9A00002D487</string>
-				<string>11BB378A1D38B9A00002D487</string>
-				<string>11BB378B1D38B9A00002D487</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>11BB378F1D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>SevenColorMoviesTests</string>
-			<key>productName</key>
-			<string>SevenColorMoviesTests</string>
-			<key>productReference</key>
-			<string>11BB378D1D38B9A00002D487</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>11BB378D1D38B9A00002D487</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>SevenColorMoviesTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>11BB378E1D38B9A00002D487</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>11BB376C1D38B9A00002D487</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>11BB37731D38B9A00002D487</string>
-			<key>remoteInfo</key>
-			<string>SevenColorMovies</string>
-		</dict>
-		<key>11BB378F1D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>11BB37731D38B9A00002D487</string>
-			<key>targetProxy</key>
-			<string>11BB378E1D38B9A00002D487</string>
-		</dict>
-		<key>11BB37901D38B9A00002D487</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>11BB37911D38B9A00002D487</string>
-				<string>11BB37931D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>SevenColorMoviesTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37911D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SevenColorMoviesTests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37921D38B9A00002D487</key>
-		<dict>
-			<key>fileRef</key>
-			<string>11BB37911D38B9A00002D487</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>11BB37931D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB37941D38B9A00002D487</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>11BB379D1D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>11BB37951D38B9A00002D487</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>11BB37961D38B9A00002D487</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>11BB37971D38B9A00002D487</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>11BB37A71D38B9A00002D487</string>
-			<key>buildPhases</key>
-			<array>
-				<string>11BB37941D38B9A00002D487</string>
-				<string>11BB37951D38B9A00002D487</string>
-				<string>11BB37961D38B9A00002D487</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>11BB379A1D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>SevenColorMoviesUITests</string>
-			<key>productName</key>
-			<string>SevenColorMoviesUITests</string>
-			<key>productReference</key>
-			<string>11BB37981D38B9A00002D487</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.ui-testing</string>
-		</dict>
-		<key>11BB37981D38B9A00002D487</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>SevenColorMoviesUITests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>11BB37991D38B9A00002D487</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>11BB376C1D38B9A00002D487</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>11BB37731D38B9A00002D487</string>
-			<key>remoteInfo</key>
-			<string>SevenColorMovies</string>
-		</dict>
-		<key>11BB379A1D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>11BB37731D38B9A00002D487</string>
-			<key>targetProxy</key>
-			<string>11BB37991D38B9A00002D487</string>
-		</dict>
-		<key>11BB379B1D38B9A00002D487</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>11BB379C1D38B9A00002D487</string>
-				<string>11BB379E1D38B9A00002D487</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>SevenColorMoviesUITests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB379C1D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SevenColorMoviesUITests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB379D1D38B9A00002D487</key>
-		<dict>
-			<key>fileRef</key>
-			<string>11BB379C1D38B9A00002D487</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>11BB379E1D38B9A00002D487</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11BB379F1D38B9A00002D487</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_ANALYZER_NONNULL</key>
-				<string>YES</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.3</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>11BB37A01D38B9A00002D487</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_ANALYZER_NONNULL</key>
-				<string>YES</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.3</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>11BB37A11D38B9A00002D487</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>11BB37A21D38B9A00002D487</string>
-				<string>11BB37A31D38B9A00002D487</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>11BB37A21D38B9A00002D487</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>BB7417922FA2A9215D327938</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>INFOPLIST_FILE</key>
-				<string>SevenColorMovies/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>abc.SevenColorMovies</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>11BB37A31D38B9A00002D487</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>44844E586861AA1504AA2D05</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>INFOPLIST_FILE</key>
-				<string>SevenColorMovies/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>abc.SevenColorMovies</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>11BB37A41D38B9A00002D487</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>11BB37A51D38B9A00002D487</string>
-				<string>11BB37A61D38B9A00002D487</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>11BB37A51D38B9A00002D487</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>INFOPLIST_FILE</key>
-				<string>SevenColorMoviesTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>abc.SevenColorMoviesTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/SevenColorMovies.app/SevenColorMovies</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>11BB37A61D38B9A00002D487</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>INFOPLIST_FILE</key>
-				<string>SevenColorMoviesTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>abc.SevenColorMoviesTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/SevenColorMovies.app/SevenColorMovies</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>11BB37A71D38B9A00002D487</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>11BB37A81D38B9A00002D487</string>
-				<string>11BB37A91D38B9A00002D487</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>11BB37A81D38B9A00002D487</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>INFOPLIST_FILE</key>
-				<string>SevenColorMoviesUITests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>abc.SevenColorMoviesUITests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_TARGET_NAME</key>
-				<string>SevenColorMovies</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>11BB37A91D38B9A00002D487</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>INFOPLIST_FILE</key>
-				<string>SevenColorMoviesUITests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>abc.SevenColorMoviesUITests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_TARGET_NAME</key>
-				<string>SevenColorMovies</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>44844E586861AA1504AA2D05</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-SevenColorMovies.release.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>56CA4D536ADE803AF87BD5DE</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>BB7417922FA2A9215D327938</string>
-				<string>44844E586861AA1504AA2D05</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>76A379AB0C02107AB0C9423C</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Embed Pods Frameworks</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies-frameworks.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>7F9C35CE23A7A99887354ED1</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>BB7417922FA2A9215D327938</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-SevenColorMovies.debug.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BC708BBEF15757C0083C8CE3</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-SevenColorMovies.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>C8A738FC5EA155D379B4AEA1</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>E295801C8EBB6E7149DD009D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>BC708BBEF15757C0083C8CE3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>EA43CF5B333599320E8DB727</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>BC708BBEF15757C0083C8CE3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>11BB376C1D38B9A00002D487</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		11BB37791D38B9A00002D487 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37781D38B9A00002D487 /* main.m */; };
+		11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB377B1D38B9A00002D487 /* AppDelegate.m */; };
+		11BB377F1D38B9A00002D487 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB377E1D38B9A00002D487 /* ViewController.m */; };
+		11BB37821D38B9A00002D487 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37801D38B9A00002D487 /* Main.storyboard */; };
+		11BB37841D38B9A00002D487 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37831D38B9A00002D487 /* Assets.xcassets */; };
+		11BB37871D38B9A00002D487 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37851D38B9A00002D487 /* LaunchScreen.storyboard */; };
+		11BB37921D38B9A00002D487 /* SevenColorMoviesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37911D38B9A00002D487 /* SevenColorMoviesTests.m */; };
+		11BB379D1D38B9A00002D487 /* SevenColorMoviesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB379C1D38B9A00002D487 /* SevenColorMoviesUITests.m */; };
+		11BB37C81D38E3A00002D487 /* devEnvironment.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37C71D38E3A00002D487 /* devEnvironment.plist */; };
+		11BB37CA1D38E3C20002D487 /* switchNetworkEnvironment.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37C91D38E3C20002D487 /* switchNetworkEnvironment.plist */; };
+		11BB37CE1D38E5AD0002D487 /* HomePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37CD1D38E5AD0002D487 /* HomePage.storyboard */; };
+		11BB37D01D38E5C00002D487 /* Discovery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37CF1D38E5C00002D487 /* Discovery.storyboard */; };
+		11BB37D21D38E5C90002D487 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37D11D38E5C90002D487 /* News.storyboard */; };
+		11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37D31D38E5D10002D487 /* Mine.storyboard */; };
+		11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37D61D38E6650002D487 /* SCHomePageViewController.m */; };
+		E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		11BB378E1D38B9A00002D487 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11BB376C1D38B9A00002D487 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11BB37731D38B9A00002D487;
+			remoteInfo = SevenColorMovies;
+		};
+		11BB37991D38B9A00002D487 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11BB376C1D38B9A00002D487 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11BB37731D38B9A00002D487;
+			remoteInfo = SevenColorMovies;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		11BB37741D38B9A00002D487 /* SevenColorMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SevenColorMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		11BB37781D38B9A00002D487 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		11BB377A1D38B9A00002D487 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		11BB377B1D38B9A00002D487 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		11BB377D1D38B9A00002D487 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		11BB377E1D38B9A00002D487 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		11BB37811D38B9A00002D487 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		11BB37831D38B9A00002D487 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		11BB37861D38B9A00002D487 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		11BB37881D38B9A00002D487 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11BB378D1D38B9A00002D487 /* SevenColorMoviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SevenColorMoviesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		11BB37911D38B9A00002D487 /* SevenColorMoviesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SevenColorMoviesTests.m; sourceTree = "<group>"; };
+		11BB37931D38B9A00002D487 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11BB37981D38B9A00002D487 /* SevenColorMoviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SevenColorMoviesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		11BB379C1D38B9A00002D487 /* SevenColorMoviesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SevenColorMoviesUITests.m; sourceTree = "<group>"; };
+		11BB379E1D38B9A00002D487 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11BB37C51D38DF040002D487 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		11BB37C61D38E2120002D487 /* Configured.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configured.h; sourceTree = "<group>"; };
+		11BB37C71D38E3A00002D487 /* devEnvironment.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = devEnvironment.plist; sourceTree = "<group>"; };
+		11BB37C91D38E3C20002D487 /* switchNetworkEnvironment.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = switchNetworkEnvironment.plist; sourceTree = "<group>"; };
+		11BB37CD1D38E5AD0002D487 /* HomePage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HomePage.storyboard; sourceTree = "<group>"; };
+		11BB37CF1D38E5C00002D487 /* Discovery.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Discovery.storyboard; sourceTree = "<group>"; };
+		11BB37D11D38E5C90002D487 /* News.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
+		11BB37D31D38E5D10002D487 /* Mine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Mine.storyboard; sourceTree = "<group>"; };
+		11BB37D51D38E6650002D487 /* SCHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHomePageViewController.h; sourceTree = "<group>"; };
+		11BB37D61D38E6650002D487 /* SCHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHomePageViewController.m; sourceTree = "<group>"; };
+		44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.release.xcconfig"; sourceTree = "<group>"; };
+		BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.debug.xcconfig"; sourceTree = "<group>"; };
+		BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMovies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		11BB37711D38B9A00002D487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11BB378A1D38B9A00002D487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11BB37951D38B9A00002D487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		11BB376B1D38B9A00002D487 = {
+			isa = PBXGroup;
+			children = (
+				11BB37761D38B9A00002D487 /* SevenColorMovies */,
+				11BB37901D38B9A00002D487 /* SevenColorMoviesTests */,
+				11BB379B1D38B9A00002D487 /* SevenColorMoviesUITests */,
+				11BB37751D38B9A00002D487 /* Products */,
+				56CA4D536ADE803AF87BD5DE /* Pods */,
+				EA43CF5B333599320E8DB727 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		11BB37751D38B9A00002D487 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11BB37741D38B9A00002D487 /* SevenColorMovies.app */,
+				11BB378D1D38B9A00002D487 /* SevenColorMoviesTests.xctest */,
+				11BB37981D38B9A00002D487 /* SevenColorMoviesUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		11BB37761D38B9A00002D487 /* SevenColorMovies */ = {
+			isa = PBXGroup;
+			children = (
+				11BB377A1D38B9A00002D487 /* AppDelegate.h */,
+				11BB377B1D38B9A00002D487 /* AppDelegate.m */,
+				11BB37C41D38DC450002D487 /* Plist */,
+				11BB37C31D38DC320002D487 /* Storyboard */,
+				11BB37C11D38DB290002D487 /* Classes */,
+				11BB37BC1D38DB0E0002D487 /* Vendor */,
+				11BB37771D38B9A00002D487 /* Supporting Files */,
+			);
+			path = SevenColorMovies;
+			sourceTree = "<group>";
+		};
+		11BB37771D38B9A00002D487 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				11BB37781D38B9A00002D487 /* main.m */,
+				11BB37C51D38DF040002D487 /* PrefixHeader.pch */,
+				11BB37831D38B9A00002D487 /* Assets.xcassets */,
+				11BB37881D38B9A00002D487 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		11BB37901D38B9A00002D487 /* SevenColorMoviesTests */ = {
+			isa = PBXGroup;
+			children = (
+				11BB37911D38B9A00002D487 /* SevenColorMoviesTests.m */,
+				11BB37931D38B9A00002D487 /* Info.plist */,
+			);
+			path = SevenColorMoviesTests;
+			sourceTree = "<group>";
+		};
+		11BB379B1D38B9A00002D487 /* SevenColorMoviesUITests */ = {
+			isa = PBXGroup;
+			children = (
+				11BB379C1D38B9A00002D487 /* SevenColorMoviesUITests.m */,
+				11BB379E1D38B9A00002D487 /* Info.plist */,
+			);
+			path = SevenColorMoviesUITests;
+			sourceTree = "<group>";
+		};
+		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
+		11BB37BD1D38DB160002D487 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Discovery;
+			sourceTree = "<group>";
+		};
+		11BB37BE1D38DB1F0002D487 /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				11BB377D1D38B9A00002D487 /* ViewController.h */,
+				11BB377E1D38B9A00002D487 /* ViewController.m */,
+				11BB37D51D38E6650002D487 /* SCHomePageViewController.h */,
+				11BB37D61D38E6650002D487 /* SCHomePageViewController.m */,
+			);
+			name = HomePage;
+			sourceTree = "<group>";
+		};
+		11BB37BF1D38DB220002D487 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tabbar;
+			sourceTree = "<group>";
+		};
+		11BB37C01D38DB250002D487 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		11BB37C11D38DB290002D487 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				11BB37C21D38DB2D0002D487 /* Assistant */,
+				11BB37BF1D38DB220002D487 /* Tabbar */,
+				11BB37BE1D38DB1F0002D487 /* HomePage */,
+				11BB37BD1D38DB160002D487 /* Discovery */,
+				11BB37CC1D38E5480002D487 /* News */,
+				11BB37CB1D38E5440002D487 /* Mine */,
+				11BB37C01D38DB250002D487 /* Utility */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		11BB37C21D38DB2D0002D487 /* Assistant */ = {
+			isa = PBXGroup;
+			children = (
+				11BB37C61D38E2120002D487 /* Configured.h */,
+			);
+			name = Assistant;
+			sourceTree = "<group>";
+		};
+		11BB37C31D38DC320002D487 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				11BB37851D38B9A00002D487 /* LaunchScreen.storyboard */,
+				11BB37801D38B9A00002D487 /* Main.storyboard */,
+				11BB37CD1D38E5AD0002D487 /* HomePage.storyboard */,
+				11BB37CF1D38E5C00002D487 /* Discovery.storyboard */,
+				11BB37D11D38E5C90002D487 /* News.storyboard */,
+				11BB37D31D38E5D10002D487 /* Mine.storyboard */,
+			);
+			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		11BB37C41D38DC450002D487 /* Plist */ = {
+			isa = PBXGroup;
+			children = (
+				11BB37C71D38E3A00002D487 /* devEnvironment.plist */,
+				11BB37C91D38E3C20002D487 /* switchNetworkEnvironment.plist */,
+			);
+			name = Plist;
+			sourceTree = "<group>";
+		};
+		11BB37CB1D38E5440002D487 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Mine;
+			sourceTree = "<group>";
+		};
+		11BB37CC1D38E5480002D487 /* News */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = News;
+			sourceTree = "<group>";
+		};
+		56CA4D536ADE803AF87BD5DE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */,
+				44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EA43CF5B333599320E8DB727 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		11BB37731D38B9A00002D487 /* SevenColorMovies */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11BB37A11D38B9A00002D487 /* Build configuration list for PBXNativeTarget "SevenColorMovies" */;
+			buildPhases = (
+				7F9C35CE23A7A99887354ED1 /* Check Pods Manifest.lock */,
+				11BB37701D38B9A00002D487 /* Sources */,
+				11BB37711D38B9A00002D487 /* Frameworks */,
+				11BB37721D38B9A00002D487 /* Resources */,
+				76A379AB0C02107AB0C9423C /* Embed Pods Frameworks */,
+				C8A738FC5EA155D379B4AEA1 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SevenColorMovies;
+			productName = SevenColorMovies;
+			productReference = 11BB37741D38B9A00002D487 /* SevenColorMovies.app */;
+			productType = "com.apple.product-type.application";
+		};
+		11BB378C1D38B9A00002D487 /* SevenColorMoviesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11BB37A41D38B9A00002D487 /* Build configuration list for PBXNativeTarget "SevenColorMoviesTests" */;
+			buildPhases = (
+				11BB37891D38B9A00002D487 /* Sources */,
+				11BB378A1D38B9A00002D487 /* Frameworks */,
+				11BB378B1D38B9A00002D487 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11BB378F1D38B9A00002D487 /* PBXTargetDependency */,
+			);
+			name = SevenColorMoviesTests;
+			productName = SevenColorMoviesTests;
+			productReference = 11BB378D1D38B9A00002D487 /* SevenColorMoviesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		11BB37971D38B9A00002D487 /* SevenColorMoviesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11BB37A71D38B9A00002D487 /* Build configuration list for PBXNativeTarget "SevenColorMoviesUITests" */;
+			buildPhases = (
+				11BB37941D38B9A00002D487 /* Sources */,
+				11BB37951D38B9A00002D487 /* Frameworks */,
+				11BB37961D38B9A00002D487 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11BB379A1D38B9A00002D487 /* PBXTargetDependency */,
+			);
+			name = SevenColorMoviesUITests;
+			productName = SevenColorMoviesUITests;
+			productReference = 11BB37981D38B9A00002D487 /* SevenColorMoviesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		11BB376C1D38B9A00002D487 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = yesdgq;
+				TargetAttributes = {
+					11BB37731D38B9A00002D487 = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = J5EPCRFAR9;
+					};
+					11BB378C1D38B9A00002D487 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 11BB37731D38B9A00002D487;
+					};
+					11BB37971D38B9A00002D487 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 11BB37731D38B9A00002D487;
+					};
+				};
+			};
+			buildConfigurationList = 11BB376F1D38B9A00002D487 /* Build configuration list for PBXProject "SevenColorMovies" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 11BB376B1D38B9A00002D487;
+			productRefGroup = 11BB37751D38B9A00002D487 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				11BB37731D38B9A00002D487 /* SevenColorMovies */,
+				11BB378C1D38B9A00002D487 /* SevenColorMoviesTests */,
+				11BB37971D38B9A00002D487 /* SevenColorMoviesUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		11BB37721D38B9A00002D487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11BB37D01D38E5C00002D487 /* Discovery.storyboard in Resources */,
+				11BB37871D38B9A00002D487 /* LaunchScreen.storyboard in Resources */,
+				11BB37841D38B9A00002D487 /* Assets.xcassets in Resources */,
+				11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */,
+				11BB37D21D38E5C90002D487 /* News.storyboard in Resources */,
+				11BB37CE1D38E5AD0002D487 /* HomePage.storyboard in Resources */,
+				11BB37C81D38E3A00002D487 /* devEnvironment.plist in Resources */,
+				11BB37CA1D38E3C20002D487 /* switchNetworkEnvironment.plist in Resources */,
+				11BB37821D38B9A00002D487 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11BB378B1D38B9A00002D487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11BB37961D38B9A00002D487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		76A379AB0C02107AB0C9423C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7F9C35CE23A7A99887354ED1 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C8A738FC5EA155D379B4AEA1 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		11BB37701D38B9A00002D487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
+				11BB377F1D38B9A00002D487 /* ViewController.m in Sources */,
+				11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */,
+				11BB37791D38B9A00002D487 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11BB37891D38B9A00002D487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11BB37921D38B9A00002D487 /* SevenColorMoviesTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11BB37941D38B9A00002D487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11BB379D1D38B9A00002D487 /* SevenColorMoviesUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		11BB378F1D38B9A00002D487 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11BB37731D38B9A00002D487 /* SevenColorMovies */;
+			targetProxy = 11BB378E1D38B9A00002D487 /* PBXContainerItemProxy */;
+		};
+		11BB379A1D38B9A00002D487 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11BB37731D38B9A00002D487 /* SevenColorMovies */;
+			targetProxy = 11BB37991D38B9A00002D487 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		11BB37801D38B9A00002D487 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11BB37811D38B9A00002D487 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		11BB37851D38B9A00002D487 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11BB37861D38B9A00002D487 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		11BB379F1D38B9A00002D487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		11BB37A01D38B9A00002D487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		11BB37A21D38B9A00002D487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: MengJiao Zhang (492V3PZ5UY)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = /Users/yesdgq/Desktop/SevenColorMovies/SevenColorMovies/PrefixHeader.pch;
+				INFOPLIST_FILE = SevenColorMovies/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.midou.enpr;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d6f640e3-494f-446d-8396-d4e91e1e3e40";
+			};
+			name = Debug;
+		};
+		11BB37A31D38B9A00002D487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: MengJiao Zhang (492V3PZ5UY)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = /Users/yesdgq/Desktop/SevenColorMovies/SevenColorMovies/PrefixHeader.pch;
+				INFOPLIST_FILE = SevenColorMovies/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.midou.enpr;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d6f640e3-494f-446d-8396-d4e91e1e3e40";
+			};
+			name = Release;
+		};
+		11BB37A51D38B9A00002D487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SevenColorMoviesTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = abc.SevenColorMoviesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SevenColorMovies.app/SevenColorMovies";
+			};
+			name = Debug;
+		};
+		11BB37A61D38B9A00002D487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SevenColorMoviesTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = abc.SevenColorMoviesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SevenColorMovies.app/SevenColorMovies";
+			};
+			name = Release;
+		};
+		11BB37A81D38B9A00002D487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SevenColorMoviesUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = abc.SevenColorMoviesUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = SevenColorMovies;
+			};
+			name = Debug;
+		};
+		11BB37A91D38B9A00002D487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SevenColorMoviesUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = abc.SevenColorMoviesUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = SevenColorMovies;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		11BB376F1D38B9A00002D487 /* Build configuration list for PBXProject "SevenColorMovies" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11BB379F1D38B9A00002D487 /* Debug */,
+				11BB37A01D38B9A00002D487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11BB37A11D38B9A00002D487 /* Build configuration list for PBXNativeTarget "SevenColorMovies" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11BB37A21D38B9A00002D487 /* Debug */,
+				11BB37A31D38B9A00002D487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11BB37A41D38B9A00002D487 /* Build configuration list for PBXNativeTarget "SevenColorMoviesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11BB37A51D38B9A00002D487 /* Debug */,
+				11BB37A61D38B9A00002D487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11BB37A71D38B9A00002D487 /* Build configuration list for PBXNativeTarget "SevenColorMoviesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11BB37A81D38B9A00002D487 /* Debug */,
+				11BB37A91D38B9A00002D487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 11BB376C1D38B9A00002D487 /* Project object */;
+}
