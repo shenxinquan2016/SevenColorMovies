@@ -22,6 +22,7 @@
 		11BB37D21D38E5C90002D487 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37D11D38E5C90002D487 /* News.storyboard */; };
 		11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37D31D38E5D10002D487 /* Mine.storyboard */; };
 		11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37D61D38E6650002D487 /* SCHomePageViewController.m */; };
+		11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37DF1D38F0E00002D487 /* SCNetUrlManger.m */; };
 		E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,8 @@
 		11BB37D31D38E5D10002D487 /* Mine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Mine.storyboard; sourceTree = "<group>"; };
 		11BB37D51D38E6650002D487 /* SCHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHomePageViewController.h; sourceTree = "<group>"; };
 		11BB37D61D38E6650002D487 /* SCHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHomePageViewController.m; sourceTree = "<group>"; };
+		11BB37DE1D38F0E00002D487 /* SCNetUrlManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNetUrlManger.h; sourceTree = "<group>"; };
+		11BB37DF1D38F0E00002D487 /* SCNetUrlManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNetUrlManger.m; sourceTree = "<group>"; };
 		44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.release.xcconfig"; sourceTree = "<group>"; };
 		BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.debug.xcconfig"; sourceTree = "<group>"; };
 		BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMovies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,6 +210,10 @@
 		11BB37C11D38DB290002D487 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				11BB37DC1D38F0580002D487 /* New Group4 */,
+				11BB37DB1D38F0540002D487 /* New Group3 */,
+				11BB37DA1D38F0510002D487 /* New Group2 */,
+				11BB37D91D38F04E0002D487 /* New Group1 */,
 				11BB37C21D38DB2D0002D487 /* Assistant */,
 				11BB37BF1D38DB220002D487 /* Tabbar */,
 				11BB37BE1D38DB1F0002D487 /* HomePage */,
@@ -214,6 +221,7 @@
 				11BB37CC1D38E5480002D487 /* News */,
 				11BB37CB1D38E5440002D487 /* Mine */,
 				11BB37C01D38DB250002D487 /* Utility */,
+				11BB37D81D38F0490002D487 /* Helper */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -260,6 +268,51 @@
 			children = (
 			);
 			name = News;
+			sourceTree = "<group>";
+		};
+		11BB37D81D38F0490002D487 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				11BB37DD1D38F0890002D487 /* SCNetUrlManger */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		11BB37D91D38F04E0002D487 /* New Group1 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group1";
+			sourceTree = "<group>";
+		};
+		11BB37DA1D38F0510002D487 /* New Group2 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group2";
+			sourceTree = "<group>";
+		};
+		11BB37DB1D38F0540002D487 /* New Group3 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group3";
+			sourceTree = "<group>";
+		};
+		11BB37DC1D38F0580002D487 /* New Group4 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group4";
+			sourceTree = "<group>";
+		};
+		11BB37DD1D38F0890002D487 /* SCNetUrlManger */ = {
+			isa = PBXGroup;
+			children = (
+				11BB37DE1D38F0E00002D487 /* SCNetUrlManger.h */,
+				11BB37DF1D38F0E00002D487 /* SCNetUrlManger.m */,
+			);
+			name = SCNetUrlManger;
 			sourceTree = "<group>";
 		};
 		56CA4D536ADE803AF87BD5DE /* Pods */ = {
@@ -471,6 +524,7 @@
 				11BB377F1D38B9A00002D487 /* ViewController.m in Sources */,
 				11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
+				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

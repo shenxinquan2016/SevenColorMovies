@@ -44,4 +44,28 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+
+
+- (void)setNetworkEnvironment {
+    
+    NSMutableDictionary *netDic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"switchNetworkEnvironment" ofType:@"plist"]];
+    
+    NSMutableDictionary *dic;
+    
+    if ([netDic[@"netType"] isEqualToString:@"0"]) {//开发环境
+        dic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"devEnvironment" ofType:@"plist"]];
+    }else if ([netDic[@"netType"] isEqualToString:@"1"]) {//测试环境
+        dic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"testEnvironment" ofType:@"plist"]];
+    }else if ([netDic[@"netType"] isEqualToString:@"2"]) {//生产环境
+        dic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"onlineEnvironment" ofType:@"plist"]];
+    }
+    
+//    NetUrlManager.domainName = dic[@"domainName"];
+//    NetUrlManager.commonPort = dic[@"commPort"];
+//    NetUrlManager.searchPort = dic[@"searchPort"];
+//    NetUrlManager.payPort = dic[@"payPort"];
+    
+}
+
 @end
