@@ -13,6 +13,7 @@
 		113F8D991D3C724100B12D39 /* SCMainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D981D3C724100B12D39 /* SCMainTabBarViewController.m */; };
 		113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 113F8D9A1D3C77E000B12D39 /* HomePage.storyboard */; };
 		113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */; };
+		113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */; };
 		11BB37791D38B9A00002D487 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37781D38B9A00002D487 /* main.m */; };
 		11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB377B1D38B9A00002D487 /* AppDelegate.m */; };
 		11BB37821D38B9A00002D487 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37801D38B9A00002D487 /* Main.storyboard */; };
@@ -26,6 +27,10 @@
 		11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37D31D38E5D10002D487 /* Mine.storyboard */; };
 		11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37D61D38E6650002D487 /* SCHomePageViewController.m */; };
 		11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37DF1D38F0E00002D487 /* SCNetUrlManger.m */; };
+		11BE83151D3CB56B00886CF6 /* SCSycleBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE83141D3CB56B00886CF6 /* SCSycleBanner.m */; };
+		11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE83171D3CBA1B00886CF6 /* BaseNavigationController.m */; };
+		11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */; };
+		11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */; };
 		E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +63,8 @@
 		113F8D9A1D3C77E000B12D39 /* HomePage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HomePage.storyboard; sourceTree = "<group>"; };
 		113F8D9C1D3C86EF00B12D39 /* UIImage+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Addition.h"; sourceTree = "<group>"; };
 		113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addition.m"; sourceTree = "<group>"; };
+		113F8D9F1D3CAAC200B12D39 /* UIColor+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Addition.h"; sourceTree = "<group>"; };
+		113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Addition.m"; sourceTree = "<group>"; };
 		11BB37741D38B9A00002D487 /* SevenColorMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SevenColorMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BB37781D38B9A00002D487 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11BB377A1D38B9A00002D487 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -82,6 +89,14 @@
 		11BB37D61D38E6650002D487 /* SCHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHomePageViewController.m; sourceTree = "<group>"; };
 		11BB37DE1D38F0E00002D487 /* SCNetUrlManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNetUrlManger.h; sourceTree = "<group>"; };
 		11BB37DF1D38F0E00002D487 /* SCNetUrlManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNetUrlManger.m; sourceTree = "<group>"; };
+		11BE83131D3CB56B00886CF6 /* SCSycleBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSycleBanner.h; sourceTree = "<group>"; };
+		11BE83141D3CB56B00886CF6 /* SCSycleBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSycleBanner.m; sourceTree = "<group>"; };
+		11BE83161D3CBA1B00886CF6 /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
+		11BE83171D3CBA1B00886CF6 /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
+		11BE83191D3CBADF00886CF6 /* NavigationInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationInteractiveTransition.h; sourceTree = "<group>"; };
+		11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationInteractiveTransition.m; sourceTree = "<group>"; };
+		11BE831C1D3CBB3E00886CF6 /* NavigationPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationPopAnimation.h; sourceTree = "<group>"; };
+		11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationPopAnimation.m; sourceTree = "<group>"; };
 		44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.release.xcconfig"; sourceTree = "<group>"; };
 		BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.debug.xcconfig"; sourceTree = "<group>"; };
 		BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMovies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,15 +140,17 @@
 		113F8D8F1D3C701B00B12D39 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				11BE83131D3CB56B00886CF6 /* SCSycleBanner.h */,
+				11BE83141D3CB56B00886CF6 /* SCSycleBanner.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
 		};
-		113F8D901D3C702000B12D39 /* New Group1 */ = {
+		113F8D901D3C702000B12D39 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "New Group1";
+			name = Model;
 			sourceTree = "<group>";
 		};
 		113F8D911D3C704E00B12D39 /* View */ = {
@@ -270,7 +287,7 @@
 			children = (
 				113F8D8E1D3C700900B12D39 /* MainBody */,
 				113F8D8F1D3C701B00B12D39 /* View */,
-				113F8D901D3C702000B12D39 /* New Group1 */,
+				113F8D901D3C702000B12D39 /* Model */,
 			);
 			name = HomePage;
 			sourceTree = "<group>";
@@ -289,6 +306,8 @@
 			children = (
 				113F8D9C1D3C86EF00B12D39 /* UIImage+Addition.h */,
 				113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */,
+				113F8D9F1D3CAAC200B12D39 /* UIColor+Addition.h */,
+				113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -299,8 +318,8 @@
 				11BB37DC1D38F0580002D487 /* New Group4 */,
 				11BB37DB1D38F0540002D487 /* New Group3 */,
 				11BB37DA1D38F0510002D487 /* New Group2 */,
-				11BB37D91D38F04E0002D487 /* New Group1 */,
 				11BB37C21D38DB2D0002D487 /* Assistant */,
+				11BB37D91D38F04E0002D487 /* Base */,
 				11BB37BF1D38DB220002D487 /* Tabbar */,
 				11BB37BE1D38DB1F0002D487 /* HomePage */,
 				11BB37BD1D38DB160002D487 /* Discovery */,
@@ -367,11 +386,15 @@
 			name = Helper;
 			sourceTree = "<group>";
 		};
-		11BB37D91D38F04E0002D487 /* New Group1 */ = {
+		11BB37D91D38F04E0002D487 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				11BE83161D3CBA1B00886CF6 /* BaseNavigationController.h */,
+				11BE83171D3CBA1B00886CF6 /* BaseNavigationController.m */,
+				11BE831F1D3CBC2300886CF6 /* Transition */,
+				11BE83201D3CBC3D00886CF6 /* Animator */,
 			);
-			name = "New Group1";
+			name = Base;
 			sourceTree = "<group>";
 		};
 		11BB37DA1D38F0510002D487 /* New Group2 */ = {
@@ -402,6 +425,24 @@
 				11BB37DF1D38F0E00002D487 /* SCNetUrlManger.m */,
 			);
 			name = SCNetUrlManger;
+			sourceTree = "<group>";
+		};
+		11BE831F1D3CBC2300886CF6 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				11BE83191D3CBADF00886CF6 /* NavigationInteractiveTransition.h */,
+				11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */,
+			);
+			name = Transition;
+			sourceTree = "<group>";
+		};
+		11BE83201D3CBC3D00886CF6 /* Animator */ = {
+			isa = PBXGroup;
+			children = (
+				11BE831C1D3CBB3E00886CF6 /* NavigationPopAnimation.h */,
+				11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */,
+			);
+			name = Animator;
 			sourceTree = "<group>";
 		};
 		56CA4D536ADE803AF87BD5DE /* Pods */ = {
@@ -614,9 +655,14 @@
 				113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
+				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
+				11BE83151D3CB56B00886CF6 /* SCSycleBanner.m in Sources */,
+				11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */,
 				113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */,
 				113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */,
+				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
+				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,6 +802,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Users/yesdgq/Desktop/SevenColorMovies/SevenColorMovies/PrefixHeader.pch;
 				INFOPLIST_FILE = SevenColorMovies/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.midou.enpr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -774,6 +821,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Users/yesdgq/Desktop/SevenColorMovies/SevenColorMovies/PrefixHeader.pch;
 				INFOPLIST_FILE = SevenColorMovies/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.midou.enpr;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -11,8 +11,9 @@
 
 #import <objc/runtime.h>//按钮添加多个参数
 #import <Masonry.h>
-#import "Reachability.h" //网络监听
+//#import "Reachability.h" //网络监听
 #import "UIImage+Addition.h"
+#import "UIColor+Addition.h"
 
 
 
@@ -26,7 +27,14 @@
 
 #endif /* Configured_h */
 
+/**************************************
+ * 常用尺寸
+ *************************************/
+#define kMainScreenWidth    [[UIScreen mainScreen] bounds].size.width
+#define kMainScreenHeight   [[UIScreen mainScreen] bounds].size.height
 
+#define kApplecationScreenWidth  [[UIScreen mainScreen] applicationFrame].size.width
+#define kApplecationScreenHeight [[UIScreen mainScreen] applicationFrame].size.height
 
 
 
