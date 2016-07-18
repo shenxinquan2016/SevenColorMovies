@@ -16,6 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="dfS-5m-Seh" kind="relationship" relationship="rootViewController" id="ou0-Ki-IFQ"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FcC-Ns-79M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -24,6 +27,7 @@
         <!--Mine View Controller-->
         <scene sceneID="JpD-Iy-k94">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DWw-zd-V9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SCMineViewController" id="dfS-5m-Seh" customClass="SCMineViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HDP-9B-Og4"/>
@@ -34,11 +38,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Vga-Z6-6fC"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DWw-zd-V9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="334" y="304"/>
+            <point key="canvasLocation" x="-330.5" y="300.5"/>
         </scene>
     </scenes>
     <resources>

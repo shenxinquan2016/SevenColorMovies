@@ -16,10 +16,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="4v4-i0-OR1" kind="relationship" relationship="rootViewController" id="Nxa-TC-7YJ"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zf-hw-v2L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="59" y="291"/>
+        </scene>
+        <!--News View Controller-->
+        <scene sceneID="aMa-dG-mYt">
+            <objects>
+                <viewController storyboardIdentifier="SCNewsViewController" id="4v4-i0-OR1" customClass="SCNewsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yr5-4h-5wX"/>
+                        <viewControllerLayoutGuide type="bottom" id="jTN-Rb-750"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aaJ-K2-52k">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="qQj-E4-Qu0"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XHG-a8-GSn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="475.5" y="290.5"/>
         </scene>
     </scenes>
     <resources>

@@ -14,9 +14,10 @@
 
 @implementation SCHomePageViewController
 
+#pragma mark-  ViewLife Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.title = @"首页";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,6 +25,20 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark- Initialize
+
+#pragma mark- CustomDelegate
+
+
+#pragma mark- Event reponse
+
+#pragma mark- Public methods
+
+#pragma mark- private methods
+
+#pragma mark- NSNotification
+
+#pragma mark- Getters and Setters
 /*
 #pragma mark - Navigation
 

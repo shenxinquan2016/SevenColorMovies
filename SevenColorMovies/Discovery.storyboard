@@ -16,10 +16,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="uYm-pm-wj0" kind="relationship" relationship="rootViewController" id="y0h-v2-qJt"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uqI-eL-4Bm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-357" y="59"/>
+        </scene>
+        <!--Discovery View Controller-->
+        <scene sceneID="Eol-i4-vym">
+            <objects>
+                <viewController storyboardIdentifier="SCDiscoveryViewController" id="uYm-pm-wj0" customClass="SCDiscoveryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="k07-Nc-aN2"/>
+                        <viewControllerLayoutGuide type="bottom" id="1fA-mN-DPe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pWq-bF-g2i">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8d4-n2-f8d"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zFW-Pb-UPW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="69.5" y="58.5"/>
         </scene>
     </scenes>
     <resources>
