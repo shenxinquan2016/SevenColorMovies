@@ -12,7 +12,7 @@
 
 - (instancetype)initWithView:(UIView *)view {
     if (self = [super init]) {
-        self = [SCSycleBanner cycleScrollViewWithFrame:CGRectMake(0, 0, kMainScreenWidth, 115) delegate:nil placeholderImage:[UIImage imageNamed:@"banner图未加载出来"]];
+        self = [SCSycleBanner cycleScrollViewWithFrame:CGRectMake(0, 0, kMainScreenWidth, 115) delegate:nil placeholderImage:[UIImage imageNamed:@"BusinessLogo"]];
         
         self.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
         self.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色

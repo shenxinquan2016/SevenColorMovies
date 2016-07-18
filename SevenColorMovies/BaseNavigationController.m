@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationBar.hidden = YES;
+//    self.navigationBar.hidden = YES;
     
     // built-in pop recognizer
     UIGestureRecognizer *recognizer = self.interactivePopGestureRecognizer;

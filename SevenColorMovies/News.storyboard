@@ -8,7 +8,7 @@
         <!--新闻-->
         <scene sceneID="Prg-ap-DJ9">
             <objects>
-                <navigationController storyboardIdentifier="SCNewsNavController" id="Zke-Qf-VzF" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SCNewsNavController" id="Zke-Qf-VzF" customClass="BaseNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="2" title="新闻" image="News" selectedImage="News_sel" id="xXG-N2-EgD"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>

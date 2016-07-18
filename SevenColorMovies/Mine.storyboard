@@ -8,7 +8,7 @@
         <!--我的-->
         <scene sceneID="w7X-6P-Rij">
             <objects>
-                <navigationController storyboardIdentifier="SCMineNavController" id="cLx-8J-RCL" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SCMineNavController" id="cLx-8J-RCL" customClass="BaseNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="3" title="我的" image="Mine" selectedImage="Mine_sel" id="MZ0-Gr-XMA"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -27,7 +27,6 @@
         <!--Mine View Controller-->
         <scene sceneID="JpD-Iy-k94">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DWw-zd-V9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SCMineViewController" id="dfS-5m-Seh" customClass="SCMineViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HDP-9B-Og4"/>
@@ -41,6 +40,7 @@
                     <navigationItem key="navigationItem" id="Vga-Z6-6fC"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DWw-zd-V9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-330.5" y="300.5"/>
         </scene>

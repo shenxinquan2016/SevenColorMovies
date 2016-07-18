@@ -315,9 +315,6 @@
 		11BB37C11D38DB290002D487 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				11BB37DC1D38F0580002D487 /* New Group4 */,
-				11BB37DB1D38F0540002D487 /* New Group3 */,
-				11BB37DA1D38F0510002D487 /* New Group2 */,
 				11BB37C21D38DB2D0002D487 /* Assistant */,
 				11BB37D91D38F04E0002D487 /* Base */,
 				11BB37BF1D38DB220002D487 /* Tabbar */,
@@ -325,6 +322,9 @@
 				11BB37BD1D38DB160002D487 /* Discovery */,
 				11BB37CC1D38E5480002D487 /* News */,
 				11BB37CB1D38E5440002D487 /* Mine */,
+				11BB37DA1D38F0510002D487 /* NetRequestTool */,
+				11BB37DC1D38F0580002D487 /* New Group4 */,
+				11BB37DB1D38F0540002D487 /* New Group3 */,
 				11BB37C01D38DB250002D487 /* Utility */,
 				11BB37D81D38F0490002D487 /* Helper */,
 			);
@@ -397,11 +397,15 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
-		11BB37DA1D38F0510002D487 /* New Group2 */ = {
+		11BB37DA1D38F0510002D487 /* NetRequestTool */ = {
 			isa = PBXGroup;
 			children = (
+				11BE83211D3CD33C00886CF6 /* Home */,
+				11BE83221D3CD34700886CF6 /* Discovery */,
+				11BE83231D3CD35200886CF6 /* News */,
+				11BE83241D3CD35900886CF6 /* Mine */,
 			);
-			name = "New Group2";
+			name = NetRequestTool;
 			sourceTree = "<group>";
 		};
 		11BB37DB1D38F0540002D487 /* New Group3 */ = {
@@ -443,6 +447,34 @@
 				11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */,
 			);
 			name = Animator;
+			sourceTree = "<group>";
+		};
+		11BE83211D3CD33C00886CF6 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		11BE83221D3CD34700886CF6 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Discovery;
+			sourceTree = "<group>";
+		};
+		11BE83231D3CD35200886CF6 /* News */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = News;
+			sourceTree = "<group>";
+		};
+		11BE83241D3CD35900886CF6 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Mine;
 			sourceTree = "<group>";
 		};
 		56CA4D536ADE803AF87BD5DE /* Pods */ = {

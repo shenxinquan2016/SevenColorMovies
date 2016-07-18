@@ -8,7 +8,7 @@
         <!--首页-->
         <scene sceneID="Sdm-g5-9hM">
             <objects>
-                <navigationController storyboardIdentifier="SCHomePageNavController" id="163-j1-aQw" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SCHomePageNavController" id="163-j1-aQw" customClass="BaseNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="首页" image="Home" selectedImage="Home_sel" id="dTi-aa-5Hb"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -35,7 +35,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0bl-m5-fIu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="870.5" y="215.5"/>
+            <point key="canvasLocation" x="912.5" y="177.5"/>
         </scene>
     </scenes>
     <resources>

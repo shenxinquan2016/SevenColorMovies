@@ -8,7 +8,7 @@
         <!--发现-->
         <scene sceneID="wyA-Bf-5aN">
             <objects>
-                <navigationController storyboardIdentifier="SCDiscoveryNavController" id="XsG-21-77r" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SCDiscoveryNavController" id="XsG-21-77r" customClass="BaseNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="1" title="发现" image="Discovery" selectedImage="Discovery_sel" id="vpQ-et-13l"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
