@@ -32,7 +32,7 @@
     _mineVC = DD_INSTANT_VC_WITH_ID(@"Mine", @"SCMineNavController");
     
      // tabBar item的图片在 Main.storyboard 中修改
-    self.tabBar.tintColor = [UIColor redColor];
+    self.tabBar.tintColor = [UIColor colorWithRed:255/255 green:0/255 blue:0/255 alpha:1];
     self.tabBar.backgroundColor = [UIColor whiteColor];
     [self.tabBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]]];
     self.viewControllers = @[_homeVC,_discoveryVC,_newsVC,_mineVC];

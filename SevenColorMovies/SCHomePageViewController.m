@@ -145,16 +145,15 @@
 
 
 #pragma mark - SDCycleScrollViewDelegate
+/** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
     
-    ALERT(@"点击banner");
+//    ALERT(@"点击banner");
     
     
 }
 
-
-#pragma mark - SDCycleScrollViewDelegate
-// 滚动到第几张图回调
+/** 图片滚动回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index
 {
     // NSLog(@">>>>>> 滚动到第%ld张图", (long)index);

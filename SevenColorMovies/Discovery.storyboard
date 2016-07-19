@@ -46,7 +46,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Discovery" width="22" height="22"/>
-        <image name="Discovery_sel" width="22" height="22"/>
+        <image name="Discovery" width="23" height="23"/>
+        <image name="Discovery_sel" width="23" height="23"/>
     </resources>
 </document>
