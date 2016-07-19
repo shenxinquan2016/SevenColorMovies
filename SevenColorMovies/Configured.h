@@ -14,6 +14,7 @@
 //#import "Reachability.h" //网络监听
 #import "UIImage+Addition.h"
 #import "UIColor+Addition.h"
+#import "UIImageView+Addition.h"
 
 
 

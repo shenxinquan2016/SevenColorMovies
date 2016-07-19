@@ -46,7 +46,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Mine" width="22" height="22"/>
-        <image name="Mine_sel" width="22" height="22"/>
+        <image name="Mine" width="21" height="23"/>
+        <image name="Mine_sel" width="21" height="23"/>
     </resources>
 </document>

@@ -15,7 +15,7 @@
     // Initialization code
     
     
-//    [self.imageView zy_cornerRadiusRoundingRect];
+    [self.imageView zy_cornerRadiusRoundingRect];
     
 }
 

@@ -37,6 +37,7 @@
 		11DC2BC81D3DD4A200012480 /* SCDemandChannelItemBigCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BC71D3DD4A200012480 /* SCDemandChannelItemBigCell.xib */; };
 		11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BCB1D3DD88600012480 /* IMB_DownImageView.m */; };
 		11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BCE1D3DD8FE00012480 /* IMB_DownImageHelper.m */; };
+		11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */; };
 		E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +114,8 @@
 		11DC2BCB1D3DD88600012480 /* IMB_DownImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMB_DownImageView.m; sourceTree = "<group>"; };
 		11DC2BCD1D3DD8FE00012480 /* IMB_DownImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMB_DownImageHelper.h; sourceTree = "<group>"; };
 		11DC2BCE1D3DD8FE00012480 /* IMB_DownImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMB_DownImageHelper.m; sourceTree = "<group>"; };
+		11DC2BD61D3DFC6800012480 /* UIImageView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Addition.h"; sourceTree = "<group>"; };
+		11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Addition.m"; sourceTree = "<group>"; };
 		44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.release.xcconfig"; sourceTree = "<group>"; };
 		BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.debug.xcconfig"; sourceTree = "<group>"; };
 		BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMovies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -325,6 +328,8 @@
 				113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */,
 				113F8D9F1D3CAAC200B12D39 /* UIColor+Addition.h */,
 				113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */,
+				11DC2BD61D3DFC6800012480 /* UIImageView+Addition.h */,
+				11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -736,6 +741,7 @@
 				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
+				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
 				11BE83151D3CB56B00886CF6 /* SCSycleBanner.m in Sources */,
 				11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */,

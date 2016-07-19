@@ -8,15 +8,6 @@
 
 #import "UIImage+Addition.h"
 
-const char kRadius;
-const char kRoundingCorners;
-const char kIsRounding;
-const char kHadAddObserver;
-const char kProcessedImage;
-
-const char kBorderWidth;
-const char kBorderColor;
-
 @interface UIImageView ()
 
 @property (assign, nonatomic) CGFloat radius;
