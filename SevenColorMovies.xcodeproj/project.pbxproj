@@ -31,6 +31,12 @@
 		11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE83171D3CBA1B00886CF6 /* BaseNavigationController.m */; };
 		11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */; };
 		11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */; };
+		11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */; };
+		11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */; };
+		11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */; };
+		11DC2BC81D3DD4A200012480 /* SCDemandChannelItemBigCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BC71D3DD4A200012480 /* SCDemandChannelItemBigCell.xib */; };
+		11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BCB1D3DD88600012480 /* IMB_DownImageView.m */; };
+		11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BCE1D3DD8FE00012480 /* IMB_DownImageHelper.m */; };
 		E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +103,16 @@
 		11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationInteractiveTransition.m; sourceTree = "<group>"; };
 		11BE831C1D3CBB3E00886CF6 /* NavigationPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationPopAnimation.h; sourceTree = "<group>"; };
 		11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationPopAnimation.m; sourceTree = "<group>"; };
+		11DC2BBF1D3DCDEA00012480 /* SCDemandChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelCell.h; sourceTree = "<group>"; };
+		11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDemandChannelCell.m; sourceTree = "<group>"; };
+		11DC2BC21D3DCE6700012480 /* SCDemandChannelItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelItemCell.h; sourceTree = "<group>"; };
+		11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDemandChannelItemCell.m; sourceTree = "<group>"; };
+		11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCDemandChannelItemCell.xib; sourceTree = "<group>"; };
+		11DC2BC71D3DD4A200012480 /* SCDemandChannelItemBigCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCDemandChannelItemBigCell.xib; sourceTree = "<group>"; };
+		11DC2BCA1D3DD88600012480 /* IMB_DownImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMB_DownImageView.h; sourceTree = "<group>"; };
+		11DC2BCB1D3DD88600012480 /* IMB_DownImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMB_DownImageView.m; sourceTree = "<group>"; };
+		11DC2BCD1D3DD8FE00012480 /* IMB_DownImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMB_DownImageHelper.h; sourceTree = "<group>"; };
+		11DC2BCE1D3DD8FE00012480 /* IMB_DownImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMB_DownImageHelper.m; sourceTree = "<group>"; };
 		44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.release.xcconfig"; sourceTree = "<group>"; };
 		BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.debug.xcconfig"; sourceTree = "<group>"; };
 		BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMovies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -286,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				113F8D8E1D3C700900B12D39 /* MainBody */,
+				11DC2BBE1D3DCD2900012480 /* Cell */,
 				113F8D8F1D3C701B00B12D39 /* View */,
 				113F8D901D3C702000B12D39 /* Model */,
 			);
@@ -381,6 +398,7 @@
 		11BB37D81D38F0490002D487 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				11DC2BC91D3DD76700012480 /* DownImageManger */,
 				11BB37DD1D38F0890002D487 /* SCNetUrlManger */,
 			);
 			name = Helper;
@@ -475,6 +493,30 @@
 			children = (
 			);
 			name = Mine;
+			sourceTree = "<group>";
+		};
+		11DC2BBE1D3DCD2900012480 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				11DC2BBF1D3DCDEA00012480 /* SCDemandChannelCell.h */,
+				11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */,
+				11DC2BC21D3DCE6700012480 /* SCDemandChannelItemCell.h */,
+				11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */,
+				11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */,
+				11DC2BC71D3DD4A200012480 /* SCDemandChannelItemBigCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		11DC2BC91D3DD76700012480 /* DownImageManger */ = {
+			isa = PBXGroup;
+			children = (
+				11DC2BCA1D3DD88600012480 /* IMB_DownImageView.h */,
+				11DC2BCB1D3DD88600012480 /* IMB_DownImageView.m */,
+				11DC2BCD1D3DD8FE00012480 /* IMB_DownImageHelper.h */,
+				11DC2BCE1D3DD8FE00012480 /* IMB_DownImageHelper.m */,
+			);
+			name = DownImageManger;
 			sourceTree = "<group>";
 		};
 		56CA4D536ADE803AF87BD5DE /* Pods */ = {
@@ -601,7 +643,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11DC2BC81D3DD4A200012480 /* SCDemandChannelItemBigCell.xib in Resources */,
 				113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */,
+				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
 				11BB37D01D38E5C00002D487 /* Discovery.storyboard in Resources */,
 				11BB37841D38B9A00002D487 /* Assets.xcassets in Resources */,
 				11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */,
@@ -685,10 +729,14 @@
 				113F8D991D3C724100B12D39 /* SCMainTabBarViewController.m in Sources */,
 				11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */,
 				113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */,
+				11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
 				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,
+				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
+				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
+				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
 				11BE83151D3CB56B00886CF6 /* SCSycleBanner.m in Sources */,
 				11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */,
 				113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */,

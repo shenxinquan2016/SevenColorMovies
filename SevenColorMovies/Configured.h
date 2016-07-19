@@ -36,6 +36,26 @@
 #define kApplecationScreenWidth  [[UIScreen mainScreen] applicationFrame].size.width
 #define kApplecationScreenHeight [[UIScreen mainScreen] applicationFrame].size.height
 
+//3.5寸屏幕
+#define ThreePointFiveInch ([UIScreen mainScreen].bounds.size.height == 480.0)
+//4.0寸屏幕
+#define FourInch ([UIScreen mainScreen].bounds.size.height == 568.0)
+//4.7寸屏幕
+#define FourPointSevenInch ([UIScreen mainScreen].bounds.size.height == 667.0)
+//5.5寸屏幕
+#define FivePointFiveSevenInch ([UIScreen mainScreen].bounds.size.height == 736.0)
+
+#define iPhone6P ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242.0f, 2208.0f), [[UIScreen mainScreen] currentMode].size) : NO)
+#define iPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750.0f, 1334.0f), [[UIScreen mainScreen] currentMode].size) : NO)
+#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640.0f, 1136.0f), [[UIScreen mainScreen] currentMode].size) : NO)
+#define iPhone4 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640.0f, 960.0f), [[UIScreen mainScreen] currentMode].size) : NO)
+
+//iOS7系统
+#define iOS7 ([UIDevice currentDevice].systemVersion.doubleValue >= 7.0  && [UIDevice currentDevice].systemVersion.doubleValue < 8.0)
+//iOS8系统
+#define iOS8 ([UIDevice currentDevice].systemVersion.doubleValue >= 8.0  && [UIDevice currentDevice].systemVersion.doubleValue < 9.0)
+//iOS9系统
+#define iOS9 ([UIDevice currentDevice].systemVersion.doubleValue >= 9.0)
 
 
 

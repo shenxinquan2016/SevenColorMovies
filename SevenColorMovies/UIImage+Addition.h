@@ -13,4 +13,5 @@
  * 返回纯色图片
  */
 + (UIImage *)imageWithColor:(UIColor *)color;
+
 @end

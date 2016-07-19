@@ -28,12 +28,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithHex:@"#dddddd"];
     // 设置导航栏的主题(效果只作用当前页面）
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHex:@"#0E2747"]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHex:@"#F0F1F2"]];
     // 设置导航栏的主题（效果作用到所有页面）
     UINavigationBar *navBar = [UINavigationBar appearance];
-    [navBar setBarTintColor:[UIColor colorWithHex:@"#0E2747"]];
+    [navBar setBarTintColor:[UIColor colorWithHex:@"#F0F1F2"]];
     //初始化数组
     _bannerImageUrlArr = [NSMutableArray arrayWithObjects:@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=1&spn=0&di=170050045220&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=3392936970%2C1240433668&os=2295359357%2C2115524380&simid=4131811244%2C715106156&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic1.nipic.com%2F2008-10-30%2F200810309416546_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3F8AzdH3F90AzdH3F09j81dmjujwvudmb_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0",@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=2&spn=0&di=201852181960&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=4122174456%2C238506339&os=2534432078%2C2727372066&simid=4261751445%2C601149228&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic3.nipic.com%2F20090605%2F2166702_095614055_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3F8l8mn0c_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0",@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=3&spn=0&di=55559078410&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=2363027421%2C438461014&os=388455896%2C106895408&simid=4088773055%2C716705165&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic24.nipic.com%2F20121003%2F10754047_140022530392_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3Fmlamc09_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0", nil];
     
@@ -41,12 +41,12 @@
     [self addLeftBBI];
     //添加tableView
     [self addTableView];
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -84,16 +84,12 @@
 #pragma mark- UITableViewDataSource && UITableViewDataDelegate
 -(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tableView
 {
-    return self.dataSource.count;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.dataSource.count > section) {
-        NSArray *array = self.dataSource[section];
-        
-        return array.count;
-    }
-    return 0;
+    
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -114,7 +110,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    ALERT(@"点击");
+    //    ALERT(@"点击");
     
 }
 
@@ -131,7 +127,7 @@
     //战绩label
     UILabel *label = [[UILabel alloc] init];
     label.text = @"战绩";
-//    label.font = TL_FONT_NAME(DEFALUT_BOLD, 15);
+    //    label.font = TL_FONT_NAME(DEFALUT_BOLD, 15);
     label.textAlignment = NSTextAlignmentLeft;
     [view addSubview:label];
     [label mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -148,7 +144,7 @@
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
     
-//    ALERT(@"点击banner");
+    //    ALERT(@"点击banner");
     
     
 }
@@ -167,16 +163,14 @@
         _tableView = tableView;
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        _tableView.tableFooterView = [UIView new];
         
-//        UIView *backgroundView = [[UIView alloc] init];
-//        backgroundView.backgroundColor = [UIColor colorWithDesignIndex:9];
-//        _tableView.backgroundView = backgroundView;
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//        [_tableView registerClass:[LPNewsSettingCell class] forCellReuseIdentifier:kCellIdentify];
+        //_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
         //添加banner页
-            _bannerView = [[SCSycleBanner alloc] initWithView:nil];
-            _bannerView.delegate = self;
-            self.tableView.tableHeaderView = _bannerView;
+        _bannerView = [[SCSycleBanner alloc] initWithView:nil];
+        _bannerView.delegate = self;
+        self.tableView.tableHeaderView = _bannerView;
         _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
     }
     
@@ -191,7 +185,7 @@
                            @[@{@"FontSize":@"字体大小"},@{@"InfoPushSetting":@"推送设置"}],@[@{@"ClearCache":@"清理缓存"}],
                            @[@{@"FontSize":@"字体大小"},@{@"InfoPushSetting":@"推送设置"}],@[@{@"ClearCache":@"清理缓存"}],
                            @[@{@"FontSize":@"字体大小"},@{@"InfoPushSetting":@"推送设置"}],@[@{@"ClearCache":@"清理缓存"}],
-                        @[@{@"About":@"关于"},@{@"Privacy":@"隐私政策"},@{@"AppStoreComment":@"去App Store评分"}],@[@{@"SignOut":@"退出登录"}]];
+                           @[@{@"About":@"关于"},@{@"Privacy":@"隐私政策"},@{@"AppStoreComment":@"去App Store评分"}],@[@{@"SignOut":@"退出登录"}]];
         _dataSource = array;
     }
     return _dataSource;
