@@ -30,7 +30,7 @@
     {
         cell = [[SCDemandChannelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    cell.contentView.backgroundColor = [UIColor colorWithHex:@"#dddddd"];
+    cell.contentView.backgroundColor = [UIColor whiteColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -69,7 +69,7 @@
     self.collectionView.scrollEnabled = NO;
     self.collectionView.contentInset = UIEdgeInsetsMake(17, 10, 17, 10);//设置整体的外边距
     
-    self.collectionView.backgroundColor = [UIColor colorWithHex:@"#607D98"];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:self.collectionView];
     
     return self;

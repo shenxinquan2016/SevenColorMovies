@@ -8,6 +8,8 @@
 
 #import "SCBaseViewController.h"
 #import "SCSearchBarView.h"
+#import "SCSearchViewController.h"
+
 @interface SCBaseViewController ()
 
 @end
@@ -19,7 +21,7 @@
     //1.添加商户商标
     [self addLeftBBI];
     //2.添加搜索框
-    [self addRightBBI];
+    [self addSearchBBI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,7 +46,7 @@
     _leftBBI = btn;
 }
 
-- (void)addRightBBI {
+- (void)addSearchBBI {
     
     
     
@@ -61,12 +63,14 @@
                                             target:nil action:nil];
     rightNegativeSpacer.width = -5;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
-    _rightBBI = btn;
+    _SearchBBI = btn;
     
 }
 
 - (void)clickSearchBtn{
     
-    NSLog(@">>>>>>>>>>>search>>>>>>>>>>>>>>");
+    SCSearchViewController *searchVC = DONG_INSTANT_VC_WITH_ID(@"Main", @"SCSearchViewController");
+    searchVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:searchVC animated:YES];
 }
 @end

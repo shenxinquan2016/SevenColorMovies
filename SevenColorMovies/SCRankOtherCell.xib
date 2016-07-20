@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SCRankOtherCell" selectionStyle="default" indentationWidth="10" rowHeight="33" id="KUZ-jE-qwT" customClass="SCRankOtherCell">
+            <rect key="frame" x="0.0" y="0.0" width="333" height="33"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KUZ-jE-qwT" id="XX9-is-6og">
+                <rect key="frame" x="0.0" y="0.0" width="333" height="32.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4 . 王的女人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNb-tG-gQz">
+                        <rect key="frame" x="8" y="5" width="103" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="o57-CR-qvy"/>
+                            <constraint firstAttribute="width" constant="103" id="t7S-Oe-WxZ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评分：9.5" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJh-fH-Un5">
+                        <rect key="frame" x="239" y="6" width="86" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="VzJ-1P-48q"/>
+                            <constraint firstAttribute="width" constant="86" id="d2k-GX-ZRR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="lJh-fH-Un5" secondAttribute="trailing" constant="8" id="1fZ-YK-Glo"/>
+                    <constraint firstItem="mNb-tG-gQz" firstAttribute="leading" secondItem="XX9-is-6og" secondAttribute="leading" constant="8" id="3yQ-80-gr8"/>
+                    <constraint firstAttribute="bottom" secondItem="lJh-fH-Un5" secondAttribute="bottom" constant="5.5" id="Adv-vM-YSl"/>
+                    <constraint firstItem="mNb-tG-gQz" firstAttribute="top" secondItem="XX9-is-6og" secondAttribute="top" constant="5" id="GWX-W9-9ej"/>
+                    <constraint firstAttribute="bottom" secondItem="mNb-tG-gQz" secondAttribute="bottom" constant="6.5" id="VAk-h7-QfC"/>
+                    <constraint firstItem="lJh-fH-Un5" firstAttribute="top" secondItem="XX9-is-6og" secondAttribute="top" constant="6" id="xSD-Zj-H19"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="281.5" y="-117.5"/>
+        </tableViewCell>
+    </objects>
+</document>

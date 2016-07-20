@@ -20,5 +20,24 @@
             </objects>
             <point key="canvasLocation" x="721" y="410"/>
         </scene>
+        <!--Search View Controller-->
+        <scene sceneID="tAS-LK-BTa">
+            <objects>
+                <viewController storyboardIdentifier="SCSearchViewController" id="JNv-cx-iW4" customClass="SCSearchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mww-p9-eim"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZAA-Tz-ikE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ib7-6k-3tf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ker-bM-yJU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1113.5" y="409.5"/>
+        </scene>
     </scenes>
 </document>

@@ -18,6 +18,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
 //    [NSThread sleepForTimeInterval:2.0f];
+//    [self setAppearance];
    
     return YES;
 }
@@ -68,4 +69,16 @@
     
 }
 
+
+- (void)setAppearance {
+    
+    UINavigationBar *navigationBar = [UINavigationBar appearance];
+    navigationBar.barStyle = UIStatusBarStyleDefault;
+    [navigationBar setTintColor:[UIColor blackColor]];
+    navigationBar.backIndicatorImage = [UIImage imageNamed:@"Back_Arrow"];
+    navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"Back_Arrow"];
+    navigationBar.backItem.title = @"";
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    
+}
 @end

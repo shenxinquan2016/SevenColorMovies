@@ -14,6 +14,6 @@
 @property (nonatomic,strong) UIButton *leftBBI;
 
 /** 搜索 */
-@property (nonatomic,strong) UIButton *rightBBI;
+@property (nonatomic,strong) UIButton *SearchBBI;
 
 @end

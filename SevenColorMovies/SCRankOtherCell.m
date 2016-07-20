@@ -1,26 +1,20 @@
 //
-//  SCWatchRecordCell.m
+//  SCRankOtherCell.m
 //  SevenColorMovies
 //
-//  Created by yesdgq on 16/7/19.
+//  Created by yesdgq on 16/7/20.
 //  Copyright © 2016年 yesdgq. All rights reserved.
 //
 
-#import "SCWatchRecordCell.h"
+#import "SCRankOtherCell.h"
 
-@implementation SCWatchRecordCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
+@implementation SCRankOtherCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {
     
-    static NSString *ID = @"SCWatchRecordCell";
-    SCWatchRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    static NSString *ID = @"SCRankOtherCell";
+    SCRankOtherCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -32,11 +26,6 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
 }
 
 @end

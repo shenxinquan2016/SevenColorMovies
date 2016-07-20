@@ -26,10 +26,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //实例化
-    _homeVC = DD_INSTANT_VC_WITH_ID(@"HomePage", @"SCHomePageNavController");
-    _discoveryVC = DD_INSTANT_VC_WITH_ID(@"Discovery", @"SCDiscoveryNavController");
-    _newsVC = DD_INSTANT_VC_WITH_ID(@"News", @"SCNewsNavController");
-    _mineVC = DD_INSTANT_VC_WITH_ID(@"Mine", @"SCMineNavController");
+    _homeVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCHomePageNavController");
+    _discoveryVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCDiscoveryNavController");
+    _newsVC = DONG_INSTANT_VC_WITH_ID(@"News", @"SCNewsNavController");
+    _mineVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCMineNavController");
     
      // tabBar item的图片在 Main.storyboard 中修改
 //    self.tabBar.tintColor = [UIColor redColor];

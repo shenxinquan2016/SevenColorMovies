@@ -64,8 +64,8 @@
 /**************************************
  * storyboard实例化
  *************************************/
-#define DD_STORYBOARD(storyboardName)          [UIStoryboard storyboardWithName:storyboardName bundle:nil]
-#define DD_INSTANT_VC_WITH_ID(storyboardName,vcIdentifier)  [DD_STORYBOARD(storyboardName) instantiateViewControllerWithIdentifier:vcIdentifier]
+#define DONG_STORYBOARD(storyboardName)          [UIStoryboard storyboardWithName:storyboardName bundle:nil]
+#define DONG_INSTANT_VC_WITH_ID(storyboardName,vcIdentifier)  [DONG_STORYBOARD(storyboardName) instantiateViewControllerWithIdentifier:vcIdentifier]
 
 /**************************************
  * UIAlertView

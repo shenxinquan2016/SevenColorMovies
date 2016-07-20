@@ -1,5 +1,5 @@
 //
-//  SCRankViewController.h
+//  SCSearchViewController.h
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/7/20.
@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCRankViewController : UIViewController
-
-/**
- *  返回按钮
- */
+@interface SCSearchViewController : UIViewController
+/** 返回按钮 */
 @property (nonatomic,strong) UIButton *leftBBI;
+/** 搜索 */
+@property (nonatomic,strong) UIButton *searchBBI;
 @end
