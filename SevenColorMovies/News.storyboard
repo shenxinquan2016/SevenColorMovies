@@ -46,7 +46,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="News" width="22" height="22"/>
-        <image name="News_sel" width="22" height="22"/>
+        <image name="News" width="21" height="22"/>
+        <image name="News_sel" width="21" height="22"/>
     </resources>
 </document>

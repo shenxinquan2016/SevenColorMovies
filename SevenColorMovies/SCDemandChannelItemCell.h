@@ -12,7 +12,8 @@
 
 @interface SCDemandChannelItemCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet IMB_DownImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *channelImage;
+
 @property (weak, nonatomic) IBOutlet UILabel *channelName;
 
 + (instancetype)cellWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;

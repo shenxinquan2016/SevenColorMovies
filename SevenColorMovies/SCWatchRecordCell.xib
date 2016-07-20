@@ -77,7 +77,7 @@
                     <constraint firstItem="wJF-K4-t5x" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="zCK-81-tW1"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="418.5" y="284"/>
+            <point key="canvasLocation" x="300.5" y="225"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCBaseViewController.h"
 
-@interface SCHomePageViewController : UIViewController
+@interface SCHomePageViewController : SCBaseViewController
 
 @end

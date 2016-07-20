@@ -15,8 +15,9 @@
     // Initialization code
     
     
-    [self.imageView zy_cornerRadiusRoundingRect];
-    
+    [self.channelImage zy_cornerRadiusRoundingRect];
+    [_channelImage setImage:[UIImage imageNamed:@"BusinessLogo"]];
+    _channelName.text = @"电影";
 }
 
 

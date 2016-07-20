@@ -14,6 +14,8 @@
 		113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 113F8D9A1D3C77E000B12D39 /* HomePage.storyboard */; };
 		113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */; };
 		113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */; };
+		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
+		11A1D06C1D3F508E00E2BA0D /* SCRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D06B1D3F508E00E2BA0D /* SCRankViewController.m */; };
 		11BB37791D38B9A00002D487 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37781D38B9A00002D487 /* main.m */; };
 		11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB377B1D38B9A00002D487 /* AppDelegate.m */; };
 		11BB37821D38B9A00002D487 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37801D38B9A00002D487 /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 		11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */; };
 		11DC2BE41D3E1E0B00012480 /* SCWatchRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BE21D3E1E0B00012480 /* SCWatchRecordCell.m */; };
 		11DC2BE51D3E1E0B00012480 /* SCWatchRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BE31D3E1E0B00012480 /* SCWatchRecordCell.xib */; };
+		11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB481D3F16E100AAC216 /* SCBaseViewController.m */; };
+		11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */; };
 		E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +78,10 @@
 		113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addition.m"; sourceTree = "<group>"; };
 		113F8D9F1D3CAAC200B12D39 /* UIColor+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Addition.h"; sourceTree = "<group>"; };
 		113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Addition.m"; sourceTree = "<group>"; };
+		11A1D0661D3F433900E2BA0D /* UIView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addition.h"; sourceTree = "<group>"; };
+		11A1D0671D3F433900E2BA0D /* UIView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Addition.m"; sourceTree = "<group>"; };
+		11A1D06A1D3F508E00E2BA0D /* SCRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankViewController.h; sourceTree = "<group>"; };
+		11A1D06B1D3F508E00E2BA0D /* SCRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRankViewController.m; sourceTree = "<group>"; };
 		11BB37741D38B9A00002D487 /* SevenColorMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SevenColorMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BB37781D38B9A00002D487 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11BB377A1D38B9A00002D487 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -121,6 +129,10 @@
 		11DC2BE11D3E1E0B00012480 /* SCWatchRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWatchRecordCell.h; sourceTree = "<group>"; };
 		11DC2BE21D3E1E0B00012480 /* SCWatchRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWatchRecordCell.m; sourceTree = "<group>"; };
 		11DC2BE31D3E1E0B00012480 /* SCWatchRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCWatchRecordCell.xib; sourceTree = "<group>"; };
+		11FACB471D3F16E100AAC216 /* SCBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBaseViewController.h; sourceTree = "<group>"; };
+		11FACB481D3F16E100AAC216 /* SCBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseViewController.m; sourceTree = "<group>"; };
+		11FACB4A1D3F19A000AAC216 /* SCSearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchBarView.h; sourceTree = "<group>"; };
+		11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchBarView.m; sourceTree = "<group>"; };
 		44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.release.xcconfig"; sourceTree = "<group>"; };
 		BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.debug.xcconfig"; sourceTree = "<group>"; };
 		BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMovies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +169,7 @@
 			children = (
 				11BB37D51D38E6650002D487 /* SCHomePageViewController.h */,
 				11BB37D61D38E6650002D487 /* SCHomePageViewController.m */,
+				11DC2BBE1D3DCD2900012480 /* Cell */,
 			);
 			name = MainBody;
 			sourceTree = "<group>";
@@ -170,11 +183,14 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		113F8D901D3C702000B12D39 /* Model */ = {
+		113F8D901D3C702000B12D39 /* Rank */ = {
 			isa = PBXGroup;
 			children = (
+				11A1D06A1D3F508E00E2BA0D /* SCRankViewController.h */,
+				11A1D06B1D3F508E00E2BA0D /* SCRankViewController.m */,
+				11A1D06D1D3F5FF800E2BA0D /* Cell */,
 			);
-			name = Model;
+			name = Rank;
 			sourceTree = "<group>";
 		};
 		113F8D911D3C704E00B12D39 /* View */ = {
@@ -223,6 +239,22 @@
 				113F8D8C1D3C6FFB00B12D39 /* SCMineViewController.m */,
 			);
 			name = MainBody;
+			sourceTree = "<group>";
+		};
+		11A1D0691D3F4FEA00E2BA0D /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				11FACB4A1D3F19A000AAC216 /* SCSearchBarView.h */,
+				11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		11A1D06D1D3F5FF800E2BA0D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		11BB376B1D38B9A00002D487 = {
@@ -310,9 +342,9 @@
 			isa = PBXGroup;
 			children = (
 				113F8D8E1D3C700900B12D39 /* MainBody */,
-				11DC2BBE1D3DCD2900012480 /* Cell */,
 				113F8D8F1D3C701B00B12D39 /* View */,
-				113F8D901D3C702000B12D39 /* Model */,
+				11A1D0691D3F4FEA00E2BA0D /* Search */,
+				113F8D901D3C702000B12D39 /* Rank */,
 			);
 			name = HomePage;
 			sourceTree = "<group>";
@@ -335,6 +367,8 @@
 				113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */,
 				11DC2BD61D3DFC6800012480 /* UIImageView+Addition.h */,
 				11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */,
+				11A1D0661D3F433900E2BA0D /* UIView+Addition.h */,
+				11A1D0671D3F433900E2BA0D /* UIView+Addition.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -417,6 +451,8 @@
 		11BB37D91D38F04E0002D487 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				11FACB471D3F16E100AAC216 /* SCBaseViewController.h */,
+				11FACB481D3F16E100AAC216 /* SCBaseViewController.m */,
 				11BE83161D3CBA1B00886CF6 /* BaseNavigationController.h */,
 				11BE83171D3CBA1B00886CF6 /* BaseNavigationController.m */,
 				11BE831F1D3CBC2300886CF6 /* Transition */,
@@ -739,6 +775,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
 				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
 				113F8D991D3C724100B12D39 /* SCMainTabBarViewController.m in Sources */,
 				11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */,
@@ -748,16 +785,19 @@
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
 				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,
 				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
+				11A1D06C1D3F508E00E2BA0D /* SCRankViewController.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
+				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
 				11BE83151D3CB56B00886CF6 /* SCSycleBanner.m in Sources */,
 				11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */,
 				113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */,
 				113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
 				11DC2BE41D3E1E0B00012480 /* SCWatchRecordCell.m in Sources */,
+				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

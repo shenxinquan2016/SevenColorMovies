@@ -34,7 +34,7 @@
      // tabBar item的图片在 Main.storyboard 中修改
 //    self.tabBar.tintColor = [UIColor redColor];
     self.tabBar.backgroundColor = [UIColor whiteColor];
-    //[self.tabBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]]];
+    [self.tabBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]]];
     self.viewControllers = @[_homeVC,_discoveryVC,_newsVC,_mineVC];
     
 }
