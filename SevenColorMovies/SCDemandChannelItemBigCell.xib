@@ -17,8 +17,9 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iUx-Wi-Crx">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BusinessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="iUx-Wi-Crx">
                     <rect key="frame" x="15" y="0.0" width="50" height="50"/>
+                    <color key="backgroundColor" red="0.94729212484679981" green="0.28502326868162131" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -30,4 +31,7 @@
             <point key="canvasLocation" x="-24" y="44.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="BusinessLogo" width="176" height="66"/>
+    </resources>
 </document>

@@ -20,11 +20,6 @@
     // Configure the view for the selected state
 }
 
-
-
-
-
-
 + (instancetype)cellWithTableView:(UITableView *)tableView {
     
     static NSString *CellIdentifier = @"CellIdentifier";
@@ -35,7 +30,7 @@
     {
         cell = [[SCDemandChannelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
+    cell.contentView.backgroundColor = [UIColor colorWithHex:@"#dddddd"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -50,7 +45,6 @@
     //1.创建FlowLayout
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
-    
     if (ThreePointFiveInch  || FourInch) {
         layout.itemSize = CGSizeMake((182 - 51) / 2, (182 - 51) / 2 + 5);  //设置item的大小
         layout.minimumInteritemSpacing = (kMainScreenWidth - ((182 - 51) / 2) * 4 - 20) / 3 ;  //设置collection竖着的间距
@@ -62,21 +56,20 @@
         layout.minimumLineSpacing = 182 - ((182 - 45) / 2) * 2 - 34 ;  //设置collection横向间距
     }
     
-    
+    //2.创建collectionView
     self.collectionView = [[AFIndexedCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     
-    
-    
+    //3.注册cell
     if (ThreePointFiveInch  || FourInch) {
-        [self.collectionView registerNib:[UINib nibWithNibName:@"SuperManCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"SuperManCollectionViewCell"];
+        [self.collectionView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemCell"];
     }else if (FourPointSevenInch || FivePointFiveSevenInch) {
-        [self.collectionView registerNib:[UINib nibWithNibName:@"SuperManCollectionViewBigCell" bundle:nil] forCellWithReuseIdentifier:@"SuperManCollectionViewBigCell"];
+        [self.collectionView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemBigCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemBigCell"];
         
     }
     self.collectionView.scrollEnabled = NO;
     self.collectionView.contentInset = UIEdgeInsetsMake(17, 10, 17, 10);//设置整体的外边距
     
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor colorWithHex:@"#607D98"];
     [self.contentView addSubview:self.collectionView];
     
     return self;

@@ -72,9 +72,8 @@
         
     }
     
-    
     SCDemandChannelItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-//    if (cell == nil) cell = BundleToObj(ID);
+    if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
     return cell;
 }
 @end

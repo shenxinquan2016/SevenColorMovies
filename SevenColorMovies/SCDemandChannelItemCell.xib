@@ -11,8 +11,9 @@
             <rect key="frame" x="0.0" y="0.0" width="65" height="70"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xAN-sh-dUA">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BusinessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="xAN-sh-dUA">
                     <rect key="frame" x="10" y="0.0" width="45" height="45"/>
+                    <color key="backgroundColor" red="1" green="0.2668781929176649" blue="0.97816384731404926" alpha="1" colorSpace="calibratedRGB"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9o-lv-PF1">
                     <rect key="frame" x="0.0" y="49" width="65" height="21"/>
@@ -31,4 +32,7 @@
             <point key="canvasLocation" x="91.5" y="34"/>
         </view>
     </objects>
+    <resources>
+        <image name="BusinessLogo" width="176" height="66"/>
+    </resources>
 </document>
