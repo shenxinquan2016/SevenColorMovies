@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */; };
 		113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */; };
 		113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D891D3C6FE800B12D39 /* SCNewsViewController.m */; };
 		113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D8C1D3C6FFB00B12D39 /* SCMineViewController.m */; };
@@ -69,6 +70,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1112D7491D405D51009A5C35 /* SCSlideHeaderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSlideHeaderLabel.h; sourceTree = "<group>"; };
+		1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSlideHeaderLabel.m; sourceTree = "<group>"; };
 		113F8D851D3C6FC800B12D39 /* SCDiscoveryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDiscoveryViewController.h; sourceTree = "<group>"; };
 		113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDiscoveryViewController.m; sourceTree = "<group>"; };
 		113F8D881D3C6FE800B12D39 /* SCNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNewsViewController.h; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 			children = (
 				11A1D0771D3F7E6A00E2BA0D /* SCSlideHeaderView.h */,
 				11A1D0781D3F7E6A00E2BA0D /* SCSlideHeaderView.m */,
+				1112D7491D405D51009A5C35 /* SCSlideHeaderLabel.h */,
+				1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */,
 			);
 			name = SlideHeaderView;
 			sourceTree = "<group>";
@@ -809,6 +814,7 @@
 				113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */,
 				11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
+				1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
 				11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */,
 				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,

@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface SCSearchViewController : UIViewController
+/** 标题栏scrollView */
+@property (nonatomic, strong) UIScrollView *titleScroll;
+/** 内容栏scrollView */
+@property (nonatomic, strong) UIScrollView *contentScroll;
 /** 返回按钮 */
 @property (nonatomic,strong) UIButton *leftBBI;
 /** 搜索 */
