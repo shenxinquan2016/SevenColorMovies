@@ -9,6 +9,9 @@
 #import "SCSearchViewController.h"
 #import "SCSearchBarView.h"
 #import "SCSlideHeaderLabel.h"
+#import "SCOptionalVideoTableView.h"
+#import "SCPastVideoTableView.h"
+
 
 
 const CGFloat TitleHeight = 60.0f;
@@ -119,18 +122,18 @@ const CGFloat LabelWidth = 100;
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
     
-    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(100, 0, 200, TitleHeight)];//滚动窗口
+    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(100, 0, LabelWidth*2, TitleHeight)];//滚动窗口
     self.titleScroll.showsHorizontalScrollIndicator = NO;
     self.titleScroll.showsVerticalScrollIndicator = NO;
     self.titleScroll.scrollsToTop = NO;
-    self.titleScroll.backgroundColor = [UIColor lightGrayColor];
+    
     [backgroundView addSubview:_titleScroll];
     
     //0.添加lab
     [self addLabel];//添加标题label
     //1、底部滑动短线
     _bottomLine = [CALayer layer];
-    [_bottomLine setBackgroundColor:[UIColor redColor].CGColor];
+    [_bottomLine setBackgroundColor:[UIColor colorWithHex:@"#1B93D0"].CGColor];
     _bottomLine.frame = CGRectMake(0, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
     [_titleScroll.layer addSublayer:_bottomLine];
@@ -151,7 +154,7 @@ const CGFloat LabelWidth = 100;
         [self.titleScroll addSubview:label];
         label.tag = i;
         label.userInteractionEnabled = YES;
-        label.backgroundColor = [UIColor greenColor];
+        //        label.backgroundColor = [UIColor greenColor];
         [label addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(labelClick:)]];
     }
     
@@ -166,23 +169,27 @@ const CGFloat LabelWidth = 100;
     _contentScroll.showsHorizontalScrollIndicator = NO;
     _contentScroll.pagingEnabled = YES;
     _contentScroll.delegate = self;
-
+    _contentScroll.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_contentScroll];
     
     //添加子控制器
     for (int i=0 ; i<_titleArr.count ;i++){
-        UIViewController *vc = [[UIViewController alloc] init];
-        
-        
-        UILabel *lab = [[UILabel alloc] init];
-        [lab setFrame:CGRectMake(140, 200, 100, 40)];
-        [vc.view addSubview:lab];
-        lab.text = [NSString stringWithFormat:@"%d",i+1];
-        lab.font = [UIFont fontWithName:@"HYQiHei" size:19];
-        lab.textAlignment = NSTextAlignmentCenter;
-        lab.backgroundColor = [UIColor grayColor];
-        
-        [self addChildViewController:vc];
+        switch (i){
+            case 0:{
+                SCOptionalVideoTableView *tableView = [[SCOptionalVideoTableView alloc] init];
+                [tableView.view setFrame:_contentScroll.bounds];
+                [_contentScroll addSubview:tableView.view];
+                [self addChildViewController:tableView];
+                break;
+            }
+            case 1:{
+                SCPastVideoTableView *tableView = [[SCPastVideoTableView alloc] init];
+                [self addChildViewController:tableView];
+                break;
+            }
+            default:
+                break;
+        }
     }
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
@@ -208,8 +215,9 @@ const CGFloat LabelWidth = 100;
     NSUInteger index = scrollView.contentOffset.x / _contentScroll.frame.size.width;
     // 滚动标题栏
     SCSlideHeaderLabel *titleLable = (SCSlideHeaderLabel *)_titleScroll.subviews[index];
+    
     //把下划线与titieLabel的frame绑定(下划线滑动方式)
-    _bottomLine.frame = CGRectMake(titleLable.frame.origin.x, _titleScroll.frame.origin.y+StatusBarHeight-1, LabelWidth, 1);
+    _bottomLine.frame = CGRectMake(titleLable.frame.origin.x, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
     CGFloat offsetx = titleLable.center.x - _titleScroll.frame.size.width * 0.5;
     
@@ -225,7 +233,7 @@ const CGFloat LabelWidth = 100;
     [_titleScroll setContentOffset:offset animated:YES];
     
     // 将控制器添加到contentScroll
-    UIViewController *vc = self.childViewControllers[index];
+    SCOptionalVideoTableView *vc = self.childViewControllers[index];
     //    vc.index = index;
     
     [_titleScroll.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -267,10 +275,8 @@ const CGFloat LabelWidth = 100;
     
     //下划线即时滑动
     float modulus = scrollView.contentOffset.x/_contentScroll.contentSize.width;
-    //    _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.origin.y+StatusBarHeight-1, LabelWidth, 1);
+    _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
-    //自定义滑条
-    _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width + LabelWidth/2, _titleScroll.frame.origin.y+StatusBarHeight-4, 7, 4);
 }
 
 @end

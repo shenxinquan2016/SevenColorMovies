@@ -15,6 +15,15 @@
 		113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 113F8D9A1D3C77E000B12D39 /* HomePage.storyboard */; };
 		113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */; };
 		113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */; };
+		116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */; };
+		116475F41D40988700A3BC1C /* SCOptionalVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */; };
+		116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */; };
+		116475F91D4098EF00A3BC1C /* SCPastVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475F71D4098EF00A3BC1C /* SCPastVideoTableViewCell.m */; };
+		116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116475F81D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib */; };
+		116475FD1D40ADDC00A3BC1C /* SCPastVideoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475FC1D40ADDC00A3BC1C /* SCPastVideoTableView.m */; };
+		116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476031D40BA3D00A3BC1C /* SCChannelCatalogueVC.m */; };
+		116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */; };
+		1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
 		11A1D06C1D3F508E00E2BA0D /* SCRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D06B1D3F508E00E2BA0D /* SCRankViewController.m */; };
 		11A1D0701D3F62E800E2BA0D /* SCRankOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D06F1D3F62E800E2BA0D /* SCRankOtherCell.m */; };
@@ -85,6 +94,21 @@
 		113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addition.m"; sourceTree = "<group>"; };
 		113F8D9F1D3CAAC200B12D39 /* UIColor+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Addition.h"; sourceTree = "<group>"; };
 		113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Addition.m"; sourceTree = "<group>"; };
+		116475EC1D40977100A3BC1C /* SCOptionalVideoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableView.h; sourceTree = "<group>"; };
+		116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOptionalVideoTableView.m; sourceTree = "<group>"; };
+		116475F11D40988700A3BC1C /* SCOptionalVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableViewCell.h; sourceTree = "<group>"; };
+		116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOptionalVideoTableViewCell.m; sourceTree = "<group>"; };
+		116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCOptionalVideoTableViewCell.xib; sourceTree = "<group>"; };
+		116475F61D4098EF00A3BC1C /* SCPastVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPastVideoTableViewCell.h; sourceTree = "<group>"; };
+		116475F71D4098EF00A3BC1C /* SCPastVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPastVideoTableViewCell.m; sourceTree = "<group>"; };
+		116475F81D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCPastVideoTableViewCell.xib; sourceTree = "<group>"; };
+		116475FB1D40ADDC00A3BC1C /* SCPastVideoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPastVideoTableView.h; sourceTree = "<group>"; };
+		116475FC1D40ADDC00A3BC1C /* SCPastVideoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPastVideoTableView.m; sourceTree = "<group>"; };
+		116476021D40BA3D00A3BC1C /* SCChannelCatalogueVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelCatalogueVC.h; sourceTree = "<group>"; };
+		116476031D40BA3D00A3BC1C /* SCChannelCatalogueVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCatalogueVC.m; sourceTree = "<group>"; };
+		116476061D40CA8900A3BC1C /* SCChannelCatalogueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelCatalogueCell.h; sourceTree = "<group>"; };
+		116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCatalogueCell.m; sourceTree = "<group>"; };
+		116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCChannelCatalogueCell.xib; sourceTree = "<group>"; };
 		11A1D0661D3F433900E2BA0D /* UIView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addition.h"; sourceTree = "<group>"; };
 		11A1D0671D3F433900E2BA0D /* UIView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Addition.m"; sourceTree = "<group>"; };
 		11A1D06A1D3F508E00E2BA0D /* SCRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankViewController.h; sourceTree = "<group>"; };
@@ -255,13 +279,84 @@
 			name = MainBody;
 			sourceTree = "<group>";
 		};
-		11A1D0691D3F4FEA00E2BA0D /* Search */ = {
+		116475EF1D4097E000A3BC1C /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
 				11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */,
 				11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */,
+				116475EC1D40977100A3BC1C /* SCOptionalVideoTableView.h */,
+				116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */,
+				116475FB1D40ADDC00A3BC1C /* SCPastVideoTableView.h */,
+				116475FC1D40ADDC00A3BC1C /* SCPastVideoTableView.m */,
+			);
+			name = MainBody;
+			sourceTree = "<group>";
+		};
+		116475F01D40982900A3BC1C /* View */ = {
+			isa = PBXGroup;
+			children = (
 				11FACB4A1D3F19A000AAC216 /* SCSearchBarView.h */,
 				11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */,
+				116475F11D40988700A3BC1C /* SCOptionalVideoTableViewCell.h */,
+				116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */,
+				116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */,
+				116475F61D4098EF00A3BC1C /* SCPastVideoTableViewCell.h */,
+				116475F71D4098EF00A3BC1C /* SCPastVideoTableViewCell.m */,
+				116475F81D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		116475FE1D40B93500A3BC1C /* ChannelCatalogue(点播更多) */ = {
+			isa = PBXGroup;
+			children = (
+				116476021D40BA3D00A3BC1C /* SCChannelCatalogueVC.h */,
+				116476031D40BA3D00A3BC1C /* SCChannelCatalogueVC.m */,
+				116476051D40CA4300A3BC1C /* Cell */,
+			);
+			name = "ChannelCatalogue(点播更多)";
+			sourceTree = "<group>";
+		};
+		116475FF1D40B98600A3BC1C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				116476011D40B9D100A3BC1C /* register */,
+				116476001D40B9C400A3BC1C /* Login */,
+				11BB37BF1D38DB220002D487 /* Tabbar */,
+				11A1D0691D3F4FEA00E2BA0D /* Search */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		116476001D40B9C400A3BC1C /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		116476011D40B9D100A3BC1C /* register */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = register;
+			sourceTree = "<group>";
+		};
+		116476051D40CA4300A3BC1C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				116476061D40CA8900A3BC1C /* SCChannelCatalogueCell.h */,
+				116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */,
+				116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		11A1D0691D3F4FEA00E2BA0D /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				116475EF1D4097E000A3BC1C /* MainBody */,
+				116475F01D40982900A3BC1C /* View */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -376,7 +471,7 @@
 			children = (
 				113F8D8E1D3C700900B12D39 /* MainBody */,
 				113F8D8F1D3C701B00B12D39 /* View */,
-				11A1D0691D3F4FEA00E2BA0D /* Search */,
+				116475FE1D40B93500A3BC1C /* ChannelCatalogue(点播更多) */,
 				113F8D901D3C702000B12D39 /* Rank */,
 			);
 			name = HomePage;
@@ -411,7 +506,7 @@
 			children = (
 				11BB37C21D38DB2D0002D487 /* Assistant */,
 				11BB37D91D38F04E0002D487 /* Base */,
-				11BB37BF1D38DB220002D487 /* Tabbar */,
+				116475FF1D40B98600A3BC1C /* Main */,
 				11BB37BE1D38DB1F0002D487 /* HomePage */,
 				11BB37BD1D38DB160002D487 /* Discovery */,
 				11BB37CC1D38E5480002D487 /* News */,
@@ -726,13 +821,16 @@
 				11DC2BE51D3E1E0B00012480 /* SCRankTopCell.xib in Resources */,
 				11DC2BC81D3DD4A200012480 /* SCDemandChannelItemBigCell.xib in Resources */,
 				113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */,
+				116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */,
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
+				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11A1D0721D3F62FD00E2BA0D /* SCRankOtherCell.xib in Resources */,
 				11BB37D01D38E5C00002D487 /* Discovery.storyboard in Resources */,
 				11BB37841D38B9A00002D487 /* Assets.xcassets in Resources */,
 				11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */,
 				11BB37D21D38E5C90002D487 /* News.storyboard in Resources */,
 				11BB37C81D38E3A00002D487 /* devEnvironment.plist in Resources */,
+				1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */,
 				11BB37CA1D38E3C20002D487 /* switchNetworkEnvironment.plist in Resources */,
 				11BB37821D38B9A00002D487 /* Main.storyboard in Resources */,
 			);
@@ -809,10 +907,12 @@
 			files = (
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
 				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
+				116475F91D4098EF00A3BC1C /* SCPastVideoTableViewCell.m in Sources */,
 				113F8D991D3C724100B12D39 /* SCMainTabBarViewController.m in Sources */,
 				11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */,
 				113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */,
 				11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */,
+				116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
 				1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
@@ -824,15 +924,19 @@
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
 				11A1D0791D3F7E6A00E2BA0D /* SCSlideHeaderView.m in Sources */,
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
+				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
 				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
 				11BE83151D3CB56B00886CF6 /* SCSycleBanner.m in Sources */,
 				11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */,
+				116475F41D40988700A3BC1C /* SCOptionalVideoTableViewCell.m in Sources */,
+				116475FD1D40ADDC00A3BC1C /* SCPastVideoTableView.m in Sources */,
 				113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */,
 				113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
 				11DC2BE41D3E1E0B00012480 /* SCRankTopCell.m in Sources */,
+				116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */,
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
 			);
