@@ -133,7 +133,7 @@ const CGFloat LabelWidth = 100;
     [self addLabel];//添加标题label
     //1、底部滑动短线
     _bottomLine = [CALayer layer];
-    [_bottomLine setBackgroundColor:[UIColor colorWithHex:@"#1B93D0"].CGColor];
+    [_bottomLine setBackgroundColor:[UIColor colorWithHex:@"#5184FF"].CGColor];
     _bottomLine.frame = CGRectMake(0, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
     [_titleScroll.layer addSublayer:_bottomLine];
@@ -159,6 +159,11 @@ const CGFloat LabelWidth = 100;
     }
     
     _titleScroll.contentSize = CGSizeMake(LabelWidth * _titleArr.count, 0);
+    
+    //默认选择第一个label
+    SCSlideHeaderLabel *lable = [self.titleScroll.subviews firstObject];
+    lable.scale = 1.0;
+
     
 }
 

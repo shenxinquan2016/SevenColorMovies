@@ -29,7 +29,6 @@
 		11A1D0701D3F62E800E2BA0D /* SCRankOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D06F1D3F62E800E2BA0D /* SCRankOtherCell.m */; };
 		11A1D0721D3F62FD00E2BA0D /* SCRankOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11A1D0711D3F62FD00E2BA0D /* SCRankOtherCell.xib */; };
 		11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */; };
-		11A1D0791D3F7E6A00E2BA0D /* SCSlideHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0781D3F7E6A00E2BA0D /* SCSlideHeaderView.m */; };
 		11BB37791D38B9A00002D487 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37781D38B9A00002D487 /* main.m */; };
 		11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB377B1D38B9A00002D487 /* AppDelegate.m */; };
 		11BB37821D38B9A00002D487 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37801D38B9A00002D487 /* Main.storyboard */; };
@@ -118,8 +117,6 @@
 		11A1D0711D3F62FD00E2BA0D /* SCRankOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCRankOtherCell.xib; sourceTree = "<group>"; };
 		11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchViewController.h; sourceTree = "<group>"; };
 		11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchViewController.m; sourceTree = "<group>"; };
-		11A1D0771D3F7E6A00E2BA0D /* SCSlideHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSlideHeaderView.h; sourceTree = "<group>"; };
-		11A1D0781D3F7E6A00E2BA0D /* SCSlideHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSlideHeaderView.m; sourceTree = "<group>"; };
 		11BB37741D38B9A00002D487 /* SevenColorMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SevenColorMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BB37781D38B9A00002D487 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11BB377A1D38B9A00002D487 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -377,8 +374,6 @@
 		11A1D0761D3F7DD500E2BA0D /* SlideHeaderView */ = {
 			isa = PBXGroup;
 			children = (
-				11A1D0771D3F7E6A00E2BA0D /* SCSlideHeaderView.h */,
-				11A1D0781D3F7E6A00E2BA0D /* SCSlideHeaderView.m */,
 				1112D7491D405D51009A5C35 /* SCSlideHeaderLabel.h */,
 				1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */,
 			);
@@ -922,7 +917,6 @@
 				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
 				11A1D06C1D3F508E00E2BA0D /* SCRankViewController.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
-				11A1D0791D3F7E6A00E2BA0D /* SCSlideHeaderView.m in Sources */,
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,

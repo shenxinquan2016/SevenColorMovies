@@ -14,7 +14,7 @@
 {
     if (self=[super initWithFrame:frame]) {
         self.textAlignment = NSTextAlignmentCenter;
-        self.font = [UIFont systemFontOfSize:18];
+        self.font = [UIFont systemFontOfSize:19];
         
         self.scale = 0.0;
         
@@ -27,8 +27,7 @@
 {
     _scale = scale;
     
-    self.textColor = [UIColor colorWithRed:scale green:0.0 blue:0.0 alpha:1];
-    
+    self.textColor = [UIColor colorWithRed:scale*81.f/255.f green:scale*132.f/255.f blue:scale*255.f/255.f alpha:1];
     CGFloat minScale = 1.0;
     CGFloat trueScale = minScale + (1-minScale)*scale;
     self.transform = CGAffineTransformMakeScale(trueScale, trueScale);//label的size大小变换
