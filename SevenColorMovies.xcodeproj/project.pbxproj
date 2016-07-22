@@ -19,6 +19,9 @@
 		115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */; };
 		115A210C1D41BD2F0097DE57 /* SCChannelCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A210A1D41BD2F0097DE57 /* SCChannelCategoryCell.m */; };
 		115A210D1D41BD2F0097DE57 /* SCChannelCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 115A210B1D41BD2F0097DE57 /* SCChannelCategoryCell.xib */; };
+		115A21131D41F5BF0097DE57 /* SCTeleplayPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21121D41F5BF0097DE57 /* SCTeleplayPlayerVC.m */; };
+		115A21161D41F5E30097DE57 /* SCMoivePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21151D41F5E30097DE57 /* SCMoivePlayerVC.m */; };
+		115A21191D41F5FD0097DE57 /* SCArtsPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21181D41F5FD0097DE57 /* SCArtsPlayerVC.m */; };
 		116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */; };
 		116475F41D40988700A3BC1C /* SCOptionalVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */; };
 		116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */; };
@@ -104,6 +107,12 @@
 		115A21091D41BD2F0097DE57 /* SCChannelCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelCategoryCell.h; sourceTree = "<group>"; };
 		115A210A1D41BD2F0097DE57 /* SCChannelCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCategoryCell.m; sourceTree = "<group>"; };
 		115A210B1D41BD2F0097DE57 /* SCChannelCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCChannelCategoryCell.xib; sourceTree = "<group>"; };
+		115A21111D41F5BF0097DE57 /* SCTeleplayPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeleplayPlayerVC.h; sourceTree = "<group>"; };
+		115A21121D41F5BF0097DE57 /* SCTeleplayPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeleplayPlayerVC.m; sourceTree = "<group>"; };
+		115A21141D41F5E30097DE57 /* SCMoivePlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoivePlayerVC.h; sourceTree = "<group>"; };
+		115A21151D41F5E30097DE57 /* SCMoivePlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoivePlayerVC.m; sourceTree = "<group>"; };
+		115A21171D41F5FD0097DE57 /* SCArtsPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCArtsPlayerVC.h; sourceTree = "<group>"; };
+		115A21181D41F5FD0097DE57 /* SCArtsPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCArtsPlayerVC.m; sourceTree = "<group>"; };
 		116475EC1D40977100A3BC1C /* SCOptionalVideoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableView.h; sourceTree = "<group>"; };
 		116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOptionalVideoTableView.m; sourceTree = "<group>"; };
 		116475F11D40988700A3BC1C /* SCOptionalVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableViewCell.h; sourceTree = "<group>"; };
@@ -316,6 +325,33 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		115A210E1D41F0260097DE57 /* Arts综艺 */ = {
+			isa = PBXGroup;
+			children = (
+				115A21171D41F5FD0097DE57 /* SCArtsPlayerVC.h */,
+				115A21181D41F5FD0097DE57 /* SCArtsPlayerVC.m */,
+			);
+			name = "Arts综艺";
+			sourceTree = "<group>";
+		};
+		115A210F1D41F02B0097DE57 /* Moive电影 */ = {
+			isa = PBXGroup;
+			children = (
+				115A21141D41F5E30097DE57 /* SCMoivePlayerVC.h */,
+				115A21151D41F5E30097DE57 /* SCMoivePlayerVC.m */,
+			);
+			name = "Moive电影";
+			sourceTree = "<group>";
+		};
+		115A21101D41F02F0097DE57 /* Teleplay电视剧 */ = {
+			isa = PBXGroup;
+			children = (
+				115A21111D41F5BF0097DE57 /* SCTeleplayPlayerVC.h */,
+				115A21121D41F5BF0097DE57 /* SCTeleplayPlayerVC.m */,
+			);
+			name = "Teleplay电视剧";
+			sourceTree = "<group>";
+		};
 		116475EF1D4097E000A3BC1C /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +397,7 @@
 				116476001D40B9C400A3BC1C /* Login */,
 				11BB37BF1D38DB220002D487 /* Tabbar */,
 				11A1D0691D3F4FEA00E2BA0D /* Search */,
+				11A1D0761D3F7DD500E2BA0D /* SlideHeaderView */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -508,6 +545,9 @@
 				113F8D8F1D3C701B00B12D39 /* View */,
 				115A21001D41B4E20097DE57 /* 点播 */,
 				113F8D901D3C702000B12D39 /* Rank */,
+				115A21101D41F02F0097DE57 /* Teleplay电视剧 */,
+				115A210F1D41F02B0097DE57 /* Moive电影 */,
+				115A210E1D41F0260097DE57 /* Arts综艺 */,
 			);
 			name = HomePage;
 			sourceTree = "<group>";
@@ -620,7 +660,6 @@
 				115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */,
 				11BE83161D3CBA1B00886CF6 /* BaseNavigationController.h */,
 				11BE83171D3CBA1B00886CF6 /* BaseNavigationController.m */,
-				11A1D0761D3F7DD500E2BA0D /* SlideHeaderView */,
 				11BE831F1D3CBC2300886CF6 /* Transition */,
 				11BE83201D3CBC3D00886CF6 /* Animator */,
 			);
@@ -965,6 +1004,7 @@
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
+				115A21161D41F5E30097DE57 /* SCMoivePlayerVC.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
 				115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */,
 				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
@@ -973,7 +1013,9 @@
 				116475F41D40988700A3BC1C /* SCOptionalVideoTableViewCell.m in Sources */,
 				116475FD1D40ADDC00A3BC1C /* SCPastVideoTableView.m in Sources */,
 				113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */,
+				115A21191D41F5FD0097DE57 /* SCArtsPlayerVC.m in Sources */,
 				113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */,
+				115A21131D41F5BF0097DE57 /* SCTeleplayPlayerVC.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
 				11DC2BE41D3E1E0B00012480 /* SCRankTopCell.m in Sources */,
 				116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */,

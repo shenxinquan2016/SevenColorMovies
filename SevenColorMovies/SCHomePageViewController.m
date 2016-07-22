@@ -14,6 +14,7 @@
 #import "SCRankViewController.h"//排行
 #import "SCChannelCatalogueVC.h"
 #import "SCChannelCategoryVC.h"
+#import "SCTeleplayPlayerVC.h"
 
 
 
@@ -176,6 +177,9 @@ static  CGFloat const kSectionTwoCellHeight = 185.f;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"======indexPath.section:%ld",indexPath.section);
+    SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+    teleplayPlayer.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:teleplayPlayer animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -234,7 +238,7 @@ static  CGFloat const kSectionTwoCellHeight = 185.f;
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
     
     //    ALERT(@"点击banner");
-    
+      NSLog(@">>>>>> 第%ld张图", (long)index);
     
 }
 

@@ -1,64 +1,56 @@
 //
-//  SCChannelCategoryVC.m
+//  SCTeleplayPlayerVC.m
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/7/22.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-// 点播栏目详情页
+//
 
-#import "SCChannelCategoryVC.h"
-#import "SCChannelCategoryCell.h"
-#import "SCSlideHeaderLabel.h"
 #import "SCTeleplayPlayerVC.h"
+#import "SCSlideHeaderLabel.h"
+
 
 static const CGFloat TitleHeight = 60.0f;
 static const CGFloat StatusBarHeight = 20.0f;
-static const CGFloat LabelWidth = 90.f;
+static const CGFloat LabelWidth = 100.f;
 
+@interface SCTeleplayPlayerVC ()<UIScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 
-@interface SCChannelCategoryVC ()<UIScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
-
-@property (nonatomic, strong) UICollectionView *collView;
 /** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *titleScroll;
 /** 内容栏scrollView */
 @property (nonatomic, strong) UIScrollView *contentScroll;
-
+@property (nonatomic, strong) UICollectionView *collView;
 /** 标题数组 */
 @property (nonatomic, strong) NSMutableArray *titleArr;
 /** 滑动短线 */
 @property (nonatomic, strong) CALayer *bottomLine;
 
+
 @end
 
-@implementation SCChannelCategoryVC
+@implementation SCTeleplayPlayerVC
 
 static NSString *const cellId = @"cellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    //1.返回
-    [self.leftBBI setTitle: @"直播" forState: UIControlStateNormal];
+    self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     
     //3.初始化数组
-    self.titleArr = [@[@"最热",@"卫视同步",@"高分经典",@"海外剧场",@"日韩",@"卫视同步",@"最热",@"卫视同步",@"高分经典",@"海外剧场",@"日韩",@"卫视同步"] copy];
+    self.titleArr = [@[@"剧情",@"详情",@"精彩推荐"] copy];
     //4.添加滑动headerView
     [self constructSlideHeaderView];
     //5.添加contentScrllowView
     [self constructContentView];
-    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark- private methods
 - (void)loadCollectionView{
@@ -80,11 +72,12 @@ static NSString *const cellId = @"cellId";
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView{
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 74, kMainScreenWidth, TitleHeight)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 280, kMainScreenWidth, TitleHeight)];
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
     
-    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, TitleHeight)];//滚动窗口
+    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake((kMainScreenWidth-LabelWidth*3)/2, 0, LabelWidth*3, TitleHeight)];//滚动窗口
+//    _titleScroll.backgroundColor = [UIColor greenColor];
     self.titleScroll.showsHorizontalScrollIndicator = NO;
     self.titleScroll.showsVerticalScrollIndicator = NO;
     self.titleScroll.scrollsToTop = NO;
@@ -142,7 +135,7 @@ static NSString *const cellId = @"cellId";
 
 /** 添加正文内容页 */
 - (void)constructContentView{
-    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, StatusBarHeight+TitleHeight+63, kMainScreenWidth, kMainScreenHeight-StatusBarHeight-TitleHeight-63)];//滚动窗口
+    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 340, kMainScreenWidth, kMainScreenHeight-340)];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
     _contentScroll.pagingEnabled = YES;
@@ -153,7 +146,8 @@ static NSString *const cellId = @"cellId";
     //添加子控制器
     for (int i=0 ; i<_titleArr.count ;i++){
         UIViewController *vc = [[UIViewController alloc] init];
-        vc.view.backgroundColor = [UIColor grayColor];
+//        vc.view.backgroundColor = [UIColor redColor];
+        
         [self loadCollectionView];
         [vc.view addSubview:_collView];
         
@@ -239,8 +233,6 @@ static NSString *const cellId = @"cellId";
     
 }
 
-
-
 #pragma mark ---- UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -257,7 +249,7 @@ static NSString *const cellId = @"cellId";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
@@ -273,7 +265,7 @@ static NSString *const cellId = @"cellId";
 /** CollectionView四周间距 EdgeInsets */
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(0, 10, 0, 10);
+    return UIEdgeInsetsMake(5, 10, 0, 10);
 }
 
 /** item水平间距 */
@@ -312,10 +304,6 @@ static NSString *const cellId = @"cellId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"======点击=====");
-    SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
-    teleplayPlayer.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:teleplayPlayer animated:YES];
-
 }
 
 @end
