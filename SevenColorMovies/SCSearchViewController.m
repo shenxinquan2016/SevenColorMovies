@@ -19,7 +19,10 @@ const CGFloat StatusBarHeight = 20.0f;
 const CGFloat LabelWidth = 100;
 
 @interface SCSearchViewController ()<UIScrollViewDelegate>
-
+/** 标题栏scrollView */
+@property (nonatomic, strong) UIScrollView *titleScroll;
+/** 内容栏scrollView */
+@property (nonatomic, strong) UIScrollView *contentScroll;
 
 /** 标题数组 */
 @property (nonatomic, strong) NSMutableArray *titleArr;
@@ -35,10 +38,11 @@ const CGFloat LabelWidth = 100;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;//很大的坑
-    self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     
+    [self.leftBBI setTitle: @"搜索" forState: UIControlStateNormal];
+
     //1.返回按钮
-    [self addLeftBBI];
+    
     //2.添加搜索框
     [self addSearchBBI];
     //3.初始化数组
@@ -91,29 +95,10 @@ const CGFloat LabelWidth = 100;
     _searchBBI = btn;
     
 }
-- (void)addLeftBBI {
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 60, 22);
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    [btn setImage:[UIImage imageNamed:@"Back_Arrow"] forState:UIControlStateNormal];
-    [btn setTitle: @"搜索" forState: UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize: 19.0];
-    [btn setTitleColor:[UIColor colorWithHex:@"#878889"]forState:UIControlStateNormal];
-    btn.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
-    [btn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftNegativeSpacer = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                           target:nil action:nil];
-    leftNegativeSpacer.width = -6;
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftNegativeSpacer,item, nil];
-    _leftBBI = btn;
-    
-}
 
-- (void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+
+
+
 
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView{

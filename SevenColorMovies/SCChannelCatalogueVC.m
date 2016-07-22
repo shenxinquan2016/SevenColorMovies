@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/7/21.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//点播栏 —— 更多
 
 #import "SCChannelCatalogueVC.h"
 #import "SCChannelCatalogueCell.h"
@@ -68,7 +68,7 @@ static NSString *const footerId = @"footerId";
     _collView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     _collView.dataSource = self;
     _collView.delegate = self;
-    _collView.scrollEnabled = NO;//禁止滚动
+//    _collView.scrollEnabled = NO;//禁止滚动
     [self.view addSubview:_collView];
     
     // 注册cell、sectionHeader、sectionFooter

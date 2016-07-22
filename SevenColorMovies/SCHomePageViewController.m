@@ -13,6 +13,7 @@
 #import "SCRankTopCell.h"//收看记录cell
 #import "SCRankViewController.h"//排行
 #import "SCChannelCatalogueVC.h"
+#import "SCChannelCategoryVC.h"
 
 
 
@@ -205,17 +206,26 @@ static  CGFloat const kSectionTwoCellHeight = 185.f;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     SCDemandChannelItemCell *cell = [SCDemandChannelItemCell cellWithCollectionView:collectionView indexPath:indexPath];
-//    cell.channelName = _selDemandChannelArr[indexPath.row];
+    //    cell.channelName = _selDemandChannelArr[indexPath.row];
     
     return cell;
     
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] init];
-    moreView.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:moreView animated:YES];
     NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
+    if (indexPath.row == 7) {
+        SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] init];
+        moreView.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:moreView animated:YES];
+    }else{
+        
+        SCChannelCategoryVC *ChannelVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCChannelCategoryVC");
+        ChannelVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:ChannelVC animated:YES];
+        
+        
+    }
 }
 
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
@@ -95,7 +96,26 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CR8-6g-RcM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1756.5" y="102.5"/>
+            <point key="canvasLocation" x="1726.5" y="177.5"/>
+        </scene>
+        <!--Channel CategoryVC-->
+        <scene sceneID="2hZ-K0-WO7">
+            <objects>
+                <viewController storyboardIdentifier="SCChannelCategoryVC" id="jtf-Ox-k7u" customClass="SCChannelCategoryVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="veT-hL-mnr"/>
+                        <viewControllerLayoutGuide type="bottom" id="OYf-BH-6Cf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TCL-MO-puT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ivs-ng-1tr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2114.5" y="177.5"/>
         </scene>
     </scenes>
     <resources>
