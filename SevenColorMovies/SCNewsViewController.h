@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCBaseViewController.h"
 
-@interface SCNewsViewController : UIViewController
+@interface SCNewsViewController : SCBaseViewController
 
 @end

@@ -33,6 +33,7 @@ static const CGFloat LabelWidth = 100.f;
 
 static NSString *const cellId = @"cellId";
 
+#pragma mark-  ViewLife Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -46,6 +47,24 @@ static NSString *const cellId = @"cellId";
     [self constructContentView];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+
+}
+
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    self.navigationController.navigationBar.hidden = YES;
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCBaseViewController.h"
 
-@interface SCDiscoveryViewController : UIViewController
+@interface SCDiscoveryViewController : SCBaseViewController
 
 @end
