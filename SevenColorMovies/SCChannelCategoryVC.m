@@ -11,7 +11,7 @@
 #import "SCSlideHeaderLabel.h"
 #import "SCTeleplayPlayerVC.h"
 
-static const CGFloat TitleHeight = 60.0f;
+static const CGFloat TitleHeight = 50.0f;
 static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat LabelWidth = 90.f;
 

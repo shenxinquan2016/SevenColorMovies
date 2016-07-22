@@ -14,7 +14,7 @@
 
 
 
-const CGFloat TitleHeight = 60.0f;
+const CGFloat TitleHeight = 50.0f;
 const CGFloat StatusBarHeight = 20.0f;
 const CGFloat LabelWidth = 100;
 

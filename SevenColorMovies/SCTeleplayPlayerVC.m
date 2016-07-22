@@ -8,30 +8,36 @@
 
 #import "SCTeleplayPlayerVC.h"
 #import "SCSlideHeaderLabel.h"
+#import "SCMoiveAllEpisodesVC.h"
+#import "SCMoiveIntroduceVC.h"
+#import "SCMoiveRecommendationVC.h"
 
 
-static const CGFloat TitleHeight = 60.0f;
+static const CGFloat TitleHeight = 50.0f;
 static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat LabelWidth = 100.f;
 
-@interface SCTeleplayPlayerVC ()<UIScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
+@interface SCTeleplayPlayerVC ()<UIScrollViewDelegate>
 
 /** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *titleScroll;
 /** 内容栏scrollView */
 @property (nonatomic, strong) UIScrollView *contentScroll;
-@property (nonatomic, strong) UICollectionView *collView;
+
 /** 标题数组 */
 @property (nonatomic, strong) NSMutableArray *titleArr;
 /** 滑动短线 */
 @property (nonatomic, strong) CALayer *bottomLine;
-
+/** 滑动短线 */
+@property (nonatomic, copy) NSString *identifier;
+/** 标题数组 */
+@property (nonatomic, strong) NSMutableArray *subviewArr;
 
 @end
 
 @implementation SCTeleplayPlayerVC
 
-static NSString *const cellId = @"cellId";
+
 
 #pragma mark-  ViewLife Cycle
 - (void)viewDidLoad {
@@ -41,6 +47,7 @@ static NSString *const cellId = @"cellId";
     
     //3.初始化数组
     self.titleArr = [@[@"剧情",@"详情",@"精彩推荐"] copy];
+    _subviewArr = [NSMutableArray arrayWithCapacity:0];
     //4.添加滑动headerView
     [self constructSlideHeaderView];
     //5.添加contentScrllowView
@@ -57,13 +64,13 @@ static NSString *const cellId = @"cellId";
 }
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-
+    
 }
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
     self.navigationController.navigationBar.hidden = YES;
-
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -72,22 +79,6 @@ static NSString *const cellId = @"cellId";
 
 
 #pragma mark- private methods
-- (void)loadCollectionView{
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
-    _collView = [[UICollectionView alloc] initWithFrame:self.contentScroll.bounds collectionViewLayout:layout];
-    _collView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
-    _collView.alwaysBounceVertical=YES;
-    _collView.dataSource = self;
-    _collView.delegate = self;
-    
-    //    [_contentScroll addSubview:_collView];
-    
-    // 注册cell、sectionHeader、sectionFooter
-    [_collView registerNib:[UINib nibWithNibName:@"SCChannelCategoryCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
-    
-}
-
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView{
     
@@ -96,7 +87,7 @@ static NSString *const cellId = @"cellId";
     [self.view addSubview:backgroundView];
     
     self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake((kMainScreenWidth-LabelWidth*3)/2, 0, LabelWidth*3, TitleHeight)];//滚动窗口
-//    _titleScroll.backgroundColor = [UIColor greenColor];
+    //    _titleScroll.backgroundColor = [UIColor greenColor];
     self.titleScroll.showsHorizontalScrollIndicator = NO;
     self.titleScroll.showsVerticalScrollIndicator = NO;
     self.titleScroll.scrollsToTop = NO;
@@ -164,17 +155,30 @@ static NSString *const cellId = @"cellId";
     
     //添加子控制器
     for (int i=0 ; i<_titleArr.count ;i++){
-        UIViewController *vc = [[UIViewController alloc] init];
-//        vc.view.backgroundColor = [UIColor redColor];
-        
-        [self loadCollectionView];
-        [vc.view addSubview:_collView];
-        
-        if (i == 0) {
-            [vc.view setFrame:_contentScroll.bounds];
-            [_contentScroll addSubview:vc.view];
+        switch (i) {
+            case 0:{//剧集
+                SCMoiveAllEpisodesVC *episodesVC = [[SCMoiveAllEpisodesVC alloc] init];
+                [episodesVC.view setFrame:_contentScroll.bounds];
+                [_contentScroll addSubview:episodesVC.view]; //添加到scrollView
+                [self addChildViewController:episodesVC];
+                
+                break;
+            }
+            case 1:{//详情
+                SCMoiveIntroduceVC *introduceVC = [[SCMoiveIntroduceVC alloc] init];
+                [self addChildViewController:introduceVC];
+                
+                break;
+            }
+            case 2:{//精彩推荐
+                SCMoiveRecommendationVC *recommendationView = [[SCMoiveRecommendationVC alloc] init];
+                [self addChildViewController:recommendationView];
+                break;
+            }
+            default:
+                break;
         }
-        [self addChildViewController:vc];
+        
     }
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
@@ -250,79 +254,6 @@ static NSString *const cellId = @"cellId";
     float modulus = scrollView.contentOffset.x/_contentScroll.contentSize.width;
     _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
-}
-
-#pragma mark ---- UICollectionViewDataSource
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
-
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return 16;
-}
-
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
-    
-    return cell;
-}
-
-#pragma mark ---- UICollectionViewDelegateFlowLayout
-/** item Size */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return (CGSize){(kMainScreenWidth/3-10),165};
-}
-
-/** CollectionView四周间距 EdgeInsets */
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(5, 10, 0, 10);
-}
-
-/** item水平间距 */
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 5.f;
-}
-
-/** item垂直间距 */
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0.f;
-}
-
-/** section Header 尺寸 */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    return (CGSize){kMainScreenWidth,0};
-}
-
-/** section Footer 尺寸*/
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
-{
-    return (CGSize){kMainScreenWidth,80};
-}
-
-#pragma mark ---- UICollectionViewDelegate
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-
-// 选中某item
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"======点击=====");
 }
 
 @end
