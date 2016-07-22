@@ -45,10 +45,10 @@ static NSString *const cellId = @"cellId";
     //4.添加滑动headerView
     [self constructSlideHeaderView];
 //    //5.添加contentScrllowView
-//    [self constructContentView];
+    [self constructContentView];
 
      //2.
-//    [self loadCollectionView];
+    [self loadCollectionView];
 
 }
 
@@ -67,6 +67,7 @@ static NSString *const cellId = @"cellId";
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     _collView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
+    _collView.alwaysBounceVertical=YES;
     _collView.dataSource = self;
     _collView.delegate = self;
     
@@ -140,6 +141,38 @@ static NSString *const cellId = @"cellId";
     [_contentScroll setContentOffset:offset animated:YES];
 }
 
+/** 添加正文内容页 */
+- (void)constructContentView{
+    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, StatusBarHeight+TitleHeight+63, kMainScreenWidth, kMainScreenHeight-StatusBarHeight-TitleHeight-63)];//滚动窗口
+    _contentScroll.scrollsToTop = NO;
+    _contentScroll.showsHorizontalScrollIndicator = NO;
+    _contentScroll.pagingEnabled = YES;
+    _contentScroll.delegate = self;
+    _contentScroll.backgroundColor = [UIColor redColor];
+    [self.view addSubview:_contentScroll];
+    
+    //添加子控制器
+    for (int i=0 ; i<_titleArr.count ;i++){
+//        switch (i){
+//            case 0:{
+//                SCOptionalVideoTableView *tableView = [[SCOptionalVideoTableView alloc] init];
+//                [tableView.view setFrame:_contentScroll.bounds];
+//                [_contentScroll addSubview:tableView.view];
+//                [self addChildViewController:tableView];
+//                break;
+//            }
+//            case 1:{
+//                SCPastVideoTableView *tableView = [[SCPastVideoTableView alloc] init];
+//                [self addChildViewController:tableView];
+//                break;
+//            }
+//            default:
+//                break;
+//        }
+    }
+    CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
+    _contentScroll.contentSize = CGSizeMake(contentX, 0);
+}
 
 
 
