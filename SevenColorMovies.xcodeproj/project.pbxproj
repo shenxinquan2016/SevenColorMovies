@@ -58,6 +58,9 @@
 		11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE83171D3CBA1B00886CF6 /* BaseNavigationController.m */; };
 		11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */; };
 		11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */; };
+		11C8CFBB1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFB71D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m */; };
+		11C8CFBC1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C8CFB81D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib */; };
+		11C8CFBD1D45157B00C04F38 /* SCRankTopRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFBA1D45157B00C04F38 /* SCRankTopRowTableViewCell.m */; };
 		11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */; };
 		11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */; };
 		11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */; };
@@ -65,8 +68,6 @@
 		11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BCB1D3DD88600012480 /* IMB_DownImageView.m */; };
 		11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BCE1D3DD8FE00012480 /* IMB_DownImageHelper.m */; };
 		11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */; };
-		11DC2BE41D3E1E0B00012480 /* SCRankTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BE21D3E1E0B00012480 /* SCRankTopCell.m */; };
-		11DC2BE51D3E1E0B00012480 /* SCRankTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BE31D3E1E0B00012480 /* SCRankTopCell.xib */; };
 		11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB481D3F16E100AAC216 /* SCBaseViewController.m */; };
 		11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */; };
 		E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */; };
@@ -183,6 +184,11 @@
 		11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationInteractiveTransition.m; sourceTree = "<group>"; };
 		11BE831C1D3CBB3E00886CF6 /* NavigationPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationPopAnimation.h; sourceTree = "<group>"; };
 		11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationPopAnimation.m; sourceTree = "<group>"; };
+		11C8CFB61D45157B00C04F38 /* SCRankTopRowCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankTopRowCollectionViewCell.h; sourceTree = "<group>"; };
+		11C8CFB71D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRankTopRowCollectionViewCell.m; sourceTree = "<group>"; };
+		11C8CFB81D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCRankTopRowCollectionViewCell.xib; sourceTree = "<group>"; };
+		11C8CFB91D45157B00C04F38 /* SCRankTopRowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankTopRowTableViewCell.h; sourceTree = "<group>"; };
+		11C8CFBA1D45157B00C04F38 /* SCRankTopRowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRankTopRowTableViewCell.m; sourceTree = "<group>"; };
 		11DC2BBF1D3DCDEA00012480 /* SCDemandChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelCell.h; sourceTree = "<group>"; };
 		11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDemandChannelCell.m; sourceTree = "<group>"; };
 		11DC2BC21D3DCE6700012480 /* SCDemandChannelItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelItemCell.h; sourceTree = "<group>"; };
@@ -195,9 +201,6 @@
 		11DC2BCE1D3DD8FE00012480 /* IMB_DownImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMB_DownImageHelper.m; sourceTree = "<group>"; };
 		11DC2BD61D3DFC6800012480 /* UIImageView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Addition.h"; sourceTree = "<group>"; };
 		11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Addition.m"; sourceTree = "<group>"; };
-		11DC2BE11D3E1E0B00012480 /* SCRankTopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankTopCell.h; sourceTree = "<group>"; };
-		11DC2BE21D3E1E0B00012480 /* SCRankTopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRankTopCell.m; sourceTree = "<group>"; };
-		11DC2BE31D3E1E0B00012480 /* SCRankTopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCRankTopCell.xib; sourceTree = "<group>"; };
 		11FACB471D3F16E100AAC216 /* SCBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBaseViewController.h; sourceTree = "<group>"; };
 		11FACB481D3F16E100AAC216 /* SCBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseViewController.m; sourceTree = "<group>"; };
 		11FACB4A1D3F19A000AAC216 /* SCSearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchBarView.h; sourceTree = "<group>"; };
@@ -509,9 +512,11 @@
 		11A1D06D1D3F5FF800E2BA0D /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				11DC2BE11D3E1E0B00012480 /* SCRankTopCell.h */,
-				11DC2BE21D3E1E0B00012480 /* SCRankTopCell.m */,
-				11DC2BE31D3E1E0B00012480 /* SCRankTopCell.xib */,
+				11C8CFB91D45157B00C04F38 /* SCRankTopRowTableViewCell.h */,
+				11C8CFBA1D45157B00C04F38 /* SCRankTopRowTableViewCell.m */,
+				11C8CFB61D45157B00C04F38 /* SCRankTopRowCollectionViewCell.h */,
+				11C8CFB71D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m */,
+				11C8CFB81D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib */,
 				11A1D06E1D3F62E800E2BA0D /* SCRankOtherCell.h */,
 				11A1D06F1D3F62E800E2BA0D /* SCRankOtherCell.m */,
 				11A1D0711D3F62FD00E2BA0D /* SCRankOtherCell.xib */,
@@ -965,13 +970,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11DC2BE51D3E1E0B00012480 /* SCRankTopCell.xib in Resources */,
 				11DC2BC81D3DD4A200012480 /* SCDemandChannelItemBigCell.xib in Resources */,
 				113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */,
 				116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */,
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11A1D0721D3F62FD00E2BA0D /* SCRankOtherCell.xib in Resources */,
+				11C8CFBC1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib in Resources */,
 				115A210D1D41BD2F0097DE57 /* SCChannelCategoryCell.xib in Resources */,
 				11BB37D01D38E5C00002D487 /* Discovery.storyboard in Resources */,
 				11BB37841D38B9A00002D487 /* Assets.xcassets in Resources */,
@@ -1091,11 +1096,12 @@
 				113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */,
 				115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */,
 				115A21131D41F5BF0097DE57 /* SCTeleplayPlayerVC.m in Sources */,
+				11C8CFBD1D45157B00C04F38 /* SCRankTopRowTableViewCell.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
-				11DC2BE41D3E1E0B00012480 /* SCRankTopCell.m in Sources */,
 				116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */,
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
+				11C8CFBB1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m in Sources */,
 				1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

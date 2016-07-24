@@ -10,7 +10,10 @@
 #import "SCSycleBanner.h"
 #import "SCDemandChannelCell.h" //tableviewCell
 #import "SCDemandChannelItemCell.h"//colectionViewCell
-#import "SCRankTopCell.h"//收看记录cell
+
+
+#import "SCRankOtherCell.h"
+
 #import "SCRankViewController.h"//排行
 #import "SCChannelCatalogueVC.h"
 #import "SCChannelCategoryVC.h"
@@ -172,7 +175,7 @@ static  CGFloat const kSectionTwoCellHeight = 185.f;
         
     }else{
         
-        SCRankTopCell *cell = [SCRankTopCell cellWithTableView:tableView];
+        SCRankOtherCell *cell = [SCRankOtherCell cellWithTableView:tableView];
         
         return cell;
     }

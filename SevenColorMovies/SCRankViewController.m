@@ -7,15 +7,16 @@
 //
 
 #import "SCRankViewController.h"
-#import "SCRankTopCell.h"
 #import "SCRankOtherCell.h"
 #import "SCTeleplayPlayerVC.h"
+#import "SCRankTopRowTableViewCell.h"
+#import "SCRankTopRowCollectionViewCell.h"
 
 
 static  CGFloat const kRankTopCellHeight = 185.f;
 static  CGFloat const kRankOtherCellHeight = 50.f;
 
-@interface SCRankViewController()<UITableViewDelegate,UITableViewDataSource>
+@interface SCRankViewController()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /** tableView数据源 */
@@ -53,7 +54,7 @@ static  CGFloat const kRankOtherCellHeight = 50.f;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 0) {
-        SCRankTopCell *cell = [SCRankTopCell cellWithTableView:tableView];
+        SCRankTopRowTableViewCell *cell = [SCRankTopRowTableViewCell cellWithTableView:tableView];
         return cell;
     }else{
         SCRankOtherCell *cell = [SCRankOtherCell cellWithTableView:tableView];
@@ -84,6 +85,44 @@ static  CGFloat const kRankOtherCellHeight = 50.f;
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     return [self addSectionHeaderViewWithTitle:_sectionArr[section]];
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(SCRankTopRowTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0) {
+        [cell setCollectionViewDataSourceDelegate:self indexPath:indexPath];
+    }
+}
+
+#pragma mark  UICollectionViewDataSource && delegate
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 8;
+}
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    SCRankTopRowCollectionViewCell *cell = [SCRankTopRowCollectionViewCell cellWithCollectionView:collectionView indexPath:indexPath];
+    //    cell.channelName = _selDemandChannelArr[indexPath.row];
+    
+    return cell;
+    
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
+//    if (indexPath.row == 7) {
+//        SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] init];
+//        moreView.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:moreView animated:YES];
+//    }else{
+//        
+//        SCChannelCategoryVC *ChannelVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCChannelCategoryVC");
+//        ChannelVC.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:ChannelVC animated:YES];
+//        
+//        
+//    }
 }
 
 #pragma mark- Private methods
