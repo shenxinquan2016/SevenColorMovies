@@ -19,7 +19,8 @@ static NSString *const cellId = @"cellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blueColor];
+//    self.view.backgroundColor = [UIColor blueColor];
+    [self loadCollectionView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,7 +40,7 @@ static NSString *const cellId = @"cellId";
     _collView.dataSource = self;
     _collView.delegate = self;
     
-    
+    [self.view addSubview:_collView];
     // 注册cell、sectionHeader、sectionFooter
     [_collView registerNib:[UINib nibWithNibName:@"SCChannelCategoryCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
     

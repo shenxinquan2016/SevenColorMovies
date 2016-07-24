@@ -34,6 +34,8 @@
 		116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476031D40BA3D00A3BC1C /* SCChannelCatalogueVC.m */; };
 		116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */; };
 		1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */; };
+		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
+		1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
 		11A1D06C1D3F508E00E2BA0D /* SCRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D06B1D3F508E00E2BA0D /* SCRankViewController.m */; };
 		11A1D0701D3F62E800E2BA0D /* SCRankOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D06F1D3F62E800E2BA0D /* SCRankOtherCell.m */; };
@@ -137,6 +139,9 @@
 		116476061D40CA8900A3BC1C /* SCChannelCatalogueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelCatalogueCell.h; sourceTree = "<group>"; };
 		116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCatalogueCell.m; sourceTree = "<group>"; };
 		116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCChannelCatalogueCell.xib; sourceTree = "<group>"; };
+		1196A0701D42650A00B3C5EF /* SCMovieEpisodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMovieEpisodeCell.h; sourceTree = "<group>"; };
+		1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMovieEpisodeCell.m; sourceTree = "<group>"; };
+		1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMovieEpisodeCell.xib; sourceTree = "<group>"; };
 		11A1D0661D3F433900E2BA0D /* UIView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addition.h"; sourceTree = "<group>"; };
 		11A1D0671D3F433900E2BA0D /* UIView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Addition.m"; sourceTree = "<group>"; };
 		11A1D06A1D3F508E00E2BA0D /* SCRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankViewController.h; sourceTree = "<group>"; };
@@ -364,12 +369,9 @@
 		115A211A1D4218440097DE57 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				115A21251D4228750097DE57 /* SCMoiveAllEpisodesVC.h */,
-				115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */,
-				115A21281D42290C0097DE57 /* SCMoiveIntroduceVC.h */,
-				115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */,
-				115A212B1D42293D0097DE57 /* SCMoiveRecommendationVC.h */,
-				115A212C1D42293D0097DE57 /* SCMoiveRecommendationVC.m */,
+				1196A06E1D42640C00B3C5EF /* MoiveAllEpisodes */,
+				1196A06D1D42640800B3C5EF /* MoiveDetial */,
+				1196A06C1D4263F800B3C5EF /* MoiveRecommendation */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -453,6 +455,44 @@
 				116476061D40CA8900A3BC1C /* SCChannelCatalogueCell.h */,
 				116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */,
 				116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		1196A06C1D4263F800B3C5EF /* MoiveRecommendation */ = {
+			isa = PBXGroup;
+			children = (
+				115A212B1D42293D0097DE57 /* SCMoiveRecommendationVC.h */,
+				115A212C1D42293D0097DE57 /* SCMoiveRecommendationVC.m */,
+			);
+			name = MoiveRecommendation;
+			sourceTree = "<group>";
+		};
+		1196A06D1D42640800B3C5EF /* MoiveDetial */ = {
+			isa = PBXGroup;
+			children = (
+				115A21281D42290C0097DE57 /* SCMoiveIntroduceVC.h */,
+				115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */,
+			);
+			name = MoiveDetial;
+			sourceTree = "<group>";
+		};
+		1196A06E1D42640C00B3C5EF /* MoiveAllEpisodes */ = {
+			isa = PBXGroup;
+			children = (
+				115A21251D4228750097DE57 /* SCMoiveAllEpisodesVC.h */,
+				115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */,
+				1196A06F1D42649F00B3C5EF /* Cell */,
+			);
+			name = MoiveAllEpisodes;
+			sourceTree = "<group>";
+		};
+		1196A06F1D42649F00B3C5EF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1196A0701D42650A00B3C5EF /* SCMovieEpisodeCell.h */,
+				1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */,
+				1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -935,6 +975,7 @@
 				115A210D1D41BD2F0097DE57 /* SCChannelCategoryCell.xib in Resources */,
 				11BB37D01D38E5C00002D487 /* Discovery.storyboard in Resources */,
 				11BB37841D38B9A00002D487 /* Assets.xcassets in Resources */,
+				1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */,
 				11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */,
 				11BB37D21D38E5C90002D487 /* News.storyboard in Resources */,
 				11BB37C81D38E3A00002D487 /* devEnvironment.plist in Resources */,
@@ -1055,6 +1096,7 @@
 				116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */,
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
+				1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

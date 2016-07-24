@@ -30,8 +30,7 @@ static const CGFloat LabelWidth = 100.f;
 @property (nonatomic, strong) CALayer *bottomLine;
 /** 滑动短线 */
 @property (nonatomic, copy) NSString *identifier;
-/** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *subviewArr;
+
 
 @end
 
@@ -47,7 +46,6 @@ static const CGFloat LabelWidth = 100.f;
     
     //3.初始化数组
     self.titleArr = [@[@"剧情",@"详情",@"精彩推荐"] copy];
-    _subviewArr = [NSMutableArray arrayWithCapacity:0];
     //4.添加滑动headerView
     [self constructSlideHeaderView];
     //5.添加contentScrllowView
@@ -56,11 +54,13 @@ static const CGFloat LabelWidth = 100.f;
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
 }
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
@@ -69,7 +69,7 @@ static const CGFloat LabelWidth = 100.f;
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.navigationController.navigationBar.hidden = YES;
+    
     
 }
 - (void)didReceiveMemoryWarning {
