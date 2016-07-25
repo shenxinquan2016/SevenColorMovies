@@ -15,7 +15,7 @@
 #import "UIImage+Addition.h"
 #import "UIColor+Addition.h"
 #import "UIImageView+Addition.h"
-
+#import "MJExtension.h"
 
 
 #if __has_feature(objc_arc)

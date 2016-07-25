@@ -200,7 +200,7 @@ static NSString *const footerId = @"footerId";
         {
             headerView = [[UICollectionReusableView alloc] init];
         }
-//        headerView.backgroundColor = [UIColor grayColor];
+        //        headerView.backgroundColor = [UIColor grayColor];
         UIView *view = [self addSectionHeaderViewWithTitle:_sectionArr[indexPath.section] tag:indexPath.section];
         [headerView addSubview:view];
         return headerView;
@@ -313,8 +313,6 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark- Getters and Setters
 - (UICollectionView *)collView{
-    
-//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     SCHomePageFlowLayout *layout = [[SCHomePageFlowLayout alloc]init]; // 布局对象
     layout.alternateDecorationViews = YES;
     // 读取xib背景
@@ -322,18 +320,17 @@ static NSString *const footerId = @"footerId";
     
     _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     _collView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
-
+    
     _collView.alwaysBounceVertical=YES;
     _collView.dataSource = self;
     _collView.delegate = self;
+   
     _collView.contentInset = UIEdgeInsetsMake(150, 0, 0, 0);//设置整体的外边距
-
     //添加banner页
     _bannerView = [[SCSycleBanner alloc] initWithView:nil];
     _bannerView.delegate = self;
     [_collView addSubview:_bannerView];
     _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-
     
     // 注册cell、sectionHeader、sectionFooter
     [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];//点播栏cell

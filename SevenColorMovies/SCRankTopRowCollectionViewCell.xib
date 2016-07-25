@@ -19,7 +19,7 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="33v-1D-28D">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="假数据" translatesAutoresizingMaskIntoConstraints="NO" id="33v-1D-28D">
                         <rect key="frame" x="0.0" y="0.0" width="103" height="143"/>
                     </imageView>
                 </subviews>
@@ -30,6 +30,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="Image" width="107" height="145"/>
+        <image name="假数据" width="105" height="141"/>
     </resources>
 </document>
