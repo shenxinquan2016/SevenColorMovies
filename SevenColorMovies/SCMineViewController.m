@@ -57,7 +57,7 @@
 - (void)setTableView{
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor colorWithHex:@"#F0F1F2"];
-    _tableView.scrollEnabled = NO;
+//    _tableView.scrollEnabled = NO;
     
 }
 
@@ -100,8 +100,8 @@
 
 #pragma mark -  UITableViewDataDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) return 80.f;
-    else return 54.f;
+    if (indexPath.section == 0) return 90.f;
+    else return 56.f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
