@@ -15,6 +15,9 @@
 		113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 113F8D9A1D3C77E000B12D39 /* HomePage.storyboard */; };
 		113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */; };
 		113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */; };
+		11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458E8D1D45D7E000EBD16D /* SCHomePageFlowLayout.m */; };
+		11458E921D45D86800EBD16D /* SCHomePageSectionBGReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458E901D45D86800EBD16D /* SCHomePageSectionBGReusableView.m */; };
+		11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11458E911D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib */; };
 		115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */; };
 		115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */; };
 		115A210C1D41BD2F0097DE57 /* SCChannelCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A210A1D41BD2F0097DE57 /* SCChannelCategoryCell.m */; };
@@ -106,6 +109,11 @@
 		113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addition.m"; sourceTree = "<group>"; };
 		113F8D9F1D3CAAC200B12D39 /* UIColor+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Addition.h"; sourceTree = "<group>"; };
 		113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Addition.m"; sourceTree = "<group>"; };
+		11458E8C1D45D7E000EBD16D /* SCHomePageFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHomePageFlowLayout.h; sourceTree = "<group>"; };
+		11458E8D1D45D7E000EBD16D /* SCHomePageFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHomePageFlowLayout.m; sourceTree = "<group>"; };
+		11458E8F1D45D86800EBD16D /* SCHomePageSectionBGReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHomePageSectionBGReusableView.h; sourceTree = "<group>"; };
+		11458E901D45D86800EBD16D /* SCHomePageSectionBGReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHomePageSectionBGReusableView.m; sourceTree = "<group>"; };
+		11458E911D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCHomePageSectionBGReusableView.xib; sourceTree = "<group>"; };
 		115A21021D41B62D0097DE57 /* SCChannelCategoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelCategoryVC.h; sourceTree = "<group>"; };
 		115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCategoryVC.m; sourceTree = "<group>"; };
 		115A21051D41B9750097DE57 /* SCOtherBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOtherBaseViewController.h; sourceTree = "<group>"; };
@@ -831,6 +839,11 @@
 				11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */,
 				11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */,
 				11DC2BC71D3DD4A200012480 /* SCDemandChannelItemBigCell.xib */,
+				11458E8C1D45D7E000EBD16D /* SCHomePageFlowLayout.h */,
+				11458E8D1D45D7E000EBD16D /* SCHomePageFlowLayout.m */,
+				11458E8F1D45D86800EBD16D /* SCHomePageSectionBGReusableView.h */,
+				11458E901D45D86800EBD16D /* SCHomePageSectionBGReusableView.m */,
+				11458E911D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -974,6 +987,7 @@
 				113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */,
 				116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */,
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
+				11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */,
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11A1D0721D3F62FD00E2BA0D /* SCRankOtherCell.xib in Resources */,
 				11C8CFBC1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib in Resources */,
@@ -1059,6 +1073,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */,
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
 				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
 				116475F91D4098EF00A3BC1C /* SCPastVideoTableViewCell.m in Sources */,
@@ -1066,6 +1081,7 @@
 				11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */,
 				113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */,
 				11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */,
+				11458E921D45D86800EBD16D /* SCHomePageSectionBGReusableView.m in Sources */,
 				116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */,
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,

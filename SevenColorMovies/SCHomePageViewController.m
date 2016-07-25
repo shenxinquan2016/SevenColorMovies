@@ -10,6 +10,8 @@
 #import "SCSycleBanner.h"
 #import "SCDemandChannelItemCell.h"//section 0 cell
 #import "SCRankTopRowCollectionViewCell.h"//其他cell
+#import "SCHomePageFlowLayout.h"
+#import "SCHomePageSectionBGReusableView.h"
 
 #import "SCRankViewController.h"//排行
 #import "SCChannelCatalogueVC.h"//点播栏目更多
@@ -161,7 +163,7 @@ static NSString *const footerId = @"footerId";
 
 
 
-#pragma mark ---- UICollectionView  DataSource && DataDelegate
+#pragma mark ---- UICollectionView  DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return _sectionArr.count;
 }
@@ -218,28 +220,6 @@ static NSString *const footerId = @"footerId";
     return nil;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
-    if (indexPath.section ==0) {//点播栏
-        if (indexPath.row == 7) {
-            SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] init];
-            moreView.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:moreView animated:YES];
-        }else{
-            
-            SCChannelCategoryVC *ChannelVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCChannelCategoryVC");
-            ChannelVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:ChannelVC animated:YES];
-        }
-        
-    }else{
-        
-        
-        
-    }
-}
-
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
 /** item Size */
@@ -252,21 +232,19 @@ static NSString *const footerId = @"footerId";
     
 }
 
-/** CollectionView四周间距 EdgeInsets */
+/** CollectionView Section 四周间距 EdgeInsets */
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(5, 5, 5, 5);
+    return UIEdgeInsetsMake(15, 5, 0, 5);
 }
 
 /** item水平间距 */
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     return 5.f;
 }
 
 /** item垂直间距 */
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{   if (section == 0){
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{   if (section == 0){
     return 0;
 }else{
     return 0;
@@ -289,6 +267,31 @@ static NSString *const footerId = @"footerId";
     return (CGSize){kMainScreenWidth,0};
 }
 
+#pragma mark ---- UICollectionView DataDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
+    if (indexPath.section ==0) {//点播栏
+        if (indexPath.row == 7) {
+            SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] init];
+            moreView.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:moreView animated:YES];
+        }else{
+            
+            SCChannelCategoryVC *ChannelVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCChannelCategoryVC");
+            ChannelVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ChannelVC animated:YES];
+        }
+        
+    }else{
+        
+        NSLog(@"======点击=====");
+        SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+        teleplayPlayer.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:teleplayPlayer animated:YES];
+        
+    }
+}
 
 
 
@@ -311,13 +314,26 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Getters and Setters
 - (UICollectionView *)collView{
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    SCHomePageFlowLayout *layout = [[SCHomePageFlowLayout alloc]init]; // 布局对象
+    layout.alternateDecorationViews = YES;
+    // 读取xib背景
+    layout.decorationViewOfKinds = @[@"SCHomePageSectionBGReusableView"];
+    
     _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     _collView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
+
     _collView.alwaysBounceVertical=YES;
     _collView.dataSource = self;
     _collView.delegate = self;
-    
+    _collView.contentInset = UIEdgeInsetsMake(150, 0, 0, 0);//设置整体的外边距
+
+    //添加banner页
+    _bannerView = [[SCSycleBanner alloc] initWithView:nil];
+    _bannerView.delegate = self;
+    [_collView addSubview:_bannerView];
+    _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
+
     
     // 注册cell、sectionHeader、sectionFooter
     [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];//点播栏cell
