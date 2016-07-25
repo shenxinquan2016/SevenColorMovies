@@ -10,11 +10,6 @@
 
 @interface SCMineTopCell()
 
-@property (weak, nonatomic) IBOutlet UIImageView *leftImg;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *bottomLine;
-
 @end
 
 
@@ -40,4 +35,8 @@
     return cell;
 }
 
+- (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath{
+    
+    
+}
 @end

@@ -96,9 +96,9 @@
 - (NSArray *)dataSource{
     if (!_dataSource) {
         NSArray *array = @[@[@{@"leftImg":@"Scan",@"title":@"扫一扫",@"isShowBottmLine":@"YES"}],
-                           @[@{@"leftImg":@"RemoteControl",@"title":@"遥控器",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"DLNA",@"title":@"DLNA",@"isShowBottmLine":@"YES"}],
-                           @[@{@"leftImg":@"Activity",@"title":@"活动专区",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Game",@"title":@"游戏中心",@"isShowBottmLine":@"YES"}],
-                        @[@{@"leftImg":@"Application",@"title":@"应用中心",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Live",@"title":@"直播伴侣",@"isShowBottmLine":@"YES"}]];
+                         @[@{@"leftImg":@"RemoteControl",@"title":@"遥控器",@"isShowBottmLine":@"NO"},                          @{@"leftImg":@"DLNA",@"title":@"DLNA",@"isShowBottmLine":@"YES"}],
+                         @[@{@"leftImg":@"Activity",@"title":@"活动专区",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Game",@"title":@"游戏中心",@"isShowBottmLine":@"YES"}],
+                         @[@{@"leftImg":@"Application",@"title":@"应用中心",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Live",@"title":@"直播伴侣",@"isShowBottmLine":@"YES"}]];
         _dataSource = array;
     }
     return _dataSource;

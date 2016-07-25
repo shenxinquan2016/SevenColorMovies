@@ -27,7 +27,7 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SearchImg" translatesAutoresizingMaskIntoConstraints="NO" id="KVO-CB-HZP">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Game" translatesAutoresizingMaskIntoConstraints="NO" id="KVO-CB-HZP">
                         <rect key="frame" x="9" y="5" width="25" height="25"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Right_single_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="U3z-vx-Zki">
@@ -35,11 +35,16 @@
                     </imageView>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="bottomLine" destination="5yv-Il-6Xz" id="W1F-aN-xdF"/>
+                <outlet property="leftImg" destination="KVO-CB-HZP" id="BxL-cx-LRO"/>
+                <outlet property="titleLabel" destination="Ymz-AC-Z2F" id="Ppe-zH-rN0"/>
+            </connections>
             <point key="canvasLocation" x="313" y="204"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Game" width="19" height="17"/>
         <image name="Right_single_arrow" width="6" height="11"/>
-        <image name="SearchImg" width="14" height="14"/>
     </resources>
 </document>

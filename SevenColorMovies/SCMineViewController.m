@@ -76,35 +76,26 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0){
-        SCMineTopCell *cell = [SCMineTopCell cellWithTableView:tableView];
-        if (indexPath.section < self.dataSource.count) {
-            NSArray *array = self.dataSource[indexPath.section];
-            if (indexPath.row < array.count) {
-                NSDictionary *dict = [array objectAtIndex:indexPath.row];
+    
+    if (indexPath.section < self.dataSource.count) {
+        NSArray *array = self.dataSource[indexPath.section];
+        if (indexPath.row < array.count) {
+            NSDictionary *dict = [array objectAtIndex:indexPath.row];
+            if (indexPath.section == 0) {
+                SCMineTopCell *cell = [SCMineTopCell cellWithTableView:tableView];
                 
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
+                
+            }else{
+                SCMineOtherCell *cell = [SCMineOtherCell cellWithTableView:tableView];
+                [cell setModel:dict IndexPath:indexPath];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
             }
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-        
-    }else{
-        
-        SCMineOtherCell *cell = [SCMineOtherCell cellWithTableView:tableView];
-        if (indexPath.section < self.dataSource.count) {
-            NSArray *array = self.dataSource[indexPath.section];
-            if (indexPath.row < array.count) {
-                NSDictionary *dict = [array objectAtIndex:indexPath.row];
-                
-            }
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
     }
-    
-    
-    
-    
+    return nil;
 }
 
 #pragma mark -  UITableViewDataDelegate
@@ -133,10 +124,12 @@
 #pragma mark- Getters and Setters
 - (NSArray *)dataSource{
     if (!_dataSource) {
-        NSArray *array = @[@[@{@"leftImg":@"Scan",@"title":@"扫一扫",@"isShowBottmLine":@"YES"}],
-                           @[@{@"leftImg":@"RemoteControl",@"title":@"遥控器",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"DLNA",@"title":@"DLNA",@"isShowBottmLine":@"YES"}],
-                           @[@{@"leftImg":@"Activity",@"title":@"活动专区",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Game",@"title":@"游戏中心",@"isShowBottmLine":@"YES"}],
-                           @[@{@"leftImg":@"Application",@"title":@"应用中心",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Live",@"title":@"直播伴侣",@"isShowBottmLine":@"YES"}]];
+        NSArray *array = @[@[@{@"Default_Avatar" : @"Hi,您好"}],
+                           @[@{@"Associator" : @"会员中心"}],
+                           @[@{@"Moive_list" : @"我的节目单"}, @{@"Watch_Record" : @"观看记录"}, @{@"Collection" : @"我的收藏"}],
+                           @[@{@"Download" : @"下载管理"}],
+                           @[@{@"Message" : @"消息"}],
+                           @[@{@"Setting" : @"设置"}]];
         _dataSource = array;
     }
     return _dataSource;

@@ -10,5 +10,8 @@
 
 @interface SCMineTopCell : UITableViewCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView;
++ (nonnull instancetype)cellWithTableView:(nonnull UITableView *)tableView;
+
+- (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath;
+
 @end
