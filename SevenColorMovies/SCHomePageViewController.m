@@ -8,25 +8,21 @@
 
 #import "SCHomePageViewController.h"
 #import "SCSycleBanner.h"
-#import "SCDemandChannelCell.h" //tableviewCell
-#import "SCDemandChannelItemCell.h"//colectionViewCell
-
-
-#import "SCRankOtherCell.h"
+#import "SCDemandChannelItemCell.h"//section 0 cell
+#import "SCRankTopRowCollectionViewCell.h"//其他cell
 
 #import "SCRankViewController.h"//排行
-#import "SCChannelCatalogueVC.h"
-#import "SCChannelCategoryVC.h"
+#import "SCChannelCatalogueVC.h"//点播栏目更多
+#import "SCChannelCategoryVC.h"//节目频道分类
+
 #import "SCTeleplayPlayerVC.h"
 
 
 
-static  CGFloat const kSectionOneCellHeight = 185.f;
-static  CGFloat const kSectionTwoCellHeight = 185.f;
 
-@interface SCHomePageViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,SDCycleScrollViewDelegate>
+@interface SCHomePageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate>
 
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UICollectionView *collView;
 /** tableView数据源 */
 @property (nonatomic, strong) NSArray *dataSource;
 /** tableView数据源 */
@@ -41,6 +37,12 @@ static  CGFloat const kSectionTwoCellHeight = 185.f;
 @end
 
 @implementation SCHomePageViewController
+
+static NSString *const cellId = @"cellId";
+static NSString *const cellIdOther = @"cellIdOther";
+static NSString *const headerId = @"headerId";
+static NSString *const footerId = @"footerId";
+
 
 #pragma mark-  ViewLife Cycle
 - (void)viewDidLoad {
@@ -57,8 +59,9 @@ static  CGFloat const kSectionTwoCellHeight = 185.f;
     
     _sectionArr = [NSMutableArray arrayWithObjects:@"", @"观看记录",@"电影",@"电视剧",@"少儿剧场",@"动漫",@"综艺",nil];
     _selDemandChannelArr = [NSMutableArray arrayWithObjects:@"直播", @"电影",@"电视剧",@"少儿",@"游戏",@"动漫",@"综艺",@"更多",nil];
-    //3.添加tableView
-    [self addTableView];
+    //3.添加collectionView
+    
+    [self addCollView];
     
 }
 
@@ -70,7 +73,7 @@ static  CGFloat const kSectionTwoCellHeight = 185.f;
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-   
+    
 }
 
 - (void)viewWillLayoutSubviews{
@@ -92,9 +95,11 @@ static  CGFloat const kSectionTwoCellHeight = 185.f;
 #pragma mark- Public methods
 
 #pragma mark- Private methods
-- (void)addTableView{
-    [self.view addSubview:self.tableView];
-    [_tableView setFrame:self.view.bounds];
+
+
+- (void)addCollView{
+    [self.view addSubview:self.collView];
+    [_collView setFrame:self.view.bounds];
 }
 
 //section header
@@ -155,96 +160,132 @@ static  CGFloat const kSectionTwoCellHeight = 185.f;
 }
 
 
-#pragma mark- UITableViewDataSource && UITableViewDataDelegate
--(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tableView
+
+#pragma mark ---- UICollectionView  DataSource && DataDelegate
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return _sectionArr.count;
+    return 5;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return 1;
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 10;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 0) {//频道点播
-        SCDemandChannelCell *cell = [SCDemandChannelCell cellWithTableView:tableView];
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+        //        cell.backgroundColor = [UIColor purpleColor];
         
         return cell;
         
     }else{
-        
-        SCRankOtherCell *cell = [SCRankOtherCell cellWithTableView:tableView];
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
+        //        cell.backgroundColor = [UIColor purpleColor];
         
         return cell;
+        
+    }
+    return nil;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if([kind isEqualToString:UICollectionElementKindSectionHeader])
+    {
+        UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerId forIndexPath:indexPath];
+        if(headerView == nil)
+        {
+            headerView = [[UICollectionReusableView alloc] init];
+        }
+        headerView.backgroundColor = [UIColor grayColor];
+        
+        return headerView;
+    }
+    else if([kind isEqualToString:UICollectionElementKindSectionFooter])
+    {
+        UICollectionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:footerId forIndexPath:indexPath];
+        if(footerView == nil)
+        {
+            footerView = [[UICollectionReusableView alloc] init];
+        }
+        footerView.backgroundColor = [UIColor lightGrayColor];
+        
+        return footerView;
     }
     
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return kSectionOneCellHeight;
-    }else return kSectionTwoCellHeight;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSLog(@"======indexPath.section:%ld",indexPath.section);
-    SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
-    teleplayPlayer.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:teleplayPlayer animated:YES];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return 0;
-    }else return 40.f;
-}
-
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    return [self addSectionHeaderViewWithTitle:_sectionArr[section] tag:section];
-}
-
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(SCDemandChannelCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 0) {
-        [cell setCollectionViewDataSourceDelegate:self indexPath:indexPath];
-    }
-}
-
-#pragma mark  UICollectionViewDataSource && delegate
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 8;
-}
-
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    SCDemandChannelItemCell *cell = [SCDemandChannelItemCell cellWithCollectionView:collectionView indexPath:indexPath];
-    //    cell.channelName = _selDemandChannelArr[indexPath.row];
-    
-    return cell;
-    
+    return nil;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
-    if (indexPath.row == 7) {
-        SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] init];
-        moreView.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:moreView animated:YES];
-    }else{
-        
-        SCChannelCategoryVC *ChannelVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCChannelCategoryVC");
-        ChannelVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:ChannelVC animated:YES];
-        
-        
-    }
+    //    if (indexPath.row == 7) {
+    //        SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] init];
+    //        moreView.hidesBottomBarWhenPushed = YES;
+    //        [self.navigationController pushViewController:moreView animated:YES];
+    //    }else{
+    //
+    //        SCChannelCategoryVC *ChannelVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCChannelCategoryVC");
+    //        ChannelVC.hidesBottomBarWhenPushed = YES;
+    //        [self.navigationController pushViewController:ChannelVC animated:YES];
+    //
+    //
+    //    }
 }
+
+
+#pragma mark ---- UICollectionViewDelegateFlowLayout
+/** item Size */
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{   if (indexPath.section == 0){
+    return (CGSize){80,70};
+}else{
+    return (CGSize){100,180};
+}
+    
+}
+
+/** CollectionView四周间距 EdgeInsets */
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(5, 5, 5, 5);
+}
+
+/** item水平间距 */
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 5.f;
+}
+
+/** item垂直间距 */
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{   if (section == 0){
+    return 0;
+}else{
+    return 0;
+}
+}
+
+/** section Header 尺寸 */
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+    return (CGSize){kMainScreenWidth,44};
+}
+
+/** section Footer 尺寸*/
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
+{
+    return (CGSize){kMainScreenWidth,22};
+}
+
+
+
+
+
 
 
 #pragma mark - SDCycleScrollViewDelegate
@@ -252,7 +293,7 @@ static  CGFloat const kSectionTwoCellHeight = 185.f;
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
     
     //    ALERT(@"点击banner");
-      NSLog(@">>>>>> 第%ld张图", (long)index);
+    NSLog(@">>>>>> 第%ld张图", (long)index);
     
 }
 
@@ -264,24 +305,25 @@ static  CGFloat const kSectionTwoCellHeight = 185.f;
 
 
 #pragma mark- Getters and Setters
-- (UITableView *)tableView{
-    if (!_tableView) {
-        UITableView *tableView = [[UITableView alloc] init];
-        _tableView = tableView;
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.tableFooterView = [UIView new];
-        
-        //_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
-        //添加banner页
-        _bannerView = [[SCSycleBanner alloc] initWithView:nil];
-        _bannerView.delegate = self;
-        self.tableView.tableHeaderView = _bannerView;
-        _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-    }
+- (UICollectionView *)collView{
     
-    return _tableView;
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+    _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+    _collView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
+    _collView.alwaysBounceVertical=YES;
+    _collView.dataSource = self;
+    _collView.delegate = self;
+    
+    
+    // 注册cell、sectionHeader、sectionFooter
+    [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];//点播栏cell
+    
+    [_collView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cellIdOther"];//其他cell
+    
+    [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerId];
+    [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerId];
+    
+    return _collView;
 }
 
 - (NSArray *)dataSource{

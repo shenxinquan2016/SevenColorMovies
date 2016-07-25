@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/7/21.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//点播栏 —— 更多
+//  点播栏 —— 更多
 
 #import "SCChannelCatalogueVC.h"
 #import "SCChannelCatalogueCell.h"

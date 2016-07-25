@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/7/22.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-// 点播栏目详情页
+// 点播节目频道分类
 
 #import "SCChannelCategoryVC.h"
 #import "SCChannelCategoryCell.h"
