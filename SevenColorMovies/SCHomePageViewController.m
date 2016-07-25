@@ -162,20 +162,17 @@ static NSString *const footerId = @"footerId";
 
 
 #pragma mark ---- UICollectionView  DataSource && DataDelegate
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 5;
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return _sectionArr.count;
 }
 
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return 10;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return 8;
 }
 
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
         //        cell.backgroundColor = [UIColor purpleColor];
@@ -192,8 +189,7 @@ static NSString *const footerId = @"footerId";
     return nil;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     
     if([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
@@ -202,8 +198,9 @@ static NSString *const footerId = @"footerId";
         {
             headerView = [[UICollectionReusableView alloc] init];
         }
-        headerView.backgroundColor = [UIColor grayColor];
-        
+//        headerView.backgroundColor = [UIColor grayColor];
+        UIView *view = [self addSectionHeaderViewWithTitle:_sectionArr[indexPath.section] tag:indexPath.section];
+        [headerView addSubview:view];
         return headerView;
     }
     else if([kind isEqualToString:UICollectionElementKindSectionFooter])
@@ -222,30 +219,36 @@ static NSString *const footerId = @"footerId";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
-    //    if (indexPath.row == 7) {
-    //        SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] init];
-    //        moreView.hidesBottomBarWhenPushed = YES;
-    //        [self.navigationController pushViewController:moreView animated:YES];
-    //    }else{
-    //
-    //        SCChannelCategoryVC *ChannelVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCChannelCategoryVC");
-    //        ChannelVC.hidesBottomBarWhenPushed = YES;
-    //        [self.navigationController pushViewController:ChannelVC animated:YES];
-    //
-    //
-    //    }
+    if (indexPath.section ==0) {//点播栏
+        if (indexPath.row == 7) {
+            SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] init];
+            moreView.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:moreView animated:YES];
+        }else{
+            
+            SCChannelCategoryVC *ChannelVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCChannelCategoryVC");
+            ChannelVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ChannelVC animated:YES];
+        }
+        
+    }else{
+        
+        
+        
+    }
 }
 
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
 /** item Size */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{   if (indexPath.section == 0){
-    return (CGSize){80,70};
-}else{
-    return (CGSize){100,180};
-}
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0){
+        return (CGSize){80,70};
+    }else{
+        return (CGSize){100,180};
+    }
     
 }
 
@@ -271,19 +274,20 @@ static NSString *const footerId = @"footerId";
 }
 
 /** section Header 尺寸 */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    return (CGSize){kMainScreenWidth,44};
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    if (section == 0){
+        return (CGSize){kMainScreenWidth,0};
+    }else{
+        
+        return (CGSize){kMainScreenWidth,44};
+    }
 }
 
 /** section Footer 尺寸*/
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
-{
-    return (CGSize){kMainScreenWidth,22};
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
+    
+    return (CGSize){kMainScreenWidth,0};
 }
-
-
-
 
 
 
