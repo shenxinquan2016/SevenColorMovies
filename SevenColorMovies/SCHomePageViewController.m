@@ -276,6 +276,7 @@ static NSString *const footerId = @"footerId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
+    
     if (indexPath.section ==0) {//点播栏
         if (indexPath.row == 7) {
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] init];
@@ -286,13 +287,11 @@ static NSString *const footerId = @"footerId";
             NSDictionary *dict = [_selectedItemArr objectAtIndex:indexPath.row];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
             channelVC.hidesBottomBarWhenPushed = YES;
-  
             [self.navigationController pushViewController:channelVC animated:YES];
         }
         
     }else{
         
-        NSLog(@"======点击=====");
         SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
         teleplayPlayer.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:teleplayPlayer animated:YES];

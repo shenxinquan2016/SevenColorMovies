@@ -41,7 +41,7 @@
 - (void)addLeftBBI {
 
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 140, 32)];
-    view.backgroundColor = [UIColor redColor];
+//    view.backgroundColor = [UIColor redColor];
     //返回箭头
     UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Back_Arrow"]];
     [view addSubview:imgView];
