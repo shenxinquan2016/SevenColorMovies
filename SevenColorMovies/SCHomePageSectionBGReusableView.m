@@ -13,7 +13,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor redColor];
 }
 
 @end

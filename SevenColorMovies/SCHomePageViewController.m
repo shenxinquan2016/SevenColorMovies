@@ -177,7 +177,7 @@ static NSString *const footerId = @"footerId";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         SCDemandChannelItemCell *cell = [SCDemandChannelItemCell cellWithCollectionView:collectionView indexPath:indexPath];
-//        cell.backgroundColor = [UIColor purpleColor];
+        //        cell.backgroundColor = [UIColor purpleColor];
         
         return cell;
         
@@ -232,10 +232,10 @@ static NSString *const footerId = @"footerId";
     
 }
 
-/** CollectionView Section 四周间距 EdgeInsets */
+/** Section 四周间距 EdgeInsets */
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(15, 5, 0, 5);
+    return UIEdgeInsetsMake(5, 5, 5, 5);
 }
 
 /** item水平间距 */
@@ -244,11 +244,12 @@ static NSString *const footerId = @"footerId";
 }
 
 /** item垂直间距 */
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{   if (section == 0){
-    return 0;
-}else{
-    return 0;
-}
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    if (section == 0){
+        return 0;
+    }else{
+        return 0;
+    }
 }
 
 /** section Header 尺寸 */
@@ -324,8 +325,8 @@ static NSString *const footerId = @"footerId";
     _collView.alwaysBounceVertical=YES;
     _collView.dataSource = self;
     _collView.delegate = self;
-   
-    _collView.contentInset = UIEdgeInsetsMake(150, 0, 0, 0);//设置整体的外边距
+    
+    _collView.contentInset = UIEdgeInsetsMake(167, 0, 0, 0);//留白添加banner
     //添加banner页
     _bannerView = [[SCSycleBanner alloc] initWithView:nil];
     _bannerView.delegate = self;
@@ -337,7 +338,7 @@ static NSString *const footerId = @"footerId";
         [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemCell"];
     }else if (FourPointSevenInch || FivePointFiveSevenInch) {
         [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemBigCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemBigCell"];
-
+        
     }
     
     [_collView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cellIdOther"];//其他cell

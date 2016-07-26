@@ -35,22 +35,21 @@
 - (void)addLeftBBI {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 100, 30);
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
     [btn setBackgroundImage:[UIImage imageNamed:@"BusinessLogo"] forState:UIControlStateNormal];
+//    btn.backgroundColor = [UIColor redColor];
     btn.userInteractionEnabled = NO;
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
     UIBarButtonItem *leftNegativeSpacer = [[UIBarButtonItem alloc]
                                            initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                            target:nil action:nil];
-    leftNegativeSpacer.width = -6;
+    leftNegativeSpacer.width = -5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftNegativeSpacer,item, nil];
     _leftBBI = btn;
 }
 
 - (void)addSearchBBI {
-    
-    
-    
-    SCSearchBarView *searchView = [[SCSearchBarView alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
+
+    SCSearchBarView *searchView = [[SCSearchBarView alloc] initWithFrame:CGRectMake(0, 0, 190, 29)];
     searchView.searchTF.userInteractionEnabled = NO;
     UITapGestureRecognizer *searchTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickSearchBtn)];
     [searchView addGestureRecognizer:searchTap];
@@ -61,7 +60,7 @@
     UIBarButtonItem *rightNegativeSpacer = [[UIBarButtonItem alloc]
                                             initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                             target:nil action:nil];
-    rightNegativeSpacer.width = -5;
+    rightNegativeSpacer.width = -4;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
     _SearchBBI = btn;
     
