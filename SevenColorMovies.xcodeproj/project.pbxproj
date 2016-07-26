@@ -74,7 +74,6 @@
 		11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */; };
 		11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */; };
 		11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */; };
-		11DC2BC81D3DD4A200012480 /* SCDemandChannelItemBigCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BC71D3DD4A200012480 /* SCDemandChannelItemBigCell.xib */; };
 		11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BCB1D3DD88600012480 /* IMB_DownImageView.m */; };
 		11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BCE1D3DD8FE00012480 /* IMB_DownImageHelper.m */; };
 		11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */; };
@@ -220,7 +219,6 @@
 		11DC2BC21D3DCE6700012480 /* SCDemandChannelItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelItemCell.h; sourceTree = "<group>"; };
 		11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDemandChannelItemCell.m; sourceTree = "<group>"; };
 		11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCDemandChannelItemCell.xib; sourceTree = "<group>"; };
-		11DC2BC71D3DD4A200012480 /* SCDemandChannelItemBigCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCDemandChannelItemBigCell.xib; sourceTree = "<group>"; };
 		11DC2BCA1D3DD88600012480 /* IMB_DownImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMB_DownImageView.h; sourceTree = "<group>"; };
 		11DC2BCB1D3DD88600012480 /* IMB_DownImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMB_DownImageView.m; sourceTree = "<group>"; };
 		11DC2BCD1D3DD8FE00012480 /* IMB_DownImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMB_DownImageHelper.h; sourceTree = "<group>"; };
@@ -891,7 +889,6 @@
 				11DC2BC21D3DCE6700012480 /* SCDemandChannelItemCell.h */,
 				11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */,
 				11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */,
-				11DC2BC71D3DD4A200012480 /* SCDemandChannelItemBigCell.xib */,
 				11458E8C1D45D7E000EBD16D /* SCHomePageFlowLayout.h */,
 				11458E8D1D45D7E000EBD16D /* SCHomePageFlowLayout.m */,
 				11458E8F1D45D86800EBD16D /* SCHomePageSectionBGReusableView.h */,
@@ -1038,7 +1035,6 @@
 			files = (
 				11458EA31D45FEE200EBD16D /* SCMineTopCell.xib in Resources */,
 				11458E981D45E0D500EBD16D /* SCDiscoveryTableViewCell.xib in Resources */,
-				11DC2BC81D3DD4A200012480 /* SCDemandChannelItemBigCell.xib in Resources */,
 				113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */,
 				116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */,
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,

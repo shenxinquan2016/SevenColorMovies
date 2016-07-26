@@ -55,7 +55,7 @@ static NSString *const footerId = @"footerId";
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHex:@"#F0F1F2"]];
     // 设置导航栏的颜色（效果作用到所有页面）
     UINavigationBar *navBar = [UINavigationBar appearance];
-    [navBar setBarTintColor:[UIColor colorWithHex:@"#F0F1F2"]];
+    [navBar setBarTintColor:[UIColor colorWithHex:@"#F1F1F1"]];
     //2. 初始化数组
     _bannerImageUrlArr = [NSMutableArray arrayWithObjects:@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=1&spn=0&di=170050045220&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=3392936970%2C1240433668&os=2295359357%2C2115524380&simid=4131811244%2C715106156&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic1.nipic.com%2F2008-10-30%2F200810309416546_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3F8AzdH3F90AzdH3F09j81dmjujwvudmb_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0",@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=2&spn=0&di=201852181960&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=4122174456%2C238506339&os=2534432078%2C2727372066&simid=4261751445%2C601149228&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic3.nipic.com%2F20090605%2F2166702_095614055_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3F8l8mn0c_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0",@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=3&spn=0&di=55559078410&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=2363027421%2C438461014&os=388455896%2C106895408&simid=4088773055%2C716705165&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic24.nipic.com%2F20121003%2F10754047_140022530392_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3Fmlamc09_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0", nil];
     
@@ -97,8 +97,6 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Public methods
 
 #pragma mark- Private methods
-
-
 - (void)addCollView{
     [self.view addSubview:self.collView];
     [_collView setFrame:self.view.bounds];
@@ -107,7 +105,7 @@ static NSString *const footerId = @"footerId";
 //section header
 - (UIView *)addSectionHeaderViewWithTitle:(NSString *)title tag:(NSInteger)tag{
     UIView *view = [[UIImageView alloc] init];
-    view.frame = CGRectMake(0, 0, kMainScreenWidth, 40.f);
+    view.frame = CGRectMake(0, 10, kMainScreenWidth, 40.f);
     view.backgroundColor = [UIColor whiteColor];
     //图标
     UIImageView *iv = [[UIImageView alloc] init];
@@ -127,7 +125,7 @@ static NSString *const footerId = @"footerId";
     [view addSubview:label];
     [label mas_updateConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(view);
-        make.left.equalTo(view).and.offset(10);
+        make.left.equalTo(view).and.offset(12);
         make.size.mas_equalTo(CGSizeMake(100, 21));
         
     }];
@@ -200,7 +198,7 @@ static NSString *const footerId = @"footerId";
         {
             headerView = [[UICollectionReusableView alloc] init];
         }
-        //        headerView.backgroundColor = [UIColor grayColor];
+//                headerView.backgroundColor = [UIColor purpleColor];
         UIView *view = [self addSectionHeaderViewWithTitle:_sectionArr[indexPath.section] tag:indexPath.section];
         [headerView addSubview:view];
         return headerView;
@@ -225,9 +223,9 @@ static NSString *const footerId = @"footerId";
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0){
-        return (CGSize){80,70};
+        return (CGSize){(kMainScreenWidth-10-15)/4,70};
     }else{
-        return (CGSize){100,180};
+        return (CGSize){(kMainScreenWidth-10-15)/3,180};
     }
     
 }
@@ -246,9 +244,9 @@ static NSString *const footerId = @"footerId";
 /** item垂直间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (section == 0){
-        return 0;
+        return 5;
     }else{
-        return 0;
+        return 5;
     }
 }
 
@@ -258,7 +256,7 @@ static NSString *const footerId = @"footerId";
         return (CGSize){kMainScreenWidth,0};
     }else{
         
-        return (CGSize){kMainScreenWidth,44};
+        return (CGSize){kMainScreenWidth,50};
     }
 }
 
@@ -320,7 +318,7 @@ static NSString *const footerId = @"footerId";
     layout.decorationViewOfKinds = @[@"SCHomePageSectionBGReusableView"];
     
     _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    _collView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
+    _collView.backgroundColor = [UIColor colorWithHex:@"#F1F1F1"];
     
     _collView.alwaysBounceVertical=YES;
     _collView.dataSource = self;
@@ -334,12 +332,8 @@ static NSString *const footerId = @"footerId";
     _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
     
     // 注册cell、sectionHeader、sectionFooter
-    if (ThreePointFiveInch  || FourInch) {//点播栏cell
-        [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemCell"];
-    }else if (FourPointSevenInch || FivePointFiveSevenInch) {
-        [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemBigCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemBigCell"];
-        
-    }
+    //点播栏cell
+    [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemCell"];
     
     [_collView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cellIdOther"];//其他cell
     
