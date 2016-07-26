@@ -70,7 +70,7 @@
         ID = @"SCDemandChannelItemCell";
     }else if (FourPointSevenInch || FivePointFiveSevenInch){
         ID = @"SCDemandChannelItemBigCell";
-        
+
     }
     
     SCDemandChannelItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];

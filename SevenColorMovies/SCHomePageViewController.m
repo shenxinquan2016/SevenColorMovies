@@ -176,13 +176,13 @@ static NSString *const footerId = @"footerId";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-        //        cell.backgroundColor = [UIColor purpleColor];
+        SCDemandChannelItemCell *cell = [SCDemandChannelItemCell cellWithCollectionView:collectionView indexPath:indexPath];
+//        cell.backgroundColor = [UIColor purpleColor];
         
         return cell;
         
     }else{
-        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
+        SCRankTopRowCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
         //        cell.backgroundColor = [UIColor purpleColor];
         
         return cell;
@@ -333,7 +333,12 @@ static NSString *const footerId = @"footerId";
     _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
     
     // 注册cell、sectionHeader、sectionFooter
-    [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];//点播栏cell
+    if (ThreePointFiveInch  || FourInch) {//点播栏cell
+        [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemCell"];
+    }else if (FourPointSevenInch || FivePointFiveSevenInch) {
+        [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemBigCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemBigCell"];
+
+    }
     
     [_collView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cellIdOther"];//其他cell
     

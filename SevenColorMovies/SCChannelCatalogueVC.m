@@ -9,9 +9,12 @@
 #import "SCChannelCatalogueVC.h"
 #import "SCChannelCatalogueCell.h"
 
-@interface SCChannelCatalogueVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
+@interface SCChannelCatalogueVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UIGestureRecognizerDelegate>
 /**  */
 @property (nonatomic, strong) UICollectionView *collView;
+
+@property (nonatomic, copy) NSMutableArray *cellAttributesArray;
+@property (nonatomic, copy) NSMutableArray *selectedArray;
 
 @end
 
@@ -25,10 +28,20 @@ static NSString *const footerId = @"footerId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    _cellAttributesArray = [NSMutableArray arrayWithCapacity:0];
+    _selectedArray = [NSMutableArray arrayWithCapacity:0];
+
     //1.返回按钮
     [self addLeftBBI];
     //2.添加cellectionView
     [self loadCollectionView];
+    //创建长按手势监听
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
+                                               initWithTarget:self
+                                               action:@selector(myHandleTableviewCellLongPressed:)];
+    longPress.minimumPressDuration = 1.0;
+    //将长按手势添加到需要实现长按操作的视图里
+//    [_collView addGestureRecognizer:longPress];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,6 +50,34 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark- private methods
+- (void) myHandleTableviewCellLongPressed:(UILongPressGestureRecognizer *)gestureRecognizer {
+    
+    
+    CGPoint pointTouch = [gestureRecognizer locationInView:_collView];
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        NSLog(@"UIGestureRecognizerStateBegan");
+        
+        NSIndexPath *indexPath = [_collView indexPathForItemAtPoint:pointTouch];
+        if (indexPath == nil) {
+            NSLog(@"空");
+            
+            
+        }else{
+            
+            NSLog(@"Section = %ld,Row = %ld",(long)indexPath.section,(long)indexPath.row);
+            
+        }
+    }
+    if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        NSLog(@"UIGestureRecognizerStateChanged");
+    }
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        NSLog(@"UIGestureRecognizerStateEnded");
+    }
+}
+
 - (void)addLeftBBI {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 60, 22);
@@ -99,6 +140,11 @@ static NSString *const footerId = @"footerId";
 {
     UICollectionViewCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
+    // 拖动排序
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(sortChannelItem:)];
+    panGesture.delegate = self;
+    [cell addGestureRecognizer:panGesture];
+
     
     return cell;
 }
@@ -137,14 +183,14 @@ static NSString *const footerId = @"footerId";
     return nil;
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     return YES;
 }
 
 
-- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath
-{
+- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath{
+    
     
 }
 
@@ -200,5 +246,70 @@ static NSString *const footerId = @"footerId";
 }
 
 
+#pragma mark - 频道排序
+- (void)sortChannelItem:(UIPanGestureRecognizer *)recognizer {
+    UICollectionViewCell *cell = (UICollectionViewCell *)recognizer.view;
+    NSIndexPath *cellIndexPath = [self.collView indexPathForCell:cell];
+    BOOL ischange = YES;
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            if (cellIndexPath == nil) {
+                break;
+            }
+            // 获取所有cell的attributes
+            [self.cellAttributesArray removeAllObjects];
+            for (NSInteger i = 0 ; i < self.selectedArray.count; i++) {
+                [self.cellAttributesArray addObject:[_collView layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]]];
+            }
+            break;
+        case UIGestureRecognizerStateChanged:
+            if (cellIndexPath.item != 0) {
+                // 移动的相对位置
+                CGPoint point = [recognizer translationInView:_collView];
+                cell.center = CGPointMake(cell.center.x + point.x, cell.center.y + point.y);
+                // 移动以后的坐标
+                [recognizer setTranslation:CGPointMake(0, 0) inView:_collView];
+                for (UICollectionViewLayoutAttributes *attributes in self.cellAttributesArray) {
+                    CGRect rect = CGRectMake(attributes.center.x - 12, attributes.center.y - 12, 25, 25);
+                    // 判断重叠区域
+                    if (CGRectContainsPoint(rect, CGPointMake(recognizer.view.center.x, recognizer.view.center.y)) && (cellIndexPath != attributes.indexPath) && attributes.indexPath.item != 0) {
+                        
+                        //后面跟前面交换
+                        if (cellIndexPath.row > attributes.indexPath.row) {
+                            //交替操作0 1 2 3 变成（3<->2 3<->1 3<->0）
+                            for (NSInteger index = cellIndexPath.row; index > attributes.indexPath.row; index -- ) {
+                                [self.selectedArray exchangeObjectAtIndex:index withObjectAtIndex:index - 1];
+                                // 交换CellIdentifier
+//                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,index - 1] forKey:@(index)];
+//                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,(long)index] forKey:@(index - 1)];
+                            }
+                        } else {
+                            //前面跟后面交换
+                            //交替操作0 1 2 3 变成（0<->1 0<->2 0<->3）
+                            for (NSInteger index = cellIndexPath.row; index < attributes.indexPath.row; index ++ ) {
+                                [self.selectedArray exchangeObjectAtIndex:index withObjectAtIndex:index + 1];
+                                
+//                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,index + 1] forKey:@(index)];
+//                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,(long)index] forKey:@(index + 1)];
+                            }
+                        }
+                        ischange = YES;
+                        [_collView moveItemAtIndexPath:cellIndexPath toIndexPath:attributes.indexPath];
+                    } else {
+                        ischange = YES;
+                    }
+                }
+            }
+            break;
+        case UIGestureRecognizerStateEnded:
+            if (!ischange) {
+                cell.center = [_collView layoutAttributesForItemAtIndexPath:cellIndexPath].center;
+//                [self updatePageindexMapToChannelItemDictionary];
+            }
+            break;
+        default:
+            break;
+    }
+}
 
 @end

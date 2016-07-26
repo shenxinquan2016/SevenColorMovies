@@ -23,7 +23,7 @@
 #endif
 
 
-//#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/AFNetworking.h>
 
 
 #endif /* Configured_h */
@@ -77,6 +77,9 @@
 #define ALERT_TITLE(title, msg) [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
 
 
+/**************************************
+ * NSLog
+ *************************************/
 
 
 
