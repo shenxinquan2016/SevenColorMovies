@@ -3,33 +3,47 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="SCChannelCatalogueCell" id="gTV-IL-0wX" customClass="SCChannelCatalogueCell">
-            <rect key="frame" x="0.0" y="0.0" width="110" height="80"/>
+            <rect key="frame" x="0.0" y="0.0" width="112" height="80"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="110" height="80"/>
+                <rect key="frame" x="0.0" y="0.0" width="112" height="80"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Children" translatesAutoresizingMaskIntoConstraints="NO" id="x6p-Wm-ELs">
-                        <rect key="frame" x="30" y="5" width="50" height="50"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="电影" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRi-gd-cWl">
-                        <rect key="frame" x="17" y="59" width="75" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电影" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRi-gd-cWl">
+                        <rect key="frame" x="0.0" y="51" width="112" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x6p-Wm-ELs">
+                        <rect key="frame" x="40" y="11" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="NDG-gw-Ag0"/>
+                            <constraint firstAttribute="width" constant="32" id="od9-66-TNh"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <size key="customSize" width="163" height="83"/>
-            <point key="canvasLocation" x="137" y="240"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="bRi-gd-cWl" secondAttribute="trailing" id="JaF-YX-QI4"/>
+                <constraint firstItem="x6p-Wm-ELs" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="KQC-Mu-URl"/>
+                <constraint firstItem="bRi-gd-cWl" firstAttribute="top" secondItem="x6p-Wm-ELs" secondAttribute="bottom" constant="8" id="RXq-eL-gdk"/>
+                <constraint firstItem="bRi-gd-cWl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="jbG-eN-Rmg"/>
+                <constraint firstItem="x6p-Wm-ELs" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="topMargin" constant="3" id="kF8-zQ-PJC"/>
+                <constraint firstItem="bRi-gd-cWl" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="rKg-uR-jxb"/>
+            </constraints>
+            <size key="customSize" width="165" height="90"/>
+            <connections>
+                <outlet property="channelImg" destination="x6p-Wm-ELs" id="svd-q7-5cd"/>
+                <outlet property="channelNameLabel" destination="bRi-gd-cWl" id="qx5-lK-02n"/>
+            </connections>
+            <point key="canvasLocation" x="138" y="243.5"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="Children" width="31" height="31"/>
-    </resources>
 </document>

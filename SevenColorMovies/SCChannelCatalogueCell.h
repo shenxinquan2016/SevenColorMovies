@@ -10,5 +10,6 @@
 
 @interface SCChannelCatalogueCell : UICollectionViewCell
 
-+ (instancetype)cellWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
++ (nonnull instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView indexPath:(nonnull NSIndexPath *)indexPath;
+- (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath;
 @end

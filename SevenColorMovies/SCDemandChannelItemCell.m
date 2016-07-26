@@ -8,6 +8,12 @@
 
 #import "SCDemandChannelItemCell.h"
 
+@interface SCDemandChannelItemCell()
+
+@property (weak, nonatomic) IBOutlet UIImageView *channelImg;
+@property (weak, nonatomic) IBOutlet UILabel *channelNameLabel;
+@end
+
 @implementation SCDemandChannelItemCell
 
 - (void)awakeFromNib {
@@ -15,52 +21,23 @@
     // Initialization code
     
     
-    [self.channelImage zy_cornerRadiusRoundingRect];
-    [_channelImage setImage:[UIImage imageNamed:@"BusinessLogo"]];
-    _channelName.text = @"电影";
+    [self.channelImg zy_cornerRadiusRoundingRect];
 }
 
 
 
-//- (void)setModel:(GeniusManModel *)model {
-//    _model = model;
-//
-//    if (model) {
-//        //1.1头像
-//
-//
-//        //        NSLog(@"1111111 == %@",model.avatar);
-//
-//        [IMB_DownImageHelper downImageWithURL:[NSURL URLWithString:model.avatar] imageView:self.imageView placeHolder:TL_IMAGE(@"头像未加载出来")];
-//        //        NSLog(@"11111 == %@",model.avatar);
-//
-//        //2.显示不显示V
-//        if ([model.isV isEqualToString:@"1"]) {  //显示V
-//            self.isVImageView.hidden = NO;
-//            if (model.type.integerValue == 0) {
-//                self.isVImageView.image = TL_IMAGE(@"黄V");
-//            } else {
-//                self.isVImageView.image = TL_IMAGE(@"蓝V");
-//            }
-//        }else if ([model.isV isEqualToString:@"0"]) { //不显示V
-//            self.isVImageView.hidden = YES;
-//        }
-//
-//
-//        //3.昵称
-//        self.nickNameLabel.text = model.nickName;
-//        self.nickNameLabel.hidden = NO;
-//
-//
-//
-//        //4.近10中x
-//        //        NSLog(@"1111111 == %@",model.recentVS);
-//        self.winRateLabel.text = [[[[@"" stringByAppendingString:model.recent] stringByAppendingString:@"中"] stringByAppendingString:model.recentVS] stringByAppendingString:@"  "];
-//        self.winRateLabel.hidden = NO;
-//    }
-//
-//
-//}
+- (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath{
+    if (model && [model isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dict = (NSDictionary *)model;
+        NSString *keyStr = [dict.allKeys objectAtIndex:0];
+        
+        _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",keyStr]];
+        _channelNameLabel.text =  [dict.allValues objectAtIndex:0];
+        
+    }
+    
+}
+
 
 + (instancetype)cellWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
     

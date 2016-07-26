@@ -37,8 +37,8 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="channelImage" destination="xAN-sh-dUA" id="oEy-h2-NgJ"/>
-                <outlet property="channelName" destination="s9o-lv-PF1" id="U1a-uW-s3C"/>
+                <outlet property="channelImg" destination="xAN-sh-dUA" id="gdz-jL-OAg"/>
+                <outlet property="channelNameLabel" destination="s9o-lv-PF1" id="WDf-Hn-VGa"/>
             </connections>
             <point key="canvasLocation" x="91.5" y="34"/>
         </view>

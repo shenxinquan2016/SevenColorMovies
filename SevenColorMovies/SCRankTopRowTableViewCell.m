@@ -51,9 +51,9 @@
     //1.创建FlowLayout
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
 
-        layout.itemSize = CGSizeMake(100, 170);  //设置item的大小
-        layout.minimumInteritemSpacing = (kMainScreenWidth - 100 * 3 - 20) / 3 ;  //设置collection竖着的间距
-        layout.minimumLineSpacing = 182 - ((182 - 45) / 2) * 2 - 34 ;  //设置collection横向间距
+        layout.itemSize = (CGSize){(kMainScreenWidth-10-15)/3,180};  //设置item的大小
+        layout.minimumInteritemSpacing = 5.f;  //设置collection竖着的间距
+    layout.minimumLineSpacing = 5.f; //设置collection横向间距
     
     //2.创建collectionView
     self.collectionView = [[AFIndexedCollectionView1 alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -62,7 +62,7 @@
         [self.collectionView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"SCRankTopRowCollectionViewCell"];
   
     self.collectionView.scrollEnabled = NO;
-    self.collectionView.contentInset = UIEdgeInsetsMake(17, 10, 17, 10);//设置整体的外边距
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);//设置整体的外边距
     
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:self.collectionView];

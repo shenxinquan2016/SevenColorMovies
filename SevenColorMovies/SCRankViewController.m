@@ -79,7 +79,7 @@ static  CGFloat const kRankOtherCellHeight = 50.f;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 40.f;
+    return 50.f;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -128,8 +128,10 @@ static  CGFloat const kRankOtherCellHeight = 50.f;
 #pragma mark- Private methods
 //section header
 - (UIView *)addSectionHeaderViewWithTitle:(NSString *)title{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 50.f)];
+    headerView.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
     UIView *view = [[UIImageView alloc] init];
-    view.frame = CGRectMake(0, 0, kMainScreenWidth, 40.f);
+    view.frame = CGRectMake(0, 10, kMainScreenWidth, 40.f);
     view.backgroundColor = [UIColor whiteColor];
     //图标
     UIImageView *iv = [[UIImageView alloc] init];
@@ -153,7 +155,8 @@ static  CGFloat const kRankOtherCellHeight = 50.f;
         make.size.mas_equalTo(CGSizeMake(100, 21));
         
     }];
-    return view;
+    [headerView addSubview:view];
+    return headerView;
 }
 
 - (void)addLeftBBI {

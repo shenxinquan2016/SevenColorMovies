@@ -15,6 +15,11 @@
 
 @property (nonatomic, copy) NSMutableArray *cellAttributesArray;
 @property (nonatomic, copy) NSMutableArray *selectedArray;
+/** 所有选项数组 */
+@property (nonatomic, copy) NSArray *allItemsArr;
+/** 选中的选项数组 */
+@property (nonatomic, copy) NSArray *selectedItemArr;
+
 
 @end
 
@@ -28,11 +33,17 @@ static NSString *const footerId = @"footerId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    //0.返回按钮
+    [self addLeftBBI];
+    
+    //1.初始化数组
     _cellAttributesArray = [NSMutableArray arrayWithCapacity:0];
     _selectedArray = [NSMutableArray arrayWithCapacity:0];
-
-    //1.返回按钮
-    [self addLeftBBI];
+    
+    //    self.allItemsArr = [NSArray array];
+    self.selectedItemArr = [NSArray array];
+    
     //2.添加cellectionView
     [self loadCollectionView];
     //创建长按手势监听
@@ -41,7 +52,7 @@ static NSString *const footerId = @"footerId";
                                                action:@selector(myHandleTableviewCellLongPressed:)];
     longPress.minimumPressDuration = 1.0;
     //将长按手势添加到需要实现长按操作的视图里
-//    [_collView addGestureRecognizer:longPress];
+    //    [_collView addGestureRecognizer:longPress];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,6 +86,7 @@ static NSString *const footerId = @"footerId";
     
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         NSLog(@"UIGestureRecognizerStateEnded");
+        
     }
 }
 
@@ -106,10 +118,10 @@ static NSString *const footerId = @"footerId";
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    _collView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
+    _collView.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
     _collView.dataSource = self;
     _collView.delegate = self;
-//    _collView.scrollEnabled = NO;//禁止滚动
+    //    _collView.scrollEnabled = NO;//禁止滚动
     [self.view addSubview:_collView];
     
     // 注册cell、sectionHeader、sectionFooter
@@ -126,27 +138,38 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return self.allItemsArr.count;
 }
 
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return 16;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if (self.allItemsArr.count > section) {
+        NSArray *array = self.allItemsArr[section];
+        return array.count;
+    }
+    return 0;
 }
 
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
-    // 拖动排序
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(sortChannelItem:)];
-    panGesture.delegate = self;
-    [cell addGestureRecognizer:panGesture];
-
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section < _allItemsArr.count) {
+        NSArray *array = self.allItemsArr[indexPath.section];
+        if (indexPath.row < array.count) {
+            NSDictionary *dict = [array objectAtIndex:indexPath.row];
+            SCChannelCatalogueCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+            cell.backgroundColor = [UIColor whiteColor];
+            [cell setModel:dict IndexPath:indexPath];
+            
+            return cell;
+        }
+    }
     
-    return cell;
+    // 拖动排序
+    //    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(sortChannelItem:)];
+    //    panGesture.delegate = self;
+    //    [cell addGestureRecognizer:panGesture];
+    
+    return nil;
 }
 
 /** 段头段尾设置 */
@@ -198,25 +221,25 @@ static NSString *const footerId = @"footerId";
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (CGSize){(kMainScreenWidth/3-4),80};
+    return (CGSize){(kMainScreenWidth-2)/3,80};
 }
 
-/** CollectionView四周间距 EdgeInsets */
+/** Section EdgeInsets */
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(10, 0, 10, 0);
+    return UIEdgeInsetsMake(10, 0, 1, 0);
 }
 
 /** item水平间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 5.f;
+    return 1.f;
 }
 
 /** item垂直间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 0.f;
+    return 1.f;
 }
 
 /** section Header 尺寸 */
@@ -280,8 +303,8 @@ static NSString *const footerId = @"footerId";
                             for (NSInteger index = cellIndexPath.row; index > attributes.indexPath.row; index -- ) {
                                 [self.selectedArray exchangeObjectAtIndex:index withObjectAtIndex:index - 1];
                                 // 交换CellIdentifier
-//                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,index - 1] forKey:@(index)];
-//                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,(long)index] forKey:@(index - 1)];
+                                //                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,index - 1] forKey:@(index)];
+                                //                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,(long)index] forKey:@(index - 1)];
                             }
                         } else {
                             //前面跟后面交换
@@ -289,8 +312,8 @@ static NSString *const footerId = @"footerId";
                             for (NSInteger index = cellIndexPath.row; index < attributes.indexPath.row; index ++ ) {
                                 [self.selectedArray exchangeObjectAtIndex:index withObjectAtIndex:index + 1];
                                 
-//                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,index + 1] forKey:@(index)];
-//                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,(long)index] forKey:@(index + 1)];
+                                //                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,index + 1] forKey:@(index)];
+                                //                                [self.cardCellIdentifierDictionary setObject:[NSString stringWithFormat:@"%@%ld",cardCellIdentifier,(long)index] forKey:@(index + 1)];
                             }
                         }
                         ischange = YES;
@@ -304,12 +327,22 @@ static NSString *const footerId = @"footerId";
         case UIGestureRecognizerStateEnded:
             if (!ischange) {
                 cell.center = [_collView layoutAttributesForItemAtIndexPath:cellIndexPath].center;
-//                [self updatePageindexMapToChannelItemDictionary];
+                //                [self updatePageindexMapToChannelItemDictionary];
             }
             break;
         default:
             break;
     }
+}
+
+#pragma mark- Getters and Setters
+- (NSArray *)allItemsArr{
+    if (!_allItemsArr) {
+        NSArray *array =@[@[@{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"},@{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}, @{@"OverseasFilm" : @"海外剧场"},@{@"Children" : @"少儿"}, @{@"Life" : @"生活"}, @{@"Music" : @"音乐"},@{@"Game" : @"游戏"}, @{@"Documentary" : @"纪录片"}, @{@"GeneralChannel" : @"通用频道"}]];
+        
+        _allItemsArr = array;
+    }
+    return _allItemsArr;
 }
 
 @end

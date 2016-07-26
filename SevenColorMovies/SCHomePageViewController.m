@@ -31,6 +31,8 @@
 @property (nonatomic, copy) NSMutableArray *sectionArr;
 /** tableView数据源 */
 @property (nonatomic, copy) NSMutableArray *selDemandChannelArr;
+/** 点播栏数据源 */
+@property (nonatomic, copy) NSArray *selectedItemArr;
 
 @property (nonatomic, strong) SCSycleBanner *bannerView;
 /** banner页图片地址数组 */
@@ -168,16 +170,36 @@ static NSString *const footerId = @"footerId";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 8;
+    
+    if (section == 0) {
+        if (self.selectedItemArr.count > section) {
+            NSArray *array = self.selectedItemArr[section];
+            return array.count;
+        }
+        return 0;
+    }else{
+       
+        return 10;
+    }
+
+    
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        SCDemandChannelItemCell *cell = [SCDemandChannelItemCell cellWithCollectionView:collectionView indexPath:indexPath];
-        //        cell.backgroundColor = [UIColor purpleColor];
         
-        return cell;
+        if (indexPath.section < _selectedItemArr.count) {
+            NSArray *array = _selectedItemArr[indexPath.section];
+            if (indexPath.row < array.count) {
+                NSDictionary *dict = [array objectAtIndex:indexPath.row];
+                SCDemandChannelItemCell *cell = [SCDemandChannelItemCell cellWithCollectionView:collectionView indexPath:indexPath];
+                cell.backgroundColor = [UIColor whiteColor];
+                [cell setModel:dict IndexPath:indexPath];
+                
+                return cell;
+            }
+        }
         
     }else{
         SCRankTopRowCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
@@ -342,6 +364,17 @@ static NSString *const footerId = @"footerId";
     
     return _collView;
 }
+
+#pragma mark- Getters and Setters
+- (NSArray *)selectedItemArr{
+    if (!_selectedItemArr) {
+        NSArray *array =@[@[@{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"},@{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}]];
+        
+        _selectedItemArr = array;
+    }
+    return _selectedItemArr;
+}
+
 
 - (NSArray *)dataSource{
     if (!_dataSource) {

@@ -12,9 +12,7 @@
 
 @interface SCDemandChannelItemCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *channelImage;
++ (nonnull instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView indexPath:(nonnull NSIndexPath *)indexPath;
+- (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath;
 
-@property (weak, nonatomic) IBOutlet UILabel *channelName;
-
-+ (instancetype)cellWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
 @end
