@@ -12,4 +12,6 @@
 /** 返回按钮 */
 @property (nonatomic,strong) UIButton *leftBBI;
 
+- (instancetype)initWithWithTitle:(NSString *)title;
+
 @end

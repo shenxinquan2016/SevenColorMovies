@@ -142,7 +142,8 @@ static NSString *const footerId = @"footerId";
 }
 
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     if (self.allItemsArr.count > section) {
         NSArray *array = self.allItemsArr[section];
         return array.count;
@@ -338,7 +339,7 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Getters and Setters
 - (NSArray *)allItemsArr{
     if (!_allItemsArr) {
-        NSArray *array =@[@[@{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"},@{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}, @{@"OverseasFilm" : @"海外剧场"},@{@"Children" : @"少儿"}, @{@"Life" : @"生活"}, @{@"Music" : @"音乐"},@{@"Game" : @"游戏"}, @{@"Documentary" : @"纪录片"}, @{@"GeneralChannel" : @"通用频道"}]];
+        NSArray *array =@[@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"},@{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}, @{@"OverseasFilm" : @"海外剧场"},@{@"Children" : @"少儿"}, @{@"Life" : @"生活"}, @{@"Music" : @"音乐"},@{@"Game" : @"游戏"}, @{@"Documentary" : @"纪录片"}, @{@"GeneralChannel" : @"通用频道"}]];
         
         _allItemsArr = array;
     }

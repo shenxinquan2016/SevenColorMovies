@@ -21,7 +21,7 @@
     // Initialization code
     
     
-    [self.channelImg zy_cornerRadiusRoundingRect];
+//    [self.channelImg zy_cornerRadiusRoundingRect];
 }
 
 

@@ -171,35 +171,19 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    if (section == 0) {
-        if (self.selectedItemArr.count > section) {
-            NSArray *array = self.selectedItemArr[section];
-            return array.count;
-        }
-        return 0;
-    }else{
-       
-        return 10;
-    }
-
-    
+    if (section == 0) return self.selectedItemArr.count;
+    else return 10;
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
+        NSDictionary *dict = [_selectedItemArr objectAtIndex:indexPath.row];
+        SCDemandChannelItemCell *cell = [SCDemandChannelItemCell cellWithCollectionView:collectionView indexPath:indexPath];
+        cell.backgroundColor = [UIColor whiteColor];
+        [cell setModel:dict IndexPath:indexPath];
         
-        if (indexPath.section < _selectedItemArr.count) {
-            NSArray *array = _selectedItemArr[indexPath.section];
-            if (indexPath.row < array.count) {
-                NSDictionary *dict = [array objectAtIndex:indexPath.row];
-                SCDemandChannelItemCell *cell = [SCDemandChannelItemCell cellWithCollectionView:collectionView indexPath:indexPath];
-                cell.backgroundColor = [UIColor whiteColor];
-                [cell setModel:dict IndexPath:indexPath];
-                
-                return cell;
-            }
-        }
+        return cell;
         
     }else{
         SCRankTopRowCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
@@ -220,7 +204,7 @@ static NSString *const footerId = @"footerId";
         {
             headerView = [[UICollectionReusableView alloc] init];
         }
-//                headerView.backgroundColor = [UIColor purpleColor];
+        //                headerView.backgroundColor = [UIColor purpleColor];
         UIView *view = [self addSectionHeaderViewWithTitle:_sectionArr[indexPath.section] tag:indexPath.section];
         [headerView addSubview:view];
         return headerView;
@@ -298,10 +282,12 @@ static NSString *const footerId = @"footerId";
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
         }else{
-            
-            SCChannelCategoryVC *ChannelVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCChannelCategoryVC");
-            ChannelVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:ChannelVC animated:YES];
+            //设置返回键标题
+            NSDictionary *dict = [_selectedItemArr objectAtIndex:indexPath.row];
+            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
+            channelVC.hidesBottomBarWhenPushed = YES;
+  
+            [self.navigationController pushViewController:channelVC animated:YES];
         }
         
     }else{
@@ -368,7 +354,7 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Getters and Setters
 - (NSArray *)selectedItemArr{
     if (!_selectedItemArr) {
-        NSArray *array =@[@[@{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"},@{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}]];
+        NSArray *array =@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"}, @{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"SpecialTopic" : @"专题"}, @{@"GeneralChannel" : @"更多"}];
         
         _selectedItemArr = array;
     }

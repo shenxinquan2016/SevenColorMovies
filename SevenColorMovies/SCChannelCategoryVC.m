@@ -29,17 +29,20 @@ static const CGFloat LabelWidth = 90.f;
 /** 滑动短线 */
 @property (nonatomic, strong) CALayer *bottomLine;
 
+
 @end
 
 @implementation SCChannelCategoryVC
 
 static NSString *const cellId = @"cellId";
 
+
+#pragma mark-  ViewLife Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     //1.返回
-    [self.leftBBI setTitle: @"直播" forState: UIControlStateNormal];
+    
     
     //3.初始化数组
     self.titleArr = [@[@"最热",@"卫视同步",@"高分经典",@"海外剧场",@"日韩",@"卫视同步",@"最热",@"卫视同步",@"高分经典",@"海外剧场",@"日韩",@"卫视同步"] copy];
