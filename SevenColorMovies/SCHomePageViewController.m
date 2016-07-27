@@ -31,8 +31,12 @@
 @property (nonatomic, copy) NSMutableArray *sectionArr;
 /** tableView数据源 */
 @property (nonatomic, copy) NSMutableArray *selDemandChannelArr;
-/** 点播栏数据源 */
+
+/** 点播栏已选item */
 @property (nonatomic, copy) NSArray *selectedItemArr;
+
+/** 点播栏所有item */
+@property (nonatomic, copy) NSArray *allItemsArr;
 
 @property (nonatomic, strong) SCSycleBanner *bannerView;
 /** banner页图片地址数组 */
@@ -276,15 +280,16 @@ static NSString *const footerId = @"footerId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
+    //设置返回键标题
+    NSDictionary *dict = [_selectedItemArr objectAtIndex:indexPath.row];
     
     if (indexPath.section ==0) {//点播栏
         if (indexPath.row == 7) {
-            SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] init];
+            SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
         }else{
-            //设置返回键标题
-            NSDictionary *dict = [_selectedItemArr objectAtIndex:indexPath.row];
+            
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];

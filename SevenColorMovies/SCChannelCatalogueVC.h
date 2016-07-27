@@ -7,8 +7,13 @@
 //  点播栏 —— 更多
 
 #import <UIKit/UIKit.h>
+#import "SCOtherBaseViewController.h"
 
-@interface SCChannelCatalogueVC : UIViewController
-/** 返回按钮 */
-@property (nonatomic,strong) UIButton *leftBBI;
+@interface SCChannelCatalogueVC : SCOtherBaseViewController
+
+/** 所有选项数组 */
+@property (nonatomic, copy) NSArray *allItemsArr;
+/** 选中的选项数组 */
+@property (nonatomic, copy) NSArray *selectedItemArr;
+
 @end
