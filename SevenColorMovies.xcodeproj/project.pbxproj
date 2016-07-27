@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */; };
+		1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */; };
+		1111A40B1D488C1E00C17B92 /* DNIPhoneInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A40A1D488C1E00C17B92 /* DNIPhoneInfo.m */; };
+		1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */; };
 		1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */; };
 		113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */; };
 		113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D891D3C6FE800B12D39 /* SCNewsViewController.m */; };
@@ -103,6 +106,12 @@
 /* Begin PBXFileReference section */
 		1111A4011D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		1111A4041D4886B300C17B92 /* SCNetRequsetManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNetRequsetManger.h; sourceTree = "<group>"; };
+		1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNetRequsetManger.m; sourceTree = "<group>"; };
+		1111A4091D488C1E00C17B92 /* DNIPhoneInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNIPhoneInfo.h; sourceTree = "<group>"; };
+		1111A40A1D488C1E00C17B92 /* DNIPhoneInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNIPhoneInfo.m; sourceTree = "<group>"; };
+		1111A40D1D488D8A00C17B92 /* SCUserInfoManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUserInfoManger.h; sourceTree = "<group>"; };
+		1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUserInfoManger.m; sourceTree = "<group>"; };
 		1112D7491D405D51009A5C35 /* SCSlideHeaderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSlideHeaderLabel.h; sourceTree = "<group>"; };
 		1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSlideHeaderLabel.m; sourceTree = "<group>"; };
 		113F8D851D3C6FC800B12D39 /* SCDiscoveryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDiscoveryViewController.h; sourceTree = "<group>"; };
@@ -270,6 +279,15 @@
 				1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */,
 			);
 			name = FlowLayout;
+			sourceTree = "<group>";
+		};
+		1111A4071D488BE500C17B92 /* DNIPhoneInfo */ = {
+			isa = PBXGroup;
+			children = (
+				1111A4091D488C1E00C17B92 /* DNIPhoneInfo.h */,
+				1111A40A1D488C1E00C17B92 /* DNIPhoneInfo.m */,
+			);
+			name = DNIPhoneInfo;
 			sourceTree = "<group>";
 		};
 		113F8D8E1D3C700900B12D39 /* MainBody */ = {
@@ -793,6 +811,9 @@
 		11BB37D81D38F0490002D487 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				1111A40D1D488D8A00C17B92 /* SCUserInfoManger.h */,
+				1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */,
+				1111A4071D488BE500C17B92 /* DNIPhoneInfo */,
 				11DC2BC91D3DD76700012480 /* DownImageManger */,
 				11BB37DD1D38F0890002D487 /* SCNetUrlManger */,
 			);
@@ -817,6 +838,8 @@
 		11BB37DA1D38F0510002D487 /* NetRequestTool */ = {
 			isa = PBXGroup;
 			children = (
+				1111A4041D4886B300C17B92 /* SCNetRequsetManger.h */,
+				1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */,
 				11BE83211D3CD33C00886CF6 /* Home */,
 				11BE83221D3CD34700886CF6 /* Discovery */,
 				11BE83231D3CD35200886CF6 /* News */,
@@ -1157,6 +1180,7 @@
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
 				11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */,
 				11458E9C1D45EECE00EBD16D /* SCDiscoveryCellModel.m in Sources */,
+				1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */,
 				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,
 				11A1D0701D3F62E800E2BA0D /* SCRankOtherCell.m in Sources */,
 				115A212D1D42293D0097DE57 /* SCMoiveRecommendationVC.m in Sources */,
@@ -1175,6 +1199,7 @@
 				11BE83151D3CB56B00886CF6 /* SCSycleBanner.m in Sources */,
 				11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */,
 				116475F41D40988700A3BC1C /* SCOptionalVideoTableViewCell.m in Sources */,
+				1111A40B1D488C1E00C17B92 /* DNIPhoneInfo.m in Sources */,
 				116475FD1D40ADDC00A3BC1C /* SCPastVideoTableView.m in Sources */,
 				113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */,
 				1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
@@ -1186,6 +1211,7 @@
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
 				116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */,
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
+				1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
 				11C8CFBB1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m in Sources */,
 				1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */,

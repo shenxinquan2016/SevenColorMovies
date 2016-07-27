@@ -136,6 +136,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     if (self) {
         [self setDefaults];
         [self addObserver:self forKeyPath:kLXCollectionViewKeyPath options:NSKeyValueObservingOptionNew context:nil];
+        
     }
     return self;
 }
@@ -292,6 +293,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     
     self.currentViewCenter = LXS_CGPointAdd(self.currentViewCenter, translation);
     self.currentView.center = LXS_CGPointAdd(self.currentViewCenter, self.panTranslationInCollectionView);
+    
     self.collectionView.contentOffset = LXS_CGPointAdd(contentOffset, translation);
 }
 
@@ -315,6 +317,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
             UICollectionViewCell *collectionViewCell = [self.collectionView cellForItemAtIndexPath:self.selectedItemIndexPath];
             
             self.currentView = [[UIView alloc] initWithFrame:collectionViewCell.frame];
+            
             
             collectionViewCell.highlighted = YES;
             UIView *highlightedImageView = [collectionViewCell LX_snapshotView];
@@ -341,8 +344,10 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
                  __strong typeof(self) strongSelf = weakSelf;
                  if (strongSelf) {
                      strongSelf.currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
+//                     strongSelf.currentView.backgroundColor = [UIColor redColor];//
                      highlightedImageView.alpha = 0.0f;
                      imageView.alpha = 1.0f;
+                     
                  }
              }
              completion:^(BOOL finished) {
