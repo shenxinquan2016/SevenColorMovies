@@ -14,10 +14,6 @@
 /**  */
 @property (nonatomic, strong) UICollectionView *collView;
 
-@property (nonatomic, copy) NSMutableArray *cellAttributesArray;
-@property (nonatomic, copy) NSMutableArray *selectedArray;
-
-
 
 @end
 
@@ -32,14 +28,9 @@ static NSString *const footerId = @"footerId";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    
-    
     //1.初始化数组
-    _cellAttributesArray = [NSMutableArray arrayWithCapacity:0];
-    _selectedArray = [NSMutableArray arrayWithCapacity:0];
     
-    //    self.allItemsArr = [NSArray array];
-    self.selectedItemArr = [NSArray array];
+    self.selectedItemArr = [NSMutableArray arrayWithCapacity:0];
     
     //2.添加cellectionView
     [self loadCollectionView];
@@ -57,9 +48,9 @@ static NSString *const footerId = @"footerId";
 
 - (void)loadCollectionView{
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     // 自定义流水布局
-//    LXReorderableCollectionViewFlowLayout *layout = [[LXReorderableCollectionViewFlowLayout alloc] init];
+    LXReorderableCollectionViewFlowLayout *layout = [[LXReorderableCollectionViewFlowLayout alloc] init];
     
     _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     _collView.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
@@ -68,14 +59,6 @@ static NSString *const footerId = @"footerId";
     //    _collView.scrollEnabled = NO;//禁止滚动
     [self.view addSubview:_collView];
     
-    
-    // 9.0以上版本适用 使用系统布局
-        if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0) {
-            //此处给其增加长按手势，用此手势触发cell移动效果
-            UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(sortChannelItem:)];
-            longGesture.minimumPressDuration = 0.2;
-            [_collView addGestureRecognizer:longGesture];
-        }
     
     // 注册cell、sectionHeader、sectionFooter
     [_collView registerNib:[UINib nibWithNibName:@"SCChannelCatalogueCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
@@ -91,34 +74,25 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return self.allItemsArr.count;
+    return 1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (self.allItemsArr.count > section) {
-        NSArray *array = self.allItemsArr[section];
-        return array.count;
-    }
-    return 0;
+    
+    return self.allItemsArr.count;
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section < _allItemsArr.count) {
-        NSArray *array = self.allItemsArr[indexPath.section];
-        if (indexPath.row < array.count) {
-            NSDictionary *dict = [array objectAtIndex:indexPath.row];
+    
+            NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
             SCChannelCatalogueCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
             cell.backgroundColor = [UIColor whiteColor];
             [cell setModel:dict IndexPath:indexPath];
             
             return cell;
-        }
-    }
-    
-    return nil;
 }
 
 /** 段头段尾设置 */
@@ -214,11 +188,11 @@ static NSString *const footerId = @"footerId";
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath {
     
-    id objc = [self.allItemsArr objectAtIndex:fromIndexPath.item];
-    //从资源数组中移除该数据
-    [self.allItemsArr removeObject:objc];
-    //将数据插入到资源数组中的目标位置上
-//    [self.allItemsArr insertObject:objc atIndex:toIndexPath.item];
+    NSDictionary* objc = [_allItemsArr objectAtIndex:fromIndexPath.item];
+//    从资源数组中移除该数据
+    [_allItemsArr removeObject:objc];
+//    将数据插入到资源数组中的目标位置上
+    [_allItemsArr insertObject:objc atIndex:toIndexPath.item];
 }
 
 
@@ -235,62 +209,14 @@ static NSString *const footerId = @"footerId";
 }
 
 
-//#pragma mark - 9.0以上版本适用以下方法 (保留代码)
-- (void)sortChannelItem:(UILongPressGestureRecognizer *)recognizer {
-    //判断手势状态
-    switch (recognizer.state) {
-        case UIGestureRecognizerStateBegan:{
-            //判断手势落点位置是否在路径上
-            NSIndexPath *indexPath = [_collView  indexPathForItemAtPoint:[recognizer locationInView:_collView]];
-            if (indexPath == nil) {
-                break;
-            }
-            //在路径上则开始移动该路径上的cell
-            [_collView  beginInteractiveMovementForItemAtIndexPath:indexPath];
-        }
-            break;
-        case UIGestureRecognizerStateChanged:
-            //移动过程当中随时更新cell位置
-            [_collView updateInteractiveMovementTargetPosition:[recognizer locationInView:_collView]];
-            break;
-        case UIGestureRecognizerStateEnded:
-            //移动结束后关闭cell移动
-            [_collView  endInteractiveMovement];
-            break;
-        default:
-            [_collView  cancelInteractiveMovement];
-            break;
-    }
-}
-
-
-- (NSIndexPath *)collectionView:(UICollectionView *)collectionView targetIndexPathForMoveFromItemAtIndexPath:(NSIndexPath *)originalIndexPath toProposedIndexPath:(NSIndexPath *)proposedIndexPath  {
-    /* 判断两个indexPath参数的section属性, 是否在一个分区 */
-    if (originalIndexPath.section != proposedIndexPath.section) {
-        return originalIndexPath;
-    } else if (proposedIndexPath.section == 0 && proposedIndexPath.item == 0) {
-        return originalIndexPath;
-    } else {
-        return proposedIndexPath;
-    }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-//    id objc = [self.allItemsArr objectAtIndex:sourceIndexPath.item];
-//    //从资源数组中移除该数据
-//    [self.allItemsArr removeObject:objc];
-//    //将数据插入到资源数组中的目标位置上
-//    [self.allItemsArr insertObject:objc atIndex:destinationIndexPath.item];
-}
-
-
 
 #pragma mark- Getters and Setters
-- (NSArray *)allItemsArr{
+- (NSMutableArray *)allItemsArr{
     if (!_allItemsArr) {
-        NSArray *array =@[@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"},@{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}, @{@"OverseasFilm" : @"海外剧场"},@{@"Children" : @"少儿"}, @{@"Life" : @"生活"}, @{@"Music" : @"音乐"},@{@"Game" : @"游戏"}, @{@"Documentary" : @"纪录片"}, @{@"GeneralChannel" : @"通用频道"}]];
+        NSArray *array =@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"},@{@"GeneralChannel" : @"更多"}, @{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}, @{@"OverseasFilm" : @"海外剧场"},@{@"Children" : @"少儿"}, @{@"Life" : @"生活"}, @{@"Music" : @"音乐"},@{@"Game" : @"游戏"}, @{@"Documentary" : @"纪录片"}, @{@"GeneralChannel" : @"通用频道"}];
         
-        _allItemsArr = [array copy];
+        _allItemsArr = [NSMutableArray arrayWithCapacity:0];
+        [_allItemsArr addObjectsFromArray:array];
     }
     return _allItemsArr;
 }

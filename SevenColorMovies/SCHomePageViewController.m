@@ -29,14 +29,9 @@
 @property (nonatomic, strong) NSArray *dataSource;
 /** tableView数据源 */
 @property (nonatomic, copy) NSMutableArray *sectionArr;
-/** tableView数据源 */
-@property (nonatomic, copy) NSMutableArray *selDemandChannelArr;
-
-/** 点播栏已选item */
-@property (nonatomic, copy) NSArray *selectedItemArr;
 
 /** 点播栏所有item */
-@property (nonatomic, copy) NSArray *allItemsArr;
+@property (nonatomic, copy) NSMutableArray *allItemsArr;
 
 @property (nonatomic, strong) SCSycleBanner *bannerView;
 /** banner页图片地址数组 */
@@ -66,7 +61,7 @@ static NSString *const footerId = @"footerId";
     _bannerImageUrlArr = [NSMutableArray arrayWithObjects:@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=1&spn=0&di=170050045220&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=3392936970%2C1240433668&os=2295359357%2C2115524380&simid=4131811244%2C715106156&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic1.nipic.com%2F2008-10-30%2F200810309416546_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3F8AzdH3F90AzdH3F09j81dmjujwvudmb_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0",@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=2&spn=0&di=201852181960&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=4122174456%2C238506339&os=2534432078%2C2727372066&simid=4261751445%2C601149228&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic3.nipic.com%2F20090605%2F2166702_095614055_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3F8l8mn0c_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0",@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=3&spn=0&di=55559078410&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=2363027421%2C438461014&os=388455896%2C106895408&simid=4088773055%2C716705165&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic24.nipic.com%2F20121003%2F10754047_140022530392_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3Fmlamc09_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0", nil];
     
     _sectionArr = [NSMutableArray arrayWithObjects:@"", @"观看记录",@"电影",@"电视剧",@"少儿剧场",@"动漫",@"综艺",nil];
-    _selDemandChannelArr = [NSMutableArray arrayWithObjects:@"直播", @"电影",@"电视剧",@"少儿",@"游戏",@"动漫",@"综艺",@"更多",nil];
+ 
     //3.添加collectionView
     
     [self addCollView];
@@ -175,14 +170,14 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    if (section == 0) return self.selectedItemArr.count;
+    if (section == 0) return 8;
     else return 10;
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        NSDictionary *dict = [_selectedItemArr objectAtIndex:indexPath.row];
+        NSDictionary *dict = [self.allItemsArr objectAtIndex:indexPath.row];
         SCDemandChannelItemCell *cell = [SCDemandChannelItemCell cellWithCollectionView:collectionView indexPath:indexPath];
         cell.backgroundColor = [UIColor whiteColor];
         [cell setModel:dict IndexPath:indexPath];
@@ -281,10 +276,10 @@ static NSString *const footerId = @"footerId";
     
     NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
     //设置返回键标题
-    NSDictionary *dict = [_selectedItemArr objectAtIndex:indexPath.row];
+    NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
     
     if (indexPath.section ==0) {//点播栏
-        if (indexPath.row == 7) {
+        if ([[dict.allValues objectAtIndex:0] isEqualToString:@"更多"]) {
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
@@ -356,28 +351,14 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark- Getters and Setters
-- (NSArray *)selectedItemArr{
-    if (!_selectedItemArr) {
-        NSArray *array =@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"}, @{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"SpecialTopic" : @"专题"}, @{@"GeneralChannel" : @"更多"}];
+- (NSMutableArray *)allItemsArr{
+    if (!_allItemsArr) {
+        NSArray *array =@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"},@{@"GeneralChannel" : @"更多"}, @{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}, @{@"OverseasFilm" : @"海外剧场"},@{@"Children" : @"少儿"}, @{@"Life" : @"生活"}, @{@"Music" : @"音乐"},@{@"Game" : @"游戏"}, @{@"Documentary" : @"纪录片"}, @{@"GeneralChannel" : @"通用频道"}];
         
-        _selectedItemArr = array;
+        _allItemsArr = [NSMutableArray arrayWithCapacity:0];
+        [_allItemsArr addObjectsFromArray:array];
     }
-    return _selectedItemArr;
-}
-
-
-- (NSArray *)dataSource{
-    if (!_dataSource) {
-        NSArray *array = @[@[@{@"FontSize":@"字体大小"},@{@"InfoPushSetting":@"推送设置"}],@[@{@"ClearCache":@"清理缓存"}],
-                           @[@{@"FontSize":@"字体大小"},@{@"InfoPushSetting":@"推送设置"}],@[@{@"ClearCache":@"清理缓存"}],
-                           @[@{@"FontSize":@"字体大小"},@{@"InfoPushSetting":@"推送设置"}],@[@{@"ClearCache":@"清理缓存"}],
-                           @[@{@"FontSize":@"字体大小"},@{@"InfoPushSetting":@"推送设置"}],@[@{@"ClearCache":@"清理缓存"}],
-                           @[@{@"FontSize":@"字体大小"},@{@"InfoPushSetting":@"推送设置"}],@[@{@"ClearCache":@"清理缓存"}],
-                           @[@{@"FontSize":@"字体大小"},@{@"InfoPushSetting":@"推送设置"}],@[@{@"ClearCache":@"清理缓存"}],
-                           @[@{@"About":@"关于"},@{@"Privacy":@"隐私政策"},@{@"AppStoreComment":@"去App Store评分"}],@[@{@"SignOut":@"退出登录"}]];
-        _dataSource = array;
-    }
-    return _dataSource;
+    return _allItemsArr;
 }
 
 
