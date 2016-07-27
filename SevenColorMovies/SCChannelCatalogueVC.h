@@ -12,8 +12,8 @@
 @interface SCChannelCatalogueVC : SCOtherBaseViewController
 
 /** 所有选项数组 */
-@property (nonatomic, copy) NSArray *allItemsArr;
+@property (nonatomic, copy) NSMutableArray *allItemsArr;
 /** 选中的选项数组 */
-@property (nonatomic, copy) NSArray *selectedItemArr;
+@property (nonatomic, copy) NSMutableArray *selectedItemArr;
 
 @end

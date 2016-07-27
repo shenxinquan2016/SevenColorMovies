@@ -10,7 +10,7 @@
 #import "SCChannelCatalogueCell.h"
 #import "LXReorderableCollectionViewFlowLayout.h"
 
-@interface SCChannelCatalogueVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UIGestureRecognizerDelegate>
+@interface SCChannelCatalogueVC ()<LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 /**  */
 @property (nonatomic, strong) UICollectionView *collView;
 
@@ -58,12 +58,24 @@ static NSString *const footerId = @"footerId";
 - (void)loadCollectionView{
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+    // 自定义流水布局
+//    LXReorderableCollectionViewFlowLayout *layout = [[LXReorderableCollectionViewFlowLayout alloc] init];
+    
     _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     _collView.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
     _collView.dataSource = self;
     _collView.delegate = self;
     //    _collView.scrollEnabled = NO;//禁止滚动
     [self.view addSubview:_collView];
+    
+    
+    // 9.0以上版本适用 使用系统布局
+        if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0) {
+            //此处给其增加长按手势，用此手势触发cell移动效果
+            UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(sortChannelItem:)];
+            longGesture.minimumPressDuration = 0.2;
+            [_collView addGestureRecognizer:longGesture];
+        }
     
     // 注册cell、sectionHeader、sectionFooter
     [_collView registerNib:[UINib nibWithNibName:@"SCChannelCatalogueCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
@@ -105,11 +117,6 @@ static NSString *const footerId = @"footerId";
             return cell;
         }
     }
-    
-    // 拖动排序
-    //    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(sortChannelItem:)];
-    //    panGesture.delegate = self;
-    //    [cell addGestureRecognizer:panGesture];
     
     return nil;
 }
@@ -154,10 +161,10 @@ static NSString *const footerId = @"footerId";
 }
 
 
-- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath{
-    
-    
-}
+//- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath{
+//    
+//    
+//}
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
 /** item Size */
@@ -203,11 +210,77 @@ static NSString *const footerId = @"footerId";
     return YES;
 }
 
+#pragma mark - LXReorderableCollectionViewDataSource
+
+- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath {
+    
+    id objc = [self.allItemsArr objectAtIndex:fromIndexPath.item];
+    //从资源数组中移除该数据
+    [self.allItemsArr removeObject:objc];
+    //将数据插入到资源数组中的目标位置上
+//    [self.allItemsArr insertObject:objc atIndex:toIndexPath.item];
+}
+
+
+- (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath {
+    
+    return YES;
+}
+
 
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"======点击=====");
+}
+
+
+//#pragma mark - 9.0以上版本适用以下方法 (保留代码)
+- (void)sortChannelItem:(UILongPressGestureRecognizer *)recognizer {
+    //判断手势状态
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan:{
+            //判断手势落点位置是否在路径上
+            NSIndexPath *indexPath = [_collView  indexPathForItemAtPoint:[recognizer locationInView:_collView]];
+            if (indexPath == nil) {
+                break;
+            }
+            //在路径上则开始移动该路径上的cell
+            [_collView  beginInteractiveMovementForItemAtIndexPath:indexPath];
+        }
+            break;
+        case UIGestureRecognizerStateChanged:
+            //移动过程当中随时更新cell位置
+            [_collView updateInteractiveMovementTargetPosition:[recognizer locationInView:_collView]];
+            break;
+        case UIGestureRecognizerStateEnded:
+            //移动结束后关闭cell移动
+            [_collView  endInteractiveMovement];
+            break;
+        default:
+            [_collView  cancelInteractiveMovement];
+            break;
+    }
+}
+
+
+- (NSIndexPath *)collectionView:(UICollectionView *)collectionView targetIndexPathForMoveFromItemAtIndexPath:(NSIndexPath *)originalIndexPath toProposedIndexPath:(NSIndexPath *)proposedIndexPath  {
+    /* 判断两个indexPath参数的section属性, 是否在一个分区 */
+    if (originalIndexPath.section != proposedIndexPath.section) {
+        return originalIndexPath;
+    } else if (proposedIndexPath.section == 0 && proposedIndexPath.item == 0) {
+        return originalIndexPath;
+    } else {
+        return proposedIndexPath;
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+//    id objc = [self.allItemsArr objectAtIndex:sourceIndexPath.item];
+//    //从资源数组中移除该数据
+//    [self.allItemsArr removeObject:objc];
+//    //将数据插入到资源数组中的目标位置上
+//    [self.allItemsArr insertObject:objc atIndex:destinationIndexPath.item];
 }
 
 
@@ -217,7 +290,7 @@ static NSString *const footerId = @"footerId";
     if (!_allItemsArr) {
         NSArray *array =@[@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"},@{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}, @{@"OverseasFilm" : @"海外剧场"},@{@"Children" : @"少儿"}, @{@"Life" : @"生活"}, @{@"Music" : @"音乐"},@{@"Game" : @"游戏"}, @{@"Documentary" : @"纪录片"}, @{@"GeneralChannel" : @"通用频道"}]];
         
-        _allItemsArr = array;
+        _allItemsArr = [array copy];
     }
     return _allItemsArr;
 }
