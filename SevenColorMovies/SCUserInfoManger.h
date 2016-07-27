@@ -14,7 +14,6 @@
 
 /** 用户是否登录 */
 @property (nonatomic, assign) BOOL isLogin;
-
 /** 用户是否登录 */
 @property (nonatomic, copy) NSString *token;
 

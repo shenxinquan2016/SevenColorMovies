@@ -11,6 +11,11 @@
 		1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */; };
 		1111A40B1D488C1E00C17B92 /* DNIPhoneInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A40A1D488C1E00C17B92 /* DNIPhoneInfo.m */; };
 		1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */; };
+		1111A4121D48A62500C17B92 /* SCNetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4111D48A62500C17B92 /* SCNetHelper.m */; };
+		1111A4191D48A71300C17B92 /* QINetReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4141D48A71300C17B92 /* QINetReachabilityManager.m */; };
+		1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4161D48A71300C17B92 /* QIReachability.m */; };
+		1111A41B1D48A71300C17B92 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4181D48A71300C17B92 /* Reachability.m */; };
+		1111A41F1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A41E1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m */; };
 		1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */; };
 		113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */; };
 		113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D891D3C6FE800B12D39 /* SCNewsViewController.m */; };
@@ -112,6 +117,16 @@
 		1111A40A1D488C1E00C17B92 /* DNIPhoneInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNIPhoneInfo.m; sourceTree = "<group>"; };
 		1111A40D1D488D8A00C17B92 /* SCUserInfoManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUserInfoManger.h; sourceTree = "<group>"; };
 		1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUserInfoManger.m; sourceTree = "<group>"; };
+		1111A4101D48A62500C17B92 /* SCNetHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNetHelper.h; sourceTree = "<group>"; };
+		1111A4111D48A62500C17B92 /* SCNetHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNetHelper.m; sourceTree = "<group>"; };
+		1111A4131D48A71300C17B92 /* QINetReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QINetReachabilityManager.h; sourceTree = "<group>"; };
+		1111A4141D48A71300C17B92 /* QINetReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QINetReachabilityManager.m; sourceTree = "<group>"; };
+		1111A4151D48A71300C17B92 /* QIReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QIReachability.h; sourceTree = "<group>"; };
+		1111A4161D48A71300C17B92 /* QIReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QIReachability.m; sourceTree = "<group>"; };
+		1111A4171D48A71300C17B92 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		1111A4181D48A71300C17B92 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		1111A41D1D48A8D100C17B92 /* MBProgressHUD+Addidtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Addidtion.h"; sourceTree = "<group>"; };
+		1111A41E1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Addidtion.m"; sourceTree = "<group>"; };
 		1112D7491D405D51009A5C35 /* SCSlideHeaderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSlideHeaderLabel.h; sourceTree = "<group>"; };
 		1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSlideHeaderLabel.m; sourceTree = "<group>"; };
 		113F8D851D3C6FC800B12D39 /* SCDiscoveryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDiscoveryViewController.h; sourceTree = "<group>"; };
@@ -288,6 +303,19 @@
 				1111A40A1D488C1E00C17B92 /* DNIPhoneInfo.m */,
 			);
 			name = DNIPhoneInfo;
+			sourceTree = "<group>";
+		};
+		1111A41C1D48A72300C17B92 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				1111A4131D48A71300C17B92 /* QINetReachabilityManager.h */,
+				1111A4141D48A71300C17B92 /* QINetReachabilityManager.m */,
+				1111A4151D48A71300C17B92 /* QIReachability.h */,
+				1111A4161D48A71300C17B92 /* QIReachability.m */,
+				1111A4171D48A71300C17B92 /* Reachability.h */,
+				1111A4181D48A71300C17B92 /* Reachability.m */,
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 		113F8D8E1D3C700900B12D39 /* MainBody */ = {
@@ -730,14 +758,7 @@
 		11BB37C01D38DB250002D487 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				113F8D9C1D3C86EF00B12D39 /* UIImage+Addition.h */,
-				113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */,
-				113F8D9F1D3CAAC200B12D39 /* UIColor+Addition.h */,
-				113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */,
-				11DC2BD61D3DFC6800012480 /* UIImageView+Addition.h */,
-				11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */,
-				11A1D0661D3F433900E2BA0D /* UIView+Addition.h */,
-				11A1D0671D3F433900E2BA0D /* UIView+Addition.m */,
+				11BB37DB1D38F0540002D487 /* Category */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -753,8 +774,6 @@
 				11BB37CC1D38E5480002D487 /* News */,
 				11BB37CB1D38E5440002D487 /* Mine */,
 				11BB37DA1D38F0510002D487 /* NetRequestTool */,
-				11BB37DC1D38F0580002D487 /* New Group4 */,
-				11BB37DB1D38F0540002D487 /* New Group3 */,
 				11BB37C01D38DB250002D487 /* Utility */,
 				11BB37D81D38F0490002D487 /* Helper */,
 			);
@@ -813,6 +832,7 @@
 			children = (
 				1111A40D1D488D8A00C17B92 /* SCUserInfoManger.h */,
 				1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */,
+				11BB37DC1D38F0580002D487 /* NetHelper */,
 				1111A4071D488BE500C17B92 /* DNIPhoneInfo */,
 				11DC2BC91D3DD76700012480 /* DownImageManger */,
 				11BB37DD1D38F0890002D487 /* SCNetUrlManger */,
@@ -848,18 +868,31 @@
 			name = NetRequestTool;
 			sourceTree = "<group>";
 		};
-		11BB37DB1D38F0540002D487 /* New Group3 */ = {
+		11BB37DB1D38F0540002D487 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				113F8D9C1D3C86EF00B12D39 /* UIImage+Addition.h */,
+				113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */,
+				113F8D9F1D3CAAC200B12D39 /* UIColor+Addition.h */,
+				113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */,
+				11DC2BD61D3DFC6800012480 /* UIImageView+Addition.h */,
+				11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */,
+				11A1D0661D3F433900E2BA0D /* UIView+Addition.h */,
+				11A1D0671D3F433900E2BA0D /* UIView+Addition.m */,
+				1111A41D1D48A8D100C17B92 /* MBProgressHUD+Addidtion.h */,
+				1111A41E1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m */,
 			);
-			name = "New Group3";
+			name = Category;
 			sourceTree = "<group>";
 		};
-		11BB37DC1D38F0580002D487 /* New Group4 */ = {
+		11BB37DC1D38F0580002D487 /* NetHelper */ = {
 			isa = PBXGroup;
 			children = (
+				1111A4101D48A62500C17B92 /* SCNetHelper.h */,
+				1111A4111D48A62500C17B92 /* SCNetHelper.m */,
+				1111A41C1D48A72300C17B92 /* New Group */,
 			);
-			name = "New Group4";
+			name = NetHelper;
 			sourceTree = "<group>";
 		};
 		11BB37DD1D38F0890002D487 /* SCNetUrlManger */ = {
@@ -1166,6 +1199,7 @@
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
 				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
 				116475F91D4098EF00A3BC1C /* SCPastVideoTableViewCell.m in Sources */,
+				1111A41F1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m in Sources */,
 				11458EA21D45FEE200EBD16D /* SCMineTopCell.m in Sources */,
 				113F8D991D3C724100B12D39 /* SCMainTabBarViewController.m in Sources */,
 				11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */,
@@ -1174,14 +1208,18 @@
 				11458E921D45D86800EBD16D /* SCHomePageSectionBGReusableView.m in Sources */,
 				11458EA71D45FF2D00EBD16D /* SCMineOtherCell.m in Sources */,
 				116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */,
+				1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */,
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
 				1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
 				11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */,
+				1111A4191D48A71300C17B92 /* QINetReachabilityManager.m in Sources */,
 				11458E9C1D45EECE00EBD16D /* SCDiscoveryCellModel.m in Sources */,
+				1111A4121D48A62500C17B92 /* SCNetHelper.m in Sources */,
 				1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */,
 				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,
+				1111A41B1D48A71300C17B92 /* Reachability.m in Sources */,
 				11A1D0701D3F62E800E2BA0D /* SCRankOtherCell.m in Sources */,
 				115A212D1D42293D0097DE57 /* SCMoiveRecommendationVC.m in Sources */,
 				115A210C1D41BD2F0097DE57 /* SCChannelCategoryCell.m in Sources */,

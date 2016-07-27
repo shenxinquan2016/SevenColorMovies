@@ -8,6 +8,7 @@
 
 #import "SCNetRequsetManger.h"
 #import "DNIPhoneInfo.h"// iphone型号 iOS版本号
+#import "SCNetHelper.h"
 
 
 @implementation SCNetRequsetManger
@@ -58,11 +59,11 @@
         }
     } faild:^(id  _Nullable errorObject) {
         //数据请求失败
-//        if (![TLNetHelper isNetConnect]) {
-//            faild(@"网络异常，请检查网络设置!");
-//        } else {
-//            faild(@"获取数据失败!");
-//        }
+        if (![SCNetHelper isNetConnect]) {
+            faild(@"网络异常，请检查网络设置!");
+        } else {
+            faild(@"获取数据失败!");
+        }
     }];
 }
 //******************☝️☝️☝️☝️☝️☝️☝️☝️下面为某个需要调用的方法☝️☝️☝️☝️☝️☝️☝️☝️****************
@@ -132,7 +133,7 @@
 //                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_loginVC];
 //                    [TL_KEYWINDOW.rootViewController presentViewController:nav animated:YES completion:nil];
 //                }
-//                UserInfoManager.isLogin = NO;
+                UserInfoManager.isLogin = NO;
                 [dic setObject:@"用户身份已过期，请重新登录！" forKey:@"msg"];
                 return ;
                 //success(dic);

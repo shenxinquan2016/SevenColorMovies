@@ -16,6 +16,9 @@
 #import "UIColor+Addition.h"
 #import "UIImageView+Addition.h"
 #import "MJExtension.h"
+#import "SCUserInfoManger.h"
+#import "MBProgressHUD+Addidtion.h"
+
 
 
 #if __has_feature(objc_arc)
