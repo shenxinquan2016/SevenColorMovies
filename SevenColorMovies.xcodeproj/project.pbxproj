@@ -82,6 +82,8 @@
 		11C8CFBB1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFB71D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m */; };
 		11C8CFBC1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C8CFB81D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib */; };
 		11C8CFBD1D45157B00C04F38 /* SCRankTopRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFBA1D45157B00C04F38 /* SCRankTopRowTableViewCell.m */; };
+		11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422531D49A1A400B4F9AE /* DONG_RefreshGifHeader.m */; };
+		11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422561D49A20800B4F9AE /* DONG_RefreshGifFooter.m */; };
 		11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */; };
 		11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */; };
 		11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */; };
@@ -247,6 +249,10 @@
 		11C8CFB81D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCRankTopRowCollectionViewCell.xib; sourceTree = "<group>"; };
 		11C8CFB91D45157B00C04F38 /* SCRankTopRowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankTopRowTableViewCell.h; sourceTree = "<group>"; };
 		11C8CFBA1D45157B00C04F38 /* SCRankTopRowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRankTopRowTableViewCell.m; sourceTree = "<group>"; };
+		11D422521D49A1A400B4F9AE /* DONG_RefreshGifHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_RefreshGifHeader.h; sourceTree = "<group>"; };
+		11D422531D49A1A400B4F9AE /* DONG_RefreshGifHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_RefreshGifHeader.m; sourceTree = "<group>"; };
+		11D422551D49A20800B4F9AE /* DONG_RefreshGifFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_RefreshGifFooter.h; sourceTree = "<group>"; };
+		11D422561D49A20800B4F9AE /* DONG_RefreshGifFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_RefreshGifFooter.m; sourceTree = "<group>"; };
 		11DC2BBF1D3DCDEA00012480 /* SCDemandChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelCell.h; sourceTree = "<group>"; };
 		11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDemandChannelCell.m; sourceTree = "<group>"; };
 		11DC2BC21D3DCE6700012480 /* SCDemandChannelItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelItemCell.h; sourceTree = "<group>"; };
@@ -964,6 +970,10 @@
 		11D422511D499FF900B4F9AE /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
+				11D422521D49A1A400B4F9AE /* DONG_RefreshGifHeader.h */,
+				11D422531D49A1A400B4F9AE /* DONG_RefreshGifHeader.m */,
+				11D422551D49A20800B4F9AE /* DONG_RefreshGifFooter.h */,
+				11D422561D49A20800B4F9AE /* DONG_RefreshGifFooter.m */,
 			);
 			name = MJRefresh;
 			sourceTree = "<group>";
@@ -1227,6 +1237,7 @@
 				11458EA71D45FF2D00EBD16D /* SCMineOtherCell.m in Sources */,
 				116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */,
 				1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */,
+				11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */,
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
 				1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
@@ -1245,6 +1256,7 @@
 				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
 				11A1D06C1D3F508E00E2BA0D /* SCRankViewController.m in Sources */,
 				115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */,
+				11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
