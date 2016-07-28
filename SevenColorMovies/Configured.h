@@ -19,6 +19,9 @@
 #import "SCUserInfoManger.h"
 #import "MBProgressHUD+Addidtion.h"
 #import "MJRefresh.h"
+#import "DONG_RefreshGifFooter.h"
+#import "DONG_RefreshGifHeader.h"
+#import "SCComonFunc.h"
 
 
 #if __has_feature(objc_arc)
@@ -86,9 +89,15 @@
 //#define NSLog() NSLog(@"...")
 
 
+//获取view的frame某值
+#define ViewWidth(v)                        v.frame.size.width
+#define ViewHeight(v)                       v.frame.size.height
+#define ViewX(v)                            v.frame.origin.x
+#define ViewY(v)                            v.frame.origin.y
 
-
-
+//color
+#define RGB(r, g, b)             [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:1.0]
+#define RGBAlpha(r, g, b, a)     [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:(a)]
 
 
 
