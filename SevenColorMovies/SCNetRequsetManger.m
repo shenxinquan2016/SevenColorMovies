@@ -179,6 +179,7 @@
 - (void)GETRequestDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 
+
 //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"text/xml", nil];
    
     // 设置请求格式

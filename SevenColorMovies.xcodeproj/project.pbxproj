@@ -19,6 +19,8 @@
 		1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4211D48B2E000C17B92 /* SCNetRequsetManger+Home.m */; };
 		1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4271D48C51A00C17B92 /* SCLoadingView.m */; };
 		1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */; };
+		1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */; };
+		1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */; };
 		113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 113E62E71D49F63100FB8F3A /* SCFilmModel.m */; };
 		113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */; };
 		113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D891D3C6FE800B12D39 /* SCNewsViewController.m */; };
@@ -143,6 +145,10 @@
 		1111A4271D48C51A00C17B92 /* SCLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLoadingView.m; sourceTree = "<group>"; };
 		1112D7491D405D51009A5C35 /* SCSlideHeaderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSlideHeaderLabel.h; sourceTree = "<group>"; };
 		1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSlideHeaderLabel.m; sourceTree = "<group>"; };
+		1122FF611D4A22E900E6E8A2 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
+		1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
+		1122FF631D4A22E900E6E8A2 /* NSDictionary+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Log.h"; sourceTree = "<group>"; };
+		1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Log.m"; sourceTree = "<group>"; };
 		113E62E61D49F63100FB8F3A /* SCFilmModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmModel.h; sourceTree = "<group>"; };
 		113E62E71D49F63100FB8F3A /* SCFilmModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmModel.m; sourceTree = "<group>"; };
 		113F8D851D3C6FC800B12D39 /* SCDiscoveryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDiscoveryViewController.h; sourceTree = "<group>"; };
@@ -760,6 +766,10 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				1122FF611D4A22E900E6E8A2 /* NSArray+Log.h */,
+				1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */,
+				1122FF631D4A22E900E6E8A2 /* NSDictionary+Log.h */,
+				1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */,
 				11D422601D49F4E400B4F9AE /* XMLParser */,
 				11D422511D499FF900B4F9AE /* MJRefresh */,
 			);
@@ -1270,9 +1280,11 @@
 				1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */,
 				11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */,
 				11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */,
+				1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */,
 				11458E971D45E0D500EBD16D /* SCDiscoveryTableViewCell.m in Sources */,
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
 				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
+				1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */,
 				116475F91D4098EF00A3BC1C /* SCPastVideoTableViewCell.m in Sources */,
 				1111A41F1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m in Sources */,
 				11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */,
