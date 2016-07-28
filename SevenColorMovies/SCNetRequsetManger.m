@@ -47,7 +47,7 @@
         NSMutableArray *returnArray = [[NSMutableArray alloc]init];//要返回的数组
         for (NSDictionary *dataSource in responseObject) {
             if ([dataSource isKindOfClass:[NSDictionary class]]) {
-#warning 这里换成自己需要的model
+
                 //RDLivingVCModel *livingVCModel = [RDLivingVCModel objectWithKeyValues:dataSource];
                 //[returnArray addObject:livingVCModel];//返回的数组里面是model类型
             }
@@ -99,12 +99,11 @@
 
 
 /** 首页数据请求 get */
-
-- (void)getRequestDataWithUrl:(nullable NSString *)urlString success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild{
+- (void)requestHomePageDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success failure:(void (^)(id _Nullable))faild{
     
-    [self GETRequestDataWithUrl:urlString parameters:nil success:^(id _Nullable responseObject) {
-        
-        
+    [self GETRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject) {
+        success(responseObject);
+        [MBProgressHUD showError:@"成功了"];
         
     } faild:^(id _Nullable errorObject) {
         //数据请求失败
@@ -119,6 +118,7 @@
     
     
 }
+
 
 
 
@@ -207,16 +207,18 @@
 
 - (void)GETRequestDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",nil];
-    manager.requestSerializer.timeoutInterval = 10;//请求超时时间设置
+
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"text/xml", nil];
+   
     // 设置请求格式
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer = [AFXMLParserResponseSerializer new];
+    //请求超时时间设置
+    manager.requestSerializer.timeoutInterval = 10;
     
     [manager GET:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
-            NSError *myError;
-            id dic = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:&myError];
-            success(dic);
+            
+            success(responseObject);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"------%@》》》》》》", error);

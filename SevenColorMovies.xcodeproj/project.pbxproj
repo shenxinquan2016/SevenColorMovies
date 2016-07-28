@@ -85,6 +85,7 @@
 		11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422531D49A1A400B4F9AE /* DONG_RefreshGifHeader.m */; };
 		11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422561D49A20800B4F9AE /* DONG_RefreshGifFooter.m */; };
 		11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422591D49A42800B4F9AE /* SCComonFunc.m */; };
+		11D4225C1D49A8EC00B4F9AE /* SCLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */; };
 		11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */; };
 		11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */; };
 		11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */; };
@@ -256,6 +257,7 @@
 		11D422561D49A20800B4F9AE /* DONG_RefreshGifFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_RefreshGifFooter.m; sourceTree = "<group>"; };
 		11D422581D49A42800B4F9AE /* SCComonFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCComonFunc.h; sourceTree = "<group>"; };
 		11D422591D49A42800B4F9AE /* SCComonFunc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCComonFunc.m; sourceTree = "<group>"; };
+		11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCLoadingView.xib; sourceTree = "<group>"; };
 		11DC2BBF1D3DCDEA00012480 /* SCDemandChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelCell.h; sourceTree = "<group>"; };
 		11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDemandChannelCell.m; sourceTree = "<group>"; };
 		11DC2BC21D3DCE6700012480 /* SCDemandChannelItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelItemCell.h; sourceTree = "<group>"; };
@@ -850,6 +852,7 @@
 				1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */,
 				1111A4261D48C51A00C17B92 /* SCLoadingView.h */,
 				1111A4271D48C51A00C17B92 /* SCLoadingView.m */,
+				11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */,
 				11D422581D49A42800B4F9AE /* SCComonFunc.h */,
 				11D422591D49A42800B4F9AE /* SCComonFunc.m */,
 				11BB37DC1D38F0580002D487 /* NetHelper */,
@@ -1144,6 +1147,7 @@
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11A1D0721D3F62FD00E2BA0D /* SCRankOtherCell.xib in Resources */,
 				11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */,
+				11D4225C1D49A8EC00B4F9AE /* SCLoadingView.xib in Resources */,
 				11C8CFBC1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib in Resources */,
 				115A210D1D41BD2F0097DE57 /* SCChannelCategoryCell.xib in Resources */,
 				11BB37D01D38E5C00002D487 /* Discovery.storyboard in Resources */,

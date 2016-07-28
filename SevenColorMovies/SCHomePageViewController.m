@@ -273,26 +273,21 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark ---- UICollectionView DataDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    //网络请求测试
     
-    NSString *url = @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&epgid=600111&spid=20120528";
-    [requestDataManager requestDataWithUrl:url success:^(id  _Nullable responseObject) {
-        
-        [MBProgressHUD showError:@"post成功了"];
-        
+    NSString *urlString = @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&epgid=600111&spid=20120528";
+//    NSDictionary *parameters = @{@"level":@"0", @"size":@"9"};
+    
+    [requestDataManager requestHomePageDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
+        NSLog(@"=======%@======",responseObject);
         
     } failure:^(id  _Nullable errorObject) {
-          [MBProgressHUD showError:@"post失败了"];
         
-        
+        [MBProgressHUD showError:[NSString stringWithFormat:@"%@",errorObject]];
     }];
     
-//    [requestDataManager getRequestDataWithUrl:url success:^(id  _Nullable responseObject) {
-//          [MBProgressHUD showError:@"get成功了"];
-//        
-//    } failure:^(id  _Nullable errorObject) {
-//        
-//          [MBProgressHUD showError:@"get失败了"];
-//    }];
+    
+    
     
     NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
     //设置返回键标题
