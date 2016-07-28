@@ -19,6 +19,7 @@
 		1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4211D48B2E000C17B92 /* SCNetRequsetManger+Home.m */; };
 		1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4271D48C51A00C17B92 /* SCLoadingView.m */; };
 		1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */; };
+		113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 113E62E71D49F63100FB8F3A /* SCFilmModel.m */; };
 		113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */; };
 		113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D891D3C6FE800B12D39 /* SCNewsViewController.m */; };
 		113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D8C1D3C6FFB00B12D39 /* SCMineViewController.m */; };
@@ -55,6 +56,7 @@
 		116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476031D40BA3D00A3BC1C /* SCChannelCatalogueVC.m */; };
 		116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */; };
 		1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */; };
+		1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */; };
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
 		1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
@@ -86,6 +88,7 @@
 		11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422561D49A20800B4F9AE /* DONG_RefreshGifFooter.m */; };
 		11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422591D49A42800B4F9AE /* SCComonFunc.m */; };
 		11D4225C1D49A8EC00B4F9AE /* SCLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */; };
+		11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D4225E1D49E83D00B4F9AE /* XMLDictionary.m */; };
 		11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */; };
 		11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */; };
 		11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */; };
@@ -139,6 +142,8 @@
 		1111A4271D48C51A00C17B92 /* SCLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLoadingView.m; sourceTree = "<group>"; };
 		1112D7491D405D51009A5C35 /* SCSlideHeaderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSlideHeaderLabel.h; sourceTree = "<group>"; };
 		1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSlideHeaderLabel.m; sourceTree = "<group>"; };
+		113E62E61D49F63100FB8F3A /* SCFilmModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmModel.h; sourceTree = "<group>"; };
+		113E62E71D49F63100FB8F3A /* SCFilmModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmModel.m; sourceTree = "<group>"; };
 		113F8D851D3C6FC800B12D39 /* SCDiscoveryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDiscoveryViewController.h; sourceTree = "<group>"; };
 		113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDiscoveryViewController.m; sourceTree = "<group>"; };
 		113F8D881D3C6FE800B12D39 /* SCNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNewsViewController.h; sourceTree = "<group>"; };
@@ -202,6 +207,8 @@
 		116476061D40CA8900A3BC1C /* SCChannelCatalogueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelCatalogueCell.h; sourceTree = "<group>"; };
 		116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCatalogueCell.m; sourceTree = "<group>"; };
 		116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCChannelCatalogueCell.xib; sourceTree = "<group>"; };
+		1190AC741D49F9EA004AAF23 /* SCFilmListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmListModel.h; sourceTree = "<group>"; };
+		1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmListModel.m; sourceTree = "<group>"; };
 		1196A0701D42650A00B3C5EF /* SCMovieEpisodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMovieEpisodeCell.h; sourceTree = "<group>"; };
 		1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMovieEpisodeCell.m; sourceTree = "<group>"; };
 		1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMovieEpisodeCell.xib; sourceTree = "<group>"; };
@@ -258,6 +265,8 @@
 		11D422581D49A42800B4F9AE /* SCComonFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCComonFunc.h; sourceTree = "<group>"; };
 		11D422591D49A42800B4F9AE /* SCComonFunc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCComonFunc.m; sourceTree = "<group>"; };
 		11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCLoadingView.xib; sourceTree = "<group>"; };
+		11D4225D1D49E83D00B4F9AE /* XMLDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDictionary.h; sourceTree = "<group>"; };
+		11D4225E1D49E83D00B4F9AE /* XMLDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLDictionary.m; sourceTree = "<group>"; };
 		11DC2BBF1D3DCDEA00012480 /* SCDemandChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelCell.h; sourceTree = "<group>"; };
 		11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDemandChannelCell.m; sourceTree = "<group>"; };
 		11DC2BC21D3DCE6700012480 /* SCDemandChannelItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelItemCell.h; sourceTree = "<group>"; };
@@ -333,6 +342,17 @@
 				1111A4181D48A71300C17B92 /* Reachability.m */,
 			);
 			name = "New Group";
+			sourceTree = "<group>";
+		};
+		113E62E51D49F5FE00FB8F3A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				113E62E61D49F63100FB8F3A /* SCFilmModel.h */,
+				113E62E71D49F63100FB8F3A /* SCFilmModel.m */,
+				1190AC741D49F9EA004AAF23 /* SCFilmListModel.h */,
+				1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		113F8D8E1D3C700900B12D39 /* MainBody */ = {
@@ -735,6 +755,7 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				11D422601D49F4E400B4F9AE /* XMLParser */,
 				11D422511D499FF900B4F9AE /* MJRefresh */,
 			);
 			name = Vendor;
@@ -760,6 +781,7 @@
 				115A21101D41F02F0097DE57 /* Teleplay电视剧 */,
 				115A210F1D41F02B0097DE57 /* Moive电影 */,
 				115A210E1D41F0260097DE57 /* Arts综艺 */,
+				113E62E51D49F5FE00FB8F3A /* Model */,
 			);
 			name = HomePage;
 			sourceTree = "<group>";
@@ -984,6 +1006,15 @@
 				11D422561D49A20800B4F9AE /* DONG_RefreshGifFooter.m */,
 			);
 			name = MJRefresh;
+			sourceTree = "<group>";
+		};
+		11D422601D49F4E400B4F9AE /* XMLParser */ = {
+			isa = PBXGroup;
+			children = (
+				11D4225D1D49E83D00B4F9AE /* XMLDictionary.h */,
+				11D4225E1D49E83D00B4F9AE /* XMLDictionary.m */,
+			);
+			name = XMLParser;
 			sourceTree = "<group>";
 		};
 		11DC2BBE1D3DCD2900012480 /* Cell */ = {
@@ -1231,6 +1262,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */,
+				11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */,
 				11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */,
 				11458E971D45E0D500EBD16D /* SCDiscoveryTableViewCell.m in Sources */,
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
@@ -1289,6 +1322,7 @@
 				11C8CFBD1D45157B00C04F38 /* SCRankTopRowTableViewCell.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
 				116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */,
+				113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */,
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
 				1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,

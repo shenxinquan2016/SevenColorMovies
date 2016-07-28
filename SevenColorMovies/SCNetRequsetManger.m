@@ -211,13 +211,20 @@
 //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"text/xml", nil];
    
     // 设置请求格式
-    manager.responseSerializer = [AFXMLParserResponseSerializer new];
+    manager.responseSerializer = [AFXMLParserResponseSerializer new];//返回XMLParser
+//     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     //请求超时时间设置
     manager.requestSerializer.timeoutInterval = 10;
     
     [manager GET:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
+            NSDictionary *dic = [NSDictionary dictionaryWithXMLParser:responseObject];
+//            NSDictionary *dic = [NSDictionary dictionaryWithXMLData:responseObject];
             
+            NSArray *arr = dic[@"FilmClass"][0][@"FilmClass"];
+            NSDictionary *dic1 = arr[0];
+            
+            NSLog(@"======dic:%@",dic);
             success(responseObject);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

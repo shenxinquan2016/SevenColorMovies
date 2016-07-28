@@ -22,7 +22,7 @@
 
 
 
-@interface SCHomePageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate>
+@interface SCHomePageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate,NSXMLParserDelegate>
 
 @property (nonatomic, strong) UICollectionView *collView;
 /** tableView数据源 */
@@ -280,6 +280,13 @@ static NSString *const footerId = @"footerId";
     
     [requestDataManager requestHomePageDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
         NSLog(@"=======%@======",responseObject);
+//        NSXMLParser *paser = (NSXMLParser *)responseObject;
+//        paser.delegate = self;
+//        //    开始解析
+//        [paser parse];
+//        
+        
+        
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -375,6 +382,30 @@ static NSString *const footerId = @"footerId";
     }
     return _allItemsArr;
 }
+
+
+//解析会循环执行以下三个方法
+//开始元素的时候执行此方法
+-(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
+    NSLog(@"开始标签  %@", elementName);
+    if ([elementName isEqualToString:@"student"]) {
+        
+        NSLog(@"=====%@",attributeDict);
+        
+    }
+}
+
+//找到文本的时候
+-(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
+    
+    NSLog(@"发现文本  %@", string);
+}
+//结束元素的时候
+-(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
+   
+    NSLog(@"结束标签  %@", elementName);
+}
+
 
 
 

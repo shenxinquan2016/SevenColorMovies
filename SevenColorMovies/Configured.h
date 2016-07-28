@@ -22,6 +22,8 @@
 #import "DONG_RefreshGifFooter.h"
 #import "DONG_RefreshGifHeader.h"
 #import "SCComonFunc.h"
+#import "XMLDictionary.h"
+
 
 
 #if __has_feature(objc_arc)
