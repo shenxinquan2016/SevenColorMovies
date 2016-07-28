@@ -25,4 +25,8 @@
 /** 包含的影片数组*/
 @property (nonatomic, copy) NSArray *filmArray;
 
+
+
+
+
 @end

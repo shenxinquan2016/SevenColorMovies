@@ -31,8 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)requestDataWithModelType:(nullable id)modelType success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
 
-/** 首页数据请求 post */
-- (void)requestDataWithUrl:(nullable NSString *)urlString success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
 
 
 

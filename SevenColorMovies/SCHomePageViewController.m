@@ -273,6 +273,7 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark ---- UICollectionView DataDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+  
     //网络请求测试
     
     NSString *urlString = @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&epgid=600111&spid=20120528";
@@ -280,11 +281,6 @@ static NSString *const footerId = @"footerId";
     
     [requestDataManager requestHomePageDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
         NSLog(@"=======%@======",responseObject);
-//        NSXMLParser *paser = (NSXMLParser *)responseObject;
-//        paser.delegate = self;
-//        //    开始解析
-//        [paser parse];
-//        
         
         
         

@@ -68,35 +68,6 @@
     }];
 }
 
-/** 首页数据请求 */
-- (void)requestDataWithUrl:(nullable NSString *)urlString success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild{
-    
-    [self POSTRequestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
-        NSMutableArray *returnArray = [[NSMutableArray alloc]init];//要返回的数组
-        for (NSDictionary *dataSource in responseObject) {
-            if ([dataSource isKindOfClass:[NSDictionary class]]) {
-
-                //RDLivingVCModel *livingVCModel = [RDLivingVCModel objectWithKeyValues:dataSource];
-                //[returnArray addObject:livingVCModel];//返回的数组里面是model类型
-            }
-        }
-        
-        if (returnArray.count) {
-            success(returnArray);
-        } else {
-            faild(@"暂无更多数据");
-        }
-    } faild:^(id  _Nullable errorObject) {
-        //数据请求失败
-        if (![SCNetHelper isNetConnect]) {
-            faild(@"网络异常，请检查网络设置!");
-        } else {
-            faild(@"获取数据失败!");
-        }
-    }];
-    
-}
-
 
 /** 首页数据请求 get */
 - (void)requestHomePageDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success failure:(void (^)(id _Nullable))faild{
@@ -219,10 +190,13 @@
     [manager GET:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             NSDictionary *dic = [NSDictionary dictionaryWithXMLParser:responseObject];
-//            NSDictionary *dic = [NSDictionary dictionaryWithXMLData:responseObject];
             
-            NSArray *arr = dic[@"FilmClass"][0][@"FilmClass"];
-            NSDictionary *dic1 = arr[0];
+//
+
+            
+//            NSDictionary *dic = [NSDictionary dictionaryWithXMLString:responseObject];
+            
+            
             
             NSLog(@"======dic:%@",dic);
             success(responseObject);
