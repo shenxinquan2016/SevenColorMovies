@@ -10,6 +10,6 @@ target 'SevenColorMovies' do
     pod 'SDWebImage', '~>3.7'
     pod 'AFNetworking', '~>2.5.4'
     pod 'SDCycleScrollView','~> 1.61'
-
+    pod 'MJRefresh', '~> 3.1.10'
 
 end

@@ -724,6 +724,7 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				11D422511D499FF900B4F9AE /* MJRefresh */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -958,6 +959,13 @@
 			children = (
 			);
 			name = Mine;
+			sourceTree = "<group>";
+		};
+		11D422511D499FF900B4F9AE /* MJRefresh */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MJRefresh;
 			sourceTree = "<group>";
 		};
 		11DC2BBE1D3DCD2900012480 /* Cell */ = {
