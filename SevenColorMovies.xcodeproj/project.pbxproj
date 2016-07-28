@@ -16,6 +16,8 @@
 		1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4161D48A71300C17B92 /* QIReachability.m */; };
 		1111A41B1D48A71300C17B92 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4181D48A71300C17B92 /* Reachability.m */; };
 		1111A41F1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A41E1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m */; };
+		1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4211D48B2E000C17B92 /* SCNetRequsetManger+Home.m */; };
+		1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4271D48C51A00C17B92 /* SCLoadingView.m */; };
 		1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */; };
 		113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */; };
 		113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D891D3C6FE800B12D39 /* SCNewsViewController.m */; };
@@ -127,6 +129,10 @@
 		1111A4181D48A71300C17B92 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1111A41D1D48A8D100C17B92 /* MBProgressHUD+Addidtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Addidtion.h"; sourceTree = "<group>"; };
 		1111A41E1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Addidtion.m"; sourceTree = "<group>"; };
+		1111A4201D48B2E000C17B92 /* SCNetRequsetManger+Home.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCNetRequsetManger+Home.h"; sourceTree = "<group>"; };
+		1111A4211D48B2E000C17B92 /* SCNetRequsetManger+Home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCNetRequsetManger+Home.m"; sourceTree = "<group>"; };
+		1111A4261D48C51A00C17B92 /* SCLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLoadingView.h; sourceTree = "<group>"; };
+		1111A4271D48C51A00C17B92 /* SCLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLoadingView.m; sourceTree = "<group>"; };
 		1112D7491D405D51009A5C35 /* SCSlideHeaderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSlideHeaderLabel.h; sourceTree = "<group>"; };
 		1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSlideHeaderLabel.m; sourceTree = "<group>"; };
 		113F8D851D3C6FC800B12D39 /* SCDiscoveryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDiscoveryViewController.h; sourceTree = "<group>"; };
@@ -832,6 +838,8 @@
 			children = (
 				1111A40D1D488D8A00C17B92 /* SCUserInfoManger.h */,
 				1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */,
+				1111A4261D48C51A00C17B92 /* SCLoadingView.h */,
+				1111A4271D48C51A00C17B92 /* SCLoadingView.m */,
 				11BB37DC1D38F0580002D487 /* NetHelper */,
 				1111A4071D488BE500C17B92 /* DNIPhoneInfo */,
 				11DC2BC91D3DD76700012480 /* DownImageManger */,
@@ -925,6 +933,8 @@
 		11BE83211D3CD33C00886CF6 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				1111A4201D48B2E000C17B92 /* SCNetRequsetManger+Home.h */,
+				1111A4211D48B2E000C17B92 /* SCNetRequsetManger+Home.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1210,6 +1220,7 @@
 				116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */,
 				1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */,
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
+				1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
 				1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
@@ -1251,6 +1262,7 @@
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
 				1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
+				1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */,
 				11C8CFBB1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m in Sources */,
 				1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */,
 			);

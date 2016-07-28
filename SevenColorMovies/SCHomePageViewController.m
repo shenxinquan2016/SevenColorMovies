@@ -70,8 +70,8 @@ static NSString *const footerId = @"footerId";
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    
+  
+
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -273,6 +273,26 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark ---- UICollectionView DataDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *url = @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&epgid=600111&spid=20120528";
+    [requestDataManager requestDataWithUrl:url success:^(id  _Nullable responseObject) {
+        
+        [MBProgressHUD showError:@"post成功了"];
+        
+        
+    } failure:^(id  _Nullable errorObject) {
+          [MBProgressHUD showError:@"post失败了"];
+        
+        
+    }];
+    
+//    [requestDataManager getRequestDataWithUrl:url success:^(id  _Nullable responseObject) {
+//          [MBProgressHUD showError:@"get成功了"];
+//        
+//    } failure:^(id  _Nullable errorObject) {
+//        
+//          [MBProgressHUD showError:@"get失败了"];
+//    }];
     
     NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
     //设置返回键标题

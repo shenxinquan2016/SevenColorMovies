@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+#define requestDataManager [SCNetRequsetManger shareManager]
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SCNetRequsetManger : NSObject
 
 + (instancetype _Nullable)shareManager;
 
-//****************************************下面为某个需要调用的方法***********************************
-//例子1
+//******************☝️☝️☝️☝️☝️☝️☝️☝️下面为某个需要调用的方法☝️☝️☝️☝️☝️☝️☝️☝️****************
 
 /**
  *  GET 或则 POST 请求根据自己的需求来定
@@ -26,9 +27,21 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param success       成功的返回 （如果模型存在，成功后直接返回模型数组）
  *  @param faild         失败的返回
  */
-//- (void)requestDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSMutableDictionary *)parameters progress:(nullable void(^)(NSProgress * _Nonnull uploadProgress))progressValue modelType:(nullable id)modelType success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
+
 
 - (void)requestDataWithModelType:(nullable id)modelType success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
+
+/** 首页数据请求 post */
+- (void)requestDataWithUrl:(nullable NSString *)urlString success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
+
+
+
+
+
+/** 首页数据请求 get */
+
+- (void)getRequestDataWithUrl:(nullable NSString *)urlString success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
+
 
 
 
