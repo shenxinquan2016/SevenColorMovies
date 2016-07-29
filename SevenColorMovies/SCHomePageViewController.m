@@ -69,8 +69,7 @@ static NSString *const footerId = @"footerId";
     
     [self addCollView];
     
-    
-    
+    [CommonFunc showLoadingWithTips:@"加载中"];
     //banner网络请求测试
     [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
         
@@ -83,7 +82,7 @@ static NSString *const footerId = @"footerId";
                 NSLog(@"====url::::%@",model._ImgUrlOriginal);
                 
             }
-            
+            [CommonFunc dismiss];
             //添加banner
             if (_bannerImageUrlArr.count > 0) {
                 [self addBannerView];

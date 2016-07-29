@@ -58,6 +58,10 @@
                 <constraint firstItem="6v3-Wv-j9F" firstAttribute="centerX" secondItem="wuv-9j-plI" secondAttribute="centerX" id="sMu-1N-hCp"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <connections>
+                <outlet property="imageView" destination="e0s-kY-Eag" id="qhz-qQ-U7T"/>
+                <outlet property="titleLabel" destination="8RB-wk-RjB" id="3D3-F7-8pO"/>
+            </connections>
             <point key="canvasLocation" x="816" y="-262"/>
         </view>
     </objects>
