@@ -9,6 +9,7 @@
 #import "SCDiscoveryViewController.h"
 #import "SCDiscoveryTableViewCell.h"
 #import "SCDiscoveryCellModel.h"
+#import "SCRemoteControlVC.h"
 
 
 @interface SCDiscoveryViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -78,6 +79,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"======indexPath.section:%ld",indexPath.section);
+    //遥控器
+    if (indexPath.section == 1 && indexPath.row == 0){
+        SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+        remoteVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:remoteVC animated:YES];
+    }
     
     
 }

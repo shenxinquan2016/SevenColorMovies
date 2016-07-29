@@ -59,6 +59,7 @@
 		116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D561D4AFAF800B488EC /* SCBannerModel.m */; };
 		116E1D5A1D4B40B700B488EC /* SCRankTopRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D591D4B40B700B488EC /* SCRankTopRowTableViewCell.m */; };
 		116E1D5E1D4B4E0200B488EC /* SCSiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D5D1D4B4E0200B488EC /* SCSiftViewController.m */; };
+		116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */; };
 		1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */; };
 		1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC781D4A00D9004AAF23 /* SCFilmClassModel.m */; };
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
@@ -217,6 +218,8 @@
 		116E1D591D4B40B700B488EC /* SCRankTopRowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRankTopRowTableViewCell.m; sourceTree = "<group>"; };
 		116E1D5C1D4B4E0200B488EC /* SCSiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiftViewController.h; sourceTree = "<group>"; };
 		116E1D5D1D4B4E0200B488EC /* SCSiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiftViewController.m; sourceTree = "<group>"; };
+		116E1D5F1D4B5A9E00B488EC /* SCRemoteControlVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRemoteControlVC.h; sourceTree = "<group>"; };
+		116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRemoteControlVC.m; sourceTree = "<group>"; };
 		1190AC741D49F9EA004AAF23 /* SCFilmListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmListModel.h; sourceTree = "<group>"; };
 		1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmListModel.m; sourceTree = "<group>"; };
 		1190AC771D4A00D9004AAF23 /* SCFilmClassModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmClassModel.h; sourceTree = "<group>"; };
@@ -408,11 +411,13 @@
 			name = Rank;
 			sourceTree = "<group>";
 		};
-		113F8D911D3C704E00B12D39 /* View */ = {
+		113F8D911D3C704E00B12D39 /* RemoteControl */ = {
 			isa = PBXGroup;
 			children = (
+				116E1D5F1D4B5A9E00B488EC /* SCRemoteControlVC.h */,
+				116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */,
 			);
-			name = View;
+			name = RemoteControl;
 			sourceTree = "<group>";
 		};
 		113F8D921D3C705200B12D39 /* MainBody */ = {
@@ -420,6 +425,7 @@
 			children = (
 				113F8D851D3C6FC800B12D39 /* SCDiscoveryViewController.h */,
 				113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */,
+				11458E991D45EE4C00EBD16D /* Model */,
 				11458E9D1D45FEA400EBD16D /* Cell */,
 			);
 			name = MainBody;
@@ -797,8 +803,7 @@
 			isa = PBXGroup;
 			children = (
 				113F8D921D3C705200B12D39 /* MainBody */,
-				113F8D911D3C704E00B12D39 /* View */,
-				11458E991D45EE4C00EBD16D /* Model */,
+				113F8D911D3C704E00B12D39 /* RemoteControl */,
 			);
 			name = Discovery;
 			sourceTree = "<group>";
@@ -1344,6 +1349,7 @@
 				115A21161D41F5E30097DE57 /* SCMoivePlayerVC.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
 				115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */,
+				116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */,
 				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
 				11BE83151D3CB56B00886CF6 /* SCSycleBanner.m in Sources */,
 				11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */,
