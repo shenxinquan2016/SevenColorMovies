@@ -69,6 +69,27 @@
 }
 
 
+/** Banner数据 */
+- (void)requestBannerDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success failure:(void (^)(id _Nullable))faild{
+    
+    [self GETRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject) {
+        success(responseObject);
+        
+        
+    } faild:^(id _Nullable errorObject) {
+        //数据请求失败
+        if (![SCNetHelper isNetConnect]) {
+            faild(@"网络异常，请检查网络设置!");
+        } else {
+            faild(@"获取数据失败!");
+        }
+
+    }];
+    
+    
+}
+
+
 /** 首页数据请求 get */
 - (void)requestHomePageDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success failure:(void (^)(id _Nullable))faild{
     
@@ -190,17 +211,11 @@
     
     [manager GET:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
+            //利用XMLDictionary工具，将返回的XML直接转换为字典
             NSDictionary *dic = [NSDictionary dictionaryWithXMLParser:responseObject];
             
-//
-
-            
-//            NSDictionary *dic = [NSDictionary dictionaryWithXMLString:responseObject];
-            
-            
-            
-            NSLog(@"======dic:%@",dic);
-            success(responseObject);
+//            NSLog(@"======dic:%@",dic);
+            success(dic);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"------%@》》》》》》", error);

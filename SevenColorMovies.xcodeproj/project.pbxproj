@@ -58,6 +58,7 @@
 		116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476031D40BA3D00A3BC1C /* SCChannelCatalogueVC.m */; };
 		116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */; };
 		1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */; };
+		116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D561D4AFAF800B488EC /* SCBannerModel.m */; };
 		1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */; };
 		1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC781D4A00D9004AAF23 /* SCFilmClassModel.m */; };
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
@@ -214,6 +215,8 @@
 		116476061D40CA8900A3BC1C /* SCChannelCatalogueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelCatalogueCell.h; sourceTree = "<group>"; };
 		116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCatalogueCell.m; sourceTree = "<group>"; };
 		116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCChannelCatalogueCell.xib; sourceTree = "<group>"; };
+		116E1D551D4AFAF800B488EC /* SCBannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBannerModel.h; sourceTree = "<group>"; };
+		116E1D561D4AFAF800B488EC /* SCBannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBannerModel.m; sourceTree = "<group>"; };
 		1190AC741D49F9EA004AAF23 /* SCFilmListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmListModel.h; sourceTree = "<group>"; };
 		1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmListModel.m; sourceTree = "<group>"; };
 		1190AC771D4A00D9004AAF23 /* SCFilmClassModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmClassModel.h; sourceTree = "<group>"; };
@@ -353,6 +356,17 @@
 			name = "New Group";
 			sourceTree = "<group>";
 		};
+		1122FF671D4A260E00E6E8A2 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				1122FF611D4A22E900E6E8A2 /* NSArray+Log.h */,
+				1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */,
+				1122FF631D4A22E900E6E8A2 /* NSDictionary+Log.h */,
+				1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */,
+			);
+			name = Log;
+			sourceTree = "<group>";
+		};
 		113E62E51D49F5FE00FB8F3A /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +395,7 @@
 			children = (
 				11BE83131D3CB56B00886CF6 /* SCSycleBanner.h */,
 				11BE83141D3CB56B00886CF6 /* SCSycleBanner.m */,
+				116E1D541D4AFADA00B488EC /* Model */,
 			);
 			name = Banner;
 			sourceTree = "<group>";
@@ -627,6 +642,15 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		116E1D541D4AFADA00B488EC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				116E1D551D4AFAF800B488EC /* SCBannerModel.h */,
+				116E1D561D4AFAF800B488EC /* SCBannerModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		1196A06C1D4263F800B3C5EF /* MoiveRecommendation */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,10 +790,7 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				1122FF611D4A22E900E6E8A2 /* NSArray+Log.h */,
-				1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */,
-				1122FF631D4A22E900E6E8A2 /* NSDictionary+Log.h */,
-				1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */,
+				1122FF671D4A260E00E6E8A2 /* Log */,
 				11D422601D49F4E400B4F9AE /* XMLParser */,
 				11D422511D499FF900B4F9AE /* MJRefresh */,
 			);
@@ -1320,6 +1341,7 @@
 				11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
+				116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
 				115A21161D41F5E30097DE57 /* SCMoivePlayerVC.m in Sources */,

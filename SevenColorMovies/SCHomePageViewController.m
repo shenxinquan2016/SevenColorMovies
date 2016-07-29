@@ -11,13 +11,14 @@
 #import "SCDemandChannelItemCell.h"//section 0 cell
 #import "SCRankTopRowCollectionViewCell.h"//其他cell
 #import "SCHomePageFlowLayout.h"
-#import "SCHomePageSectionBGReusableView.h"
+#import "SCHomePageSectionBGReusableView.h"//senction header
 
 #import "SCRankViewController.h"//排行
 #import "SCChannelCatalogueVC.h"//点播栏目更多
 #import "SCChannelCategoryVC.h"//节目频道分类
 
 #import "SCTeleplayPlayerVC.h"
+#import "SCBannerModel.h"
 
 
 
@@ -58,20 +59,54 @@ static NSString *const footerId = @"footerId";
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setBarTintColor:[UIColor colorWithHex:@"#F1F1F1"]];
     //2. 初始化数组
-    _bannerImageUrlArr = [NSMutableArray arrayWithObjects:@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=1&spn=0&di=170050045220&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=3392936970%2C1240433668&os=2295359357%2C2115524380&simid=4131811244%2C715106156&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic1.nipic.com%2F2008-10-30%2F200810309416546_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3F8AzdH3F90AzdH3F09j81dmjujwvudmb_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0",@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=2&spn=0&di=201852181960&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=4122174456%2C238506339&os=2534432078%2C2727372066&simid=4261751445%2C601149228&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic3.nipic.com%2F20090605%2F2166702_095614055_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3F8l8mn0c_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0",@"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&pn=3&spn=0&di=55559078410&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=2363027421%2C438461014&os=388455896%2C106895408&simid=4088773055%2C716705165&adpicid=0&ln=1000&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic24.nipic.com%2F20121003%2F10754047_140022530392_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Ffi5oAzdH3Fmlamc09_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0", nil];
-    
     _sectionArr = [NSMutableArray arrayWithObjects:@"", @"观看记录",@"电影",@"电视剧",@"少儿剧场",@"动漫",@"综艺",nil];
- 
+    _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
+    
+    
+    
+    
+    
+    
+    
     //3.添加collectionView
     
     [self addCollView];
+    
+    
+    //banner网络请求测试
+    [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
+        
+        NSMutableArray *dataArr = responseObject[@"Film"];
+        
+        if (![dataArr isKindOfClass:[NSNull class]]) {
+            for (NSDictionary *dic in dataArr) {
+                SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
+                [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
+                NSLog(@"====url::::%@",model._ImgUrlOriginal);
+                
+            }
+            
+            //添加banner
+            if (_bannerImageUrlArr.count > 0) {
+                [self addBannerView];
+                _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
+            }}else if (_bannerImageUrlArr.count == 0){
+                if (_bannerView) {
+                    [_bannerView removeFromSuperview];
+                    
+                }
+            }
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+    }];
     
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-  
-
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -150,6 +185,15 @@ static NSString *const footerId = @"footerId";
     return view;
 }
 
+- (void)addBannerView{
+    
+    _bannerView = [[SCSycleBanner alloc] initWithView:nil];
+    _bannerView.delegate = self;
+    [_collView addSubview:_bannerView];
+}
+
+
+#pragma mark ---- responce
 - (void)sectionClick:(UIButton *)sender{
     
     NSLog(@"=====section:%ld",sender.tag);
@@ -273,21 +317,7 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark ---- UICollectionView DataDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-  
-    //网络请求测试
     
-    NSString *urlString = @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&epgid=600111&spid=20120528";
-//    NSDictionary *parameters = @{@"level":@"0", @"size":@"9"};
-    
-    [requestDataManager requestHomePageDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
-        NSLog(@"=======%@======",responseObject);
-        
-        
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        [MBProgressHUD showError:[NSString stringWithFormat:@"%@",errorObject]];
-    }];
     
     
     
@@ -350,11 +380,6 @@ static NSString *const footerId = @"footerId";
     _collView.delegate = self;
     
     _collView.contentInset = UIEdgeInsetsMake(167, 0, 0, 0);//留白添加banner
-    //添加banner页
-    _bannerView = [[SCSycleBanner alloc] initWithView:nil];
-    _bannerView.delegate = self;
-    [_collView addSubview:_bannerView];
-    _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
     
     // 注册cell、sectionHeader、sectionFooter
     //点播栏cell
@@ -398,7 +423,7 @@ static NSString *const footerId = @"footerId";
 }
 //结束元素的时候
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
-   
+    
     NSLog(@"结束标签  %@", elementName);
 }
 

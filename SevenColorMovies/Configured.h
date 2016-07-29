@@ -106,3 +106,14 @@
 
 
 
+
+/**************************************
+ * url
+ *************************************/
+
+// banner url
+#define BannerURL @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=cate_EPG50sy_EPG50syjdlbt_liaoningyidong"
+
+
+
+

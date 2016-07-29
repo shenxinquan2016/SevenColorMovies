@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+/** Banner数据 */
+- (void)requestBannerDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
 
 /** 首页数据请求 get */
 - (void)requestHomePageDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
