@@ -69,7 +69,7 @@
 
 - (void)clickSearchBtn{
     
-    SCSearchViewController *searchVC = DONG_INSTANT_VC_WITH_ID(@"Main", @"SCSearchViewController");
+    SCSearchViewController *searchVC = [[SCSearchViewController alloc] initWithWithTitle:@"搜索"];
     searchVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchVC animated:YES];
 }

@@ -39,9 +39,9 @@ const CGFloat LabelWidth = 100;
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;//很大的坑
     
-    [self.leftBBI setTitle: @"搜索" forState: UIControlStateNormal];
+    
 
-    //1.返回按钮
+    
     
     //2.添加搜索框
     [self addSearchBBI];

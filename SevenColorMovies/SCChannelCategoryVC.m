@@ -7,13 +7,13 @@
 // 点播节目频道分类
 
 #import "SCChannelCategoryVC.h"
-#import "SCChannelCategoryCell.h"
 #import "SCSlideHeaderLabel.h"
 #import "SCTeleplayPlayerVC.h"
+#import "SCSiftViewController.h"
 
-static const CGFloat TitleHeight = 50.0f;
+static const CGFloat TitleHeight = 41.0f;
 static const CGFloat StatusBarHeight = 20.0f;
-static const CGFloat LabelWidth = 90.f;
+static const CGFloat LabelWidth = 85.f;
 
 
 @interface SCChannelCategoryVC ()<UIScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
@@ -28,7 +28,8 @@ static const CGFloat LabelWidth = 90.f;
 @property (nonatomic, strong) NSMutableArray *titleArr;
 /** 滑动短线 */
 @property (nonatomic, strong) CALayer *bottomLine;
-
+/** 筛选按钮 */
+@property (nonatomic, strong) UIButton *siftBtn;
 
 @end
 
@@ -41,7 +42,8 @@ static NSString *const cellId = @"cellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    //1.返回
+    //1.筛选按钮
+    [self addSiftBtn];
     
     
     //3.初始化数组
@@ -51,6 +53,16 @@ static NSString *const cellId = @"cellId";
     //5.添加contentScrllowView
     [self constructContentView];
     
+    
+    
+    
+    [requestDataManager requestHomePageDataWithUrl:FilmList parameters:nil success:^(id  _Nullable responseObject) {
+        NSLog(@"====dic::%@",responseObject);
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
     
 }
 
@@ -64,26 +76,43 @@ static NSString *const cellId = @"cellId";
 }
 
 #pragma mark- private methods
+// 添加筛选
+- (void)addSiftBtn {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 29, 29);
+    [btn setBackgroundImage:[UIImage imageNamed:@"Sift"] forState:UIControlStateNormal];
+    _siftBtn.selected = NO;
+    [btn addTarget:self action:@selector(doSiftingAction) forControlEvents:UIControlEventTouchUpInside];
+    //    btn.backgroundColor = [UIColor redColor];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    UIBarButtonItem *rightNegativeSpacer = [[UIBarButtonItem alloc]
+                                            initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                            target:nil action:nil];
+    rightNegativeSpacer.width = -4;
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
+    
+    _siftBtn = btn;
+}
+
 - (void)loadCollectionView{
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     _collView = [[UICollectionView alloc] initWithFrame:self.contentScroll.bounds collectionViewLayout:layout];
-    _collView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
+    _collView.backgroundColor = [UIColor whiteColor];
     _collView.alwaysBounceVertical=YES;
     _collView.dataSource = self;
     _collView.delegate = self;
-    
     //    [_contentScroll addSubview:_collView];
     
     // 注册cell、sectionHeader、sectionFooter
-    [_collView registerNib:[UINib nibWithNibName:@"SCChannelCategoryCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
+    [_collView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
     
 }
 
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView{
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 74, kMainScreenWidth, TitleHeight)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 20+44+8, kMainScreenWidth, TitleHeight)];
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
     
@@ -98,7 +127,7 @@ static NSString *const cellId = @"cellId";
     [self addLabel];//添加标题label
     //1、底部滑动短线
     _bottomLine = [CALayer layer];
-    [_bottomLine setBackgroundColor:[UIColor colorWithHex:@"#5184FF"].CGColor];
+    [_bottomLine setBackgroundColor:[UIColor colorWithHex:@"#6594FF"].CGColor];
     _bottomLine.frame = CGRectMake(0, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
     [_titleScroll.layer addSublayer:_bottomLine];
@@ -113,9 +142,9 @@ static NSString *const cellId = @"cellId";
         CGFloat lbX = i * lbW;           //X
         CGFloat lbY = 0;                 //Y
         SCSlideHeaderLabel *label = [[SCSlideHeaderLabel alloc] initWithFrame:(CGRectMake(lbX, lbY, lbW, lbH))];
-        //        UIViewController *vc = self.childViewControllers[i];
+        
         label.text =_titleArr[i];
-        label.font = [UIFont fontWithName:@"HYQiHei" size:19];
+        label.font = [UIFont fontWithName:@"HYQiHei" size:16];
         [self.titleScroll addSubview:label];
         label.tag = i;
         label.userInteractionEnabled = YES;
@@ -129,23 +158,12 @@ static NSString *const cellId = @"cellId";
     SCSlideHeaderLabel *lable = [self.titleScroll.subviews firstObject];
     lable.scale = 1.0;
     
-    
 }
 
-#pragma mark- Event reponse
-- (void)labelClick:(UITapGestureRecognizer *)recognizer{
-    SCSlideHeaderLabel *label = (SCSlideHeaderLabel *)recognizer.view;
-    CGFloat offsetX = label.tag * _contentScroll.frame.size.width;
-    
-    CGFloat offsetY = _contentScroll.contentOffset.y;
-    CGPoint offset = CGPointMake(offsetX, offsetY);
-    
-    [_contentScroll setContentOffset:offset animated:YES];
-}
 
 /** 添加正文内容页 */
 - (void)constructContentView{
-    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, StatusBarHeight+TitleHeight+63, kMainScreenWidth, kMainScreenHeight-StatusBarHeight-TitleHeight-63)];//滚动窗口
+    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, StatusBarHeight+TitleHeight+44+8+8, kMainScreenWidth, kMainScreenHeight-StatusBarHeight-TitleHeight-44-8-8)];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
     _contentScroll.pagingEnabled = YES;
@@ -157,6 +175,7 @@ static NSString *const cellId = @"cellId";
     for (int i=0 ; i<_titleArr.count ;i++){
         UIViewController *vc = [[UIViewController alloc] init];
         vc.view.backgroundColor = [UIColor grayColor];
+        
         [self loadCollectionView];
         [vc.view addSubview:_collView];
         
@@ -170,6 +189,33 @@ static NSString *const cellId = @"cellId";
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
 }
 
+#pragma mark- Event reponse
+// 点击标题label
+- (void)labelClick:(UITapGestureRecognizer *)recognizer{
+    SCSlideHeaderLabel *label = (SCSlideHeaderLabel *)recognizer.view;
+    CGFloat offsetX = label.tag * _contentScroll.frame.size.width;
+    
+    CGFloat offsetY = _contentScroll.contentOffset.y;
+    CGPoint offset = CGPointMake(offsetX, offsetY);
+    
+    [_contentScroll setContentOffset:offset animated:YES];
+}
+// 筛选
+- (void)doSiftingAction{
+    if (_siftBtn.selected == NO) {
+        _siftBtn.selected = YES;
+        [_siftBtn setBackgroundImage:[UIImage imageNamed:@"Sifting"] forState:UIControlStateNormal];
+        NSLog(@">>>>>>>>>>筛选>>>>>>>>>>>>");
+        
+    }else if (_siftBtn.selected != NO){
+        _siftBtn.selected = NO;
+        [_siftBtn setBackgroundImage:[UIImage imageNamed:@"Sift"] forState:UIControlStateNormal];
+        NSLog(@">>>>>>>>>>取消筛选>>>>>>>>>>>>");
+    }
+    SCSiftViewController *siftVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCSiftViewController");
+    siftVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:siftVC animated:YES];
+}
 
 #pragma mark - UIScrollViewDelegate
 /** 滚动结束后调用（代码导致的滚动停止） */
@@ -197,7 +243,6 @@ static NSString *const cellId = @"cellId";
     
     // 将控制器添加到contentScroll
     UIViewController *vc = self.childViewControllers[index];
-    //    vc.index = index;
     
     [_titleScroll.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if (idx != index) {
@@ -268,15 +313,15 @@ static NSString *const cellId = @"cellId";
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
 /** item Size */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return (CGSize){(kMainScreenWidth/3-10),165};
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return (CGSize){(kMainScreenWidth-24-16)/3,180};
 }
 
 /** CollectionView四周间距 EdgeInsets */
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(0, 10, 0, 10);
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    
+    return UIEdgeInsetsMake(5, 12, 5, 12);
 }
 
 /** item水平间距 */
@@ -288,7 +333,7 @@ static NSString *const cellId = @"cellId";
 /** item垂直间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 0.f;
+    return 8.f;
 }
 
 /** section Header 尺寸 */
@@ -313,11 +358,11 @@ static NSString *const cellId = @"cellId";
 
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"======点击=====");
+    //    NSLog(@"======点击=====");
     SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
     teleplayPlayer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:teleplayPlayer animated:YES];
-
+    
 }
 
 @end

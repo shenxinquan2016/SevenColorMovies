@@ -10,7 +10,7 @@
 
 @interface SCOtherBaseViewController : UIViewController
 /** 返回按钮 */
-@property (nonatomic,strong) UIButton *leftBBI;
+@property (nonatomic,strong) UILabel *leftBBI;
 
 - (instancetype)initWithWithTitle:(NSString *)title;
 

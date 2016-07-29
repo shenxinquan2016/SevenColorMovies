@@ -63,7 +63,7 @@ static NSString *const footerId = @"footerId";
     _sectionArr = [NSMutableArray arrayWithObjects:@"", @"观看记录",@"电影",@"电视剧",@"少儿剧场",@"动漫",@"综艺",nil];
     _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
     
-
+    
     
     //3.添加collectionView
     
@@ -79,7 +79,6 @@ static NSString *const footerId = @"footerId";
             for (NSDictionary *dic in dataArr) {
                 SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
                 [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
-                NSLog(@"====url::::%@",model._ImgUrlOriginal);
                 
             }
             [CommonFunc dismiss];
@@ -271,15 +270,19 @@ static NSString *const footerId = @"footerId";
     if (indexPath.section == 0){
         return (CGSize){(kMainScreenWidth-10-15)/4,70};
     }else{
-        return (CGSize){(kMainScreenWidth-10-15)/3,180};
+        return (CGSize){(kMainScreenWidth-24-16)/3,180};
     }
     
 }
 
 /** Section 四周间距 EdgeInsets */
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(5, 5, 5, 5);
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    if (section == 0){
+        return UIEdgeInsetsMake(5, 5, 5, 5);
+    }else{
+        return UIEdgeInsetsMake(5, 12, 5, 12);
+    }
+    
 }
 
 /** item水平间距 */
@@ -292,7 +295,7 @@ static NSString *const footerId = @"footerId";
     if (section == 0){
         return 5;
     }else{
-        return 5;
+        return 8;
     }
 }
 
@@ -314,10 +317,6 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark ---- UICollectionView DataDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
-    
-    
     
     NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
     //设置返回键标题

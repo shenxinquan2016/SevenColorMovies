@@ -75,7 +75,7 @@
                                            target:nil action:nil];
     leftNegativeSpacer.width = -6;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftNegativeSpacer,item, nil];
-    
+    _leftBBI = titleLabel;
 }
 
 - (void)goBack{

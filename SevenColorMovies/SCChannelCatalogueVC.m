@@ -9,6 +9,8 @@
 #import "SCChannelCatalogueVC.h"
 #import "SCChannelCatalogueCell.h"
 #import "LXReorderableCollectionViewFlowLayout.h"
+#import "SCChannelCategoryVC.h"
+
 
 @interface SCChannelCatalogueVC ()<LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 /**  */
@@ -48,7 +50,7 @@ static NSString *const footerId = @"footerId";
 
 - (void)loadCollectionView{
     
-//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+    //    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     // 自定义流水布局
     LXReorderableCollectionViewFlowLayout *layout = [[LXReorderableCollectionViewFlowLayout alloc] init];
     
@@ -87,12 +89,12 @@ static NSString *const footerId = @"footerId";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-            NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
-            SCChannelCatalogueCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-            cell.backgroundColor = [UIColor whiteColor];
-            [cell setModel:dict IndexPath:indexPath];
-            
-            return cell;
+    NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
+    SCChannelCatalogueCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+    [cell setModel:dict IndexPath:indexPath];
+    
+    return cell;
 }
 
 /** 段头段尾设置 */
@@ -136,8 +138,8 @@ static NSString *const footerId = @"footerId";
 
 
 //- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath{
-//    
-//    
+//
+//
 //}
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
@@ -189,9 +191,9 @@ static NSString *const footerId = @"footerId";
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath {
     
     NSDictionary* objc = [_allItemsArr objectAtIndex:fromIndexPath.item];
-//    从资源数组中移除该数据
+    //    从资源数组中移除该数据
     [_allItemsArr removeObject:objc];
-//    将数据插入到资源数组中的目标位置上
+    //    将数据插入到资源数组中的目标位置上
     [_allItemsArr insertObject:objc atIndex:toIndexPath.item];
 }
 
@@ -206,6 +208,13 @@ static NSString *const footerId = @"footerId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"======点击=====");
+    //设置返回键标题
+    NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
+    
+    SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
+    channelVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:channelVC animated:YES];
+    
 }
 
 
@@ -213,7 +222,7 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Getters and Setters
 - (NSMutableArray *)allItemsArr{
     if (!_allItemsArr) {
-        NSArray *array =@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"},@{@"GeneralChannel" : @"更多"}, @{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}, @{@"OverseasFilm" : @"海外剧场"},@{@"Children" : @"少儿"}, @{@"Life" : @"生活"}, @{@"Music" : @"音乐"},@{@"Game" : @"游戏"}, @{@"Documentary" : @"纪录片"}, @{@"GeneralChannel" : @"通用频道"}];
+        NSArray *array =@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Game" : @"游戏"}, @{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"}, @{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}, @{@"OverseasFilm" : @"海外剧场"},@{@"Children" : @"少儿"}, @{@"Life" : @"生活"}, @{@"Music" : @"音乐"},@{@"Game" : @"游戏"}, @{@"Documentary" : @"纪录片"}, @{@"GeneralChannel" : @"通用频道"}];
         
         _allItemsArr = [NSMutableArray arrayWithCapacity:0];
         [_allItemsArr addObjectsFromArray:array];
