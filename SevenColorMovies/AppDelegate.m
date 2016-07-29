@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "SCNetUrlManger.h"
+
+
 
 @interface AppDelegate ()
 
@@ -17,9 +20,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-//    [NSThread sleepForTimeInterval:2.0f];
-//    [self setAppearance];
-   
+    //    [NSThread sleepForTimeInterval:2.0f];
+    //    [self setAppearance];
+    //2.设置网络环境
+    [self setNetworkEnvironment];
+    
     return YES;
 }
 
@@ -47,7 +52,7 @@
 
 
 
-
+//设置网络环境
 - (void)setNetworkEnvironment {
     
     NSMutableDictionary *netDic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"switchNetworkEnvironment" ofType:@"plist"]];
@@ -62,10 +67,10 @@
         dic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"onlineEnvironment" ofType:@"plist"]];
     }
     
-//    NetUrlManager.domainName = dic[@"domainName"];
-//    NetUrlManager.commonPort = dic[@"commPort"];
-//    NetUrlManager.searchPort = dic[@"searchPort"];
-//    NetUrlManager.payPort = dic[@"payPort"];
+    NetUrlManager.domainName = dic[@"domainName"];
+    NetUrlManager.commonPort = dic[@"commPort"];
+    NetUrlManager.searchPort = dic[@"searchPort"];
+    NetUrlManager.payPort = dic[@"payPort"];
     
 }
 
@@ -81,4 +86,5 @@
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     
 }
+
 @end

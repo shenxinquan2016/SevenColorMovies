@@ -5,7 +5,7 @@
 	<key>netType</key>
 	<string>开发环境</string>
 	<key>domainName</key>
-	<string>http://app.sitvs.com:</string>
+	<string>http://interface5.voole.com</string>
 	<key>payPort</key>
 	<string>8000</string>
 	<key>commPort</key>

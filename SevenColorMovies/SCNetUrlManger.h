@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#define NetUrlManager [SCNetUrlManger shareManager]
+
 @interface SCNetUrlManger : NSObject
+
 +(instancetype)shareManager;
 
 /**

@@ -12,6 +12,8 @@
 #import <objc/runtime.h>//按钮添加多个参数
 #import <Masonry.h>
 #import "SCNetRequsetManger.h"
+#import "SCNetUrlManger.h"
+
 #import "UIImage+Addition.h"
 #import "UIColor+Addition.h"
 #import "UIImageView+Addition.h"
@@ -107,12 +109,19 @@
 
 
 
-/**************************************
- * url
- *************************************/
+/******************************************首页接口的URL*******************************************/
+// banner URL
+#define url_Banner @"/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=cate_EPG50sy_EPG50syjdlbt_liaoningyidong"
 
-// banner url
-#define BannerURL @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=cate_EPG50sy_EPG50syjdlbt_liaoningyidong"
+
+
+
+
+/******************************************首页接口*******************************************/
+// banner 接口
+#define BannerURL [NetUrlManager.domainName stringByAppendingString:url_Banner]
+
+
 
 
 

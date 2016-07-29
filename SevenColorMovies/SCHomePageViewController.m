@@ -23,6 +23,7 @@
 
 
 
+
 @interface SCHomePageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate,NSXMLParserDelegate>
 
 @property (nonatomic, strong) UICollectionView *collView;
@@ -62,15 +63,12 @@ static NSString *const footerId = @"footerId";
     _sectionArr = [NSMutableArray arrayWithObjects:@"", @"观看记录",@"电影",@"电视剧",@"少儿剧场",@"动漫",@"综艺",nil];
     _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
     
-    
-    
-    
-    
-    
+
     
     //3.添加collectionView
     
     [self addCollView];
+    
     
     
     //banner网络请求测试
