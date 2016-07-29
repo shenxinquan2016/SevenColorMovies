@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) UICollectionView *collView;
 
+
+
 @end
 
 @implementation SCSiftViewController

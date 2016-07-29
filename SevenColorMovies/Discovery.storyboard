@@ -86,10 +86,6 @@
                                 <rect key="frame" x="266" y="432" width="57" height="57"/>
                                 <state key="normal" title="Button" image="TimeShifted"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTz-Hp-hmX">
-                                <rect key="frame" x="262" y="97" width="57" height="57"/>
-                                <state key="normal" title="Button" image="VolumeUp"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Gx-eY-6fo">
                                 <rect key="frame" x="130" y="467" width="115" height="115"/>
                                 <state key="normal" title="Button" image="Back"/>
@@ -117,10 +113,28 @@
                                 <rect key="frame" x="143" y="258" width="88" height="88"/>
                                 <state key="normal" title="Button" image="OK"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTz-Hp-hmX">
+                                <rect key="frame" x="266" y="97" width="57" height="57"/>
+                                <state key="normal" title="Button" image="VolumeUp"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="OKBtn" destination="Ksf-0R-OgV" id="FWW-T0-cne"/>
+                        <outlet property="PullScreenBtn" destination="ACY-ZX-bc8" id="Cfa-zT-dJo"/>
+                        <outlet property="VODBtn" destination="W6f-hi-u29" id="2Ps-f2-3lV"/>
+                        <outlet property="VolumeDownBtn" destination="7oB-Z1-88C" id="bqB-RC-DdO"/>
+                        <outlet property="VolumeUpBtn" destination="FTz-Hp-hmX" id="1tV-j2-An1"/>
+                        <outlet property="backBtn" destination="6Gx-eY-6fo" id="z5K-c1-9m5"/>
+                        <outlet property="homePageBtn" destination="2eu-DS-26C" id="LTJ-qN-yS1"/>
+                        <outlet property="menuBtn" destination="Xp4-b9-2Rf" id="7gI-QD-Brp"/>
+                        <outlet property="pullScreenBtn" destination="ACY-ZX-bc8" id="MI0-Ff-dcP"/>
+                        <outlet property="timeShiftBtn" destination="JTh-I1-NuO" id="lQA-vj-Noq"/>
+                        <outlet property="volumeDownBtn" destination="7oB-Z1-88C" id="dPq-1W-wuW"/>
+                        <outlet property="volumeUpBtn" destination="FTz-Hp-hmX" id="Toh-Ru-JxJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fsd-p3-VQ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

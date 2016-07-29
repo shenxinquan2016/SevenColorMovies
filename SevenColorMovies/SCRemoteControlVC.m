@@ -9,7 +9,16 @@
 #import "SCRemoteControlVC.h"
 
 @interface SCRemoteControlVC ()
-
+// PullScreen TimeShifted VolumeDown_Click VolumeUp_Click
+@property (weak, nonatomic) IBOutlet UIButton *volumeDownBtn;
+@property (weak, nonatomic) IBOutlet UIButton *pullScreenBtn;
+@property (weak, nonatomic) IBOutlet UIButton *volumeUpBtn;
+@property (weak, nonatomic) IBOutlet UIButton *VODBtn;
+@property (weak, nonatomic) IBOutlet UIButton *OKBtn;
+@property (weak, nonatomic) IBOutlet UIButton *timeShiftBtn;
+@property (weak, nonatomic) IBOutlet UIButton *backBtn;
+@property (weak, nonatomic) IBOutlet UIButton *homePageBtn;
+@property (weak, nonatomic) IBOutlet UIButton *menuBtn;
 @end
 
 @implementation SCRemoteControlVC
@@ -20,8 +29,23 @@
     self.view.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
     //1.标题
     self.leftBBI.text = @"遥控器";
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
 }
 
+- (void)awakeFromNib{
+    
+   [_volumeUpBtn setImage:[UIImage imageNamed:@"VolumeDown_Click"] forState:UIControlStateNormal];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
