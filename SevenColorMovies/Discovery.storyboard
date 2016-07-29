@@ -74,17 +74,68 @@
                     <view key="view" contentMode="scaleToFill" id="uU7-V1-OWx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oB-Z1-88C">
+                                <rect key="frame" x="49" y="97" width="57" height="57"/>
+                                <state key="normal" title="Button" image="VolumeDown"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTh-I1-NuO">
+                                <rect key="frame" x="266" y="432" width="57" height="57"/>
+                                <state key="normal" title="Button" image="TimeShifted"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTz-Hp-hmX">
+                                <rect key="frame" x="262" y="97" width="57" height="57"/>
+                                <state key="normal" title="Button" image="VolumeUp"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Gx-eY-6fo">
+                                <rect key="frame" x="130" y="467" width="115" height="115"/>
+                                <state key="normal" title="Button" image="Back"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xp4-b9-2Rf">
+                                <rect key="frame" x="266" y="543" width="57" height="57"/>
+                                <state key="normal" title="Button" image="Menu"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6f-hi-u29">
+                                <rect key="frame" x="49" y="433" width="57" height="57"/>
+                                <state key="normal" title="Button" image="VOD"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2eu-DS-26C">
+                                <rect key="frame" x="49" y="543" width="57" height="57"/>
+                                <state key="normal" title="Button" image="HomePage"/>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Direction" translatesAutoresizingMaskIntoConstraints="NO" id="Kto-pV-2Sr">
+                                <rect key="frame" x="68" y="182" width="240" height="240"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACY-ZX-bc8">
+                                <rect key="frame" x="159" y="97" width="57" height="57"/>
+                                <state key="normal" title="Button" image="PullScreen"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ksf-0R-OgV">
+                                <rect key="frame" x="143" y="258" width="88" height="88"/>
+                                <state key="normal" title="Button" image="OK"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fsd-p3-VQ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="522" y="0.0"/>
+            <point key="canvasLocation" x="521.5" y="-0.5"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Back" width="127" height="127"/>
+        <image name="Direction" width="257" height="257"/>
         <image name="Discovery" width="23" height="23"/>
         <image name="Discovery_sel" width="23" height="23"/>
+        <image name="HomePage" width="63" height="63"/>
+        <image name="Menu" width="63" height="63"/>
+        <image name="OK" width="96" height="96"/>
+        <image name="PullScreen" width="63" height="63"/>
+        <image name="TimeShifted" width="63" height="63"/>
+        <image name="VOD" width="63" height="63"/>
+        <image name="VolumeDown" width="63" height="63"/>
+        <image name="VolumeUp" width="63" height="63"/>
     </resources>
 </document>
