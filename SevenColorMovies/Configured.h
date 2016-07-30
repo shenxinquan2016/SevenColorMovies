@@ -113,7 +113,7 @@
 // banner URL
 #define url_Banner @"/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=cate_EPG50sy_EPG50syjdlbt_liaoningyidong"
 // 片单 URL
-#define url_FilmList @"/b2b/ranking/service.php?v=3.0&epgid=600111&spid=20120528"
+#define url_FilmList @"/b2b/filmlist.php?v=3.0&epgid=600111&spid=20120528"
 
 
 

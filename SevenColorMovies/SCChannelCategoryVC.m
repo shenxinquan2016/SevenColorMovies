@@ -57,7 +57,7 @@ static NSString *const cellId = @"cellId";
     
     
     [requestDataManager requestHomePageDataWithUrl:FilmList parameters:nil success:^(id  _Nullable responseObject) {
-        NSLog(@"====dic::%@",responseObject);
+        NSLog(@"====dic::%@=======",responseObject);
         
     } failure:^(id  _Nullable errorObject) {
         
