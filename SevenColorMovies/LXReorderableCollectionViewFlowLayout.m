@@ -319,6 +319,9 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
             self.currentView = [[UIView alloc] initWithFrame:collectionViewCell.frame];
             
             
+            //选中cell后的背景
+//            collectionViewCell.backgroundColor = [UIColor lightGrayColor];
+            
             collectionViewCell.highlighted = YES;
             UIView *highlightedImageView = [collectionViewCell LX_snapshotView];
             highlightedImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -344,7 +347,6 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
                  __strong typeof(self) strongSelf = weakSelf;
                  if (strongSelf) {
                      strongSelf.currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
-//                     strongSelf.currentView.backgroundColor = [UIColor redColor];//
                      highlightedImageView.alpha = 0.0f;
                      imageView.alpha = 1.0f;
                      
