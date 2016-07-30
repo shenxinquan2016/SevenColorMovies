@@ -297,7 +297,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     self.collectionView.contentOffset = LXS_CGPointAdd(contentOffset, translation);
 }
 
-
+//* cell拖拽行为 点击效果可在此设置
 - (void)handleLongPressGesture:(UILongPressGestureRecognizer *)gestureRecognizer {
     switch(gestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
@@ -320,9 +320,9 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
             
             
             //选中cell后的背景
-//            collectionViewCell.backgroundColor = [UIColor lightGrayColor];
+            collectionViewCell.backgroundColor = [UIColor colorWithHex:@"#dddddd"];
             
-            collectionViewCell.highlighted = YES;
+            collectionViewCell.highlighted = NO;// YES：闪动效果
             UIView *highlightedImageView = [collectionViewCell LX_snapshotView];
             highlightedImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             highlightedImageView.alpha = 1.0f;
@@ -340,7 +340,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
             
             __weak typeof(self) weakSelf = self;
             [UIView
-             animateWithDuration:0.3
+             animateWithDuration:0.2
              delay:0.0
              options:UIViewAnimationOptionBeginFromCurrentState
              animations:^{
@@ -414,6 +414,124 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
         default: break;
     }
 }
+
+
+//- (void)handleLongPressGesture:(UILongPressGestureRecognizer *)gestureRecognizer {
+//    switch(gestureRecognizer.state) {
+//        case UIGestureRecognizerStateBegan: {
+//            NSIndexPath *currentIndexPath = [self.collectionView indexPathForItemAtPoint:[gestureRecognizer locationInView:self.collectionView]];
+//            
+//            if ([self.dataSource respondsToSelector:@selector(collectionView:canMoveItemAtIndexPath:)] &&
+//                ![self.dataSource collectionView:self.collectionView canMoveItemAtIndexPath:currentIndexPath]) {
+//                return;
+//            }
+//            
+//            self.selectedItemIndexPath = currentIndexPath;
+//            
+//            if ([self.delegate respondsToSelector:@selector(collectionView:layout:willBeginDraggingItemAtIndexPath:)]) {
+//                [self.delegate collectionView:self.collectionView layout:self willBeginDraggingItemAtIndexPath:self.selectedItemIndexPath];
+//            }
+//            
+//            UICollectionViewCell *collectionViewCell = [self.collectionView cellForItemAtIndexPath:self.selectedItemIndexPath];
+//            
+//            self.currentView = [[UIView alloc] initWithFrame:collectionViewCell.frame];
+//            
+//            
+//            //选中cell后的背景
+//            collectionViewCell.backgroundColor = [UIColor colorWithHex:@"f1f1f1"];
+//            
+//            collectionViewCell.highlighted = NO;
+//            UIView *highlightedImageView = [collectionViewCell LX_snapshotView];
+//            highlightedImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//            highlightedImageView.alpha = 1.0f;
+//            
+//            collectionViewCell.highlighted = NO;
+//            UIView *imageView = [collectionViewCell LX_snapshotView];
+//            imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//            imageView.alpha = 0.0f;
+//            
+//            [self.currentView addSubview:imageView];
+//            [self.currentView addSubview:highlightedImageView];
+//            [self.collectionView addSubview:self.currentView];
+//            
+//            self.currentViewCenter = self.currentView.center;
+//            
+//            __weak typeof(self) weakSelf = self;
+//            [UIView
+//             animateWithDuration:0.3
+//             delay:0.0
+//             options:UIViewAnimationOptionBeginFromCurrentState
+//             animations:^{
+//                 __strong typeof(self) strongSelf = weakSelf;
+//                 if (strongSelf) {
+//                     strongSelf.currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
+//                     highlightedImageView.alpha = 0.0f;
+//                     imageView.alpha = 1.0f;
+//                     
+//                 }
+//             }
+//             completion:^(BOOL finished) {
+//                 __strong typeof(self) strongSelf = weakSelf;
+//                 if (strongSelf) {
+//                     [highlightedImageView removeFromSuperview];
+//                     
+//                     if ([strongSelf.delegate respondsToSelector:@selector(collectionView:layout:didBeginDraggingItemAtIndexPath:)]) {
+//                         [strongSelf.delegate collectionView:strongSelf.collectionView layout:strongSelf didBeginDraggingItemAtIndexPath:strongSelf.selectedItemIndexPath];
+//                     }
+//                 }
+//             }];
+//            
+//            [self invalidateLayout];
+//        } break;
+//        case UIGestureRecognizerStateCancelled:
+//        case UIGestureRecognizerStateEnded: {
+//            NSIndexPath *currentIndexPath = self.selectedItemIndexPath;
+//            
+//            if (currentIndexPath) {
+//                if ([self.delegate respondsToSelector:@selector(collectionView:layout:willEndDraggingItemAtIndexPath:)]) {
+//                    [self.delegate collectionView:self.collectionView layout:self willEndDraggingItemAtIndexPath:currentIndexPath];
+//                }
+//                
+//                self.selectedItemIndexPath = nil;
+//                self.currentViewCenter = CGPointZero;
+//                
+//                UICollectionViewLayoutAttributes *layoutAttributes = [self layoutAttributesForItemAtIndexPath:currentIndexPath];
+//                
+//                self.longPressGestureRecognizer.enabled = NO;
+//                
+//                __weak typeof(self) weakSelf = self;
+//                [UIView
+//                 animateWithDuration:0.3
+//                 delay:0.0
+//                 options:UIViewAnimationOptionBeginFromCurrentState
+//                 animations:^{
+//                     __strong typeof(self) strongSelf = weakSelf;
+//                     if (strongSelf) {
+//                         strongSelf.currentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+//                         strongSelf.currentView.center = layoutAttributes.center;
+//                     }
+//                 }
+//                 completion:^(BOOL finished) {
+//                     
+//                     self.longPressGestureRecognizer.enabled = YES;
+//                     
+//                     __strong typeof(self) strongSelf = weakSelf;
+//                     if (strongSelf) {
+//                         [strongSelf.currentView removeFromSuperview];
+//                         strongSelf.currentView = nil;
+//                         [strongSelf invalidateLayout];
+//                         
+//                         if ([strongSelf.delegate respondsToSelector:@selector(collectionView:layout:didEndDraggingItemAtIndexPath:)]) {
+//                             [strongSelf.delegate collectionView:strongSelf.collectionView layout:strongSelf didEndDraggingItemAtIndexPath:currentIndexPath];
+//                         }
+//                     }
+//                 }];
+//            }
+//        } break;
+//            
+//        default: break;
+//    }
+//}
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)gestureRecognizer {
     switch (gestureRecognizer.state) {
