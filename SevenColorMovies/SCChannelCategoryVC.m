@@ -11,6 +11,7 @@
 #import "SCTeleplayPlayerVC.h"
 #import "SCSiftViewController.h"
 #import "SCFilmClassModel.h"
+#import "SCFilmModel.h"
 
 
 
@@ -29,10 +30,22 @@ static const CGFloat LabelWidth = 85.f;
 
 /** 标题数组 */
 @property (nonatomic, strong) NSMutableArray *titleArr;
+
+/** ... */
+@property (nonatomic, strong) NSMutableArray *filmClassModelArr;
+
+/** ... */
+@property (nonatomic, strong) NSMutableArray *filmModelArr;
+
+
 /** 滑动短线 */
 @property (nonatomic, strong) CALayer *bottomLine;
+
 /** 筛选按钮 */
 @property (nonatomic, strong) UIButton *siftBtn;
+
+/** collectionView加载标识 */
+@property (nonatomic, assign) int tag;
 
 @end
 
@@ -50,6 +63,8 @@ static NSString *const cellId = @"cellId";
     
     //2.初始化数组
     self.titleArr = [NSMutableArray arrayWithCapacity:0];
+    self.filmClassModelArr = [NSMutableArray arrayWithCapacity:0];
+    self.filmModelArr = [NSMutableArray arrayWithCapacity:0];
     
     
     NSLog(@"====%@",_FilmClassModel._FilmClassName);
@@ -58,15 +73,26 @@ static NSString *const cellId = @"cellId";
         SCFilmClassModel *model = [SCFilmClassModel mj_objectWithKeyValues:dic];
         
         NSLog(@"====dic:::%@",model._FilmClassName);
+        
+        [_filmClassModelArr addObject:model];
         [_titleArr addObject:model._FilmClassName];
     }
     
     //4.添加滑动headerView
     [self constructSlideHeaderView];
     
+    
     [requestDataManager requestFilmClassDataWithUrl:FilmClass parameters:nil success:^(id  _Nullable responseObject) {
         
-        NSLog(@">>>>>>>>>>>>%@",responseObject);
+        
+        NSArray *filmsArr = responseObject[@"Film"];
+        for (NSDictionary *dic in filmsArr) {
+            SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+            NSLog(@">>>>>>>>>>>>%@",filmModel.FilmName);
+            [_filmModelArr addObject:filmModel];
+        }
+        
+        
     } failure:^(id  _Nullable errorObject) {
         
         
@@ -106,8 +132,8 @@ static NSString *const cellId = @"cellId";
     _siftBtn = btn;
 }
 
-- (void)loadCollectionView{
-    
+- (void)loadCollectionViewWithTag:(int)tag{
+    self.tag = tag;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     _collView = [[UICollectionView alloc] initWithFrame:self.contentScroll.bounds collectionViewLayout:layout];
     _collView.backgroundColor = [UIColor whiteColor];
@@ -118,6 +144,7 @@ static NSString *const cellId = @"cellId";
     
     // 注册cell、sectionHeader、sectionFooter
     [_collView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
+    
     
 }
 
@@ -188,7 +215,7 @@ static NSString *const cellId = @"cellId";
         UIViewController *vc = [[UIViewController alloc] init];
         vc.view.backgroundColor = [UIColor grayColor];
         
-        [self loadCollectionView];
+        [self loadCollectionViewWithTag:i];
         [vc.view addSubview:_collView];
         
         if (i == 0) {

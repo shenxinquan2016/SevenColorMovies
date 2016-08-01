@@ -11,49 +11,49 @@
 @interface SCFilmModel : NSObject
 
 /**  */
-@property (nonatomic,copy) NSString *_ChannelCode;
+@property (nonatomic,copy) NSString *FilmName;
 
 /**  */
-@property (nonatomic,copy) NSString *_ChannelId;
+@property (nonatomic,copy) NSString *_SourceUrl;
 
 /** 包含的影片个数 */
-@property (nonatomic,copy) NSString *_Count;
+@property (nonatomic,copy) NSString *_Year;
 
 /**  */
-@property (nonatomic,copy) NSString *_FilmClassID;
+@property (nonatomic,copy) NSString *_SourceID;
 
 /**  */
-@property (nonatomic,copy) NSString *_FilmClassName;
+@property (nonatomic,copy) NSString *_MovieLevel;
 
 /**  */
-@property (nonatomic,copy) NSString *_FilmClassRealName;
+@property (nonatomic,copy) NSString *_ImgUrl;
 
 /**  */
-@property (nonatomic,copy) NSString *_FilmClassUrl;
+@property (nonatomic,copy) NSString *_ImgUrlB;
 
 /**  */
-@property (nonatomic,copy) NSString *_FilmCount;
+@property (nonatomic,copy) NSString *_FilmID;
 
 /**  */
-@property (nonatomic,copy) NSString *_IcoID;
+@property (nonatomic,copy) NSString *Introduction;
 
 /**  */
-@property (nonatomic,copy) NSString *_IcoUrl;
+@property (nonatomic,copy) NSString *_LongTime;
 
 /**  */
-@property (nonatomic,copy) NSString *_Intro;
+@property (nonatomic,copy) NSString *_Stype;
 
 /**  */
-@property (nonatomic,copy) NSString *_PageCount;
+@property (nonatomic,copy) NSString *_Area;
 
 /**  */
-@property (nonatomic,copy) NSString *_Template;
+@property (nonatomic,copy) NSString *_FilmFormat;
 
 /** 请求数据时间 */
-@property (nonatomic,copy) NSString *_Time;
+@property (nonatomic,copy) NSString *WatchFocus;
 
 /** 版本 */
-@property (nonatomic,copy) NSString *_Version;
+@property (nonatomic,copy) NSString *_ImgUrlOriginal;
 
 
 

@@ -124,7 +124,7 @@
 // 片单接口
 #define FilmList [NetUrlManager.domainName stringByAppendingString:url_FilmList]
 // filmClass接口
-#define FilmClass @"http: //interface5.voole.com/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=gf201606271730129921467019536749"
+#define FilmClass @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=gf201606271730129921467019536749"
 
 
 
