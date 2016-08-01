@@ -38,6 +38,10 @@
                 <constraint firstItem="33v-1D-28D" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="xU1-Ab-rYi"/>
             </constraints>
             <size key="customSize" width="154" height="186"/>
+            <connections>
+                <outlet property="filmImage" destination="33v-1D-28D" id="jJI-ja-UHP"/>
+                <outlet property="filmName" destination="bdD-7t-h0q" id="yEQ-qX-qY0"/>
+            </connections>
             <point key="canvasLocation" x="346.5" y="326"/>
         </collectionViewCell>
     </objects>

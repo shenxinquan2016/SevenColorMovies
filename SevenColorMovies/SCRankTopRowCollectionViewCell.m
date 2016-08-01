@@ -7,6 +7,17 @@
 //
 
 #import "SCRankTopRowCollectionViewCell.h"
+#import "UIImageView+WebCache.h" 
+
+@interface SCRankTopRowCollectionViewCell()
+
+@property (weak, nonatomic) IBOutlet UIImageView *filmImage;
+
+@property (weak, nonatomic) IBOutlet UILabel *filmName;
+
+
+@end
+
 
 @implementation SCRankTopRowCollectionViewCell
 
@@ -24,5 +35,12 @@
     return cell;
 }
 
+- (void)setModel:(SCFilmModel *)model {
+    
+    _filmName.text = model.FilmName;
+    NSURL *imgUrl = [NSURL URLWithString:model._ImgUrl];
+    [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"假数据"]];
+    
+}
 
 @end

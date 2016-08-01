@@ -12,6 +12,7 @@
 #import "SCSiftViewController.h"
 #import "SCFilmClassModel.h"
 #import "SCFilmModel.h"
+#import "SCRankTopRowCollectionViewCell.h"
 
 
 
@@ -23,8 +24,10 @@ static const CGFloat LabelWidth = 85.f;
 @interface SCChannelCategoryVC ()<UIScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collView;
+
 /** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *titleScroll;
+
 /** 内容栏scrollView */
 @property (nonatomic, strong) UIScrollView *contentScroll;
 
@@ -67,38 +70,11 @@ static NSString *const cellId = @"cellId";
     self.filmModelArr = [NSMutableArray arrayWithCapacity:0];
     
     
-    NSLog(@"====%@",_FilmClassModel._FilmClassName);
-    for (NSDictionary *dic in _FilmClassModel.filmClassArray) {
-        
-        SCFilmClassModel *model = [SCFilmClassModel mj_objectWithKeyValues:dic];
-        
-        NSLog(@"====dic:::%@",model._FilmClassName);
-        
-        [_filmClassModelArr addObject:model];
-        [_titleArr addObject:model._FilmClassName];
-    }
+    //3.初始化数据
+    [self getDataModel];
     
     //4.添加滑动headerView
     [self constructSlideHeaderView];
-    
-    
-    [requestDataManager requestFilmClassDataWithUrl:FilmClass parameters:nil success:^(id  _Nullable responseObject) {
-        
-        
-        NSArray *filmsArr = responseObject[@"Film"];
-        for (NSDictionary *dic in filmsArr) {
-            SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-            NSLog(@">>>>>>>>>>>>%@",filmModel.FilmName);
-            [_filmModelArr addObject:filmModel];
-        }
-        
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        
-    }];
-    
-    
     
     //5.添加contentScrllowView
     [self constructContentView];
@@ -132,8 +108,88 @@ static NSString *const cellId = @"cellId";
     _siftBtn = btn;
 }
 
+//获取数据模型
+- (void)getDataModel{
+    NSLog(@"====%@",_FilmClassModel._FilmClassName);
+    for (NSDictionary *dic in _FilmClassModel.filmClassArray) {
+        
+        SCFilmClassModel *classModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
+        
+        NSLog(@"====dic:::%@",classModel._FilmClassName);
+        
+        [_filmClassModelArr addObject:classModel];
+        [_titleArr addObject:classModel._FilmClassName];
+        
+    }
+    
+}
+
+- (void)abc{
+    
+    for (int i = 0; i < _filmClassModelArr.count; i++) {
+       SCFilmClassModel *classModel = _filmClassModelArr[i];
+        [_filmModelArr removeAllObjects];
+
+        
+        NSString *url = [classModel._FilmClassUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+                [requestDataManager requestFilmClassDataWithUrl:url parameters:nil success:^(id  _Nullable responseObject) {
+            
+            NSArray *filmsArr = responseObject[@"Film"];
+            for (NSDictionary *dic in filmsArr) {
+                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                NSLog(@">>>>>>>>>>>>%@",filmModel.FilmName);
+                [_filmModelArr addObject:filmModel];
+            }
+            
+        } failure:^(id  _Nullable errorObject) {
+            
+            
+        }];
+ 
+        
+    }
+    
+
+    
+
+    
+    
+}
+
+
+
+
+
 - (void)loadCollectionViewWithTag:(int)tag{
     self.tag = tag;
+    
+    
+//    SCFilmClassModel *model = _filmClassModelArr[tag];
+//    NSLog(@">>>>>>>>>>>>%@",model._FilmClassUrl);
+//    NSLog(@">>>>>>>>>>>>tag>>>>>>>>>>>>>%d",tag);
+    
+//    [requestDataManager requestFilmClassDataWithUrl:model._FilmClassUrl parameters:nil success:^(id  _Nullable responseObject) {
+//        
+//        
+//        NSArray *filmsArr = responseObject[@"Film"];
+//        for (NSDictionary *dic in filmsArr) {
+//            SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+//            NSLog(@">>>>>>>>>>>>%@",filmModel.FilmName);
+//            [_filmModelArr addObject:filmModel];
+//        }
+//        
+//        
+//    } failure:^(id  _Nullable errorObject) {
+//        
+//        
+//    }];
+    
+    [self abc];
+    
+    
+    
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     _collView = [[UICollectionView alloc] initWithFrame:self.contentScroll.bounds collectionViewLayout:layout];
     _collView.backgroundColor = [UIColor whiteColor];
@@ -202,6 +258,22 @@ static NSString *const cellId = @"cellId";
 
 /** 添加正文内容页 */
 - (void)constructContentView{
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, StatusBarHeight+TitleHeight+44+8+8, kMainScreenWidth, kMainScreenHeight-StatusBarHeight-TitleHeight-44-8-8)];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
@@ -338,14 +410,16 @@ static NSString *const cellId = @"cellId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 16;
+    return _filmModelArr.count;
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    SCRankTopRowCollectionViewCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
+    SCFilmModel *model = _filmModelArr[indexPath.row];
+    cell.model = model;
     
     return cell;
 }

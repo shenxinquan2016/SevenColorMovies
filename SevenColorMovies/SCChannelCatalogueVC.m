@@ -46,8 +46,7 @@ static NSString *const footerId = @"footerId";
     
     
     
-    
-    
+
     
     [requestDataManager requestFilmListDataWithUrl:FilmList parameters:nil success:^(id  _Nullable responseObject) {
         //        NSLog(@"====dic::%@=======",responseObject);
@@ -242,7 +241,8 @@ static NSString *const footerId = @"footerId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+
+
     
     SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row];
 
