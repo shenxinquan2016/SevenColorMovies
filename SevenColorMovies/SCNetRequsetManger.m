@@ -90,12 +90,11 @@
 }
 
 
-/** 首页数据请求 get */
-- (void)requestHomePageDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success failure:(void (^)(id _Nullable))faild{
+/** filmList */
+- (void)requestFilmListDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success failure:(void (^)(id _Nullable))faild{
     
     [self GETRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject) {
         success(responseObject);
-        [MBProgressHUD showError:@"成功了"];
         
     } faild:^(id _Nullable errorObject) {
         //数据请求失败
@@ -111,7 +110,26 @@
     
 }
 
-
+/** 请求filmClass */
+- (void)requestFilmClassDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild{
+    
+    [self GETRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject) {
+        success(responseObject);
+        
+    } faild:^(id _Nullable errorObject) {
+        //数据请求失败
+        if (![SCNetHelper isNetConnect]) {
+            faild(@"网络异常，请检查网络设置!");
+        } else {
+            faild(@"获取数据失败!");
+        }
+        
+        
+    }];
+    
+    
+    
+}
 
 
 

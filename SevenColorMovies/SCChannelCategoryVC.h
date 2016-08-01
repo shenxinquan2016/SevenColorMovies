@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "SCOtherBaseViewController.h"
+@class SCFilmClassModel;
 
 @interface SCChannelCategoryVC : SCOtherBaseViewController
 
 
-    
+/** ... */
+@property (nonatomic, strong) SCFilmClassModel *FilmClassModel;
+
 @end

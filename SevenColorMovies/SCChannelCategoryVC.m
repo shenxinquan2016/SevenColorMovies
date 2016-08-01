@@ -10,7 +10,6 @@
 #import "SCSlideHeaderLabel.h"
 #import "SCTeleplayPlayerVC.h"
 #import "SCSiftViewController.h"
-#import "SCFilmListModel.h"
 #import "SCFilmClassModel.h"
 
 
@@ -49,39 +48,34 @@ static NSString *const cellId = @"cellId";
     //1.筛选按钮
     [self addSiftBtn];
     
+    //2.初始化数组
+    self.titleArr = [NSMutableArray arrayWithCapacity:0];
     
-    //3.初始化数组
-    self.titleArr = [@[@"最热",@"卫视同步",@"高分经典",@"海外剧场",@"日韩",@"卫视同步",@"最热",@"卫视同步",@"高分经典",@"海外剧场",@"日韩",@"卫视同步"] copy];
+    
+    NSLog(@"====%@",_FilmClassModel._FilmClassName);
+    for (NSDictionary *dic in _FilmClassModel.filmClassArray) {
+        
+        SCFilmClassModel *model = [SCFilmClassModel mj_objectWithKeyValues:dic];
+        
+        NSLog(@"====dic:::%@",model._FilmClassName);
+        [_titleArr addObject:model._FilmClassName];
+    }
+    
     //4.添加滑动headerView
     [self constructSlideHeaderView];
-    //5.添加contentScrllowView
-    [self constructContentView];
     
-    
-    
-    
-    [requestDataManager requestHomePageDataWithUrl:FilmList parameters:nil success:^(id  _Nullable responseObject) {
-//        NSLog(@"====dic::%@=======",responseObject);
-        SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
-        NSArray *filmClassArr = filmListModel.filmClassArray;
-        for (NSDictionary *dic in filmClassArr) {
-            SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
-            NSLog(@"====filmListModel::%@=======",filmClassModel._FilmClassName);
-
-        }
+    [requestDataManager requestFilmClassDataWithUrl:FilmClass parameters:nil success:^(id  _Nullable responseObject) {
         
-        
-
-       NSLog(@"====filmListModel::%ld=======",filmListModel.filmClassArray.count);
-        
-        
-        
-        
+        NSLog(@">>>>>>>>>>>>%@",responseObject);
     } failure:^(id  _Nullable errorObject) {
         
         
     }];
     
+    
+    
+    //5.添加contentScrllowView
+    [self constructContentView];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

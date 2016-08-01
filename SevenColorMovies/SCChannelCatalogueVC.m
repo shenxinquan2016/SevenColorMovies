@@ -10,12 +10,17 @@
 #import "SCChannelCatalogueCell.h"
 #import "LXReorderableCollectionViewFlowLayout.h"
 #import "SCChannelCategoryVC.h"
+#import "SCFilmListModel.h"
+#import "SCFilmClassModel.h"
+
 
 
 @interface SCChannelCatalogueVC ()<LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout,UICollectionViewDelegate>
-/**  */
+/** collectionView */
 @property (nonatomic, strong) UICollectionView *collView;
 
+/** 存储filmList中的filmClass模型（第二层数据）*/
+@property (nonatomic, copy) NSMutableArray *filmClassArray;
 
 @end
 
@@ -32,10 +37,40 @@ static NSString *const footerId = @"footerId";
     
     //1.初始化数组
     
-    self.selectedItemArr = [NSMutableArray arrayWithCapacity:0];
+    _filmClassArray = [NSMutableArray arrayWithCapacity:0];
+    
     
     //2.添加cellectionView
     [self loadCollectionView];
+    
+    
+    
+    
+    
+    
+    
+    [requestDataManager requestFilmListDataWithUrl:FilmList parameters:nil success:^(id  _Nullable responseObject) {
+        //        NSLog(@"====dic::%@=======",responseObject);
+        //1.第一层 filmList
+        SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
+        NSArray *filmClassArr = filmListModel.filmClassArray;
+        for (NSDictionary *dic in filmClassArr) {
+            //2.第二层 filmClass
+            SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
+            
+            [_filmClassArray addObject:filmClassModel];
+
+        }
+        
+        
+        
+        
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -207,11 +242,26 @@ static NSString *const footerId = @"footerId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"======点击=====");
+    
+    
+    SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row];
+
+    
+    for (NSDictionary *dic in filmClassModel.filmClassArray) {
+        SCFilmClassModel *mdoel = [SCFilmClassModel mj_objectWithKeyValues:dic];
+        
+//        NSLog(@"====filmListModel::%@=======",mdoel._FilmClassName);
+        
+    }
+
+    
+    
+    
     //设置返回键标题
     NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
     
     SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
+    channelVC.FilmClassModel = filmClassModel;
     channelVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:channelVC animated:YES];
     
