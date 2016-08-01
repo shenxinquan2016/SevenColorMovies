@@ -10,6 +10,10 @@
 #import "SCSlideHeaderLabel.h"
 #import "SCTeleplayPlayerVC.h"
 #import "SCSiftViewController.h"
+#import "SCFilmListModel.h"
+#import "SCFilmClassModel.h"
+
+
 
 static const CGFloat TitleHeight = 41.0f;
 static const CGFloat StatusBarHeight = 20.0f;
@@ -57,7 +61,21 @@ static NSString *const cellId = @"cellId";
     
     
     [requestDataManager requestHomePageDataWithUrl:FilmList parameters:nil success:^(id  _Nullable responseObject) {
-        NSLog(@"====dic::%@=======",responseObject);
+//        NSLog(@"====dic::%@=======",responseObject);
+        SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
+        NSArray *filmClassArr = filmListModel.filmClassArray;
+        for (NSDictionary *dic in filmClassArr) {
+            SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
+            NSLog(@"====filmListModel::%@=======",filmClassModel._FilmClassName);
+
+        }
+        
+        
+
+       NSLog(@"====filmListModel::%ld=======",filmListModel.filmClassArray.count);
+        
+        
+        
         
     } failure:^(id  _Nullable errorObject) {
         

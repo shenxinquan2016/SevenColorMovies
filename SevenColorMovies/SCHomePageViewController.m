@@ -401,27 +401,6 @@ static NSString *const footerId = @"footerId";
 }
 
 
-//解析会循环执行以下三个方法
-//开始元素的时候执行此方法
--(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
-    NSLog(@"开始标签  %@", elementName);
-    if ([elementName isEqualToString:@"student"]) {
-        
-        NSLog(@"=====%@",attributeDict);
-        
-    }
-}
-
-//找到文本的时候
--(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
-    
-    NSLog(@"发现文本  %@", string);
-}
-//结束元素的时候
--(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
-    
-    NSLog(@"结束标签  %@", elementName);
-}
 
 
 

@@ -222,7 +222,7 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Getters and Setters
 - (NSMutableArray *)allItemsArr{
     if (!_allItemsArr) {
-        NSArray *array =@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Game" : @"游戏"}, @{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"}, @{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}, @{@"OverseasFilm" : @"海外剧场"},@{@"Children" : @"少儿"}, @{@"Life" : @"生活"}, @{@"Music" : @"音乐"}, @{@"Documentary" : @"纪录片"}, @{@"GeneralChannel" : @"通用频道"}];
+        NSArray *array =@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿"},@{@"Game" : @"游戏"}, @{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"Life" : @"生活"}, @{@"Documentary" : @"纪录片"},  @{@"Music" : @"音乐"},  @{@"SpecialTopic" : @"专题"}, @{@"GeneralChannel" : @"3D影院"}, @{@"GeneralChannel" : @"4K专区"}];
         
         _allItemsArr = [NSMutableArray arrayWithCapacity:0];
         [_allItemsArr addObjectsFromArray:array];

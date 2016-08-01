@@ -10,4 +10,55 @@
 
 @interface SCFilmClassModel : NSObject
 
+/** FilmClassList */
+@property (nonatomic,copy) NSString *_FilmClassName;
+
+/** film介绍 */
+@property (nonatomic,copy) NSString *_Intro;
+
+/** 包含影片个数 */
+@property (nonatomic,copy) NSString *_FilmCount;
+
+/** 包含影片个数 */
+@property (nonatomic,copy) NSString *_Count;
+
+/** 分页数量 */
+@property (nonatomic,copy) NSString *_PageCount;
+
+/** ... */
+@property (nonatomic,copy) NSString *_IcoID;
+
+/** ... */
+@property (nonatomic,copy) NSString *_FilmClassID;
+
+/** ... */
+@property (nonatomic,copy) NSString *_Version;
+
+/** ... */
+@property (nonatomic,copy) NSString *_ChannelId;
+
+/** ... */
+@property (nonatomic,copy) NSString *_ChannelCode;
+
+/** ... */
+@property (nonatomic,copy) NSString *_FilmClassUrl;
+
+/** ... */
+@property (nonatomic,copy) NSString *_IcoUrl;
+
+/** ... */
+@property (nonatomic,copy) NSString *_FilmClassRealName;
+
+/** ... */
+@property (nonatomic,copy) NSString *_Template;
+
+/** ... */
+@property (nonatomic,copy) NSString *_Time;
+
+/** 包含的影片数组*/
+@property (nonatomic, copy) NSArray *filmClassArray;
+
+/** FilmClass模型*/
+@property (nonatomic, strong) SCFilmClassModel *filmClassModel;
+
 @end

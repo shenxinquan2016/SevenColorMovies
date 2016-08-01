@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SCFilmClassModel.h"
 
 @interface SCFilmListModel : NSObject
 
-/** FilmClassList */
+/** model名称 */
 @property (nonatomic,copy) NSString *__name;
 
 /** 请求数据时间 */
@@ -23,9 +24,10 @@
 @property (nonatomic,copy) NSString *_Count;
 
 /** 包含的影片数组*/
-@property (nonatomic, copy) NSArray *filmArray;
+@property (nonatomic, copy) NSArray *filmClassArray;
 
-
+/** FilmClass模型*/
+@property (nonatomic, strong) SCFilmClassModel *filmClassModel;
 
 
 

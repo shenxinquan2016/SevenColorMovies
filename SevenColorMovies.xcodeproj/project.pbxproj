@@ -532,13 +532,13 @@
 			name = "Moive电影";
 			sourceTree = "<group>";
 		};
-		115A21101D41F02F0097DE57 /* Teleplay电视剧 */ = {
+		115A21101D41F02F0097DE57 /* TeleplayPlayer电视剧 */ = {
 			isa = PBXGroup;
 			children = (
 				115A211B1D4218510097DE57 /* MainBody */,
 				115A211A1D4218440097DE57 /* ViewController */,
 			);
-			name = "Teleplay电视剧";
+			name = "TeleplayPlayer电视剧";
 			sourceTree = "<group>";
 		};
 		115A211A1D4218440097DE57 /* ViewController */ = {
@@ -816,7 +816,7 @@
 				115A21001D41B4E20097DE57 /* 点播栏 */,
 				113F8D901D3C702000B12D39 /* Rank */,
 				116E1D5B1D4B4D4600B488EC /* Sift筛选 */,
-				115A21101D41F02F0097DE57 /* Teleplay电视剧 */,
+				115A21101D41F02F0097DE57 /* TeleplayPlayer电视剧 */,
 				115A210F1D41F02B0097DE57 /* Moive电影 */,
 				115A210E1D41F0260097DE57 /* Arts综艺 */,
 				113E62E51D49F5FE00FB8F3A /* Model */,

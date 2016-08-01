@@ -10,4 +10,11 @@
 
 @implementation SCFilmListModel
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    
+    return @{@"filmClassArray":@"FilmClass"};
+    
+}
+
+
 @end
