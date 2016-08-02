@@ -18,8 +18,8 @@
 #import "SCChannelCategoryVC.h"//节目频道分类
 
 #import "SCTeleplayPlayerVC.h"
-#import "SCBannerModel.h"
 
+#import "SCBannerModel.h"
 #import "SCFilmListModel.h"
 #import "SCFilmClassModel.h"
 #import "SCFilmModel.h"
@@ -126,6 +126,7 @@ static NSString *const footerId = @"footerId";
                 [_titleArray addObject:classModel._FilmClassName];
                 [_filmClassArray addObject:classModel];
                 [_collView reloadData];
+
                 
             }else{
                 
@@ -282,8 +283,14 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    if (section == 0) return 8;
-    else return 3;
+    if (section == 0){
+        return 8;
+    }else{
+       
+       SCFilmClassModel *model = _filmClassArray[section-1];
+        return model.filmArray.count;
+    }
+    
 }
 
 
@@ -300,6 +307,9 @@ static NSString *const footerId = @"footerId";
         SCRankTopRowCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
         //        cell.backgroundColor = [UIColor purpleColor];
         
+        SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
+        SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
+        cell.model = filmModel;
         return cell;
         
     }
