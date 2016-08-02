@@ -119,6 +119,9 @@
 
 
 /******************************************首页接口*******************************************/
+// homePage 接口
+#define HomePageUrl @"http://10.177.1.222:5040/filmlist?epgid=909191&spid=20151103&cpid=10001000&ctype=9"
+
 // banner 接口
 #define BannerURL [NetUrlManager.domainName stringByAppendingString:url_Banner]
 // 片单接口
