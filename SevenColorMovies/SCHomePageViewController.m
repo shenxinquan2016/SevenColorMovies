@@ -46,7 +46,7 @@
 /** 存储filmList中的filmClass模型（第二层数据）*/
 @property (nonatomic, copy) NSMutableArray *filmClassArray;
 
-/** 存储filmList中的filmClass模型（第二层数据）*/
+/** section标题 */
 @property (nonatomic, copy) NSMutableArray *titleArray;
 
 
@@ -79,36 +79,40 @@ static NSString *const footerId = @"footerId";
     //3.添加collectionView
     [self addCollView];
     
-//    [CommonFunc showLoadingWithTips:@"加载中"];
-//    //banner网络请求测试
-//    [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
-//        [CommonFunc dismiss];
-//        NSMutableArray *dataArr = responseObject[@"Film"];
-//        
-//        if (![dataArr isKindOfClass:[NSNull class]]) {
-//            for (NSDictionary *dic in dataArr) {
-//                SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
-//                [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
-//                
-//            }
-//            
-//            //添加banner
-//            if (_bannerImageUrlArr.count > 0) {
-//                [self addBannerView];
-//                _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-//            }}else if (_bannerImageUrlArr.count == 0){
-//                if (_bannerView) {
-//                    [_bannerView removeFromSuperview];
-//                    
-//                }
-//            }
-//        
-//    } failure:^(id  _Nullable errorObject) {
-//        
-//    }];
+    
+//>>>>>>>>>>>>>>>>>>>>测试接口<<<<<<<<<<<<<<<<<<<<<<
+    //    [CommonFunc showLoadingWithTips:@"加载中"];
+    //    //banner网络请求测试
+    //    [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
+    //        [CommonFunc dismiss];
+    //        NSMutableArray *dataArr = responseObject[@"Film"];
+    //
+    //        if (![dataArr isKindOfClass:[NSNull class]]) {
+    //            for (NSDictionary *dic in dataArr) {
+    //                SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
+    //                [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
+    //
+    //            }
+    //
+    //            //添加banner
+    //            if (_bannerImageUrlArr.count > 0) {
+    //                [self addBannerView];
+    //                _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
+    //            }}else if (_bannerImageUrlArr.count == 0){
+    //                if (_bannerView) {
+    //                    [_bannerView removeFromSuperview];
+    //
+    //                }
+    //            }
+    //
+    //    } failure:^(id  _Nullable errorObject) {
+    //
+    //    }];
     
     
     //>>>>>>>>>>>>>>>>>>>>整合后的首页接口调试<<<<<<<<<<<<<<<<<<<<<<
+    [CommonFunc showLoadingWithTips:@"加载中"];
+
     [requestDataManager requestBannerDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
         
         //1.第一层 filmList
@@ -118,47 +122,50 @@ static NSString *const footerId = @"footerId";
         for (SCFilmClassModel *classModel in filmListModel.filmClassArray) {
             
             if (![classModel._FilmClassName hasSuffix:@"今日推荐"]) {
+                
                 [_titleArray addObject:classModel._FilmClassName];
                 [_filmClassArray addObject:classModel];
+                [_collView reloadData];
                 
             }else{
                 
                 //添加banner
-//                NSArray *arr = 
-                if (![classModel.filmArray isKindOfClass:[NSNull class]]) {
-                    for (SCFilmModel *model in classModel.filmArray) {
-                        [_bannerImageUrlArr addObject:model._ImgUrlO];
+                NSArray *dataArr = responseObject[@"FilmClass"];
+                NSDictionary *dic = [dataArr firstObject];
+                NSArray *array = dic[@"Film"];
+                
+                if (![dataArr isKindOfClass:[NSNull class]]) {
+                    for (NSDictionary *dic in array) {
                         
-                        NSLog(@">>>>>>>>classModel.filmArray:::%@",model._ImgUrlO);
+                        SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
+                        [_bannerImageUrlArr addObject:model._ImgUrlO];
                     }
                     
                     //添加banner
                     if (_bannerImageUrlArr.count > 0) {
                         [self addBannerView];
                         _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-                    }}else if (_bannerImageUrlArr.count == 0){
+                        
+                    }else if (_bannerImageUrlArr.count == 0){
                         if (_bannerView) {
                             [_bannerView removeFromSuperview];
                             
                         }
                     }
-                
-                
-                
-                
-                
-                
+                    
+                }
             }
             NSLog(@">>>>>>>>homePageData:::%ld",classModel.filmArray.count);
             
             NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
         }
-//        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
-//        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
+        [CommonFunc dismiss];
+        //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
+        //        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
         //        NSLog(@">>>>>>>>homePageData:::%@",responseObject);
     } failure:^(id  _Nullable errorObject) {
         
-        
+        [CommonFunc dismiss];
     }];
     
     
@@ -269,14 +276,14 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark ---- UICollectionView  DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return _sectionArr.count;
+    return _titleArray.count+1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
     if (section == 0) return 8;
-    else return 10;
+    else return 3;
 }
 
 
@@ -309,7 +316,7 @@ static NSString *const footerId = @"footerId";
             headerView = [[UICollectionReusableView alloc] init];
         }
         //                headerView.backgroundColor = [UIColor purpleColor];
-        UIView *view = [self addSectionHeaderViewWithTitle:_sectionArr[indexPath.section] tag:indexPath.section];
+        UIView *view = [self addSectionHeaderViewWithTitle:_titleArray[indexPath.section-1] tag:indexPath.section];
         [headerView addSubview:view];
         return headerView;
     }

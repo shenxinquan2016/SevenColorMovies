@@ -10,8 +10,12 @@
 
 @interface SCBannerModel : NSObject
 
-/** banner图片url*/
-@property (nonatomic, copy) NSString *_ImgUrlOriginal;
+
+/** banner图片URL  老接口 */
+@property (nonatomic,copy) NSString *_ImgUrlOriginal;
+
+/** banner图片URL  新接口 */
+@property (nonatomic,copy) NSString *_ImgUrlO;
 
 /** film url*/
 @property (nonatomic, copy) NSString *_SourceUrl;
