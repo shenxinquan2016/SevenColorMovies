@@ -127,57 +127,6 @@ static NSString *const cellId = @"cellId";
     
 }
 
-- (void)abc{
-    
-    
-       SCFilmClassModel *classModel = _filmClassModelArr[self.tag];
-    
-        
-        NSString *url = [classModel._FilmClassUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    [CommonFunc showLoadingWithTips:@""];
-//                [requestDataManager requestFilmClassDataWithUrl:url parameters:nil success:^(id  _Nullable responseObject) {
-//                    [CommonFunc dismiss];
-//            NSArray *filmsArr = responseObject[@"Film"];
-////                    NSLog(@">>>>>>>>>>>>%ld",filmsArr.count);
-////                    NSLog(@">>>>>>>>>>>>%@",filmsArr);
-//                    
-//                    [_filmModelArr removeAllObjects];
-//                    //NSLog(@">>>>>>>>>>>>1111:::::%ld",_filmModelArr.count);
-//            for (NSDictionary *dic in filmsArr) {
-//                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-////                NSLog(@">>>>>>>>>>>>%@",filmModel.FilmName);
-//                [_filmModelArr addObject:filmModel];
-//            }
-//                    NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
-//                    [_collView reloadData];
-//        } failure:^(id  _Nullable errorObject) {
-//            
-//            
-//        }];
- 
-    
-    
-}
-
-
-
-
-
-//- (void)loadCollectionViewWithTag:(int)tag{
-//    self.tag = tag;
-//    
-//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
-//    _collView = [[UICollectionView alloc] initWithFrame:self.contentScroll.bounds collectionViewLayout:layout];
-//    _collView.backgroundColor = [UIColor whiteColor];
-//    _collView.alwaysBounceVertical=YES;
-//    _collView.dataSource = self;
-//    _collView.delegate = self;
-//    
-//    // 注册cell、sectionHeader、sectionFooter
-//    [_collView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
-//    
-//    
-//}
 
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView{
@@ -230,7 +179,6 @@ static NSString *const cellId = @"cellId";
     
 }
 
-
 /** 添加正文内容页 */
 - (void)constructContentView{
     
@@ -247,18 +195,12 @@ static NSString *const cellId = @"cellId";
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
 
         SCCollectionViewPageVC *vc = [[SCCollectionViewPageVC alloc] initWithCollectionViewLayout:layout];
-//        vc.view.backgroundColor = [UIColor grayColor];
-        
-//        [self loadCollectionViewWithTag:i];
-//        [vc.view addSubview:_collView];
-        
+
         SCFilmClassModel *classModel = _filmClassModelArr[i];
         NSString *url = [classModel._FilmClassUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         vc.urlString = url;
         
-        
         [self addChildViewController:vc];
-//        [self abc];
         
     }
     // 添加默认控制器
@@ -282,6 +224,7 @@ static NSString *const cellId = @"cellId";
     
     [_contentScroll setContentOffset:offset animated:YES];
 }
+
 // 筛选
 - (void)doSiftingAction{
     if (_siftBtn.selected == NO) {
@@ -333,8 +276,6 @@ static NSString *const cellId = @"cellId";
         }
     }];
     
-    //    [self setScrollToTopWithTableViewIndex:index];
-    
     if (vc.view.superview) return;//阻止vc重复添加
     vc.view.frame = scrollView.bounds;
     [_contentScroll addSubview:vc.view];
@@ -368,86 +309,5 @@ static NSString *const cellId = @"cellId";
     _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
 }
-
-
-
-//#pragma mark ---- UICollectionViewDataSource
-//
-//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-//{
-//    return 1;
-//}
-//
-//
-//- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-//{
-//    return _filmModelArr.count;
-//    return 10;
-//}
-//
-//
-//- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    SCRankTopRowCollectionViewCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-//    cell.backgroundColor = [UIColor whiteColor];
-//    SCFilmModel *model = _filmModelArr[indexPath.row];
-//    cell.model = model;
-//    
-//    return cell;
-//}
-//
-//#pragma mark ---- UICollectionViewDelegateFlowLayout
-///** item Size */
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    return (CGSize){(kMainScreenWidth-24-16)/3,180};
-//}
-//
-///** CollectionView四周间距 EdgeInsets */
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-//    
-//    return UIEdgeInsetsMake(5, 12, 5, 12);
-//}
-//
-///** item水平间距 */
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-//{
-//    return 5.f;
-//}
-//
-///** item垂直间距 */
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-//{
-//    return 8.f;
-//}
-//
-///** section Header 尺寸 */
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-//{
-//    return (CGSize){kMainScreenWidth,0};
-//}
-//
-///** section Footer 尺寸*/
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
-//{
-//    return (CGSize){kMainScreenWidth,80};
-//}
-//
-//#pragma mark ---- UICollectionViewDelegate
-//
-//- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return YES;
-//}
-//
-//
-//// 选中某item
-//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    //    NSLog(@"======点击=====");
-//    SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
-//    teleplayPlayer.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:teleplayPlayer animated:YES];
-//    
-//}
 
 @end
