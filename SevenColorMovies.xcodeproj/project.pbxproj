@@ -513,8 +513,6 @@
 			children = (
 				115A21021D41B62D0097DE57 /* SCChannelCategoryVC.h */,
 				115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */,
-				1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */,
-				1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */,
 			);
 			name = "分类栏目";
 			sourceTree = "<group>";
@@ -607,6 +605,7 @@
 		116475FF1D40B98600A3BC1C /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				11928FD01D506D2700926011 /* CollectionPage */,
 				116476011D40B9D100A3BC1C /* register */,
 				116476001D40B9C400A3BC1C /* Login */,
 				11BB37BF1D38DB220002D487 /* Tabbar */,
@@ -656,6 +655,15 @@
 				116E1D5D1D4B4E0200B488EC /* SCSiftViewController.m */,
 			);
 			name = "Sift筛选";
+			sourceTree = "<group>";
+		};
+		11928FD01D506D2700926011 /* CollectionPage */ = {
+			isa = PBXGroup;
+			children = (
+				1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */,
+				1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */,
+			);
+			name = CollectionPage;
 			sourceTree = "<group>";
 		};
 		1196A06C1D4263F800B3C5EF /* MoiveRecommendation */ = {

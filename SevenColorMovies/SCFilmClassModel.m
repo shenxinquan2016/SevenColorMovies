@@ -12,8 +12,18 @@
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     
-    return @{@"filmClassArray":@"FilmClass"};
+    return @{@"filmClassArray":@"FilmClass",
+             @"filmArray":@"Film"};
     
+}
+
+
++ (NSDictionary *)objectClassInArray{
+    return @{
+             @"filmClassArray" : @"SCFilmClassModel",
+             @"filmArray" : @"SCFilmModel",
+
+             };
 }
 
 

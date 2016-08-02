@@ -52,9 +52,10 @@
 /** 请求数据时间 */
 @property (nonatomic,copy) NSString *WatchFocus;
 
-/** 版本 */
+/** banner图片URL  老接口 */
 @property (nonatomic,copy) NSString *_ImgUrlOriginal;
 
-
+/** banner图片URL  新接口 */
+@property (nonatomic,copy) NSString *_ImgUrlO;
 
 @end

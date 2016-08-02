@@ -20,6 +20,9 @@
 #import "SCTeleplayPlayerVC.h"
 #import "SCBannerModel.h"
 
+#import "SCFilmListModel.h"
+#import "SCFilmClassModel.h"
+#import "SCFilmModel.h"
 
 
 
@@ -36,8 +39,16 @@
 @property (nonatomic, copy) NSMutableArray *allItemsArr;
 
 @property (nonatomic, strong) SCSycleBanner *bannerView;
+
 /** banner页图片地址数组 */
 @property (nonatomic, copy) NSMutableArray *bannerImageUrlArr;
+
+/** 存储filmList中的filmClass模型（第二层数据）*/
+@property (nonatomic, copy) NSMutableArray *filmClassArray;
+
+/** 存储filmList中的filmClass模型（第二层数据）*/
+@property (nonatomic, copy) NSMutableArray *titleArray;
+
 
 @end
 
@@ -62,40 +73,94 @@ static NSString *const footerId = @"footerId";
     //2. 初始化数组
     _sectionArr = [NSMutableArray arrayWithObjects:@"", @"观看记录",@"电影",@"电视剧",@"少儿剧场",@"动漫",@"综艺",nil];
     _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
-    
-    
+    _filmClassArray = [NSMutableArray arrayWithCapacity:0];
+    _titleArray = [NSMutableArray arrayWithCapacity:0];
     
     //3.添加collectionView
-    
     [self addCollView];
     
-    [CommonFunc showLoadingWithTips:@"加载中"];
-    //banner网络请求测试
-    [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
+//    [CommonFunc showLoadingWithTips:@"加载中"];
+//    //banner网络请求测试
+//    [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
+//        [CommonFunc dismiss];
+//        NSMutableArray *dataArr = responseObject[@"Film"];
+//        
+//        if (![dataArr isKindOfClass:[NSNull class]]) {
+//            for (NSDictionary *dic in dataArr) {
+//                SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
+//                [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
+//                
+//            }
+//            
+//            //添加banner
+//            if (_bannerImageUrlArr.count > 0) {
+//                [self addBannerView];
+//                _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
+//            }}else if (_bannerImageUrlArr.count == 0){
+//                if (_bannerView) {
+//                    [_bannerView removeFromSuperview];
+//                    
+//                }
+//            }
+//        
+//    } failure:^(id  _Nullable errorObject) {
+//        
+//    }];
+    
+    
+    //>>>>>>>>>>>>>>>>>>>>整合后的首页接口调试<<<<<<<<<<<<<<<<<<<<<<
+    [requestDataManager requestBannerDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
         
-        NSMutableArray *dataArr = responseObject[@"Film"];
+        //1.第一层 filmList
+        SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         
-        if (![dataArr isKindOfClass:[NSNull class]]) {
-            for (NSDictionary *dic in dataArr) {
-                SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
-                [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
+        NSLog(@">>>>>>>>homePageData:::%ld",filmListModel.filmClassArray.count);
+        for (SCFilmClassModel *classModel in filmListModel.filmClassArray) {
+            
+            if (![classModel._FilmClassName hasSuffix:@"今日推荐"]) {
+                [_titleArray addObject:classModel._FilmClassName];
+                [_filmClassArray addObject:classModel];
+                
+            }else{
+                
+                //添加banner
+//                NSArray *arr = 
+                if (![classModel.filmArray isKindOfClass:[NSNull class]]) {
+                    for (SCFilmModel *model in classModel.filmArray) {
+                        [_bannerImageUrlArr addObject:model._ImgUrlO];
+                        
+                        NSLog(@">>>>>>>>classModel.filmArray:::%@",model._ImgUrlO);
+                    }
+                    
+                    //添加banner
+                    if (_bannerImageUrlArr.count > 0) {
+                        [self addBannerView];
+                        _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
+                    }}else if (_bannerImageUrlArr.count == 0){
+                        if (_bannerView) {
+                            [_bannerView removeFromSuperview];
+                            
+                        }
+                    }
+                
+                
+                
+                
+                
                 
             }
-            [CommonFunc dismiss];
-            //添加banner
-            if (_bannerImageUrlArr.count > 0) {
-                [self addBannerView];
-                _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-            }}else if (_bannerImageUrlArr.count == 0){
-                if (_bannerView) {
-                    [_bannerView removeFromSuperview];
-                    
-                }
-            }
-        
+            NSLog(@">>>>>>>>homePageData:::%ld",classModel.filmArray.count);
+            
+            NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
+        }
+//        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
+//        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
+        //        NSLog(@">>>>>>>>homePageData:::%@",responseObject);
     } failure:^(id  _Nullable errorObject) {
         
+        
     }];
+    
     
 }
 
@@ -319,6 +384,7 @@ static NSString *const footerId = @"footerId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
+    
     //设置返回键标题
     NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
     
@@ -329,9 +395,12 @@ static NSString *const footerId = @"footerId";
             [self.navigationController pushViewController:moreView animated:YES];
         }else{
             
-            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
-            channelVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:channelVC animated:YES];
+            [MBProgressHUD showError:@"研发中..."];
+            return;
+            
+            //            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
+            //            channelVC.hidesBottomBarWhenPushed = YES;
+            //            [self.navigationController pushViewController:channelVC animated:YES];
         }
         
     }else{

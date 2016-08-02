@@ -16,5 +16,11 @@
     
 }
 
++ (NSDictionary *)objectClassInArray{
+    return @{
+             @"filmClassArray" : @"SCFilmClassModel",
+             };
+}
+
 
 @end

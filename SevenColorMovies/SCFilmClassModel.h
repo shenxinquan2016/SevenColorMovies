@@ -58,6 +58,9 @@
 /** 包含的影片数组*/
 @property (nonatomic, copy) NSArray *filmClassArray;
 
+/** 包含的影片数组*/
+@property (nonatomic, copy) NSArray *filmArray;
+
 /** FilmClass模型*/
 @property (nonatomic, strong) SCFilmClassModel *filmClassModel;
 
