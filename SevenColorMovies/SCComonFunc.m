@@ -81,12 +81,92 @@ static int textFieldMoveHight = 0;
         if (headerFunc) {
             DONG_RefreshGifHeader *header = [DONG_RefreshGifHeader headerWithRefreshingTarget:addSelf refreshingAction:headerFunc];
             // 隐藏时间
-            header.lastUpdatedTimeLabel.hidden = YES;
+            header.lastUpdatedTimeLabel.hidden = NO;
+            
+            header.ignoredScrollViewContentInsetTop = 0;
             // 隐藏状态
-            header.stateLabel.hidden = YES;
+            header.stateLabel.hidden = NO;
             collectionView.mj_header = header;
             //自动刷新(一进入程序就下拉刷新)
             if (first) {
+                [CommonFunc showLoadingWithTips:@""];
+                [collectionView.mj_header beginRefreshing];
+            }
+        }
+        //上拉刷新的方法存在添加上拉刷新的方法
+        if (footerFunc) {
+            // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+            //collectionView.mj_footer = [GCX_RefreshGifFooter footerWithRefreshingTarget:addSelf refreshingAction:footerFunc];
+            //tableView.mj_footer = [GCX_RefreshGifFooter footerWithRefreshingTarget:addSelf refreshingAction:footerFunc];
+            MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:addSelf refreshingAction:footerFunc];
+            footer.refreshingTitleHidden = YES;//隐藏刷新时的文字显示
+            //footer.ignoredScrollViewContentInsetBottom = 40;
+            [footer setTitle:@"" forState:MJRefreshStateIdle];
+            [footer setTitle:@"" forState:MJRefreshStateRefreshing];
+            [footer setTitle:@"没有更多数据了..." forState:MJRefreshStateNoMoreData];
+            collectionView.mj_footer = footer;
+        }
+    }
+}
+
+/**
+ *  带banner的collectionView集成上下拉刷新
+ *
+ *  @param view 集成刷新控件的视图
+ *  @param withSelf self
+ *  @param headerFunc 头部刷新(下拉刷新) 方法不存在刷新控件不添加
+ *  @param headerFuncFirst 头部刷新第一次自动是否刷新
+ *  @param footerFunc 底部视图(上拉刷新) 方法不存在刷新控件不添加
+ */
+
+- (void)setupRefreshWithCollectionViewWithBanner:(id)view withSelf:(id)addSelf headerFunc:(SEL)headerFunc headerFuncFirst:(BOOL)first footerFunc:(SEL)footerFunc {
+    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
+    if ([view isKindOfClass:[UITableView class]]) {
+        UITableView *tableView = (UITableView *)view;
+        //下拉方法存在添加下拉刷新
+        if (headerFunc) {
+            DONG_RefreshGifHeader *header = [DONG_RefreshGifHeader headerWithRefreshingTarget:addSelf refreshingAction:headerFunc];
+            // 隐藏时间
+            header.lastUpdatedTimeLabel.hidden = YES;
+            header.ignoredScrollViewContentInsetTop = -5;
+            // 隐藏状态
+            header.stateLabel.hidden = NO;
+            tableView.mj_header = header;
+            //自动刷新(一进入程序就下拉刷新)
+            if (first) {
+                [CommonFunc showLoadingWithTips:@""];
+                MJRefreshMsgSend(MJRefreshMsgTarget(addSelf), headerFunc, view);
+                //[tableView.mj_header beginRefreshing];
+            }
+        }
+        //上拉刷新的方法存在添加上拉刷新的方法
+        if (footerFunc) {
+            // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+            //tableView.mj_footer = [GCX_RefreshGifFooter footerWithRefreshingTarget:addSelf refreshingAction:footerFunc];
+            MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:addSelf refreshingAction:footerFunc];
+            footer.refreshingTitleHidden = YES;//隐藏刷新时的文字显示
+            //footer.ignoredScrollViewContentInsetBottom = 40;
+            [footer setTitle:@"" forState:MJRefreshStateIdle];
+            [footer setTitle:@"" forState:MJRefreshStateRefreshing];
+            [footer setTitle:@"到底了~" forState:MJRefreshStateNoMoreData];
+            tableView.mj_footer = footer;
+        }
+    } else {
+        UICollectionView *collectionView = (UICollectionView *)view;
+        //下拉方法存在添加下拉刷新
+        if (headerFunc) {
+            DONG_RefreshGifHeader *header = [DONG_RefreshGifHeader headerWithRefreshingTarget:addSelf refreshingAction:headerFunc];
+            // 隐藏时间
+            header.lastUpdatedTimeLabel.hidden = NO;
+            
+            /** 忽略多少scrollView的contentInset的top */
+            header.ignoredScrollViewContentInsetTop = 165;
+            // 隐藏状态
+            header.stateLabel.hidden = NO;
+            collectionView.mj_header = header;
+            //自动刷新(一进入程序就下拉刷新)
+            if (first) {
+                [CommonFunc showLoadingWithTips:@""];
                 [collectionView.mj_header beginRefreshing];
             }
         }

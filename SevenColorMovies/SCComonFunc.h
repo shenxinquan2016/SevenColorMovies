@@ -33,7 +33,17 @@ typedef void(^ReloadBlk)();
  */
 - (void)setupRefreshWithView:(nullable id)view withSelf:(nullable id)addSelf headerFunc:(nullable SEL)headerFunc headerFuncFirst:(BOOL)first footerFunc:(nullable SEL)footerFunc;
 
+/**
+ *  带banner的collectionView集成上下拉刷新
+ *
+ *  @param view 集成刷新控件的视图
+ *  @param withSelf self
+ *  @param headerFunc 头部刷新(下拉刷新) 方法不存在刷新控件不添加
+ *  @param headerFuncFirst 头部刷新第一次自动是否刷新
+ *  @param footerFunc 底部视图(上拉刷新) 方法不存在刷新控件不添加
+ */
 
+- (void)setupRefreshWithCollectionViewWithBanner:(nullable id)view withSelf:(nullable id)addSelf headerFunc:(nullable SEL)headerFunc headerFuncFirst:(BOOL)first footerFunc:(nullable SEL)footerFunc;
 /**
  *  上拉刷新无数据提示到底了或者数据不足一页隐藏footerView
  *
