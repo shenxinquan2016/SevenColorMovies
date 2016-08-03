@@ -22,6 +22,8 @@
 /** 存储filmList中的filmClass模型（第二层数据）*/
 @property (nonatomic, copy) NSMutableArray *filmClassArray;
 
+/** 编辑按钮 */
+@property (nonatomic, strong) UIButton *editBtn;
 @end
 
 @implementation SCChannelCatalogueVC
@@ -35,8 +37,9 @@ static NSString *const footerId = @"footerId";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    //0.编辑按钮
+    [self addRightBBI];
     //1.初始化数组
-    
     _filmClassArray = [NSMutableArray arrayWithCapacity:0];
     
     
@@ -46,11 +49,11 @@ static NSString *const footerId = @"footerId";
     
     
     
-
+    
     [CommonFunc showLoadingWithTips:@""];
-
+    
     [requestDataManager requestFilmListDataWithUrl:FilmList parameters:nil success:^(id  _Nullable responseObject) {
-                //        NSLog(@"====dic::%@=======",responseObject);
+        //        NSLog(@"====dic::%@=======",responseObject);
         //1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         NSArray *filmClassArr = filmListModel.filmClassArray;
@@ -59,7 +62,7 @@ static NSString *const footerId = @"footerId";
             SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
             
             [_filmClassArray addObject:filmClassModel];
-
+            
         }
         
         [CommonFunc dismiss];
@@ -77,9 +80,38 @@ static NSString *const footerId = @"footerId";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)addRightBBI {
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 40, 21);
+    
+    [btn setTitle:@"编辑" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    
+    [btn addTarget:self action:@selector(doEditingAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    UIBarButtonItem *rightNegativeSpacer = [[UIBarButtonItem alloc]
+                                            initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                            target:nil action:nil];
+    rightNegativeSpacer.width = -4;
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
+    _editBtn = btn;
+    _editBtn.selected = NO;
+    }
 
-- (void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)doEditingAction{
+    if (_editBtn.selected == NO) {
+        _editBtn.selected = YES;
+        [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
+        NSLog(@">>>>>>>>>>开始编辑>>>>>>>>>>>>");
+        
+    }else if (_editBtn.selected != NO){
+        _editBtn.selected = NO;
+        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        NSLog(@">>>>>>>>>>完成编辑>>>>>>>>>>>>");
+    }
+
 }
 
 - (void)loadCollectionView{
@@ -167,7 +199,15 @@ static NSString *const footerId = @"footerId";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return YES;
+    if (_editBtn.selected == YES){//编辑模式
+        
+        return YES;
+        
+    }else{
+        
+    return NO;
+        
+    }
 }
 
 
@@ -241,19 +281,19 @@ static NSString *const footerId = @"footerId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
-
+    
+    
     
     SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row];
-
+    
     
     for (NSDictionary *dic in filmClassModel.filmClassArray) {
         SCFilmClassModel *mdoel = [SCFilmClassModel mj_objectWithKeyValues:dic];
         
-//        NSLog(@"====filmListModel::%@=======",mdoel._FilmClassName);
+        //        NSLog(@"====filmListModel::%@=======",mdoel._FilmClassName);
         
     }
-
+    
     
     
     

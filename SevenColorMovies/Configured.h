@@ -25,6 +25,7 @@
 #import "DONG_RefreshGifHeader.h"
 #import "SCComonFunc.h"
 #import "XMLDictionary.h"
+#import "UIButton+Addition.h"
 
 
 

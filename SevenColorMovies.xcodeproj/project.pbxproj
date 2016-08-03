@@ -40,6 +40,7 @@
 		11458EA31D45FEE200EBD16D /* SCMineTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11458EA11D45FEE200EBD16D /* SCMineTopCell.xib */; };
 		11458EA71D45FF2D00EBD16D /* SCMineOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458EA51D45FF2D00EBD16D /* SCMineOtherCell.m */; };
 		11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11458EA61D45FF2D00EBD16D /* SCMineOtherCell.xib */; };
+		114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */; };
 		115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */; };
 		115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */; };
 		115A21131D41F5BF0097DE57 /* SCTeleplayPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21121D41F5BF0097DE57 /* SCTeleplayPlayerVC.m */; };
@@ -184,6 +185,8 @@
 		11458EA41D45FF2D00EBD16D /* SCMineOtherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMineOtherCell.h; sourceTree = "<group>"; };
 		11458EA51D45FF2D00EBD16D /* SCMineOtherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMineOtherCell.m; sourceTree = "<group>"; };
 		11458EA61D45FF2D00EBD16D /* SCMineOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMineOtherCell.xib; sourceTree = "<group>"; };
+		114BC8071D51D70D0091ECE0 /* UIButton+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Addition.h"; sourceTree = "<group>"; };
+		114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Addition.m"; sourceTree = "<group>"; };
 		115A21021D41B62D0097DE57 /* SCChannelCategoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelCategoryVC.h; sourceTree = "<group>"; };
 		115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCategoryVC.m; sourceTree = "<group>"; };
 		115A21051D41B9750097DE57 /* SCOtherBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOtherBaseViewController.h; sourceTree = "<group>"; };
@@ -509,6 +512,13 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		114BC80A1D51EF940091ECE0 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
 		115A21001D41B4E20097DE57 /* 点播栏 */ = {
 			isa = PBXGroup;
 			children = (
@@ -615,6 +625,7 @@
 		116475FF1D40B98600A3BC1C /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				114BC80A1D51EF940091ECE0 /* Player */,
 				11928FD01D506D2700926011 /* CollectionPage */,
 				116476011D40B9D100A3BC1C /* register */,
 				116476001D40B9C400A3BC1C /* Login */,
@@ -985,6 +996,8 @@
 				11A1D0671D3F433900E2BA0D /* UIView+Addition.m */,
 				1111A41D1D48A8D100C17B92 /* MBProgressHUD+Addidtion.h */,
 				1111A41E1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m */,
+				114BC8071D51D70D0091ECE0 /* UIButton+Addition.h */,
+				114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -1343,6 +1356,7 @@
 				1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */,
 				11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */,
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
+				114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */,
 				1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
 				1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */,
