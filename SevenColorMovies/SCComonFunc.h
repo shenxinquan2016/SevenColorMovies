@@ -33,6 +33,7 @@ typedef void(^ReloadBlk)();
  */
 - (void)setupRefreshWithView:(nullable id)view withSelf:(nullable id)addSelf headerFunc:(nullable SEL)headerFunc headerFuncFirst:(BOOL)first footerFunc:(nullable SEL)footerFunc;
 
+
 /**
  *  上拉刷新无数据提示到底了或者数据不足一页隐藏footerView
  *

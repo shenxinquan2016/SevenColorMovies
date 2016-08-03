@@ -37,6 +37,17 @@ static  CGFloat const kRankOtherCellHeight = 50.f;
     _dataSource = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", @"", @"", @"", nil];
     _sectionArr = [NSMutableArray arrayWithObjects:@"电影排行榜",@"电视剧排行榜",@"动漫排行榜",nil];
 
+//    [self setTableViewRefresh];
+}
+
+#pragma mark - 集成刷新
+- (void)setTableViewRefresh {
+    [CommonFunc setupRefreshWithView:_tableView withSelf:self headerFunc:@selector(headerRefresh) headerFuncFirst:YES footerFunc:nil];
+}
+
+- (void)headerRefresh {
+    
+    
 }
 
 

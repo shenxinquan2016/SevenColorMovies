@@ -106,6 +106,7 @@ static int textFieldMoveHight = 0;
     }
 }
 
+
 /**
  *  上拉刷新无数据提示到底了或者数据不足一页隐藏footerView
  *

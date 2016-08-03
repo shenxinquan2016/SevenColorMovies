@@ -56,10 +56,22 @@ static NSString *const cellId = @"cellId";
         
     }];
     
+    [self setCollectionViewRefresh];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+}
+
+#pragma mark - 集成刷新
+- (void)setCollectionViewRefresh {
+    [CommonFunc setupRefreshWithView:self.collectionView withSelf:self headerFunc:@selector(headerRefresh) headerFuncFirst:YES footerFunc:nil];
+}
+
+- (void)headerRefresh {
+    
     
 }
 
