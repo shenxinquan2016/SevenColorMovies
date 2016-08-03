@@ -14,7 +14,7 @@
 @property (nonatomic,copy) NSString *FilmName;
 
 /**  */
-@property (nonatomic,copy) NSString *_SourceUrl;
+@property (nonatomic,copy) NSString *SourceUrl;
 
 /** 包含的影片个数 */
 @property (nonatomic,copy) NSString *_Year;

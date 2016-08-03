@@ -236,7 +236,7 @@ static NSString *const footerId = @"footerId";
         
         //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
         //        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
-        //        NSLog(@">>>>>>>>homePageData:::%@",responseObject);
+//                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
         
         [CommonFunc dismiss];
         [_collView.mj_header endRefreshing];
@@ -349,11 +349,12 @@ static NSString *const footerId = @"footerId";
         
     }else{
         SCCollectionViewPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
-        //        cell.backgroundColor = [UIColor purpleColor];
+        //cell.backgroundColor = [UIColor purpleColor];
         
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
         cell.model = filmModel;
+        NSLog(@">>>>>>>>>_SourceUrl:::%@",filmModel.SourceUrl);
         return cell;
         
     }
