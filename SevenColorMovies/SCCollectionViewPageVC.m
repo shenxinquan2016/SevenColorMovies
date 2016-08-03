@@ -25,37 +25,15 @@ static NSString *const cellId = @"cellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
   
-
+    //0.初始化collectionView
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical=YES;
     // 注册cell、sectionHeader、sectionFooter
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
     
     //1.初始化数组
-    self.filmModelArr = [NSMutableArray arrayWithCapacity:0];
-    
-    
-    [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager requestFilmClassDataWithUrl:_urlString parameters:nil success:^(id  _Nullable responseObject) {
-        [CommonFunc dismiss];
-        NSArray *filmsArr = responseObject[@"Film"];
-        //                    NSLog(@">>>>>>>>>>>>%ld",filmsArr.count);
-        //                    NSLog(@">>>>>>>>>>>>%@",filmsArr);
-        
-        [_filmModelArr removeAllObjects];
-        //NSLog(@">>>>>>>>>>>>1111:::::%ld",_filmModelArr.count);
-        for (NSDictionary *dic in filmsArr) {
-            SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-            //                NSLog(@">>>>>>>>>>>>%@",filmModel.FilmName);
-            [_filmModelArr addObject:filmModel];
-        }
-        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
-        [self.collectionView reloadData];
-    } failure:^(id  _Nullable errorObject) {
-        
-        
-    }];
-    
+
+    //3.集成刷新
     [self setCollectionViewRefresh];
     
 }
@@ -72,9 +50,43 @@ static NSString *const cellId = @"cellId";
 
 - (void)headerRefresh {
     
+    [self requestData];
     
 }
 
+- (void)requestData{
+    
+    if (_filmModelArr) {
+        [_filmModelArr removeAllObjects];
+    }else if (!_filmModelArr){
+        _filmModelArr = [NSMutableArray arrayWithCapacity:0];
+    }
+    
+    [requestDataManager requestFilmClassDataWithUrl:_urlString parameters:nil success:^(id  _Nullable responseObject) {
+        [CommonFunc dismiss];
+        NSArray *filmsArr = responseObject[@"Film"];
+        //                    NSLog(@">>>>>>>>>>>>%ld",filmsArr.count);
+        //                    NSLog(@">>>>>>>>>>>>%@",filmsArr);
+        
+        [_filmModelArr removeAllObjects];
+        //NSLog(@">>>>>>>>>>>>1111:::::%ld",_filmModelArr.count);
+        for (NSDictionary *dic in filmsArr) {
+            SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+            //                NSLog(@">>>>>>>>>>>>%@",filmModel.FilmName);
+            [_filmModelArr addObject:filmModel];
+        }
+        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
+        
+        [self.collectionView reloadData];
+        [self.collectionView.mj_header endRefreshing];
+        [self.collectionView.mj_footer endRefreshing];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+
+}
 
 #pragma mark <UICollectionViewDataSource>
 
