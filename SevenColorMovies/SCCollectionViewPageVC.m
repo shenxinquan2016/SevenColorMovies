@@ -10,6 +10,8 @@
 #import "SCRankTopRowCollectionViewCell.h"
 #import "SCNetRequsetManger.h"
 #import "SCFilmModel.h"
+#import "SCTeleplayPlayerVC.h"
+
 
 @interface SCCollectionViewPageVC ()
 
@@ -164,9 +166,9 @@ static NSString *const cellId = @"cellId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
         NSLog(@"======点击=====");
-//    SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
-//    teleplayPlayer.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:teleplayPlayer animated:YES];
+    SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+    teleplayPlayer.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:teleplayPlayer animated:YES];
     
 }
 

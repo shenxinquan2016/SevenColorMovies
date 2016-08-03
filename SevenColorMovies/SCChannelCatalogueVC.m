@@ -47,9 +47,10 @@ static NSString *const footerId = @"footerId";
     
     
 
-    
+    [CommonFunc showLoadingWithTips:@""];
+
     [requestDataManager requestFilmListDataWithUrl:FilmList parameters:nil success:^(id  _Nullable responseObject) {
-        //        NSLog(@"====dic::%@=======",responseObject);
+                //        NSLog(@"====dic::%@=======",responseObject);
         //1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         NSArray *filmClassArr = filmListModel.filmClassArray;
@@ -61,12 +62,11 @@ static NSString *const footerId = @"footerId";
 
         }
         
-        
-        
-        
+        [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
         
+        [CommonFunc dismiss];
         
     }];
     
