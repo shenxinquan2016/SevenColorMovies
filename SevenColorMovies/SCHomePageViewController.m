@@ -9,7 +9,7 @@
 #import "SCHomePageViewController.h"
 #import "SCSycleBanner.h"
 #import "SCDemandChannelItemCell.h"//section 0 cell
-#import "SCRankTopRowCollectionViewCell.h"//其他cell
+#import "SCCollectionViewPageCell.h"//其他cell
 #import "SCHomePageFlowLayout.h"
 #import "SCHomePageSectionBGReusableView.h"//senction header
 
@@ -131,123 +131,123 @@ static NSString *const footerId = @"footerId";
 - (void)requestData{
     
     //>>>>>>>>>>>>>>>>>>>>banner测试接口<<<<<<<<<<<<<<<<<<<<<<
-        if (_bannerImageUrlArr) {
-            [_bannerImageUrlArr removeAllObjects];
-        }else if (!_bannerImageUrlArr){
-            _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
-        }
-    
-        [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
-    
-            NSMutableArray *dataArr = responseObject[@"Film"];
-    
-            if (![dataArr isKindOfClass:[NSNull class]]) {
-                for (NSDictionary *dic in dataArr) {
-                    SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
-                    [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
-    
-                }
-    
-                //添加banner
-                if (_bannerImageUrlArr.count > 0) {
-                    [self addBannerView];
-                    _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-                }}else if (_bannerImageUrlArr.count == 0){
-                    if (_bannerView) {
-                        [_bannerView removeFromSuperview];
-    
-                    }
-                }
-            [CommonFunc dismiss];
-            [_collView.mj_header endRefreshing];
-    
-        } failure:^(id  _Nullable errorObject) {
-            [CommonFunc dismiss];
-            [_collView.mj_header endRefreshing];
-    
-        }];
+//        if (_bannerImageUrlArr) {
+//            [_bannerImageUrlArr removeAllObjects];
+//        }else if (!_bannerImageUrlArr){
+//            _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
+//        }
+//    
+//        [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
+//    
+//            NSMutableArray *dataArr = responseObject[@"Film"];
+//    
+//            if (![dataArr isKindOfClass:[NSNull class]]) {
+//                for (NSDictionary *dic in dataArr) {
+//                    SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
+//                    [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
+//    
+//                }
+//    
+//                //添加banner
+//                if (_bannerImageUrlArr.count > 0) {
+//                    [self addBannerView];
+//                    _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
+//                }}else if (_bannerImageUrlArr.count == 0){
+//                    if (_bannerView) {
+//                        [_bannerView removeFromSuperview];
+//    
+//                    }
+//                }
+//            [CommonFunc dismiss];
+//            [_collView.mj_header endRefreshing];
+//    
+//        } failure:^(id  _Nullable errorObject) {
+//            [CommonFunc dismiss];
+//            [_collView.mj_header endRefreshing];
+//    
+//        }];
     
     
     //>>>>>>>>>>>>>>>>>>>>整合后的首页接口调试<<<<<<<<<<<<<<<<<<<<<<
-//    if (_titleArray) {
-//        [_titleArray removeAllObjects];
-//    }else if (!_titleArray){
-//        _titleArray = [NSMutableArray arrayWithCapacity:0];
-//    }
-//    
-//    if (_filmClassArray) {
-//        [_filmClassArray removeAllObjects];
-//    }else if (!_filmClassArray){
-//        _filmClassArray = [NSMutableArray arrayWithCapacity:0];
-//    }
-//    
-//    if (_bannerImageUrlArr) {
-//        [_bannerImageUrlArr removeAllObjects];
-//    }else if (!_bannerImageUrlArr){
-//        _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
-//    }
-//    
-//    [requestDataManager requestBannerDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
-//        
-//        //1.第一层 filmList
-//        SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
-//        
-//        NSLog(@">>>>>>>>homePageData:::%ld",filmListModel.filmClassArray.count);
-//        for (SCFilmClassModel *classModel in filmListModel.filmClassArray) {
-//            
-//            if (![classModel._FilmClassName hasSuffix:@"今日推荐"]) {
-//                
-//                [_titleArray addObject:classModel._FilmClassName];
-//                [_filmClassArray addObject:classModel];
-//                [_collView reloadData];
-//                
-//                
-//            }else{
-//                
-//                //添加banner
-//                NSArray *dataArr = responseObject[@"FilmClass"];
-//                NSDictionary *dic = [dataArr firstObject];
-//                NSArray *array = dic[@"Film"];
-//                
-//                if (![dataArr isKindOfClass:[NSNull class]]) {
-//                    for (NSDictionary *dic in array) {
-//                        
-//                        SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
-//                        [_bannerImageUrlArr addObject:model._ImgUrlO];
-//                    }
-//                    
-//                    //添加banner
-//                    if (_bannerImageUrlArr.count > 0) {
-//                        [self addBannerView];
-//                        _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-//                        
-//                    }else if (_bannerImageUrlArr.count == 0){
-//                        if (_bannerView) {
-//                            [_bannerView removeFromSuperview];
-//                            
-//                        }
-//                    }
-//                }
-//            }
-//            NSLog(@">>>>>>>>homePageData:::%ld",classModel.filmArray.count);
-//            
-//            NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
-//        }
-//        
-//        //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
-//        //        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
-//        //        NSLog(@">>>>>>>>homePageData:::%@",responseObject);
-//        
-//        [CommonFunc dismiss];
-//        [_collView.mj_header endRefreshing];
-//        
-//    } failure:^(id  _Nullable errorObject) {
-//        
-//        [CommonFunc dismiss];
-//        [_collView.mj_header endRefreshing];
-//        
-//    }];
-//    
+    if (_titleArray) {
+        [_titleArray removeAllObjects];
+    }else if (!_titleArray){
+        _titleArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    
+    if (_filmClassArray) {
+        [_filmClassArray removeAllObjects];
+    }else if (!_filmClassArray){
+        _filmClassArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    
+    if (_bannerImageUrlArr) {
+        [_bannerImageUrlArr removeAllObjects];
+    }else if (!_bannerImageUrlArr){
+        _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
+    }
+    
+    [requestDataManager requestBannerDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
+        
+        //1.第一层 filmList
+        SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
+        
+        NSLog(@">>>>>>>>homePageData:::%ld",filmListModel.filmClassArray.count);
+        for (SCFilmClassModel *classModel in filmListModel.filmClassArray) {
+            
+            if (![classModel._FilmClassName hasSuffix:@"今日推荐"]) {
+                
+                [_titleArray addObject:classModel._FilmClassName];
+                [_filmClassArray addObject:classModel];
+                [_collView reloadData];
+                
+                
+            }else{
+                
+                //添加banner
+                NSArray *dataArr = responseObject[@"FilmClass"];
+                NSDictionary *dic = [dataArr firstObject];
+                NSArray *array = dic[@"Film"];
+                
+                if (![dataArr isKindOfClass:[NSNull class]]) {
+                    for (NSDictionary *dic in array) {
+                        
+                        SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
+                        [_bannerImageUrlArr addObject:model._ImgUrlO];
+                    }
+                    
+                    //添加banner
+                    if (_bannerImageUrlArr.count > 0) {
+                        [self addBannerView];
+                        _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
+                        
+                    }else if (_bannerImageUrlArr.count == 0){
+                        if (_bannerView) {
+                            [_bannerView removeFromSuperview];
+                            
+                        }
+                    }
+                }
+            }
+            NSLog(@">>>>>>>>homePageData:::%ld",classModel.filmArray.count);
+            
+            NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
+        }
+        
+        //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
+        //        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
+        //        NSLog(@">>>>>>>>homePageData:::%@",responseObject);
+        
+        [CommonFunc dismiss];
+        [_collView.mj_header endRefreshing];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+        [_collView.mj_header endRefreshing];
+        
+    }];
+    
     
 }
 
@@ -348,7 +348,7 @@ static NSString *const footerId = @"footerId";
         return cell;
         
     }else{
-        SCRankTopRowCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
+        SCCollectionViewPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
         //        cell.backgroundColor = [UIColor purpleColor];
         
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
@@ -511,7 +511,7 @@ static NSString *const footerId = @"footerId";
     //点播栏cell
     [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemCell"];
     
-    [_collView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cellIdOther"];//其他cell
+    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"cellIdOther"];//其他cell
     
     [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerId];
     [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerId];

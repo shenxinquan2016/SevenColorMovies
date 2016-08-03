@@ -10,7 +10,7 @@
 #import "SCRankOtherCell.h"
 #import "SCTeleplayPlayerVC.h"
 #import "SCRankTopRowTableViewCell.h"
-#import "SCRankTopRowCollectionViewCell.h"
+#import "SCCollectionViewPageCell.h"
 
 
 static  CGFloat const kRankTopCellHeight = 185.f;
@@ -113,7 +113,7 @@ static  CGFloat const kRankOtherCellHeight = 50.f;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    SCRankTopRowCollectionViewCell *cell = [SCRankTopRowCollectionViewCell cellWithCollectionView:collectionView indexPath:indexPath];
+    SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView indexPath:indexPath];
     //    cell.channelName = _selDemandChannelArr[indexPath.row];
     
     return cell;

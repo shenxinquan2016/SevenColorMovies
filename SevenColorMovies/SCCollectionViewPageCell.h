@@ -1,5 +1,5 @@
 //
-//  SCRankTopRowCollectionViewCell.h
+//  SCCollectionViewPageCell.h
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/7/24.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SCFilmModel.h"
 
-@interface SCRankTopRowCollectionViewCell : UICollectionViewCell
+@interface SCCollectionViewPageCell : UICollectionViewCell
 
 @property (nonatomic, strong) SCFilmModel *model;
 

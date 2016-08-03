@@ -7,7 +7,7 @@
 //
 
 #import "SCCollectionViewPageVC.h"
-#import "SCRankTopRowCollectionViewCell.h"
+#import "SCCollectionViewPageCell.h"
 #import "SCNetRequsetManger.h"
 #import "SCFilmModel.h"
 #import "SCTeleplayPlayerVC.h"
@@ -31,7 +31,7 @@ static NSString *const cellId = @"cellId";
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical=YES;
     // 注册cell、sectionHeader、sectionFooter
-    [self.collectionView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
     
     //1.初始化数组
 
@@ -107,7 +107,7 @@ static NSString *const cellId = @"cellId";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCRankTopRowCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    SCCollectionViewPageCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     SCFilmModel *model = _filmModelArr[indexPath.row];
     cell.model = model;

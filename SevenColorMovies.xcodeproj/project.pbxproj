@@ -87,8 +87,8 @@
 		11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE83171D3CBA1B00886CF6 /* BaseNavigationController.m */; };
 		11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */; };
 		11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */; };
-		11C8CFBB1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFB71D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m */; };
-		11C8CFBC1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C8CFB81D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib */; };
+		11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */; };
+		11C8CFBC1D45157B00C04F38 /* SCCollectionViewPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */; };
 		11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422531D49A1A400B4F9AE /* DONG_RefreshGifHeader.m */; };
 		11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422561D49A20800B4F9AE /* DONG_RefreshGifFooter.m */; };
 		11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422591D49A42800B4F9AE /* SCComonFunc.m */; };
@@ -271,9 +271,9 @@
 		11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationInteractiveTransition.m; sourceTree = "<group>"; };
 		11BE831C1D3CBB3E00886CF6 /* NavigationPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationPopAnimation.h; sourceTree = "<group>"; };
 		11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationPopAnimation.m; sourceTree = "<group>"; };
-		11C8CFB61D45157B00C04F38 /* SCRankTopRowCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankTopRowCollectionViewCell.h; sourceTree = "<group>"; };
-		11C8CFB71D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRankTopRowCollectionViewCell.m; sourceTree = "<group>"; };
-		11C8CFB81D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCRankTopRowCollectionViewCell.xib; sourceTree = "<group>"; };
+		11C8CFB61D45157B00C04F38 /* SCCollectionViewPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageCell.h; sourceTree = "<group>"; };
+		11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageCell.m; sourceTree = "<group>"; };
+		11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCCollectionViewPageCell.xib; sourceTree = "<group>"; };
 		11D422521D49A1A400B4F9AE /* DONG_RefreshGifHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_RefreshGifHeader.h; sourceTree = "<group>"; };
 		11D422531D49A1A400B4F9AE /* DONG_RefreshGifHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_RefreshGifHeader.m; sourceTree = "<group>"; };
 		11D422551D49A20800B4F9AE /* DONG_RefreshGifFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_RefreshGifFooter.h; sourceTree = "<group>"; };
@@ -499,6 +499,16 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		114BC8061D51C0360091ECE0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				11C8CFB61D45157B00C04F38 /* SCCollectionViewPageCell.h */,
+				11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */,
+				11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		115A21001D41B4E20097DE57 /* 点播栏 */ = {
 			isa = PBXGroup;
 			children = (
@@ -662,6 +672,7 @@
 			children = (
 				1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */,
 				1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */,
+				114BC8061D51C0360091ECE0 /* Cell */,
 			);
 			name = CollectionPage;
 			sourceTree = "<group>";
@@ -718,9 +729,6 @@
 			children = (
 				116E1D581D4B40B700B488EC /* SCRankTopRowTableViewCell.h */,
 				116E1D591D4B40B700B488EC /* SCRankTopRowTableViewCell.m */,
-				11C8CFB61D45157B00C04F38 /* SCRankTopRowCollectionViewCell.h */,
-				11C8CFB71D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m */,
-				11C8CFB81D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib */,
 				11A1D06E1D3F62E800E2BA0D /* SCRankOtherCell.h */,
 				11A1D06F1D3F62E800E2BA0D /* SCRankOtherCell.m */,
 				11A1D0711D3F62FD00E2BA0D /* SCRankOtherCell.xib */,
@@ -1230,7 +1238,7 @@
 				11A1D0721D3F62FD00E2BA0D /* SCRankOtherCell.xib in Resources */,
 				11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */,
 				11D4225C1D49A8EC00B4F9AE /* SCLoadingView.xib in Resources */,
-				11C8CFBC1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.xib in Resources */,
+				11C8CFBC1D45157B00C04F38 /* SCCollectionViewPageCell.xib in Resources */,
 				11BB37D01D38E5C00002D487 /* Discovery.storyboard in Resources */,
 				11BB37841D38B9A00002D487 /* Assets.xcassets in Resources */,
 				1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */,
@@ -1383,7 +1391,7 @@
 				1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
 				1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */,
-				11C8CFBB1D45157B00C04F38 /* SCRankTopRowCollectionViewCell.m in Sources */,
+				11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */,
 				1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

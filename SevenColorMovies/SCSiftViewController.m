@@ -54,7 +54,7 @@ static NSString *const cellId = @"cellId";
     [self.view addSubview:_collView];
     
     // 注册cell、sectionHeader、sectionFooter
-    [_collView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
+    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
 }
 
 #pragma mark ---- UICollectionViewDataSource

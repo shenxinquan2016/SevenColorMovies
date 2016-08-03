@@ -7,7 +7,7 @@
 //
 
 #import "SCRankTopRowTableViewCell.h"
-#import "SCRankTopRowCollectionViewCell.h"
+#import "SCCollectionViewPageCell.h"
 
 @implementation AFIndexedCollectionView1
 
@@ -59,7 +59,7 @@
     self.collectionView = [[AFIndexedCollectionView1 alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     
     //3.注册cell
-        [self.collectionView registerNib:[UINib nibWithNibName:@"SCRankTopRowCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"SCRankTopRowCollectionViewCell"];
+        [self.collectionView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageCell"];
   
     self.collectionView.scrollEnabled = NO;
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 12, 0, 12);//设置整体的外边距

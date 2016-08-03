@@ -12,7 +12,7 @@
 #import "SCSiftViewController.h"
 #import "SCFilmClassModel.h"
 #import "SCFilmModel.h"
-#import "SCRankTopRowCollectionViewCell.h"
+#import "SCCollectionViewPageCell.h"
 
 #import "SCCollectionViewPageVC.h"
 
@@ -71,8 +71,7 @@ static NSString *const cellId = @"cellId";
     self.filmClassModelArr = [NSMutableArray arrayWithCapacity:0];
     self.filmModelArr = [NSMutableArray arrayWithCapacity:0];
     
-    
-    //3.初始化数据
+    //3.解析数据
     [self getDataModel];
     
     //4.添加滑动headerView
