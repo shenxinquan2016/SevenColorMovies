@@ -187,7 +187,7 @@ static NSString *const footerId = @"footerId";
 //        _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
 //    }
 //    
-//    [requestDataManager requestBannerDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
+//    [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
 //        
 //        //1.第一层 filmList
 //        SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
@@ -247,7 +247,7 @@ static NSString *const footerId = @"footerId";
 //        [_collView.mj_header endRefreshing];
 //        
 //    }];
-    
+//    
     
 }
 

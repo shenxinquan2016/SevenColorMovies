@@ -127,11 +127,25 @@
         
     }];
     
-    
-    
 }
 
+/** get通用请求方法 */
+- (void)requestDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild{
+    [self GETRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject) {
+        success(responseObject);
+        
+    } faild:^(id _Nullable errorObject) {
+        //数据请求失败
+        if (![SCNetHelper isNetConnect]) {
+            faild(@"网络异常，请检查网络设置!");
+        } else {
+            faild(@"获取数据失败!");
+        }
+        
+        
+    }];
 
+}
 
 
 
