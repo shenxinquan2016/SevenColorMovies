@@ -90,7 +90,7 @@ static NSString *const cellId = @"cellId";
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 #pragma mark- private methods
