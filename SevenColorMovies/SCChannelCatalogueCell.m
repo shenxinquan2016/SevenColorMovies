@@ -40,6 +40,8 @@
         _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",keyStr]];
         _channelNameLabel.text =  [dict.allValues objectAtIndex:0];
         
+        
+        
     }
     
 }

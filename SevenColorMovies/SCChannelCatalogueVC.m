@@ -83,11 +83,12 @@ static NSString *const footerId = @"footerId";
 - (void)addRightBBI {
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 40, 21);
+    btn.frame = CGRectMake(0, 0, 50, 28);
     
     [btn setTitle:@"编辑" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    
+    [btn.layer setBorderWidth:1.5f];
+    [btn.layer setBorderColor:[UIColor grayColor].CGColor];
     [btn addTarget:self action:@selector(doEditingAction) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
@@ -186,8 +187,10 @@ static NSString *const footerId = @"footerId";
             footerView = [[UICollectionReusableView alloc] init];
         }
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 350, 30)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(40, 20, 350, 30)];
         label.text = @"—o 点击编辑，可长按分类栏目进行排序 o—";
+        label.textColor = [UIColor colorWithHex:@"#666666"];
+        label.font = [UIFont systemFontOfSize:15.f];
         [footerView addSubview:label];
         footerView.backgroundColor = [UIColor whiteColor];
         
