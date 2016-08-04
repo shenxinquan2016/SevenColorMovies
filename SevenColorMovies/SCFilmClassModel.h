@@ -40,8 +40,11 @@
 /** ... */
 @property (nonatomic,copy) NSString *_ChannelCode;
 
-/** ... */
+/** 老接口FilmClassUrl字段名 */
 @property (nonatomic,copy) NSString *_FilmClassUrl;
+
+/** 新接口FilmClassUrl字段名 */
+@property (nonatomic,copy) NSString *FilmClassUrl;
 
 /** ... */
 @property (nonatomic,copy) NSString *_IcoUrl;

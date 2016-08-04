@@ -63,6 +63,8 @@ static const CGFloat LabelWidth = 100.f;
     
     //直播视频
     self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+    NSURL *url1 = [NSURL URLWithString:@"http://userauthb2b.voole.com/Service.do?action=b2bplayauth&pid=101001&playtype=0&checkproduct=0&checkuser=0&adversion=1.3.7&area=1208&hid=00301bba02db&oemid=781&epgid=600111&spid=20120528&uid=0&mid=90860076&fid=da848172e52beca6501046c83442b86d&ext=oid:0"];
+
     _player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:nil];
     
     UIView *playerView = [self.player view];
