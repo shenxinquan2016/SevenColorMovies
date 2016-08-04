@@ -58,6 +58,20 @@
 		116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476031D40BA3D00A3BC1C /* SCChannelCatalogueVC.m */; };
 		116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */; };
 		1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */; };
+		116B1F541D53211C00E9637A /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F531D53211C00E9637A /* IJKMediaFramework.framework */; };
+		116B1F561D53235600E9637A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F551D53235600E9637A /* libz.tbd */; };
+		116B1F581D53236B00E9637A /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F571D53236B00E9637A /* libbz2.tbd */; };
+		116B1F5A1D53237D00E9637A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F591D53237D00E9637A /* AudioToolbox.framework */; };
+		116B1F5C1D53238B00E9637A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F5B1D53238B00E9637A /* AVFoundation.framework */; };
+		116B1F5E1D5323A600E9637A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F5D1D5323A600E9637A /* CoreGraphics.framework */; };
+		116B1F601D5323BE00E9637A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F5F1D5323BE00E9637A /* CoreMedia.framework */; };
+		116B1F621D5323D800E9637A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F611D5323D800E9637A /* CoreVideo.framework */; };
+		116B1F641D5323E700E9637A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F631D5323E700E9637A /* MediaPlayer.framework */; };
+		116B1F661D5323FD00E9637A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F651D5323FD00E9637A /* MobileCoreServices.framework */; };
+		116B1F681D5327E200E9637A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F671D5327E200E9637A /* OpenGLES.framework */; };
+		116B1F6A1D5327FA00E9637A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F691D5327FA00E9637A /* QuartzCore.framework */; };
+		116B1F6C1D53280600E9637A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F6B1D53280600E9637A /* UIKit.framework */; };
+		116B1F6E1D53281E00E9637A /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F6D1D53281E00E9637A /* VideoToolbox.framework */; };
 		116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D561D4AFAF800B488EC /* SCBannerModel.m */; };
 		116E1D5A1D4B40B700B488EC /* SCRankTopRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D591D4B40B700B488EC /* SCRankTopRowTableViewCell.m */; };
 		116E1D5E1D4B4E0200B488EC /* SCSiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D5D1D4B4E0200B488EC /* SCSiftViewController.m */; };
@@ -218,6 +232,20 @@
 		116476061D40CA8900A3BC1C /* SCChannelCatalogueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelCatalogueCell.h; sourceTree = "<group>"; };
 		116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCatalogueCell.m; sourceTree = "<group>"; };
 		116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCChannelCatalogueCell.xib; sourceTree = "<group>"; };
+		116B1F531D53211C00E9637A /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
+		116B1F551D53235600E9637A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		116B1F571D53236B00E9637A /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
+		116B1F591D53237D00E9637A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		116B1F5B1D53238B00E9637A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		116B1F5D1D5323A600E9637A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		116B1F5F1D5323BE00E9637A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		116B1F611D5323D800E9637A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		116B1F631D5323E700E9637A /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		116B1F651D5323FD00E9637A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		116B1F671D5327E200E9637A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		116B1F691D5327FA00E9637A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		116B1F6B1D53280600E9637A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		116B1F6D1D53281E00E9637A /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		116E1D551D4AFAF800B488EC /* SCBannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBannerModel.h; sourceTree = "<group>"; };
 		116E1D561D4AFAF800B488EC /* SCBannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBannerModel.m; sourceTree = "<group>"; };
 		116E1D581D4B40B700B488EC /* SCRankTopRowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankTopRowTableViewCell.h; sourceTree = "<group>"; };
@@ -311,7 +339,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				116B1F6E1D53281E00E9637A /* VideoToolbox.framework in Frameworks */,
+				116B1F6C1D53280600E9637A /* UIKit.framework in Frameworks */,
+				116B1F6A1D5327FA00E9637A /* QuartzCore.framework in Frameworks */,
+				116B1F681D5327E200E9637A /* OpenGLES.framework in Frameworks */,
+				116B1F661D5323FD00E9637A /* MobileCoreServices.framework in Frameworks */,
+				116B1F641D5323E700E9637A /* MediaPlayer.framework in Frameworks */,
+				116B1F621D5323D800E9637A /* CoreVideo.framework in Frameworks */,
+				116B1F601D5323BE00E9637A /* CoreMedia.framework in Frameworks */,
+				116B1F5E1D5323A600E9637A /* CoreGraphics.framework in Frameworks */,
+				116B1F5C1D53238B00E9637A /* AVFoundation.framework in Frameworks */,
+				116B1F5A1D53237D00E9637A /* AudioToolbox.framework in Frameworks */,
+				116B1F581D53236B00E9637A /* libbz2.tbd in Frameworks */,
+				116B1F561D53235600E9637A /* libz.tbd in Frameworks */,
 				E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */,
+				116B1F541D53211C00E9637A /* IJKMediaFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1129,7 +1171,21 @@
 		EA43CF5B333599320E8DB727 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				116B1F6D1D53281E00E9637A /* VideoToolbox.framework */,
+				116B1F6B1D53280600E9637A /* UIKit.framework */,
+				116B1F691D5327FA00E9637A /* QuartzCore.framework */,
+				116B1F671D5327E200E9637A /* OpenGLES.framework */,
+				116B1F651D5323FD00E9637A /* MobileCoreServices.framework */,
+				116B1F631D5323E700E9637A /* MediaPlayer.framework */,
+				116B1F611D5323D800E9637A /* CoreVideo.framework */,
+				116B1F5F1D5323BE00E9637A /* CoreMedia.framework */,
+				116B1F5D1D5323A600E9637A /* CoreGraphics.framework */,
+				116B1F5B1D53238B00E9637A /* AVFoundation.framework */,
+				116B1F591D53237D00E9637A /* AudioToolbox.framework */,
+				116B1F571D53236B00E9637A /* libbz2.tbd */,
+				116B1F551D53235600E9637A /* libz.tbd */,
 				BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */,
+				116B1F531D53211C00E9637A /* IJKMediaFramework.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1543,6 +1599,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: MengJiao Zhang (492V3PZ5UY)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Users/yesdgq/Desktop/SevenColorMovies/SevenColorMovies/PrefixHeader.pch;
 				INFOPLIST_FILE = SevenColorMovies/Info.plist;
@@ -1562,6 +1622,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: MengJiao Zhang (492V3PZ5UY)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Users/yesdgq/Desktop/SevenColorMovies/SevenColorMovies/PrefixHeader.pch;
 				INFOPLIST_FILE = SevenColorMovies/Info.plist;

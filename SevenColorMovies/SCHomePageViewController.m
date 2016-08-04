@@ -24,7 +24,7 @@
 #import "SCFilmClassModel.h"
 #import "SCFilmModel.h"
 
-
+#import <IJKMediaFramework/IJKMediaFramework.h>
 
 
 @interface SCHomePageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate,NSXMLParserDelegate>
