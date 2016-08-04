@@ -42,7 +42,6 @@ static const CGFloat LabelWidth = 85.f;
 /** ... */
 @property (nonatomic, strong) NSMutableArray *filmModelArr;
 
-
 /** 滑动短线 */
 @property (nonatomic, strong) CALayer *bottomLine;
 
@@ -51,6 +50,9 @@ static const CGFloat LabelWidth = 85.f;
 
 /** collectionView加载标识 */
 @property (nonatomic, assign) int tag;
+
+/** 在当前页设置点击顶部滚动复位 */
+@property (nonatomic, strong) SCCollectionViewPageVC *needScrollToTopPage;
 
 @end
 
@@ -213,6 +215,7 @@ static NSString *const cellId = @"cellId";
     // 添加默认控制器
     SCCollectionViewPageVC *vc = [self.childViewControllers firstObject];
     vc.view.frame = self.contentScroll.bounds;
+    self.needScrollToTopPage = self.childViewControllers[0];
 
     [self.contentScroll addSubview:vc.view];
 
@@ -230,6 +233,17 @@ static NSString *const cellId = @"cellId";
     CGPoint offset = CGPointMake(offsetX, offsetY);
     
     [_contentScroll setContentOffset:offset animated:YES];
+    
+    [self setScrollToTopWithTableViewIndex:label.tag];
+}
+
+#pragma mark - ScrollToTop
+
+- (void)setScrollToTopWithTableViewIndex:(NSInteger)index
+{
+    self.needScrollToTopPage.collectionView.scrollsToTop = NO;
+    self.needScrollToTopPage = self.childViewControllers[index];
+    self.needScrollToTopPage.collectionView.scrollsToTop = YES;
 }
 
 // 筛选
@@ -282,6 +296,8 @@ static NSString *const cellId = @"cellId";
             temlabel.scale = 0.0;
         }
     }];
+    
+    [self setScrollToTopWithTableViewIndex:index];
     
     if (vc.view.superview) return;//阻止vc重复添加
     vc.view.frame = scrollView.bounds;
