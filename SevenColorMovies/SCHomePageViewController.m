@@ -130,42 +130,42 @@ static NSString *const footerId = @"footerId";
 - (void)requestData{
     
     //>>>>>>>>>>>>>>>>>>>>banner测试接口<<<<<<<<<<<<<<<<<<<<<<
-//        if (_bannerImageUrlArr) {
-//            [_bannerImageUrlArr removeAllObjects];
-//        }else if (!_bannerImageUrlArr){
-//            _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
-//        }
-//    
-//        [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
-//    
-//            NSMutableArray *dataArr = responseObject[@"Film"];
-//    
-//            if (![dataArr isKindOfClass:[NSNull class]]) {
-//                for (NSDictionary *dic in dataArr) {
-//                    SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
-//                    [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
-//    
-//                }
-//    
-//                //添加banner
-//                if (_bannerImageUrlArr.count > 0) {
-//                    [self addBannerView];
-//                    _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-//                }}else if (_bannerImageUrlArr.count == 0){
-//                    if (_bannerView) {
-//                        [_bannerView removeFromSuperview];
-//    
-//                    }
-//                }
-//            [CommonFunc dismiss];
-//            [_collView.mj_header endRefreshing];
-//    
-//        } failure:^(id  _Nullable errorObject) {
-//            [CommonFunc dismiss];
-//            [_collView.mj_header endRefreshing];
-//    
-//        }];
-//    
+    //        if (_bannerImageUrlArr) {
+    //            [_bannerImageUrlArr removeAllObjects];
+    //        }else if (!_bannerImageUrlArr){
+    //            _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
+    //        }
+    //
+    //        [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
+    //
+    //            NSMutableArray *dataArr = responseObject[@"Film"];
+    //
+    //            if (![dataArr isKindOfClass:[NSNull class]]) {
+    //                for (NSDictionary *dic in dataArr) {
+    //                    SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
+    //                    [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
+    //
+    //                }
+    //
+    //                //添加banner
+    //                if (_bannerImageUrlArr.count > 0) {
+    //                    [self addBannerView];
+    //                    _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
+    //                }}else if (_bannerImageUrlArr.count == 0){
+    //                    if (_bannerView) {
+    //                        [_bannerView removeFromSuperview];
+    //
+    //                    }
+    //                }
+    //            [CommonFunc dismiss];
+    //            [_collView.mj_header endRefreshing];
+    //
+    //        } failure:^(id  _Nullable errorObject) {
+    //            [CommonFunc dismiss];
+    //            [_collView.mj_header endRefreshing];
+    //
+    //        }];
+    //
     
     //>>>>>>>>>>>>>>>>>>>>整合后的首页接口调试<<<<<<<<<<<<<<<<<<<<<<
     if (_titleArray) {
@@ -237,7 +237,7 @@ static NSString *const footerId = @"footerId";
         
         //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
         //        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
-//                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
+        //                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
         
         [CommonFunc dismiss];
         [_collView.mj_header endRefreshing];
@@ -316,20 +316,20 @@ static NSString *const footerId = @"footerId";
         SCFilmClassModel *filmClassModel = _filmClassArray[sender.tag];
         
         NSLog(@"====FilmClassUrl::::%@",filmClassModel._FilmClassName);
-
+        
         NSLog(@"====FilmClassUrl::::%@",filmClassModel.FilmClassUrl);
         
         SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
         channelVC.FilmClassModel = filmClassModel;
         channelVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:channelVC animated:YES];
-
+        
     }
-//    SCRankViewController *rankView = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCRankViewController");
-//    rankView.title = @"排行";
-//    rankView.view.backgroundColor = [UIColor whiteColor];
-//    rankView.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:rankView animated:YES];
+    //    SCRankViewController *rankView = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCRankViewController");
+    //    rankView.title = @"排行";
+    //    rankView.view.backgroundColor = [UIColor whiteColor];
+    //    rankView.hidesBottomBarWhenPushed = YES;
+    //    [self.navigationController pushViewController:rankView animated:YES];
 }
 
 
@@ -369,7 +369,7 @@ static NSString *const footerId = @"footerId";
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
         cell.model = filmModel;
-//        NSLog(@">>>>>>>>>_SourceUrl:::%@",filmModel.SourceUrl);
+        //        NSLog(@">>>>>>>>>_SourceUrl:::%@",filmModel.SourceUrl);
         return cell;
         
     }
@@ -470,14 +470,17 @@ static NSString *const footerId = @"footerId";
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
+            
         }else{
-            
-            [MBProgressHUD showError:@"研发中..."];
-            return;
-            
-            //            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
-            //            channelVC.hidesBottomBarWhenPushed = YES;
-            //            [self.navigationController pushViewController:channelVC animated:YES];
+            if (_filmClassArray) {
+
+                SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row];
+                SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
+                channelVC.FilmClassModel = filmClassModel;
+                channelVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:channelVC animated:YES];
+                
+            }
         }
         
     }else{

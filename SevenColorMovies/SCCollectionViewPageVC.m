@@ -101,7 +101,7 @@ static NSString *const cellId = @"cellId";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return _filmModelArr.count;
-    return 10;
+    
 }
 
 

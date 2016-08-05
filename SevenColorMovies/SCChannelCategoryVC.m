@@ -39,6 +39,9 @@ static const CGFloat LabelWidth = 85.f;
 /** ... */
 @property (nonatomic, strong) NSMutableArray *filmClassModelArr;
 
+/** filmClassUrl数组 */
+@property (nonatomic, strong) NSMutableArray *FilmClassUrlArr;
+
 /** ... */
 @property (nonatomic, strong) NSMutableArray *filmModelArr;
 
@@ -72,20 +75,12 @@ static NSString *const cellId = @"cellId";
     self.titleArr = [NSMutableArray arrayWithCapacity:0];
     self.filmClassModelArr = [NSMutableArray arrayWithCapacity:0];
     self.filmModelArr = [NSMutableArray arrayWithCapacity:0];
+    self.FilmClassUrlArr = [NSMutableArray arrayWithCapacity:0];
     
-    //3.解析数据
-//    [self getDataModel];
-    
-    //4.添加滑动headerView
-//    [self constructSlideHeaderView];
-    
-    //5.添加contentScrllowView
-//    [self constructContentView];
+    //3.网络请求
+    [self getFilmClassData];
     
     
-    [self getData];
-    
-
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -116,29 +111,30 @@ static NSString *const cellId = @"cellId";
     _siftBtn = btn;
 }
 
-//获取数据模型
-- (void)getDataModel{
-    NSLog(@"====%@",_FilmClassModel._FilmClassName);
-    for (NSDictionary *dic in _FilmClassModel.filmClassArray) {
-        
-        SCFilmClassModel *classModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
-        
-        NSLog(@"====dic:::%@",classModel._FilmClassName);
-        
-        [_filmClassModelArr addObject:classModel];
-        [_titleArr addObject:classModel._FilmClassName];
-        
-    }
+//
+- (void)getFilmClassData{
     
-}
-
-- (void)getData{
     NSString *url = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_FilmClassModel.FilmClassUrl componentsSeparatedByString:@"/"].lastObject];
     NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    NSLog(@"======url>>%@",url);
+    
     [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
         
-        NSLog(@"==========dic:::%@========",responseObject);
+        if (responseObject) {
+            
+            NSArray *array = responseObject[@"FilmClass"];
+            for (NSDictionary *dic in array) {
+                
+                [_titleArr addObject:dic[@"_FilmClassName"]];
+                [_FilmClassUrlArr addObject:dic[@"_FilmClassUrl"]];
+                
+            }
+            //1.添加滑动headerView
+            [self constructSlideHeaderView];
+            //2.添加contentScrllowView
+            [self constructContentView];
+            
+        }
+        //        NSLog(@"==========dic:::%@========",responseObject);
     } failure:^(id  _Nullable errorObject) {
         
         
@@ -218,13 +214,15 @@ static NSString *const cellId = @"cellId";
     //添加子控制器
     for (int i=0 ; i<_titleArr.count ;i++){
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
-
-        SCCollectionViewPageVC *vc = [[SCCollectionViewPageVC alloc] initWithCollectionViewLayout:layout];
-
-        SCFilmClassModel *classModel = _filmClassModelArr[i];
-        NSString *url = [classModel._FilmClassUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        vc.urlString = url;
         
+        SCCollectionViewPageVC *vc = [[SCCollectionViewPageVC alloc] initWithCollectionViewLayout:layout];
+        
+        if (_FilmClassUrlArr) {
+            NSString *urlStr = _FilmClassUrlArr[i];
+            NSString *url = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            vc.urlString = url;
+        }
+    
         [self addChildViewController:vc];
         
     }
@@ -232,9 +230,9 @@ static NSString *const cellId = @"cellId";
     SCCollectionViewPageVC *vc = [self.childViewControllers firstObject];
     vc.view.frame = self.contentScroll.bounds;
     self.needScrollToTopPage = self.childViewControllers[0];
-
+    
     [self.contentScroll addSubview:vc.view];
-
+    
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
 }
