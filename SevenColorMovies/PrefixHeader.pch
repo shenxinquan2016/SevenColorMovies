@@ -14,6 +14,7 @@
 
 #ifdef __OBJC__
 #import "Configured.h"
+#import "SCMacro.h"
 #endif
 
 

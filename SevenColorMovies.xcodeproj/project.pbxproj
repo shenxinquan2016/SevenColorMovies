@@ -138,6 +138,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		110174FC1D54245300E43773 /* SCMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCMacro.h; sourceTree = "<group>"; };
+		110174FD1D54258C00E43773 /* ThirdKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdKeys.h; sourceTree = "<group>"; };
 		1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageVC.h; sourceTree = "<group>"; };
 		1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageVC.m; sourceTree = "<group>"; };
 		1111A4011D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
@@ -374,6 +376,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		110174FA1D54241B00E43773 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				110174FC1D54245300E43773 /* SCMacro.h */,
+				110174FD1D54258C00E43773 /* ThirdKeys.h */,
+			);
+			name = Macro;
+			sourceTree = "<group>";
+		};
 		1111A3FD1D48550800C17B92 /* FlowLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -829,6 +840,7 @@
 				11BB37C31D38DC320002D487 /* Storyboard */,
 				11BB37C11D38DB290002D487 /* Classes */,
 				11BB37BC1D38DB0E0002D487 /* Vendor */,
+				110174FA1D54241B00E43773 /* Macro */,
 				11BB37771D38B9A00002D487 /* Supporting Files */,
 			);
 			path = SevenColorMovies;
