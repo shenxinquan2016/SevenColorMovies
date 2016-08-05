@@ -132,6 +132,7 @@
 /** get通用请求方法 */
 - (void)requestDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild{
     [self GETRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject) {
+        
         success(responseObject);
         
     } faild:^(id _Nullable errorObject) {

@@ -49,7 +49,6 @@
 /** section标题 */
 @property (nonatomic, copy) NSMutableArray *titleArray;
 
-
 @end
 
 @implementation SCHomePageViewController
@@ -187,6 +186,7 @@ static NSString *const footerId = @"footerId";
         _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
     }
     
+    
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
         
         //1.第一层 filmList
@@ -199,8 +199,11 @@ static NSString *const footerId = @"footerId";
                 
                 [_titleArray addObject:classModel._FilmClassName];
                 [_filmClassArray addObject:classModel];
+                
                 [_collView reloadData];
                 
+                NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
+                NSLog(@"====FilmClassUrl::::%@",classModel.FilmClassUrl);
                 
             }else{
                 
@@ -229,14 +232,12 @@ static NSString *const footerId = @"footerId";
                     }
                 }
             }
-            NSLog(@">>>>>>>>homePageData:::%ld",classModel.filmArray.count);
             
-            NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
         }
         
         //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
         //        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
-                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
+//                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
         
         [CommonFunc dismiss];
         [_collView.mj_header endRefreshing];
@@ -309,12 +310,26 @@ static NSString *const footerId = @"footerId";
 #pragma mark ---- responce
 - (void)sectionClick:(UIButton *)sender{
     
-    NSLog(@"=====section:%ld",sender.tag);
-    SCRankViewController *rankView = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCRankViewController");
-    rankView.title = @"排行";
-    rankView.view.backgroundColor = [UIColor whiteColor];
-    rankView.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:rankView animated:YES];
+    if (_filmClassArray) {
+        
+        
+        SCFilmClassModel *filmClassModel = _filmClassArray[sender.tag];
+        
+        NSLog(@"====FilmClassUrl::::%@",filmClassModel._FilmClassName);
+
+        NSLog(@"====FilmClassUrl::::%@",filmClassModel.FilmClassUrl);
+        
+        SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
+        channelVC.FilmClassModel = filmClassModel;
+        channelVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:channelVC animated:YES];
+
+    }
+//    SCRankViewController *rankView = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCRankViewController");
+//    rankView.title = @"排行";
+//    rankView.view.backgroundColor = [UIColor whiteColor];
+//    rankView.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:rankView animated:YES];
 }
 
 
@@ -371,7 +386,7 @@ static NSString *const footerId = @"footerId";
             headerView = [[UICollectionReusableView alloc] init];
         }
         //                headerView.backgroundColor = [UIColor purpleColor];
-        UIView *view = [self addSectionHeaderViewWithTitle:_titleArray[indexPath.section-1] tag:indexPath.section];
+        UIView *view = [self addSectionHeaderViewWithTitle:_titleArray[indexPath.section-1] tag:indexPath.section-1];
         [headerView addSubview:view];
         return headerView;
     }

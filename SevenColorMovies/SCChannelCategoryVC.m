@@ -74,14 +74,18 @@ static NSString *const cellId = @"cellId";
     self.filmModelArr = [NSMutableArray arrayWithCapacity:0];
     
     //3.解析数据
-    [self getDataModel];
+//    [self getDataModel];
     
     //4.添加滑动headerView
-    [self constructSlideHeaderView];
+//    [self constructSlideHeaderView];
     
     //5.添加contentScrllowView
-    [self constructContentView];
+//    [self constructContentView];
     
+    
+    [self getData];
+    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -128,7 +132,19 @@ static NSString *const cellId = @"cellId";
     
 }
 
-
+- (void)getData{
+    NSString *url = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_FilmClassModel.FilmClassUrl componentsSeparatedByString:@"/"].lastObject];
+    NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    NSLog(@"======url>>%@",url);
+    [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
+        
+        NSLog(@"==========dic:::%@========",responseObject);
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+    
+}
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView{
     

@@ -19,7 +19,7 @@
  */
 @property (nonatomic,copy) NSString *domainName;
 @property (nonatomic,copy) NSString *commonPort; /**< common端口 */
-@property (nonatomic,copy) NSString *searchPort;/**<  search端口 */
+@property (nonatomic,copy) NSString *interface5;
 @property (nonatomic,copy) NSString *payPort;/**< 支付端口 */
 
 

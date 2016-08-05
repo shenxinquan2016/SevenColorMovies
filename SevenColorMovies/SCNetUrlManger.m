@@ -26,7 +26,7 @@
 }
 
 
-//========================================== getter  ==========================================
+//========================================== domainName  ==========================================
 - (void)setDomainName:(NSString *)domainName {
     if (![domainName isKindOfClass:[NSNull class]]) {
         [[NSUserDefaults standardUserDefaults] setObject:domainName forKey:kDomainName];
@@ -41,17 +41,17 @@
 }
 
 
-//========================================== searchPort  ==========================================
+//========================================== interface5  ==========================================
 #pragma mark - setter
 
-- (void)setSearchPort:(NSString *)searchPort{
-    if (![searchPort isKindOfClass:[NSNull class]]) {
-        [[NSUserDefaults standardUserDefaults] setObject:searchPort forKey:kSearchPort];
+- (void)setInterface5:(NSString *)interface5{
+    if (![interface5 isKindOfClass:[NSNull class]]) {
+        [[NSUserDefaults standardUserDefaults] setObject:interface5 forKey:kSearchPort];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
-- (NSString *)searchPort{
+- (NSString *)interface5{
     return [[NSUserDefaults standardUserDefaults] objectForKey:kSearchPort];
 }
 

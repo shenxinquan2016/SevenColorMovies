@@ -69,7 +69,7 @@
     
     NetUrlManager.domainName = dic[@"domainName"];
     NetUrlManager.commonPort = dic[@"commPort"];
-    NetUrlManager.searchPort = dic[@"searchPort"];
+    NetUrlManager.interface5 = dic[@"interface5"];
     NetUrlManager.payPort = dic[@"payPort"];
     
 }

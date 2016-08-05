@@ -6,11 +6,9 @@
 	<string>开发环境</string>
 	<key>domainName</key>
 	<string>http://interface5.voole.com</string>
-	<key>payPort</key>
-	<string>8000</string>
 	<key>commPort</key>
-	<string>8000</string>
-	<key>searchPort</key>
-	<string>8000</string>
+	<string>/b2b/</string>
+	<key>interface5</key>
+	<string>http://10.177.1.236</string>
 </dict>
 </plist>

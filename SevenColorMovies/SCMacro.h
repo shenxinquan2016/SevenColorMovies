@@ -9,6 +9,7 @@
 #ifndef SCMacro_h
 #define SCMacro_h
 
+#import "SCRequestUrl.h"
 #import "ThirdKeys.h"
 
 #endif /* SCMacro_h */
