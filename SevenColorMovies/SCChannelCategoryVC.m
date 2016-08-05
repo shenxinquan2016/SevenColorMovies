@@ -117,6 +117,7 @@ static NSString *const cellId = @"cellId";
     NSString *url = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_FilmClassModel.FilmClassUrl componentsSeparatedByString:@"/"].lastObject];
     NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
+    [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
         
         if (responseObject) {
@@ -135,9 +136,10 @@ static NSString *const cellId = @"cellId";
             
         }
         //        NSLog(@"==========dic:::%@========",responseObject);
+
     } failure:^(id  _Nullable errorObject) {
         
-        
+        [CommonFunc dismiss];
     }];
     
 }

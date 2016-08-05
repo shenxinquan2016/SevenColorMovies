@@ -19,9 +19,6 @@
 /** collectionView */
 @property (nonatomic, strong) UICollectionView *collView;
 
-/** 存储filmList中的filmClass模型（第二层数据）*/
-@property (nonatomic, copy) NSMutableArray *filmClassArray;
-
 /** 编辑按钮 */
 @property (nonatomic, strong) UIButton *editBtn;
 @end
@@ -39,45 +36,15 @@ static NSString *const footerId = @"footerId";
     
     //0.编辑按钮
     [self addRightBBI];
-    //1.初始化数组
-    _filmClassArray = [NSMutableArray arrayWithCapacity:0];
-    
     
     //2.添加cellectionView
     [self loadCollectionView];
-    
-    
-    
-    
-    
-    [CommonFunc showLoadingWithTips:@""];
-    
-    [requestDataManager requestFilmListDataWithUrl:FilmList parameters:nil success:^(id  _Nullable responseObject) {
-        //        NSLog(@"====dic::%@=======",responseObject);
-        //1.第一层 filmList
-        SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
-        NSArray *filmClassArr = filmListModel.filmClassArray;
-        for (NSDictionary *dic in filmClassArr) {
-            //2.第二层 filmClass
-            SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
-            
-            [_filmClassArray addObject:filmClassModel];
-            
-        }
-        
-        [CommonFunc dismiss];
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        [CommonFunc dismiss];
-        
-    }];
     
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 - (void)addRightBBI {
@@ -285,37 +252,27 @@ static NSString *const footerId = @"footerId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
-    
-    SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row];
-    
-    
-    for (NSDictionary *dic in filmClassModel.filmClassArray) {
-        SCFilmClassModel *mdoel = [SCFilmClassModel mj_objectWithKeyValues:dic];
-        
-        //        NSLog(@"====filmListModel::%@=======",mdoel._FilmClassName);
-        
-    }
-    
-    
-    
-    
     //设置返回键标题
     NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
     
     SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
-    channelVC.FilmClassModel = filmClassModel;
-    channelVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:channelVC animated:YES];
-    
+    if (indexPath.row == 0) {
+        
+        [MBProgressHUD showSuccess:@"敬请期待"];
+        
+    }else{
+        
+        channelVC.FilmClassModel = _filmClassArray[indexPath.row-1];
+        channelVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:channelVC animated:YES];
+    }
+  
 }
-
-
 
 #pragma mark- Getters and Setters
 - (NSMutableArray *)allItemsArr{
     if (!_allItemsArr) {
-        NSArray *array =@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿"},@{@"Game" : @"游戏"}, @{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"Life" : @"生活"}, @{@"Documentary" : @"纪录片"},  @{@"Music" : @"音乐"},  @{@"SpecialTopic" : @"专题"}, @{@"GeneralChannel" : @"3D影院"}, @{@"GeneralChannel" : @"4K专区"}];
+        NSArray *array =@[@{@"Live" : @"直播"}, @{@"CinemaPlaying" : @"院线热映"}, @{@"ChildrenTheater" : @"少儿剧场"}, @{@"OverseasFilm" : @"海外片场"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"},  @{@"Children" : @"少儿"}, @{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"Life" : @"生活"}, @{@"Documentary" : @"纪录片"}, @{@"Game" : @"游戏"}, @{@"Music" : @"音乐"},  @{@"SpecialTopic" : @"专题"}];
         
         _allItemsArr = [NSMutableArray arrayWithCapacity:0];
         [_allItemsArr addObjectsFromArray:array];

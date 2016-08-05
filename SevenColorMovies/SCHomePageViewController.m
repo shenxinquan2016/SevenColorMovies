@@ -325,14 +325,7 @@ static NSString *const footerId = @"footerId";
         [self.navigationController pushViewController:channelVC animated:YES];
         
     }
-    //    SCRankViewController *rankView = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCRankViewController");
-    //    rankView.title = @"排行";
-    //    rankView.view.backgroundColor = [UIColor whiteColor];
-    //    rankView.hidesBottomBarWhenPushed = YES;
-    //    [self.navigationController pushViewController:rankView animated:YES];
 }
-
-
 
 #pragma mark ---- UICollectionView  DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -468,17 +461,23 @@ static NSString *const footerId = @"footerId";
     if (indexPath.section ==0) {//点播栏
         if ([[dict.allValues objectAtIndex:0] isEqualToString:@"更多"]) {
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
+            moreView.filmClassArray = _filmClassArray;
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
             
         }else{
             if (_filmClassArray) {
-
-                SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row];
-                SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
-                channelVC.FilmClassModel = filmClassModel;
-                channelVC.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:channelVC animated:YES];
+                if (indexPath.row == 0) {
+                    [MBProgressHUD showSuccess:@"敬请期待"];
+                    
+                }else{
+                    SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row-1];
+                    SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
+                    channelVC.FilmClassModel = filmClassModel;
+                    channelVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:channelVC animated:YES];
+ 
+                }
                 
             }
         }
@@ -541,7 +540,7 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Getters and Setters
 - (NSMutableArray *)allItemsArr{
     if (!_allItemsArr) {
-        NSArray *array =@[@{@"Live" : @"直播"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"}, @{@"ChildrenTheater" : @"少儿剧场"},@{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"CinemaPlaying" : @"院线热映"},@{@"GeneralChannel" : @"更多"}, @{@"SpecialTopic" : @"专题"}, @{@"LeaderBoard" : @"排行榜"}, @{@"OverseasFilm" : @"海外剧场"},@{@"Children" : @"少儿"}, @{@"Life" : @"生活"}, @{@"Music" : @"音乐"},@{@"Game" : @"游戏"}, @{@"Documentary" : @"纪录片"}, @{@"GeneralChannel" : @"通用频道"}];
+        NSArray *array =@[@{@"Live" : @"直播"}, @{@"CinemaPlaying" : @"院线热映"}, @{@"ChildrenTheater" : @"少儿剧场"}, @{@"OverseasFilm" : @"海外片场"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"},  @{@"Children" : @"少儿"}, @{@"GeneralChannel" : @"更多"}, @{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"Life" : @"生活"}, @{@"Documentary" : @"纪录片"}, @{@"Game" : @"游戏"}, @{@"Music" : @"音乐"},  @{@"SpecialTopic" : @"专题"}];
         
         _allItemsArr = [NSMutableArray arrayWithCapacity:0];
         [_allItemsArr addObjectsFromArray:array];
