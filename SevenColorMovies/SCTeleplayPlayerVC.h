@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SCFilmModel.h"
 @interface SCTeleplayPlayerVC : UIViewController
+
+@property (nonatomic, strong) SCFilmModel *filmModel;
 
 @end

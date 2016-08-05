@@ -12,6 +12,7 @@
 #import "SCMoiveIntroduceVC.h"
 #import "SCMoiveRecommendationVC.h"
 #import <IJKMediaFramework/IJKMediaFramework.h>
+#import "SCFilmSetModel.h"
 
 static const CGFloat TitleHeight = 50.0f;
 static const CGFloat StatusBarHeight = 20.0f;
@@ -24,13 +25,17 @@ static const CGFloat LabelWidth = 100.f;
 /** 内容栏scrollView */
 @property (nonatomic, strong) UIScrollView *contentScroll;
 
-/** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *titleArr;
 /** 滑动短线 */
 @property (nonatomic, strong) CALayer *bottomLine;
+
 /** 滑动短线 */
 @property (nonatomic, copy) NSString *identifier;
 
+/** 标题数组 */
+@property (nonatomic, strong) NSMutableArray *titleArr;
+
+/** 存放所有集 */
+@property (nonatomic, strong) NSMutableArray *filmSetsArr;
 
 
 
@@ -52,10 +57,49 @@ static const CGFloat LabelWidth = 100.f;
     
     //3.初始化数组
     self.titleArr = [@[@"剧情",@"详情",@"精彩推荐"] copy];
+    self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];
+    
     //4.添加滑动headerView
     [self constructSlideHeaderView];
     //5.添加contentScrllowView
     [self constructContentView];
+    
+
+    
+    //请求播放资源
+    //不同路径解析出来的sourceUrl字段名不同
+    NSString *urlStr = nil;
+    if (self.filmModel.SourceURL != nil) {
+        
+        urlStr = _filmModel.SourceURL;
+    }else{
+        //域名转换  还另需传参数   （首页直接进来时）
+         urlStr = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmModel.SourceUrl componentsSeparatedByString:@"/"].lastObject];
+    }
+    
+    NSString *urlString = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
+//    NSString *base64 = [urlString
+    
+    [requestDataManager requestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
+        NSLog(@"====responseObject:::%@===",responseObject);
+        if (responseObject) {
+            for (NSDictionary *dic in responseObject[@"Content"]) {
+                
+                SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:dic];
+                [_filmSetsArr addObject:model];
+            }
+            
+        }
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+    
+    
+    
     
     
     
@@ -205,7 +249,7 @@ static const CGFloat LabelWidth = 100.f;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     if (![self.player isPlaying]) {
-        [self.player prepareToPlay];
+//        [self.player prepareToPlay];
     }
 }
 

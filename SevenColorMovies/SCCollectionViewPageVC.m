@@ -15,7 +15,7 @@
 
 @interface SCCollectionViewPageVC ()
 
-/** .每页电影模型数组 */
+/** 每页电影模型数组 */
 @property (nonatomic, strong) NSMutableArray *filmModelArr;
 
 @end
@@ -74,10 +74,11 @@ static NSString *const cellId = @"cellId";
         //NSLog(@">>>>>>>>>>>>1111:::::%ld",_filmModelArr.count);
         for (NSDictionary *dic in filmsArr) {
             SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-            //                NSLog(@">>>>>>>>>>>>%@",filmModel.FilmName);
+//        NSLog(@">>>>>>>>>>>>SourceURL::::%@",filmModel.SourceURL);
             [_filmModelArr addObject:filmModel];
         }
-        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
+//        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
+//        NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
         
         [self.collectionView reloadData];
         [self.collectionView.mj_header endRefreshing];
@@ -167,6 +168,8 @@ static NSString *const cellId = @"cellId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
         NSLog(@"======点击=====");
     SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+    SCFilmModel *model = _filmModelArr[indexPath.row];
+    teleplayPlayer.filmModel = model;
     teleplayPlayer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:teleplayPlayer animated:YES];
     

@@ -192,7 +192,6 @@ static NSString *const footerId = @"footerId";
         //1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         
-        NSLog(@">>>>>>>>homePageData:::%ld",filmListModel.filmClassArray.count);
         for (SCFilmClassModel *classModel in filmListModel.filmClassArray) {
             
             if (![classModel._FilmClassName hasSuffix:@"今日推荐"]) {
@@ -202,8 +201,8 @@ static NSString *const footerId = @"footerId";
                 
                 [_collView reloadData];
                 
-                NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
-                NSLog(@"====FilmClassUrl::::%@",classModel.FilmClassUrl);
+//                NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
+//                NSLog(@"====FilmClassUrl::::%@",classModel.FilmClassUrl);
                 
             }else{
                 
@@ -237,7 +236,7 @@ static NSString *const footerId = @"footerId";
         
         //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
         //        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
-        //                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
+//                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
         
         [CommonFunc dismiss];
         [_collView.mj_header endRefreshing];
@@ -362,7 +361,7 @@ static NSString *const footerId = @"footerId";
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
         cell.model = filmModel;
-        //        NSLog(@">>>>>>>>>_SourceUrl:::%@",filmModel.SourceUrl);
+//                NSLog(@">>>>>>>>>_SourceUrl:::%@",filmModel.SourceUrl);
         return cell;
         
     }
@@ -485,6 +484,9 @@ static NSString *const footerId = @"footerId";
     }else{
         
         SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+        SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
+        SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
+        teleplayPlayer.filmModel = filmModel;
         teleplayPlayer.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:teleplayPlayer animated:YES];
         

@@ -114,6 +114,7 @@ static NSString *const cellId = @"cellId";
 //
 - (void)getFilmClassData{
     
+    //域名转换成IP
     NSString *url = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_FilmClassModel.FilmClassUrl componentsSeparatedByString:@"/"].lastObject];
     NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
@@ -135,7 +136,7 @@ static NSString *const cellId = @"cellId";
             [self constructContentView];
             
         }
-        //        NSLog(@"==========dic:::%@========",responseObject);
+//                NSLog(@"==========dic:::%@========",responseObject);
 
     } failure:^(id  _Nullable errorObject) {
         

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		110175071D54402D00E43773 /* FileManageCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 110175061D54402D00E43773 /* FileManageCommon.m */; };
+		1101750A1D549B3C00E43773 /* SCFilmSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 110175091D549B3C00E43773 /* SCFilmSet.m */; };
+		1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1101750C1D54A40000E43773 /* NSString+Dong.m */; };
 		110591701D5046B20043C833 /* SCCollectionViewPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */; };
 		1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */; };
 		1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */; };
@@ -144,6 +146,10 @@
 		110174FE1D542A0B00E43773 /* SCRequestUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCRequestUrl.h; sourceTree = "<group>"; };
 		110175051D54402D00E43773 /* FileManageCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManageCommon.h; sourceTree = "<group>"; };
 		110175061D54402D00E43773 /* FileManageCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManageCommon.m; sourceTree = "<group>"; };
+		110175081D549B3C00E43773 /* SCFilmSetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmSetModel.h; sourceTree = "<group>"; };
+		110175091D549B3C00E43773 /* SCFilmSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmSet.m; sourceTree = "<group>"; };
+		1101750B1D54A40000E43773 /* NSString+Dong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Dong.h"; sourceTree = "<group>"; };
+		1101750C1D54A40000E43773 /* NSString+Dong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Dong.m"; sourceTree = "<group>"; };
 		1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageVC.h; sourceTree = "<group>"; };
 		1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageVC.m; sourceTree = "<group>"; };
 		1111A4011D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
@@ -432,17 +438,19 @@
 			name = "Log(unicode编码)";
 			sourceTree = "<group>";
 		};
-		113E62E51D49F5FE00FB8F3A /* Model */ = {
+		113E62E51D49F5FE00FB8F3A /* FilmModel */ = {
 			isa = PBXGroup;
 			children = (
-				113E62E61D49F63100FB8F3A /* SCFilmModel.h */,
-				113E62E71D49F63100FB8F3A /* SCFilmModel.m */,
-				1190AC771D4A00D9004AAF23 /* SCFilmClassModel.h */,
-				1190AC781D4A00D9004AAF23 /* SCFilmClassModel.m */,
 				1190AC741D49F9EA004AAF23 /* SCFilmListModel.h */,
 				1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */,
+				1190AC771D4A00D9004AAF23 /* SCFilmClassModel.h */,
+				1190AC781D4A00D9004AAF23 /* SCFilmClassModel.m */,
+				113E62E61D49F63100FB8F3A /* SCFilmModel.h */,
+				113E62E71D49F63100FB8F3A /* SCFilmModel.m */,
+				110175081D549B3C00E43773 /* SCFilmSetModel.h */,
+				110175091D549B3C00E43773 /* SCFilmSet.m */,
 			);
-			name = Model;
+			name = FilmModel;
 			sourceTree = "<group>";
 		};
 		113F8D8E1D3C700900B12D39 /* MainBody */ = {
@@ -910,7 +918,7 @@
 				115A21101D41F02F0097DE57 /* TeleplayPlayer电视剧 */,
 				115A210F1D41F02B0097DE57 /* Moive电影 */,
 				115A210E1D41F0260097DE57 /* Arts综艺 */,
-				113E62E51D49F5FE00FB8F3A /* Model */,
+				113E62E51D49F5FE00FB8F3A /* FilmModel */,
 			);
 			name = HomePage;
 			sourceTree = "<group>";
@@ -1059,6 +1067,8 @@
 				1111A41E1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m */,
 				114BC8071D51D70D0091ECE0 /* UIButton+Addition.h */,
 				114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */,
+				1101750B1D54A40000E43773 /* NSString+Dong.h */,
+				1101750C1D54A40000E43773 /* NSString+Dong.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -1409,6 +1419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */,
+				1101750A1D549B3C00E43773 /* SCFilmSet.m in Sources */,
 				11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */,
 				11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */,
 				1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */,
@@ -1476,6 +1487,7 @@
 				115A21131D41F5BF0097DE57 /* SCTeleplayPlayerVC.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
 				116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */,
+				1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */,
 				113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */,
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
 				1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */,

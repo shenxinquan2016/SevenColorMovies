@@ -10,4 +10,10 @@
 
 @implementation SCFilmModel
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    
+    return @{@"SourceURL":@"_SourceUrl"};
+    
+}
+
 @end
