@@ -35,6 +35,39 @@ static const CGFloat LabelWidth = 60.f;
     //    self.view.backgroundColor = [UIColor redColor];
     //    [self loadCollectionView];
     
+    //3.初始化数组
+    self.titleArr = [NSMutableArray arrayWithCapacity:0];
+
+    
+    
+    if (_filmSetsArr.count/20 == 0) {
+        
+        NSString *str = [NSString stringWithFormat:@"0-%ld",_filmSetsArr.count%20];
+        [_titleArr addObject:str];
+        
+    }else{
+        
+        if (_titleArr.count%20 == 0) {
+            
+            for (int i = 0; i < _titleArr.count/20; i++) {
+                
+                NSString *str = [NSString stringWithFormat:@"20*i-20+20*i"];
+                [_titleArr addObject:str];
+            }
+            
+        }else{
+            
+            
+            
+        }
+        
+        
+        
+    }
+    
+    NSLog(@"===========filmsetsarray::::%ld",_filmSetsArr.count/20);
+    
+    NSLog(@"===========filmsetsarray::::%ld",_filmSetsArr.count%20);
     [self setView];
 }
 
@@ -48,8 +81,6 @@ static const CGFloat LabelWidth = 60.f;
 - (void)setView{
     
     
-    //3.初始化数组
-    self.titleArr = [@[@"1-30",@"31-60"] copy];
     //4.添加滑动headerView
     [self constructSlideHeaderView];
     //5.添加contentScrllowView

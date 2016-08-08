@@ -42,7 +42,7 @@ static NSString *const cellId = @"cellId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 140;
+    return 20;
 }
 
 
@@ -60,7 +60,7 @@ static NSString *const cellId = @"cellId";
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (CGSize){(kMainScreenWidth/6-15),(kMainScreenWidth/6-15)};
+    return (CGSize){(kMainScreenWidth-24-32)/5,(kMainScreenWidth/6-15)};
 }
 
 /** CollectionView四周间距 EdgeInsets */

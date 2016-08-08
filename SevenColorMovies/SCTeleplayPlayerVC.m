@@ -153,8 +153,9 @@ static const CGFloat LabelWidth = 100.f;
         //请求播放资源
         NSString *urlString = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         [CommonFunc showLoadingWithTips:@""];
-        [requestDataManager requestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
-            //        NSLog(@"====responseObject:::%@===",responseObject);
+        NSDictionary *parameters = @{@"pagesize" : @"1000"};
+        [requestDataManager requestDataWithUrl:urlString parameters:parameters success:^(id  _Nullable responseObject) {
+//                    NSLog(@"====responseObject:::%@===",responseObject);
             if (responseObject) {
                 
                 NSString *mid = responseObject[@"Film"][@"_Mid"];
@@ -478,10 +479,8 @@ static const CGFloat LabelWidth = 100.f;
             switch (i) {
                 case 0:{//剧集
                     SCMoiveAllEpisodesVC *episodesVC = [[SCMoiveAllEpisodesVC alloc] init];
-                    [episodesVC.view setFrame:_contentScroll.bounds];
-//                    [_contentScroll addSubview:episodesVC.view]; //添加到scrollView
                     [self addChildViewController:episodesVC];
-                    
+                    episodesVC.filmSetsArr = _filmSetsArr;
                     break;
                 }
                 case 1:{//详情

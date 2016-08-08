@@ -10,6 +10,8 @@
 
 @interface SCMoiveAllEpisodesVC : UIViewController
 
-@property (nonatomic, strong) UICollectionView *collView;
+/** 存放所有集 */
+@property (nonatomic, strong) NSMutableArray *filmSetsArr;
+
 
 @end

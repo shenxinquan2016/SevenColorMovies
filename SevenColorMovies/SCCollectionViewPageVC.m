@@ -78,7 +78,7 @@ static NSString *const cellId = @"cellId";
             [_filmModelArr addObject:filmModel];
         }
 //        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
-        NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
+//        NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
         
         [self.collectionView reloadData];
         [self.collectionView.mj_header endRefreshing];

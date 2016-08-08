@@ -636,9 +636,9 @@
 		115A211A1D4218440097DE57 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				1196A06E1D42640C00B3C5EF /* MoiveAllEpisodes */,
-				1196A06D1D42640800B3C5EF /* MoiveDetial */,
-				1196A06C1D4263F800B3C5EF /* MoiveRecommendation */,
+				1196A06E1D42640C00B3C5EF /* MoiveAllEpisodes剧情 */,
+				1196A06D1D42640800B3C5EF /* MoiveDetial详情 */,
+				1196A06C1D4263F800B3C5EF /* MoiveRecommendation精彩推荐 */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -757,31 +757,31 @@
 			name = CollectionPage;
 			sourceTree = "<group>";
 		};
-		1196A06C1D4263F800B3C5EF /* MoiveRecommendation */ = {
+		1196A06C1D4263F800B3C5EF /* MoiveRecommendation精彩推荐 */ = {
 			isa = PBXGroup;
 			children = (
 				11B9837C1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.h */,
 				11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */,
 			);
-			name = MoiveRecommendation;
+			name = "MoiveRecommendation精彩推荐";
 			sourceTree = "<group>";
 		};
-		1196A06D1D42640800B3C5EF /* MoiveDetial */ = {
+		1196A06D1D42640800B3C5EF /* MoiveDetial详情 */ = {
 			isa = PBXGroup;
 			children = (
 				115A21281D42290C0097DE57 /* SCMoiveIntroduceVC.h */,
 				115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */,
 			);
-			name = MoiveDetial;
+			name = "MoiveDetial详情";
 			sourceTree = "<group>";
 		};
-		1196A06E1D42640C00B3C5EF /* MoiveAllEpisodes */ = {
+		1196A06E1D42640C00B3C5EF /* MoiveAllEpisodes剧情 */ = {
 			isa = PBXGroup;
 			children = (
 				11B983821D588C4700767E8F /* MainBody */,
 				11B983831D588C6000767E8F /* CollectionView */,
 			);
-			name = MoiveAllEpisodes;
+			name = "MoiveAllEpisodes剧情";
 			sourceTree = "<group>";
 		};
 		1196A06F1D42649F00B3C5EF /* Cell */ = {
