@@ -51,7 +51,6 @@
 		115A21191D41F5FD0097DE57 /* SCArtsPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21181D41F5FD0097DE57 /* SCArtsPlayerVC.m */; };
 		115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */; };
 		115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */; };
-		115A212D1D42293D0097DE57 /* SCMoiveRecommendationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A212C1D42293D0097DE57 /* SCMoiveRecommendationVC.m */; };
 		116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */; };
 		116475F41D40988700A3BC1C /* SCOptionalVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */; };
 		116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */; };
@@ -88,6 +87,8 @@
 		11A1D0701D3F62E800E2BA0D /* SCRankOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D06F1D3F62E800E2BA0D /* SCRankOtherCell.m */; };
 		11A1D0721D3F62FD00E2BA0D /* SCRankOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11A1D0711D3F62FD00E2BA0D /* SCRankOtherCell.xib */; };
 		11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */; };
+		11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */; };
+		11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */; };
 		11BB37791D38B9A00002D487 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37781D38B9A00002D487 /* main.m */; };
 		11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB377B1D38B9A00002D487 /* AppDelegate.m */; };
 		11BB37821D38B9A00002D487 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37801D38B9A00002D487 /* Main.storyboard */; };
@@ -227,8 +228,6 @@
 		115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveAllEpisodesVC.m; sourceTree = "<group>"; };
 		115A21281D42290C0097DE57 /* SCMoiveIntroduceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveIntroduceVC.h; sourceTree = "<group>"; };
 		115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveIntroduceVC.m; sourceTree = "<group>"; };
-		115A212B1D42293D0097DE57 /* SCMoiveRecommendationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveRecommendationVC.h; sourceTree = "<group>"; };
-		115A212C1D42293D0097DE57 /* SCMoiveRecommendationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveRecommendationVC.m; sourceTree = "<group>"; };
 		116475EC1D40977100A3BC1C /* SCOptionalVideoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableView.h; sourceTree = "<group>"; };
 		116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOptionalVideoTableView.m; sourceTree = "<group>"; };
 		116475F11D40988700A3BC1C /* SCOptionalVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableViewCell.h; sourceTree = "<group>"; };
@@ -282,6 +281,10 @@
 		11A1D0711D3F62FD00E2BA0D /* SCRankOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCRankOtherCell.xib; sourceTree = "<group>"; };
 		11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchViewController.h; sourceTree = "<group>"; };
 		11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchViewController.m; sourceTree = "<group>"; };
+		11B9837C1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveRecommendationCollectionVC.h; sourceTree = "<group>"; };
+		11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveRecommendationCollectionVC.m; sourceTree = "<group>"; };
+		11B9837F1D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveAllEpisodesCollectionVC.h; sourceTree = "<group>"; };
+		11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveAllEpisodesCollectionVC.m; sourceTree = "<group>"; };
 		11BB37741D38B9A00002D487 /* SevenColorMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SevenColorMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BB37781D38B9A00002D487 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11BB377A1D38B9A00002D487 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -757,8 +760,8 @@
 		1196A06C1D4263F800B3C5EF /* MoiveRecommendation */ = {
 			isa = PBXGroup;
 			children = (
-				115A212B1D42293D0097DE57 /* SCMoiveRecommendationVC.h */,
-				115A212C1D42293D0097DE57 /* SCMoiveRecommendationVC.m */,
+				11B9837C1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.h */,
+				11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */,
 			);
 			name = MoiveRecommendation;
 			sourceTree = "<group>";
@@ -775,9 +778,8 @@
 		1196A06E1D42640C00B3C5EF /* MoiveAllEpisodes */ = {
 			isa = PBXGroup;
 			children = (
-				115A21251D4228750097DE57 /* SCMoiveAllEpisodesVC.h */,
-				115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */,
-				1196A06F1D42649F00B3C5EF /* Cell */,
+				11B983821D588C4700767E8F /* MainBody */,
+				11B983831D588C6000767E8F /* CollectionView */,
 			);
 			name = MoiveAllEpisodes;
 			sourceTree = "<group>";
@@ -820,6 +822,25 @@
 				1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */,
 			);
 			name = SlideHeaderView;
+			sourceTree = "<group>";
+		};
+		11B983821D588C4700767E8F /* MainBody */ = {
+			isa = PBXGroup;
+			children = (
+				115A21251D4228750097DE57 /* SCMoiveAllEpisodesVC.h */,
+				115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */,
+			);
+			name = MainBody;
+			sourceTree = "<group>";
+		};
+		11B983831D588C6000767E8F /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				11B9837F1D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.h */,
+				11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */,
+				1196A06F1D42649F00B3C5EF /* Cell */,
+			);
+			name = CollectionView;
 			sourceTree = "<group>";
 		};
 		11BB376B1D38B9A00002D487 = {
@@ -1455,11 +1476,11 @@
 				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,
 				1111A41B1D48A71300C17B92 /* Reachability.m in Sources */,
 				11A1D0701D3F62E800E2BA0D /* SCRankOtherCell.m in Sources */,
-				115A212D1D42293D0097DE57 /* SCMoiveRecommendationVC.m in Sources */,
 				1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */,
 				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
 				11A1D06C1D3F508E00E2BA0D /* SCRankViewController.m in Sources */,
 				115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */,
+				11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */,
 				11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
@@ -1492,6 +1513,7 @@
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
 				1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
+				11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */,
 				1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */,
 				11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */,
 				1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */,

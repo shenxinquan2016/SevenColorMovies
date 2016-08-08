@@ -10,9 +10,11 @@
 #import "SCSlideHeaderLabel.h"
 #import "SCMoiveAllEpisodesVC.h"
 #import "SCMoiveIntroduceVC.h"
-#import "SCMoiveRecommendationVC.h"
+
 #import <IJKMediaFramework/IJKMediaFramework.h>
 #import "SCFilmSetModel.h"
+#import "SCMoiveRecommendationCollectionVC.h"
+
 
 static const CGFloat TitleHeight = 50.0f;
 static const CGFloat StatusBarHeight = 20.0f;
@@ -130,11 +132,19 @@ static const CGFloat LabelWidth = 100.f;
         
         
         self.titleArr = @[@"详情", @"精彩推荐"];
+        
+        //4.添加滑动headerView
+        [self constructSlideHeaderView];
         [self constructContentView];
+
         
     }else if ([_filmModel._Mtype isEqualToString:@"7"] || [_filmModel._Mtype isEqualToString:@"9"] || [_filmModel._Mtype isEqualToString:@"30"]){
         self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
         
+        //4.添加滑动headerView
+        [self constructSlideHeaderView];
+        [self constructContentView];
+
     }else{
         
         //电视剧
@@ -164,12 +174,22 @@ static const CGFloat LabelWidth = 100.f;
                     
                     [_filmSetsArr addObject:model];
                     
-                    //5.添加contentScrllowView
-                    [self constructContentView];
-                    
                     [CommonFunc dismiss];
+                    //5.添加contentScrllowView
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^(){
+                        
+                        
+
+                    
+                    });
+                    
                 }
                 
+                //4.添加滑动headerView
+                [self constructSlideHeaderView];
+                [self constructContentView];
+
                 
                 //开始播放第一集
                 
@@ -185,11 +205,6 @@ static const CGFloat LabelWidth = 100.f;
         
         
     }
-    
-    
-    
-    //4.添加滑动headerView
-    [self constructSlideHeaderView];
     
     
     
@@ -446,8 +461,9 @@ static const CGFloat LabelWidth = 100.f;
                     break;
                 }
                 case 1:{//精彩推荐
-                    SCMoiveRecommendationVC *recommendationView = [[SCMoiveRecommendationVC alloc] init];
-                    [self addChildViewController:recommendationView];
+                    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+                    SCMoiveRecommendationCollectionVC *vc = [[SCMoiveRecommendationCollectionVC alloc] initWithCollectionViewLayout:layout];
+                    [self addChildViewController:vc];
                     break;
                 }
                 default:
@@ -463,7 +479,7 @@ static const CGFloat LabelWidth = 100.f;
                 case 0:{//剧集
                     SCMoiveAllEpisodesVC *episodesVC = [[SCMoiveAllEpisodesVC alloc] init];
                     [episodesVC.view setFrame:_contentScroll.bounds];
-                    [_contentScroll addSubview:episodesVC.view]; //添加到scrollView
+//                    [_contentScroll addSubview:episodesVC.view]; //添加到scrollView
                     [self addChildViewController:episodesVC];
                     
                     break;
@@ -475,8 +491,9 @@ static const CGFloat LabelWidth = 100.f;
                     break;
                 }
                 case 2:{//精彩推荐
-                    SCMoiveRecommendationVC *recommendationView = [[SCMoiveRecommendationVC alloc] init];
-                    [self addChildViewController:recommendationView];
+                    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+                    SCMoiveRecommendationCollectionVC *vc = [[SCMoiveRecommendationCollectionVC alloc] initWithCollectionViewLayout:layout];
+                    [self addChildViewController:vc];
                     break;
                 }
                 default:
@@ -485,6 +502,13 @@ static const CGFloat LabelWidth = 100.f;
             
         }
     }
+    // 添加默认控制器
+    SCMoiveAllEpisodesVC *vc = [self.childViewControllers firstObject];
+    vc.view.frame = self.contentScroll.bounds;
+//    self.needScrollToTopPage = self.childViewControllers[0];
+    
+    [self.contentScroll addSubview:vc.view];
+    
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
 }

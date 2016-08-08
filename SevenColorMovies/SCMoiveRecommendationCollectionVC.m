@@ -1,51 +1,35 @@
 //
-//  SCMoiveRecommendationVC.m
+//  SCMoiveRecommendationCollectionVC.m
 //  SevenColorMovies
 //
-//  Created by yesdgq on 16/7/22.
+//  Created by yesdgq on 16/8/8.
 //  Copyright © 2016年 yesdgq. All rights reserved.
 //
 
-#import "SCMoiveRecommendationVC.h"
+#import "SCMoiveRecommendationCollectionVC.h"
 
-@interface SCMoiveRecommendationVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
-
-
-@end
-
-@implementation SCMoiveRecommendationVC
+@implementation SCMoiveRecommendationCollectionVC
 
 static NSString *const cellId = @"cellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor blueColor];
-    [self loadCollectionView];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-#pragma mark- private methods
-- (void)loadCollectionView
-{
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
-    _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    _collView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
-    _collView.alwaysBounceVertical=YES;
-    _collView.dataSource = self;
-    _collView.delegate = self;
-    
-    [self.view addSubview:_collView];
+    //0.初始化collectionView
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.alwaysBounceVertical=YES;
     // 注册cell、sectionHeader、sectionFooter
-    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
+    
+    //1.初始化数组
+    
+    
     
     
 }
+
+
+
 
 #pragma mark ---- UICollectionViewDataSource
 
@@ -74,15 +58,15 @@ static NSString *const cellId = @"cellId";
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
 /** item Size */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return (CGSize){(kMainScreenWidth/3-10),165};
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return (CGSize){(kMainScreenWidth-24-16)/3,180};
 }
 
 /** CollectionView四周间距 EdgeInsets */
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(5, 10, 0, 10);
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    
+    return UIEdgeInsetsMake(5, 12, 5, 12);
 }
 
 /** item水平间距 */
@@ -94,7 +78,7 @@ static NSString *const cellId = @"cellId";
 /** item垂直间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 0.f;
+    return 8.f;
 }
 
 /** section Header 尺寸 */
@@ -102,6 +86,7 @@ static NSString *const cellId = @"cellId";
 {
     return (CGSize){kMainScreenWidth,0};
 }
+
 
 /** section Footer 尺寸*/
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
@@ -122,6 +107,4 @@ static NSString *const cellId = @"cellId";
 {
     NSLog(@"======点击=====");
 }
-
-
 @end

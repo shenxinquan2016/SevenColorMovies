@@ -8,6 +8,7 @@
 
 #import "SCMoiveAllEpisodesVC.h"
 #import "SCSlideHeaderLabel.h"
+#import "SCMoiveAllEpisodesCollectionVC.h"
 
 
 static const CGFloat TitleHeight = 40.0f;
@@ -27,19 +28,14 @@ static const CGFloat LabelWidth = 60.f;
 
 @implementation SCMoiveAllEpisodesVC
 
-static NSString *const cellId = @"cellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-//    self.view.backgroundColor = [UIColor redColor];
-//    [self loadCollectionView];
-    //3.初始化数组
-    self.titleArr = [@[@"1-30",@"31-60"] copy];
-    //4.添加滑动headerView
-//    [self constructSlideHeaderView];
-    //5.添加contentScrllowView
-//    [self constructContentView];
+    //    self.view.backgroundColor = [UIColor redColor];
+    //    [self loadCollectionView];
+    
+    [self setView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,21 +44,18 @@ static NSString *const cellId = @"cellId";
 }
 
 #pragma mark- private methods
-- (void)loadCollectionView
-{
+
+- (void)setView{
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
-    _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    _collView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
-//    _collView.alwaysBounceVertical=YES;
-    _collView.dataSource = self;
-    _collView.delegate = self;
     
-//    [self.view addSubview:_collView];
-    
-    // 注册cell、sectionHeader、sectionFooter
-    [_collView registerNib:[UINib nibWithNibName:@"SCMovieEpisodeCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
+    //3.初始化数组
+    self.titleArr = [@[@"1-30",@"31-60"] copy];
+    //4.添加滑动headerView
+    [self constructSlideHeaderView];
+    //5.添加contentScrllowView
+    [self constructContentView];
 }
+
 
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView{
@@ -72,7 +65,7 @@ static NSString *const cellId = @"cellId";
     [self.view addSubview:backgroundView];
     
     self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, LabelWidth*_titleArr.count, TitleHeight)];//滚动窗口
-//        _titleScroll.backgroundColor = [UIColor greenColor];
+    //        _titleScroll.backgroundColor = [UIColor greenColor];
     self.titleScroll.showsHorizontalScrollIndicator = NO;
     self.titleScroll.showsVerticalScrollIndicator = NO;
     self.titleScroll.scrollsToTop = NO;
@@ -134,42 +127,18 @@ static NSString *const cellId = @"cellId";
     
     //添加子控制器
     for (int i=0 ; i<_titleArr.count ;i++){
-        UIViewController *vc = [[UIViewController alloc] init];
-        vc.view.backgroundColor = [UIColor redColor];
         
-        [self loadCollectionView];
-        [vc.view addSubview:_collView];
-        
-        
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+        SCMoiveAllEpisodesCollectionVC *vc = [[SCMoiveAllEpisodesCollectionVC alloc] initWithCollectionViewLayout:layout];
         
         [self addChildViewController:vc];
-
-        switch (i) {
-            case 0:{//剧集
-//                SCMoiveAllEpisodesVC *episodesVC = [[SCMoiveAllEpisodesVC alloc] init];
-//                [episodesVC.view setFrame:_contentScroll.bounds];
-                [_contentScroll addSubview:vc.view]; //添加到scrollView
-                [vc.view setFrame:_contentScroll.bounds];
-                [self addChildViewController:vc];
-                
-                break;
-            }
-//            case 1:{//详情
-//                SCMoiveIntroduceVC *introduceVC = [[SCMoiveIntroduceVC alloc] init];
-//                [self addChildViewController:introduceVC];
-//                
-//                break;
-//            }
-//            case 2:{//精彩推荐
-//                SCMoiveRecommendationVC *recommendationView = [[SCMoiveRecommendationVC alloc] init];
-//                [self addChildViewController:recommendationView];
-//                break;
-//            }
-            default:
-                break;
-        }
         
     }
+    // 添加默认控制器
+    SCMoiveAllEpisodesCollectionVC *vc = [self.childViewControllers firstObject];
+    vc.view.frame = self.contentScroll.bounds;
+    [self.contentScroll addSubview:vc.view];
+
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
 }
@@ -237,82 +206,6 @@ static NSString *const cellId = @"cellId";
         labelRight.scale = scaleRight;
     }
     
-}
-
-#pragma mark ---- UICollectionViewDataSource
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-    
-}
-
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return 140;
-}
-
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
-    
-    return cell;
-}
-
-#pragma mark ---- UICollectionViewDelegateFlowLayout
-/** item Size */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return (CGSize){(kMainScreenWidth/6-15),(kMainScreenWidth/6-15)};
-}
-
-/** CollectionView四周间距 EdgeInsets */
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(5, 12, 0, 12);
-}
-
-/** item水平间距 */
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 10.f;
-}
-
-/** item垂直间距 */
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 8.f;
-}
-
-/** section Header 尺寸 */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    return (CGSize){kMainScreenWidth,0};
-}
-
-/** section Footer 尺寸*/
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
-{
-    return (CGSize){kMainScreenWidth,80};
-}
-
-#pragma mark ---- UICollectionViewDelegate
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-
-// 选中某item
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"======点击=====");
 }
 
 
