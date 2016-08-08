@@ -14,7 +14,7 @@ static const CGFloat TitleHeight = 40.0f;
 static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat LabelWidth = 60.f;
 
-@interface SCMoiveAllEpisodesVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UIScrollViewDelegate>
+@interface SCMoiveAllEpisodesVC ()<UIScrollViewDelegate>
 
 /** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *titleScroll;
@@ -37,9 +37,9 @@ static NSString *const cellId = @"cellId";
     //3.初始化数组
     self.titleArr = [@[@"1-30",@"31-60"] copy];
     //4.添加滑动headerView
-    [self constructSlideHeaderView];
+//    [self constructSlideHeaderView];
     //5.添加contentScrllowView
-    [self constructContentView];
+//    [self constructContentView];
 }
 
 - (void)didReceiveMemoryWarning {

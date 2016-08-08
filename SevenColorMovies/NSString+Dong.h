@@ -42,7 +42,7 @@
 // 去除中横线
 - (instancetype)stringByTrimmingHyphen;
 - (instancetype)absoluteDateString;
-
+// Base64
 - (instancetype)stringByBase64Encoding;
 - (instancetype)stringByBase64Decoding;
 

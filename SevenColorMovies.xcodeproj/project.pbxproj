@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		110175071D54402D00E43773 /* FileManageCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 110175061D54402D00E43773 /* FileManageCommon.m */; };
-		1101750A1D549B3C00E43773 /* SCFilmSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 110175091D549B3C00E43773 /* SCFilmSet.m */; };
+		1101750A1D549B3C00E43773 /* SCFilmSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 110175091D549B3C00E43773 /* SCFilmSetModel.m */; };
 		1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1101750C1D54A40000E43773 /* NSString+Dong.m */; };
 		110591701D5046B20043C833 /* SCCollectionViewPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */; };
 		1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */; };
@@ -147,7 +147,7 @@
 		110175051D54402D00E43773 /* FileManageCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManageCommon.h; sourceTree = "<group>"; };
 		110175061D54402D00E43773 /* FileManageCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManageCommon.m; sourceTree = "<group>"; };
 		110175081D549B3C00E43773 /* SCFilmSetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmSetModel.h; sourceTree = "<group>"; };
-		110175091D549B3C00E43773 /* SCFilmSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmSet.m; sourceTree = "<group>"; };
+		110175091D549B3C00E43773 /* SCFilmSetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmSetModel.m; sourceTree = "<group>"; };
 		1101750B1D54A40000E43773 /* NSString+Dong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Dong.h"; sourceTree = "<group>"; };
 		1101750C1D54A40000E43773 /* NSString+Dong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Dong.m"; sourceTree = "<group>"; };
 		1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageVC.h; sourceTree = "<group>"; };
@@ -448,7 +448,7 @@
 				113E62E61D49F63100FB8F3A /* SCFilmModel.h */,
 				113E62E71D49F63100FB8F3A /* SCFilmModel.m */,
 				110175081D549B3C00E43773 /* SCFilmSetModel.h */,
-				110175091D549B3C00E43773 /* SCFilmSet.m */,
+				110175091D549B3C00E43773 /* SCFilmSetModel.m */,
 			);
 			name = FilmModel;
 			sourceTree = "<group>";
@@ -1419,7 +1419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */,
-				1101750A1D549B3C00E43773 /* SCFilmSet.m in Sources */,
+				1101750A1D549B3C00E43773 /* SCFilmSetModel.m in Sources */,
 				11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */,
 				11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */,
 				1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */,

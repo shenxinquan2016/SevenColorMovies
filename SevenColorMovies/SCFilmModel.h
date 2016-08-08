@@ -19,14 +19,14 @@
 /** 影片资源地址 */
 @property (nonatomic,copy) NSString *SourceURL;
 
-/** 包含的影片个数 */
+/** ... */
 @property (nonatomic,copy) NSString *_Year;
 
 /**  */
 @property (nonatomic,copy) NSString *_SourceID;
 
 /**  */
-@property (nonatomic,copy) NSString *_MovieLevel;
+@property (nonatomic,copy) NSString *_Mtype;
 
 /**  */
 @property (nonatomic,copy) NSString *_ImgUrl;

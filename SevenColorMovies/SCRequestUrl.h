@@ -28,7 +28,8 @@
 #define FilmList [NetUrlManager.domainName stringByAppendingString:url_FilmList]
 // filmClass接口
 #define FilmClass @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=gf201606271730129921467019536749"
-
+// 点播播放接口
+#define VODUrl  @"http://10.177.1.245/Service.do?action=b2bplayauth&pid=101001&playtype=0&checkproduct=0&checkuser=0&adversion=1.3.7&area=1208&hid=00301bba02db&oemid=781&epgid=600111&spid=20120528&uid=0"
 
 
 

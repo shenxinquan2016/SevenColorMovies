@@ -32,7 +32,7 @@ static const CGFloat LabelWidth = 100.f;
 @property (nonatomic, copy) NSString *identifier;
 
 /** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *titleArr;
+@property (nonatomic, strong) NSArray *titleArr;
 
 /** 存放所有集 */
 @property (nonatomic, strong) NSMutableArray *filmSetsArr;
@@ -48,6 +48,22 @@ static const CGFloat LabelWidth = 100.f;
 @implementation SCTeleplayPlayerVC
 
 
+#pragma mark- Initialize
+- (instancetype)initWithWithFilmType:(NSString *)tpye{
+    self = [super init];
+    if (self) {
+        
+        
+        
+    }
+    return self;
+}
+
+
+
+
+
+
 
 #pragma mark-  ViewLife Cycle
 - (void)viewDidLoad {
@@ -56,59 +72,28 @@ static const CGFloat LabelWidth = 100.f;
     self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     
     //3.初始化数组
-    self.titleArr = [@[@"剧情",@"详情",@"精彩推荐"] copy];
+    
     self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];
     
-    //4.添加滑动headerView
-    [self constructSlideHeaderView];
-    //5.添加contentScrllowView
-    [self constructContentView];
     
+    [self setView];
+    
+    
+    
+    
+}
 
-    
-    //请求播放资源
-    //不同路径解析出来的sourceUrl字段名不同
-    NSString *urlStr = nil;
-    if (self.filmModel.SourceURL != nil) {
-        
-        urlStr = _filmModel.SourceURL;
-    }else{
-        //域名转换  还另需传参数   （首页直接进来时）
-         urlStr = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmModel.SourceUrl componentsSeparatedByString:@"/"].lastObject];
-    }
-    
-    NSString *urlString = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    
-//    NSString *base64 = [urlString
-    
-    [requestDataManager requestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
-        NSLog(@"====responseObject:::%@===",responseObject);
-        if (responseObject) {
-            for (NSDictionary *dic in responseObject[@"Content"]) {
-                
-                SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:dic];
-                [_filmSetsArr addObject:model];
-            }
-            
-        }
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        
-    }];
-    
-    
-    
-    
-    
-    
-    
+- (void)doPlay{
     
     //直播视频
     self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
-    //NSURL *url1 = [NSURL URLWithString:@"http://userauthb2b.voole.com/Service.do?action=b2bplayauth&pid=101001&playtype=0&checkproduct=0&checkuser=0&adversion=1.3.7&area=1208&hid=00301bba02db&oemid=781&epgid=600111&spid=20120528&uid=0&mid=90860076&fid=da848172e52beca6501046c83442b86d&ext=oid:0"];
-
+    
+    //    SCFilmSetModel *model = _filmSetsArr.firstObject;
+    //    self.url = [NSURL URLWithString:model.VODStreamingUrl];
+    //    NSLog(@">>>>>>>>>>>model._DownUrl::::%@",model.VODStreamingUrl);
+    //直播地址
+    //    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+    
     _player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:nil];
     
     UIView *playerView = [self.player view];
@@ -128,6 +113,94 @@ static const CGFloat LabelWidth = 100.f;
     
 }
 
+- (void)setView{
+    
+    //不同路径解析出来的sourceUrl字段名不同
+    NSString *urlStr = nil;
+    if (self.filmModel.SourceURL != nil) {
+        
+        urlStr = _filmModel.SourceURL;
+    }else{
+        //域名转换  还另需传参数   （首页直接进来时）
+        urlStr = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmModel.SourceUrl componentsSeparatedByString:@"/"].lastObject];
+    }
+    
+    
+    if ([_filmModel._Mtype isEqualToString:@"0"] || [_filmModel._Mtype isEqualToString:@"10"] || [_filmModel._Mtype isEqualToString:@"15"]) {
+        
+        
+        self.titleArr = @[@"详情", @"精彩推荐"];
+        [self constructContentView];
+        
+    }else if ([_filmModel._Mtype isEqualToString:@"7"] || [_filmModel._Mtype isEqualToString:@"9"] || [_filmModel._Mtype isEqualToString:@"30"]){
+        self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
+        
+    }else{
+        
+        //电视剧
+        self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
+        
+        //请求播放资源
+        NSString *urlString = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [CommonFunc showLoadingWithTips:@""];
+        [requestDataManager requestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
+            //        NSLog(@"====responseObject:::%@===",responseObject);
+            if (responseObject) {
+                
+                NSString *mid = responseObject[@"Film"][@"_Mid"];
+                
+                for (NSDictionary *dic in responseObject[@"ContentSet"][@"Content"]) {
+                    
+                    SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:dic];
+                    //获取fid
+                    NSString *fidString = [[[[model._DownUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+                    //base64编码downloadUrl
+                    NSString *downloadBase64Url = [model._DownUrl stringByBase64Encoding];
+                    
+                    NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                    
+                    model.VODStreamingUrl = VODStreamingUrl;
+                    //                    NSLog(@">>>>>>>>>>>model._DownUrl::::%@",model.VODStreamingUrl);
+                    
+                    [_filmSetsArr addObject:model];
+                    
+                    //5.添加contentScrllowView
+                    [self constructContentView];
+                    
+                    [CommonFunc dismiss];
+                }
+                
+                
+                //开始播放第一集
+                
+                
+                //            [self doPlay];
+                
+            }
+            
+        } failure:^(id  _Nullable errorObject) {
+            
+            
+        }];
+        
+        
+    }
+    
+    
+    
+    //4.添加滑动headerView
+    [self constructSlideHeaderView];
+    
+    
+    
+    
+    
+    
+    
+    //    [self doPlay];
+    
+    
+}
 #pragma Install Notifiacation
 
 - (void)installMovieNotificationObservers {
@@ -249,7 +322,7 @@ static const CGFloat LabelWidth = 100.f;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     if (![self.player isPlaying]) {
-//        [self.player prepareToPlay];
+        [self.player prepareToPlay];
     }
 }
 
@@ -281,9 +354,9 @@ static const CGFloat LabelWidth = 100.f;
     }else{
         [self.player pause];
     }
-
-
-
+    
+    
+    
 }
 
 #pragma mark- private methods
@@ -294,7 +367,7 @@ static const CGFloat LabelWidth = 100.f;
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
     
-    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake((kMainScreenWidth-LabelWidth*3)/2, 0, LabelWidth*3, TitleHeight)];//滚动窗口
+    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake((kMainScreenWidth-LabelWidth*_titleArr.count)/2, 0, LabelWidth*_titleArr.count, TitleHeight)];//滚动窗口
     //    _titleScroll.backgroundColor = [UIColor greenColor];
     self.titleScroll.showsHorizontalScrollIndicator = NO;
     self.titleScroll.showsVerticalScrollIndicator = NO;
@@ -361,32 +434,56 @@ static const CGFloat LabelWidth = 100.f;
     //    _contentScroll.backgroundColor = [UIColor redColor];
     [self.view addSubview:_contentScroll];
     
+    
     //添加子控制器
-    for (int i=0 ; i<_titleArr.count ;i++){
-        switch (i) {
-            case 0:{//剧集
-                SCMoiveAllEpisodesVC *episodesVC = [[SCMoiveAllEpisodesVC alloc] init];
-                [episodesVC.view setFrame:_contentScroll.bounds];
-                [_contentScroll addSubview:episodesVC.view]; //添加到scrollView
-                [self addChildViewController:episodesVC];
-                
-                break;
+    if (_titleArr.count == 2) {
+        for (int i=0; i<_titleArr.count ;i++){
+            switch (i) {
+                case 0:{//详情
+                    SCMoiveIntroduceVC *introduceVC = [[SCMoiveIntroduceVC alloc] init];
+                    [self addChildViewController:introduceVC];
+                    
+                    break;
+                }
+                case 1:{//精彩推荐
+                    SCMoiveRecommendationVC *recommendationView = [[SCMoiveRecommendationVC alloc] init];
+                    [self addChildViewController:recommendationView];
+                    break;
+                }
+                default:
+                    break;
             }
-            case 1:{//详情
-                SCMoiveIntroduceVC *introduceVC = [[SCMoiveIntroduceVC alloc] init];
-                [self addChildViewController:introduceVC];
-                
-                break;
-            }
-            case 2:{//精彩推荐
-                SCMoiveRecommendationVC *recommendationView = [[SCMoiveRecommendationVC alloc] init];
-                [self addChildViewController:recommendationView];
-                break;
-            }
-            default:
-                break;
+            
         }
         
+    }else if (_titleArr.count == 3){
+        
+        for (int i=0; i<_titleArr.count ;i++){
+            switch (i) {
+                case 0:{//剧集
+                    SCMoiveAllEpisodesVC *episodesVC = [[SCMoiveAllEpisodesVC alloc] init];
+                    [episodesVC.view setFrame:_contentScroll.bounds];
+                    [_contentScroll addSubview:episodesVC.view]; //添加到scrollView
+                    [self addChildViewController:episodesVC];
+                    
+                    break;
+                }
+                case 1:{//详情
+                    SCMoiveIntroduceVC *introduceVC = [[SCMoiveIntroduceVC alloc] init];
+                    [self addChildViewController:introduceVC];
+                    
+                    break;
+                }
+                case 2:{//精彩推荐
+                    SCMoiveRecommendationVC *recommendationView = [[SCMoiveRecommendationVC alloc] init];
+                    [self addChildViewController:recommendationView];
+                    break;
+                }
+                default:
+                    break;
+            }
+            
+        }
     }
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);

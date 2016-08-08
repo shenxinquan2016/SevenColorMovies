@@ -12,4 +12,9 @@
 
 @property (nonatomic, strong) SCFilmModel *filmModel;
 
+@property (nonatomic, strong) NSString *filmType;
+
+
+- (instancetype)initWithWithFilmType:(NSString *)tpye;
+
 @end
