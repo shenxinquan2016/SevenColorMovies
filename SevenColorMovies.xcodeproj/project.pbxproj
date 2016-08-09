@@ -78,6 +78,7 @@
 		116E1D5A1D4B40B700B488EC /* SCRankTopRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D591D4B40B700B488EC /* SCRankTopRowTableViewCell.m */; };
 		116E1D5E1D4B4E0200B488EC /* SCSiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D5D1D4B4E0200B488EC /* SCSiftViewController.m */; };
 		116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */; };
+		118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 118D19B61D59B2D000A6968D /* SCFilmIntroduceModel.m */; };
 		1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */; };
 		1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC781D4A00D9004AAF23 /* SCFilmClassModel.m */; };
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
@@ -265,6 +266,8 @@
 		116E1D5D1D4B4E0200B488EC /* SCSiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiftViewController.m; sourceTree = "<group>"; };
 		116E1D5F1D4B5A9E00B488EC /* SCRemoteControlVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRemoteControlVC.h; sourceTree = "<group>"; };
 		116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRemoteControlVC.m; sourceTree = "<group>"; };
+		118D19B51D59B2D000A6968D /* SCFilmIntroduceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmIntroduceModel.h; sourceTree = "<group>"; };
+		118D19B61D59B2D000A6968D /* SCFilmIntroduceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmIntroduceModel.m; sourceTree = "<group>"; };
 		1190AC741D49F9EA004AAF23 /* SCFilmListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmListModel.h; sourceTree = "<group>"; };
 		1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmListModel.m; sourceTree = "<group>"; };
 		1190AC771D4A00D9004AAF23 /* SCFilmClassModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmClassModel.h; sourceTree = "<group>"; };
@@ -747,6 +750,15 @@
 			name = "Sift筛选";
 			sourceTree = "<group>";
 		};
+		118D19B41D59B29B00A6968D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				118D19B51D59B2D000A6968D /* SCFilmIntroduceModel.h */,
+				118D19B61D59B2D000A6968D /* SCFilmIntroduceModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		11928FD01D506D2700926011 /* CollectionPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -771,6 +783,7 @@
 			children = (
 				115A21281D42290C0097DE57 /* SCMoiveIntroduceVC.h */,
 				115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */,
+				118D19B41D59B29B00A6968D /* Model */,
 			);
 			name = "MoiveDetial详情";
 			sourceTree = "<group>";
@@ -1494,6 +1507,7 @@
 				116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */,
 				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
 				110175071D54402D00E43773 /* FileManageCommon.m in Sources */,
+				118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */,
 				11BE83151D3CB56B00886CF6 /* SCSycleBanner.m in Sources */,
 				11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */,
 				116475F41D40988700A3BC1C /* SCOptionalVideoTableViewCell.m in Sources */,

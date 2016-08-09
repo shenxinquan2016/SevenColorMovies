@@ -23,10 +23,6 @@ static NSString *const cellId = @"cellId";
     // 注册cell、sectionHeader、sectionFooter
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCMovieEpisodeCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
     
-    //1.初始化数组
-    
-    
-    
     
 }
 

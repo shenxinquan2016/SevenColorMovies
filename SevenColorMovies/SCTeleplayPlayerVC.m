@@ -14,6 +14,7 @@
 #import <IJKMediaFramework/IJKMediaFramework.h>
 #import "SCFilmSetModel.h"
 #import "SCMoiveRecommendationCollectionVC.h"
+#import "SCFilmIntroduceModel.h"
 
 
 static const CGFloat TitleHeight = 50.0f;
@@ -24,6 +25,7 @@ static const CGFloat LabelWidth = 100.f;
 
 /** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *titleScroll;
+
 /** 内容栏scrollView */
 @property (nonatomic, strong) UIScrollView *contentScroll;
 
@@ -39,7 +41,7 @@ static const CGFloat LabelWidth = 100.f;
 /** 存放所有集 */
 @property (nonatomic, strong) NSMutableArray *filmSetsArr;
 
-
+@property (nonatomic, strong) SCFilmIntroduceModel *filmIntroduceModel;
 
 /////测试播放器
 @property (atomic, strong) NSURL *url;
@@ -155,11 +157,14 @@ static const CGFloat LabelWidth = 100.f;
         [CommonFunc showLoadingWithTips:@""];
         NSDictionary *parameters = @{@"pagesize" : @"1000"};
         [requestDataManager requestDataWithUrl:urlString parameters:parameters success:^(id  _Nullable responseObject) {
-//                    NSLog(@"====responseObject:::%@===",responseObject);
+                    NSLog(@"====responseObject:::%@===",responseObject);
             if (responseObject) {
                 
                 NSString *mid = responseObject[@"Film"][@"_Mid"];
                 
+                //介绍页model
+                self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
+
                 for (NSDictionary *dic in responseObject[@"ContentSet"][@"Content"]) {
                     
                     SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:dic];
@@ -177,14 +182,6 @@ static const CGFloat LabelWidth = 100.f;
                     
                     [CommonFunc dismiss];
                     //5.添加contentScrllowView
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^(){
-                        
-                        
-
-                    
-                    });
-                    
                 }
                 
                 //4.添加滑动headerView
@@ -456,7 +453,8 @@ static const CGFloat LabelWidth = 100.f;
         for (int i=0; i<_titleArr.count ;i++){
             switch (i) {
                 case 0:{//详情
-                    SCMoiveIntroduceVC *introduceVC = [[SCMoiveIntroduceVC alloc] init];
+                    SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
+                    introduceVC.model = _filmIntroduceModel;
                     [self addChildViewController:introduceVC];
                     
                     break;
@@ -484,7 +482,9 @@ static const CGFloat LabelWidth = 100.f;
                     break;
                 }
                 case 1:{//详情
-                    SCMoiveIntroduceVC *introduceVC = [[SCMoiveIntroduceVC alloc] init];
+                    SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
+                    introduceVC.model = _filmIntroduceModel;
+//                    NSLog(@"====self.filmIntroduceModel:::%@===",_filmIntroduceModel.Introduction);
                     [self addChildViewController:introduceVC];
                     
                     break;

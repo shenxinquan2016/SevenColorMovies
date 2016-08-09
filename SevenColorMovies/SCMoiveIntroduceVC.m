@@ -10,19 +10,32 @@
 
 @interface SCMoiveIntroduceVC ()
 
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *directorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *mainCharacter;
+@property (weak, nonatomic) IBOutlet UITextView *filmIntroduceTextView;
+
 @end
 
 @implementation SCMoiveIntroduceVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor greenColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    _dateLabel.text = _model._Year;
+    _directorLabel.text = _model.Director;
+    _mainCharacter.text = _model.Actor;
+    _filmIntroduceTextView.text = _model.Introduction;
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
+
+
 
 /*
 #pragma mark - Navigation

@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCFilmIntroduceModel.h"
 
 @interface SCMoiveIntroduceVC : UIViewController
+
+
+@property (nonatomic, strong) SCFilmIntroduceModel *model;
+@property (nonatomic, strong) SCFilmIntroduceModel *model2;
+
 
 @end

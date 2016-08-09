@@ -77,7 +77,7 @@ static const CGFloat LabelWidth = 70.f;
     
     if (arr.count/20 == 0) {
         
-        NSString *str = [NSString stringWithFormat:@"0-%ld",arr.count%20];
+        NSString *str = [NSString stringWithFormat:@"1-%ld",arr.count%20];
         [array addObject:str];
         
     }else{
