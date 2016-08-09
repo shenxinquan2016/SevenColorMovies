@@ -9,11 +9,12 @@
 #import "SCMoiveAllEpisodesVC.h"
 #import "SCSlideHeaderLabel.h"
 #import "SCMoiveAllEpisodesCollectionVC.h"
+#import "SCFilmSetModel.h"
 
 
 static const CGFloat TitleHeight = 40.0f;
-static const CGFloat StatusBarHeight = 20.0f;
-static const CGFloat LabelWidth = 60.f;
+//static const CGFloat StatusBarHeight = 20.0f;
+static const CGFloat LabelWidth = 70.f;
 
 @interface SCMoiveAllEpisodesVC ()<UIScrollViewDelegate>
 
@@ -24,6 +25,10 @@ static const CGFloat LabelWidth = 60.f;
 
 /** 标题数组 */
 @property (nonatomic, strong) NSMutableArray *titleArr;
+
+/** sets数据 */
+@property (nonatomic, strong) NSArray *dataSource;
+
 @end
 
 @implementation SCMoiveAllEpisodesVC
@@ -37,7 +42,7 @@ static const CGFloat LabelWidth = 60.f;
     
     //3.初始化数组
     self.titleArr = [NSMutableArray arrayWithCapacity:0];
-
+    self.dataSource = [NSArray array];
     
     
     if (_filmSetsArr.count/20 == 0) {
@@ -47,28 +52,64 @@ static const CGFloat LabelWidth = 60.f;
         
     }else{
         
-        if (_titleArr.count%20 == 0) {
+        if (_filmSetsArr.count%20 == 0) {
             
-            for (int i = 0; i < _titleArr.count/20; i++) {
+            for (int i = 0; i < _filmSetsArr.count/20; i++) {
                 
-                NSString *str = [NSString stringWithFormat:@"20*i-20+20*i"];
+                NSString *str = [NSString stringWithFormat:@"%d-%d",20*i+1,20+20*i];
                 [_titleArr addObject:str];
             }
             
         }else{
             
+            for (int i = 0; i < _filmSetsArr.count/20; i++) {
+                
+                NSString *str = [NSString stringWithFormat:@"%d-%d",20*i+1,20+20*i];
+                [_titleArr addObject:str];
+            }
             
+            NSString *str = [NSString stringWithFormat:@"%ld-%lu",20+20*(_filmSetsArr.count/20-1)+1,20+20*(_filmSetsArr.count/20-1)+_filmSetsArr.count%20];
+            [_titleArr addObject:str];
+
             
         }
         
+    }
+ 
+    _dataSource = [self splitArray:_filmSetsArr withSubSize:20];
+    
+
+//    NSLog(@"===========_dataSource::::%@",_dataSource);
+
+    [self setView];
+}
+
+- (NSArray *)splitArray: (NSArray *)array withSubSize : (int)subSize{
+    //  数组将被拆分成指定长度数组的个数
+    unsigned long count = array.count % subSize == 0 ? (array.count / subSize) : (array.count / subSize + 1);
+    //  用来保存指定长度数组的可变数组对象
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    
+    //利用总个数进行循环，将指定长度的元素加入数组
+    for (int i = 0; i < count; i ++) {
+        //数组下标
+        int index = i * subSize;
+        //保存拆分的固定长度的数组元素的可变数组
+        NSMutableArray *arr1 = [[NSMutableArray alloc] init];
+        //移除子数组的所有元素
+        [arr1 removeAllObjects];
         
-        
+        int j = index;
+        //将数组下标乘以1、2、3，得到拆分时数组的最大下标值，但最大不能超过数组的总大小
+        while (j < subSize*(i + 1) && j < array.count) {
+            [arr1 addObject:[array objectAtIndex:j]];
+            j += 1;
+        }
+        //将子数组添加到保存子数组的数组中
+        [arr addObject:[arr1 copy]];
     }
     
-    NSLog(@"===========filmsetsarray::::%ld",_filmSetsArr.count/20);
-    
-    NSLog(@"===========filmsetsarray::::%ld",_filmSetsArr.count%20);
-    [self setView];
+    return [arr copy];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,7 +136,14 @@ static const CGFloat LabelWidth = 60.f;
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
     
-    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, LabelWidth*_titleArr.count, TitleHeight)];//滚动窗口
+    CGFloat titleScrollWith = 0.f;
+    if (_titleArr.count*LabelWidth<kMainScreenWidth) {
+        titleScrollWith = _titleArr.count*LabelWidth;
+    }else{
+        titleScrollWith = kMainScreenWidth;
+    }
+    
+    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, titleScrollWith, TitleHeight)];//滚动窗口
     //        _titleScroll.backgroundColor = [UIColor greenColor];
     self.titleScroll.showsHorizontalScrollIndicator = NO;
     self.titleScroll.showsVerticalScrollIndicator = NO;
