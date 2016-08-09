@@ -236,7 +236,7 @@ static NSString *const footerId = @"footerId";
         
         //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
         //        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
-//                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
+                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
         
         [CommonFunc dismiss];
         [_collView.mj_header endRefreshing];

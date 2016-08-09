@@ -29,7 +29,7 @@
 @property (nonatomic,copy) NSString *_Mtype;
 
 /**  */
-@property (nonatomic,copy) NSString *_ImgUrl;
+@property (nonatomic,copy) NSString *_Mid;
 
 /**  */
 @property (nonatomic,copy) NSString *_ImgUrlB;

@@ -119,95 +119,29 @@ static const CGFloat LabelWidth = 100.f;
 
 - (void)setView{
     
-    //不同路径解析出来的sourceUrl字段名不同
-    NSString *urlStr = nil;
-    if (self.filmModel.SourceURL != nil) {
-        
-        urlStr = _filmModel.SourceURL;
-    }else{
-        //域名转换  还另需传参数   （首页直接进来时）
-        urlStr = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmModel.SourceUrl componentsSeparatedByString:@"/"].lastObject];
-    }
-    
+
     
     if ([_filmModel._Mtype isEqualToString:@"0"] || [_filmModel._Mtype isEqualToString:@"10"] || [_filmModel._Mtype isEqualToString:@"15"]) {
         
         
         self.titleArr = @[@"详情", @"精彩推荐"];
+        [self getMoveData];
         
-        //4.添加滑动headerView
-        [self constructSlideHeaderView];
-        [self constructContentView];
 
         
     }else if ([_filmModel._Mtype isEqualToString:@"7"] || [_filmModel._Mtype isEqualToString:@"9"] || [_filmModel._Mtype isEqualToString:@"30"]){
         self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
+        [self getArtsAndLifeData];
         
         //4.添加滑动headerView
         [self constructSlideHeaderView];
         [self constructContentView];
-
-    }else{
         
+    }else{
         //电视剧
         self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
-        
-        //请求播放资源
-        NSString *urlString = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [CommonFunc showLoadingWithTips:@""];
-        NSDictionary *parameters = @{@"pagesize" : @"1000"};
-        [requestDataManager requestDataWithUrl:urlString parameters:parameters success:^(id  _Nullable responseObject) {
-                    NSLog(@"====responseObject:::%@===",responseObject);
-            if (responseObject) {
-                
-                NSString *mid = responseObject[@"Film"][@"_Mid"];
-                
-                //介绍页model
-                self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
-
-                for (NSDictionary *dic in responseObject[@"ContentSet"][@"Content"]) {
-                    
-                    SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:dic];
-                    //获取fid
-                    NSString *fidString = [[[[model._DownUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
-                    //base64编码downloadUrl
-                    NSString *downloadBase64Url = [model._DownUrl stringByBase64Encoding];
-                    
-                    NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
-                    
-                    model.VODStreamingUrl = VODStreamingUrl;
-                    //                    NSLog(@">>>>>>>>>>>model._DownUrl::::%@",model.VODStreamingUrl);
-                    
-                    [_filmSetsArr addObject:model];
-                    
-                    [CommonFunc dismiss];
-                    //5.添加contentScrllowView
-                }
-                
-                //4.添加滑动headerView
-                [self constructSlideHeaderView];
-                [self constructContentView];
-
-                
-                //开始播放第一集
-                
-                
-                //            [self doPlay];
-                
-            }
-            
-        } failure:^(id  _Nullable errorObject) {
-            
-            
-        }];
-        
-        
+        [self getTeleplayData];
     }
-    
-    
-    
-    
-    
     
     
     //    [self doPlay];
@@ -446,8 +380,6 @@ static const CGFloat LabelWidth = 100.f;
     _contentScroll.delegate = self;
     //    _contentScroll.backgroundColor = [UIColor redColor];
     [self.view addSubview:_contentScroll];
-    
-    
     //添加子控制器
     if (_titleArr.count == 2) {
         for (int i=0; i<_titleArr.count ;i++){
@@ -455,6 +387,7 @@ static const CGFloat LabelWidth = 100.f;
                 case 0:{//详情
                     SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
                     introduceVC.model = _filmIntroduceModel;
+                    NSLog(@"++++++++_filmIntroduceModel:::%@",_filmIntroduceModel.Introduction);
                     [self addChildViewController:introduceVC];
                     
                     break;
@@ -484,7 +417,6 @@ static const CGFloat LabelWidth = 100.f;
                 case 1:{//详情
                     SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
                     introduceVC.model = _filmIntroduceModel;
-//                    NSLog(@"====self.filmIntroduceModel:::%@===",_filmIntroduceModel.Introduction);
                     [self addChildViewController:introduceVC];
                     
                     break;
@@ -584,4 +516,111 @@ static const CGFloat LabelWidth = 100.f;
     
 }
 
+- (void)getTeleplayData{
+    //不同路径解析出来的sourceUrl字段名不同
+    NSString *urlStr = nil;
+    if (self.filmModel.SourceURL != nil) {
+        
+        urlStr = _filmModel.SourceURL;
+    }else{
+        //域名转换  还另需传参数   （首页直接进来时）
+        urlStr = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmModel.SourceUrl componentsSeparatedByString:@"/"].lastObject];
+    }
+    NSString *urlString = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    //请求播放资源
+    [CommonFunc showLoadingWithTips:@""];
+    NSDictionary *parameters = @{@"pagesize" : @"1000"};
+    [requestDataManager requestDataWithUrl:urlString parameters:parameters success:^(id  _Nullable responseObject) {
+        //            NSLog(@"====responseObject:::%@===",responseObject);
+        if (responseObject) {
+            
+            NSString *mid = responseObject[@"Film"][@"_Mid"];
+            
+            //介绍页model
+            self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
+            
+            for (NSDictionary *dic in responseObject[@"ContentSet"][@"Content"]) {
+                
+                SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:dic];
+                //获取fid
+                NSString *fidString = [[[[model._DownUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+                //base64编码downloadUrl
+                NSString *downloadBase64Url = [model._DownUrl stringByBase64Encoding];
+                
+                NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                
+                model.VODStreamingUrl = VODStreamingUrl;
+                //                    NSLog(@">>>>>>>>>>>model._DownUrl::::%@",model.VODStreamingUrl);
+                
+                [_filmSetsArr addObject:model];
+                
+                [CommonFunc dismiss];
+                //5.添加contentScrllowView
+            }
+            
+            //4.添加滑动headerView
+            [self constructSlideHeaderView];
+            [self constructContentView];
+            
+        }
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+}
+
+- (void)getArtsAndLifeData{
+    
+    //不同路径解析出来的sourceUrl字段名不同
+    NSString *urlStr = nil;
+    if (self.filmModel.SourceURL != nil) {
+        
+        urlStr = _filmModel.SourceURL;
+    }else{
+        //域名转换  还另需传参数   （首页直接进来时）
+        urlStr = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmModel.SourceUrl componentsSeparatedByString:@"/"].lastObject];
+    }
+    NSString *urlString = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [requestDataManager requestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
+        NSLog(@"====responseObject:::%@===",responseObject);
+        
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+
+    
+}
+
+- (void)getMoveData{
+    //不同路径解析出来的sourceUrl字段名不同
+    NSString *urlStr = nil;
+    if (self.filmModel.SourceURL != nil) {
+        
+        urlStr = _filmModel.SourceURL;
+    }else{
+        //域名转换  还另需传参数   （首页直接进来时）
+        urlStr = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmModel.SourceUrl componentsSeparatedByString:@"/"].lastObject];
+    }
+    NSString *urlString = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [requestDataManager requestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
+        NSLog(@"====responseObject:::%@===",responseObject);
+        if (responseObject) {
+            //介绍页model
+            self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
+        }
+        //4.添加滑动headerView
+        [self constructSlideHeaderView];
+        [self constructContentView];
+
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+    
+}
 @end
