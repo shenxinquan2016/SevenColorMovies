@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCFilmSetModel.h"
 
 @interface SCMovieEpisodeCell : UICollectionViewCell
+
+@property (nonatomic, strong) SCFilmSetModel *model;
 
 @end

@@ -31,6 +31,9 @@
                 <constraint firstItem="Ka2-ZD-tuL" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="mca-Ze-Vsb"/>
             </constraints>
             <size key="customSize" width="43.5" height="37"/>
+            <connections>
+                <outlet property="contentIndexLabel" destination="Ka2-ZD-tuL" id="udd-fa-EPC"/>
+            </connections>
             <point key="canvasLocation" x="220.25" y="259.5"/>
         </collectionViewCell>
     </objects>

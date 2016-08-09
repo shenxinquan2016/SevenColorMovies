@@ -8,11 +8,23 @@
 
 #import "SCMovieEpisodeCell.h"
 
+@interface SCMovieEpisodeCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *contentIndexLabel;
+@end
+
 @implementation SCMovieEpisodeCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+- (void)setModel:(SCFilmSetModel *)model {
+
+    _contentIndexLabel.text = model._ContentIndex;
+    
+    
 }
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "SCMoiveAllEpisodesCollectionVC.h"
+#import "SCMovieEpisodeCell.h"
+
 
 @implementation SCMoiveAllEpisodesCollectionVC
 
@@ -42,15 +44,15 @@ static NSString *const cellId = @"cellId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 20;
+    return _dataSource.count;
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    SCMovieEpisodeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    cell.model = _dataSource[indexPath.row];
     cell.backgroundColor = [UIColor whiteColor];
     
     return cell;

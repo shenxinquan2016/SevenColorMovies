@@ -24,7 +24,7 @@ static const CGFloat LabelWidth = 70.f;
 @property (nonatomic, strong) UIScrollView *contentScroll;
 
 /** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *titleArr;
+@property (nonatomic, strong) NSArray *titleArr;
 
 /** sets数据 */
 @property (nonatomic, strong) NSArray *dataSource;
@@ -41,47 +41,72 @@ static const CGFloat LabelWidth = 70.f;
     //    [self loadCollectionView];
     
     //3.初始化数组
-    self.titleArr = [NSMutableArray arrayWithCapacity:0];
+    self.titleArr = [NSArray array];
     self.dataSource = [NSArray array];
     
     
-    if (_filmSetsArr.count/20 == 0) {
+    _titleArr = [self getSlideHeaderArrayFromArray:_filmSetsArr];
+    _dataSource = [self splitArray:_filmSetsArr withSubSize:20];
+    
+
+    [self setView];
+}
+
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark- private methods
+
+- (void)setView{
+    
+    
+    //4.添加滑动headerView
+    [self constructSlideHeaderView];
+    //5.添加contentScrllowView
+    [self constructContentView];
+}
+
+- (NSArray *)getSlideHeaderArrayFromArray:(NSArray *)arr{
+    
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+    [array removeAllObjects];
+    
+    if (arr.count/20 == 0) {
         
-        NSString *str = [NSString stringWithFormat:@"0-%ld",_filmSetsArr.count%20];
-        [_titleArr addObject:str];
+        NSString *str = [NSString stringWithFormat:@"0-%ld",arr.count%20];
+        [array addObject:str];
         
     }else{
         
-        if (_filmSetsArr.count%20 == 0) {
+        if (arr.count%20 == 0) {
             
-            for (int i = 0; i < _filmSetsArr.count/20; i++) {
+            for (int i = 0; i < arr.count/20; i++) {
                 
                 NSString *str = [NSString stringWithFormat:@"%d-%d",20*i+1,20+20*i];
-                [_titleArr addObject:str];
+                [array addObject:str];
             }
             
         }else{
             
-            for (int i = 0; i < _filmSetsArr.count/20; i++) {
+            for (int i = 0; i < arr.count/20; i++) {
                 
                 NSString *str = [NSString stringWithFormat:@"%d-%d",20*i+1,20+20*i];
-                [_titleArr addObject:str];
+                [array addObject:str];
             }
             
-            NSString *str = [NSString stringWithFormat:@"%ld-%lu",20+20*(_filmSetsArr.count/20-1)+1,20+20*(_filmSetsArr.count/20-1)+_filmSetsArr.count%20];
-            [_titleArr addObject:str];
-
+            NSString *str = [NSString stringWithFormat:@"%ld-%lu",20+20*(arr.count/20-1)+1,20+20*(arr.count/20-1)+_filmSetsArr.count%20];
+            [array addObject:str];
+            
             
         }
         
     }
- 
-    _dataSource = [self splitArray:_filmSetsArr withSubSize:20];
-    
 
-//    NSLog(@"===========_dataSource::::%@",_dataSource);
-
-    [self setView];
+    return [array copy];
 }
 
 - (NSArray *)splitArray: (NSArray *)array withSubSize : (int)subSize{
@@ -110,22 +135,6 @@ static const CGFloat LabelWidth = 70.f;
     }
     
     return [arr copy];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark- private methods
-
-- (void)setView{
-    
-    
-    //4.添加滑动headerView
-    [self constructSlideHeaderView];
-    //5.添加contentScrllowView
-    [self constructContentView];
 }
 
 
@@ -209,7 +218,7 @@ static const CGFloat LabelWidth = 70.f;
         
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
         SCMoiveAllEpisodesCollectionVC *vc = [[SCMoiveAllEpisodesCollectionVC alloc] initWithCollectionViewLayout:layout];
-        
+        vc.dataSource = _dataSource[i];
         [self addChildViewController:vc];
         
     }
