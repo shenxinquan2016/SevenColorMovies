@@ -10,7 +10,7 @@
 #import "SCCollectionViewPageCell.h"
 #import "SCNetRequsetManger.h"
 #import "SCFilmModel.h"
-#import "SCTeleplayPlayerVC.h"
+#import "SCPlayerViewController.h"
 
 
 @interface SCCollectionViewPageVC ()
@@ -75,7 +75,7 @@ static NSString *const cellId = @"cellId";
             [_filmModelArr addObject:filmModel];
         }
 //        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
-        NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
+//        NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
         
         [self.collectionView reloadData];
         [self.collectionView.mj_header endRefreshing];
@@ -164,7 +164,7 @@ static NSString *const cellId = @"cellId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
         NSLog(@"======点击=====");
-    SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+    SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
     SCFilmModel *model = _filmModelArr[indexPath.row];
     teleplayPlayer.filmModel = model;
     teleplayPlayer.filmType = @"1";

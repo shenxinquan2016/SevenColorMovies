@@ -7,7 +7,7 @@
 //
 
 #import "SCSiftViewController.h"
-#import "SCTeleplayPlayerVC.h"
+#import "SCPlayerViewController.h"
 
 @interface SCSiftViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 
@@ -127,7 +127,7 @@ static NSString *const cellId = @"cellId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     //    NSLog(@"======点击=====");
-    SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+    SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
     teleplayPlayer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:teleplayPlayer animated:YES];
     

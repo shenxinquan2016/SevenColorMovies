@@ -46,7 +46,7 @@
 		114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */; };
 		115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */; };
 		115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */; };
-		115A21131D41F5BF0097DE57 /* SCTeleplayPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21121D41F5BF0097DE57 /* SCTeleplayPlayerVC.m */; };
+		115A21131D41F5BF0097DE57 /* SCPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21121D41F5BF0097DE57 /* SCPlayerViewController.m */; };
 		115A21161D41F5E30097DE57 /* SCMoivePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21151D41F5E30097DE57 /* SCMoivePlayerVC.m */; };
 		115A21191D41F5FD0097DE57 /* SCArtsPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21181D41F5FD0097DE57 /* SCArtsPlayerVC.m */; };
 		115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */; };
@@ -222,8 +222,8 @@
 		115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCategoryVC.m; sourceTree = "<group>"; };
 		115A21051D41B9750097DE57 /* SCOtherBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOtherBaseViewController.h; sourceTree = "<group>"; };
 		115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOtherBaseViewController.m; sourceTree = "<group>"; };
-		115A21111D41F5BF0097DE57 /* SCTeleplayPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeleplayPlayerVC.h; sourceTree = "<group>"; };
-		115A21121D41F5BF0097DE57 /* SCTeleplayPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeleplayPlayerVC.m; sourceTree = "<group>"; };
+		115A21111D41F5BF0097DE57 /* SCPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPlayerViewController.h; sourceTree = "<group>"; };
+		115A21121D41F5BF0097DE57 /* SCPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPlayerViewController.m; sourceTree = "<group>"; };
 		115A21141D41F5E30097DE57 /* SCMoivePlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoivePlayerVC.h; sourceTree = "<group>"; };
 		115A21151D41F5E30097DE57 /* SCMoivePlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoivePlayerVC.m; sourceTree = "<group>"; };
 		115A21171D41F5FD0097DE57 /* SCArtsPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCArtsPlayerVC.h; sourceTree = "<group>"; };
@@ -592,13 +592,6 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
-		114BC80A1D51EF940091ECE0 /* Player */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Player;
-			sourceTree = "<group>";
-		};
 		115A21001D41B4E20097DE57 /* 点播栏 */ = {
 			isa = PBXGroup;
 			children = (
@@ -635,13 +628,13 @@
 			name = "Moive电影";
 			sourceTree = "<group>";
 		};
-		115A21101D41F02F0097DE57 /* TeleplayPlayer电视剧 */ = {
+		115A21101D41F02F0097DE57 /* Player播放器 */ = {
 			isa = PBXGroup;
 			children = (
 				115A211B1D4218510097DE57 /* MainBody */,
 				115A211A1D4218440097DE57 /* ViewController */,
 			);
-			name = "TeleplayPlayer电视剧";
+			name = "Player播放器";
 			sourceTree = "<group>";
 		};
 		115A211A1D4218440097DE57 /* ViewController */ = {
@@ -657,8 +650,8 @@
 		115A211B1D4218510097DE57 /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
-				115A21111D41F5BF0097DE57 /* SCTeleplayPlayerVC.h */,
-				115A21121D41F5BF0097DE57 /* SCTeleplayPlayerVC.m */,
+				115A21111D41F5BF0097DE57 /* SCPlayerViewController.h */,
+				115A21121D41F5BF0097DE57 /* SCPlayerViewController.m */,
 			);
 			name = MainBody;
 			sourceTree = "<group>";
@@ -705,7 +698,7 @@
 		116475FF1D40B98600A3BC1C /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				114BC80A1D51EF940091ECE0 /* Player */,
+				115A21101D41F02F0097DE57 /* Player播放器 */,
 				11928FD01D506D2700926011 /* CollectionPage */,
 				116476011D40B9D100A3BC1C /* register */,
 				116476001D40B9C400A3BC1C /* Login */,
@@ -858,7 +851,7 @@
 			isa = PBXGroup;
 			children = (
 				11DDB87A1D5B14340074DFAB /* AllEpisodes电视剧剧集 */,
-				11DDB87B1D5B147C0074DFAB /* 综艺剧集 */,
+				11DDB87B1D5B147C0074DFAB /* ArtsFilms综艺剧集 */,
 			);
 			name = CollectionView;
 			sourceTree = "<group>";
@@ -956,7 +949,6 @@
 				115A21001D41B4E20097DE57 /* 点播栏 */,
 				113F8D901D3C702000B12D39 /* Rank */,
 				116E1D5B1D4B4D4600B488EC /* Sift筛选 */,
-				115A21101D41F02F0097DE57 /* TeleplayPlayer电视剧 */,
 				115A210F1D41F02B0097DE57 /* Moive电影 */,
 				115A210E1D41F0260097DE57 /* Arts综艺 */,
 				113E62E51D49F5FE00FB8F3A /* FilmModel */,
@@ -1239,14 +1231,14 @@
 			name = "AllEpisodes电视剧剧集";
 			sourceTree = "<group>";
 		};
-		11DDB87B1D5B147C0074DFAB /* 综艺剧集 */ = {
+		11DDB87B1D5B147C0074DFAB /* ArtsFilms综艺剧集 */ = {
 			isa = PBXGroup;
 			children = (
 				11DDB87C1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.h */,
 				11DDB87D1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m */,
 				11DDB87F1D5B14F00074DFAB /* Cell */,
 			);
-			name = "综艺剧集";
+			name = "ArtsFilms综艺剧集";
 			sourceTree = "<group>";
 		};
 		11DDB87F1D5B14F00074DFAB /* Cell */ = {
@@ -1559,7 +1551,7 @@
 				115A21191D41F5FD0097DE57 /* SCArtsPlayerVC.m in Sources */,
 				113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */,
 				115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */,
-				115A21131D41F5BF0097DE57 /* SCTeleplayPlayerVC.m in Sources */,
+				115A21131D41F5BF0097DE57 /* SCPlayerViewController.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
 				116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */,
 				1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */,

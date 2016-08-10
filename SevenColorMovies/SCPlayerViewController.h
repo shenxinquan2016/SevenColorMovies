@@ -1,5 +1,5 @@
 //
-//  SCTeleplayPlayerVC.h
+//  SCPlayerViewController.h
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/7/22.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SCFilmModel.h"
-@interface SCTeleplayPlayerVC : UIViewController
+@interface SCPlayerViewController : UIViewController
 
 @property (nonatomic, strong) SCFilmModel *filmModel;
 

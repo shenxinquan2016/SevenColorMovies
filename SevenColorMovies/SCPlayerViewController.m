@@ -1,12 +1,12 @@
 //
-//  SCTeleplayPlayerVC.m
+//  SCPlayerViewController.m
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/7/22.
 //  Copyright © 2016年 yesdgq. All rights reserved.
 //
 
-#import "SCTeleplayPlayerVC.h"
+#import "SCPlayerViewController.h"
 #import "SCSlideHeaderLabel.h"
 #import "SCMoiveAllEpisodesVC.h"
 #import "SCMoiveIntroduceVC.h"
@@ -23,7 +23,7 @@ static const CGFloat TitleHeight = 50.0f;
 static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat LabelWidth = 100.f;
 
-@interface SCTeleplayPlayerVC ()<UIScrollViewDelegate>
+@interface SCPlayerViewController ()<UIScrollViewDelegate>
 
 /** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *titleScroll;
@@ -48,13 +48,16 @@ static const CGFloat LabelWidth = 100.f;
 
 @property (nonatomic, strong) SCFilmIntroduceModel *filmIntroduceModel;
 
+/** 电影播放地址url*/
+@property (nonatomic, strong) NSString *VODStreamingUrl;
+
 /////测试播放器
 @property (atomic, strong) NSURL *url;
 @property (atomic, retain) id <IJKMediaPlayback> player;
 @property (weak, nonatomic) UIView *PlayerView;
 @end
 
-@implementation SCTeleplayPlayerVC
+@implementation SCPlayerViewController
 
 
 #pragma mark- Initialize
@@ -595,7 +598,7 @@ static const CGFloat LabelWidth = 100.f;
                                  @"filmmid" : filmmidStr};
     
     [requestDataManager requestDataWithUrl:FilmSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
-                    NSLog(@"====responseObject:::%@===",responseObject);
+//                    NSLog(@"====responseObject:::%@===",responseObject);
         if (responseObject) {
             
             NSString *mid = responseObject[@"Film"][@"_Mid"];
@@ -614,7 +617,7 @@ static const CGFloat LabelWidth = 100.f;
                 NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 
                 model.VODStreamingUrl = VODStreamingUrl;
-                //                    NSLog(@">>>>>>>>>>>model._DownUrl::::%@",model.VODStreamingUrl);
+                                    NSLog(@">>>>>>>>>>>model._DownUrl::::%@",model.VODStreamingUrl);
                 
                 [_filmSetsArr addObject:model];
                 
@@ -696,10 +699,24 @@ static const CGFloat LabelWidth = 100.f;
     
     NSLog(@"====filmmidStr:::%@===",filmmidStr);
     [requestDataManager requestDataWithUrl:FilmSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        NSLog(@"====responseObject:::%@===",responseObject);
+//        NSLog(@"====responseObject:::%@===",responseObject);
         if (responseObject) {
             //介绍页model
             self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
+            
+            
+            //base64编码downloadUrl
+            NSString *downloadBase64Url = [responseObject[@"ContentSet"][@"Content"][@"_DownUrl"] stringByBase64Encoding];
+            
+            //获取fid
+            NSString *fidString = [[[[responseObject[@"ContentSet"][@"Content"][@"_DownUrl"] componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+            
+            
+            NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+            
+            _VODStreamingUrl = VODStreamingUrl;
+            
+            NSLog(@">>>>>>>>>>>>VODStreamingUrl:%@",_VODStreamingUrl);
         }
         //4.添加滑动headerView
         [self constructSlideHeaderView];

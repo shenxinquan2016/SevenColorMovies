@@ -17,7 +17,7 @@
 #import "SCChannelCatalogueVC.h"//点播栏目更多
 #import "SCChannelCategoryVC.h"//节目频道分类
 
-#import "SCTeleplayPlayerVC.h"
+#import "SCPlayerViewController.h"
 
 #import "SCBannerModel.h"
 #import "SCFilmListModel.h"
@@ -236,7 +236,7 @@ static NSString *const footerId = @"footerId";
         
         //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
         //        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
-                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
+//                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
         
         [CommonFunc dismiss];
         [_collView.mj_header endRefreshing];
@@ -483,7 +483,7 @@ static NSString *const footerId = @"footerId";
         
     }else{
         
-        SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+        SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
         teleplayPlayer.filmModel = filmModel;

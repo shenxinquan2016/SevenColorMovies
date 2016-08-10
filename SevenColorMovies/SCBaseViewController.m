@@ -9,7 +9,7 @@
 #import "SCBaseViewController.h"
 #import "SCSearchBarView.h"
 #import "SCSearchViewController.h"
-#import "SCTeleplayPlayerVC.h"
+#import "SCPlayerViewController.h"
 
 @interface SCBaseViewController ()
 

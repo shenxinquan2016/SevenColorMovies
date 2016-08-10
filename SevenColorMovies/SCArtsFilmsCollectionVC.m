@@ -8,7 +8,7 @@
 
 #import "SCArtsFilmsCollectionVC.h"
 #import "SCArtsFilmCell.h"
-
+#import "SCFilmModel.h"
 
 @implementation SCArtsFilmsCollectionVC
 
@@ -103,7 +103,24 @@ static NSString *const cellId = @"cellId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"======点击=====");
+    SCFilmModel *model = _dataSource[indexPath.row];
+    NSString *urlStr = [model.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
+        
+        if (responseObject) {
+            
+           NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+           NSLog(@"======点击downLoadUrl::::%@=====",downLoadUrl);
+            
+        }
+  
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+    
+    
 }
 
 @end

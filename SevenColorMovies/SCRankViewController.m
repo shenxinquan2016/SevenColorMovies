@@ -8,7 +8,7 @@
 
 #import "SCRankViewController.h"
 #import "SCRankOtherCell.h"
-#import "SCTeleplayPlayerVC.h"
+#import "SCPlayerViewController.h"
 #import "SCRankTopRowTableViewCell.h"
 #import "SCCollectionViewPageCell.h"
 
@@ -82,7 +82,7 @@ static  CGFloat const kRankOtherCellHeight = 50.f;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"======indexPath.section:%ld",indexPath.section);
-    SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+    SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
     teleplayPlayer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:teleplayPlayer animated:YES];
 

@@ -8,7 +8,7 @@
 
 #import "SCChannelCategoryVC.h"
 #import "SCSlideHeaderLabel.h"
-#import "SCTeleplayPlayerVC.h"
+#import "SCPlayerViewController.h"
 #import "SCSiftViewController.h"
 #import "SCFilmClassModel.h"
 #import "SCFilmModel.h"
