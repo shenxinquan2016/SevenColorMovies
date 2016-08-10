@@ -67,14 +67,11 @@ static NSString *const cellId = @"cellId";
     [requestDataManager requestFilmClassDataWithUrl:_urlString parameters:nil success:^(id  _Nullable responseObject) {
         [CommonFunc dismiss];
         NSArray *filmsArr = responseObject[@"Film"];
-        //                    NSLog(@">>>>>>>>>>>>%ld",filmsArr.count);
-        //                    NSLog(@">>>>>>>>>>>>%@",filmsArr);
-        
         [_filmModelArr removeAllObjects];
-        //NSLog(@">>>>>>>>>>>>1111:::::%ld",_filmModelArr.count);
+        
         for (NSDictionary *dic in filmsArr) {
             SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-//        NSLog(@">>>>>>>>>>>>SourceURL::::%@",filmModel.SourceURL);
+
             [_filmModelArr addObject:filmModel];
         }
 //        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);

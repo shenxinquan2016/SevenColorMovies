@@ -119,17 +119,21 @@ static const CGFloat LabelWidth = 100.f;
 
 - (void)setView{
     
+    NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",_filmModel._Mtype);
 
     
-    if ([_filmModel._Mtype isEqualToString:@"0"] || [_filmModel._Mtype isEqualToString:@"10"] || [_filmModel._Mtype isEqualToString:@"15"]) {
+    if ([_filmModel._Mtype isEqualToString:@"0"] ||
+        [_filmModel._Mtype isEqualToString:@"10"] ||
+        [_filmModel._Mtype isEqualToString:@"15"]) {
         
         
         self.titleArr = @[@"详情", @"精彩推荐"];
         [self getMoveData];
         
-
         
-    }else if ([_filmModel._Mtype isEqualToString:@"7"] || [_filmModel._Mtype isEqualToString:@"9"] || [_filmModel._Mtype isEqualToString:@"30"]){
+    }else if ([_filmModel._Mtype isEqualToString:@"7"] ||
+              [_filmModel._Mtype isEqualToString:@"9"] ||
+              [_filmModel._Mtype isEqualToString:@"30"]){
         self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
         [self getArtsAndLifeData];
         
@@ -395,6 +399,7 @@ static const CGFloat LabelWidth = 100.f;
                 case 1:{//精彩推荐
                     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
                     SCMoiveRecommendationCollectionVC *vc = [[SCMoiveRecommendationCollectionVC alloc] initWithCollectionViewLayout:layout];
+                    vc.filmModel = self.filmModel;
                     [self addChildViewController:vc];
                     break;
                 }
@@ -424,6 +429,7 @@ static const CGFloat LabelWidth = 100.f;
                 case 2:{//精彩推荐
                     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
                     SCMoiveRecommendationCollectionVC *vc = [[SCMoiveRecommendationCollectionVC alloc] initWithCollectionViewLayout:layout];
+                     vc.filmModel = self.filmModel;
                     [self addChildViewController:vc];
                     break;
                 }
@@ -517,21 +523,14 @@ static const CGFloat LabelWidth = 100.f;
 }
 
 - (void)getTeleplayData{
-    //不同路径解析出来的sourceUrl字段名不同
-    NSString *urlStr = nil;
-    if (self.filmModel.SourceURL != nil) {
-        
-        urlStr = _filmModel.SourceURL;
-    }else{
-        //域名转换  还另需传参数   （首页直接进来时）
-        urlStr = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmModel.SourceUrl componentsSeparatedByString:@"/"].lastObject];
-    }
-    NSString *urlString = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    //请求播放资源
+
+    NSString *filmmidStr = _filmModel._Mid ? _filmModel._Mid : @"";
+        //请求播放资源
     [CommonFunc showLoadingWithTips:@""];
-    NSDictionary *parameters = @{@"pagesize" : @"1000"};
-    [requestDataManager requestDataWithUrl:urlString parameters:parameters success:^(id  _Nullable responseObject) {
+    NSDictionary *parameters = @{@"pagesize" : @"1000",
+                                 @"filmmid" : filmmidStr};
+    
+    [requestDataManager requestDataWithUrl:FilmSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
         //            NSLog(@"====responseObject:::%@===",responseObject);
         if (responseObject) {
             
@@ -596,17 +595,14 @@ static const CGFloat LabelWidth = 100.f;
 }
 
 - (void)getMoveData{
-    //不同路径解析出来的sourceUrl字段名不同
-    NSString *urlStr = nil;
-    if (self.filmModel.SourceURL != nil) {
-        
-        urlStr = _filmModel.SourceURL;
-    }else{
-        //域名转换  还另需传参数   （首页直接进来时）
-        urlStr = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmModel.SourceUrl componentsSeparatedByString:@"/"].lastObject];
-    }
-    NSString *urlString = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [requestDataManager requestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
+    
+    //请求播放资源
+    [CommonFunc showLoadingWithTips:@""];
+    NSString *filmmidStr = _filmModel._Mid ? _filmModel._Mid : @"";
+    NSDictionary *parameters = @{@"pagesize" : @"1000",
+                                 @"filmmid" : filmmidStr};
+    
+    [requestDataManager requestDataWithUrl:FilmSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
         NSLog(@"====responseObject:::%@===",responseObject);
         if (responseObject) {
             //介绍页model
@@ -615,7 +611,8 @@ static const CGFloat LabelWidth = 100.f;
         //4.添加滑动headerView
         [self constructSlideHeaderView];
         [self constructContentView];
-
+        
+        [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
         

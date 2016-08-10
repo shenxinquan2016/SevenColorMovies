@@ -7,6 +7,15 @@
 //
 
 #import "SCMoiveRecommendationCollectionVC.h"
+#import "SCCollectionViewPageCell.h"
+
+@interface SCMoiveRecommendationCollectionVC ()
+
+/** 电影模型数组 */
+@property (nonatomic, strong) NSMutableArray *filmModelArr;
+
+@end
+
 
 @implementation SCMoiveRecommendationCollectionVC
 
@@ -24,11 +33,47 @@ static NSString *const cellId = @"cellId";
     //1.初始化数组
     
     
-    
+    [self requestData];
     
 }
 
+- (void)requestData{
+    
+    [CommonFunc showLoadingWithTips:@""];
+    
+    if (_filmModelArr) {
+        [_filmModelArr removeAllObjects];
+    }else if (!_filmModelArr){
+        _filmModelArr = [NSMutableArray arrayWithCapacity:0];
+    }
+    
+    
+    NSString *mid = _filmModel._Mid ? _filmModel._Mid : @"";
+    NSDictionary *parameters = @{@"mid" : mid};
 
+    [requestDataManager requestDataWithUrl:RecommendUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        NSLog(@"<<<<<<<<<<<<<responseObject:::%@",responseObject);
+        if (responseObject) {
+            
+            NSArray *filmsArr = responseObject[@"movieinfo"];
+            for (NSDictionary *dic in filmsArr) {
+
+                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+    
+                [_filmModelArr addObject:filmModel];
+                
+            }
+        }
+        
+        [self.collectionView reloadData];
+        [CommonFunc dismiss];
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+    
+    
+}
 
 
 #pragma mark ---- UICollectionViewDataSource
@@ -42,7 +87,7 @@ static NSString *const cellId = @"cellId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 16;
+    return _filmModelArr.count;
 }
 
 
@@ -50,9 +95,10 @@ static NSString *const cellId = @"cellId";
 {
     
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    SCCollectionViewPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
-    
+    SCFilmModel *model = _filmModelArr[indexPath.row];
+    cell.model = model;
     return cell;
 }
 

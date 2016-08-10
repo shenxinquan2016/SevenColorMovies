@@ -37,8 +37,16 @@
 
 - (void)setModel:(SCFilmModel *)model {
     
+    NSString *imageUrl;
+    if (model._ImgUrl) {
+        imageUrl = model._ImgUrl;
+    }else if (model.smallposterurl){
+        imageUrl = model.smallposterurl;
+    }
+    
+    
     _filmName.text = model.FilmName;
-    NSURL *imgUrl = [NSURL URLWithString:model._ImgUrl];
+    NSURL *imgUrl = [NSURL URLWithString:imageUrl];
     [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"假数据"]];
     
 }

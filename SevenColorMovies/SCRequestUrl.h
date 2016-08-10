@@ -32,11 +32,11 @@
 #define VODUrl  @"http://10.177.1.245/Service.do?action=b2bplayauth&pid=101001&playtype=0&checkproduct=0&checkuser=0&adversion=1.3.7&area=1208&hid=00301bba02db&oemid=781&epgid=600111&spid=20120528&uid=0"
 
 // 电影 电视剧等 sourceUrl
-#define FilmSourceUrl @"http://hljgdinterface5.voole.com/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=4"
+#define FilmSourceUrl @"http://10.177.1.236/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=4"
 // 综艺 生活栏目  sourceUrl
-#define ArtsAndLifeSourceUrl @"http://hljgdinterface5.voole.com/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=102"
+#define ArtsAndLifeSourceUrl @"http://10.177.1.236/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=102"
 // 推荐影片接口
-#define RecommendUrl @"http://recommend.voole.com/?epgid=600111&format=1&type=1&mid=&limit="
+#define RecommendUrl @"http://10.177.1.236:9040?epgid=909191&format=1&type=1&limit=6"
 
 
 

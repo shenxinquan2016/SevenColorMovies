@@ -40,8 +40,11 @@
 /**  */
 @property (nonatomic,copy) NSString *Introduction;
 
-/**  */
-@property (nonatomic,copy) NSString *_LongTime;
+/** 图片url 两个都用 */
+@property (nonatomic,copy) NSString *_ImgUrl;
+
+/** 图片url 两个都用 */
+@property (nonatomic,copy) NSString *smallposterurl;
 
 /**  */
 @property (nonatomic,copy) NSString *_Stype;

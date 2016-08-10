@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCFilmModel.h"
+
 
 @interface SCMoiveRecommendationCollectionVC : UICollectionViewController
 
-/** url端口 */
-@property(nonatomic,copy) NSString *urlString;
-
-@property (nonatomic,assign) NSInteger index;
+@property (nonatomic, strong) SCFilmModel *filmModel;
 
 @end
