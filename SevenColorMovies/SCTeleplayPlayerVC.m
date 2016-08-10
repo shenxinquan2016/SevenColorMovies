@@ -12,9 +12,11 @@
 #import "SCMoiveIntroduceVC.h"
 
 #import <IJKMediaFramework/IJKMediaFramework.h>
+#import "SCFilmModel.h"
 #import "SCFilmSetModel.h"
 #import "SCMoiveRecommendationCollectionVC.h"
 #import "SCFilmIntroduceModel.h"
+#import "SCArtsFilmsCollectionVC.h"
 
 
 static const CGFloat TitleHeight = 50.0f;
@@ -32,7 +34,7 @@ static const CGFloat LabelWidth = 100.f;
 /** 滑动短线 */
 @property (nonatomic, strong) CALayer *bottomLine;
 
-/** 滑动短线 */
+/** 滑动标题标识 */
 @property (nonatomic, copy) NSString *identifier;
 
 /** 标题数组 */
@@ -40,6 +42,9 @@ static const CGFloat LabelWidth = 100.f;
 
 /** 存放所有集 */
 @property (nonatomic, strong) NSMutableArray *filmSetsArr;
+
+/** 综艺生活存放film */
+@property (nonatomic, strong) NSMutableArray *filmsArr;
 
 @property (nonatomic, strong) SCFilmIntroduceModel *filmIntroduceModel;
 
@@ -78,7 +83,7 @@ static const CGFloat LabelWidth = 100.f;
     //3.初始化数组
     
     self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];
-    
+    self.filmsArr = [NSMutableArray arrayWithCapacity:0];
     
     [self setView];
     
@@ -119,31 +124,46 @@ static const CGFloat LabelWidth = 100.f;
 
 - (void)setView{
     
-    NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",_filmModel._Mtype);
-
+    NSString *mtype;
+    if (_filmModel._Mtype) {
+        
+        mtype = _filmModel._Mtype;
+        
+    }else if (_filmModel.mtype){
+        
+        mtype = _filmModel.mtype;
+    }
     
-    if ([_filmModel._Mtype isEqualToString:@"0"] ||
-        [_filmModel._Mtype isEqualToString:@"10"] ||
-        [_filmModel._Mtype isEqualToString:@"15"]) {
-        
-        
+    NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
+
+    // 电影
+    if ([mtype isEqualToString:@"0"] ||
+        [mtype isEqualToString:@"2"] ||
+        [mtype isEqualToString:@"10"] ||
+        [mtype isEqualToString:@"13"] ||
+        [mtype isEqualToString:@"15"])
+    {
         self.titleArr = @[@"详情", @"精彩推荐"];
+        self.identifier = @"电影";
         [self getMoveData];
         
-        
-    }else if ([_filmModel._Mtype isEqualToString:@"7"] ||
-              [_filmModel._Mtype isEqualToString:@"9"] ||
-              [_filmModel._Mtype isEqualToString:@"30"]){
-        self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
+    }else if // 综艺 生活
+             ([mtype isEqualToString:@"7"] ||
+              [mtype isEqualToString:@"9"] ||
+              [mtype isEqualToString:@"30"])
+    {
+        self.titleArr = @[@"剧情", @"详情"];
+        self.identifier = @"综艺";
+
         [self getArtsAndLifeData];
         
-        //4.添加滑动headerView
-        [self constructSlideHeaderView];
-        [self constructContentView];
+    
         
     }else{
-        //电视剧
+        //电视剧 少儿
         self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
+        self.identifier = @"电视剧";
+
         [self getTeleplayData];
     }
     
@@ -377,7 +397,7 @@ static const CGFloat LabelWidth = 100.f;
 
 /** 添加正文内容页 */
 - (void)constructContentView{
-    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 340, kMainScreenWidth, kMainScreenHeight-340)];//滚动窗口
+    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 338, kMainScreenWidth, kMainScreenHeight-338)];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
     _contentScroll.pagingEnabled = YES;
@@ -385,7 +405,7 @@ static const CGFloat LabelWidth = 100.f;
     //    _contentScroll.backgroundColor = [UIColor redColor];
     [self.view addSubview:_contentScroll];
     //添加子控制器
-    if (_titleArr.count == 2) {
+    if ([_identifier isEqualToString:@"电影"]) {
         for (int i=0; i<_titleArr.count ;i++){
             switch (i) {
                 case 0:{//详情
@@ -409,7 +429,14 @@ static const CGFloat LabelWidth = 100.f;
             
         }
         
-    }else if (_titleArr.count == 3){
+        // 添加默认控制器
+        SCMoiveIntroduceVC *vc = [self.childViewControllers firstObject];
+        vc.view.frame = self.contentScroll.bounds;
+        [self.contentScroll addSubview:vc.view];
+        //    self.needScrollToTopPage = self.childViewControllers[0];
+        
+        [self.contentScroll addSubview:vc.view];
+    }else if ([_identifier isEqualToString:@"电视剧"]){
         
         for (int i=0; i<_titleArr.count ;i++){
             switch (i) {
@@ -438,13 +465,43 @@ static const CGFloat LabelWidth = 100.f;
             }
             
         }
+        
+        // 添加默认控制器
+        SCMoiveIntroduceVC *vc = [self.childViewControllers firstObject];
+        vc.view.frame = self.contentScroll.bounds;
+        [self.contentScroll addSubview:vc.view];
+        //    self.needScrollToTopPage = self.childViewControllers[0];
+        
+    }else if ([_identifier isEqualToString:@"综艺"]){
+        
+        for (int i=0; i<_titleArr.count ;i++){
+            switch (i) {
+                case 0:{// 剧集
+                    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+                    SCArtsFilmsCollectionVC *filmsColleView = [[SCArtsFilmsCollectionVC alloc] initWithCollectionViewLayout:layout];
+                    filmsColleView.dataSource = _filmsArr;
+                    
+                    [self addChildViewController:filmsColleView];
+                    break;
+                }
+                case 1:{// 介绍
+                    SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
+                    introduceVC.model = _filmIntroduceModel;
+                    [self addChildViewController:introduceVC];
+                    break;
+                }
+                default:
+                    break;
+            }
+            
+        }
+        // 添加默认控制器
+        SCArtsFilmsCollectionVC *vc = [self.childViewControllers firstObject];
+        vc.view.frame = self.contentScroll.bounds;
+        [self.contentScroll addSubview:vc.view];
+        //    self.needScrollToTopPage = self.childViewControllers[0];
+        
     }
-    // 添加默认控制器
-    SCMoiveAllEpisodesVC *vc = [self.childViewControllers firstObject];
-    vc.view.frame = self.contentScroll.bounds;
-//    self.needScrollToTopPage = self.childViewControllers[0];
-    
-    [self.contentScroll addSubview:vc.view];
     
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
@@ -524,14 +581,21 @@ static const CGFloat LabelWidth = 100.f;
 
 - (void)getTeleplayData{
 
-    NSString *filmmidStr = _filmModel._Mid ? _filmModel._Mid : @"";
+    NSString *mid;
+    if (_filmModel._Mid) {
+        mid = _filmModel._Mid;
+    }else if (_filmModel.mid){
+        mid = _filmModel.mid;
+    }
+    
+    NSString *filmmidStr = mid ? mid : @"";
         //请求播放资源
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"filmmid" : filmmidStr};
     
     [requestDataManager requestDataWithUrl:FilmSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        //            NSLog(@"====responseObject:::%@===",responseObject);
+                    NSLog(@"====responseObject:::%@===",responseObject);
         if (responseObject) {
             
             NSString *mid = responseObject[@"Film"][@"_Mid"];
@@ -572,23 +636,41 @@ static const CGFloat LabelWidth = 100.f;
 
 - (void)getArtsAndLifeData{
     
-    //不同路径解析出来的sourceUrl字段名不同
-    NSString *urlStr = nil;
-    if (self.filmModel.SourceURL != nil) {
-        
-        urlStr = _filmModel.SourceURL;
-    }else{
-        //域名转换  还另需传参数   （首页直接进来时）
-        urlStr = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmModel.SourceUrl componentsSeparatedByString:@"/"].lastObject];
+    NSString *mid;
+    if (_filmModel._Mid) {
+        mid = _filmModel._Mid;
+    }else if (_filmModel.mid){
+        mid = _filmModel.mid;
     }
-    NSString *urlString = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [requestDataManager requestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
+    
+    NSString *filmmidStr = mid ? mid : @"";
+    
+    NSDictionary *parameters = @{@"pagesize" : @"1000",
+                                 @"filmmid" : filmmidStr};
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager requestDataWithUrl:ArtsAndLifeSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
         NSLog(@"====responseObject:::%@===",responseObject);
+        [_filmsArr removeAllObjects];
+        if (responseObject) {
+            
+            //介绍页model
+            self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"ParentFilm"]];
+
+            for (NSDictionary *dic in responseObject[@"Film"]) {
+            
+                SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:dic];
+                [_filmsArr addObject:model];
         
+            }
+        }
         
+        //4.添加滑动headerView
+        [self constructSlideHeaderView];
+        [self constructContentView];
+        [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
         
-        
+        [CommonFunc dismiss];
     }];
 
     
@@ -596,12 +678,23 @@ static const CGFloat LabelWidth = 100.f;
 
 - (void)getMoveData{
     
-    //请求播放资源
+    
     [CommonFunc showLoadingWithTips:@""];
-    NSString *filmmidStr = _filmModel._Mid ? _filmModel._Mid : @"";
+    
+    NSString *mid;
+    if (_filmModel._Mid) {
+        mid = _filmModel._Mid;
+    }else if (_filmModel.mid){
+        mid = _filmModel.mid;
+    }
+    
+    NSString *filmmidStr = mid ? mid : @"";
+    
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"filmmid" : filmmidStr};
     
+    
+    NSLog(@"====filmmidStr:::%@===",filmmidStr);
     [requestDataManager requestDataWithUrl:FilmSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
         NSLog(@"====responseObject:::%@===",responseObject);
         if (responseObject) {
@@ -616,7 +709,7 @@ static const CGFloat LabelWidth = 100.f;
         
     } failure:^(id  _Nullable errorObject) {
         
-        
+       [CommonFunc dismiss];
     }];
     
 }

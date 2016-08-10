@@ -205,7 +205,7 @@ static const CGFloat LabelWidth = 70.f;
 
 /** 添加正文内容页 */
 - (void)constructContentView{
-    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 50, kMainScreenWidth, kMainScreenHeight-395)];//滚动窗口
+    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 48, kMainScreenWidth, kMainScreenHeight-393)];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
     _contentScroll.pagingEnabled = YES;

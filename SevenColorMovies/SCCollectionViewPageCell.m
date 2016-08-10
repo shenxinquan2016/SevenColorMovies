@@ -44,11 +44,16 @@
         imageUrl = model.smallposterurl;
     }
     
-    
-    _filmName.text = model.FilmName;
     NSURL *imgUrl = [NSURL URLWithString:imageUrl];
     [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"假数据"]];
     
+    NSString *filmName;
+    if (model.FilmName) {
+        filmName = model.FilmName;
+    }else if (model.cnname){
+        filmName = model.cnname;
+    }
+    _filmName.text = filmName;
 }
 
 @end

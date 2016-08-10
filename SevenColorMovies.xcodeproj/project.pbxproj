@@ -120,6 +120,9 @@
 		11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BCB1D3DD88600012480 /* IMB_DownImageView.m */; };
 		11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BCE1D3DD8FE00012480 /* IMB_DownImageHelper.m */; };
 		11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */; };
+		11DDB87E1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DDB87D1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m */; };
+		11DDB8821D5B15760074DFAB /* SCArtsFilmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DDB8811D5B15760074DFAB /* SCArtsFilmCell.m */; };
+		11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */; };
 		11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB481D3F16E100AAC216 /* SCBaseViewController.m */; };
 		11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */; };
 		E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */; };
@@ -343,6 +346,11 @@
 		11DC2BCE1D3DD8FE00012480 /* IMB_DownImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMB_DownImageHelper.m; sourceTree = "<group>"; };
 		11DC2BD61D3DFC6800012480 /* UIImageView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Addition.h"; sourceTree = "<group>"; };
 		11DC2BD71D3DFC6800012480 /* UIImageView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Addition.m"; sourceTree = "<group>"; };
+		11DDB87C1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCArtsFilmsCollectionVC.h; sourceTree = "<group>"; };
+		11DDB87D1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCArtsFilmsCollectionVC.m; sourceTree = "<group>"; };
+		11DDB8801D5B15760074DFAB /* SCArtsFilmCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCArtsFilmCell.h; sourceTree = "<group>"; };
+		11DDB8811D5B15760074DFAB /* SCArtsFilmCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCArtsFilmCell.m; sourceTree = "<group>"; };
+		11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCArtsFilmCell.xib; sourceTree = "<group>"; };
 		11FACB471D3F16E100AAC216 /* SCBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBaseViewController.h; sourceTree = "<group>"; };
 		11FACB481D3F16E100AAC216 /* SCBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseViewController.m; sourceTree = "<group>"; };
 		11FACB4A1D3F19A000AAC216 /* SCSearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchBarView.h; sourceTree = "<group>"; };
@@ -849,9 +857,8 @@
 		11B983831D588C6000767E8F /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				11B9837F1D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.h */,
-				11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */,
-				1196A06F1D42649F00B3C5EF /* Cell */,
+				11DDB87A1D5B14340074DFAB /* AllEpisodes电视剧剧集 */,
+				11DDB87B1D5B147C0074DFAB /* 综艺剧集 */,
 			);
 			name = CollectionView;
 			sourceTree = "<group>";
@@ -1222,6 +1229,36 @@
 			name = DownImageManger;
 			sourceTree = "<group>";
 		};
+		11DDB87A1D5B14340074DFAB /* AllEpisodes电视剧剧集 */ = {
+			isa = PBXGroup;
+			children = (
+				11B9837F1D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.h */,
+				11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */,
+				1196A06F1D42649F00B3C5EF /* Cell */,
+			);
+			name = "AllEpisodes电视剧剧集";
+			sourceTree = "<group>";
+		};
+		11DDB87B1D5B147C0074DFAB /* 综艺剧集 */ = {
+			isa = PBXGroup;
+			children = (
+				11DDB87C1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.h */,
+				11DDB87D1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m */,
+				11DDB87F1D5B14F00074DFAB /* Cell */,
+			);
+			name = "综艺剧集";
+			sourceTree = "<group>";
+		};
+		11DDB87F1D5B14F00074DFAB /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				11DDB8801D5B15760074DFAB /* SCArtsFilmCell.h */,
+				11DDB8811D5B15760074DFAB /* SCArtsFilmCell.m */,
+				11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		56CA4D536ADE803AF87BD5DE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1369,6 +1406,7 @@
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11A1D0721D3F62FD00E2BA0D /* SCRankOtherCell.xib in Resources */,
 				11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */,
+				11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */,
 				11D4225C1D49A8EC00B4F9AE /* SCLoadingView.xib in Resources */,
 				11C8CFBC1D45157B00C04F38 /* SCCollectionViewPageCell.xib in Resources */,
 				11BB37D01D38E5C00002D487 /* Discovery.storyboard in Resources */,
@@ -1478,6 +1516,7 @@
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
 				114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */,
 				1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */,
+				11DDB8821D5B15760074DFAB /* SCArtsFilmCell.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
 				1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
@@ -1504,6 +1543,7 @@
 				115A21161D41F5E30097DE57 /* SCMoivePlayerVC.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
 				115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */,
+				11DDB87E1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m in Sources */,
 				116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */,
 				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
 				110175071D54402D00E43773 /* FileManageCommon.m in Sources */,

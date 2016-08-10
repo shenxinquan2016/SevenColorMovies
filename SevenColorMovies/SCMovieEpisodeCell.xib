@@ -34,7 +34,7 @@
             <connections>
                 <outlet property="contentIndexLabel" destination="Ka2-ZD-tuL" id="udd-fa-EPC"/>
             </connections>
-            <point key="canvasLocation" x="220.25" y="259.5"/>
+            <point key="canvasLocation" x="219.75" y="259.5"/>
         </collectionViewCell>
     </objects>
 </document>

@@ -8,6 +8,8 @@
 
 #import "SCMoiveRecommendationCollectionVC.h"
 #import "SCCollectionViewPageCell.h"
+#import "SCTeleplayPlayerVC.h"
+
 
 @interface SCMoiveRecommendationCollectionVC ()
 
@@ -48,8 +50,14 @@ static NSString *const cellId = @"cellId";
     }
     
     
-    NSString *mid = _filmModel._Mid ? _filmModel._Mid : @"";
-    NSDictionary *parameters = @{@"mid" : mid};
+    NSString *mid;
+    if (_filmModel._Mid) {
+        mid = _filmModel._Mid;
+    }else if (_filmModel.mid){
+        mid = _filmModel.mid;
+    }
+    NSString *midstring = mid ? mid : @"";
+    NSDictionary *parameters = @{@"mid" : midstring};
 
     [requestDataManager requestDataWithUrl:RecommendUrl parameters:parameters success:^(id  _Nullable responseObject) {
         NSLog(@"<<<<<<<<<<<<<responseObject:::%@",responseObject);
@@ -152,5 +160,16 @@ static NSString *const cellId = @"cellId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"======点击=====");
+    SCTeleplayPlayerVC *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+    SCFilmModel *model = _filmModelArr[indexPath.row];
+    teleplayPlayer.filmModel = model;
+    teleplayPlayer.filmType = @"1";
+    
+    NSLog(@"======点击=====%@",model._Mtype);
+    
+    
+    teleplayPlayer.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:teleplayPlayer animated:YES];
+
 }
 @end
