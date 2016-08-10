@@ -11,8 +11,11 @@
 
 @interface SCFilmIntroduceModel : NSObject
 
-/** 时间 */
+/** 影片时间 两个都用 */
 @property (nonatomic,copy) NSString *_Year;
+
+/** 影片时间 两个都用 */
+@property (nonatomic,copy) NSString *Mshowtime;
 
 /** 导演 */
 @property (nonatomic,copy) NSString *Director;

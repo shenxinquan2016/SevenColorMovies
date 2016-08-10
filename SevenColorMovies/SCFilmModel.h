@@ -22,8 +22,9 @@
 /** 影片资源地址 */
 @property (nonatomic,copy) NSString *SourceURL;
 
-/** ... */
+/** 影片时间 */
 @property (nonatomic,copy) NSString *_Year;
+
 
 
 /** 影片类型 两个都用 */

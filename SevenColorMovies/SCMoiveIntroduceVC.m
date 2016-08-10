@@ -23,7 +23,16 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    _dateLabel.text = _model._Year;
+    NSString *dataStr;
+    if (_model._Year) {
+        dataStr = _model._Year;
+    }else if (_model.Mshowtime){
+        dataStr = _model.Mshowtime;
+    }else{
+        dataStr = @"-";
+    }
+    
+    _dateLabel.text = dataStr;
     _directorLabel.text = _model.Director;
     _mainCharacter.text = _model.Actor;
     _filmIntroduceTextView.text = _model.Introduction;
@@ -36,15 +45,5 @@
 }
 
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

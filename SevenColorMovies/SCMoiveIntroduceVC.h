@@ -13,7 +13,7 @@
 
 
 @property (nonatomic, strong) SCFilmIntroduceModel *model;
-@property (nonatomic, strong) SCFilmIntroduceModel *model2;
+
 
 
 @end
