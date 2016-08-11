@@ -138,7 +138,7 @@ static const CGFloat LabelWidth = 100.f;
     }
     
     NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
-
+    
     // 电影
     if ([mtype isEqualToString:@"0"] ||
         [mtype isEqualToString:@"2"] ||
@@ -151,22 +151,22 @@ static const CGFloat LabelWidth = 100.f;
         [self getMoveData];
         
     }else if // 综艺 生活
-             ([mtype isEqualToString:@"7"] ||
-              [mtype isEqualToString:@"9"] ||
-              [mtype isEqualToString:@"30"])
+        ([mtype isEqualToString:@"7"] ||
+         [mtype isEqualToString:@"9"] ||
+         [mtype isEqualToString:@"30"])
     {
         self.titleArr = @[@"剧情", @"详情"];
         self.identifier = @"综艺";
-
+        
         [self getArtsAndLifeData];
         
-    
+        
         
     }else{
         //电视剧 少儿
         self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
         self.identifier = @"电视剧";
-
+        
         [self getTeleplayData];
     }
     
@@ -458,7 +458,7 @@ static const CGFloat LabelWidth = 100.f;
                 case 2:{//精彩推荐
                     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
                     SCMoiveRecommendationCollectionVC *vc = [[SCMoiveRecommendationCollectionVC alloc] initWithCollectionViewLayout:layout];
-                     vc.filmModel = self.filmModel;
+                    vc.filmModel = self.filmModel;
                     [self addChildViewController:vc];
                     break;
                 }
@@ -583,7 +583,7 @@ static const CGFloat LabelWidth = 100.f;
 
 //电视剧请求数据
 - (void)getTeleplayData{
-
+    
     NSString *mid;
     if (_filmModel._Mid) {
         mid = _filmModel._Mid;
@@ -592,13 +592,13 @@ static const CGFloat LabelWidth = 100.f;
     }
     
     NSString *filmmidStr = mid ? mid : @"";
-        //请求播放资源
+    //请求播放资源
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"filmmid" : filmmidStr};
     
     [requestDataManager requestDataWithUrl:FilmSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
-//                    NSLog(@"====responseObject:::%@===",responseObject);
+        NSLog(@"====responseObject:::%@===",responseObject);
         if (responseObject) {
             
             NSString *mid = responseObject[@"Film"][@"_Mid"];
@@ -606,33 +606,65 @@ static const CGFloat LabelWidth = 100.f;
             //介绍页model
             self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
             
-            for (NSDictionary *dic in responseObject[@"ContentSet"][@"Content"]) {
+            
+            
+            if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
+                SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:responseObject[@"ContentSet"][@"Content"]];
                 
-                SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:dic];
-                //获取fid
-                NSString *fidString = [[[[model._DownUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+                NSString *downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+                
                 //base64编码downloadUrl
-                NSString *downloadBase64Url = [model._DownUrl stringByBase64Encoding];
+                NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
+                
+                //获取fid
+                NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+                //base64编码downloadUrl
+                
                 //视频播放url
                 NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 
                 model.VODStreamingUrl = VODStreamingUrl;
-                NSLog(@">>>>>>>>>>>model._DownUrl>>>>>>>>>>>>>%@",model._DownUrl);
+                NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>>>>%@",downloadUrl);
                 NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>>%@",model.VODStreamingUrl);
                 [_filmSetsArr addObject:model];
                 
-                [CommonFunc dismiss];
-                //5.添加contentScrllowView
+            }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
+                
+                
+                for (NSDictionary *dic in responseObject[@"ContentSet"][@"Content"]) {
+                    
+                    SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:dic];
+                    
+                    
+                    //downloadUrl
+                    NSString *downloadUrl = dic[@"_DownUrl"];
+                    
+                    //base64编码downloadUrl
+                    NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
+                    
+                    //获取fid
+                    NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+                    //base64编码downloadUrl
+                    
+                    //视频播放url
+                    NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                    
+                    model.VODStreamingUrl = VODStreamingUrl;
+                    NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>>>>%@",downloadUrl);
+                    NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>>%@",model.VODStreamingUrl);
+                    [_filmSetsArr addObject:model];
+                    
+                }
             }
             
             //4.添加滑动headerView
             [self constructSlideHeaderView];
+            //5.添加contentScrllowView
             [self constructContentView];
-            
+            [CommonFunc dismiss];
         }
         
     } failure:^(id  _Nullable errorObject) {
-        
         
     }];
 }
@@ -659,12 +691,12 @@ static const CGFloat LabelWidth = 100.f;
             
             //介绍页model
             self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"ParentFilm"]];
-
-            for (NSDictionary *dic in responseObject[@"Film"]) {
             
+            for (NSDictionary *dic in responseObject[@"Film"]) {
+                
                 SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:dic];
                 [_filmsArr addObject:model];
-        
+                
             }
         }
         
@@ -676,7 +708,7 @@ static const CGFloat LabelWidth = 100.f;
         
         [CommonFunc dismiss];
     }];
-
+    
     
 }
 
@@ -706,7 +738,8 @@ static const CGFloat LabelWidth = 100.f;
             //介绍页model
             self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
             
-            //downloadUrl  
+            // 坑：：单片不同film竟然数据结构不同 服了！
+            //downloadUrl
             NSString *downloadUrl;
             if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
                 
@@ -728,7 +761,7 @@ static const CGFloat LabelWidth = 100.f;
             NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
             
             _VODStreamingUrl = VODStreamingUrl;
-             NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
+            NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
             NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",_VODStreamingUrl);
         }
         //4.添加滑动headerView
@@ -739,7 +772,7 @@ static const CGFloat LabelWidth = 100.f;
         
     } failure:^(id  _Nullable errorObject) {
         
-       [CommonFunc dismiss];
+        [CommonFunc dismiss];
     }];
     
 }
