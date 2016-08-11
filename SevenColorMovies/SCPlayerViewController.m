@@ -692,12 +692,21 @@ static const CGFloat LabelWidth = 100.f;
             //介绍页model
             self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"ParentFilm"]];
             
-            for (NSDictionary *dic in responseObject[@"Film"]) {
+            if ([responseObject[@"Film"] isKindOfClass:[NSDictionary class]]){
                 
-                SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:dic];
+                SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:responseObject[@"Film"]];
                 [_filmsArr addObject:model];
                 
+            }else if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]){
+                
+                for (NSDictionary *dic in responseObject[@"Film"]) {
+                    
+                    SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:dic];
+                    [_filmsArr addObject:model];
+                    
+                }
             }
+            
         }
         
         //4.添加滑动headerView
