@@ -27,9 +27,6 @@ static NSString *const cellId = @"cellId";
     
 }
 
-
-
-
 #pragma mark ---- UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView

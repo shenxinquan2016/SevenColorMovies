@@ -167,7 +167,6 @@ static NSString *const cellId = @"cellId";
     SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
     SCFilmModel *model = _filmModelArr[indexPath.row];
     teleplayPlayer.filmModel = model;
-    teleplayPlayer.filmType = @"1";
     
     NSLog(@"======点击=====%@",model._Mtype);
     

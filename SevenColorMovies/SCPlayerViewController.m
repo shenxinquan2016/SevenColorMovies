@@ -701,23 +701,34 @@ static const CGFloat LabelWidth = 100.f;
     
     NSLog(@"====filmmidStr:::%@===",filmmidStr);
     [requestDataManager requestDataWithUrl:FilmSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
-//        NSLog(@"====responseObject:::%@===",responseObject);
+        NSLog(@"====responseObject:::%@===",responseObject);
         if (responseObject) {
             //介绍页model
             self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
             
+            //downloadUrl  
+            NSString *downloadUrl;
+            if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
+                
+                downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+                
+            }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
+                
+                downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
+            }
             
             //base64编码downloadUrl
-            NSString *downloadBase64Url = [responseObject[@"ContentSet"][@"Content"][@"_DownUrl"] stringByBase64Encoding];
+            NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
+            
             
             //获取fid
-            NSString *fidString = [[[[responseObject[@"ContentSet"][@"Content"][@"_DownUrl"] componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+            NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
             
             
             NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
             
             _VODStreamingUrl = VODStreamingUrl;
-             NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",responseObject[@"ContentSet"][@"Content"][@"_DownUrl"] );
+             NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
             NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",_VODStreamingUrl);
         }
         //4.添加滑动headerView
