@@ -10,13 +10,16 @@
 #import "SCCollectionViewPageCell.h"
 #import "SCNetRequsetManger.h"
 #import "SCFilmModel.h"
+#import "SCFilmClassModel.h"
 #import "SCPlayerViewController.h"
-
+#import "SCFilmClassModel.h"
+#import "SCSpecialTopicDetailVC.h"// 专题详情页
 
 @interface SCCollectionViewPageVC ()
 
 /** 每页电影模型数组 */
 @property (nonatomic, strong) NSMutableArray *filmModelArr;
+
 
 @end
 
@@ -26,7 +29,7 @@ static NSString *const cellId = @"cellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
+    
     //0.初始化collectionView
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical=YES;
@@ -34,7 +37,7 @@ static NSString *const cellId = @"cellId";
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
     
     //1.初始化数组
-
+    
     //3.集成刷新
     [self setCollectionViewRefresh];
     
@@ -65,27 +68,50 @@ static NSString *const cellId = @"cellId";
     }
     
     [requestDataManager requestFilmClassDataWithUrl:_urlString parameters:nil success:^(id  _Nullable responseObject) {
-        [CommonFunc dismiss];
-        NSArray *filmsArr = responseObject[@"Film"];
-        [_filmModelArr removeAllObjects];
         
-        for (NSDictionary *dic in filmsArr) {
-            SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-
-            [_filmModelArr addObject:filmModel];
+        NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
+        if (responseObject) {
+            if (responseObject[@"FilmClass"]) {// 专题页面(比其他多一层)
+                
+                NSArray *filmsArr = responseObject[@"FilmClass"];
+                [_filmModelArr removeAllObjects];
+                
+                for (NSDictionary *dic in filmsArr) {
+                    
+                    SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
+                    
+                    [_filmModelArr addObject:filmClassModel];
+                }
+                
+                [self.collectionView reloadData];
+                [self.collectionView.mj_header endRefreshing];
+                [self.collectionView.mj_footer endRefreshing];
+                [CommonFunc dismiss];
+                
+            }else{// 其他
+                
+                NSArray *filmsArr = responseObject[@"Film"];
+                [_filmModelArr removeAllObjects];
+                
+                for (NSDictionary *dic in filmsArr) {
+                    SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                    
+                    [_filmModelArr addObject:filmModel];
+                }
+                //        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
+                
+                [self.collectionView reloadData];
+                [self.collectionView.mj_header endRefreshing];
+                
+                [CommonFunc dismiss];
+            }
         }
-//        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
-//        NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
-        
-        [self.collectionView reloadData];
-        [self.collectionView.mj_header endRefreshing];
-        [self.collectionView.mj_footer endRefreshing];
         
     } failure:^(id  _Nullable errorObject) {
-        
-        
+        [self.collectionView.mj_header endRefreshing];
+        [CommonFunc dismiss];
     }];
-
+    
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -107,8 +133,16 @@ static NSString *const cellId = @"cellId";
 {
     SCCollectionViewPageCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
-    SCFilmModel *model = _filmModelArr[indexPath.row];
-    cell.model = model;
+    
+    if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
+        
+        cell.model = _filmModelArr[indexPath.row];
+        
+    }else{
+        
+        cell.filmClassModel = _filmModelArr[indexPath.row];
+        
+    }
     
     return cell;
 }
@@ -163,22 +197,43 @@ static NSString *const cellId = @"cellId";
 
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-        NSLog(@"======点击=====");
-    SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
-    SCFilmModel *model = _filmModelArr[indexPath.row];
-    teleplayPlayer.filmModel = model;
-    
-    NSLog(@"======点击=====%@",model._Mtype);
-    
-    
-    teleplayPlayer.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:teleplayPlayer animated:YES];
+    if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
+        
+        SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+        SCFilmModel *model = _filmModelArr[indexPath.row];
+        teleplayPlayer.filmModel = model;
+        NSLog(@"======点击=====%@",model._Mtype);
+        teleplayPlayer.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:teleplayPlayer animated:YES];
+        [[self respondController].navigationController pushViewController:teleplayPlayer animated:YES];
+        
+    }else{// 专题第一级页面点击
+        
+        SCFilmClassModel *filmClassModel = _filmModelArr[indexPath.row];
+        SCSpecialTopicDetailVC *vc = [[SCSpecialTopicDetailVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
+        vc.urlString = filmClassModel._FilmClassUrl;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
 }
 
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
+- (UIViewController *)respondController
+{
+    UIViewController *vc = nil;
+    
+    do {
+        if (!vc) {
+            vc = (UIViewController *)self.nextResponder;
+        }else{
+            vc = (UIViewController *)vc.nextResponder;
+        }
+        
+    }while(![vc isKindOfClass:[UIViewController class]]);
+    if ([vc isKindOfClass:[UIViewController class]]) {
+        return vc;
+    }else{
+        return nil;
+    }
 }
 
 

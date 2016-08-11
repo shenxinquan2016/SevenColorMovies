@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "SCFilmModel.h"
+#import "SCFilmClassModel.h"
 
 @interface SCCollectionViewPageCell : UICollectionViewCell
 
 @property (nonatomic, strong) SCFilmModel *model;
+@property (nonatomic, strong) SCFilmClassModel *filmClassModel;
 
 + (instancetype)cellWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
 @end

@@ -139,10 +139,9 @@ static const CGFloat LabelWidth = 100.f;
     
     NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
     
-    // 电影
+    // 私人影院 电影 海外片场 音乐
     if ([mtype isEqualToString:@"0"] ||
         [mtype isEqualToString:@"2"] ||
-        [mtype isEqualToString:@"10"] ||
         [mtype isEqualToString:@"13"] ||
         [mtype isEqualToString:@"15"])
     {
@@ -152,7 +151,6 @@ static const CGFloat LabelWidth = 100.f;
         
     }else if // 综艺 生活
         ([mtype isEqualToString:@"7"] ||
-         [mtype isEqualToString:@"9"] ||
          [mtype isEqualToString:@"30"])
     {
         self.titleArr = @[@"剧情", @"详情"];
@@ -163,7 +161,7 @@ static const CGFloat LabelWidth = 100.f;
         
         
     }else{
-        //电视剧 少儿
+        //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
         self.identifier = @"电视剧";
         
@@ -665,7 +663,8 @@ static const CGFloat LabelWidth = 100.f;
         }
         
     } failure:^(id  _Nullable errorObject) {
-        
+        [CommonFunc dismiss];
+
     }];
 }
 
@@ -685,7 +684,7 @@ static const CGFloat LabelWidth = 100.f;
                                  @"filmmid" : filmmidStr};
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:ArtsAndLifeSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        NSLog(@"====responseObject======%@===",responseObject);
+//        NSLog(@"====responseObject======%@===",responseObject);
         [_filmsArr removeAllObjects];
         if (responseObject) {
             

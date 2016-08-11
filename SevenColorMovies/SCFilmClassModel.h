@@ -25,8 +25,8 @@
 /** 分页数量 */
 @property (nonatomic,copy) NSString *_PageCount;
 
-/** ... */
-@property (nonatomic,copy) NSString *_IcoID;
+/** 封面图片 */
+@property (nonatomic,copy) NSString *_BigImgUrl;
 
 /** ... */
 @property (nonatomic,copy) NSString *_FilmClassID;

@@ -47,8 +47,6 @@
 		115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */; };
 		115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */; };
 		115A21131D41F5BF0097DE57 /* SCPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21121D41F5BF0097DE57 /* SCPlayerViewController.m */; };
-		115A21161D41F5E30097DE57 /* SCMoivePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21151D41F5E30097DE57 /* SCMoivePlayerVC.m */; };
-		115A21191D41F5FD0097DE57 /* SCArtsPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21181D41F5FD0097DE57 /* SCArtsPlayerVC.m */; };
 		115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */; };
 		115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */; };
 		116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */; };
@@ -75,7 +73,6 @@
 		116B1F6C1D53280600E9637A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F6B1D53280600E9637A /* UIKit.framework */; };
 		116B1F6E1D53281E00E9637A /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F6D1D53281E00E9637A /* VideoToolbox.framework */; };
 		116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D561D4AFAF800B488EC /* SCBannerModel.m */; };
-		116E1D5A1D4B40B700B488EC /* SCRankTopRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D591D4B40B700B488EC /* SCRankTopRowTableViewCell.m */; };
 		116E1D5E1D4B4E0200B488EC /* SCSiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D5D1D4B4E0200B488EC /* SCSiftViewController.m */; };
 		116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */; };
 		118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 118D19B61D59B2D000A6968D /* SCFilmIntroduceModel.m */; };
@@ -84,9 +81,6 @@
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
 		1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
-		11A1D06C1D3F508E00E2BA0D /* SCRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D06B1D3F508E00E2BA0D /* SCRankViewController.m */; };
-		11A1D0701D3F62E800E2BA0D /* SCRankOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D06F1D3F62E800E2BA0D /* SCRankOtherCell.m */; };
-		11A1D0721D3F62FD00E2BA0D /* SCRankOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11A1D0711D3F62FD00E2BA0D /* SCRankOtherCell.xib */; };
 		11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */; };
 		11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */; };
 		11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */; };
@@ -123,6 +117,7 @@
 		11DDB87E1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DDB87D1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m */; };
 		11DDB8821D5B15760074DFAB /* SCArtsFilmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DDB8811D5B15760074DFAB /* SCArtsFilmCell.m */; };
 		11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */; };
+		11EBC3F51D5C69F600C1A338 /* SCSpecialTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EBC3F41D5C69F600C1A338 /* SCSpecialTopicDetailVC.m */; };
 		11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB481D3F16E100AAC216 /* SCBaseViewController.m */; };
 		11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */; };
 		E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */; };
@@ -224,10 +219,6 @@
 		115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOtherBaseViewController.m; sourceTree = "<group>"; };
 		115A21111D41F5BF0097DE57 /* SCPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPlayerViewController.h; sourceTree = "<group>"; };
 		115A21121D41F5BF0097DE57 /* SCPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPlayerViewController.m; sourceTree = "<group>"; };
-		115A21141D41F5E30097DE57 /* SCMoivePlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoivePlayerVC.h; sourceTree = "<group>"; };
-		115A21151D41F5E30097DE57 /* SCMoivePlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoivePlayerVC.m; sourceTree = "<group>"; };
-		115A21171D41F5FD0097DE57 /* SCArtsPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCArtsPlayerVC.h; sourceTree = "<group>"; };
-		115A21181D41F5FD0097DE57 /* SCArtsPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCArtsPlayerVC.m; sourceTree = "<group>"; };
 		115A21251D4228750097DE57 /* SCMoiveAllEpisodesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveAllEpisodesVC.h; sourceTree = "<group>"; };
 		115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveAllEpisodesVC.m; sourceTree = "<group>"; };
 		115A21281D42290C0097DE57 /* SCMoiveIntroduceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveIntroduceVC.h; sourceTree = "<group>"; };
@@ -263,8 +254,6 @@
 		116B1F6D1D53281E00E9637A /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		116E1D551D4AFAF800B488EC /* SCBannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBannerModel.h; sourceTree = "<group>"; };
 		116E1D561D4AFAF800B488EC /* SCBannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBannerModel.m; sourceTree = "<group>"; };
-		116E1D581D4B40B700B488EC /* SCRankTopRowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankTopRowTableViewCell.h; sourceTree = "<group>"; };
-		116E1D591D4B40B700B488EC /* SCRankTopRowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRankTopRowTableViewCell.m; sourceTree = "<group>"; };
 		116E1D5C1D4B4E0200B488EC /* SCSiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiftViewController.h; sourceTree = "<group>"; };
 		116E1D5D1D4B4E0200B488EC /* SCSiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiftViewController.m; sourceTree = "<group>"; };
 		116E1D5F1D4B5A9E00B488EC /* SCRemoteControlVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRemoteControlVC.h; sourceTree = "<group>"; };
@@ -280,11 +269,6 @@
 		1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMovieEpisodeCell.xib; sourceTree = "<group>"; };
 		11A1D0661D3F433900E2BA0D /* UIView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addition.h"; sourceTree = "<group>"; };
 		11A1D0671D3F433900E2BA0D /* UIView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Addition.m"; sourceTree = "<group>"; };
-		11A1D06A1D3F508E00E2BA0D /* SCRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankViewController.h; sourceTree = "<group>"; };
-		11A1D06B1D3F508E00E2BA0D /* SCRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRankViewController.m; sourceTree = "<group>"; };
-		11A1D06E1D3F62E800E2BA0D /* SCRankOtherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRankOtherCell.h; sourceTree = "<group>"; };
-		11A1D06F1D3F62E800E2BA0D /* SCRankOtherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRankOtherCell.m; sourceTree = "<group>"; };
-		11A1D0711D3F62FD00E2BA0D /* SCRankOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCRankOtherCell.xib; sourceTree = "<group>"; };
 		11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchViewController.h; sourceTree = "<group>"; };
 		11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchViewController.m; sourceTree = "<group>"; };
 		11B9837C1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveRecommendationCollectionVC.h; sourceTree = "<group>"; };
@@ -351,6 +335,8 @@
 		11DDB8801D5B15760074DFAB /* SCArtsFilmCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCArtsFilmCell.h; sourceTree = "<group>"; };
 		11DDB8811D5B15760074DFAB /* SCArtsFilmCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCArtsFilmCell.m; sourceTree = "<group>"; };
 		11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCArtsFilmCell.xib; sourceTree = "<group>"; };
+		11EBC3F31D5C69F600C1A338 /* SCSpecialTopicDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSpecialTopicDetailVC.h; sourceTree = "<group>"; };
+		11EBC3F41D5C69F600C1A338 /* SCSpecialTopicDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSpecialTopicDetailVC.m; sourceTree = "<group>"; };
 		11FACB471D3F16E100AAC216 /* SCBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBaseViewController.h; sourceTree = "<group>"; };
 		11FACB481D3F16E100AAC216 /* SCBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseViewController.m; sourceTree = "<group>"; };
 		11FACB4A1D3F19A000AAC216 /* SCSearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchBarView.h; sourceTree = "<group>"; };
@@ -487,16 +473,6 @@
 			name = Banner;
 			sourceTree = "<group>";
 		};
-		113F8D901D3C702000B12D39 /* Rank */ = {
-			isa = PBXGroup;
-			children = (
-				11A1D06A1D3F508E00E2BA0D /* SCRankViewController.h */,
-				11A1D06B1D3F508E00E2BA0D /* SCRankViewController.m */,
-				11A1D06D1D3F5FF800E2BA0D /* Cell */,
-			);
-			name = Rank;
-			sourceTree = "<group>";
-		};
 		113F8D911D3C704E00B12D39 /* RemoteControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,24 +584,6 @@
 				115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */,
 			);
 			name = "分类栏目";
-			sourceTree = "<group>";
-		};
-		115A210E1D41F0260097DE57 /* Arts综艺 */ = {
-			isa = PBXGroup;
-			children = (
-				115A21171D41F5FD0097DE57 /* SCArtsPlayerVC.h */,
-				115A21181D41F5FD0097DE57 /* SCArtsPlayerVC.m */,
-			);
-			name = "Arts综艺";
-			sourceTree = "<group>";
-		};
-		115A210F1D41F02B0097DE57 /* Moive电影 */ = {
-			isa = PBXGroup;
-			children = (
-				115A21141D41F5E30097DE57 /* SCMoivePlayerVC.h */,
-				115A21151D41F5E30097DE57 /* SCMoivePlayerVC.m */,
-			);
-			name = "Moive电影";
 			sourceTree = "<group>";
 		};
 		115A21101D41F02F0097DE57 /* Player播放器 */ = {
@@ -817,18 +775,6 @@
 			name = Search;
 			sourceTree = "<group>";
 		};
-		11A1D06D1D3F5FF800E2BA0D /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				116E1D581D4B40B700B488EC /* SCRankTopRowTableViewCell.h */,
-				116E1D591D4B40B700B488EC /* SCRankTopRowTableViewCell.m */,
-				11A1D06E1D3F62E800E2BA0D /* SCRankOtherCell.h */,
-				11A1D06F1D3F62E800E2BA0D /* SCRankOtherCell.m */,
-				11A1D0711D3F62FD00E2BA0D /* SCRankOtherCell.xib */,
-			);
-			name = Cell;
-			sourceTree = "<group>";
-		};
 		11A1D0761D3F7DD500E2BA0D /* SlideHeaderView */ = {
 			isa = PBXGroup;
 			children = (
@@ -947,10 +893,8 @@
 				113F8D8E1D3C700900B12D39 /* MainBody */,
 				113F8D8F1D3C701B00B12D39 /* Banner */,
 				115A21001D41B4E20097DE57 /* 点播栏 */,
-				113F8D901D3C702000B12D39 /* Rank */,
+				11EBC3F21D5C698600C1A338 /* SpecialTopic专题 */,
 				116E1D5B1D4B4D4600B488EC /* Sift筛选 */,
-				115A210F1D41F02B0097DE57 /* Moive电影 */,
-				115A210E1D41F0260097DE57 /* Arts综艺 */,
 				113E62E51D49F5FE00FB8F3A /* FilmModel */,
 			);
 			name = HomePage;
@@ -1251,6 +1195,15 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		11EBC3F21D5C698600C1A338 /* SpecialTopic专题 */ = {
+			isa = PBXGroup;
+			children = (
+				11EBC3F31D5C69F600C1A338 /* SCSpecialTopicDetailVC.h */,
+				11EBC3F41D5C69F600C1A338 /* SCSpecialTopicDetailVC.m */,
+			);
+			name = "SpecialTopic专题";
+			sourceTree = "<group>";
+		};
 		56CA4D536ADE803AF87BD5DE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1396,7 +1349,6 @@
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
 				11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */,
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
-				11A1D0721D3F62FD00E2BA0D /* SCRankOtherCell.xib in Resources */,
 				11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */,
 				11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */,
 				11D4225C1D49A8EC00B4F9AE /* SCLoadingView.xib in Resources */,
@@ -1519,20 +1471,16 @@
 				1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */,
 				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,
 				1111A41B1D48A71300C17B92 /* Reachability.m in Sources */,
-				11A1D0701D3F62E800E2BA0D /* SCRankOtherCell.m in Sources */,
 				1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */,
 				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
-				11A1D06C1D3F508E00E2BA0D /* SCRankViewController.m in Sources */,
 				115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */,
 				11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */,
 				11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
-				116E1D5A1D4B40B700B488EC /* SCRankTopRowTableViewCell.m in Sources */,
 				116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
-				115A21161D41F5E30097DE57 /* SCMoivePlayerVC.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
 				115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */,
 				11DDB87E1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m in Sources */,
@@ -1548,7 +1496,6 @@
 				116475FD1D40ADDC00A3BC1C /* SCPastVideoTableView.m in Sources */,
 				113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */,
 				1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
-				115A21191D41F5FD0097DE57 /* SCArtsPlayerVC.m in Sources */,
 				113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */,
 				115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */,
 				115A21131D41F5BF0097DE57 /* SCPlayerViewController.m in Sources */,
@@ -1557,6 +1504,7 @@
 				1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */,
 				113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */,
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
+				11EBC3F51D5C69F600C1A338 /* SCSpecialTopicDetailVC.m in Sources */,
 				1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
 				11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */,

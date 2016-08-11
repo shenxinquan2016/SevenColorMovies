@@ -40,7 +40,7 @@
 
 - (void)addLeftBBI {
 
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 140, 32)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 32)];
 //    view.backgroundColor = [UIColor redColor];
     //返回箭头
     UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Back_Arrow"]];
@@ -53,7 +53,7 @@
         
     }];
     //返回标题
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 22)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 125, 22)];
 //    titleLabel.backgroundColor = [UIColor greenColor];
     titleLabel.text = __title;
     titleLabel.textColor = [UIColor colorWithHex:@"#878889"];
@@ -63,7 +63,7 @@
     [titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(view);
         make.left.equalTo(imgView.mas_right).offset(0);
-        make.size.mas_equalTo(CGSizeMake(100, 22));
+        make.size.mas_equalTo(CGSizeMake(125, 22));
         
     }];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goBack)];

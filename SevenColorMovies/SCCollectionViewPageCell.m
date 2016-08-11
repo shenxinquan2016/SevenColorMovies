@@ -56,4 +56,14 @@
     _filmName.text = filmName;
 }
 
+- (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel{
+    
+    NSURL *imgUrl = [NSURL URLWithString:filmClassModel._BigImgUrl];
+    [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"假数据"]];
+
+    _filmName.text = filmClassModel._FilmClassName;
+    
+}
+
+
 @end

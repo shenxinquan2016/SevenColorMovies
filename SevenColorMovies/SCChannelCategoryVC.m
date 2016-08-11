@@ -20,7 +20,7 @@
 
 static const CGFloat TitleHeight = 41.0f;
 static const CGFloat StatusBarHeight = 20.0f;
-static const CGFloat LabelWidth = 85.f;
+static const CGFloat LabelWidth = 95.f;
 
 
 @interface SCChannelCategoryVC ()<UIScrollViewDelegate>
