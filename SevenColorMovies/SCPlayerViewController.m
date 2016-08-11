@@ -414,7 +414,6 @@ static const CGFloat LabelWidth = 100.f;
                 case 0:{//详情
                     SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
                     introduceVC.model = _filmIntroduceModel;
-                    NSLog(@"++++++++_filmIntroduceModel:::%@",_filmIntroduceModel.Introduction);
                     [self addChildViewController:introduceVC];
                     
                     break;
@@ -582,6 +581,7 @@ static const CGFloat LabelWidth = 100.f;
     
 }
 
+//电视剧请求数据
 - (void)getTeleplayData{
 
     NSString *mid;
@@ -613,12 +613,12 @@ static const CGFloat LabelWidth = 100.f;
                 NSString *fidString = [[[[model._DownUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
                 //base64编码downloadUrl
                 NSString *downloadBase64Url = [model._DownUrl stringByBase64Encoding];
-                
+                //视频播放url
                 NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 
                 model.VODStreamingUrl = VODStreamingUrl;
-                                    NSLog(@">>>>>>>>>>>model._DownUrl::::%@",model.VODStreamingUrl);
-                
+                NSLog(@">>>>>>>>>>>model._DownUrl>>>>>>>>>>>>>%@",model._DownUrl);
+                NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>>%@",model.VODStreamingUrl);
                 [_filmSetsArr addObject:model];
                 
                 [CommonFunc dismiss];
@@ -637,6 +637,7 @@ static const CGFloat LabelWidth = 100.f;
     }];
 }
 
+//综艺请求数据
 - (void)getArtsAndLifeData{
     
     NSString *mid;
@@ -652,7 +653,7 @@ static const CGFloat LabelWidth = 100.f;
                                  @"filmmid" : filmmidStr};
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:ArtsAndLifeSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        NSLog(@"====responseObject:::%@===",responseObject);
+        NSLog(@"====responseObject======%@===",responseObject);
         [_filmsArr removeAllObjects];
         if (responseObject) {
             
@@ -679,6 +680,7 @@ static const CGFloat LabelWidth = 100.f;
     
 }
 
+//电影请求数据
 - (void)getMoveData{
     
     
@@ -715,8 +717,8 @@ static const CGFloat LabelWidth = 100.f;
             NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
             
             _VODStreamingUrl = VODStreamingUrl;
-            
-            NSLog(@">>>>>>>>>>>>VODStreamingUrl:%@",_VODStreamingUrl);
+             NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",responseObject[@"ContentSet"][@"Content"][@"_DownUrl"] );
+            NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",_VODStreamingUrl);
         }
         //4.添加滑动headerView
         [self constructSlideHeaderView];

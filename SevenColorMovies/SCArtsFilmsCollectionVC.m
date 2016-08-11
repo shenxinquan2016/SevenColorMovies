@@ -105,19 +105,29 @@ static NSString *const cellId = @"cellId";
 {
     SCFilmModel *model = _dataSource[indexPath.row];
     NSString *urlStr = [model.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
         
         if (responseObject) {
             
            NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
-           NSLog(@"======点击downLoadUrl::::%@=====",downLoadUrl);
             
+            
+            //获取fid
+            NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+            //base64编码downloadUrl
+            NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
+            //视频播放url
+            NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:model._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+            
+            NSLog(@">>>>>>>>>>>downLoadUrl>>>>>>>>%@",downLoadUrl);
+            NSLog(@">>>>>>>>>>>VODStreamingUrl>>>>>>>>%@",VODStreamingUrl);
         }
   
-        
+        [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
         
-        
+        [CommonFunc dismiss];
     }];
     
     
