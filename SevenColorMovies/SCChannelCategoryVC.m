@@ -224,6 +224,7 @@ static NSString *const cellId = @"cellId";
             NSString *urlStr = _FilmClassUrlArr[i];
             NSString *url = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             vc.urlString = url;
+            vc.FilmClassModel = _FilmClassModel;// 用于判断cell的显示类型
         }
     
         [self addChildViewController:vc];

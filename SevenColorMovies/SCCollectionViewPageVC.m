@@ -137,13 +137,14 @@ static NSString *const cellId = @"cellId";
     
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         
-        SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:nil indexPath:indexPath];
+        SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:self.FilmClassModel._FilmClassName indexPath:indexPath];
         
         cell.backgroundColor = [UIColor whiteColor];
 
         cell.model = _filmModelArr[indexPath.row];
         
         return cell;
+        
     }else{
         
         static NSString * const identifier = @"综艺";
@@ -162,12 +163,19 @@ static NSString *const cellId = @"cellId";
 #pragma mark <UICollectionViewDelegate>
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
+
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
-        
-        return (CGSize){(kMainScreenWidth-24-16)/3,180};
+        if ([_FilmClassModel._FilmClassName isEqualToString:@"综艺"] || [_FilmClassModel._FilmClassName isEqualToString:@"生活"]) {
+            
+            return (CGSize){(kMainScreenWidth-24-10)/2,145};
+            
+        }else{
+            
+            return (CGSize){(kMainScreenWidth-24-16)/3,180};
+        }
         
     }else{
         
