@@ -21,7 +21,7 @@
 
 @implementation SCMoiveRecommendationCollectionVC
 
-static NSString *const cellId = @"cellId";
+static NSString *const cellId = @"SCCollectionViewPageCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,11 +30,9 @@ static NSString *const cellId = @"cellId";
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical=YES;
     // 注册cell、sectionHeader、sectionFooter
-    [self.collectionView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:cellId];
     
-    //1.初始化数组
-    
-    
+    //数据请求
     [self requestData];
     
 }

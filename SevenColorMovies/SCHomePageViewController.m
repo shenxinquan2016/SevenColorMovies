@@ -355,7 +355,6 @@ static NSString *const footerId = @"footerId";
         return cell;
         
     }else{
-        //        SCCollectionViewPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
         
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
@@ -412,7 +411,7 @@ static NSString *const footerId = @"footerId";
         // 综艺栏目cell大小
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         if ([classModel._FilmClassName isEqualToString:@"综艺"] || [classModel._FilmClassName isEqualToString:@"生活"]) {
-            return (CGSize){(kMainScreenWidth-24-10)/2,120};
+            return (CGSize){(kMainScreenWidth-24-10)/2,145};
             
         }else{
             // 电视剧栏目cell大小
@@ -544,9 +543,9 @@ static NSString *const footerId = @"footerId";
     //点播栏cell
     [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemCell"];
     // 普通栏目cell
-    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageCell"];//其他cell
+    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageCell"];
     // 综艺栏目cell
-    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageArtsCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageArtsCell"];//其他cell
+    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageArtsCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageArtsCell"];
     
     [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerId];
     [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerId];

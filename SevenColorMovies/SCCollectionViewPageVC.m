@@ -34,7 +34,10 @@ static NSString *const cellId = @"cellId";
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical=YES;
     // 注册cell、sectionHeader、sectionFooter
+    // 普通栏目cell
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageCell"];
+    // 综艺栏目cell
+    [self.collectionView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageArtsCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageArtsCell"];
     
     //1.初始化数组
     
@@ -131,20 +134,28 @@ static NSString *const cellId = @"cellId";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCCollectionViewPageCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"SCCollectionViewPageCell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
     
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         
+        SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:nil indexPath:indexPath];
+        
+        cell.backgroundColor = [UIColor whiteColor];
+
         cell.model = _filmModelArr[indexPath.row];
         
+        return cell;
     }else{
         
-        cell.filmClassModel = _filmModelArr[indexPath.row];
+        static NSString * const identifier = @"综艺";
+        SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:identifier indexPath:indexPath];
         
+        SCFilmClassModel *filmClassModel = _filmModelArr[indexPath.row];
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.filmClassModel = filmClassModel;
+        
+        return cell;
     }
     
-    return cell;
 }
 
 
@@ -154,7 +165,15 @@ static NSString *const cellId = @"cellId";
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return (CGSize){(kMainScreenWidth-24-16)/3,180};
+    if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
+        
+        return (CGSize){(kMainScreenWidth-24-16)/3,180};
+        
+    }else{
+        
+        return (CGSize){(kMainScreenWidth-24-10)/2,145};
+        
+    }
 }
 
 /** CollectionView四周间距 EdgeInsets */
