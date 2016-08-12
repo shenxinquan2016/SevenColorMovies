@@ -34,7 +34,7 @@ static NSString *const cellId = @"cellId";
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical=YES;
     // 注册cell、sectionHeader、sectionFooter
-    [self.collectionView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageCell"];
     
     //1.初始化数组
     
@@ -131,7 +131,7 @@ static NSString *const cellId = @"cellId";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCCollectionViewPageCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    SCCollectionViewPageCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"SCCollectionViewPageCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
@@ -172,7 +172,7 @@ static NSString *const cellId = @"cellId";
 /** item垂直间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 8.f;
+    return 0.f;
 }
 
 /** section Header 尺寸 */
@@ -204,8 +204,16 @@ static NSString *const cellId = @"cellId";
         teleplayPlayer.filmModel = model;
         NSLog(@"======点击=====%@",model._Mtype);
         teleplayPlayer.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:teleplayPlayer animated:YES];
-        [[self respondController].navigationController pushViewController:teleplayPlayer animated:YES];
+        
+        if (self.navigationController) {
+            
+            [self.navigationController pushViewController:teleplayPlayer animated:YES];
+            
+        }else{
+            
+            [[self respondController].navigationController pushViewController:teleplayPlayer animated:YES];
+        }
+        
         
     }else{// 专题第一级页面点击
         

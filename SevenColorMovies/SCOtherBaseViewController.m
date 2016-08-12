@@ -42,7 +42,7 @@
 
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 32)];
 //    view.backgroundColor = [UIColor redColor];
-    //返回箭头
+    // 返回箭头
     UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Back_Arrow"]];
     [view addSubview:imgView];
 //    imgView.backgroundColor = [UIColor grayColor];
@@ -52,7 +52,7 @@
         make.size.mas_equalTo(imgView.image.size);
         
     }];
-    //返回标题
+    // 返回标题
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 125, 22)];
 //    titleLabel.backgroundColor = [UIColor greenColor];
     titleLabel.text = __title;

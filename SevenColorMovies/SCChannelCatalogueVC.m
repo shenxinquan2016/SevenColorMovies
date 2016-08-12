@@ -261,10 +261,11 @@ static NSString *const footerId = @"footerId";
         [MBProgressHUD showSuccess:@"敬请期待"];
         
     }else{
-        
-        channelVC.FilmClassModel = _filmClassArray[indexPath.row-1];
-        channelVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:channelVC animated:YES];
+        if (_filmClassArray.count != 0) {
+            channelVC.FilmClassModel = _filmClassArray[indexPath.row-1];
+            channelVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:channelVC animated:YES];
+        }
     }
   
 }

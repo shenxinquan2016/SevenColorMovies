@@ -188,54 +188,55 @@ static NSString *const footerId = @"footerId";
     
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
         
-        //1.第一层 filmList
-        SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
-        
-        for (SCFilmClassModel *classModel in filmListModel.filmClassArray) {
+        if (responseObject){
+            //1.第一层 filmList
+            SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
             
-            if (![classModel._FilmClassName hasSuffix:@"今日推荐"]) {
+            for (SCFilmClassModel *classModel in filmListModel.filmClassArray) {
                 
-                [_titleArray addObject:classModel._FilmClassName];
-                [_filmClassArray addObject:classModel];
-                
-                [_collView reloadData];
-                
-//                NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
-//                NSLog(@"====FilmClassUrl::::%@",classModel.FilmClassUrl);
-                
-            }else{
-                
-                //添加banner
-                NSArray *dataArr = responseObject[@"FilmClass"];
-                NSDictionary *dic = [dataArr firstObject];
-                NSArray *array = dic[@"Film"];
-                
-                if (![dataArr isKindOfClass:[NSNull class]]) {
-                    for (NSDictionary *dic in array) {
-                        
-                        SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
-                        [_bannerImageUrlArr addObject:model._ImgUrlO];
-                    }
+                if (![classModel._FilmClassName hasSuffix:@"今日推荐"]) {
+                    
+                    [_titleArray addObject:classModel._FilmClassName];
+                    [_filmClassArray addObject:classModel];
+                    
+                    [_collView reloadData];
+                    
+                    //                NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
+                    //                NSLog(@"====FilmClassUrl::::%@",classModel.FilmClassUrl);
+                    
+                }else{
                     
                     //添加banner
-                    if (_bannerImageUrlArr.count > 0) {
-                        [self addBannerView];
-                        _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-                        
-                    }else if (_bannerImageUrlArr.count == 0){
-                        if (_bannerView) {
-                            [_bannerView removeFromSuperview];
+                    NSArray *dataArr = responseObject[@"FilmClass"];
+                    NSDictionary *dic = [dataArr firstObject];
+                    NSArray *array = dic[@"Film"];
+                    
+                    if (![dataArr isKindOfClass:[NSNull class]]) {
+                        for (NSDictionary *dic in array) {
                             
+                            SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
+                            [_bannerImageUrlArr addObject:model._ImgUrlO];
+                        }
+                        
+                        //添加banner
+                        if (_bannerImageUrlArr.count > 0) {
+                            [self addBannerView];
+                            _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
+                            
+                        }else if (_bannerImageUrlArr.count == 0){
+                            if (_bannerView) {
+                                [_bannerView removeFromSuperview];
+                                
+                            }
                         }
                     }
                 }
+                
             }
-            
         }
-        
         //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
         //        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
-//                NSLog(@">>>>>>>>homePageData:::%@",responseObject);
+        //        NSLog(@">>>>>>>>homePageData:::%@",responseObject);
         
         [CommonFunc dismiss];
         [_collView.mj_header endRefreshing];
@@ -354,13 +355,16 @@ static NSString *const footerId = @"footerId";
         return cell;
         
     }else{
-        SCCollectionViewPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
-        //cell.backgroundColor = [UIColor purpleColor];
+        //        SCCollectionViewPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdOther forIndexPath:indexPath];
         
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
+        
+        SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:classModel._FilmClassName indexPath:indexPath];
+        //cell.backgroundColor = [UIColor purpleColor];
+        
         cell.model = filmModel;
-//                NSLog(@">>>>>>>>>_SourceUrl:::%@",filmModel.SourceUrl);
+        //                NSLog(@">>>>>>>>>_SourceUrl:::%@",filmModel.SourceUrl);
         return cell;
         
     }
@@ -401,11 +405,20 @@ static NSString *const footerId = @"footerId";
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0){
+        // 顶部点播栏cell大小
         return (CGSize){(kMainScreenWidth-10-15)/4,70};
+        
     }else{
-        return (CGSize){(kMainScreenWidth-24-16)/3,180};
+        // 综艺栏目cell大小
+        SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
+        if ([classModel._FilmClassName isEqualToString:@"综艺"] || [classModel._FilmClassName isEqualToString:@"生活"]) {
+            return (CGSize){(kMainScreenWidth-24-10)/2,120};
+            
+        }else{
+            // 电视剧栏目cell大小
+            return (CGSize){(kMainScreenWidth-24-16)/3,180};
+        }
     }
-    
 }
 
 /** Section 四周间距 EdgeInsets */
@@ -428,7 +441,7 @@ static NSString *const footerId = @"footerId";
     if (section == 0){
         return 5;
     }else{
-        return 8;
+        return 0;
     }
 }
 
@@ -451,33 +464,36 @@ static NSString *const footerId = @"footerId";
 #pragma mark ---- UICollectionView DataDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
-    
-    //设置返回键标题
-    NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
-    
+    //    NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
     if (indexPath.section ==0) {//点播栏
+        if (_filmClassArray.count == 0) {
+            [MBProgressHUD showSuccess:@"暂无数据，请稍后再试"];
+            return;
+            
+        }
+        //设置返回键标题
+        NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
         if ([[dict.allValues objectAtIndex:0] isEqualToString:@"更多"]) {
+            
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
             moreView.filmClassArray = _filmClassArray;
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
             
         }else{
-            if (_filmClassArray) {
-                if (indexPath.row == 0) {
-                    [MBProgressHUD showSuccess:@"敬请期待"];
-                    
-                }else{
-                    SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row-1];
-                    SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
-                    channelVC.FilmClassModel = filmClassModel;
-                    channelVC.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:channelVC animated:YES];
- 
-                }
+            
+            if (indexPath.row == 0) {
+                [MBProgressHUD showSuccess:@"敬请期待"];
+                
+            }else{
+                SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row-1];
+                SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
+                channelVC.FilmClassModel = filmClassModel;
+                channelVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:channelVC animated:YES];
                 
             }
+            
         }
         
     }else{
@@ -491,8 +507,6 @@ static NSString *const footerId = @"footerId";
         
     }
 }
-
-
 
 #pragma mark - SDCycleScrollViewDelegate
 /** 点击图片回调 */
@@ -529,8 +543,10 @@ static NSString *const footerId = @"footerId";
     // 注册cell、sectionHeader、sectionFooter
     //点播栏cell
     [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemCell"];
-    
-    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"cellIdOther"];//其他cell
+    // 普通栏目cell
+    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageCell"];//其他cell
+    // 综艺栏目cell
+    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageArtsCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageArtsCell"];//其他cell
     
     [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerId];
     [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerId];

@@ -9,8 +9,6 @@
 #import "AppDelegate.h"
 #import "SCNetUrlManger.h"
 
-
-
 @interface AppDelegate ()
 
 @end
@@ -73,7 +71,6 @@
     NetUrlManager.payPort = dic[@"payPort"];
     
 }
-
 
 - (void)setAppearance {
     

@@ -15,5 +15,5 @@
 @property (nonatomic, strong) SCFilmModel *model;
 @property (nonatomic, strong) SCFilmClassModel *filmClassModel;
 
-+ (instancetype)cellWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
++ (instancetype)cellWithCollectionView:(UICollectionView *)collectionView identifier:(NSString *)identifier indexPath:(NSIndexPath *)indexPath;
 @end

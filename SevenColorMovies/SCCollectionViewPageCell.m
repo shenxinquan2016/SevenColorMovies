@@ -26,10 +26,18 @@
     
 }
 
-+ (instancetype)cellWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
++ (instancetype)cellWithCollectionView:(UICollectionView *)collectionView identifier:(NSString *)identifier indexPath:(NSIndexPath *)indexPath {
     
     static NSString *ID;
-    ID = @"SCCollectionViewPageCell";
+    if ([identifier isEqualToString:@"生活"] || [identifier isEqualToString:@"综艺"]) {
+        
+        ID = @"SCCollectionViewPageArtsCell";
+        
+    }else{
+    
+        ID = @"SCCollectionViewPageCell";
+    }
+    
     SCCollectionViewPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
     return cell;
