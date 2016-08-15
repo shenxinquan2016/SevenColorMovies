@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/7/22.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  播放页面
 
 #import "SCPlayerViewController.h"
 #import "SCSlideHeaderLabel.h"
@@ -40,7 +40,7 @@ static const CGFloat LabelWidth = 100.f;
 /** 标题数组 */
 @property (nonatomic, strong) NSArray *titleArr;
 
-/** 存放所有集 */
+/** 存放所有film集 */
 @property (nonatomic, strong) NSMutableArray *filmSetsArr;
 
 /** 综艺生活存放film */
@@ -90,7 +90,7 @@ static const CGFloat LabelWidth = 100.f;
     
     [self setView];
     
-    
+
     
     
 }
@@ -98,13 +98,13 @@ static const CGFloat LabelWidth = 100.f;
 - (void)doPlay{
     
     //直播视频
-    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+//    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
     
     //    SCFilmSetModel *model = _filmSetsArr.firstObject;
     //    self.url = [NSURL URLWithString:model.VODStreamingUrl];
     //    NSLog(@">>>>>>>>>>>model._DownUrl::::%@",model.VODStreamingUrl);
     //直播地址
-    //    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+        self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
     
     _player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:nil];
     

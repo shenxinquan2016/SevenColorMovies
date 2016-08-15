@@ -119,6 +119,9 @@
 		11DDB8821D5B15760074DFAB /* SCArtsFilmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DDB8811D5B15760074DFAB /* SCArtsFilmCell.m */; };
 		11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */; };
 		11EBC3F51D5C69F600C1A338 /* SCSpecialTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EBC3F41D5C69F600C1A338 /* SCSpecialTopicDetailVC.m */; };
+		11F3FD021D61A43700976F07 /* IJKMoviePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F3FD001D61A43700976F07 /* IJKMoviePlayerVC.m */; };
+		11F3FD031D61A43700976F07 /* IJKMoviePlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11F3FD011D61A43700976F07 /* IJKMoviePlayerVC.xib */; };
+		11F3FD061D61A49300976F07 /* IJKMediaControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F3FD051D61A49300976F07 /* IJKMediaControl.m */; };
 		11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB481D3F16E100AAC216 /* SCBaseViewController.m */; };
 		11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */; };
 		E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */; };
@@ -339,6 +342,11 @@
 		11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCArtsFilmCell.xib; sourceTree = "<group>"; };
 		11EBC3F31D5C69F600C1A338 /* SCSpecialTopicDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSpecialTopicDetailVC.h; sourceTree = "<group>"; };
 		11EBC3F41D5C69F600C1A338 /* SCSpecialTopicDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSpecialTopicDetailVC.m; sourceTree = "<group>"; };
+		11F3FCFF1D61A43700976F07 /* IJKMoviePlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKMoviePlayerVC.h; sourceTree = "<group>"; };
+		11F3FD001D61A43700976F07 /* IJKMoviePlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKMoviePlayerVC.m; sourceTree = "<group>"; };
+		11F3FD011D61A43700976F07 /* IJKMoviePlayerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IJKMoviePlayerVC.xib; sourceTree = "<group>"; };
+		11F3FD041D61A49300976F07 /* IJKMediaControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKMediaControl.h; sourceTree = "<group>"; };
+		11F3FD051D61A49300976F07 /* IJKMediaControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKMediaControl.m; sourceTree = "<group>"; };
 		11FACB471D3F16E100AAC216 /* SCBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBaseViewController.h; sourceTree = "<group>"; };
 		11FACB481D3F16E100AAC216 /* SCBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseViewController.m; sourceTree = "<group>"; };
 		11FACB4A1D3F19A000AAC216 /* SCSearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchBarView.h; sourceTree = "<group>"; };
@@ -594,6 +602,7 @@
 			children = (
 				115A211B1D4218510097DE57 /* MainBody */,
 				115A211A1D4218440097DE57 /* ViewController */,
+				11F3FCFD1D61A16700976F07 /* IJK */,
 			);
 			name = "Player播放器";
 			sourceTree = "<group>";
@@ -1207,6 +1216,18 @@
 			name = "SpecialTopic专题";
 			sourceTree = "<group>";
 		};
+		11F3FCFD1D61A16700976F07 /* IJK */ = {
+			isa = PBXGroup;
+			children = (
+				11F3FCFF1D61A43700976F07 /* IJKMoviePlayerVC.h */,
+				11F3FD001D61A43700976F07 /* IJKMoviePlayerVC.m */,
+				11F3FD011D61A43700976F07 /* IJKMoviePlayerVC.xib */,
+				11F3FD041D61A49300976F07 /* IJKMediaControl.h */,
+				11F3FD051D61A49300976F07 /* IJKMediaControl.m */,
+			);
+			name = IJK;
+			sourceTree = "<group>";
+		};
 		56CA4D536ADE803AF87BD5DE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1364,6 +1385,7 @@
 				11BB37D21D38E5C90002D487 /* News.storyboard in Resources */,
 				11BB37C81D38E3A00002D487 /* devEnvironment.plist in Resources */,
 				1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */,
+				11F3FD031D61A43700976F07 /* IJKMoviePlayerVC.xib in Resources */,
 				11BB37CA1D38E3C20002D487 /* switchNetworkEnvironment.plist in Resources */,
 				11BB37821D38B9A00002D487 /* Main.storyboard in Resources */,
 			);
@@ -1489,6 +1511,7 @@
 				115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */,
 				11DDB87E1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m in Sources */,
 				116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */,
+				11F3FD021D61A43700976F07 /* IJKMoviePlayerVC.m in Sources */,
 				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
 				110175071D54402D00E43773 /* FileManageCommon.m in Sources */,
 				118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */,
@@ -1504,6 +1527,7 @@
 				115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */,
 				115A21131D41F5BF0097DE57 /* SCPlayerViewController.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
+				11F3FD061D61A49300976F07 /* IJKMediaControl.m in Sources */,
 				116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */,
 				1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */,
 				113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */,
