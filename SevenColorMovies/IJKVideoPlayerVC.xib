@@ -5,53 +5,54 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IJKMoviePlayerVC">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IJKVideoPlayerVC">
             <connections>
+                <outlet property="mediaControl" destination="zAJ-lD-Fna" id="xgO-J5-soR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="349" height="189"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="188"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="226.5" y="65.5"/>
+            <point key="canvasLocation" x="239.5" y="65"/>
         </view>
         <view contentMode="scaleToFill" id="zAJ-lD-Fna" customClass="IJKMediaControl">
-            <rect key="frame" x="0.0" y="0.0" width="343" height="182"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="215"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GYR-8Q-AzF" userLabel="OverlayPanel" customClass="UIControl">
-                    <rect key="frame" x="0.0" y="0.0" width="343" height="182"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="213"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yF2-q6-6iG">
-                            <rect key="frame" x="150" y="70" width="43" height="43"/>
+                            <rect key="frame" x="166" y="70" width="43" height="43"/>
                             <state key="normal" image="Play"/>
                             <connections>
                                 <action selector="onClickPlay:" destination="-1" eventType="touchUpInside" id="flK-lL-d14"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6s-6P-ujX">
-                            <rect key="frame" x="76" y="70" width="46" height="36"/>
+                            <rect key="frame" x="164" y="73" width="46" height="36"/>
                             <state key="normal" title="暂停"/>
                             <connections>
                                 <action selector="onClickPause:" destination="-1" eventType="touchUpInside" id="iyM-Mk-tV4"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4f-8A-J5v">
-                            <rect key="frame" x="0.0" y="0.0" width="343" height="29"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="29"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GKE-nQ-f0w">
-                                    <rect key="frame" x="6" y="1" width="23" height="27"/>
+                                    <rect key="frame" x="11" y="1" width="23" height="27"/>
                                     <state key="normal" image="Back_Arrow"/>
                                     <connections>
                                         <action selector="onClickBack:" destination="-1" eventType="touchUpInside" id="T37-Ou-28E"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的青春谁做主" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Xc-iC-Vl7">
-                                    <rect key="frame" x="27" y="4" width="316" height="21"/>
+                                    <rect key="frame" x="33" y="4" width="341" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -60,20 +61,20 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view alpha="0.55000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yBG-kq-hxh">
-                            <rect key="frame" x="0.0" y="131" width="343" height="51"/>
+                            <rect key="frame" x="0.0" y="162" width="375" height="51"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2KC-yb-4vl">
                                     <rect key="frame" x="0.0" y="15" width="42" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TfL-Dg-BUN">
-                                    <rect key="frame" x="313" y="16" width="20" height="20"/>
+                                    <rect key="frame" x="342" y="16" width="20" height="20"/>
                                     <state key="normal" image="FullScreen"/>
                                 </button>
                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0SY-TZ-qnQ">
-                                    <rect key="frame" x="37" y="10" width="190" height="31"/>
+                                    <rect key="frame" x="37" y="10" width="217" height="31"/>
                                     <connections>
                                         <action selector="didSliderTouchCancel:" destination="-1" eventType="touchCancel" id="FyC-dk-IcM"/>
                                         <action selector="didSliderTouchDown:" destination="-1" eventType="touchDown" id="I2M-6q-oeS"/>
@@ -83,13 +84,13 @@
                                     </connections>
                                 </slider>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAa-WC-RXm">
-                                    <rect key="frame" x="279" y="16" width="20" height="20"/>
+                                    <rect key="frame" x="307" y="16" width="20" height="20"/>
                                     <state key="normal" image="InteractScreen"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiK-FX-EcO">
-                                    <rect key="frame" x="225" y="15" width="42" height="21"/>
+                                    <rect key="frame" x="254" y="15" width="42" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -110,11 +111,13 @@
                 <outlet property="bottomPanel" destination="yBG-kq-hxh" id="JZK-Rg-Fwe"/>
                 <outlet property="currentTimeLabel" destination="2KC-yb-4vl" id="yDs-96-lT0"/>
                 <outlet property="overlayPanel" destination="GYR-8Q-AzF" id="aBv-34-Yjq"/>
+                <outlet property="pauseButton" destination="S6s-6P-ujX" id="ZCZ-bM-gT7"/>
+                <outlet property="playButton" destination="yF2-q6-6iG" id="TFr-pC-oLS"/>
                 <outlet property="progressSlider" destination="0SY-TZ-qnQ" id="sSR-fa-X8R"/>
                 <outlet property="topPanel" destination="L4f-8A-J5v" id="S4p-gq-fYk"/>
                 <outlet property="totalDurationLabel" destination="EiK-FX-EcO" id="GWz-hv-7Fx"/>
             </connections>
-            <point key="canvasLocation" x="229.5" y="291"/>
+            <point key="canvasLocation" x="239.5" y="316.5"/>
         </view>
     </objects>
     <resources>

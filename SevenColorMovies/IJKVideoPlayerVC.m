@@ -1,31 +1,34 @@
 //
-//  IJKMoviePlayerVC.m
+//  IJKVideoPlayerVC.m
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/8/15.
 //  Copyright © 2016年 yesdgq. All rights reserved.
 //
 
-#import "IJKMoviePlayerVC.h"
+#import "IJKVideoPlayerVC.h"
 #import "IJKMediaControl.h"
 
-@interface IJKMoviePlayerVC ()
+@interface IJKVideoPlayerVC ()
 
 @end
 
-@implementation IJKMoviePlayerVC
+@implementation IJKVideoPlayerVC
 
 #pragma mark- Initialize
 
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void (^)())completion {
     
-    [viewController presentViewController:[[IJKMoviePlayerVC alloc] initWithURL:url] animated:YES completion:completion];
+    [viewController presentViewController:[[IJKVideoPlayerVC alloc] initWithURL:url] animated:YES completion:completion];
 }
 
-
++ (instancetype)initIJKPlayerWithTitle:(NSString *)title URL:(NSURL *)url{
+    IJKVideoPlayerVC *IJKPlayer = [[IJKVideoPlayerVC alloc] initWithURL:url];
+    return IJKPlayer;
+}
 
 - (instancetype)initWithURL:(NSURL *)url {
-    self = [self initWithNibName:@"IJKMoviePlayerViewController" bundle:nil];
+    self = [self initWithNibName:@"IJKVideoPlayerVC" bundle:nil];
     if (self) {
         self.url = url;
     }
@@ -40,6 +43,8 @@
     [super viewDidLoad];
 
     
+    //    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    //    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeLeft animated:NO];
     
 #ifdef DEBUG
     [IJKFFMoviePlayerController setLogReport:YES];
@@ -62,16 +67,16 @@
     
     self.view.autoresizesSubviews = YES;
     [self.view addSubview:self.player.view];
-//    [self.view addSubview:self.mediaControl];
+    [self.view addSubview:self.mediaControl];
+    [self.mediaControl setFrame:self.view.bounds];
     
-//    self.mediaControl.delegatePlayer = self.player;
+    self.mediaControl.delegatePlayer = self.player;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self installMovieNotificationObservers];
-    
     [self.player prepareToPlay];
 }
 
@@ -92,40 +97,57 @@
 }
 
 
+#pragma mark - IBAction
 
 - (IBAction)onClickMediaControl:(id)sender {
-    
+    [self.mediaControl showAndFade];
 }
 
 - (IBAction)onClickOverlay:(id)sender {
+    [self.mediaControl hide];
 }
 
 - (IBAction)onClickBack:(id)sender {
+//    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    if (self.doBackActionBlock) {
+        self.doBackActionBlock();
+    }
 }
 
 - (IBAction)onClickPlay:(id)sender {
+    [self.player play];
+    [self.mediaControl refreshMediaControl];
 }
 
 - (IBAction)onClickPause:(id)sender {
+    [self.player pause];
+    [self.mediaControl refreshMediaControl];
+
 }
 
 - (IBAction)didSliderTouchDown:(id)sender {
+    [self.mediaControl beginDragMediaSlider];
 }
 
 - (IBAction)didSliderTouchCancel:(id)sender {
+    [self.mediaControl endDragMediaSlider];
 }
 
 - (IBAction)didSliderTouchUpOutside:(id)sender {
+    [self.mediaControl endDragMediaSlider];
+
 }
 
 - (IBAction)didSliderTouchUpInside:(id)sender {
+    self.player.currentPlaybackTime = self.mediaControl.progressSlider.value;
+    [self.mediaControl endDragMediaSlider];
+
 }
 
 - (IBAction)didSliderValueChanged:(id)sender {
+    [self.mediaControl continueDragMediaSlider];
+
 }
-
-
-
 
 
 #pragma mark - IJK响应事件
