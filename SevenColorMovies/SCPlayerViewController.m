@@ -59,11 +59,12 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     
-    //3.初始化数组
+    //1.初始化数组
     
     self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];
     self.filmsArr = [NSMutableArray arrayWithCapacity:0];
     
+    //2.组建页面
     [self setView];
     
     //直播视频
@@ -84,35 +85,26 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         make.height.equalTo(@213);
     }];
     
-    
-    
-    //返回按钮回调
+    //返回btn回调
     __weak __typeof(self)weakSelf = self;
     _IJKPlayer.doBackActionBlock = ^(){
         [weakSelf.navigationController popViewControllerAnimated:YES];
     };
     
-    
 }
-
-
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-    [self.IJKPlayer installMovieNotificationObservers];
-    [self.IJKPlayer.player prepareToPlay];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
-    [self.IJKPlayer.player shutdown];
-    [self.IJKPlayer removeMovieNotificationObservers];
 }
+
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
@@ -123,6 +115,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     

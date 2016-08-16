@@ -22,8 +22,6 @@ typedef void(^DoBackActionBlock)(void);/** 返回按钮通过block实现 */
 
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void(^)())completion;
 + (instancetype)initIJKPlayerWithTitle:(NSString *)title URL:(NSURL *)url;
--(void)installMovieNotificationObservers;
--(void)removeMovieNotificationObservers;
 
 - (IBAction)onClickMediaControl:(id)sender;
 - (IBAction)onClickOverlay:(id)sender;

@@ -39,7 +39,7 @@
 - (void)showAndFade
 {
     [self showNoFade];
-    [self performSelector:@selector(hide) withObject:nil afterDelay:5];
+    [self performSelector:@selector(hide) withObject:nil afterDelay:4];
 }
 
 - (void)hide

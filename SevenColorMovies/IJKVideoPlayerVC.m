@@ -42,9 +42,39 @@
 {
     [super viewDidLoad];
 
+    //初始化播放器
+    [self initializeIJKPlayer];
     
-    //    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    //    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeLeft animated:NO];
+    //本应写在viewWillAppear中，但viewWillAppear不被执行
+    [self installMovieNotificationObservers];
+    [self.player prepareToPlay];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.player shutdown];
+    [self removeMovieNotificationObservers];
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+
+
+}
+
+- (void)dealloc{
+    
+}
+
+#pragma mark - 初始化播放器
+
+- (void) initializeIJKPlayer{
     
 #ifdef DEBUG
     [IJKFFMoviePlayerController setLogReport:YES];
@@ -71,29 +101,7 @@
     [self.mediaControl setFrame:self.view.bounds];
     
     self.mediaControl.delegatePlayer = self.player;
-}
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self installMovieNotificationObservers];
-    [self.player prepareToPlay];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    
-    [self.player shutdown];
-    [self removeMovieNotificationObservers];
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-
-
-}
-
-- (void)dealloc{
-    
 }
 
 
