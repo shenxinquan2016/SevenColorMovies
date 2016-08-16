@@ -7,7 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IJKMoviePlayerVC">
             <connections>
-                <outlet property="meidiaControl" destination="GYR-8Q-AzF" id="7Gq-CI-GNb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,12 +23,22 @@
             <rect key="frame" x="0.0" y="0.0" width="343" height="182"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GYR-8Q-AzF">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GYR-8Q-AzF" userLabel="OverlayPanel" customClass="UIControl">
                     <rect key="frame" x="0.0" y="0.0" width="343" height="182"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yF2-q6-6iG">
                             <rect key="frame" x="150" y="70" width="43" height="43"/>
                             <state key="normal" image="Play"/>
+                            <connections>
+                                <action selector="onClickPlay:" destination="-1" eventType="touchUpInside" id="flK-lL-d14"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6s-6P-ujX">
+                            <rect key="frame" x="76" y="70" width="46" height="36"/>
+                            <state key="normal" title="暂停"/>
+                            <connections>
+                                <action selector="onClickPause:" destination="-1" eventType="touchUpInside" id="iyM-Mk-tV4"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4f-8A-J5v">
                             <rect key="frame" x="0.0" y="0.0" width="343" height="29"/>
@@ -37,6 +46,9 @@
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GKE-nQ-f0w">
                                     <rect key="frame" x="6" y="1" width="23" height="27"/>
                                     <state key="normal" image="Back_Arrow"/>
+                                    <connections>
+                                        <action selector="onClickBack:" destination="-1" eventType="touchUpInside" id="T37-Ou-28E"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的青春谁做主" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Xc-iC-Vl7">
                                     <rect key="frame" x="27" y="4" width="316" height="21"/>
@@ -62,6 +74,13 @@
                                 </button>
                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0SY-TZ-qnQ">
                                     <rect key="frame" x="37" y="10" width="190" height="31"/>
+                                    <connections>
+                                        <action selector="didSliderTouchCancel:" destination="-1" eventType="touchCancel" id="FyC-dk-IcM"/>
+                                        <action selector="didSliderTouchDown:" destination="-1" eventType="touchDown" id="I2M-6q-oeS"/>
+                                        <action selector="didSliderTouchUpInside:" destination="-1" eventType="touchUpInside" id="4IH-R0-upS"/>
+                                        <action selector="didSliderTouchUpOutside:" destination="-1" eventType="touchUpOutside" id="nls-9J-T0A"/>
+                                        <action selector="didSliderValueChanged:" destination="-1" eventType="valueChanged" id="Tgz-JZ-LdT"/>
+                                    </connections>
                                 </slider>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAa-WC-RXm">
                                     <rect key="frame" x="279" y="16" width="20" height="20"/>
@@ -78,18 +97,21 @@
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="onClickOverlay:" destination="-1" eventType="touchDown" id="eqf-bt-5oq"/>
+                    </connections>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="bottomPanel" destination="yBG-kq-hxh" id="s9a-IO-gzR"/>
+                <action selector="onClickMediaControl:" destination="-1" eventType="touchDown" id="C34-OE-xSE"/>
+                <outlet property="bottomPanel" destination="yBG-kq-hxh" id="JZK-Rg-Fwe"/>
                 <outlet property="currentTimeLabel" destination="2KC-yb-4vl" id="yDs-96-lT0"/>
-                <outlet property="overPlayPanel" destination="GYR-8Q-AzF" id="8Kc-vM-lAb"/>
-                <outlet property="overlayPanel" destination="GYR-8Q-AzF" id="GWb-xO-zgF"/>
+                <outlet property="overlayPanel" destination="GYR-8Q-AzF" id="aBv-34-Yjq"/>
                 <outlet property="progressSlider" destination="0SY-TZ-qnQ" id="sSR-fa-X8R"/>
-                <outlet property="topPanel" destination="L4f-8A-J5v" id="O3m-Wj-FIN"/>
+                <outlet property="topPanel" destination="L4f-8A-J5v" id="S4p-gq-fYk"/>
                 <outlet property="totalDurationLabel" destination="EiK-FX-EcO" id="GWz-hv-7Fx"/>
             </connections>
             <point key="canvasLocation" x="229.5" y="291"/>

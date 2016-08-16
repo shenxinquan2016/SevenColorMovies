@@ -21,10 +21,10 @@
 - (void)continueDragMediaSlider;
 
 @property(nonatomic,weak) id<IJKMediaPlayback> delegatePlayer;
-
 @property (weak, nonatomic) IBOutlet UIView *overlayPanel;
-@property (weak, nonatomic) IBOutlet UIView *topPanel;
 @property (weak, nonatomic) IBOutlet UIView *bottomPanel;
+@property (weak, nonatomic) IBOutlet UIView *topPanel;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *currentTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalDurationLabel;

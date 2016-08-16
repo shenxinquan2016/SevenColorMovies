@@ -22,6 +22,8 @@
     [viewController presentViewController:[[IJKMoviePlayerVC alloc] initWithURL:url] animated:YES completion:completion];
 }
 
+
+
 - (instancetype)initWithURL:(NSURL *)url {
     self = [self initWithNibName:@"IJKMoviePlayerViewController" bundle:nil];
     if (self) {
@@ -89,6 +91,43 @@
     
 }
 
+
+
+- (IBAction)onClickMediaControl:(id)sender {
+    
+}
+
+- (IBAction)onClickOverlay:(id)sender {
+}
+
+- (IBAction)onClickBack:(id)sender {
+}
+
+- (IBAction)onClickPlay:(id)sender {
+}
+
+- (IBAction)onClickPause:(id)sender {
+}
+
+- (IBAction)didSliderTouchDown:(id)sender {
+}
+
+- (IBAction)didSliderTouchCancel:(id)sender {
+}
+
+- (IBAction)didSliderTouchUpOutside:(id)sender {
+}
+
+- (IBAction)didSliderTouchUpInside:(id)sender {
+}
+
+- (IBAction)didSliderValueChanged:(id)sender {
+}
+
+
+
+
+
 #pragma mark - IJK响应事件
 - (void)loadStateDidChange:(NSNotification*)notification
 {
@@ -115,7 +154,7 @@
         case IJKMPMovieFinishReasonPlaybackEnded:
             NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonPlaybackEnded: %d\n", reason);
             break;
-            
+        
         case IJKMPMovieFinishReasonUserExited:
             NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonUserExited: %d\n", reason);
             break;

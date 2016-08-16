@@ -602,7 +602,7 @@
 			children = (
 				115A211B1D4218510097DE57 /* MainBody */,
 				115A211A1D4218440097DE57 /* ViewController */,
-				11F3FCFD1D61A16700976F07 /* IJK */,
+				11F3FCFD1D61A16700976F07 /* IJKPlayer */,
 			);
 			name = "Player播放器";
 			sourceTree = "<group>";
@@ -1216,7 +1216,7 @@
 			name = "SpecialTopic专题";
 			sourceTree = "<group>";
 		};
-		11F3FCFD1D61A16700976F07 /* IJK */ = {
+		11F3FCFD1D61A16700976F07 /* IJKPlayer */ = {
 			isa = PBXGroup;
 			children = (
 				11F3FCFF1D61A43700976F07 /* IJKMoviePlayerVC.h */,
@@ -1225,7 +1225,7 @@
 				11F3FD041D61A49300976F07 /* IJKMediaControl.h */,
 				11F3FD051D61A49300976F07 /* IJKMediaControl.m */,
 			);
-			name = IJK;
+			name = IJKPlayer;
 			sourceTree = "<group>";
 		};
 		56CA4D536ADE803AF87BD5DE /* Pods */ = {

@@ -20,6 +20,20 @@
 
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void(^)())completion;
 
-@property (weak, nonatomic) IBOutlet IJKMediaControl *meidiaControl;
+
+
+- (IBAction)onClickMediaControl:(id)sender;
+- (IBAction)onClickOverlay:(id)sender;
+- (IBAction)onClickBack:(id)sender;
+
+- (IBAction)onClickPlay:(id)sender;
+- (IBAction)onClickPause:(id)sender;
+
+- (IBAction)didSliderTouchDown:(id)sender;
+- (IBAction)didSliderTouchCancel:(id)sender;
+- (IBAction)didSliderTouchUpOutside:(id)sender;
+- (IBAction)didSliderTouchUpInside:(id)sender;
+- (IBAction)didSliderValueChanged:(id)sender;
+
 
 @end
