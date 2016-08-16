@@ -26,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet UIView *topPanel;
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
-@property (weak, nonatomic) IBOutlet UIButton *pauseButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *currentTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalDurationLabel;

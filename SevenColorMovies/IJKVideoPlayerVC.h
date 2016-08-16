@@ -28,7 +28,6 @@ typedef void(^DoBackActionBlock)(void);/** 返回按钮通过block实现 */
 - (IBAction)onClickBack:(id)sender;
 
 - (IBAction)onClickPlay:(id)sender;
-- (IBAction)onClickPause:(id)sender;
 
 - (IBAction)didSliderTouchDown:(id)sender;
 - (IBAction)didSliderTouchCancel:(id)sender;
@@ -37,5 +36,10 @@ typedef void(^DoBackActionBlock)(void);/** 返回按钮通过block实现 */
 - (IBAction)didSliderValueChanged:(id)sender;
 
 @property (strong, nonatomic) IBOutlet IJKMediaControl *mediaControl;
+
+
+
+
+
 
 @end

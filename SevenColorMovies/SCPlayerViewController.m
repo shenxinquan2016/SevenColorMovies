@@ -54,6 +54,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 }
 
 #pragma mark-  ViewLife Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -199,7 +200,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 /** 添加标题栏label */
 - (void)addLabel{
     for (int i = 0; i < _titleArr.count; i++) {
-        CGFloat lbW = LabelWidth;                //宽
+        CGFloat lbW = LabelWidth;        //宽
         CGFloat lbH = TitleHeight;       //高
         CGFloat lbX = i * lbW;           //X
         CGFloat lbY = 0;                 //Y

@@ -8,6 +8,7 @@
 
 #import "IJKVideoPlayerVC.h"
 #import "IJKMediaControl.h"
+#import "PlayerViewRotate.h"//横竖屏强制转换
 
 @interface IJKVideoPlayerVC ()
 
@@ -15,6 +16,9 @@
 
 @implementation IJKVideoPlayerVC
 
+{
+    UIInterfaceOrientation _lastOrientaion;
+}
 #pragma mark- Initialize
 
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void (^)())completion {
@@ -43,7 +47,7 @@
     [super viewDidLoad];
 
     //初始化播放器
-    [self initializeIJKPlayer];
+    [self setupIJKPlayer];
     
     //本应写在viewWillAppear中，但viewWillAppear不被执行
     [self installMovieNotificationObservers];
@@ -64,8 +68,6 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-
-
 }
 
 - (void)dealloc{
@@ -74,7 +76,7 @@
 
 #pragma mark - 初始化播放器
 
-- (void) initializeIJKPlayer{
+- (void) setupIJKPlayer{
     
 #ifdef DEBUG
     [IJKFFMoviePlayerController setLogReport:YES];
@@ -101,7 +103,7 @@
     [self.mediaControl setFrame:self.view.bounds];
     
     self.mediaControl.delegatePlayer = self.player;
-
+    
 }
 
 
@@ -123,18 +125,22 @@
 }
 
 - (IBAction)onClickPlay:(id)sender {
-    [self.player play];
-    [self.mediaControl refreshMediaControl];
-}
+    if ([self.player isPlaying]) {
+        [self.player pause];
+        [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Play_Click"] forState:UIControlStateNormal];
+        [self.mediaControl refreshMediaControl];
+        
+    }else if (![self.player isPlaying]){
+        [self.player play];
+        [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Play"] forState:UIControlStateNormal];
+        [self.mediaControl refreshMediaControl];
 
-- (IBAction)onClickPause:(id)sender {
-    [self.player pause];
-    [self.mediaControl refreshMediaControl];
-
+    }
 }
 
 - (IBAction)didSliderTouchDown:(id)sender {
     [self.mediaControl beginDragMediaSlider];
+    
 }
 
 - (IBAction)didSliderTouchCancel:(id)sender {
@@ -279,5 +285,39 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification object:_player];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackStateDidChangeNotification object:_player];
 }
+
+
+
+
+- (void) fullScreenButDidTouch {
+    if ([PlayerViewRotate isOrientationLandscape]) {
+        [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
+        _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
+        [self prepareForSmallScreen];
+    }else {
+        
+        [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+        
+        [self prepareForFullScreen];
+    }
+}
+
+
+- (void)prepareForFullScreen {
+    
+    [_player setScalingMode:IJKMPMovieScalingModeAspectFit];
+    
+    self.view.frame = [[UIScreen mainScreen] bounds];
+    self.player.view.frame = self.view.frame;
+    self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+}
+
+- (void)prepareForSmallScreen {
+    [_player setScalingMode:IJKMPMovieScalingModeAspectFit];
+    self.view.frame = CGRectMake(0, 20, kMainScreenWidth, 213);
+    self.player.view.frame = self.view.bounds;
+    
+}
+
 
 @end

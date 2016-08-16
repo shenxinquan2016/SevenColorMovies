@@ -27,6 +27,7 @@
 - (void)awakeFromNib
 {
     [self refreshMediaControl];
+    [self showAndFade];
 }
 
 - (void)showNoFade
@@ -39,7 +40,7 @@
 - (void)showAndFade
 {
     [self showNoFade];
-    [self performSelector:@selector(hide) withObject:nil afterDelay:4];
+    [self performSelector:@selector(hide) withObject:nil afterDelay:5];
 }
 
 - (void)hide
@@ -95,14 +96,10 @@
     } else {
         self.progressSlider.value = 0.0f;
     }
+    
     self.currentTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d", (int)(intPosition / 60), (int)(intPosition % 60)];
     
-    
-    // status
-    BOOL isPlaying = [self.delegatePlayer isPlaying];
-    self.playButton.hidden = isPlaying;
-    self.pauseButton.hidden = !isPlaying;
-    
+        
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControl) object:nil];
     if (!self.overlayPanel.hidden) {
