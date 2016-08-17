@@ -72,7 +72,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 //    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
     self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
     self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
-
+ 
 //        [IJKVideoPlayerVC presentFromViewController:self withTitle:[NSString stringWithFormat:@"URL: %@", self.url] URL:self.url completion:^{
 //            [self.navigationController popViewControllerAnimated:NO];
 //        }];
@@ -83,7 +83,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [_IJKPlayer.view mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(20);
         make.left.right.equalTo(self.view);
-        make.height.equalTo(@213);
+        make.height.mas_equalTo([UIScreen mainScreen].bounds.size.width*9/16);
     }];
     
     //返回btn回调

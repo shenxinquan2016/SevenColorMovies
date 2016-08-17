@@ -26,7 +26,7 @@
 
 - (void)awakeFromNib
 {
-    [self setupProgressSlider];
+    [self setupProgressSlider];//自定义UISlider
     [self refreshMediaControl];
     [self showAndFade];
 }

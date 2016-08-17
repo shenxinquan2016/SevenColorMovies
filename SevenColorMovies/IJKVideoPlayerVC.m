@@ -12,6 +12,8 @@
 
 @interface IJKVideoPlayerVC ()
 
+@property (nonatomic, assign) BOOL isRotate;
+
 @end
 
 @implementation IJKVideoPlayerVC
@@ -45,14 +47,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    self.isRotate = NO;
     //初始化播放器
     [self setupIJKPlayer];
     
     //本应写在viewWillAppear中，但viewWillAppear不被执行
     [self installMovieNotificationObservers];
     [self.player prepareToPlay];
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -77,31 +80,47 @@
 #pragma mark - 初始化播放器
 
 - (void) setupIJKPlayer{
-    
+    //1. 根据当前环境设置日志信息
+    //1.1如果是Debug状态的
 #ifdef DEBUG
+    //  设置报告日志
     [IJKFFMoviePlayerController setLogReport:YES];
+    //  设置日志的级别为Debug
     [IJKFFMoviePlayerController setLogLevel:k_IJK_LOG_DEBUG];
+    //1.2否则(如果不是debug状态的)
 #else
+    //  设置不报告日志
     [IJKFFMoviePlayerController setLogReport:NO];
+    //  设置日志级别为信息
     [IJKFFMoviePlayerController setLogLevel:k_IJK_LOG_INFO];
 #endif
-    
+    // 2. 检查版本是否匹配
     [IJKFFMoviePlayerController checkIfFFmpegVersionMatch:YES];
     // [IJKFFMoviePlayerController checkIfPlayerVersionMatch:YES major:1 minor:0 micro:0];
     
+    // 3.  创建IJKFFMoviePlayerController
+    // 3.1 默认选项配置
     IJKFFOptions *options = [IJKFFOptions optionsByDefault];
-    
+    // 3.2 创建播放控制器
     self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:options];
-    self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    
+    //4. 屏幕适配
+    // 4.1 设置播放视频视图的frame与控制器的View的bounds一致
     self.player.view.frame = self.view.bounds;
+    // 4.2 设置适配横竖屏(设置四边固定,长宽灵活)
+    self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    //  4.3 设置播放视图的缩放模式
     self.player.scalingMode = IJKMPMovieScalingModeAspectFit;
+    //  4.4 设置自动播放
     self.player.shouldAutoplay = YES;
-    
+    //  4.5 自动更新子视图的大小
     self.view.autoresizesSubviews = YES;
+    //  4.6 添加播放视图到控制器的View
     [self.view addSubview:self.player.view];
-    [self.view addSubview:self.mediaControl];
-
     
+    // 5. 添加播放控件到控制器的View
+    [self.view addSubview:self.mediaControl];
+    // 5.1 代理设置
     self.mediaControl.delegatePlayer = self.player;
     
 }
@@ -121,7 +140,7 @@
 
 /** 返回 */
 - (IBAction)onClickBack:(id)sender {
-//    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    //    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     if (self.doBackActionBlock) {
         self.doBackActionBlock();
     }
@@ -138,22 +157,60 @@
         [self.player play];
         [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
         [self.mediaControl refreshMediaControl];
-
+        
     }
 }
 
 /** 全屏 */
 - (IBAction)onClickFullScreenButton:(id)sender {
-    if ([PlayerViewRotate isOrientationLandscape]) {
-        [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
-        _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
-        [self prepareForSmallScreen];
-    }else {
+//    if ([PlayerViewRotate isOrientationLandscape]) {
+//        [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
+//        _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
+//        [self prepareForSmallScreen];
+//    }else {
+//        
+//        [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+//        
+//        [self prepareForFullScreen];
+//    }
+    
+    if (!self.isRotate) {
+    
+        [UIView animateWithDuration:0.3 animations:^{
+            // 播放器View所在的控制器View
+//            self.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
+//            self.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+            // 播放器view
+            self.player.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
+            self.player.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+            // 播放控件所在view
+//            self.mediaControl.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
+//            self.mediaControl.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+
+            self.isRotate = YES;
+            
+        }];
         
-        [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+    }else{
+
+        [UIView animateWithDuration:0.3 animations:^{
+            // 播放器View所在的控制器View
+//            self.view.transform = CGAffineTransformIdentity;
+//            self.view.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            // 播放器view
+            self.player.view.transform = CGAffineTransformIdentity;
+            self.player.view.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            // 播放控件所在view
+//            self.mediaControl.transform = CGAffineTransformIdentity;
+//            self.mediaControl.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            
+            self.isRotate = NO;
+            
+        }];
         
-        [self prepareForFullScreen];
     }
+    
+
 }
 
 /** 进度条 */
@@ -168,18 +225,18 @@
 
 - (IBAction)didSliderTouchUpOutside:(id)sender {
     [self.mediaControl endDragMediaSlider];
-
+    
 }
 
 - (IBAction)didSliderTouchUpInside:(id)sender {
     self.player.currentPlaybackTime = self.mediaControl.progressSlider.value;
     [self.mediaControl endDragMediaSlider];
-
+    
 }
 
 - (IBAction)didSliderValueChanged:(id)sender {
     [self.mediaControl continueDragMediaSlider];
-
+    
 }
 
 
@@ -210,7 +267,7 @@
         case IJKMPMovieFinishReasonPlaybackEnded:
             NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonPlaybackEnded: %d\n", reason);
             break;
-        
+            
         case IJKMPMovieFinishReasonUserExited:
             NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonUserExited: %d\n", reason);
             break;
@@ -274,21 +331,22 @@
 
 -(void)installMovieNotificationObservers
 {
+    //加载状态改变通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadStateDidChange:)
                                                  name:IJKMPMoviePlayerLoadStateDidChangeNotification
                                                object:_player];
-    
+    //播放结束通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackDidFinish:)
                                                  name:IJKMPMoviePlayerPlaybackDidFinishNotification
                                                object:_player];
-    
+    //
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mediaIsPreparedToPlayDidChange:)
                                                  name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification
                                                object:_player];
-    
+    //播放状态改变通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackStateDidChange:)
                                                  name:IJKMPMoviePlayerPlaybackStateDidChangeNotification

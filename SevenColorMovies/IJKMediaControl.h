@@ -11,15 +11,6 @@
 
 @interface IJKMediaControl : UIControl
 
-- (void)showNoFade;
-- (void)showAndFade;
-- (void)hide;
-- (void)refreshMediaControl;
-
-- (void)beginDragMediaSlider;
-- (void)endDragMediaSlider;
-- (void)continueDragMediaSlider;
-
 @property(nonatomic,weak) id<IJKMediaPlayback> delegatePlayer;
 @property (weak, nonatomic) IBOutlet UIView *overlayPanel;
 @property (weak, nonatomic) IBOutlet UIView *bottomPanel;
@@ -30,5 +21,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalDurationLabel;
 @property (weak, nonatomic) IBOutlet UISlider *progressSlider;
+
+- (void)showNoFade;
+- (void)showAndFade;
+- (void)hide;
+- (void)refreshMediaControl;
+
+- (void)beginDragMediaSlider;
+- (void)endDragMediaSlider;
+- (void)continueDragMediaSlider;
+
 
 @end
