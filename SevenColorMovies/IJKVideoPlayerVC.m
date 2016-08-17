@@ -180,12 +180,14 @@
             // 播放器View所在的控制器View
 //            self.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
 //            self.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+            
             // 播放器view
-            self.player.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
+            self.player.view.transform = CGAffineTransformRotate(self.player.view.transform, M_PI_2);
             self.player.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+            
             // 播放控件所在view
-//            self.mediaControl.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
-//            self.mediaControl.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+            self.mediaControl.transform = CGAffineTransformRotate(self.mediaControl.transform, M_PI_2);
+            self.mediaControl.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
 
             self.isRotate = YES;
             
@@ -197,12 +199,14 @@
             // 播放器View所在的控制器View
 //            self.view.transform = CGAffineTransformIdentity;
 //            self.view.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            
             // 播放器view
             self.player.view.transform = CGAffineTransformIdentity;
-            self.player.view.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            self.player.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            
             // 播放控件所在view
-//            self.mediaControl.transform = CGAffineTransformIdentity;
-//            self.mediaControl.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            self.mediaControl.transform = CGAffineTransformIdentity;
+            self.mediaControl.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
             
             self.isRotate = NO;
             
