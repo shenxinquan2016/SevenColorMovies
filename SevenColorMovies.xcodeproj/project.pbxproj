@@ -59,6 +59,7 @@
 		116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476031D40BA3D00A3BC1C /* SCChannelCatalogueVC.m */; };
 		116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */; };
 		1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */; };
+		116AF3001D64560A00FE1BAF /* IJKMediaControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116AF2FF1D64560A00FE1BAF /* IJKMediaControl.xib */; };
 		116B1F541D53211C00E9637A /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F531D53211C00E9637A /* IJKMediaFramework.framework */; };
 		116B1F561D53235600E9637A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F551D53235600E9637A /* libz.tbd */; };
 		116B1F581D53236B00E9637A /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F571D53236B00E9637A /* libbz2.tbd */; };
@@ -244,6 +245,7 @@
 		116476061D40CA8900A3BC1C /* SCChannelCatalogueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelCatalogueCell.h; sourceTree = "<group>"; };
 		116476071D40CA8900A3BC1C /* SCChannelCatalogueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCatalogueCell.m; sourceTree = "<group>"; };
 		116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCChannelCatalogueCell.xib; sourceTree = "<group>"; };
+		116AF2FF1D64560A00FE1BAF /* IJKMediaControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IJKMediaControl.xib; sourceTree = "<group>"; };
 		116B1F531D53211C00E9637A /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
 		116B1F551D53235600E9637A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		116B1F571D53236B00E9637A /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
@@ -1227,6 +1229,7 @@
 				11F3FD011D61A43700976F07 /* IJKVideoPlayerVC.xib */,
 				11F3FD041D61A49300976F07 /* IJKMediaControl.h */,
 				11F3FD051D61A49300976F07 /* IJKMediaControl.m */,
+				116AF2FF1D64560A00FE1BAF /* IJKMediaControl.xib */,
 				11E97A031D6320CA00512D10 /* PlayerViewRotate.h */,
 				11E97A041D6320CA00512D10 /* PlayerViewRotate.m */,
 			);
@@ -1378,6 +1381,7 @@
 				116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */,
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
 				11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */,
+				116AF3001D64560A00FE1BAF /* IJKMediaControl.xib in Resources */,
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */,
 				11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */,
