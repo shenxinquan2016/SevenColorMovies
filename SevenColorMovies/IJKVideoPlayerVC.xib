@@ -33,7 +33,7 @@
                                 <constraint firstAttribute="height" constant="43" id="7Xw-Qm-VSO"/>
                                 <constraint firstAttribute="width" constant="43" id="9QG-1h-lQF"/>
                             </constraints>
-                            <state key="normal" image="Play"/>
+                            <state key="normal" image="Pause"/>
                             <connections>
                                 <action selector="onClickPlay:" destination="-1" eventType="touchUpInside" id="flK-lL-d14"/>
                             </connections>
@@ -63,21 +63,32 @@
                         <view alpha="0.55000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yBG-kq-hxh">
                             <rect key="frame" x="0.0" y="174" width="375" height="41"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2KC-yb-4vl">
-                                    <rect key="frame" x="0.0" y="10" width="51" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2KC-yb-4vl">
+                                    <rect key="frame" x="10" y="10" width="50" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="02X-Dt-8ea"/>
+                                        <constraint firstAttribute="width" constant="50" id="PA4-eQ-Uq3"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TfL-Dg-BUN">
-                                    <rect key="frame" x="342" y="11" width="20" height="20"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TfL-Dg-BUN">
+                                    <rect key="frame" x="342" y="8" width="25" height="25"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="25" id="Q6e-gf-RXb"/>
+                                        <constraint firstAttribute="height" constant="25" id="yFd-Io-0DT"/>
+                                    </constraints>
                                     <state key="normal" image="FullScreen"/>
                                     <connections>
                                         <action selector="onClickFullScreenButton:" destination="-1" eventType="touchUpInside" id="vjX-GI-ZaY"/>
                                     </connections>
                                 </button>
-                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0SY-TZ-qnQ">
-                                    <rect key="frame" x="51" y="5" width="203" height="31"/>
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0SY-TZ-qnQ">
+                                    <rect key="frame" x="61" y="5" width="189" height="31"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="Yt9-M6-y2f"/>
+                                    </constraints>
                                     <connections>
                                         <action selector="didSliderTouchCancel:" destination="-1" eventType="touchCancel" id="FyC-dk-IcM"/>
                                         <action selector="didSliderTouchDown:" destination="-1" eventType="touchDown" id="I2M-6q-oeS"/>
@@ -86,12 +97,20 @@
                                         <action selector="didSliderValueChanged:" destination="-1" eventType="valueChanged" id="Tgz-JZ-LdT"/>
                                     </connections>
                                 </slider>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAa-WC-RXm">
-                                    <rect key="frame" x="311" y="11" width="20" height="20"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAa-WC-RXm">
+                                    <rect key="frame" x="309" y="8" width="25" height="25"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="25" id="4R6-ng-XEe"/>
+                                        <constraint firstAttribute="height" constant="25" id="d8D-UR-8eC"/>
+                                    </constraints>
                                     <state key="normal" image="InteractScreen"/>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiK-FX-EcO">
-                                    <rect key="frame" x="254" y="10" width="55" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiK-FX-EcO">
+                                    <rect key="frame" x="251" y="10" width="50" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="nJ3-ET-bO8"/>
+                                        <constraint firstAttribute="width" constant="50" id="ncG-zD-YBz"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -99,7 +118,18 @@
                             </subviews>
                             <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
+                                <constraint firstItem="EiK-FX-EcO" firstAttribute="centerY" secondItem="yBG-kq-hxh" secondAttribute="centerY" id="5PN-ei-AL9"/>
+                                <constraint firstItem="EAa-WC-RXm" firstAttribute="centerY" secondItem="yBG-kq-hxh" secondAttribute="centerY" id="5eZ-aY-wf4"/>
+                                <constraint firstAttribute="trailing" secondItem="TfL-Dg-BUN" secondAttribute="trailing" constant="8" id="BnZ-G7-OLu"/>
+                                <constraint firstItem="2KC-yb-4vl" firstAttribute="centerY" secondItem="yBG-kq-hxh" secondAttribute="centerY" id="FBV-rz-7aa"/>
+                                <constraint firstItem="TfL-Dg-BUN" firstAttribute="centerY" secondItem="yBG-kq-hxh" secondAttribute="centerY" id="Mwg-xZ-u3v"/>
+                                <constraint firstItem="EAa-WC-RXm" firstAttribute="leading" secondItem="EiK-FX-EcO" secondAttribute="trailing" constant="8" id="VUu-8K-zAZ"/>
+                                <constraint firstItem="TfL-Dg-BUN" firstAttribute="leading" secondItem="EAa-WC-RXm" secondAttribute="trailing" constant="8" id="Vlf-M2-Odv"/>
                                 <constraint firstAttribute="height" constant="41" id="Z7o-xp-7eK"/>
+                                <constraint firstItem="0SY-TZ-qnQ" firstAttribute="leading" secondItem="2KC-yb-4vl" secondAttribute="trailing" constant="3" id="aGH-3S-Fl9"/>
+                                <constraint firstItem="2KC-yb-4vl" firstAttribute="leading" secondItem="yBG-kq-hxh" secondAttribute="leading" constant="10" id="k1H-2J-IlF"/>
+                                <constraint firstItem="EiK-FX-EcO" firstAttribute="leading" secondItem="0SY-TZ-qnQ" secondAttribute="trailing" constant="3" id="sgp-nw-RaA"/>
+                                <constraint firstItem="0SY-TZ-qnQ" firstAttribute="centerY" secondItem="yBG-kq-hxh" secondAttribute="centerY" id="xP8-5p-Aed"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -145,6 +175,6 @@
         <image name="Back_Arrow" width="22" height="22"/>
         <image name="FullScreen" width="19" height="19"/>
         <image name="InteractScreen" width="17" height="17"/>
-        <image name="Play" width="43" height="43"/>
+        <image name="Pause" width="43" height="43"/>
     </resources>
 </document>

@@ -131,12 +131,12 @@
 - (IBAction)onClickPlay:(id)sender {
     if ([self.player isPlaying]) {
         [self.player pause];
-        [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Play_Click"] forState:UIControlStateNormal];
+        [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Play"] forState:UIControlStateNormal];
         [self.mediaControl refreshMediaControl];
         
     }else if (![self.player isPlaying]){
         [self.player play];
-        [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Play"] forState:UIControlStateNormal];
+        [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
         [self.mediaControl refreshMediaControl];
 
     }
