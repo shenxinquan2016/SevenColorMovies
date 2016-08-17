@@ -23,17 +23,20 @@ typedef void(^DoBackActionBlock)(void);/** 返回按钮通过block实现 */
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void(^)())completion;
 + (instancetype)initIJKPlayerWithTitle:(NSString *)title URL:(NSURL *)url;
 
-- (IBAction)onClickMediaControl:(id)sender;
-- (IBAction)onClickOverlay:(id)sender;
-- (IBAction)onClickBack:(id)sender;
+- (IBAction)onClickBack:(id)sender;/** 返回 */
+- (IBAction)onClickMediaControl:(id)sender;/** 控制面板底层 */
+- (IBAction)onClickOverlay:(id)sender;/** 控制面板 */
+- (IBAction)onClickPlay:(id)sender;/** 播放&暂停 */
+- (IBAction)onClickFullScreenButton:(id)sender;/** 全屏 */
 
-- (IBAction)onClickPlay:(id)sender;
 
-- (IBAction)didSliderTouchDown:(id)sender;
+
+- (IBAction)didSliderTouchDown:(id)sender;/** 进度条 */
 - (IBAction)didSliderTouchCancel:(id)sender;
 - (IBAction)didSliderTouchUpOutside:(id)sender;
 - (IBAction)didSliderTouchUpInside:(id)sender;
 - (IBAction)didSliderValueChanged:(id)sender;
+
 
 @property (strong, nonatomic) IBOutlet IJKMediaControl *mediaControl;
 

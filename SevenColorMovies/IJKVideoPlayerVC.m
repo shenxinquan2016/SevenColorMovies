@@ -100,7 +100,7 @@
     self.view.autoresizesSubviews = YES;
     [self.view addSubview:self.player.view];
     [self.view addSubview:self.mediaControl];
-    [self.mediaControl setFrame:self.view.bounds];
+
     
     self.mediaControl.delegatePlayer = self.player;
     
@@ -109,14 +109,17 @@
 
 #pragma mark - IBAction
 
+/** 控制面板底层 */
 - (IBAction)onClickMediaControl:(id)sender {
     [self.mediaControl showAndFade];
 }
 
+/** 控制面板 */
 - (IBAction)onClickOverlay:(id)sender {
     [self.mediaControl hide];
 }
 
+/** 返回 */
 - (IBAction)onClickBack:(id)sender {
 //    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     if (self.doBackActionBlock) {
@@ -124,6 +127,7 @@
     }
 }
 
+/** 播放&暂停 */
 - (IBAction)onClickPlay:(id)sender {
     if ([self.player isPlaying]) {
         [self.player pause];
@@ -138,6 +142,21 @@
     }
 }
 
+/** 全屏 */
+- (IBAction)onClickFullScreenButton:(id)sender {
+    if ([PlayerViewRotate isOrientationLandscape]) {
+        [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
+        _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
+        [self prepareForSmallScreen];
+    }else {
+        
+        [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+        
+        [self prepareForFullScreen];
+    }
+}
+
+/** 进度条 */
 - (IBAction)didSliderTouchDown:(id)sender {
     [self.mediaControl beginDragMediaSlider];
     
@@ -162,6 +181,7 @@
     [self.mediaControl continueDragMediaSlider];
 
 }
+
 
 
 #pragma mark - IJK响应事件
@@ -308,15 +328,18 @@
     [_player setScalingMode:IJKMPMovieScalingModeAspectFit];
     
     self.view.frame = [[UIScreen mainScreen] bounds];
-    self.player.view.frame = self.view.frame;
+    self.player.view.frame = CGRectMake(self.view.bounds.origin.x,self.view.bounds.origin.y-20,self.view.bounds.size.width,self.view.bounds.size.height);
+    self.mediaControl.frame = CGRectMake(self.view.bounds.origin.x,self.view.bounds.origin.y-20,self.view.bounds.size.width,self.view.bounds.size.height);
     self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+    self.mediaControl.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+    
 }
 
 - (void)prepareForSmallScreen {
     [_player setScalingMode:IJKMPMovieScalingModeAspectFit];
     self.view.frame = CGRectMake(0, 20, kMainScreenWidth, 213);
     self.player.view.frame = self.view.bounds;
-    
+    self.mediaControl.frame = self.view.bounds;
 }
 
 
