@@ -64,7 +64,7 @@
                             <rect key="frame" x="0.0" y="174" width="375" height="41"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2KC-yb-4vl">
-                                    <rect key="frame" x="0.0" y="10" width="42" height="21"/>
+                                    <rect key="frame" x="0.0" y="10" width="51" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -77,7 +77,7 @@
                                     </connections>
                                 </button>
                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0SY-TZ-qnQ">
-                                    <rect key="frame" x="37" y="5" width="217" height="31"/>
+                                    <rect key="frame" x="51" y="5" width="203" height="31"/>
                                     <connections>
                                         <action selector="didSliderTouchCancel:" destination="-1" eventType="touchCancel" id="FyC-dk-IcM"/>
                                         <action selector="didSliderTouchDown:" destination="-1" eventType="touchDown" id="I2M-6q-oeS"/>
@@ -87,11 +87,11 @@
                                     </connections>
                                 </slider>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAa-WC-RXm">
-                                    <rect key="frame" x="307" y="11" width="20" height="20"/>
+                                    <rect key="frame" x="311" y="11" width="20" height="20"/>
                                     <state key="normal" image="InteractScreen"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiK-FX-EcO">
-                                    <rect key="frame" x="254" y="10" width="42" height="21"/>
+                                    <rect key="frame" x="254" y="10" width="55" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>

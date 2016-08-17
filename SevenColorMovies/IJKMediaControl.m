@@ -26,8 +26,25 @@
 
 - (void)awakeFromNib
 {
+    [self setupProgressSlider];
     [self refreshMediaControl];
     [self showAndFade];
+}
+
+// 自定义UISlider的样式和滑块
+- (void)setupProgressSlider{
+    // 轨道图片
+    UIImage *stetchLeftTrack = [UIImage imageNamed:@"LeftTrack"];
+    UIImage *stetchRightTrack = [UIImage imageNamed:@"RightTrack"];
+    //滑块图片
+    UIImage *thumbImage = [UIImage imageNamed:@"thumb"];
+    UIImage *thumb_ClickedImage = [UIImage imageNamed:@"thumb_Click"];
+    //设置轨道的图片
+    [self.progressSlider setMinimumTrackImage:stetchLeftTrack forState:UIControlStateNormal];
+    [self.progressSlider setMaximumTrackImage:stetchRightTrack forState:UIControlStateNormal];
+    //设置滑块的图片
+    [self.progressSlider setThumbImage:thumbImage forState:UIControlStateNormal];
+    [self.progressSlider setThumbImage:thumb_ClickedImage forState:UIControlStateHighlighted];
 }
 
 - (void)showNoFade
@@ -76,9 +93,9 @@
     NSInteger intDuration = duration + 0.5;
     if (intDuration > 0) {
         self.progressSlider.maximumValue = duration;
-        self.totalDurationLabel.text = [NSString stringWithFormat:@"%02d:%02d", (int)(intDuration / 60), (int)(intDuration % 60)];
+        self.totalDurationLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d", (int)(intDuration / 3600), (int)((intDuration % 3600) / 60), (int)(intDuration % 60)];
     } else {
-        self.totalDurationLabel.text = @"--:--";
+        self.totalDurationLabel.text = @"--:--:--";
         self.progressSlider.maximumValue = 1.0f;
     }
     
@@ -97,9 +114,7 @@
         self.progressSlider.value = 0.0f;
     }
     
-    self.currentTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d", (int)(intPosition / 60), (int)(intPosition % 60)];
-    
-        
+    self.currentTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)(intPosition / 3600), (int)(intPosition % 3660) / 60, (int)(intPosition % 60)];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControl) object:nil];
     if (!self.overlayPanel.hidden) {
