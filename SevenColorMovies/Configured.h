@@ -28,17 +28,14 @@
 #import "UIButton+Addition.h"
 #import "NSString+Dong.h"
 #import "SCChangeBrightnessAndVolume.h"
-
+#import "NotificationMacro.h"//通知的宏定义
 
 
 #if __has_feature(objc_arc)
 //#import <ReactiveCocoa.h>
 #endif
 
-
 #import <AFNetworking/AFNetworking.h>
-
-
 #endif /* Configured_h */
 
 /**************************************

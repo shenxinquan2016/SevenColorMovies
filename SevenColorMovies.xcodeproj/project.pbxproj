@@ -29,6 +29,8 @@
 		1131C0DF1D6705CD00BA151A /* IJKMediaControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0DB1D6705CD00BA151A /* IJKMediaControl.m */; };
 		1131C0E01D6705CD00BA151A /* IJKVideoPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0DD1D6705CD00BA151A /* IJKVideoPlayerVC.m */; };
 		1131C0E11D6705CD00BA151A /* IJKVideoPlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */; };
+		1131C0E51D6707F400BA151A /* SCRotatoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0E41D6707F400BA151A /* SCRotatoUtil.m */; };
+		1131C0E81D67081E00BA151A /* SCPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0E71D67081E00BA151A /* SCPlayerViewController.m */; };
 		113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 113E62E71D49F63100FB8F3A /* SCFilmModel.m */; };
 		113F6C801D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 113F6C7F1D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib */; };
 		113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */; };
@@ -51,7 +53,6 @@
 		114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */; };
 		115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */; };
 		115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */; };
-		115A21131D41F5BF0097DE57 /* SCPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21121D41F5BF0097DE57 /* SCPlayerViewController.m */; };
 		115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */; };
 		115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */; };
 		116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */; };
@@ -193,6 +194,11 @@
 		1131C0DC1D6705CD00BA151A /* IJKVideoPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKVideoPlayerVC.h; sourceTree = "<group>"; };
 		1131C0DD1D6705CD00BA151A /* IJKVideoPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKVideoPlayerVC.m; sourceTree = "<group>"; };
 		1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IJKVideoPlayerVC.xib; sourceTree = "<group>"; };
+		1131C0E31D6707F400BA151A /* SCRotatoUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRotatoUtil.h; sourceTree = "<group>"; };
+		1131C0E41D6707F400BA151A /* SCRotatoUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRotatoUtil.m; sourceTree = "<group>"; };
+		1131C0E61D67081E00BA151A /* SCPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPlayerViewController.h; sourceTree = "<group>"; };
+		1131C0E71D67081E00BA151A /* SCPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPlayerViewController.m; sourceTree = "<group>"; };
+		1131C0E91D670B7000BA151A /* NotificationMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationMacro.h; sourceTree = "<group>"; };
 		113E62E61D49F63100FB8F3A /* SCFilmModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmModel.h; sourceTree = "<group>"; };
 		113E62E71D49F63100FB8F3A /* SCFilmModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmModel.m; sourceTree = "<group>"; };
 		113F6C7F1D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCCollectionViewPageArtsCell.xib; sourceTree = "<group>"; };
@@ -231,8 +237,6 @@
 		115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCategoryVC.m; sourceTree = "<group>"; };
 		115A21051D41B9750097DE57 /* SCOtherBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOtherBaseViewController.h; sourceTree = "<group>"; };
 		115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOtherBaseViewController.m; sourceTree = "<group>"; };
-		115A21111D41F5BF0097DE57 /* SCPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPlayerViewController.h; sourceTree = "<group>"; };
-		115A21121D41F5BF0097DE57 /* SCPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPlayerViewController.m; sourceTree = "<group>"; };
 		115A21251D4228750097DE57 /* SCMoiveAllEpisodesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveAllEpisodesVC.h; sourceTree = "<group>"; };
 		115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveAllEpisodesVC.m; sourceTree = "<group>"; };
 		115A21281D42290C0097DE57 /* SCMoiveIntroduceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveIntroduceVC.h; sourceTree = "<group>"; };
@@ -408,6 +412,7 @@
 				110174FC1D54245300E43773 /* SCMacro.h */,
 				110174FE1D542A0B00E43773 /* SCRequestUrl.h */,
 				110174FD1D54258C00E43773 /* ThirdKeys.h */,
+				1131C0E91D670B7000BA151A /* NotificationMacro.h */,
 			);
 			name = Macro;
 			sourceTree = "<group>";
@@ -461,6 +466,17 @@
 				1131C0D81D67057600BA151A /* SCChangeBrightnessAndVolume.m */,
 			);
 			name = "亮度声音调节";
+			sourceTree = "<group>";
+		};
+		1131C0E21D6707B700BA151A /* 旋转全屏 */ = {
+			isa = PBXGroup;
+			children = (
+				11E97A031D6320CA00512D10 /* PlayerViewRotate.h */,
+				11E97A041D6320CA00512D10 /* PlayerViewRotate.m */,
+				1131C0E31D6707F400BA151A /* SCRotatoUtil.h */,
+				1131C0E41D6707F400BA151A /* SCRotatoUtil.m */,
+			);
+			name = "旋转全屏";
 			sourceTree = "<group>";
 		};
 		113E62E51D49F5FE00FB8F3A /* FilmModel */ = {
@@ -635,8 +651,8 @@
 		115A211B1D4218510097DE57 /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
-				115A21111D41F5BF0097DE57 /* SCPlayerViewController.h */,
-				115A21121D41F5BF0097DE57 /* SCPlayerViewController.m */,
+				1131C0E61D67081E00BA151A /* SCPlayerViewController.h */,
+				1131C0E71D67081E00BA151A /* SCPlayerViewController.m */,
 			);
 			name = MainBody;
 			sourceTree = "<group>";
@@ -1239,8 +1255,7 @@
 				1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */,
 				1131C0DA1D6705CD00BA151A /* IJKMediaControl.h */,
 				1131C0DB1D6705CD00BA151A /* IJKMediaControl.m */,
-				11E97A031D6320CA00512D10 /* PlayerViewRotate.h */,
-				11E97A041D6320CA00512D10 /* PlayerViewRotate.m */,
+				1131C0E21D6707B700BA151A /* 旋转全屏 */,
 				1131C0D31D67053100BA151A /* 亮度声音调节 */,
 			);
 			name = IJKPlayer;
@@ -1517,6 +1532,7 @@
 				1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */,
 				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,
 				1111A41B1D48A71300C17B92 /* Reachability.m in Sources */,
+				1131C0E81D67081E00BA151A /* SCPlayerViewController.m in Sources */,
 				1131C0E01D6705CD00BA151A /* IJKVideoPlayerVC.m in Sources */,
 				1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */,
 				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
@@ -1528,6 +1544,7 @@
 				116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
+				1131C0E51D6707F400BA151A /* SCRotatoUtil.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
 				115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */,
 				11DDB87E1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m in Sources */,
@@ -1546,7 +1563,6 @@
 				1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */,
 				115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */,
-				115A21131D41F5BF0097DE57 /* SCPlayerViewController.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
 				116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */,
 				1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */,

@@ -11,14 +11,13 @@
 @class IJKMediaControl;
 
 typedef void(^DoBackActionBlock)(void);/** 返回按钮通过block实现 */
-typedef void(^OnClickFullScreenButtonBlock)(BOOL isRotate);/** 点击全屏按钮回调更新statusBar状态 */
 
 @interface IJKVideoPlayerVC : UIViewController
 
 @property(atomic,strong) NSURL *url;
 @property(atomic, retain) id<IJKMediaPlayback> player;
 @property (nonatomic, copy) DoBackActionBlock doBackActionBlock;
-@property (nonatomic, copy) OnClickFullScreenButtonBlock onClickFullScreenButtonBlock;
+@property (nonatomic, assign) BOOL isFullScreen;//是否正处于全屏状态
 
 - (id)initWithURL:(NSURL *)url;
 

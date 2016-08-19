@@ -35,12 +35,15 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) SCFilmIntroduceModel *filmIntroduceModel;/** 影片介绍model */
 @property (nonatomic, strong) NSString *VODStreamingUrl;/** 电影播放地址url*/
 @property (atomic, strong) NSURL *url;
-@property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayer;/** 播放器 */
+@property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
 @property(atomic, retain) id<IJKMediaPlayback> player;
 @end
 
 @implementation SCPlayerViewController
 
+{
+    BOOL _isFullScreen;
+}
 
 #pragma mark- Initialize
 - (instancetype)initWithWithFilmType:(NSString *)tpye{
@@ -66,33 +69,32 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.filmsArr = [NSMutableArray arrayWithCapacity:0];
     
     //2.组建页面
-//    [self setView];
+    [self setView];
     
     //直播视频
 //    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
     self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
     self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
  
-//        [IJKVideoPlayerVC presentFromViewController:self withTitle:[NSString stringWithFormat:@"URL: %@", self.url] URL:self.url completion:^{
-//            [self.navigationController popViewControllerAnimated:NO];
-//        }];
+
     
    
-    self.IJKPlayer = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
-    [self.view addSubview:_IJKPlayer.view];
-    [_IJKPlayer.view mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(20);
-        make.left.right.equalTo(self.view);
-        make.height.mas_equalTo([UIScreen mainScreen].bounds.size.width*9/16);
-    }];
+    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
+    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+    [self.view addSubview:_IJKPlayerViewController.view];
     
-    //返回btn回调
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
+    
+    // IJKVideoPlayerVC返回按钮回调
     __weak __typeof(self)weakSelf = self;
-    _IJKPlayer.doBackActionBlock = ^(){
+    _IJKPlayerViewController.doBackActionBlock = ^(){
         [weakSelf.navigationController popViewControllerAnimated:YES];
     };
     
 }
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -108,7 +110,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    
+    //注销全屏通知
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToFullScreen object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToSmallScreen object:nil];
 }
 
 - (void)viewWillLayoutSubviews{
@@ -346,6 +350,35 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
 }
 
+#pragma mark - 全屏/小屏切换
+- (void)switchToFullScreen {
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        _IJKPlayerViewController.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
+        _IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+        _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
+        [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+        
+    }];
+
+    
+}
+
+- (void)switchToSmallScreen {
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+    _IJKPlayerViewController.view.transform = CGAffineTransformIdentity;
+    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9/ 16);
+    _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9/ 16);
+        
+    }];
+}
 
 #pragma mark - UIScrollViewDelegate
 /** 滚动结束后调用（代码导致的滚动停止） */
@@ -624,5 +657,13 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [CommonFunc dismiss];
     }];
     
+}
+
+#pragma mark - 更新状态了状态
+- (BOOL)prefersStatusBarHidden{
+    if (_IJKPlayerViewController.isFullScreen) {
+        return YES;//如果全屏，隐藏状态栏
+    }
+    return NO;
 }
 @end
