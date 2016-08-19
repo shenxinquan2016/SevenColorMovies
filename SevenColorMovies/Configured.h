@@ -27,6 +27,7 @@
 #import "XMLDictionary.h"
 #import "UIButton+Addition.h"
 #import "NSString+Dong.h"
+#import "SCChangeBrightnessAndVolume.h"
 
 
 

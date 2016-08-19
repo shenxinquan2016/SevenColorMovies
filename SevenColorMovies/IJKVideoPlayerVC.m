@@ -10,9 +10,11 @@
 #import "IJKMediaControl.h"
 #import "PlayerViewRotate.h"//横竖屏强制转换
 
+
+
 @interface IJKVideoPlayerVC ()
 
-@property (nonatomic, assign) BOOL isRotate;
+@property (nonatomic, assign) BOOL isFullScreen;//是否全屏
 
 @end
 
@@ -48,7 +50,7 @@
 {
     [super viewDidLoad];
     
-    self.isRotate = NO;
+    self.isFullScreen = NO;
     //初始化播放器
     [self setupIJKPlayer];
     
@@ -56,10 +58,14 @@
     [self installMovieNotificationObservers];
     [self.player prepareToPlay];
     
+    
 }
+
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    NSLog(@"[super viewWillAppear:animated];");
     
 }
 
@@ -118,9 +124,7 @@
     //  4.6 添加播放视图到控制器的View
     [self.view addSubview:self.player.view];
     
-    self.mediaControl = [[NSBundle mainBundle] loadNibNamed:@"IJKMediaControl" owner:nil options:nil][0] ;
     // 5. 添加播放控件到控制器的View
-
     [self.view addSubview:self.mediaControl];
     // 5.1 代理设置
     self.mediaControl.delegatePlayer = self.player;
@@ -128,6 +132,168 @@
 }
 
 
+#pragma mark - IBAction
+
+/** 控制面板底层 */
+- (IBAction)onClickMediaControl:(id)sender {
+    [self.mediaControl showAndFade];
+}
+
+/** 控制面板 */
+- (IBAction)onClickOverlay:(id)sender {
+    [self.mediaControl hide];
+}
+
+/** 返回 */
+- (IBAction)onClickBack:(id)sender {
+    NSLog(@">>>>>>>>>>>>>>>返回111111111111>>>>>>>>>>>>");
+    if (_isFullScreen) {//如果正在全屏，先返回小屏
+        NSLog(@">>>>>>>>>>>>>>>退出全屏>>>>>>>>>>>>");
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            self.isFullScreen = NO;
+            // 回调更新statusBar状态
+            if (self.onClickFullScreenButtonBlock) {
+                self.onClickFullScreenButtonBlock(self.isFullScreen);
+            }
+            
+            // 播放器View所在的控制器View
+            //            self.view.transform = CGAffineTransformIdentity;
+            //            self.view.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            
+            // 播放器view
+            self.player.view.transform = CGAffineTransformIdentity;
+            self.player.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            
+            // 播放控件所在view
+            //            self.mediaControl.transform = CGAffineTransformIdentity;
+            //            self.mediaControl.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            
+        }];
+
+    }else{
+        NSLog(@">>>>>>>>>>>>>>>返回22222222>>>>>>>>>>>>");
+        if (self.doBackActionBlock) {
+            self.doBackActionBlock();
+        }
+    }
+    
+}
+
+/** 播放&暂停 */
+- (IBAction)onClickPlay:(id)sender {
+    if ([self.player isPlaying]) {
+        [self.player pause];
+        [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Play"] forState:UIControlStateNormal];
+        [self.mediaControl refreshMediaControl];
+        
+    }else if (![self.player isPlaying]){
+        [self.player play];
+        [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
+        [self.mediaControl refreshMediaControl];
+        
+    }
+}
+
+/** 全屏 */
+- (IBAction)onClickFullScreenButton:(id)sender {
+    
+    //旋转方案一
+//    if ([PlayerViewRotate isOrientationLandscape]) {
+//        [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
+//        _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
+//        [self prepareForSmallScreen];
+//    }else {
+//        
+//        [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+//        
+//        [self prepareForFullScreen];
+//    }
+    
+    //旋转方案二
+    if (!self.isFullScreen) {
+    
+        self.isFullScreen = YES;
+        // 回调更新statusBar状态
+        if (self.onClickFullScreenButtonBlock) {
+            self.onClickFullScreenButtonBlock(self.isFullScreen);
+        }
+        
+        [UIView animateWithDuration:0.3 animations:^{
+//             播放器View所在的控制器View
+//            self.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
+//            self.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"abc" object:nil];
+            
+            // 播放器view
+//            self.player.view.transform = CGAffineTransformRotate(self.player.view.transform, M_PI_2);
+//            self.player.view.frame = CGRectMake(0, -20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+//            
+//            // 播放控件所在view
+//            self.mediaControl.transform = CGAffineTransformRotate(self.mediaControl.transform, M_PI_2);
+//            self.mediaControl.frame = CGRectMake(0, -20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+//
+//            self.mediaControl.backgroundColor =[UIColor redColor];
+            
+        }];
+        
+    }else{
+
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            self.isFullScreen = NO;
+            // 回调更新statusBar状态
+            if (self.onClickFullScreenButtonBlock) {
+                self.onClickFullScreenButtonBlock(self.isFullScreen);
+            }
+
+            
+            // 播放器View所在的控制器View
+//            self.view.transform = CGAffineTransformIdentity;
+//            self.view.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            
+            // 播放器view
+            self.player.view.transform = CGAffineTransformIdentity;
+            self.player.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            
+            // 播放控件所在view
+            self.mediaControl.transform = CGAffineTransformIdentity;
+            self.mediaControl.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
+            
+        }];
+        
+    }
+    
+    //旋转方案三 斗牛
+//    [SCRotatoUtil forceOrientation:UIInterfaceOrientationLandscapeRight];
+}
+
+/** 进度条 */
+- (IBAction)didSliderTouchDown:(id)sender {
+    [self.mediaControl beginDragMediaSlider];
+    
+}
+
+- (IBAction)didSliderTouchCancel:(id)sender {
+    [self.mediaControl endDragMediaSlider];
+}
+
+- (IBAction)didSliderTouchUpOutside:(id)sender {
+    [self.mediaControl endDragMediaSlider];
+    
+}
+
+- (IBAction)didSliderTouchUpInside:(id)sender {
+    self.player.currentPlaybackTime = self.mediaControl.progressSlider.value;
+    [self.mediaControl endDragMediaSlider];
+    
+}
+
+- (IBAction)didSliderValueChanged:(id)sender {
+    [self.mediaControl continueDragMediaSlider];
+    
+}
 
 
 

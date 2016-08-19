@@ -9,9 +9,18 @@
 #import "IJKMediaControl.h"
 #import <IJKMediaFramework/IJKMediaFramework.h>
 
+
+typedef NS_ENUM(NSUInteger, Direction) {
+    DirectionLeftOrRight,
+    DirectionUpOrDown,
+    DirectionNone
+};
+
 @interface IJKMediaControl ()
 
-@property (nonatomic, assign) BOOL isRotate;
+@property (nonatomic,strong) SCChangeBrightnessAndVolume *voluomeView;//测试
+
+
 
 @end
 
@@ -31,11 +40,29 @@
 }
 
 - (void)awakeFromNib
-{   self.isRotate = NO;
+{
+    
+    self.goBackButton.enlargedEdge = 15.f;
     [self setupProgressSlider];//自定义UISlider
     [self refreshMediaControl];
     [self showAndFade];
+    self.goFastView.hidden = YES;
+    
+    //9.根据手势获取系统音量
+    _voluomeView = [[SCChangeBrightnessAndVolume alloc] init];
+    _voluomeView.panView = self;
+    [_voluomeView setVolumeView:self];
+    
+    // 添加平移手势，用来控制音量和快进快退
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panViewChange:)];
+    [self addGestureRecognizer:pan];
+    
 }
+
+- (void)panViewChange:(UIPanGestureRecognizer *)pan{
+    [_voluomeView panDirection:pan];
+}
+
 
 // 自定义UISlider的样式和滑块
 - (void)setupProgressSlider{
@@ -130,102 +157,4 @@
 
 
 
-#pragma mark - IBAction
-
-/** 控制面板底层 */
-- (IBAction)onClickMediaControl:(id)sender {
-    [self showAndFade];
-
-}
-
-- (IBAction)onClickBack:(id)sender {
-}
-
-//** 控制面板 */
-- (IBAction)onClickOverlay:(id)sender {
-    [self hide];
-}
-
-//** 播放&暂停 */
-- (IBAction)onClickPlay:(id)sender {
-    if ([self.delegatePlayer isPlaying]) {
-                [self.delegatePlayer pause];
-                [self.playButton setImage:[UIImage imageNamed:@"Play"] forState:UIControlStateNormal];
-                [self refreshMediaControl];
-        
-            }else if (![self.delegatePlayer isPlaying]){
-                [self.delegatePlayer play];
-                [self.playButton setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
-                [self refreshMediaControl];
-                
-            }
-}
-
-//** 全屏 */
-- (IBAction)onClickFullScreenButton:(id)sender {
-    
-    if (!self.isRotate) {
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            // 播放器View所在的控制器View
-            //            self.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
-            //            self.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-            
-            // 播放器view
-            self.delegatePlayer.view.transform = CGAffineTransformRotate(self.delegatePlayer.view.transform, M_PI_2);
-            self.delegatePlayer.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-            
-            // 播放控件所在view
-            self.transform = CGAffineTransformRotate(self.transform, M_PI_2);
-            self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-            
-            self.isRotate = YES;
-            
-        }];
-        
-    }else{
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            // 播放器View所在的控制器View
-            //            self.view.transform = CGAffineTransformIdentity;
-            //            self.view.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
-            
-            // 播放器view
-            self.delegatePlayer.view.transform = CGAffineTransformIdentity;
-            self.delegatePlayer.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
-            
-            // 播放控件所在view
-            self.transform = CGAffineTransformIdentity;
-            self.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*9/16);
-            
-            self.isRotate = NO;
-            
-        }];
-        
-    }
-    
-
-}
-
-//** 进度条 */
-- (IBAction)didSliderTouchDown:(id)sender {
-    [self beginDragMediaSlider];
-}
-
-- (IBAction)didSliderTouchCancel:(id)sender {
-    [self endDragMediaSlider];
-}
-
-- (IBAction)didSliderTouchUpOutside:(id)sender {
-    [self endDragMediaSlider];
-}
-
-- (IBAction)didSliderTouchUpInside:(id)sender {
-    self.delegatePlayer.currentPlaybackTime = self.progressSlider.value;
-    [self endDragMediaSlider];
-}
-
-- (IBAction)didSliderValueChanged:(id)sender {
-    [self continueDragMediaSlider];
-}
 @end
