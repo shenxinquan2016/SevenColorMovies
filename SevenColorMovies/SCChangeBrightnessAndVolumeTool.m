@@ -1,21 +1,21 @@
 //
-//  SCChangeBrightnessAndVolume.m
+//  SCChangeBrightnessAndVolumeTool.m
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/8/18.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  手势调节声音 & 屏幕亮度 & 播放器播放进度
 
-#import "SCChangeBrightnessAndVolume.h"
+#import "SCChangeBrightnessAndVolumeTool.h"
 #import "IJKVideoPlayerVC.h"
 
-@interface SCChangeBrightnessAndVolume ()
+@interface SCChangeBrightnessAndVolumeTool ()
 
 @property (nonatomic, strong) UILabel *horizontalLabel;
 
 @end
 
-@implementation SCChangeBrightnessAndVolume
+@implementation SCChangeBrightnessAndVolumeTool
 
 {
     UISlider *volumeViewSlider;
@@ -48,8 +48,6 @@
         }
     }
     systemVolume = volumeViewSlider.value;
-    
-    
 }
 
 - (void)panDirection:(UIPanGestureRecognizer *)pan

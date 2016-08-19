@@ -25,7 +25,7 @@
 		1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */; };
 		1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */; };
 		1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */; };
-		1131C0D91D67057600BA151A /* SCChangeBrightnessAndVolume.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0D81D67057600BA151A /* SCChangeBrightnessAndVolume.m */; };
+		1131C0D91D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0D81D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m */; };
 		1131C0DF1D6705CD00BA151A /* IJKMediaControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0DB1D6705CD00BA151A /* IJKMediaControl.m */; };
 		1131C0E01D6705CD00BA151A /* IJKVideoPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0DD1D6705CD00BA151A /* IJKVideoPlayerVC.m */; };
 		1131C0E11D6705CD00BA151A /* IJKVideoPlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */; };
@@ -187,8 +187,8 @@
 		1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
 		1122FF631D4A22E900E6E8A2 /* NSDictionary+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Log.h"; sourceTree = "<group>"; };
 		1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Log.m"; sourceTree = "<group>"; };
-		1131C0D71D67057600BA151A /* SCChangeBrightnessAndVolume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChangeBrightnessAndVolume.h; sourceTree = "<group>"; };
-		1131C0D81D67057600BA151A /* SCChangeBrightnessAndVolume.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChangeBrightnessAndVolume.m; sourceTree = "<group>"; };
+		1131C0D71D67057600BA151A /* SCChangeBrightnessAndVolumeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChangeBrightnessAndVolumeTool.h; sourceTree = "<group>"; };
+		1131C0D81D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChangeBrightnessAndVolumeTool.m; sourceTree = "<group>"; };
 		1131C0DA1D6705CD00BA151A /* IJKMediaControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKMediaControl.h; sourceTree = "<group>"; };
 		1131C0DB1D6705CD00BA151A /* IJKMediaControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKMediaControl.m; sourceTree = "<group>"; };
 		1131C0DC1D6705CD00BA151A /* IJKVideoPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKVideoPlayerVC.h; sourceTree = "<group>"; };
@@ -462,8 +462,8 @@
 		1131C0D31D67053100BA151A /* 亮度声音调节 */ = {
 			isa = PBXGroup;
 			children = (
-				1131C0D71D67057600BA151A /* SCChangeBrightnessAndVolume.h */,
-				1131C0D81D67057600BA151A /* SCChangeBrightnessAndVolume.m */,
+				1131C0D71D67057600BA151A /* SCChangeBrightnessAndVolumeTool.h */,
+				1131C0D81D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m */,
 			);
 			name = "亮度声音调节";
 			sourceTree = "<group>";
@@ -1506,7 +1506,7 @@
 				116475F91D4098EF00A3BC1C /* SCPastVideoTableViewCell.m in Sources */,
 				1111A41F1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m in Sources */,
 				11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */,
-				1131C0D91D67057600BA151A /* SCChangeBrightnessAndVolume.m in Sources */,
+				1131C0D91D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m in Sources */,
 				11458EA21D45FEE200EBD16D /* SCMineTopCell.m in Sources */,
 				113F8D991D3C724100B12D39 /* SCMainTabBarViewController.m in Sources */,
 				11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */,

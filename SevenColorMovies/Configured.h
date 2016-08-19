@@ -27,7 +27,7 @@
 #import "XMLDictionary.h"
 #import "UIButton+Addition.h"
 #import "NSString+Dong.h"
-#import "SCChangeBrightnessAndVolume.h"
+#import "SCChangeBrightnessAndVolumeTool.h"
 #import "NotificationMacro.h"//通知的宏定义
 
 

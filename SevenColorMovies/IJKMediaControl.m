@@ -18,9 +18,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
 
 @interface IJKMediaControl ()
 
-@property (nonatomic,strong) SCChangeBrightnessAndVolume *voluomeView;//测试
-
-
+@property (nonatomic,strong) SCChangeBrightnessAndVolumeTool *changeBrightnessAndVolumeToolView;
 
 @end
 
@@ -49,9 +47,9 @@ typedef NS_ENUM(NSUInteger, Direction) {
     self.goFastView.hidden = YES;
     
     //9.根据手势获取系统音量
-    _voluomeView = [[SCChangeBrightnessAndVolume alloc] init];
-    _voluomeView.panView = self;
-    [_voluomeView setVolumeView:self];
+    _changeBrightnessAndVolumeToolView = [[SCChangeBrightnessAndVolumeTool alloc] init];
+    _changeBrightnessAndVolumeToolView.panView = self;
+    [_changeBrightnessAndVolumeToolView setVolumeView:self];
     
     // 添加平移手势，用来控制音量和快进快退
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panViewChange:)];
@@ -60,7 +58,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
 }
 
 - (void)panViewChange:(UIPanGestureRecognizer *)pan{
-    [_voluomeView panDirection:pan];
+    [_changeBrightnessAndVolumeToolView panDirection:pan];
 }
 
 

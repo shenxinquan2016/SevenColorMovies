@@ -64,7 +64,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     
     //1.初始化数组
-    
     self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];
     self.filmsArr = [NSMutableArray arrayWithCapacity:0];
     
@@ -83,7 +82,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     [self.view addSubview:_IJKPlayerViewController.view];
     
-    
+    // 全屏小屏通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
     
