@@ -33,7 +33,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) NSMutableArray *filmSetsArr;/** 存放所有film集 */
 @property (nonatomic, strong) NSMutableArray *filmsArr;/** 综艺生活存放film */
 @property (nonatomic, strong) SCFilmIntroduceModel *filmIntroduceModel;/** 影片介绍model */
-@property (nonatomic, strong) NSString *VODStreamingUrl;/** 电影播放地址url*/
+@property (nonatomic, strong) NSString *VODStreamingUrl;/** 电影播放地址url */
 @property (atomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
 @property(atomic, retain) id<IJKMediaPlayback> player;
@@ -49,9 +49,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 - (instancetype)initWithWithFilmType:(NSString *)tpye{
     self = [super init];
     if (self) {
-        
-        
-        
+    
     }
     return self;
 }
@@ -71,9 +69,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [self setView];
     
     //直播视频
-//    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
-    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+//    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+//    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
  
 
     

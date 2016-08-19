@@ -9,6 +9,7 @@
 #import "IJKVideoPlayerVC.h"
 #import "IJKMediaControl.h"
 #import "PlayerViewRotate.h"//横竖屏强制转换
+#import "SCRotatoUtil.h"
 
 
 
@@ -184,16 +185,16 @@
 - (IBAction)onClickFullScreenButton:(id)sender {
     
     //旋转方案一
-    //    if ([PlayerViewRotate isOrientationLandscape]) {
-    //        [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
-    //        _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
-    //        [self prepareForSmallScreen];
-    //    }else {
-    //
-    //        [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
-    //
-    //        [self prepareForFullScreen];
-    //    }
+//        if ([PlayerViewRotate isOrientationLandscape]) {
+//            [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
+//            _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
+//            [self prepareForSmallScreen];
+//        }else {
+//    
+//            [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+//    
+//            [self prepareForFullScreen];
+//        }
     
     //旋转方案二
     if (!self.isFullScreen) {
@@ -208,9 +209,9 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
     }
-    
+//
     //旋转方案三 斗牛
-    //    [SCRotatoUtil forceOrientation:UIInterfaceOrientationLandscapeRight];
+//        [SCRotatoUtil forceOrientation:UIInterfaceOrientationLandscapeRight];
 }
 
 /** 进度条 */
