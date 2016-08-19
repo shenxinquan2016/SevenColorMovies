@@ -120,7 +120,7 @@
     
     self.mediaControl = [[NSBundle mainBundle] loadNibNamed:@"IJKMediaControl" owner:nil options:nil][0] ;
     // 5. 添加播放控件到控制器的View
-//    self.mediaControl.frame = self.player.view.bounds;
+
     [self.view addSubview:self.mediaControl];
     // 5.1 代理设置
     self.mediaControl.delegatePlayer = self.player;
