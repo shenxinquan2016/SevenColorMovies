@@ -271,5 +271,11 @@ static NSString *const cellId = @"cellId";
     }
 }
 
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate{
+    return NO;
+}
+
+
 
 @end

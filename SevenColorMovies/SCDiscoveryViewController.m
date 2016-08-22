@@ -111,5 +111,9 @@
     return _dataSource;
 }
 
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate{
+    return NO;
+}
 
 @end

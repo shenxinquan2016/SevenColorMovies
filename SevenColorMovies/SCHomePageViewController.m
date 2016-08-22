@@ -465,17 +465,11 @@ static NSString *const footerId = @"footerId";
     
     //    NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
     if (indexPath.section ==0) {//点播栏
-//        if (_filmClassArray.count == 0) {
-//            [MBProgressHUD showSuccess:@"暂无数据，请稍后再试"];
-//            return;
-//            
-//        }
-        
-        
-        
-        SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
-                teleplayPlayer.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:teleplayPlayer animated:YES];
+        if (_filmClassArray.count == 0) {
+            [MBProgressHUD showSuccess:@"暂无数据，请稍后再试"];
+            return;
+            
+        }
         
         //设置返回键标题
         NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
@@ -571,8 +565,10 @@ static NSString *const footerId = @"footerId";
     return _allItemsArr;
 }
 
-
-
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate{
+    return NO;
+}
 
 
 

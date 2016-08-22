@@ -45,4 +45,16 @@
 }
 
 
+//支持横竖屏显示
+- (BOOL)shouldAutorotate
+{
+    return [self.viewControllers.lastObject shouldAutorotate];
+}
+
+//支持设备自动旋转
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return [self.viewControllers.lastObject supportedInterfaceOrientations];
+}
+
 @end

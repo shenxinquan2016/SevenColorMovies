@@ -409,5 +409,14 @@
     self.mediaControl.frame = self.view.bounds;
 }
 
+////支持设备自动旋转
+//- (BOOL)shouldAutorotate{
+//    return YES;
+//}
+//
+////支持横竖屏显示
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+//    return UIInterfaceOrientationMaskAll;
+//}
 
 @end

@@ -400,6 +400,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
 }
 
+
 // 监听屏幕旋转后，更改frame
 - (void)orientChange:(NSNotification *)noti
 {
@@ -440,6 +441,16 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             
             break;
         case UIDeviceOrientationLandscapeRight:
+            
+            
+            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+            
+            self.view.frame = [[UIScreen mainScreen] bounds];
+            _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+            [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+
             break;
             
         default:
@@ -727,12 +738,14 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
 }
 
-#pragma mark - 更新状态了状态
+#pragma mark - 更新状态了状态 旋转方案二时使用
 - (BOOL)prefersStatusBarHidden{
     if (_IJKPlayerViewController.isFullScreen) {
         return YES;//如果全屏，隐藏状态栏
     }
     return NO;
 }
+
+
 
 @end
