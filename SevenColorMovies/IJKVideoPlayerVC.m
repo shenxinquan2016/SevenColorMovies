@@ -150,11 +150,14 @@
 
 /** 返回 */
 - (IBAction)onClickBack:(id)sender {
-    
-    if (_isFullScreen) {//如果正在全屏，先返回小屏
-        
-        self.isFullScreen = NO;
-        
+   
+    //方案一时使用
+    if ( [PlayerViewRotate isOrientationLandscape]) {//如果正在全屏，先返回小屏
+         self.isFullScreen = NO;
+        [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
+        _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
+        //            [self prepareForSmallScreen];
+        //使用通知到该控制器的父视图中更改该控制器的视图
         [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
         
     }else{
@@ -163,6 +166,23 @@
             self.doBackActionBlock();
         }
     }
+
+    
+    
+    //方案二时使用
+    
+//    if (_isFullScreen || [PlayerViewRotate isOrientationLandscape]) {//如果正在全屏，先返回小屏
+//        
+//        self.isFullScreen = NO;
+//        
+//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
+//        
+//    }else{
+//        
+//        if (self.doBackActionBlock) {
+//            self.doBackActionBlock();
+//        }
+//    }
     
 }
 
@@ -184,34 +204,38 @@
 /** 全屏 */
 - (IBAction)onClickFullScreenButton:(id)sender {
     
-    //旋转方案一
-//        if ([PlayerViewRotate isOrientationLandscape]) {
-//            [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
-//            _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
+    //旋转方案一 系统方法旋转
+        if ([PlayerViewRotate isOrientationLandscape]) {
+             self.isFullScreen = NO;
+            [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
+            _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
 //            [self prepareForSmallScreen];
-//        }else {
-//    
-//            [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
-//    
-//            [self prepareForFullScreen];
-//        }
+            //使用通知到该控制器的父视图中更改该控制器的视图
+            [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
+
+        }else {
     
-    //旋转方案二
-    if (!self.isFullScreen) {
-        
-        self.isFullScreen = YES;
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToFullScreen object:nil];
-        
-    }else{
-        
-        self.isFullScreen = NO;
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
-    }
-//
-    //旋转方案三 斗牛
-//        [SCRotatoUtil forceOrientation:UIInterfaceOrientationLandscapeRight];
+             self.isFullScreen = YES;
+            [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+    
+//            [self prepareForFullScreen];
+            //使用通知到该控制器的父视图中更改该控制器的视图
+            [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToFullScreen object:nil];
+        }
+    
+    //旋转方案二 自定义旋转90°
+//    if (!self.isFullScreen) {
+//        
+//        self.isFullScreen = YES;
+//        //使用通知到该控制器的父视图中更改该控制器的视图
+//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToFullScreen object:nil];
+//        
+//    }else{
+//        
+//        self.isFullScreen = NO;
+//        //使用通知到该控制器的父视图中更改该控制器的视图
+//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
+//    }
 }
 
 /** 进度条 */
@@ -365,30 +389,14 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackStateDidChangeNotification object:_player];
 }
 
-
-
-
-- (void) fullScreenButDidTouch {
-    if ([PlayerViewRotate isOrientationLandscape]) {
-        [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
-        _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
-        [self prepareForSmallScreen];
-    }else {
-        
-        [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
-        
-        [self prepareForFullScreen];
-    }
-}
-
-
+#pragma mark - 屏幕旋转  该段代码该工程不使用
 - (void)prepareForFullScreen {
     
     [_player setScalingMode:IJKMPMovieScalingModeAspectFit];
     
     self.view.frame = [[UIScreen mainScreen] bounds];
-    self.player.view.frame = CGRectMake(self.view.bounds.origin.x,self.view.bounds.origin.y-20,self.view.bounds.size.width,self.view.bounds.size.height);
-    self.mediaControl.frame = CGRectMake(self.view.bounds.origin.x,self.view.bounds.origin.y-20,self.view.bounds.size.width,self.view.bounds.size.height);
+    self.player.view.frame = self.view.bounds;
+    self.mediaControl.frame = self.view.bounds;
     self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
     self.mediaControl.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
     
@@ -396,7 +404,7 @@
 
 - (void)prepareForSmallScreen {
     [_player setScalingMode:IJKMPMovieScalingModeAspectFit];
-    self.view.frame = CGRectMake(0, 20, kMainScreenWidth, 213);
+    self.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     self.player.view.frame = self.view.bounds;
     self.mediaControl.frame = self.view.bounds;
 }

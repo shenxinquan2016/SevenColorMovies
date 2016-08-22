@@ -36,7 +36,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) NSString *VODStreamingUrl;/** 电影播放地址url */
 @property (atomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
-@property(atomic, retain) id<IJKMediaPlayback> player;
+//@property(atomic, retain) id<IJKMediaPlayback> player;
 @end
 
 @implementation SCPlayerViewController
@@ -66,7 +66,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.filmsArr = [NSMutableArray arrayWithCapacity:0];
     
     //2.组建页面
-    [self setView];
+//    [self setView];
     
     //直播视频
     self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
@@ -83,7 +83,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     // 全屏小屏通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
-    
+    // 监听屏幕旋转
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+
     // IJKVideoPlayerVC返回按钮回调
     __weak __typeof(self)weakSelf = self;
     _IJKPlayerViewController.doBackActionBlock = ^(){
@@ -110,6 +112,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //注销全屏通知
     [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToFullScreen object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToSmallScreen object:nil];
+    //监听屏幕旋转的通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 - (void)viewWillLayoutSubviews{
@@ -349,33 +353,99 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 #pragma mark - 全屏/小屏切换
 - (void)switchToFullScreen {
+    // 方案一：系统旋转
+    [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
     
-    [self setNeedsStatusBarAppearanceUpdate];
+    self.view.frame = [[UIScreen mainScreen] bounds];
+    _IJKPlayerViewController.view.frame = self.view.bounds;
+    _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+    _IJKPlayerViewController.mediaControl.frame = self.view.frame;
 
-    [UIView animateWithDuration:0.3 animations:^{
-        
-        _IJKPlayerViewController.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
-        _IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-        _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
-        [self.view bringSubviewToFront:_IJKPlayerViewController.view];
-        
-    }];
+    
+    // 方案二：自定义旋转90°进入全屏
+    //    [self setNeedsStatusBarAppearanceUpdate];
+//
+//    [UIView animateWithDuration:0.3 animations:^{
+//
+//        _IJKPlayerViewController.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
+//        _IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+//        _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
+//        [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+//
+//    }];
+    
+
 
     
 }
 
 - (void)switchToSmallScreen {
+    // 方案一：系统旋转
+    [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+    _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+
+
     
-    [self setNeedsStatusBarAppearanceUpdate];
+    // 方案二：自定义旋转90°进入全屏
+//    [self setNeedsStatusBarAppearanceUpdate];
+//    
+//    [UIView animateWithDuration:0.3 animations:^{
+//        
+//    _IJKPlayerViewController.view.transform = CGAffineTransformIdentity;
+//    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9/ 16);
+//    _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9/ 16);
+//        
+//    }];
     
-    [UIView animateWithDuration:0.3 animations:^{
-        
-    _IJKPlayerViewController.view.transform = CGAffineTransformIdentity;
-    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9/ 16);
-    _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9/ 16);
-        
-    }];
 }
+
+// 监听屏幕旋转后，更改frame
+- (void)orientChange:(NSNotification *)noti
+{
+    
+    //NSDictionary* ntfDict = [noti userInfo];
+    
+    UIDeviceOrientation  orient = [UIDevice currentDevice].orientation;
+    /*
+     UIDeviceOrientationUnknown,
+     UIDeviceOrientationPortrait,            // Device oriented vertically, home button on the bottom
+     UIDeviceOrientationPortraitUpsideDown,  // Device oriented vertically, home button on the top
+     UIDeviceOrientationLandscapeLeft,       // Device oriented horizontally, home button on the right
+     UIDeviceOrientationLandscapeRight,      // Device oriented horizontally, home button on the left
+     UIDeviceOrientationFaceUp,              // Device oriented flat, face up
+     UIDeviceOrientationFaceDown             // Device oriented flat, face down   */
+    
+    switch (orient)
+    {
+        case UIDeviceOrientationPortrait:
+            
+            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+
+            break;
+        case UIDeviceOrientationLandscapeLeft:
+            
+            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+            
+            self.view.frame = [[UIScreen mainScreen] bounds];
+            _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+
+            break;
+        case UIDeviceOrientationPortraitUpsideDown:
+            
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            break;
+            
+        default:
+            break;
+    }
+}
+
 
 #pragma mark - UIScrollViewDelegate
 /** 滚动结束后调用（代码导致的滚动停止） */
@@ -663,4 +733,5 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }
     return NO;
 }
+
 @end

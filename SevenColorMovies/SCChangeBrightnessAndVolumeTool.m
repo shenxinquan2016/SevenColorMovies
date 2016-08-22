@@ -20,7 +20,7 @@
 {
     UISlider *volumeViewSlider;
     float systemVolume;//系统音量值
-    PanDirection panDirection; // 定义一个实例变量，保存枚举值
+    PanDirection panDirection; //定义一个实例变量，保存枚举值
     CGPoint satrtPoint;//起始点
     
 }
