@@ -1,5 +1,5 @@
 //
-//  SCLivePageCollectionVC.h
+//  SCLivePageCell.h
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/8/22.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCLivePageCollectionVC : UICollectionViewController
-
-@property (nonatomic, copy) NSArray *filmModelArr;
+@interface SCLivePageCell : UICollectionViewCell
 
 @end
