@@ -66,12 +66,12 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.filmsArr = [NSMutableArray arrayWithCapacity:0];
     
     //2.组建页面
-//    [self setView];
+    [self setView];
     
-    //直播视频
+    //3.直播视频
     self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
 //    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-//    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
  
 
     
@@ -80,13 +80,13 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     [self.view addSubview:_IJKPlayerViewController.view];
     
-    // 全屏小屏通知
+    //4.全屏小屏通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
-    // 监听屏幕旋转
+    //5.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 
-    // IJKVideoPlayerVC返回按钮回调
+    //6.IJKVideoPlayerVC返回按钮回调
     __weak __typeof(self)weakSelf = self;
     _IJKPlayerViewController.doBackActionBlock = ^(){
         [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -433,6 +433,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             _IJKPlayerViewController.view.frame = self.view.bounds;
             _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
             _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+            [self.view bringSubviewToFront:_IJKPlayerViewController.view];
 
             break;
         case UIDeviceOrientationPortraitUpsideDown:
