@@ -72,8 +72,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
 //    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
     self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
- 
-
     
    
     self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];

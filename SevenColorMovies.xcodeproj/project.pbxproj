@@ -51,6 +51,8 @@
 		11458EA71D45FF2D00EBD16D /* SCMineOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458EA51D45FF2D00EBD16D /* SCMineOtherCell.m */; };
 		11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11458EA61D45FF2D00EBD16D /* SCMineOtherCell.xib */; };
 		114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */; };
+		11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11588F691D6AEA3700C91E3A /* SCLiveViewController.m */; };
+		11588F6E1D6AECDF00C91E3A /* SCLivePageCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11588F6D1D6AECDF00C91E3A /* SCLivePageCollectionVC.m */; };
 		115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */; };
 		115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */; };
 		115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */; };
@@ -233,6 +235,10 @@
 		11458EA61D45FF2D00EBD16D /* SCMineOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMineOtherCell.xib; sourceTree = "<group>"; };
 		114BC8071D51D70D0091ECE0 /* UIButton+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Addition.h"; sourceTree = "<group>"; };
 		114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Addition.m"; sourceTree = "<group>"; };
+		11588F681D6AEA3700C91E3A /* SCLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLiveViewController.h; sourceTree = "<group>"; };
+		11588F691D6AEA3700C91E3A /* SCLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLiveViewController.m; sourceTree = "<group>"; };
+		11588F6C1D6AECDF00C91E3A /* SCLivePageCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLivePageCollectionVC.h; sourceTree = "<group>"; };
+		11588F6D1D6AECDF00C91E3A /* SCLivePageCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLivePageCollectionVC.m; sourceTree = "<group>"; };
 		115A21021D41B62D0097DE57 /* SCChannelCategoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelCategoryVC.h; sourceTree = "<group>"; };
 		115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelCategoryVC.m; sourceTree = "<group>"; };
 		115A21051D41B9750097DE57 /* SCOtherBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOtherBaseViewController.h; sourceTree = "<group>"; };
@@ -610,32 +616,87 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
-		115A21001D41B4E20097DE57 /* 点播栏 */ = {
+		11588F621D6AE3D500C91E3A /* Live直播 */ = {
 			isa = PBXGroup;
 			children = (
-				115A21011D41B51A0097DE57 /* 分类栏目 */,
-				116475FE1D40B93500A3BC1C /* ChannelCatalogue(点播更多) */,
+				11588F661D6AE74600C91E3A /* MainBody */,
 			);
-			name = "点播栏";
+			name = "Live直播";
 			sourceTree = "<group>";
 		};
-		115A21011D41B51A0097DE57 /* 分类栏目 */ = {
+		11588F641D6AE5F700C91E3A /* TimeShift时移 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "TimeShift时移";
+			sourceTree = "<group>";
+		};
+		11588F651D6AE60700C91E3A /* Lookback回看 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Lookback回看";
+			sourceTree = "<group>";
+		};
+		11588F661D6AE74600C91E3A /* MainBody */ = {
+			isa = PBXGroup;
+			children = (
+				11588F681D6AEA3700C91E3A /* SCLiveViewController.h */,
+				11588F691D6AEA3700C91E3A /* SCLiveViewController.m */,
+				11588F6B1D6AECA700C91E3A /* View */,
+			);
+			name = MainBody;
+			sourceTree = "<group>";
+		};
+		11588F671D6AE76D00C91E3A /* playerView */ = {
+			isa = PBXGroup;
+			children = (
+				115A211B1D4218510097DE57 /* MainBody */,
+				115A211A1D4218440097DE57 /* ViewController */,
+			);
+			name = playerView;
+			sourceTree = "<group>";
+		};
+		11588F6B1D6AECA700C91E3A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				11588F6C1D6AECDF00C91E3A /* SCLivePageCollectionVC.h */,
+				11588F6D1D6AECDF00C91E3A /* SCLivePageCollectionVC.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		115A21001D41B4E20097DE57 /* VOD点播 */ = {
+			isa = PBXGroup;
+			children = (
+				116475FE1D40B93500A3BC1C /* ChannelCatalogue(点播top栏) */,
+				115A21011D41B51A0097DE57 /* 点播分类 */,
+				11588F671D6AE76D00C91E3A /* playerView */,
+			);
+			name = "VOD点播";
+			sourceTree = "<group>";
+		};
+		115A21011D41B51A0097DE57 /* 点播分类 */ = {
 			isa = PBXGroup;
 			children = (
 				115A21021D41B62D0097DE57 /* SCChannelCategoryVC.h */,
 				115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */,
 			);
-			name = "分类栏目";
+			name = "点播分类";
 			sourceTree = "<group>";
 		};
-		115A21101D41F02F0097DE57 /* Player播放器 */ = {
+		115A21101D41F02F0097DE57 /* IJKPlayer播放器 */ = {
 			isa = PBXGroup;
 			children = (
-				115A211B1D4218510097DE57 /* MainBody */,
-				115A211A1D4218440097DE57 /* ViewController */,
-				11F3FCFD1D61A16700976F07 /* IJKPlayer */,
+				1131C0DC1D6705CD00BA151A /* IJKVideoPlayerVC.h */,
+				1131C0DD1D6705CD00BA151A /* IJKVideoPlayerVC.m */,
+				1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */,
+				1131C0DA1D6705CD00BA151A /* IJKMediaControl.h */,
+				1131C0DB1D6705CD00BA151A /* IJKMediaControl.m */,
+				1131C0E21D6707B700BA151A /* 旋转全屏 */,
+				1131C0D31D67053100BA151A /* 亮度声音调节 */,
 			);
-			name = "Player播放器";
+			name = "IJKPlayer播放器";
 			sourceTree = "<group>";
 		};
 		115A211A1D4218440097DE57 /* ViewController */ = {
@@ -685,7 +746,7 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		116475FE1D40B93500A3BC1C /* ChannelCatalogue(点播更多) */ = {
+		116475FE1D40B93500A3BC1C /* ChannelCatalogue(点播top栏) */ = {
 			isa = PBXGroup;
 			children = (
 				116476021D40BA3D00A3BC1C /* SCChannelCatalogueVC.h */,
@@ -693,13 +754,13 @@
 				1111A3FD1D48550800C17B92 /* FlowLayout */,
 				116476051D40CA4300A3BC1C /* Cell */,
 			);
-			name = "ChannelCatalogue(点播更多)";
+			name = "ChannelCatalogue(点播top栏)";
 			sourceTree = "<group>";
 		};
 		116475FF1D40B98600A3BC1C /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				115A21101D41F02F0097DE57 /* Player播放器 */,
+				115A21101D41F02F0097DE57 /* IJKPlayer播放器 */,
 				11928FD01D506D2700926011 /* CollectionPage */,
 				116476011D40B9D100A3BC1C /* register */,
 				116476001D40B9C400A3BC1C /* Login */,
@@ -875,8 +936,8 @@
 				11BB37C41D38DC450002D487 /* Plist */,
 				11BB37C31D38DC320002D487 /* Storyboard */,
 				11BB37C11D38DB290002D487 /* Classes */,
-				11BB37BC1D38DB0E0002D487 /* Vendor */,
 				110174FA1D54241B00E43773 /* Macro */,
+				11BB37BC1D38DB0E0002D487 /* Vendor */,
 				11BB37771D38B9A00002D487 /* Supporting Files */,
 			);
 			path = SevenColorMovies;
@@ -935,7 +996,10 @@
 			children = (
 				113F8D8E1D3C700900B12D39 /* MainBody */,
 				113F8D8F1D3C701B00B12D39 /* Banner */,
-				115A21001D41B4E20097DE57 /* 点播栏 */,
+				115A21001D41B4E20097DE57 /* VOD点播 */,
+				11588F621D6AE3D500C91E3A /* Live直播 */,
+				11588F641D6AE5F700C91E3A /* TimeShift时移 */,
+				11588F651D6AE60700C91E3A /* Lookback回看 */,
 				11EBC3F21D5C698600C1A338 /* SpecialTopic专题 */,
 				116E1D5B1D4B4D4600B488EC /* Sift筛选 */,
 				113E62E51D49F5FE00FB8F3A /* FilmModel */,
@@ -1247,20 +1311,6 @@
 			name = "SpecialTopic专题";
 			sourceTree = "<group>";
 		};
-		11F3FCFD1D61A16700976F07 /* IJKPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				1131C0DC1D6705CD00BA151A /* IJKVideoPlayerVC.h */,
-				1131C0DD1D6705CD00BA151A /* IJKVideoPlayerVC.m */,
-				1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */,
-				1131C0DA1D6705CD00BA151A /* IJKMediaControl.h */,
-				1131C0DB1D6705CD00BA151A /* IJKMediaControl.m */,
-				1131C0E21D6707B700BA151A /* 旋转全屏 */,
-				1131C0D31D67053100BA151A /* 亮度声音调节 */,
-			);
-			name = IJKPlayer;
-			sourceTree = "<group>";
-		};
 		56CA4D536ADE803AF87BD5DE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1564,6 +1614,7 @@
 				113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */,
 				115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
+				11588F6E1D6AECDF00C91E3A /* SCLivePageCollectionVC.m in Sources */,
 				116476091D40CA8900A3BC1C /* SCChannelCatalogueCell.m in Sources */,
 				1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */,
 				113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */,
@@ -1571,6 +1622,7 @@
 				11EBC3F51D5C69F600C1A338 /* SCSpecialTopicDetailVC.m in Sources */,
 				1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
+				11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */,
 				11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */,
 				1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */,
 				11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */,

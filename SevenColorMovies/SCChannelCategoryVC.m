@@ -25,35 +25,24 @@ static const CGFloat LabelWidth = 95.f;
 
 @interface SCChannelCategoryVC ()<UIScrollViewDelegate>
 
-@property (nonatomic, strong) UICollectionView *collView;
-
 /** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *titleScroll;
-
 /** 内容栏scrollView */
 @property (nonatomic, strong) UIScrollView *contentScroll;
-
 /** 标题数组 */
 @property (nonatomic, strong) NSMutableArray *titleArr;
-
 /** ... */
 @property (nonatomic, strong) NSMutableArray *filmClassModelArr;
-
 /** filmClassUrl数组 */
 @property (nonatomic, strong) NSMutableArray *FilmClassUrlArr;
-
 /** ... */
 @property (nonatomic, strong) NSMutableArray *filmModelArr;
-
 /** 滑动短线 */
 @property (nonatomic, strong) CALayer *bottomLine;
-
 /** 筛选按钮 */
 @property (nonatomic, strong) UIButton *siftBtn;
-
 /** collectionView加载标识 */
 @property (nonatomic, assign) int tag;
-
 /** 在当前页设置点击顶部滚动复位 */
 @property (nonatomic, strong) SCCollectionViewPageVC *needScrollToTopPage;
 

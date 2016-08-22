@@ -15,6 +15,7 @@
 
 #import "SCChannelCatalogueVC.h"//点播栏目更多
 #import "SCChannelCategoryVC.h"//节目频道分类
+#import "SCLiveViewController.h"//直播首页面
 
 #import "SCPlayerViewController.h"
 
@@ -33,18 +34,13 @@
 @property (nonatomic, strong) NSArray *dataSource;
 /** tableView数据源 */
 @property (nonatomic, copy) NSMutableArray *sectionArr;
-
 /** 点播栏所有item */
 @property (nonatomic, copy) NSMutableArray *allItemsArr;
-
 @property (nonatomic, strong) SCSycleBanner *bannerView;
-
 /** banner页图片地址数组 */
 @property (nonatomic, copy) NSMutableArray *bannerImageUrlArr;
-
 /** 存储filmList中的filmClass模型（第二层数据）*/
 @property (nonatomic, copy) NSMutableArray *filmClassArray;
-
 /** section标题 */
 @property (nonatomic, copy) NSMutableArray *titleArray;
 
@@ -483,7 +479,9 @@ static NSString *const footerId = @"footerId";
         }else{
             
             if (indexPath.row == 0) {
-                [MBProgressHUD showSuccess:@"敬请期待"];
+                SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
+                liveView.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:liveView animated:YES];
                 
             }else{
                 SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row-1];

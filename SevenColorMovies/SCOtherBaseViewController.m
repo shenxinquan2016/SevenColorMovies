@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/7/22.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//   返回按钮
+//  返回标题的基类
 
 #import "SCOtherBaseViewController.h"
 
