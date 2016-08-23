@@ -29,7 +29,7 @@
 #import "NSString+Dong.h"
 #import "SCChangeBrightnessAndVolumeTool.h"
 #import "NotificationMacro.h"//通知的宏定义
-
+#import "UIImageView+WebCache.h"//SDWebImage
 
 #if __has_feature(objc_arc)
 //#import <ReactiveCocoa.h>

@@ -6,8 +6,7 @@
 //  Copyright © 2016年 yesdgq. All rights reserved.
 //
 
-#import "SCCollectionViewPageCell.h"
-#import "UIImageView+WebCache.h" 
+#import "SCCollectionViewPageCell.h" 
 
 @interface SCCollectionViewPageCell()
 

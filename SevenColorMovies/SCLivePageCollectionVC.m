@@ -61,11 +61,11 @@ static NSString *const footerId = @"footerId";
     return self.filmModelArr.count;
 }
 
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    SCLivePageCell *cell = [SCLivePageCell cellWithCollectionView:collectionView identifier:cellId indexPath:indexPath];
+    cell.filmModel = _filmModelArr[indexPath.row];
     
     return cell;
 }

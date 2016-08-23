@@ -265,7 +265,7 @@ static const CGFloat LabelWidth = 95.f;
             [self constructContentView];
             
         }
-        NSLog(@"==========dic:::%@========",_dataSourceArr);
+        NSLog(@"==========dic:::%@========",responseObject);
         [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
         
