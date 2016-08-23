@@ -125,7 +125,7 @@ static const CGFloat LabelWidth = 95.f;
         SCLivePageCollectionVC *vc = [[SCLivePageCollectionVC alloc] initWithCollectionViewLayout:layout];
         
         if (_dataSourceArr) {
-           
+            
             vc.filmModelArr = _dataSourceArr[i];
         }
         
@@ -141,7 +141,7 @@ static const CGFloat LabelWidth = 95.f;
     
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
- 
+    
     
 }
 
@@ -241,20 +241,58 @@ static const CGFloat LabelWidth = 95.f;
 - (void)getLiveClassListData{
     
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager requestDataWithUrl:LivePageUrl parameters:nil success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataWithUrl:testUrl parameters:nil success:^(id  _Nullable responseObject) {
         
         if (responseObject) {
             NSArray *array = responseObject[@"LiveTvSort"];
+            
             for (NSDictionary *dic in array) {
+                
                 [_titleArr addObject:dic[@"_AssortName"]];
                 NSArray *arr = dic[@"LiveTv"];
                 
                 [_filmModelArr removeAllObjects];
                 
                 for (NSDictionary *dic in arr) {
-                    
+                    //获取filmModel
                     SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
                     [_filmModelArr addObject:filmModel];
+                    
+                    //获取播放列表
+                    if ([dic[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
+                        NSArray *array = dic[@"ContentSet"][@"Content"];
+                        
+                        //循环比较当前时间与节目的开始时间和结束时间的关系 开始时间 < 当前时间 < 结束时间 则该节目为正在播放节目
+                        for (NSDictionary *dic1 in array) {
+                            //0.时间字符串
+                            NSString *timeBeginString = dic1[@"_PlayerTime"];
+                            NSString *timeEndString = dic1[@"_StopTime"];
+                            //1.创建一个时间格式化对象
+                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                            
+                            //2.格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+                            formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                            
+                            //3.利用时间格式化对象让字符串转换成时间 (自动转换0时区/东加西减)
+                            NSDate *timeBeginDate = [formatter dateFromString:timeBeginString];
+                            NSDate *timeEndDate = [formatter dateFromString:timeEndString];
+                            
+                            //4.当前时间
+                            NSString *currenDate = [[NSDate date] getTimeStamp];
+                            
+                            //5.日期比较
+                            NSComparisonResult result1 = [currenDate compare:timeBeginDate];
+                            NSComparisonResult result2 = [currenDate compare:timeEndDate];
+                            
+                            if (result1 == NSOrderedDescending && result2 == NSOrderedAscending) {
+                                
+                                
+                            }
+                        }
+                        
+                        
+                    }
+                    
                 }
                 
                 [_dataSourceArr addObject:[_filmModelArr copy]];
@@ -265,7 +303,7 @@ static const CGFloat LabelWidth = 95.f;
             [self constructContentView];
             
         }
-        NSLog(@"==========dic:::%@========",responseObject);
+        //        NSLog(@"==========dic:::%@========",responseObject);
         [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
         

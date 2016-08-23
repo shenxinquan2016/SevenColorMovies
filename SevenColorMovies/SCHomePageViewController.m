@@ -66,7 +66,8 @@ static NSString *const footerId = @"footerId";
     [navBar setBarTintColor:[UIColor colorWithHex:@"#F1F1F1"]];
     //2. 初始化数组
     
-    
+   
+   
     
     //3.添加collectionView
     [self addCollView];

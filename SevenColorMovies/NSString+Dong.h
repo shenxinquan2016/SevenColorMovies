@@ -49,6 +49,13 @@
 
 
 // 获取时间戳
+/* 
+ * hh与HH的区别:分别表示12小时制,24小时制
+ * @"YYYY-MM-dd HH:mm:ss"
+ * @"yyyy年MM月dd日 HH时mm分ss秒"
+ * @"MM-dd-yyyy HH-mm-ss"
+ *
+ */
 - (double)timestampWithDateFormat:(NSString *)dateFormat;
 
 @end

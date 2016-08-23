@@ -27,6 +27,7 @@
 #import "XMLDictionary.h"
 #import "UIButton+Addition.h"
 #import "NSString+Dong.h"
+#import "NSDate+Addition.h"
 #import "SCChangeBrightnessAndVolumeTool.h"
 #import "NotificationMacro.h"//通知的宏定义
 #import "UIImageView+WebCache.h"//SDWebImage

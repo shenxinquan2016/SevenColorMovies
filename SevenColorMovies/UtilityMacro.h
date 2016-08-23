@@ -9,9 +9,7 @@
 #ifndef UtilityMacro_h
 #define UtilityMacro_h
 
-/**************************************
- * 常用尺寸
- *************************************/
+// 常用尺寸
 #define kMainScreenWidth    [[UIScreen mainScreen] bounds].size.width
 #define kMainScreenHeight   [[UIScreen mainScreen] bounds].size.height
 
@@ -39,31 +37,23 @@
 //iOS9系统
 #define iOS9 ([UIDevice currentDevice].systemVersion.doubleValue >= 9.0)
 
-/**************************************
- * storyboard实例化
- *************************************/
+// storyboard实例化
 #define DONG_STORYBOARD(storyboardName)          [UIStoryboard storyboardWithName:storyboardName bundle:nil]
 #define DONG_INSTANT_VC_WITH_ID(storyboardName,vcIdentifier)  [DONG_STORYBOARD(storyboardName) instantiateViewControllerWithIdentifier:vcIdentifier]
 
-/**************************************
- * UIAlertView
- *************************************/
+/************************************** UIAlertView *************************************/
 //弹出信息
 #define ALERT(msg) [[[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
 // 带占字符弹出信息(format, ## __VA_ARGS__)
 #define ALERT_FORMAT(format, ...) [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:format, ## __VA_ARGS__] delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
 #define ALERT_TITLE(title, msg) [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
 
-
-/**************************************
- * NSLog(...)
- *************************************/
+// NSLog(...)
 #ifdef DEBUG
 #define NSLog(...) NSLog(__VA_ARGS__)
 #else
 #define NSLog(...) {}
 #endif
-
 
 //获取view的frame某值
 #define ViewWidth(v)                        v.frame.size.width
