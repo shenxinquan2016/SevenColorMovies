@@ -11,5 +11,5 @@
 
 #import "SCRequestUrl.h"
 #import "ThirdKeys.h"
-
+#import "UtilityMacro.h"
 #endif /* SCMacro_h */

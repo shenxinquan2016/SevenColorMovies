@@ -339,6 +339,7 @@
 		11C8CFB61D45157B00C04F38 /* SCCollectionViewPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageCell.h; sourceTree = "<group>"; };
 		11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageCell.m; sourceTree = "<group>"; };
 		11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCCollectionViewPageCell.xib; sourceTree = "<group>"; };
+		11C905D91D6BE3FE004D3749 /* UtilityMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilityMacro.h; sourceTree = "<group>"; };
 		11D422521D49A1A400B4F9AE /* DONG_RefreshGifHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_RefreshGifHeader.h; sourceTree = "<group>"; };
 		11D422531D49A1A400B4F9AE /* DONG_RefreshGifHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_RefreshGifHeader.m; sourceTree = "<group>"; };
 		11D422551D49A20800B4F9AE /* DONG_RefreshGifFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_RefreshGifFooter.h; sourceTree = "<group>"; };
@@ -422,6 +423,7 @@
 			children = (
 				110174FC1D54245300E43773 /* SCMacro.h */,
 				110174FE1D542A0B00E43773 /* SCRequestUrl.h */,
+				11C905D91D6BE3FE004D3749 /* UtilityMacro.h */,
 				110174FD1D54258C00E43773 /* ThirdKeys.h */,
 				1131C0E91D670B7000BA151A /* NotificationMacro.h */,
 			);

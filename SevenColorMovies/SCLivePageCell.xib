@@ -13,7 +13,7 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mhe-Lg-7Xn">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoImage" translatesAutoresizingMaskIntoConstraints="NO" id="mhe-Lg-7Xn">
                         <rect key="frame" x="8" y="8" width="150" height="84"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="84" id="Y9f-GC-ONB"/>
@@ -110,4 +110,7 @@
             <point key="canvasLocation" x="344.5" y="271"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="NoImage" width="125" height="100"/>
+    </resources>
 </document>

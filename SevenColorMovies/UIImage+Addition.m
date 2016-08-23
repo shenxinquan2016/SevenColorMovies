@@ -39,8 +39,52 @@
 }
 
 /*
- * 图片圆角处理
+ * 通过绘图设置图片圆形
  */
+- (UIImage *)cutCircleImage{
+    // 获取上下文
+    CGContextRef ctr = UIGraphicsGetCurrentContext();
+    // 设置圆形
+    CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
+    CGContextAddEllipseInRect(ctr, rect);
+    // 裁剪
+    CGContextClip(ctr);
+    // 将图片画上去
+    [self drawInRect:rect];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+/*
+ * 通过图片Data数据第一个字节 来获取图片扩展名 如:png / jpeg / gif / tiff / webp
+ */
++ (NSString *)contentTypeForImageData:(NSData *)imageData{
+    
+    uint8_t c;
+    [imageData getBytes:&c length:1];
+    switch (c) {
+        case 0xFF:
+            return @"jpeg";
+        case 0x89:
+            return @"png";
+        case 0x47:
+            return @"gif";
+        case 0x49:
+        case 0x4D:
+            return @"tiff";
+        case 0x52:
+            if ([imageData length] < 12) {
+                return nil;
+            }
+            NSString *testString = [[NSString alloc] initWithData:[imageData subdataWithRange:NSMakeRange(0, 12)] encoding:NSASCIIStringEncoding];
+            if ([testString hasPrefix:@"RIFF"] && [testString hasSuffix:@"WEBP"]) {
+                return @"webp";
+            }
+            return nil;
+    }
+    return nil;
+}
 
 
 

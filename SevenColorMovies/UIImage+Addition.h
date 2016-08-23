@@ -14,4 +14,14 @@
  */
 + (UIImage *)imageWithColor:(UIColor *)color;
 
+/*
+ * 通过绘图设置图片圆形
+ */
+- (UIImage *)cutCircleImage;
+
+/*
+ * 通过图片Data数据第一个字节 来获取图片扩展名 如:png / jpeg / gif / tiff / webp
+ */
++ (NSString *)contentTypeForImageData:(NSData *)imageData;
+
 @end
