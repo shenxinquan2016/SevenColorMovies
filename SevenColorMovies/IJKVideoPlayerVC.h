@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/8/15.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  IJKPlayer控制器
 
 #import <UIKit/UIKit.h>
 #import <IJKMediaFramework/IJKMediaFramework.h>

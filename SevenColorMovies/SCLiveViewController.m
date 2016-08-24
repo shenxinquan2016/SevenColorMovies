@@ -241,7 +241,7 @@ static const CGFloat LabelWidth = 95.f;
 - (void)getLiveClassListData{
     
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager requestDataWithUrl:testUrl parameters:nil success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataWithUrl:LivePageUrl parameters:nil success:^(id  _Nullable responseObject) {
         
         //NSLog(@"==========dic:::%@========",responseObject);
         if (responseObject) {

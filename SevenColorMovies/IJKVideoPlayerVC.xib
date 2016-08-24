@@ -115,7 +115,7 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GKE-nQ-f0w">
                                     <rect key="frame" x="11" y="6" width="23" height="27"/>
-                                    <state key="normal" image="Back_Arrow"/>
+                                    <state key="normal" image="Back_WhiteArrow"/>
                                     <connections>
                                         <action selector="onClickBack:" destination="-1" eventType="touchUpInside" id="T37-Ou-28E"/>
                                     </connections>
@@ -224,7 +224,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Back_Arrow" width="22" height="22"/>
+        <image name="Back_WhiteArrow" width="16" height="16"/>
         <image name="FastForward" width="25" height="19"/>
         <image name="FullScreen" width="19" height="19"/>
         <image name="InteractScreen" width="17" height="17"/>

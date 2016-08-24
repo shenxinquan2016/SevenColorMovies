@@ -12,6 +12,7 @@
 #import "SCChannelCategoryVC.h"
 #import "SCFilmListModel.h"
 #import "SCFilmClassModel.h"
+#import "SCLiveViewController.h"
 
 
 
@@ -258,7 +259,8 @@ static NSString *const footerId = @"footerId";
     SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
     if (indexPath.row == 0) {
         
-        [MBProgressHUD showSuccess:@"敬请期待"];
+        SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
+        [self.navigationController pushViewController:liveVC animated:YES];
         
     }else{
         if (_filmClassArray.count != 0) {

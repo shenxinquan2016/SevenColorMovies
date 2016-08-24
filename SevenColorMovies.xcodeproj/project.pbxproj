@@ -130,6 +130,7 @@
 		11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */; };
 		11E97A051D6320CA00512D10 /* PlayerViewRotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E97A041D6320CA00512D10 /* PlayerViewRotate.m */; };
 		11EBC3F51D5C69F600C1A338 /* SCSpecialTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EBC3F41D5C69F600C1A338 /* SCSpecialTopicDetailVC.m */; };
+		11F9E2891D6D7503006326F3 /* SCLivePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F9E2881D6D7503006326F3 /* SCLivePlayerVC.m */; };
 		11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB481D3F16E100AAC216 /* SCBaseViewController.m */; };
 		11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */; };
 		E295801C8EBB6E7149DD009D /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC708BBEF15757C0083C8CE3 /* libPods-SevenColorMovies.a */; };
@@ -372,6 +373,8 @@
 		11E97A041D6320CA00512D10 /* PlayerViewRotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewRotate.m; sourceTree = "<group>"; };
 		11EBC3F31D5C69F600C1A338 /* SCSpecialTopicDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSpecialTopicDetailVC.h; sourceTree = "<group>"; };
 		11EBC3F41D5C69F600C1A338 /* SCSpecialTopicDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSpecialTopicDetailVC.m; sourceTree = "<group>"; };
+		11F9E2871D6D7503006326F3 /* SCLivePlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLivePlayerVC.h; sourceTree = "<group>"; };
+		11F9E2881D6D7503006326F3 /* SCLivePlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLivePlayerVC.m; sourceTree = "<group>"; };
 		11FACB471D3F16E100AAC216 /* SCBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBaseViewController.h; sourceTree = "<group>"; };
 		11FACB481D3F16E100AAC216 /* SCBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseViewController.m; sourceTree = "<group>"; };
 		11FACB4A1D3F19A000AAC216 /* SCSearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchBarView.h; sourceTree = "<group>"; };
@@ -630,6 +633,7 @@
 			isa = PBXGroup;
 			children = (
 				11588F661D6AE74600C91E3A /* MainBody */,
+				11F9E2831D6D4F6A006326F3 /* PlayerVC */,
 			);
 			name = "Live直播";
 			sourceTree = "<group>";
@@ -659,13 +663,13 @@
 			name = MainBody;
 			sourceTree = "<group>";
 		};
-		11588F671D6AE76D00C91E3A /* playerView */ = {
+		11588F671D6AE76D00C91E3A /* PlayerVC */ = {
 			isa = PBXGroup;
 			children = (
 				115A211B1D4218510097DE57 /* MainBody */,
 				115A211A1D4218440097DE57 /* ViewController */,
 			);
-			name = playerView;
+			name = PlayerVC;
 			sourceTree = "<group>";
 		};
 		11588F6B1D6AECA700C91E3A /* View */ = {
@@ -690,20 +694,20 @@
 		115A21001D41B4E20097DE57 /* VOD点播 */ = {
 			isa = PBXGroup;
 			children = (
-				116475FE1D40B93500A3BC1C /* ChannelCatalogue(点播top栏) */,
-				115A21011D41B51A0097DE57 /* 点播分类 */,
-				11588F671D6AE76D00C91E3A /* playerView */,
+				116475FE1D40B93500A3BC1C /* ChannelCatalogue节目分类 */,
+				115A21011D41B51A0097DE57 /* SCChannelCategory节目详情 */,
+				11588F671D6AE76D00C91E3A /* PlayerVC */,
 			);
 			name = "VOD点播";
 			sourceTree = "<group>";
 		};
-		115A21011D41B51A0097DE57 /* 点播分类 */ = {
+		115A21011D41B51A0097DE57 /* SCChannelCategory节目详情 */ = {
 			isa = PBXGroup;
 			children = (
 				115A21021D41B62D0097DE57 /* SCChannelCategoryVC.h */,
 				115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */,
 			);
-			name = "点播分类";
+			name = "SCChannelCategory节目详情";
 			sourceTree = "<group>";
 		};
 		115A21101D41F02F0097DE57 /* IJKPlayer播放器 */ = {
@@ -767,7 +771,7 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		116475FE1D40B93500A3BC1C /* ChannelCatalogue(点播top栏) */ = {
+		116475FE1D40B93500A3BC1C /* ChannelCatalogue节目分类 */ = {
 			isa = PBXGroup;
 			children = (
 				116476021D40BA3D00A3BC1C /* SCChannelCatalogueVC.h */,
@@ -775,7 +779,7 @@
 				1111A3FD1D48550800C17B92 /* FlowLayout */,
 				116476051D40CA4300A3BC1C /* Cell */,
 			);
-			name = "ChannelCatalogue(点播top栏)";
+			name = "ChannelCatalogue节目分类";
 			sourceTree = "<group>";
 		};
 		116475FF1D40B98600A3BC1C /* Main */ = {
@@ -1334,6 +1338,31 @@
 			name = "SpecialTopic专题";
 			sourceTree = "<group>";
 		};
+		11F9E2831D6D4F6A006326F3 /* PlayerVC */ = {
+			isa = PBXGroup;
+			children = (
+				11F9E2851D6D4FBD006326F3 /* MainBody */,
+				11F9E2841D6D4FB2006326F3 /* ViewController */,
+			);
+			name = PlayerVC;
+			sourceTree = "<group>";
+		};
+		11F9E2841D6D4FB2006326F3 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		11F9E2851D6D4FBD006326F3 /* MainBody */ = {
+			isa = PBXGroup;
+			children = (
+				11F9E2871D6D7503006326F3 /* SCLivePlayerVC.h */,
+				11F9E2881D6D7503006326F3 /* SCLivePlayerVC.m */,
+			);
+			name = MainBody;
+			sourceTree = "<group>";
+		};
 		56CA4D536ADE803AF87BD5DE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1579,6 +1608,7 @@
 				1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */,
 				116475F91D4098EF00A3BC1C /* SCPastVideoTableViewCell.m in Sources */,
 				1111A41F1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m in Sources */,
+				11F9E2891D6D7503006326F3 /* SCLivePlayerVC.m in Sources */,
 				11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */,
 				1131C0D91D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m in Sources */,
 				11458EA21D45FEE200EBD16D /* SCMineTopCell.m in Sources */,

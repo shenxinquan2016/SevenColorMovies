@@ -4,10 +4,11 @@
 //
 //  Created by yesdgq on 16/8/22.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  直播节目详情页collectionView
 
 #import "SCLivePageCollectionVC.h"
 #import "SCLivePageCell.h"
+#import "SCLivePlayerVC.h"
 
 @interface SCLivePageCollectionVC ()
 
@@ -90,7 +91,7 @@ static NSString *const footerId = @"footerId";
 /** item水平间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 5.f;
+    return 0.f;
 }
 
 /** item垂直间距 */
@@ -122,8 +123,8 @@ static NSString *const footerId = @"footerId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 
-
-
+    SCLivePlayerVC *livePlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCLivePlayerVC");
+    [self.navigationController pushViewController:livePlayer animated:YES];
 }
 
 
