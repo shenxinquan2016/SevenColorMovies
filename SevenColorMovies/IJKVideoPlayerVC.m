@@ -162,9 +162,13 @@
         
     }else{
         
-        if (self.doBackActionBlock) {
-            self.doBackActionBlock();
-        }
+        // 取出当前的导航控制器
+        UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        // The view controller associated with the currently selected tab item
+        // 当前选择的导航控制器
+        UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+        [navController popViewControllerAnimated:YES];
+    
     }
 
     

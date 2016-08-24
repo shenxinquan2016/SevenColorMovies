@@ -10,13 +10,10 @@
 #import <IJKMediaFramework/IJKMediaFramework.h>
 @class IJKMediaControl;
 
-typedef void(^DoBackActionBlock)(void);/** 返回按钮通过block实现 */
-
 @interface IJKVideoPlayerVC : UIViewController
 
 @property(atomic,strong) NSURL *url;
 @property(atomic, retain) id<IJKMediaPlayback> player;
-@property (nonatomic, copy) DoBackActionBlock doBackActionBlock;
 @property (nonatomic, assign) BOOL isFullScreen;//是否正处于全屏状态
 
 - (id)initWithURL:(NSURL *)url;

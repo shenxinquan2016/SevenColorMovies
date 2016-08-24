@@ -285,6 +285,7 @@ static const CGFloat LabelWidth = 95.f;
                             NSComparisonResult result2 = [currenDate compare:timeEndDate];
                             
                             if (result1 == NSOrderedDescending && result2 == NSOrderedAscending) {
+
                                 
                                 
                             }

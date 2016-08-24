@@ -71,7 +71,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //3.直播视频
     self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
     self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-//    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
     
    
     self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
@@ -84,12 +84,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //5.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 
-    //6.IJKVideoPlayerVC返回按钮回调
-    __weak __typeof(self)weakSelf = self;
-    _IJKPlayerViewController.doBackActionBlock = ^(){
-        [weakSelf.navigationController popViewControllerAnimated:YES];
-    };
-    
 }
 
 

@@ -67,7 +67,8 @@
 
 // weakself & strongself
 #define DONGWeakSelf(type)  __weak typeof(type) weak##type = type
-#define DONGStrongSelf(type)  __strong typeof(type) strongself = type
+#define DONGStrongSelf(type)  __strong typeof(weak##type) strong##type = weak##type
+
 
 #define DONGToast(str) [NSString stringWithFormat:@"%@",@#str]
 #define DONGNSLog(str) NSLog:@"%@",DONGToast(str)
