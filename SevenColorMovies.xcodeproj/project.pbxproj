@@ -10,6 +10,10 @@
 		110175071D54402D00E43773 /* FileManageCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 110175061D54402D00E43773 /* FileManageCommon.m */; };
 		1101750A1D549B3C00E43773 /* SCFilmSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 110175091D549B3C00E43773 /* SCFilmSetModel.m */; };
 		1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1101750C1D54A40000E43773 /* NSString+Dong.m */; };
+		11051ECC1D6D944500E920C1 /* SCLiveProgramListCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11051ECB1D6D944500E920C1 /* SCLiveProgramListCollectionVC.m */; };
+		11051ED41D6D950100E920C1 /* SCLiveProgramListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11051ED21D6D950100E920C1 /* SCLiveProgramListCell.m */; };
+		11051ED51D6D950100E920C1 /* SCLiveProgramListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11051ED31D6D950100E920C1 /* SCLiveProgramListCell.xib */; };
+		11051ED91D6D9FED00E920C1 /* SCLiveProgramModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11051ED81D6D9FED00E920C1 /* SCLiveProgramModel.m */; };
 		110591701D5046B20043C833 /* SCCollectionViewPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */; };
 		1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */; };
 		1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */; };
@@ -163,6 +167,13 @@
 		110175091D549B3C00E43773 /* SCFilmSetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmSetModel.m; sourceTree = "<group>"; };
 		1101750B1D54A40000E43773 /* NSString+Dong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Dong.h"; sourceTree = "<group>"; };
 		1101750C1D54A40000E43773 /* NSString+Dong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Dong.m"; sourceTree = "<group>"; };
+		11051ECA1D6D944500E920C1 /* SCLiveProgramListCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLiveProgramListCollectionVC.h; sourceTree = "<group>"; };
+		11051ECB1D6D944500E920C1 /* SCLiveProgramListCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLiveProgramListCollectionVC.m; sourceTree = "<group>"; };
+		11051ED11D6D950100E920C1 /* SCLiveProgramListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLiveProgramListCell.h; sourceTree = "<group>"; };
+		11051ED21D6D950100E920C1 /* SCLiveProgramListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLiveProgramListCell.m; sourceTree = "<group>"; };
+		11051ED31D6D950100E920C1 /* SCLiveProgramListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCLiveProgramListCell.xib; sourceTree = "<group>"; };
+		11051ED71D6D9FED00E920C1 /* SCLiveProgramModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLiveProgramModel.h; sourceTree = "<group>"; };
+		11051ED81D6D9FED00E920C1 /* SCLiveProgramModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLiveProgramModel.m; sourceTree = "<group>"; };
 		1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageVC.h; sourceTree = "<group>"; };
 		1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageVC.m; sourceTree = "<group>"; };
 		1111A4011D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
@@ -434,6 +445,25 @@
 				1131C0E91D670B7000BA151A /* NotificationMacro.h */,
 			);
 			name = Macro;
+			sourceTree = "<group>";
+		};
+		11051ECD1D6D947000E920C1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				11051ED11D6D950100E920C1 /* SCLiveProgramListCell.h */,
+				11051ED21D6D950100E920C1 /* SCLiveProgramListCell.m */,
+				11051ED31D6D950100E920C1 /* SCLiveProgramListCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		11051ED61D6D9FC500E920C1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11051ED71D6D9FED00E920C1 /* SCLiveProgramModel.h */,
+				11051ED81D6D9FED00E920C1 /* SCLiveProgramModel.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		1111A3FD1D48550800C17B92 /* FlowLayout */ = {
@@ -1342,16 +1372,20 @@
 			isa = PBXGroup;
 			children = (
 				11F9E2851D6D4FBD006326F3 /* MainBody */,
-				11F9E2841D6D4FB2006326F3 /* ViewController */,
+				11F9E2841D6D4FB2006326F3 /* View */,
+				11051ECD1D6D947000E920C1 /* Cell */,
+				11051ED61D6D9FC500E920C1 /* Model */,
 			);
 			name = PlayerVC;
 			sourceTree = "<group>";
 		};
-		11F9E2841D6D4FB2006326F3 /* ViewController */ = {
+		11F9E2841D6D4FB2006326F3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				11051ECA1D6D944500E920C1 /* SCLiveProgramListCollectionVC.h */,
+				11051ECB1D6D944500E920C1 /* SCLiveProgramListCollectionVC.m */,
 			);
-			name = ViewController;
+			name = View;
 			sourceTree = "<group>";
 		};
 		11F9E2851D6D4FBD006326F3 /* MainBody */ = {
@@ -1505,6 +1539,7 @@
 				11458E981D45E0D500EBD16D /* SCDiscoveryTableViewCell.xib in Resources */,
 				113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */,
 				113F6C801D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib in Resources */,
+				11051ED51D6D950100E920C1 /* SCLiveProgramListCell.xib in Resources */,
 				116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */,
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
 				11588F741D6B079900C91E3A /* SCLivePageCell.xib in Resources */,
@@ -1608,6 +1643,7 @@
 				1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */,
 				116475F91D4098EF00A3BC1C /* SCPastVideoTableViewCell.m in Sources */,
 				1111A41F1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m in Sources */,
+				11051ED91D6D9FED00E920C1 /* SCLiveProgramModel.m in Sources */,
 				11F9E2891D6D7503006326F3 /* SCLivePlayerVC.m in Sources */,
 				11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */,
 				1131C0D91D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m in Sources */,
@@ -1621,12 +1657,14 @@
 				116E1D5E1D4B4E0200B488EC /* SCSiftViewController.m in Sources */,
 				116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */,
 				1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */,
+				11051ECC1D6D944500E920C1 /* SCLiveProgramListCollectionVC.m in Sources */,
 				11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */,
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
 				114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */,
 				1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */,
 				11DDB8821D5B15760074DFAB /* SCArtsFilmCell.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
+				11051ED41D6D950100E920C1 /* SCLiveProgramListCell.m in Sources */,
 				1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
 				11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */,

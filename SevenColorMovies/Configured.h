@@ -37,6 +37,19 @@
 #endif
 
 #import <AFNetworking/AFNetworking.h>
+
+
+
+
+
+typedef NS_ENUM(NSUInteger, SCLiveProgramState) {
+    HavePast = 0,//回看
+    NowPlaying,//直播
+    WillPlay,//预约
+};
+
+
+
 #endif /* Configured_h */
 
 

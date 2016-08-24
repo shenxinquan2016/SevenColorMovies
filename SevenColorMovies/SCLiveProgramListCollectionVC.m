@@ -1,37 +1,36 @@
 //
-//  SCLivePageCollectionVC.m
+//  SCLiveProgramListCollectionVC.m
 //  SevenColorMovies
 //
-//  Created by yesdgq on 16/8/22.
+//  Created by yesdgq on 16/8/24.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//  直播节目详情页collectionView
+//
 
-#import "SCLivePageCollectionVC.h"
-#import "SCLivePageCell.h"
-#import "SCLivePlayerVC.h"
+#import "SCLiveProgramListCollectionVC.h"
+#import "SCLiveProgramListCell.h"
 
-@interface SCLivePageCollectionVC ()
+@interface SCLiveProgramListCollectionVC ()
 
 @end
 
-@implementation SCLivePageCollectionVC
 
-static NSString *const cellId = @"SCLivePageCell";
+@implementation SCLiveProgramListCollectionVC
+
+static NSString *const cellId = @"SCLiveProgramListCell";
 static NSString *const headerId = @"headerId";
 static NSString *const footerId = @"footerId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
     // 让上次选中的单元格不被清空
-     self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = NO;
     
     //0.初始化collectionView
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical=YES;
     // 注册cell、sectionHeader、sectionFooter
-    [self.collectionView registerNib:[UINib nibWithNibName:@"SCLivePageCell" bundle:nil] forCellWithReuseIdentifier:cellId];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"SCLiveProgramListCell" bundle:nil] forCellWithReuseIdentifier:cellId];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerId];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerId];
     
@@ -41,7 +40,7 @@ static NSString *const footerId = @"footerId";
     [super viewDidAppear:YES];
     // 让上次选中的单元格闪动一次
     [self.collectionView flashScrollIndicators];
-
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -59,14 +58,15 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.filmModelArr.count;
+//    return self.filmModelArr.count;
+    return self.liveProgramModelArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    SCLivePageCell *cell = [SCLivePageCell cellWithCollectionView:collectionView identifier:cellId indexPath:indexPath];
-    cell.filmModel = _filmModelArr[indexPath.row];
+    SCLiveProgramListCell *cell = [SCLiveProgramListCell cellWithCollectionView:collectionView identifier:cellId indexPath:indexPath];
+    cell.model = _liveProgramModelArr[indexPath.row];
     
     return cell;
 }
@@ -75,7 +75,6 @@ static NSString *const footerId = @"footerId";
 #pragma mark <UICollectionViewDelegate>
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
-
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -109,7 +108,7 @@ static NSString *const footerId = @"footerId";
 /** section Footer 尺寸*/
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
-    return (CGSize){kMainScreenWidth,80};
+    return (CGSize){kMainScreenWidth, 0};
 }
 
 #pragma mark ---- UICollectionViewDelegate
@@ -123,15 +122,15 @@ static NSString *const footerId = @"footerId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCLivePlayerVC *livePlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCLivePlayerVC");
-    livePlayer.filmModel = _filmModelArr[indexPath.row];
-    [self.navigationController pushViewController:livePlayer animated:YES];
+    
+    
 }
-
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{
     return NO;
 }
+
+
 
 @end
