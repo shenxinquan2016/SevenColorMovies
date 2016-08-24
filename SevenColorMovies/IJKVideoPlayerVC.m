@@ -172,7 +172,6 @@
     }
 
     
-    
     //方案二时使用
     
 //    if (_isFullScreen || [PlayerViewRotate isOrientationLandscape]) {//如果正在全屏，先返回小屏

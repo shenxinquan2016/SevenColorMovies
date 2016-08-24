@@ -11,24 +11,11 @@
 
 @interface SCFilmListModel : NSObject
 
-/** model名称 */
-@property (nonatomic,copy) NSString *__name;
-
-/** 请求数据时间 */
-@property (nonatomic,copy) NSString *_Time;
-
-/** 版本 */
-@property (nonatomic,copy) NSString *_Version;
-
-/** 包含影片个数 */
-@property (nonatomic,copy) NSString *_Count;
-
-/** 包含的影片数组*/
-@property (nonatomic, copy) NSArray *filmClassArray;
-
-/** FilmClass模型*/
-@property (nonatomic, strong) SCFilmClassModel *filmClassModel;
-
-
+@property (nonatomic,copy) NSString *__name;/** model名称 */
+@property (nonatomic,copy) NSString *_Time;/** 请求数据时间 */
+@property (nonatomic,copy) NSString *_Version;/** 版本 */
+@property (nonatomic,copy) NSString *_Count;/** 包含影片个数 */
+@property (nonatomic, copy) NSArray *filmClassArray;/** 包含的影片数组*/
+@property (nonatomic, strong) SCFilmClassModel *filmClassModel;/** FilmClass模型*/
 
 @end

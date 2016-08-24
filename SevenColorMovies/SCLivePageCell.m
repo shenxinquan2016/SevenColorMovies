@@ -36,8 +36,8 @@
 - (void)setFilmModel:(SCFilmModel *)filmModel{
     
     [_channelImageView sd_setImageWithURL:[NSURL URLWithString:filmModel._ImgUrl] placeholderImage:[UIImage imageNamed:@"NoImage"]];
-    
-    
+    _nowPlayingLabel.text = [filmModel.nowPlaying isBlank] ? @"-" : filmModel.nowPlaying;
+    _nextPlayingLabel.text = [filmModel.nextPlay isBlank] ? @"-" : filmModel.nextPlay;
     
 }
 

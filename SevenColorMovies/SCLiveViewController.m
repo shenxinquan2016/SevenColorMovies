@@ -256,14 +256,17 @@ static const CGFloat LabelWidth = 95.f;
                 for (NSDictionary *dic in arr) {
                     //获取filmModel
                     SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-                    [_filmModelArr addObject:filmModel];
                     
                     //获取播放列表
                     if ([dic[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
                         NSArray *array = dic[@"ContentSet"][@"Content"];
                         
-                        //循环比较当前时间与节目的开始时间和结束时间的关系 开始时间 < 当前时间 < 结束时间 则该节目为正在播放节目
-                        for (NSDictionary *dic1 in array) {
+                        //循环比较当前时间与节目的开始时间和结束时间的关系 开始时间 < 当前时间 < 结束时间 则该节目为正在播放节目 并得出即将播出节目
+                        
+                       __block NSUInteger index;
+                        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            NSDictionary *dic1 = obj;
+                            
                             //0.时间字符串
                             NSString *timeBeginString = dic1[@"_PlayerTime"];
                             NSString *timeEndString = dic1[@"_StopTime"];
@@ -278,22 +281,31 @@ static const CGFloat LabelWidth = 95.f;
                             NSDate *timeEndDate = [formatter dateFromString:timeEndString];
                             
                             //4.当前时间
-                            NSString *currenDate = [[NSDate date] getTimeStamp];
+                            NSDate *currenDate = [NSDate date];
                             
                             //5.日期比较
-                            NSComparisonResult result1 = [currenDate compare:timeBeginDate];
-                            NSComparisonResult result2 = [currenDate compare:timeEndDate];
                             
-                            if (result1 == NSOrderedDescending && result2 == NSOrderedAscending) {
-
+                            NSTimeInterval secondsInterval1 = [currenDate timeIntervalSinceDate:timeBeginDate];
+                            
+                            NSTimeInterval secondsInterval2 = [currenDate timeIntervalSinceDate:timeEndDate];
+                            
+                            
+                            // 得出即将播出节目和该节目的index
+                            if (secondsInterval1 >= 0 && secondsInterval2 <= 0) {
                                 
-                                
+                                filmModel.nowPlaying = dic1[@"_ProgramName"];
+                                index = idx;
                             }
+
+                        }];
+                        
+                        // 获取即将播出节目
+                        if (index+1 < array.count) {
+                            
+                            filmModel.nextPlay = array[index+1][@"_ProgramName"];
                         }
-                        
-                        
                     }
-                    
+                    [_filmModelArr addObject:filmModel];
                 }
                 
                 [_dataSourceArr addObject:[_filmModelArr copy]];
@@ -304,7 +316,7 @@ static const CGFloat LabelWidth = 95.f;
             [self constructContentView];
             
         }
-        //        NSLog(@"==========dic:::%@========",responseObject);
+//                NSLog(@"==========dic:::%@========",responseObject);
         [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
         

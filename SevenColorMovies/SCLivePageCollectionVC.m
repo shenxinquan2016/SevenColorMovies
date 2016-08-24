@@ -84,7 +84,7 @@ static NSString *const footerId = @"footerId";
 /** CollectionView四周间距 EdgeInsets */
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     
-    return UIEdgeInsetsMake(5, 12, 5, 12);
+    return UIEdgeInsetsMake(5, 0, 5, 0);
 }
 
 /** item水平间距 */
