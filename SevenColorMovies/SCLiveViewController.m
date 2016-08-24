@@ -243,6 +243,7 @@ static const CGFloat LabelWidth = 95.f;
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:testUrl parameters:nil success:^(id  _Nullable responseObject) {
         
+        //NSLog(@"==========dic:::%@========",responseObject);
         if (responseObject) {
             NSArray *array = responseObject[@"LiveTvSort"];
             
@@ -263,7 +264,7 @@ static const CGFloat LabelWidth = 95.f;
                         
                         //循环比较当前时间与节目的开始时间和结束时间的关系 开始时间 < 当前时间 < 结束时间 则该节目为正在播放节目 并得出即将播出节目
                         
-                       __block NSUInteger index;
+                        __block NSUInteger index;
                         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                             NSDictionary *dic1 = obj;
                             
@@ -296,9 +297,7 @@ static const CGFloat LabelWidth = 95.f;
                                 filmModel.nowPlaying = dic1[@"_ProgramName"];
                                 index = idx;
                             }
-
                         }];
-                        
                         // 获取即将播出节目
                         if (index+1 < array.count) {
                             
@@ -314,14 +313,15 @@ static const CGFloat LabelWidth = 95.f;
             [self constructSlideHeaderView];
             //2.添加contentScrllowView
             [self constructContentView];
-            
         }
-//                NSLog(@"==========dic:::%@========",responseObject);
+        
         [CommonFunc dismiss];
+        
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
     }];
     
 }
+
 @end

@@ -33,5 +33,6 @@
 @property (nonatomic, copy) NSString *WatchFocus;/** 请求数据时间 */
 @property (nonatomic, copy) NSString *nowPlaying;/** 正在播出 直播 */
 @property (nonatomic, copy) NSString *nextPlay;/** 即将播出 直播 */
+@property (nonatomic, copy) NSString *_TvId;/** 直播节目id 直播 */
 
 @end
