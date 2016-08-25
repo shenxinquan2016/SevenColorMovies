@@ -725,19 +725,19 @@
 			isa = PBXGroup;
 			children = (
 				116475FE1D40B93500A3BC1C /* ChannelCatalogue节目分类 */,
-				115A21011D41B51A0097DE57 /* SCChannelCategory节目详情 */,
+				115A21011D41B51A0097DE57 /* SCChannelCategory节目列表 */,
 				11588F671D6AE76D00C91E3A /* PlayerVC */,
 			);
 			name = "VOD点播";
 			sourceTree = "<group>";
 		};
-		115A21011D41B51A0097DE57 /* SCChannelCategory节目详情 */ = {
+		115A21011D41B51A0097DE57 /* SCChannelCategory节目列表 */ = {
 			isa = PBXGroup;
 			children = (
 				115A21021D41B62D0097DE57 /* SCChannelCategoryVC.h */,
 				115A21031D41B62D0097DE57 /* SCChannelCategoryVC.m */,
 			);
-			name = "SCChannelCategory节目详情";
+			name = "SCChannelCategory节目列表";
 			sourceTree = "<group>";
 		};
 		115A21101D41F02F0097DE57 /* IJKPlayer播放器 */ = {

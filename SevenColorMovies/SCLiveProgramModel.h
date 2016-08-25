@@ -10,8 +10,8 @@
 
 @interface SCLiveProgramModel : NSObject
 
-
-
+@property (nonatomic, strong) NSString *filmName;/* 节目名称 */
+@property (nonatomic, strong) NSString *programTime;/* 节目时间 */
 @property (nonatomic, assign) SCLiveProgramState programState;/* 节目状态 */
 
 @end

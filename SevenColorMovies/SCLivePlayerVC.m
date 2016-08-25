@@ -9,18 +9,19 @@
 #import "SCLivePlayerVC.h"
 #import "IJKVideoPlayerVC.h"
 #import "SCSlideHeaderLabel.h"
+#import "SCLiveProgramModel.h"
 
 static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
-static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
+static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 @interface SCLivePlayerVC ()<UIScrollViewDelegate>
 @property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
 @property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
-@property (nonatomic, strong) NSArray *titleArr;/** 标题数组 */
-
-
+@property (nonatomic, strong) NSMutableArray *titleArr;/** 标题数组 */
+@property (nonatomic, strong) NSMutableArray *programArr;/** 标题数组 */
+@property (nonatomic, strong) NSMutableArray *dataSourceArr;/** 标题数组 */
 
 @property (atomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
@@ -37,6 +38,11 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
+    //1.初始化数组
+    self.titleArr = [NSMutableArray arrayWithCapacity:0];
+    self.programArr = [NSMutableArray arrayWithCapacity:0];
+    self.dataSourceArr = [NSMutableArray arrayWithCapacity:0];
+    
     
     [self setView];
     
@@ -46,9 +52,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
     self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
     
-//    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
-//    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-//    [self.view addSubview:_IJKPlayerViewController.view];
+    //    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
+    //    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+    //    [self.view addSubview:_IJKPlayerViewController.view];
     
     
     
@@ -94,7 +100,13 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
     
-    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake((kMainScreenWidth-LabelWidth*_titleArr.count)/2, 0, LabelWidth*_titleArr.count, TitleHeight)];//滚动窗口
+    CGFloat titleScrollWith = 0.f;
+    if (_titleArr.count*LabelWidth<kMainScreenWidth) {
+        titleScrollWith = _titleArr.count*LabelWidth;
+    }else{
+        titleScrollWith = kMainScreenWidth;
+    }
+    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, titleScrollWith, TitleHeight)];//滚动窗口
     //    _titleScroll.backgroundColor = [UIColor greenColor];
     self.titleScroll.showsHorizontalScrollIndicator = NO;
     self.titleScroll.showsVerticalScrollIndicator = NO;
@@ -162,7 +174,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [self.view addSubview:_contentScroll];
     //添加子控制器
     
-        // 添加默认控制器
+    // 添加默认控制器
     
     
 }
@@ -350,22 +362,97 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"tvid" : self.filmModel._TvId ? self.filmModel._TvId : @""};
     [requestDataManager requestDataWithUrl:LiveProgramList parameters:parameters success:^(id  _Nullable responseObject) {
-        NSLog(@"====responseObject:::%@===",responseObject);
+        //NSLog(@"====responseObject:::%@===",responseObject);
         if (responseObject) {
-            
+            [_dataSourceArr removeAllObjects];
+            NSArray *array = responseObject[@"FilmClass"][@"FilmlistSet"];
+            if (array.count > 0) {
+                //
+                [_titleArr removeAllObjects];
+                [_programArr removeAllObjects];
+                for (NSDictionary *dic in array) {
+                    
+                    NSString *dateStr = dic[@"_Date"];
+                    
+                    //按格式如:08.28 获取滑动标题头
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    formatter.dateFormat = @"yyyy-MM-dd";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+                    NSDate *date = [formatter dateFromString:dateStr];
+                    formatter.dateFormat = @"MM.dd";
+                    NSString *dateString = [formatter stringFromDate:date];
+                    
+                    [_titleArr addObject:dateString];
+                    
+                    //以下获取program信息
+                    NSArray *arr = dic[@"Film"];
+                    if (arr.count > 0) {
+                        
+                        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            NSDictionary *dic1 = obj;
+                            
+                            SCLiveProgramModel *programModel = [[SCLiveProgramModel alloc] init];
+                            //节目名称
+                            programModel.filmName = dic1[@"FilmName"];
+                            NSString *forecastDateString = dic1[@"_ForecastDate"];
+                            //按格式如:10:05 获取时间
+                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                            formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+                            NSDate *pragramDate = [formatter dateFromString:forecastDateString];
+                            formatter.dateFormat = @"HH:mm";
+                            NSString *timeString = [formatter stringFromDate:pragramDate];
+                            programModel.programTime = timeString;
+                            //获取节目状态
+                            //4.当前时间
+                            NSDate *currenDate = [NSDate date];
+                            
+                            //5.日期比较
+                            
+                            NSTimeInterval secondsInterval = [currenDate timeIntervalSinceDate:pragramDate];
+                            
+                            if (secondsInterval >= 0) {
+                                if (idx+1 < arr.count) {
+                                    //获取下一个节目的开始时间
+                                    NSDictionary *dic2 = arr[idx+1];
+                                    NSString *forecastDateString2 = dic2[@"_ForecastDate"];
+                                    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+                                    NSDate *pragramDate2 = [formatter dateFromString:forecastDateString2];
+                                    //日期比较
+                                    NSTimeInterval secondsInterval2 = [currenDate timeIntervalSinceDate:pragramDate2];
+                                    
+                                    if (secondsInterval2 < 0) {//当前时间比当前节目的开始时间晚且比下一个节目的开始时间早，当前节目即为正在播出节目
+                                        
+                                        programModel.programState = NowPlaying;
+                                        
+                                    }else{
+                                        programModel.programState = HavePast;
+                                    }
+                                }
+                            }else{
+                                programModel.programState = WillPlay;
+                            }
+                            
+                            [_programArr addObject:programModel];
+                            
+                            //NSLog(@"====responseObject:::%@=%lu==",timeString,(unsigned long)programModel.programState);
+                        }];
+                    }
+                    
+                    [_dataSourceArr addObject:_programArr];
+                }
+            }
         }
         
         //4.添加滑动headerView
-//        [self constructSlideHeaderView];
+        [self constructSlideHeaderView];
         //5.添加contentScrllowView
-//        [self constructContentView];
+        [self constructContentView];
         [CommonFunc dismiss];
-    
-     
-     } failure:^(id  _Nullable errorObject) {
-         [CommonFunc dismiss];
-         
-     }];
+        
+        
+    } failure:^(id  _Nullable errorObject) {
+        [CommonFunc dismiss];
+        
+    }];
 }
 
 
