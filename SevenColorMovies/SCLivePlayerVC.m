@@ -10,6 +10,7 @@
 #import "IJKVideoPlayerVC.h"
 #import "SCSlideHeaderLabel.h"
 #import "SCLiveProgramModel.h"
+#import "SCLiveProgramListCollectionVC.h"
 
 static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
@@ -20,10 +21,10 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
 @property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
 @property (nonatomic, strong) NSMutableArray *titleArr;/** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *programArr;/** 标题数组 */
+@property (nonatomic, strong) NSMutableArray *programModelArr;/** 标题数组 */
 @property (nonatomic, strong) NSMutableArray *dataSourceArr;/** 标题数组 */
-
-@property (atomic, strong) NSURL *url;
+@property (nonatomic, strong) SCLiveProgramListCollectionVC *needScrollToTopPage;/** 在当前页设置点击顶部滚动复位 */
+@property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
 @end
 
@@ -37,10 +38,10 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+    self.view.backgroundColor = [UIColor colorWithHex:@"#f3f3f3"];
     //1.初始化数组
     self.titleArr = [NSMutableArray arrayWithCapacity:0];
-    self.programArr = [NSMutableArray arrayWithCapacity:0];
+    self.programModelArr = [NSMutableArray arrayWithCapacity:0];
     self.dataSourceArr = [NSMutableArray arrayWithCapacity:0];
     
     
@@ -117,11 +118,11 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     //0.添加lab
     [self addLabel];//添加标题label
     //1、底部滑动短线
-    _bottomLine = [CALayer layer];
-    [_bottomLine setBackgroundColor:[UIColor colorWithHex:@"#5184FF"].CGColor];
-    _bottomLine.frame = CGRectMake(0, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
-    
-    [_titleScroll.layer addSublayer:_bottomLine];
+//    _bottomLine = [CALayer layer];
+//    [_bottomLine setBackgroundColor:[UIColor colorWithHex:@"#5184FF"].CGColor];
+//    _bottomLine.frame = CGRectMake(0, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
+//    
+//    [_titleScroll.layer addSublayer:_bottomLine];
     
 }
 
@@ -165,21 +166,35 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 /** 添加正文内容页 */
 - (void)constructContentView{
-    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 338, kMainScreenWidth, kMainScreenHeight-338)];//滚动窗口
+    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 330, kMainScreenWidth, kMainScreenHeight-330)];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
     _contentScroll.pagingEnabled = YES;
     _contentScroll.delegate = self;
     //    _contentScroll.backgroundColor = [UIColor redColor];
     [self.view addSubview:_contentScroll];
+    
     //添加子控制器
+    for (int i=0 ; i<_titleArr.count ;i++){
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+        SCLiveProgramListCollectionVC *vc = [[SCLiveProgramListCollectionVC alloc] initWithCollectionViewLayout:layout];
+        if (_dataSourceArr.count) {
+            
+            vc.liveProgramModelArr = _dataSourceArr[i];
+        }
+        [self addChildViewController:vc];
     
+    }
     // 添加默认控制器
+    SCLiveProgramListCollectionVC *vc = [self.childViewControllers firstObject];
+    vc.view.frame = self.contentScroll.bounds;
+    [self.contentScroll addSubview:vc.view];
+    self.needScrollToTopPage = self.childViewControllers[0];
     
+    CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
+    _contentScroll.contentSize = CGSizeMake(contentX, 0);
     
 }
-
-
 
 #pragma mark - UIScrollViewDelegate
 /** 滚动结束后调用（代码导致的滚动停止） */
@@ -190,7 +205,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     SCSlideHeaderLabel *titleLable = (SCSlideHeaderLabel *)_titleScroll.subviews[index];
     
     //把下划线与titieLabel的frame绑定(下划线滑动方式)
-    _bottomLine.frame = CGRectMake(titleLable.frame.origin.x, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
+//    _bottomLine.frame = CGRectMake(titleLable.frame.origin.x, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
     CGFloat offsetx = titleLable.center.x - _titleScroll.frame.size.width * 0.5;
     
@@ -216,13 +231,21 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         }
     }];
     
-    //    [self setScrollToTopWithTableViewIndex:index];
+        [self setScrollToTopWithTableViewIndex:index];
     
     if (vc.view.superview) return;//阻止vc重复添加
     vc.view.frame = scrollView.bounds;
     [_contentScroll addSubview:vc.view];
     
     
+}
+
+#pragma mark - ScrollToTop
+- (void)setScrollToTopWithTableViewIndex:(NSInteger)index
+{
+    self.needScrollToTopPage.collectionView.scrollsToTop = NO;
+    self.needScrollToTopPage = self.childViewControllers[index];
+    self.needScrollToTopPage.collectionView.scrollsToTop = YES;
 }
 
 /** 滚动结束（手势导致的滚动停止） */
@@ -247,8 +270,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     }
     
     //下划线即时滑动
-    float modulus = scrollView.contentOffset.x/_contentScroll.contentSize.width;
-    _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
+//    float modulus = scrollView.contentOffset.x/_contentScroll.contentSize.width;
+//    _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
 }
 
@@ -369,7 +392,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
             if (array.count > 0) {
                 //
                 [_titleArr removeAllObjects];
-                [_programArr removeAllObjects];
+               
                 for (NSDictionary *dic in array) {
                     
                     NSString *dateStr = dic[@"_Date"];
@@ -386,13 +409,13 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
                     //以下获取program信息
                     NSArray *arr = dic[@"Film"];
                     if (arr.count > 0) {
-                        
+                        [_programModelArr removeAllObjects];
                         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                             NSDictionary *dic1 = obj;
                             
                             SCLiveProgramModel *programModel = [[SCLiveProgramModel alloc] init];
                             //节目名称
-                            programModel.filmName = dic1[@"FilmName"];
+                            programModel.programName = dic1[@"FilmName"];
                             NSString *forecastDateString = dic1[@"_ForecastDate"];
                             //按格式如:10:05 获取时间
                             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -431,13 +454,13 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
                                 programModel.programState = WillPlay;
                             }
                             
-                            [_programArr addObject:programModel];
+                            [_programModelArr addObject:programModel];
                             
                             //NSLog(@"====responseObject:::%@=%lu==",timeString,(unsigned long)programModel.programState);
                         }];
                     }
                     
-                    [_dataSourceArr addObject:_programArr];
+                    [_dataSourceArr addObject:[_programModelArr copy]];
                 }
             }
         }

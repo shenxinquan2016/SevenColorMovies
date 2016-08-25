@@ -12,6 +12,7 @@
 @interface SCLiveProgramListCell : UICollectionViewCell
 
 @property (nonatomic, strong) SCLiveProgramModel *model;
+@property (weak, nonatomic) IBOutlet UILabel *topSeparateline;
 
 + (instancetype)cellWithCollectionView:(UICollectionView *)collectionView identifier:(NSString *)identifier indexPath:(NSIndexPath *)indexPath;
 

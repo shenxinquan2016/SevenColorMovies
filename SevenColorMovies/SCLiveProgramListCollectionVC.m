@@ -58,7 +58,7 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return self.filmModelArr.count;
+
     return self.liveProgramModelArr.count;
 }
 
@@ -78,13 +78,13 @@ static NSString *const footerId = @"footerId";
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return (CGSize){kMainScreenWidth,100};
+    return (CGSize){kMainScreenWidth,53};
 }
 
 /** CollectionView四周间距 EdgeInsets */
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     
-    return UIEdgeInsetsMake(5, 0, 5, 0);
+    return UIEdgeInsetsMake(0, 0, 5, 0);
 }
 
 /** item水平间距 */

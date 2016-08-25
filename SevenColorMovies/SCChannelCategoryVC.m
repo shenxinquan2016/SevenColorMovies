@@ -209,7 +209,7 @@ static NSString *const cellId = @"cellId";
         
         SCCollectionViewPageVC *vc = [[SCCollectionViewPageVC alloc] initWithCollectionViewLayout:layout];
         
-        if (_FilmClassUrlArr) {
+        if (_FilmClassUrlArr.count) {
             NSString *urlStr = _FilmClassUrlArr[i];
             NSString *url = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             vc.urlString = url;
