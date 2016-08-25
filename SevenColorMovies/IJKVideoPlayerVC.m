@@ -130,6 +130,7 @@
     
     // 5. 添加播放控件到控制器的View
     [self.view addSubview:self.mediaControl];
+    self.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     // 5.1 代理设置
     self.mediaControl.delegatePlayer = self.player;
     

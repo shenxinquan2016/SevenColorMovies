@@ -12,7 +12,7 @@
 #import "SCLiveProgramModel.h"
 #import "SCLiveProgramListCollectionVC.h"
 
-static const CGFloat StatusBarHeight = 20.0f;
+//static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
 static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
@@ -53,9 +53,9 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
     self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
     
-    //    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
-    //    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-    //    [self.view addSubview:_IJKPlayerViewController.view];
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
+        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        [self.view addSubview:_IJKPlayerViewController.view];
     
     
     
