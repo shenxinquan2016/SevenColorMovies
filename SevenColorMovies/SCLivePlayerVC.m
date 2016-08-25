@@ -147,7 +147,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     _titleScroll.contentSize = CGSizeMake(LabelWidth * _titleArr.count, 0);
     
     //默认选择第一个label
-    SCSlideHeaderLabel *lable = [self.titleScroll.subviews firstObject];
+    SCSlideHeaderLabel *lable = [self.titleScroll.subviews lastObject];
     lable.scale = 1.0;
     
     
@@ -185,15 +185,37 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         [self addChildViewController:vc];
     
     }
-    // 添加默认控制器
-    SCLiveProgramListCollectionVC *vc = [self.childViewControllers firstObject];
-    vc.view.frame = self.contentScroll.bounds;
-    [self.contentScroll addSubview:vc.view];
-    self.needScrollToTopPage = self.childViewControllers[0];
-    
+   
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
     
+    // 将_contentScroll滚动到最后的位置
+    CGPoint offset = CGPointMake(contentX-[UIScreen mainScreen].bounds.size.width, 0);
+    [_contentScroll setContentOffset:offset animated:NO];
+    
+    // 添加默认控制器
+    SCLiveProgramListCollectionVC *vc = [self.childViewControllers lastObject];
+    [self.contentScroll addSubview:vc.view];
+    self.needScrollToTopPage = [self.childViewControllers lastObject];
+    vc.view.frame = self.contentScroll.bounds;
+    
+    //将_titleScroll滚动到最后的位置
+    // 获得索引
+    NSUInteger index = _contentScroll.contentOffset.x / _contentScroll.frame.size.width;
+    // 滚动标题栏
+    SCSlideHeaderLabel *titleLable = (SCSlideHeaderLabel *)_titleScroll.subviews[index];
+    CGFloat offsetx = titleLable.center.x - _titleScroll.frame.size.width * 0.5;
+    
+    CGFloat offsetMax = _titleScroll.contentSize.width - _titleScroll.frame.size.width;
+    
+    if (offsetx < 0) {
+        offsetx = 0;
+    }else if (offsetx > offsetMax){
+        offsetx = offsetMax;
+    }
+    
+    CGPoint offset1 = CGPointMake(offsetx, _titleScroll.contentOffset.y);
+    [_titleScroll setContentOffset:offset1 animated:NO];
 }
 
 #pragma mark - UIScrollViewDelegate
