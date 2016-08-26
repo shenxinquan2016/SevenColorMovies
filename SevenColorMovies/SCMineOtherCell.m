@@ -37,6 +37,7 @@
     if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
     cell.backgroundColor = [UIColor whiteColor];
     cell.bottomLine.hidden = YES;
+    
     return cell;
 }
 

@@ -10,9 +10,7 @@
 
 @interface SCLiveProgramListCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel *liveProgramTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *liveProgramNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *liveProgramStateLabel;
+
 
 
 @end
@@ -21,7 +19,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+//    self.selectedBackgroundView = [[UIView alloc]initWithFrame:self.frame];
+//    self.selectedBackgroundView.backgroundColor = [UIColor cyanColor];
+    
 }
 
 + (instancetype)cellWithCollectionView:(UICollectionView *)collectionView identifier:(NSString *)identifier indexPath:(NSIndexPath *)indexPath{
@@ -30,11 +31,10 @@
     
     SCLiveProgramListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
-    if (indexPath.item == 0) {
-        cell.topSeparateline.hidden = NO;
-    }else{
-        cell.topSeparateline.hidden = YES;
-    }
+    cell.backgroundColor = [UIColor whiteColor];
+    //蓝色
+    
+    
     return cell;
 }
 
@@ -45,7 +45,7 @@
     
     if (model.programState == HavePast) {
         _liveProgramStateLabel.text = @"回看";
-        //此处若不设置label颜色，cell复用是label的颜色会混乱
+        //此处若不设置label的默认颜色，cell复用时label的颜色会混乱
         _liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#333333"];
         _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#333333"];
         _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#333333"];

@@ -58,7 +58,7 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-
+    
     return self.liveProgramModelArr.count;
 }
 
@@ -112,25 +112,49 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark ---- UICollectionViewDelegate
+// 点击某item
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    
+//    SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    [cell.selectedBackgroundView isFocused];
+//
+//    [self.collectionView reloadData];
+//}
 
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+
+//选中时的操作
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    
+    
+    //选中之后的cell变颜色
+    [self updateCellStatus:cell selected:YES];
 }
 
-
-// 选中某item
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+//取消选中操作
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.selected = NO;
+    [self updateCellStatus:cell selected:NO];
+}
+// 改变cell的label颜色
+-(void)updateCellStatus:(SCLiveProgramListCell *)cell selected:(BOOL)selected
+{
+    if (selected) {
+        cell.liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+        cell.liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+        cell.liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+    }else{
+        cell.liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#333333"];
+        cell.liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#333333"];
+        cell.liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#333333"];
+    }
     
     
 }
-
-// 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
-    return NO;
-}
-
 
 
 @end

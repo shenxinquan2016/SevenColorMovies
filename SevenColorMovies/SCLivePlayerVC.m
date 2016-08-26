@@ -48,17 +48,6 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     [self setView];
     
     
-    //3.直播视频
-    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
-    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
-    
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
-        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        [self.view addSubview:_IJKPlayerViewController.view];
-    
-    
-    
     
     //4.全屏小屏通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
@@ -90,8 +79,12 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 #pragma mark- private methods
 - (void)setView{
-    //数据请求后组装页面
+    //请求该频道直播流url
+    [self getLiveVideoSignalFlowUrl];
+    
+    //请求直播节目列表数据后组装页面
     [self getLiveChannelData];
+    
 }
 
 /** 添加滚动标题栏*/
@@ -118,11 +111,11 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     //0.添加lab
     [self addLabel];//添加标题label
     //1、底部滑动短线
-//    _bottomLine = [CALayer layer];
-//    [_bottomLine setBackgroundColor:[UIColor colorWithHex:@"#5184FF"].CGColor];
-//    _bottomLine.frame = CGRectMake(0, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
-//    
-//    [_titleScroll.layer addSublayer:_bottomLine];
+    //    _bottomLine = [CALayer layer];
+    //    [_bottomLine setBackgroundColor:[UIColor colorWithHex:@"#5184FF"].CGColor];
+    //    _bottomLine.frame = CGRectMake(0, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
+    //
+    //    [_titleScroll.layer addSublayer:_bottomLine];
     
 }
 
@@ -183,9 +176,9 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
             vc.liveProgramModelArr = _dataSourceArr[i];
         }
         [self addChildViewController:vc];
-    
+        
     }
-   
+    
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
     
@@ -227,7 +220,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     SCSlideHeaderLabel *titleLable = (SCSlideHeaderLabel *)_titleScroll.subviews[index];
     
     //把下划线与titieLabel的frame绑定(下划线滑动方式)
-//    _bottomLine.frame = CGRectMake(titleLable.frame.origin.x, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
+    //    _bottomLine.frame = CGRectMake(titleLable.frame.origin.x, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
     CGFloat offsetx = titleLable.center.x - _titleScroll.frame.size.width * 0.5;
     
@@ -253,7 +246,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         }
     }];
     
-        [self setScrollToTopWithTableViewIndex:index];
+    [self setScrollToTopWithTableViewIndex:index];
     
     if (vc.view.superview) return;//阻止vc重复添加
     vc.view.frame = scrollView.bounds;
@@ -292,8 +285,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     }
     
     //下划线即时滑动
-//    float modulus = scrollView.contentOffset.x/_contentScroll.contentSize.width;
-//    _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
+    //    float modulus = scrollView.contentOffset.x/_contentScroll.contentSize.width;
+    //    _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
 }
 
@@ -400,98 +393,133 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     }
 }
 
+
+
+
 #pragma mark - 网络请求
+//请求该频道直播流url
+- (void)getLiveVideoSignalFlowUrl{
+    //fid = tvId + "_" + tvId
+    NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
+    //hid = 设备的mac地址
+    
+    NSDictionary *parameters = @{@"fid" : fidStr,
+                                 @"hid" : @""};
+    [requestDataManager requestDataWithUrl:ToGetLiveVideoSignalFlowUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        NSString *liveUrl = responseObject[@"play_url"];
+        
+        NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
+        
+        //开始播放直播
+        //3.直播视频
+        self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+        self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+//        self.url = [NSURL fileURLWithPath:@"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1000&mid=1&sid=1&pid=1&uid=10&oemid=30050&fid=230_230&hid=&time=10000&proto=9&key=_tv_230.m3u8"];
+        
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
+        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        [self.view addSubview:_IJKPlayerViewController.view];
+        
+        [CommonFunc dismiss];
+    } failure:^(id  _Nullable errorObject) {
+        [CommonFunc dismiss];
+        
+    }];
+    
+}
+
+//请求直播节目列表数据
 - (void)getLiveChannelData{
     
-    //请求播放资源
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"tvid" : self.filmModel._TvId ? self.filmModel._TvId : @""};
     [requestDataManager requestDataWithUrl:LiveProgramList parameters:parameters success:^(id  _Nullable responseObject) {
         //NSLog(@"====responseObject:::%@===",responseObject);
-        if (responseObject) {
-            [_dataSourceArr removeAllObjects];
-            NSArray *array = responseObject[@"FilmClass"][@"FilmlistSet"];
-            if (array.count > 0) {
-                //
-                [_titleArr removeAllObjects];
-               
-                for (NSDictionary *dic in array) {
-                    
-                    NSString *dateStr = dic[@"_Date"];
-                    
-                    //按格式如:08.28 获取滑动标题头
-                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                    formatter.dateFormat = @"yyyy-MM-dd";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
-                    NSDate *date = [formatter dateFromString:dateStr];
-                    formatter.dateFormat = @"MM.dd";
-                    NSString *dateString = [formatter stringFromDate:date];
-                    
-                    [_titleArr addObject:dateString];
-                    
-                    //以下获取program信息
-                    NSArray *arr = dic[@"Film"];
-                    if (arr.count > 0) {
-                        [_programModelArr removeAllObjects];
-                        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                            NSDictionary *dic1 = obj;
-                            
-                            SCLiveProgramModel *programModel = [[SCLiveProgramModel alloc] init];
-                            //节目名称
-                            programModel.programName = dic1[@"FilmName"];
-                            NSString *forecastDateString = dic1[@"_ForecastDate"];
-                            //按格式如:10:05 获取时间
-                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                            formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
-                            NSDate *pragramDate = [formatter dateFromString:forecastDateString];
-                            formatter.dateFormat = @"HH:mm";
-                            NSString *timeString = [formatter stringFromDate:pragramDate];
-                            programModel.programTime = timeString;
-                            //获取节目状态
-                            //4.当前时间
-                            NSDate *currenDate = [NSDate date];
-                            
-                            //5.日期比较
-                            
-                            NSTimeInterval secondsInterval = [currenDate timeIntervalSinceDate:pragramDate];
-                            
-                            if (secondsInterval >= 0) {
-                                if (idx+1 < arr.count) {
-                                    //获取下一个节目的开始时间
-                                    NSDictionary *dic2 = arr[idx+1];
-                                    NSString *forecastDateString2 = dic2[@"_ForecastDate"];
-                                    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
-                                    NSDate *pragramDate2 = [formatter dateFromString:forecastDateString2];
-                                    //日期比较
-                                    NSTimeInterval secondsInterval2 = [currenDate timeIntervalSinceDate:pragramDate2];
+        [_dataSourceArr removeAllObjects];
+        NSArray *array = responseObject[@"FilmClass"][@"FilmlistSet"];
+        if (array.count > 0) {
+            //
+            [_titleArr removeAllObjects];
+            
+            for (NSDictionary *dic in array) {
+                
+                NSString *dateStr = dic[@"_Date"];
+                
+                //按格式如:08.28 获取滑动标题头
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                formatter.dateFormat = @"yyyy-MM-dd";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+                NSDate *date = [formatter dateFromString:dateStr];
+                formatter.dateFormat = @"MM.dd";
+                NSString *dateString = [formatter stringFromDate:date];
+                
+                [_titleArr addObject:dateString];
+                
+                //以下获取program信息
+                NSArray *arr = dic[@"Film"];
+                if (arr.count > 0) {
+                    [_programModelArr removeAllObjects];
+                    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        NSDictionary *dic1 = obj;
+                        
+                        SCLiveProgramModel *programModel = [[SCLiveProgramModel alloc] init];
+                        //节目名称
+                        programModel.programName = dic1[@"FilmName"];
+                        NSString *forecastDateString = dic1[@"_ForecastDate"];
+                        //按格式如:10:05 获取时间
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+                        NSDate *pragramDate = [formatter dateFromString:forecastDateString];
+                        formatter.dateFormat = @"HH:mm";
+                        NSString *timeString = [formatter stringFromDate:pragramDate];
+                        programModel.programTime = timeString;
+                        //获取节目状态
+                        //4.当前时间
+                        NSDate *currenDate = [NSDate date];
+                        
+                        //5.日期比较
+                        
+                        NSTimeInterval secondsInterval = [currenDate timeIntervalSinceDate:pragramDate];
+                        
+                        if (secondsInterval >= 0) {
+                            if (idx+1 < arr.count) {
+                                //获取下一个节目的开始时间
+                                NSDictionary *dic2 = arr[idx+1];
+                                NSString *forecastDateString2 = dic2[@"_ForecastDate"];
+                                formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+                                NSDate *pragramDate2 = [formatter dateFromString:forecastDateString2];
+                                //日期比较
+                                NSTimeInterval secondsInterval2 = [currenDate timeIntervalSinceDate:pragramDate2];
+                                
+                                if (secondsInterval2 < 0) {//当前时间比当前节目的开始时间晚且比下一个节目的开始时间早，当前节目即为正在播出节目
                                     
-                                    if (secondsInterval2 < 0) {//当前时间比当前节目的开始时间晚且比下一个节目的开始时间早，当前节目即为正在播出节目
-                                        
-                                        programModel.programState = NowPlaying;
-                                        
-                                    }else{
-                                        programModel.programState = HavePast;
-                                    }
+                                    programModel.programState = NowPlaying;
+                                    
+                                }else{
+                                    programModel.programState = HavePast;
                                 }
-                            }else{
-                                programModel.programState = WillPlay;
                             }
-                            
-                            [_programModelArr addObject:programModel];
-                            
-                            //NSLog(@"====responseObject:::%@=%lu==",timeString,(unsigned long)programModel.programState);
-                        }];
-                    }
-                    
-                    [_dataSourceArr addObject:[_programModelArr copy]];
+                        }else{
+                            programModel.programState = WillPlay;
+                        }
+                        
+                        [_programModelArr addObject:programModel];
+                        
+                        //NSLog(@"====responseObject:::%@=%lu==",timeString,(unsigned long)programModel.programState);
+                    }];
                 }
+                
+                [_dataSourceArr addObject:[_programModelArr copy]];
             }
         }
+        
         
         //4.添加滑动headerView
         [self constructSlideHeaderView];
         //5.添加contentScrllowView
         [self constructContentView];
-        [CommonFunc dismiss];
+        
         
         
     } failure:^(id  _Nullable errorObject) {
@@ -499,7 +527,6 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         
     }];
 }
-
 
 
 @end
