@@ -26,6 +26,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) SCLiveProgramListCollectionVC *needScrollToTopPage;/** 在当前页设置点击顶部滚动复位 */
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
+@property (nonatomic, assign) NSInteger index;
+
 @end
 
 @implementation SCLivePlayerVC
@@ -188,7 +190,9 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     
     // 添加默认控制器
     SCLiveProgramListCollectionVC *vc = [self.childViewControllers lastObject];
+    vc.index = _index;
     [self.contentScroll addSubview:vc.view];
+   
     self.needScrollToTopPage = [self.childViewControllers lastObject];
     vc.view.frame = self.contentScroll.bounds;
     
@@ -464,6 +468,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
                         NSDictionary *dic1 = obj;
                         
                         SCLiveProgramModel *programModel = [[SCLiveProgramModel alloc] init];
+                        //
+                        programModel.onLive = NO;
                         //节目名称
                         programModel.programName = dic1[@"FilmName"];
                         NSString *forecastDateString = dic1[@"_ForecastDate"];
@@ -495,6 +501,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
                                 if (secondsInterval2 < 0) {//当前时间比当前节目的开始时间晚且比下一个节目的开始时间早，当前节目即为正在播出节目
                                     
                                     programModel.programState = NowPlaying;
+                                    programModel.onLive = YES;
+                                    _index = idx;
                                     
                                 }else{
                                     programModel.programState = HavePast;

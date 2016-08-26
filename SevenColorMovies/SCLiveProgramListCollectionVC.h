@@ -11,5 +11,6 @@
 @interface SCLiveProgramListCollectionVC : UICollectionViewController
 
 @property (nonatomic, copy) NSArray *liveProgramModelArr;
+@property (nonatomic, assign) NSInteger index;
 
 @end

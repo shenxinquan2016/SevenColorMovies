@@ -45,24 +45,50 @@
     
     if (model.programState == HavePast) {
         _liveProgramStateLabel.text = @"回看";
-        //此处若不设置label的默认颜色，cell复用时label的颜色会混乱
-        _liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#333333"];
-        _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#333333"];
-        _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#333333"];
-
+        if (model.isOnLive) {
+            _liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+            _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+            _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+            
+        }else{
+            //此处若不设置label的默认颜色，cell复用时label的颜色会混乱
+            _liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#333333"];
+            _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#333333"];
+            _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#333333"];
+        }
+        
+        
     }else if (model.programState == NowPlaying){
         _liveProgramStateLabel.text = @"播放";
-        _liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
-        _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
-        _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+        if (model.isOnLive) {
+            self.selected = YES;
+            _liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+            _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+            _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+            
+        }else{
+            //此处若不设置label的默认颜色，cell复用时label的颜色会混乱
+            _liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#333333"];
+            _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#333333"];
+            _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#333333"];
+        }
+        
         
     }else if (model.programState == WillPlay){
         _liveProgramStateLabel.text = @"预约";
-        //此处若不设置label颜色，cell复用是label的颜色会混乱
-        _liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#333333"];
-        _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#333333"];
-        _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#333333"];
-
+        if (model.isOnLive) {
+            _liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+            _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+            _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+            
+        }else{
+            //此处若不设置label的默认颜色，cell复用时label的颜色会混乱
+            _liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#333333"];
+            _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#333333"];
+            _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#333333"];
+        }
+        
+        
     }
 }
 
