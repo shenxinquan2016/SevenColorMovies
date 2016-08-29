@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^ClickToPlayBlock)(id obj);
+
 @interface SCLiveProgramListCollectionVC : UICollectionViewController
 
 @property (nonatomic, copy) NSArray *liveProgramModelArr;
 @property (nonatomic, assign) NSInteger index;
+@property (nonatomic, copy) ClickToPlayBlock clickToPlayBlock;
 
 @end

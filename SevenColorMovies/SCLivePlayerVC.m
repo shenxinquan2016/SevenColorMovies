@@ -49,13 +49,16 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     
     [self setView];
     
-    
-    
     //4.全屏小屏通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
     //5.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    
+   
+    
+    
     
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -173,6 +176,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     for (int i=0 ; i<_titleArr.count ;i++){
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
         SCLiveProgramListCollectionVC *vc = [[SCLiveProgramListCollectionVC alloc] initWithCollectionViewLayout:layout];
+        
         if (_dataSourceArr.count) {
             
             vc.liveProgramModelArr = _dataSourceArr[i];
@@ -195,6 +199,9 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
    
     self.needScrollToTopPage = [self.childViewControllers lastObject];
     vc.view.frame = self.contentScroll.bounds;
+    
+    //点击切换节目block回调方法
+    [self changeProgram];
     
     //将_titleScroll滚动到最后的位置
     // 获得索引
@@ -265,6 +272,9 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     self.needScrollToTopPage.collectionView.scrollsToTop = NO;
     self.needScrollToTopPage = self.childViewControllers[index];
     self.needScrollToTopPage.collectionView.scrollsToTop = YES;
+    
+    //点击切换节目block回调方法
+    [self changeProgram];
 }
 
 /** 滚动结束（手势导致的滚动停止） */
@@ -292,6 +302,16 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     //    float modulus = scrollView.contentOffset.x/_contentScroll.contentSize.width;
     //    _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
+}
+
+#pragma mark - 切换播放节目
+- (void)changeProgram{
+    _needScrollToTopPage.clickToPlayBlock = ^(id obj){
+        SCLiveProgramModel *model = obj;
+        NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>>>>>>>>>",model.programName);
+        
+    };
+
 }
 
 #pragma mark - 全屏/小屏切换
@@ -396,7 +416,6 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
             break;
     }
 }
-
 
 
 

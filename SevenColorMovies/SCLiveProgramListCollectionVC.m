@@ -42,6 +42,7 @@ static NSString *const footerId = @"footerId";
         [self.collectionView selectItemAtIndexPath:selectedIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
     });
     
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -151,6 +152,14 @@ static NSString *const footerId = @"footerId";
         cell1.model = model1;
     }
     
+    //点击播放新的节目
+    
+    if (self.clickToPlayBlock) {
+        
+        self.clickToPlayBlock(_model);
+    }
+    
+    
     
 }
 
@@ -163,6 +172,7 @@ static NSString *const footerId = @"footerId";
     SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.model = _model;
     
+
 }
 
 
