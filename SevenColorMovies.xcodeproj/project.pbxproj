@@ -89,6 +89,8 @@
 		116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D561D4AFAF800B488EC /* SCBannerModel.m */; };
 		116E1D5E1D4B4E0200B488EC /* SCSiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D5D1D4B4E0200B488EC /* SCSiftViewController.m */; };
 		116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */; };
+		1187027B1D740A3F005B3895 /* SCVideoLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */; };
+		1187027D1D740A57005B3895 /* SCVideoLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */; };
 		118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 118D19B61D59B2D000A6968D /* SCFilmIntroduceModel.m */; };
 		1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */; };
 		1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC781D4A00D9004AAF23 /* SCFilmClassModel.m */; };
@@ -300,6 +302,9 @@
 		116E1D5D1D4B4E0200B488EC /* SCSiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiftViewController.m; sourceTree = "<group>"; };
 		116E1D5F1D4B5A9E00B488EC /* SCRemoteControlVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRemoteControlVC.h; sourceTree = "<group>"; };
 		116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRemoteControlVC.m; sourceTree = "<group>"; };
+		118702791D740A3F005B3895 /* SCVideoLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoLoadingView.h; sourceTree = "<group>"; };
+		1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoLoadingView.m; sourceTree = "<group>"; };
+		1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCVideoLoadingView.xib; sourceTree = "<group>"; };
 		118D19B51D59B2D000A6968D /* SCFilmIntroduceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmIntroduceModel.h; sourceTree = "<group>"; };
 		118D19B61D59B2D000A6968D /* SCFilmIntroduceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmIntroduceModel.m; sourceTree = "<group>"; };
 		1190AC741D49F9EA004AAF23 /* SCFilmListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmListModel.h; sourceTree = "<group>"; };
@@ -748,6 +753,9 @@
 				1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */,
 				1131C0DA1D6705CD00BA151A /* IJKMediaControl.h */,
 				1131C0DB1D6705CD00BA151A /* IJKMediaControl.m */,
+				118702791D740A3F005B3895 /* SCVideoLoadingView.h */,
+				1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */,
+				1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */,
 				1131C0E21D6707B700BA151A /* 旋转全屏 */,
 				1131C0D31D67053100BA151A /* 亮度声音调节 */,
 			);
@@ -1555,6 +1563,7 @@
 				11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */,
 				11BB37D21D38E5C90002D487 /* News.storyboard in Resources */,
 				11BB37C81D38E3A00002D487 /* devEnvironment.plist in Resources */,
+				1187027D1D740A57005B3895 /* SCVideoLoadingView.xib in Resources */,
 				1131C0E11D6705CD00BA151A /* IJKVideoPlayerVC.xib in Resources */,
 				1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */,
 				11BB37CA1D38E3C20002D487 /* switchNetworkEnvironment.plist in Resources */,
@@ -1682,6 +1691,7 @@
 				11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */,
 				11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
+				1187027B1D740A3F005B3895 /* SCVideoLoadingView.m in Sources */,
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
 				116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,

@@ -21,6 +21,7 @@
 
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void(^)())completion;
 + (instancetype)initIJKPlayerWithTitle:(NSString *)title URL:(NSURL *)url;
+-(void)closePlayer;/** 关闭播放器 */
 
 - (IBAction)onClickBack:(id)sender;/** 返回 */
 - (IBAction)onClickMediaControl:(id)sender;/** 控制面板底层 */

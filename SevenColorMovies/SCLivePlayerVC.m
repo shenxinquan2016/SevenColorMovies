@@ -65,6 +65,9 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
+    //注册播放器的通知
+    
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -80,6 +83,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToSmallScreen object:nil];
     //监听屏幕旋转的通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    //注销播放器的通知
+    
 }
 
 #pragma mark- private methods
@@ -201,7 +206,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     vc.view.frame = self.contentScroll.bounds;
     
     //点击切换节目block回调方法
-    [self changeProgram];
+    [self doIJKPlayerBlock];
     
     //将_titleScroll滚动到最后的位置
     // 获得索引
@@ -274,7 +279,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     self.needScrollToTopPage.collectionView.scrollsToTop = YES;
     
     //点击切换节目block回调方法
-    [self changeProgram];
+    [self doIJKPlayerBlock];
 }
 
 /** 滚动结束（手势导致的滚动停止） */
@@ -305,19 +310,20 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 }
 
 #pragma mark - 切换播放节目
-- (void)changeProgram{
+- (void)doIJKPlayerBlock{
     DONGWeakSelf(self);
     _needScrollToTopPage.clickToPlayBlock = ^(id obj){
         DONGStrongSelf(self);
         SCLiveProgramModel *model = obj;
         NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>>>>>>>>>",model.programName);
+        NSLog(@"<<<<<<<<<<<<<<播放新节目:%d>>>>>>>>>>>",[strongself.IJKPlayerViewController.player isPlaying]);
         
         
-        //开始播放直播
-        [strongself.IJKPlayerViewController.player shutdown];
-        
-        strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
-        strongself.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+        //关闭当前正在播放的
+        [strongself.IJKPlayerViewController closePlayer];
+        [strongself.IJKPlayerViewController removeFromParentViewController];
+        strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+//        strongself.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
         
         strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:model.programName URL:strongself.url];
         strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
@@ -570,6 +576,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         
     }];
 }
+
+
 
 
 @end

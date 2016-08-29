@@ -10,6 +10,7 @@
 #import "IJKMediaControl.h"
 #import "PlayerViewRotate.h"//横竖屏强制转换
 #import "SCRotatoUtil.h"
+#import "SCVideoLoadingView.h"
 
 
 
@@ -23,6 +24,9 @@
 
 {
     UIInterfaceOrientation _lastOrientaion;
+    
+    SCVideoLoadingView *_loadView;
+    
 }
 #pragma mark- Initialize
 
@@ -68,7 +72,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSLog(@"[super viewWillAppear:animated];");
+    
     
 }
 
@@ -131,16 +135,29 @@
     [self.view addSubview:self.player.view];
     
     // 5. 添加播放控件到控制器的View
-    [self.view addSubview:self.mediaControl];
+    [self.player.view addSubview:self.mediaControl];
     self.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     // 5.1 代理设置
     self.mediaControl.delegatePlayer = self.player;
     
+    //6.添加读取视频进度动画
+//    _loadView = [[NSBundle mainBundle] loadNibNamed:@"SCVideoLoadingView" owner:nil options:nil][0];
+//    _loadView.backgroundColor = [UIColor colorWithHex:@"#000000" alpha:0.0];
+//    _loadView.frame = CGRectMake(0, 0, 64, 64);
+//    [self.view addSubview:_loadView];
+
 }
 
+-(void)closePlayer{
+    if (self.player) {
+        [self.player shutdown];
+        [self.player.view removeFromSuperview];
+        [self.mediaControl removeFromSuperview];
+        _player = nil;
+    }
+}
 
 #pragma mark - IBAction
-
 /** 控制面板底层 */
 - (IBAction)onClickMediaControl:(id)sender {
     [self.mediaControl showAndFade];
@@ -279,8 +296,16 @@
     
     if ((loadState & IJKMPMovieLoadStatePlaythroughOK) != 0) {
         NSLog(@"loadStateDidChange: IJKMPMovieLoadStatePlaythroughOK: %d\n", (int)loadState);
+        
+        //结束加载
+        [_loadView endAnimating];
+        
     } else if ((loadState & IJKMPMovieLoadStateStalled) != 0) {
         NSLog(@"loadStateDidChange: IJKMPMovieLoadStateStalled: %d\n", (int)loadState);
+        
+        //开始加载
+        [_loadView startAnimating];
+
     } else {
         NSLog(@"loadStateDidChange: ???: %d\n", (int)loadState);
     }
@@ -297,6 +322,12 @@
     {
         case IJKMPMovieFinishReasonPlaybackEnded:
             NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonPlaybackEnded: %d\n", reason);
+            
+            //当前节目播放结束，播放下一个节目
+            
+            
+            
+            
             break;
             
         case IJKMPMovieFinishReasonUserExited:
@@ -415,15 +446,6 @@
     self.mediaControl.frame = self.view.bounds;
 }
 
-////支持设备自动旋转
-//- (BOOL)shouldAutorotate{
-//    return YES;
-//}
-//
-////支持横竖屏显示
-//- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-//    return UIInterfaceOrientationMaskAll;
-//}
 
 
 
