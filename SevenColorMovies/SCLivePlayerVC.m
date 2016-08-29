@@ -306,9 +306,25 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 #pragma mark - 切换播放节目
 - (void)changeProgram{
+    DONGWeakSelf(self);
     _needScrollToTopPage.clickToPlayBlock = ^(id obj){
+        DONGStrongSelf(self);
         SCLiveProgramModel *model = obj;
         NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>>>>>>>>>",model.programName);
+        
+        
+        //开始播放直播
+        [strongself.IJKPlayerViewController.player shutdown];
+        
+        strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+        strongself.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+        
+        strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:model.programName URL:strongself.url];
+        strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+
+        
+        
         
     };
 
@@ -521,7 +537,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
                                     
                                     programModel.programState = NowPlaying;
                                     programModel.onLive = YES;
-                                    _index = idx;
+                                    _index = idx;//正在播出节目的index
                                     
                                 }else{
                                     programModel.programState = HavePast;

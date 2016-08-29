@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IJKVideoPlayerVC">
             <connections>
                 <outlet property="mediaControl" destination="zAJ-lD-Fna" id="xgO-J5-soR"/>
+                <outlet property="programOnliveNameLabel" destination="6Xc-iC-Vl7" id="7S8-4u-4BV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

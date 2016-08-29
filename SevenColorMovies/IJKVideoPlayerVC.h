@@ -15,8 +15,9 @@
 @property(atomic,strong) NSURL *url;
 @property(atomic, retain) id<IJKMediaPlayback> player;
 @property (nonatomic, assign) BOOL isFullScreen;//是否正处于全屏状态
+@property (weak, nonatomic) IBOutlet UILabel *programOnliveNameLabel;//mediaControl上的节目名称lable
 
-- (id)initWithURL:(NSURL *)url;
+- (id)initWithURL:(NSURL *)url Title:title;
 
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void(^)())completion;
 + (instancetype)initIJKPlayerWithTitle:(NSString *)title URL:(NSURL *)url;
