@@ -56,12 +56,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    //对UIViewAutoresizingNone进行清空，否则从xib加载View时显示出来的效果不一样(比如尺寸变大了)，autoresizingMask自动伸缩属性在搞鬼!
+    self.view.autoresizingMask = UIViewAutoresizingNone;
     self.isFullScreen = NO;
-    //初始化播放器
+    
+    
+    //1.初始化播放器
     [self setupIJKPlayer];
     
-    //本应写在viewWillAppear中，但viewWillAppear不被执行
+    //2.本应写在viewWillAppear中，但viewWillAppear不被执行
     [self installMovieNotificationObservers];
     [self.player prepareToPlay];
     
@@ -92,6 +96,13 @@
 - (void)dealloc{
     
 }
+
+//xib的awakeFromNib方法中设置UIViewAutoresizingNone进行清空
+- (void)awakeFromNib {
+    
+    
+}
+
 
 #pragma mark - 初始化播放器
 
@@ -153,6 +164,7 @@
         [self.player shutdown];
         [self.player.view removeFromSuperview];
         [self.mediaControl removeFromSuperview];
+        [self.view removeFromSuperview];
         _player = nil;
     }
 }

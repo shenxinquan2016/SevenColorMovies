@@ -309,27 +309,18 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     
 }
 
-#pragma mark - 切换播放节目
+#pragma mark - IJK播放控制器的回调
 - (void)doIJKPlayerBlock{
     DONGWeakSelf(self);
+    
+    //点击节目list切换节目
     _needScrollToTopPage.clickToPlayBlock = ^(id obj){
         DONGStrongSelf(self);
         SCLiveProgramModel *model = obj;
         NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>>>>>>>>>",model.programName);
         NSLog(@"<<<<<<<<<<<<<<播放新节目:%d>>>>>>>>>>>",[strongself.IJKPlayerViewController.player isPlaying]);
         
-        
-        //关闭当前正在播放的
-        [strongself.IJKPlayerViewController closePlayer];
-        [strongself.IJKPlayerViewController removeFromParentViewController];
-        strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-//        strongself.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-        
-        strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:model.programName URL:strongself.url];
-        strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        [strongself.view addSubview:strongself.IJKPlayerViewController.view];
-
-        
+        [strongself requestProgramHavePastVideoSignalFlowUrl];
         
         
     };
@@ -442,6 +433,42 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 
 #pragma mark - 网络请求
+//请求回看节目视频流url
+- (void)requestProgramHavePastVideoSignalFlowUrl{
+    //fid = tvId + "_" + tvId
+    NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
+    //hid = 设备的mac地址
+    
+    NSDictionary *parameters = @{@"fid" : fidStr,
+                                 @"hid" : @""};
+    [requestDataManager requestDataWithUrl:ToGetProgramHavePastVideoSignalFlowUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        //NSLog(@"====responseObject:::%@===",responseObject);
+        
+        NSString *liveUrl = responseObject[@"play_url"];
+        
+        NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
+        
+        //开始播放直播
+      
+        //关闭当前正在播放的
+        [self.IJKPlayerViewController closePlayer];
+        
+        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+        //        strongself.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+        
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
+        self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        [self.view addSubview:self.IJKPlayerViewController.view];
+        
+        
+    } failure:^(id  _Nullable errorObject) {
+        [CommonFunc dismiss];
+        
+    }];
+
+    
+}
 //请求该频道直播流url
 - (void)getLiveVideoSignalFlowUrl{
     //fid = tvId + "_" + tvId
