@@ -25,30 +25,33 @@ static NSString *const footerId = @"footerId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    // 让上次选中的单元格不被清空
-    self.clearsSelectionOnViewWillAppear = NO;
     
     //0.初始化collectionView
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical=YES;
-    // 注册cell、sectionHeader、sectionFooter
+    //1.注册cell、sectionHeader、sectionFooter
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCLiveProgramListCell" bundle:nil] forCellWithReuseIdentifier:cellId];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerId];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerId];
+    
+    
+    //2.第一次进入滚动到正在播放的位置
+    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:_index inSection:0];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.collectionView selectItemAtIndexPath:selectedIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+    });
     
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    //滚动 却不滚动
-    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:_index inSection:0];
-    [self.collectionView selectItemAtIndexPath:selectedIndexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+   
 }
 
 - (void)viewDidAppear{
     [super viewDidAppear:YES];
-    // 让上次选中的单元格闪动一次
-    [self.collectionView flashScrollIndicators];
+    
    
 }
 - (void)didReceiveMemoryWarning {
