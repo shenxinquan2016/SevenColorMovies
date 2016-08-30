@@ -172,9 +172,6 @@ static NSString *const footerId = @"footerId";
                 
                 self.clickToPlayBlock(_model, nil, _liveProgramModelArr);
             }
-            
-            
-            
         }
         
     }

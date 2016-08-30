@@ -27,6 +27,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
 @property (nonatomic, assign) NSInteger index;/** 正在播出节目的index */
+@property (nonatomic, copy) NSArray *liveProgramModelArray;/* 选中行所在页的数组 */
 
 @end
 
@@ -36,7 +37,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     BOOL _isFullScreen;
     SCLiveProgramModel *model_;/* 选中的播放行的model */
     SCLiveProgramModel *nextProgramModel_;/* 选中的播放行的下一行的model */
-    NSArray *liveProgramModelArray_;/* 选中行所在页的数组 */
+    
 }
 
 #pragma mark- Initialize
@@ -320,26 +321,30 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     DONGWeakSelf(self);
     DONGWeakSelf(model_);
     DONGWeakSelf(nextProgramModel_);
-    DONGWeakSelf(liveProgramModelArray_);
+    DONGWeakSelf(_liveProgramModelArray);
     //点击节目list切换节目
     _needScrollToTopPage.clickToPlayBlock = ^(id obj1, id obj2, id obj3){
         DONGStrongSelf(self);
         DONGStrongSelf(model_);
         DONGStrongSelf(nextProgramModel_);
-        DONGStrongSelf(liveProgramModelArray_);
+        DONGStrongSelf(_liveProgramModelArray);
+        
         strongmodel_ = obj1;
         strongnextProgramModel_ = obj2;
-        strongliveProgramModelArray_ = obj3;
-        [strongself requestProgramHavePastVideoSignalFlowUrlWithModel:strongmodel_ NextProgramModel:strongnextProgramModel_];
+        strong_liveProgramModelArray = obj3;
+        [strongself requestProgramHavePastVideoSignalFlowUrlWithModel:strongmodel_ NextProgramModel:strongnextProgramModel_ array:strong_liveProgramModelArray];
         
     };
     
 }
+static NSUInteger huikanIndex; //首页播放回看的url在_huikanPlayerUrlArray中的第几个，这个播放完后去播放index + 1的回看
+//static NSUInteger huikanPlayerZeroIndex; //huikanIndex + 1 大于 _huikanPlayerUrlArray.count，播放要从_huikanPlayerUrlArray获取第一个元素去循环播放
 
 #pragma mark - 播放下一个节目
 - (void)playNextProgram{
     
-    //先判断下一个节目是否存在 1.不存在停止播放 2.请求播放地址并播放
+    huikanIndex = [_liveProgramModelArray indexOfObject:model_];
+    
     
     
 }
@@ -483,7 +488,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 #pragma mark - 网络请求
 //请求回看节目视频流url
-- (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2{
+- (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2 array:(NSArray *)arr{
     
     //1.关闭正在播放的节目
     [self.IJKPlayerViewController.player shutdown];
@@ -495,6 +500,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     NSString *endTime = model2.programTime;
     NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
     NSLog(@"<<<<<<<<<<<<<<开始时间：%@  结束时间：%@>>>>>>>>>>>",startTime, endTime);
+    huikanIndex = [arr indexOfObject:model_];
+    NSLog(@">>>>>>>>>>>index::::%lu",huikanIndex);
     NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
     NSDictionary *parameters = @{@"fid" : fidStr};
     [requestDataManager requestDataWithUrl:ToGetProgramHavePastVideoSignalFlowUrl parameters:parameters success:^(id  _Nullable responseObject) {
