@@ -47,13 +47,13 @@ static NSString *const footerId = @"footerId";
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-   
+    
 }
 
 - (void)viewDidAppear{
     [super viewDidAppear:YES];
     
-   
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -153,13 +153,16 @@ static NSString *const footerId = @"footerId";
     }
     
     //点击播放新的节目
-    
-    if (self.clickToPlayBlock) {
+    if (_model.programState == WillPlay){
+        [MBProgressHUD showSuccess:@"节目暂未播出"];
+        return;
+    }else{
+        if (self.clickToPlayBlock) {
+            
+            self.clickToPlayBlock(_model);
+        }
         
-        self.clickToPlayBlock(_model);
     }
-    
-    
     
 }
 
@@ -172,7 +175,7 @@ static NSString *const footerId = @"footerId";
     SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.model = _model;
     
-
+    
 }
 
 

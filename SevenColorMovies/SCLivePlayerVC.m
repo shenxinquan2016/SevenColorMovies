@@ -26,7 +26,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) SCLiveProgramListCollectionVC *needScrollToTopPage;/** 在当前页设置点击顶部滚动复位 */
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
-@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) NSInteger index;/** 正在播出节目的index */
 
 @end
 
@@ -325,6 +325,14 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         
     };
 
+}
+
+#pragma mark - 播放下一个节目
+- (void)playNextProgram{
+
+    
+    
+    
 }
 
 #pragma mark - 全屏/小屏切换
