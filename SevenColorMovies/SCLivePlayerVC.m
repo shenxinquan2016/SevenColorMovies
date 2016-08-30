@@ -438,14 +438,11 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     
     //1.关闭正在播放的节目
     [self.IJKPlayerViewController.player shutdown];
-    
     //2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
-    
     //3.请求播放地址url
     //fid = tvId + "_" + tvId  只传个fid貌似也是没问题的
     NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
-    
     NSDictionary *parameters = @{@"fid" : fidStr};
     [requestDataManager requestDataWithUrl:ToGetProgramHavePastVideoSignalFlowUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
@@ -456,11 +453,9 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
         
         
-      
-        
         
         self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-        self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+//        self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
         
         //4.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];

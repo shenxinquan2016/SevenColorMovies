@@ -318,15 +318,16 @@
     if ((loadState & IJKMPMovieLoadStatePlaythroughOK) != 0) {
         NSLog(@"loadStateDidChange: IJKMPMovieLoadStatePlaythroughOK: %d\n", (int)loadState);
         
-        //结束加载
+        //结束加载 取消隐藏播放按钮
         [_loadView endAnimating];
+        self.mediaControl.playButton.hidden = NO;
         
     } else if ((loadState & IJKMPMovieLoadStateStalled) != 0) {
         NSLog(@"loadStateDidChange: IJKMPMovieLoadStateStalled: %d\n", (int)loadState);
         
-        //开始加载
+        //开始加载 隐藏播放按钮
         [_loadView startAnimating];
-
+        self.mediaControl.playButton.hidden = YES;
     } else {
         NSLog(@"loadStateDidChange: ???: %d\n", (int)loadState);
     }

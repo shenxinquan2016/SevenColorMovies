@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
 
 - (void)showNoFade
 {
-    self.overlayPanel.hidden = NO;
+    self.overlayPanel.alpha = 1;
     self.playButton.hidden = NO;
     [self cancelDelayedHide];
     [self refreshMediaControl];
@@ -98,7 +98,11 @@ typedef NS_ENUM(NSUInteger, Direction) {
 
 - (void)hide
 {
-    self.overlayPanel.hidden = YES;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.overlayPanel.alpha = 0;
+        
+    }];
+    
     [self cancelDelayedHide];
 }
 

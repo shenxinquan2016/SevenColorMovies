@@ -1382,20 +1382,20 @@
 			isa = PBXGroup;
 			children = (
 				11F9E2851D6D4FBD006326F3 /* MainBody */,
-				11F9E2841D6D4FB2006326F3 /* View */,
+				11F9E2841D6D4FB2006326F3 /* CollectionView */,
 				11051ECD1D6D947000E920C1 /* Cell */,
 				11051ED61D6D9FC500E920C1 /* Model */,
 			);
 			name = PlayerVC;
 			sourceTree = "<group>";
 		};
-		11F9E2841D6D4FB2006326F3 /* View */ = {
+		11F9E2841D6D4FB2006326F3 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
 				11051ECA1D6D944500E920C1 /* SCLiveProgramListCollectionVC.h */,
 				11051ECB1D6D944500E920C1 /* SCLiveProgramListCollectionVC.m */,
 			);
-			name = View;
+			name = CollectionView;
 			sourceTree = "<group>";
 		};
 		11F9E2851D6D4FBD006326F3 /* MainBody */ = {
