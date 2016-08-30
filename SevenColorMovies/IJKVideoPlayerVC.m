@@ -146,7 +146,7 @@
     //  4.6 添加播放视图到控制器的View
     [self.view addSubview:self.player.view];
     
-    // 5. 添加播放控件到控制器的View
+    //5. 添加播放控件到控制器的View
     [self.player.view addSubview:self.mediaControl];
     self.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     // 5.1 代理设置
@@ -156,11 +156,12 @@
     _loadView = [[NSBundle mainBundle] loadNibNamed:@"SCVideoLoadingView" owner:nil options:nil][0];
     _loadView.backgroundColor = [UIColor colorWithHex:@"#000000" alpha:0.8];
     _loadView.frame = CGRectMake(0, 0, 64, 64);
+    // 6.1 开始动画
     [_loadView startAnimating];
     [self.view addSubview:_loadView];
     [_loadView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.view);
-        make.size.mas_equalTo(CGSizeMake(150, 87));
+        make.size.mas_equalTo(CGSizeMake(64, 64));
         
     }];
 

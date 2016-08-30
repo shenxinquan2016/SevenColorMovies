@@ -47,6 +47,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
     [self refreshMediaControl];
     [self showAndFade];
     self.goFastView.hidden = YES;
+    self.playButton.hidden = YES;//第一次加载时隐藏
     
     //9.根据手势获取系统音量
     _changeBrightnessAndVolumeToolView = [[SCChangeBrightnessAndVolumeTool alloc] init];
@@ -83,6 +84,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
 - (void)showNoFade
 {
     self.overlayPanel.hidden = NO;
+    self.playButton.hidden = NO;
     [self cancelDelayedHide];
     [self refreshMediaControl];
 }
@@ -90,7 +92,8 @@ typedef NS_ENUM(NSUInteger, Direction) {
 - (void)showAndFade
 {
     [self showNoFade];
-    [self performSelector:@selector(hide) withObject:nil afterDelay:4];
+    self.playButton.hidden = NO;
+    [self performSelector:@selector(hide) withObject:nil afterDelay:3];
 }
 
 - (void)hide
