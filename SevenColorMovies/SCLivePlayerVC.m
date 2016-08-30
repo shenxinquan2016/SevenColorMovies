@@ -460,7 +460,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         
         
         self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-        //        strongself.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+        self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
         
         //4.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
@@ -496,7 +496,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         //3.直播视频
         self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
         self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+//        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
 //        self.url = [NSURL fileURLWithPath:@"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1000&mid=1&sid=1&pid=1&uid=10&oemid=30050&fid=230_230&hid=&time=10000&proto=9&key=_tv_230.m3u8"];
         
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];

@@ -59,6 +59,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     //对UIViewAutoresizingNone进行清空，否则从xib加载View时显示出来的效果不一样(比如尺寸变大了)，autoresizingMask自动伸缩属性在搞鬼!
     self.view.autoresizingMask = UIViewAutoresizingNone;
+    
     self.isFullScreen = NO;
     
     
@@ -151,11 +152,17 @@
     // 5.1 代理设置
     self.mediaControl.delegatePlayer = self.player;
     
-    //6.添加读取视频进度动画
-//    _loadView = [[NSBundle mainBundle] loadNibNamed:@"SCVideoLoadingView" owner:nil options:nil][0];
-//    _loadView.backgroundColor = [UIColor colorWithHex:@"#000000" alpha:0.0];
-//    _loadView.frame = CGRectMake(0, 0, 64, 64);
-//    [self.view addSubview:_loadView];
+    //6.添加加载视频时进度动画
+    _loadView = [[NSBundle mainBundle] loadNibNamed:@"SCVideoLoadingView" owner:nil options:nil][0];
+    _loadView.backgroundColor = [UIColor colorWithHex:@"#000000" alpha:0.8];
+    _loadView.frame = CGRectMake(0, 0, 64, 64);
+    [_loadView startAnimating];
+    [self.view addSubview:_loadView];
+    [_loadView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.view);
+        make.size.mas_equalTo(CGSizeMake(150, 87));
+        
+    }];
 
 }
 
@@ -164,6 +171,7 @@
         [self.player shutdown];
         [self.player.view removeFromSuperview];
         [self.mediaControl removeFromSuperview];
+        [_loadView removeFromSuperview];
         [self.view removeFromSuperview];
         _player = nil;
     }
