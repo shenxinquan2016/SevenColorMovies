@@ -69,9 +69,44 @@
 #define DONGWeakSelf(type)  __weak typeof(type) weak##type = type
 #define DONGStrongSelf(type)  __strong typeof(weak##type) strong##type = weak##type
 
-
 #define DONGToast(str) [NSString stringWithFormat:@"%@",@#str]
 #define DONGNSLog(str) NSLog:@"%@",DONGToast(str)
+
+
+//  主要单例
+#define TL_UserDefaults                        [NSUserDefaults standardUserDefaults]
+#define TL_NotificationCenter                  [NSNotificationCenter defaultCenter]
+//收到通知后执行什么操作
+#define TL_RecevieNotification(name,expression) [[TL_NotificationCenter rac_addObserverForName:name object:nil] subscribeNext:^(NSNotification *noteification) {expression;}];
+
+
+
+
+
+#define TL_ANIMATION(time,expression)\
+[UIView animateWithDuration:time animations:^{expression}];
+
+#define TL_ANIMATION_COMPLETION(time,expresiion,COMPLETION)\
+[UIView animateWithDuration:time animations:^{expresiion} completion:^(BOOL finished){COMPLETION}];
+
+#define TL_AFTER(time,expression)\
+dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{expression;});
+
+#define TL_RAC_AFTER(time,expression)\
+[[RACScheduler mainThreadScheduler] afterDelay:time schedule:^{expression;}];
+
+#define TL_FONT(FLOAT) [UIFont systemFontOfSize:FLOAT]
+#define TL_FONT_NAME(NAME,SIZE)  [UIFont fontWithName:NAME size:SIZE]
+
+
+
+
+
+
+
+
+
+
 
 
 #endif /* UtilityMacro_h */

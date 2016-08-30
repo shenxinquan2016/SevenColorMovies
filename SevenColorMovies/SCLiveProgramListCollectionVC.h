@@ -7,8 +7,9 @@
 //  直播节目列表
 
 #import <UIKit/UIKit.h>
+@class SCLiveProgramModel;
 
-typedef void(^ClickToPlayBlock)(id obj);//点击切换节目block
+typedef void(^ClickToPlayBlock)(SCLiveProgramModel *model, SCLiveProgramModel *nextProgramModel, NSArray *liveProgramModelArr);//点击切换节目block
 
 @interface SCLiveProgramListCollectionVC : UICollectionViewController
 

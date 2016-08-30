@@ -34,6 +34,9 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 {
     BOOL _isFullScreen;
+    SCLiveProgramModel *model_;/* 选中的播放行的model */
+    SCLiveProgramModel *nextProgramModel_;/* 选中的播放行的下一行的model */
+    NSArray *liveProgramModelArray_;/* 选中行所在页的数组 */
 }
 
 #pragma mark- Initialize
@@ -56,7 +59,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
     
-   
+    
     
     
     
@@ -65,8 +68,11 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-    //注册播放器的通知
-    
+    //播放结束通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackDidFinish:)
+                                                 name:IJKMPMoviePlayerPlaybackDidFinishNotification
+                                               object:_IJKPlayerViewController.player];
     
 }
 
@@ -83,8 +89,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToSmallScreen object:nil];
     //监听屏幕旋转的通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-    //注销播放器的通知
-    
+    //注销播放器播放结束的通知
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackDidFinishNotification object:_IJKPlayerViewController.player];
 }
 
 #pragma mark- private methods
@@ -201,7 +207,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     SCLiveProgramListCollectionVC *vc = [self.childViewControllers lastObject];
     vc.index = _index;
     [self.contentScroll addSubview:vc.view];
-   
+    
     self.needScrollToTopPage = [self.childViewControllers lastObject];
     vc.view.frame = self.contentScroll.bounds;
     
@@ -312,27 +318,62 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 #pragma mark - IJK播放控制器的回调
 - (void)doIJKPlayerBlock{
     DONGWeakSelf(self);
-    
+    DONGWeakSelf(model_);
+    DONGWeakSelf(nextProgramModel_);
+    DONGWeakSelf(liveProgramModelArray_);
     //点击节目list切换节目
-    _needScrollToTopPage.clickToPlayBlock = ^(id obj){
+    _needScrollToTopPage.clickToPlayBlock = ^(id obj1, id obj2, id obj3){
         DONGStrongSelf(self);
-        SCLiveProgramModel *model = obj;
-        NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>>>>>>>>>",model.programName);
-        NSLog(@"<<<<<<<<<<<<<<播放新节目:%d>>>>>>>>>>>",[strongself.IJKPlayerViewController.player isPlaying]);
-        
-        [strongself requestProgramHavePastVideoSignalFlowUrl];
-        
+        DONGStrongSelf(model_);
+        DONGStrongSelf(nextProgramModel_);
+        DONGStrongSelf(liveProgramModelArray_);
+        strongmodel_ = obj1;
+        strongnextProgramModel_ = obj2;
+        strongliveProgramModelArray_ = obj3;
+        [strongself requestProgramHavePastVideoSignalFlowUrlWithModel:strongmodel_ NextProgramModel:strongnextProgramModel_];
         
     };
-
+    
 }
 
 #pragma mark - 播放下一个节目
 - (void)playNextProgram{
+    
+    //先判断下一个节目是否存在 1.不存在停止播放 2.请求播放地址并播放
+    
+    
+}
 
+
+#pragma mark - IJK播放结束通知响应时间
+- (void)moviePlayBackDidFinish:(NSNotification*)notification
+{
+    //    MPMovieFinishReasonPlaybackEnded,
+    //    MPMovieFinishReasonPlaybackError,
+    //    MPMovieFinishReasonUserExited
+    int reason = [[[notification userInfo] valueForKey:IJKMPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
     
-    
-    
+    switch (reason)
+    {
+        case IJKMPMovieFinishReasonPlaybackEnded:
+            
+            NSLog(@"这个节目播放结束了,播放下一个节目");
+            [self playNextProgram];
+            
+            break;
+            
+        case IJKMPMovieFinishReasonUserExited:
+            
+            break;
+            
+        case IJKMPMovieFinishReasonPlaybackError:
+            
+            break;
+            
+        default:
+            
+            break;
+    }
 }
 
 #pragma mark - 全屏/小屏切换
@@ -442,14 +483,18 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 #pragma mark - 网络请求
 //请求回看节目视频流url
-- (void)requestProgramHavePastVideoSignalFlowUrl{
+- (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2{
     
     //1.关闭正在播放的节目
     [self.IJKPlayerViewController.player shutdown];
     //2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
     //3.请求播放地址url
-    //fid = tvId + "_" + tvId  只传个fid貌似也是没问题的
+    
+    NSString *startTime = model1.programTime;
+    NSString *endTime = model2.programTime;
+    NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
+    NSLog(@"<<<<<<<<<<<<<<开始时间：%@  结束时间：%@>>>>>>>>>>>",startTime, endTime);
     NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
     NSDictionary *parameters = @{@"fid" : fidStr};
     [requestDataManager requestDataWithUrl:ToGetProgramHavePastVideoSignalFlowUrl parameters:parameters success:^(id  _Nullable responseObject) {
@@ -463,7 +508,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         
         
         self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-//        self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+        //        self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
         
         //4.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
@@ -478,7 +523,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         [CommonFunc dismiss];
         
     }];
-
+    
     
 }
 //请求该频道直播流url
@@ -499,8 +544,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         //3.直播视频
         self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
         self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-//        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
-//        self.url = [NSURL fileURLWithPath:@"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1000&mid=1&sid=1&pid=1&uid=10&oemid=30050&fid=230_230&hid=&time=10000&proto=9&key=_tv_230.m3u8"];
+        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+        //        self.url = [NSURL fileURLWithPath:@"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1000&mid=1&sid=1&pid=1&uid=10&oemid=30050&fid=230_230&hid=&time=10000&proto=9&key=_tv_230.m3u8"];
         
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
         _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
@@ -520,7 +565,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"tvid" : self.filmModel._TvId ? self.filmModel._TvId : @""};
     [requestDataManager requestDataWithUrl:LiveProgramList parameters:parameters success:^(id  _Nullable responseObject) {
-        //NSLog(@"====responseObject:::%@===",responseObject);
+        //        NSLog(@"====responseObject:::%@===",responseObject);
         [_dataSourceArr removeAllObjects];
         NSArray *array = responseObject[@"FilmClass"][@"FilmlistSet"];
         if (array.count > 0) {

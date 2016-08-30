@@ -131,8 +131,10 @@ static NSString *const footerId = @"footerId";
     //通过改变cell对应model的onLive属性来改变cell字体颜色
     _model = _liveProgramModelArr[indexPath.row];
     _model.onLive = YES;
+    //if ([_model.programName isEqualToString:@"结束"]) return;//最后一行没有播放信息
     SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.model = _model;
+    
     
     /* 以下部分为控制首次进入时正在播出的cell字体颜色 */
     SCLiveProgramModel *model1 = _liveProgramModelArr[_index];//取正在播出的节目model
@@ -159,7 +161,20 @@ static NSString *const footerId = @"footerId";
     }else{
         if (self.clickToPlayBlock) {
             
-            self.clickToPlayBlock(_model);
+            //将点击行和点击行的下一行model都传给播放器（以便获取下个节目的开始时间即本节目的结束时间）
+            //将该页的数组传过去，以便做循环播放
+            if (indexPath.row+1 < _liveProgramModelArr.count) {
+                
+                SCLiveProgramModel *nextProgramModel = _liveProgramModelArr[indexPath.row+1];
+                
+                self.clickToPlayBlock(_model, nextProgramModel, _liveProgramModelArr);
+            }else{
+                
+                self.clickToPlayBlock(_model, nil, _liveProgramModelArr);
+            }
+            
+            
+            
         }
         
     }

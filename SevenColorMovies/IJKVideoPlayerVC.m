@@ -310,7 +310,7 @@
 
 
 
-#pragma mark - IJK响应事件
+#pragma mark - IJK通知响应事件
 - (void)loadStateDidChange:(NSNotification*)notification
 {
     IJKMPMovieLoadState loadState = _player.loadState;
@@ -345,11 +345,8 @@
         case IJKMPMovieFinishReasonPlaybackEnded:
             NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonPlaybackEnded: %d\n", reason);
             
+            [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Play"] forState:UIControlStateNormal];
             //当前节目播放结束，播放下一个节目
-            
-            
-            
-            
             break;
             
         case IJKMPMovieFinishReasonUserExited:
@@ -411,8 +408,7 @@
 }
 
 
-#pragma mark Install Movie Notifications
-
+#pragma mark - Notifications
 -(void)installMovieNotificationObservers
 {
     //加载状态改变通知
@@ -437,9 +433,6 @@
                                                object:_player];
 }
 
-#pragma mark Remove Movie Notification Handlers
-
-/* Remove the movie notification observers from the movie object. */
 -(void)removeMovieNotificationObservers
 {
     [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerLoadStateDidChangeNotification object:_player];
