@@ -435,12 +435,18 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 #pragma mark - 网络请求
 //请求回看节目视频流url
 - (void)requestProgramHavePastVideoSignalFlowUrl{
-    //fid = tvId + "_" + tvId
-    NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
-    //hid = 设备的mac地址
     
-    NSDictionary *parameters = @{@"fid" : fidStr,
-                                 @"hid" : @""};
+    //1.关闭正在播放的节目
+    [self.IJKPlayerViewController.player shutdown];
+    
+    //2.加载动画
+    [CommonFunc showLoadingWithTips:@"视频加载中..."];
+    
+    //3.请求播放地址url
+    //fid = tvId + "_" + tvId  只传个fid貌似也是没问题的
+    NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
+    
+    NSDictionary *parameters = @{@"fid" : fidStr};
     [requestDataManager requestDataWithUrl:ToGetProgramHavePastVideoSignalFlowUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
         //NSLog(@"====responseObject:::%@===",responseObject);
@@ -449,19 +455,22 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         
         NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
         
-        //开始播放直播
+        
       
-        //关闭当前正在播放的
-        [self.IJKPlayerViewController closePlayer];
+        
         
         self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
         //        strongself.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
         
+        //4.移除当前的播放器
+        [self.IJKPlayerViewController closePlayer];
+        
+        //5.加载新的播放器开始播放
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         [self.view addSubview:self.IJKPlayerViewController.view];
         
-        
+        [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
         [CommonFunc dismiss];
         
