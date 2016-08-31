@@ -204,23 +204,27 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark - Event reponse
 - (void)changeCellStateWhenPlayNextProgrom:(NSNotification *)notification{
+    NSDictionary *dic = notification.object;
+    SCLiveProgramModel *nextPlayModel = dic[@"model"];//即将播出节目的model
+    NSUInteger identifier = [dic[@"index"] integerValue];
     
-    SCLiveProgramModel *nextPlayModel = notification.object;//即将播出节目的model
-    NSUInteger index = [_liveProgramModelArr indexOfObject:nextPlayModel];
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
-    NSIndexPath *nextPlayIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    //获取正在播出和即将播出的cell
-    SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-    SCLiveProgramListCell *nextPlayCell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:nextPlayIndexPath];
-    //改变model onLive状态
-    SCLiveProgramModel *model = _liveProgramModelArr[index-1];
-    model.onLive = NO;
-    nextPlayModel.onLive = YES;
-    //给cell model赋值以给变cell字体显示
-    cell.model = model;
-    nextPlayCell.model = nextPlayModel;
-    
+    if (_viewIdentifier == identifier) {//只要求指定的页面收到消息后做出反应
+        
+        NSUInteger index = [_liveProgramModelArr indexOfObject:nextPlayModel];
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
+        NSIndexPath *nextPlayIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        //获取正在播出和即将播出的cell
+        SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        SCLiveProgramListCell *nextPlayCell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:nextPlayIndexPath];
+        //改变model onLive状态
+        SCLiveProgramModel *model = _liveProgramModelArr[index-1];
+        model.onLive = NO;
+        nextPlayModel.onLive = YES;
+        //给cell model赋值以给变cell字体显示
+        cell.model = model;
+        nextPlayCell.model = nextPlayModel;
+    }
 }
 
 @end

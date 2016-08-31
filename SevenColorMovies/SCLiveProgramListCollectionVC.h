@@ -15,6 +15,7 @@ typedef void(^ClickToPlayBlock)(SCLiveProgramModel *model, SCLiveProgramModel *n
 
 @property (nonatomic, copy) NSArray *liveProgramModelArr;
 @property (nonatomic, assign) NSInteger index;//首次进入页面时正在播出节目的index
+@property (nonatomic, assign) NSInteger viewIdentifier;
 @property (nonatomic, copy) ClickToPlayBlock clickToPlayBlock;//点击切换节目block
 
 @end

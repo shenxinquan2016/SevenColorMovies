@@ -37,6 +37,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     BOOL _isFullScreen;
     SCLiveProgramModel *model_;/* 接收所选中行的model 接收回调传值 */
     NSArray *liveProgramModelArray_;/* 选中行所在页的数组 接收回调传值 */
+    NSUInteger indexOfArrInArr_;/* 当前列表的arr在dataSourceArr的位置 */
 }
 
 #pragma mark- Initialize
@@ -191,6 +192,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         if (_dataSourceArr.count) {
             
             vc.liveProgramModelArr = _dataSourceArr[i];
+            vc.viewIdentifier = i;//页面唯一标识符(响应通知时判断使用)
         }
         [self addChildViewController:vc];
         
@@ -322,6 +324,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     _needScrollToTopPage.clickToPlayBlock = ^(SCLiveProgramModel *model, SCLiveProgramModel *nextProgramModel, NSArray *liveProgramModelArray){
         model_ = model;
         liveProgramModelArray_ = liveProgramModelArray;
+        indexOfArrInArr_ = [_dataSourceArr indexOfObject:liveProgramModelArray_];
+        
         //请求url并播放
         [weakself requestProgramHavePastVideoSignalFlowUrlWithModel:model NextProgramModel:nextProgramModel];
         timesIndexOfHuikan = 0;//每次点击后将index复位为0
@@ -336,23 +340,29 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 - (void)playNextProgram{
     
     huikanIndex = [liveProgramModelArray_ indexOfObject:model_];
-    NSLog(@">>>>>>>>>>>index::::%lu",huikanIndex);
-    NSLog(@"这个节目播放结束了,播放下一个节目");
-
+    //NSLog(@">>>>>>>>>>>index::::%lu",huikanIndex);
+    //NSLog(@"这个节目播放结束了,播放下一个节目");
+    //NSLog(@">>>>>>indexOfArrInArr_::::%lu",indexOfArrInArr_);
+    
     if (huikanIndex+1+ ++timesIndexOfHuikan < liveProgramModelArray_.count) {
         
         SCLiveProgramModel *model1 = liveProgramModelArray_[huikanIndex+timesIndexOfHuikan];
         SCLiveProgramModel *model2 = liveProgramModelArray_[huikanIndex+timesIndexOfHuikan+1];
+        
+        //当前列表的arr在dataSourceArr的位置通知给cellectionView
+        NSString *index = [NSString stringWithFormat:@"%lu",indexOfArrInArr_];
+        NSDictionary *message = @{@"model" : model1, @"index" : index};
+        
         //请求url并播放
         if (model1.programState == HavePast) {
             
             [self requestProgramHavePastVideoSignalFlowUrlWithModel:model1 NextProgramModel:model2];//回看
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextProgrom object:model1];
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextProgrom object:message];
         }else if (model1.programState == NowPlaying){
             
             [self getLiveVideoSignalFlowUrl];//直播
-            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextProgrom object:model1];
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextProgrom object:message];
         }else{
             [MBProgressHUD showError:@"节目未开始"];//预约
             return;
