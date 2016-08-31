@@ -42,7 +42,10 @@ static NSString *const footerId = @"footerId";
         [self.collectionView selectItemAtIndexPath:selectedIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
     });
     
+    //自动播放下一个节目发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCellStateWhenPlayNextProgrom:) name:ChangeCellStateWhenPlayNextProgrom object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dodododo:) name:@"lalalala" object:nil];
 }
 
 
@@ -55,12 +58,12 @@ static NSString *const footerId = @"footerId";
 - (void)viewDidAppear{
     [super viewDidAppear:YES];
     
-    
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
      [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenPlayNextProgrom object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"lalala" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -139,10 +142,13 @@ static NSString *const footerId = @"footerId";
 //点击某item
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"lalalala" object:nil];
+    
     //通过改变cell对应model的onLive属性来改变cell字体颜色
     _model = _liveProgramModelArr[indexPath.row];
     _model.onLive = YES;
-    //if ([_model.programName isEqualToString:@"结束"]) return;//最后一行没有播放信息
+    if ([_model.programName isEqualToString:@"结束"]) return;//最后一行没有播放信息
     SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.model = _model;
     
@@ -186,6 +192,10 @@ static NSString *const footerId = @"footerId";
         }
         
     }
+}
+
+- (void)dodododo:(NSNotification *)notification{
+    
     
     
 }
