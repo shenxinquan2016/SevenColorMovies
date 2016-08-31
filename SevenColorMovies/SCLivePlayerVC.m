@@ -52,11 +52,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     
     [self setView];
     
-    //4.全屏小屏通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
-    //5.监听屏幕旋转
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+   
     
     
     
@@ -67,6 +63,11 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
+    //4.全屏/小屏通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
+    //5.监听屏幕旋转
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     //注册播放结束通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackDidFinish:)
@@ -343,7 +344,19 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         SCLiveProgramModel *model1 = liveProgramModelArray_[huikanIndex+timesIndexOfHuikan];
         SCLiveProgramModel *model2 = liveProgramModelArray_[huikanIndex+timesIndexOfHuikan+1];
         //请求url并播放
-        [self requestProgramHavePastVideoSignalFlowUrlWithModel:model1 NextProgramModel:model2];
+        if (model1.programState == HavePast) {
+            
+            [self requestProgramHavePastVideoSignalFlowUrlWithModel:model1 NextProgramModel:model2];//回看
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextProgrom object:model1];
+        }else if (model1.programState == NowPlaying){
+            
+            [self getLiveVideoSignalFlowUrl];//直播
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextProgrom object:model1];
+        }else{
+            [MBProgressHUD showError:@"节目未开始"];//预约
+            return;
+        }
     }
 }
 
@@ -534,6 +547,14 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 }
 //请求该频道直播流url
 - (void)getLiveVideoSignalFlowUrl{
+    
+    //1.关闭正在播放的节目
+    if ([self.IJKPlayerViewController.player isPlaying]) {
+        [self.IJKPlayerViewController.player shutdown];
+    }
+    //2.加载动画
+    [CommonFunc showLoadingWithTips:@"视频加载中..."];
+    //3.请求播放地址url
     //fid = tvId + "_" + tvId
     NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
     //hid = 设备的mac地址
@@ -546,8 +567,9 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         
         NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
         
-        //开始播放直播
-        //3.直播视频
+        //4.移除当前的播放器
+        [self.IJKPlayerViewController closePlayer];
+        //5.开始播放直播
         self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
         self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
         self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];

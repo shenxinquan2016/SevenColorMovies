@@ -11,7 +11,7 @@
 
 static NSString *const SwitchToFullScreen = @"SwitchToFullScreen";
 static NSString *const SwitchToSmallScreen = @"SwitchToSmallScreen";
-
+static NSString *const ChangeCellStateWhenPlayNextProgrom = @"ChangeCellStateWhenPlayNextProgrom";
 
 
 

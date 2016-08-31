@@ -42,11 +42,13 @@ static NSString *const footerId = @"footerId";
         [self.collectionView selectItemAtIndexPath:selectedIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
     });
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCellStateWhenPlayNextProgrom:) name:ChangeCellStateWhenPlayNextProgrom object:nil];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    
     
 }
 
@@ -55,11 +57,20 @@ static NSString *const footerId = @"footerId";
     
     
 }
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+     [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenPlayNextProgrom object:nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
 }
 
+- (void)dealloc{
+   
+}
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -141,7 +152,7 @@ static NSString *const footerId = @"footerId";
     NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:_index inSection:0];
     SCLiveProgramListCell *cell1 = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:selectedIndexPath];
     
-    if (indexPath.row != _index) {
+    if (indexPath.row != _index) {//点击其他行
         
         if (cell1.selected == YES) {
             model1.onLive = NO;//更改model状态以控制cell字体颜色
@@ -149,7 +160,7 @@ static NSString *const footerId = @"footerId";
             cell1.selected = NO;
         }
         
-    }else if (indexPath.row == _index){
+    }else if (indexPath.row == _index){//点击直播行
         model1.onLive = YES;
         cell1.model = model1;
     }
@@ -191,5 +202,25 @@ static NSString *const footerId = @"footerId";
     
 }
 
+#pragma mark - Event reponse
+- (void)changeCellStateWhenPlayNextProgrom:(NSNotification *)notification{
+    
+    SCLiveProgramModel *nextPlayModel = notification.object;//即将播出节目的model
+    NSUInteger index = [_liveProgramModelArr indexOfObject:nextPlayModel];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
+    NSIndexPath *nextPlayIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    //获取正在播出和即将播出的cell
+    SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    SCLiveProgramListCell *nextPlayCell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:nextPlayIndexPath];
+    //改变model onLive状态
+    SCLiveProgramModel *model = _liveProgramModelArr[index-1];
+    model.onLive = NO;
+    nextPlayModel.onLive = YES;
+    //给cell model赋值以给变cell字体显示
+    cell.model = model;
+    nextPlayCell.model = nextPlayModel;
+    
+}
 
 @end
