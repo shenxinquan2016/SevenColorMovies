@@ -23,6 +23,7 @@ static NSString *const headerId = @"headerId";
 static NSString *const footerId = @"footerId";
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -199,27 +200,6 @@ static NSString *const footerId = @"footerId";
     }
 }
 
-- (void)changeLastCellToUnselectedState:(NSNotification *)notification{
-    
-   NSInteger selectedViewIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_selectedViewIndex];
-    if (_viewIdentifier == selectedViewIndex) {
-        
-        NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_selectedCellIndex];
-        
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:selectedCellIndex inSection:0];
-        
-        SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-        
-        //改变model onLive状态
-        SCLiveProgramModel *model = _liveProgramModelArr[selectedCellIndex];
-        model.onLive = NO;
-        
-        //给cell model赋值使cell变为非选中状态
-        cell.model = model;
-        
-    }
-}
-
 //取消选中操作
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -234,6 +214,7 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark - Event reponse
 - (void)changeCellStateWhenPlayNextProgrom:(NSNotification *)notification{
+    
     NSDictionary *dic = notification.object;
     SCLiveProgramModel *nextPlayModel = dic[@"model"];//即将播出节目的model
     NSUInteger identifier = [dic[@"index"] integerValue];
@@ -254,7 +235,33 @@ static NSString *const footerId = @"footerId";
         //给cell model赋值以给变cell字体显示
         cell.model = model;
         nextPlayCell.model = nextPlayModel;
+        
+        //将当前页和即将播出的行index保存到本地
+        [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_selectedViewIndex];
+        [[NSUserDefaults standardUserDefaults] setInteger:index forKey:k_for_selectedCellIndex];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
+
+- (void)changeLastCellToUnselectedState:(NSNotification *)notification{
+    
+    NSInteger selectedViewIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_selectedViewIndex];
+    if (_viewIdentifier == selectedViewIndex) {
+        
+        NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_selectedCellIndex];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:selectedCellIndex inSection:0];
+        
+        SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        
+        //改变model onLive状态
+        SCLiveProgramModel *model = _liveProgramModelArr[selectedCellIndex];
+        model.onLive = NO;
+        
+        //给cell model赋值使cell变为非选中状态
+        cell.model = model;
+        
+    }
+}
+
 
 @end
