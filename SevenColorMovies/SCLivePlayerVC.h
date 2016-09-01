@@ -12,6 +12,7 @@
 @interface SCLivePlayerVC : UIViewController
 
 @property (nonatomic, strong) SCFilmModel *filmModel;
+@property (weak, nonatomic) IBOutlet UILabel *channelNameLabel;
 
 
 @end

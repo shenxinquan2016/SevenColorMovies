@@ -46,11 +46,14 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor colorWithHex:@"#f3f3f3"];
+    
+    //0.电视频道名称
+    self.channelNameLabel.text = self.filmModel._Title;
+    
     //1.初始化数组
     self.titleArr = [NSMutableArray arrayWithCapacity:0];
     self.programModelArr = [NSMutableArray arrayWithCapacity:0];
     self.dataSourceArr = [NSMutableArray arrayWithCapacity:0];
-    
     
     [self setView];
     
@@ -60,6 +63,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     
     
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -93,6 +97,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     //注销播放器播放结束的通知
     [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackDidFinishNotification object:_IJKPlayerViewController.player];
 }
+
 
 #pragma mark- private methods
 - (void)setView{

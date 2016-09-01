@@ -124,7 +124,11 @@ static NSString *const footerId = @"footerId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SCLivePlayerVC *livePlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCLivePlayerVC");
-    livePlayer.filmModel = _filmModelArr[indexPath.row];
+    
+    
+    SCFilmModel *model = _filmModelArr[indexPath.row];
+    livePlayer.filmModel = model;
+    livePlayer.channelNameLabel.text = @"zhibozhibo";
     [self.navigationController pushViewController:livePlayer animated:YES];
 }
 
