@@ -47,7 +47,7 @@
                                                fromViewController:(UIViewController *)fromVC
                                                  toViewController:(UIViewController *)toVC {
     if (operation == UINavigationControllerOperationPop) {
-        return [[NavigationPopAnimation alloc] init];
+        return (id<UIViewControllerAnimatedTransitioning>)[[NavigationPopAnimation alloc] init];
     }
     return nil;
 }

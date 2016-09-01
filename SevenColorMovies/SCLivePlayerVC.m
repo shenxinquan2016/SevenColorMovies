@@ -17,6 +17,7 @@ static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
 static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 @interface SCLivePlayerVC ()<UIScrollViewDelegate>
+
 @property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
 @property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
@@ -53,7 +54,6 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     
     [self setView];
     
-   
     
     
     
@@ -209,6 +209,10 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     SCLiveProgramListCollectionVC *vc = [self.childViewControllers lastObject];
     vc.index = _index;
     [self.contentScroll addSubview:vc.view];
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:_titleArr.count-1 forKey:k_for_selectedViewIndex];//正在显示的view
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     
     self.needScrollToTopPage = [self.childViewControllers lastObject];
     vc.view.frame = self.contentScroll.bounds;
@@ -666,7 +670,9 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                     programModel.programState = NowPlaying;
                                     programModel.onLive = YES;
                                     _index = idx;//正在播出节目的index
-                                    
+                                    [[NSUserDefaults standardUserDefaults] setInteger:_index forKey:k_for_selectedCellIndex];//被选中的行
+                                    [[NSUserDefaults standardUserDefaults] synchronize];
+
                                 }else{
                                     programModel.programState = HavePast;
                                 }

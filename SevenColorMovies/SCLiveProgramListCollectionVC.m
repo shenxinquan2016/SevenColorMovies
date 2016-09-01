@@ -44,8 +44,8 @@ static NSString *const footerId = @"footerId";
     
     //自动播放下一个节目发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCellStateWhenPlayNextProgrom:) name:ChangeCellStateWhenPlayNextProgrom object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dodododo:) name:@"lalalala" object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLastCellToUnselectedState:) name:ChangeCellStateWhenClickProgramList object:nil];
 }
 
 
@@ -63,7 +63,7 @@ static NSString *const footerId = @"footerId";
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
      [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenPlayNextProgrom object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"lalala" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenClickProgramList object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -142,10 +142,15 @@ static NSString *const footerId = @"footerId";
 //点击某item
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    //通知选中的cell转为非选中状态
+    [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenClickProgramList object:indexPath];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"lalalala" object:nil];
-    
-    //通过改变cell对应model的onLive属性来改变cell字体颜色
+    //将当前页和选中的行index保存到本地
+    [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_selectedViewIndex];
+    [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:k_for_selectedCellIndex];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    //通过改变cell对应model的onLive属性来改变选中cell为选中状态
     _model = _liveProgramModelArr[indexPath.row];
     _model.onLive = YES;
     if ([_model.programName isEqualToString:@"结束"]) return;//最后一行没有播放信息
@@ -154,24 +159,24 @@ static NSString *const footerId = @"footerId";
     
     
     /* 以下部分为控制首次进入时正在播出的cell字体颜色 */
-    SCLiveProgramModel *model1 = _liveProgramModelArr[_index];//取正在播出的节目model
-    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:_index inSection:0];
-    SCLiveProgramListCell *cell1 = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:selectedIndexPath];
+//    SCLiveProgramModel *model1 = _liveProgramModelArr[_index];//取正在播出的节目model
+//    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:_index inSection:0];
+//    SCLiveProgramListCell *cell1 = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:selectedIndexPath];
+//    
+//    if (indexPath.row != _index) {//点击其他行
+//        
+//        if (cell1.selected == YES) {
+//            model1.onLive = NO;//更改model状态以控制cell字体颜色
+//            cell1.model = model1;
+//            cell1.selected = NO;
+//        }
+//        
+//    }else if (indexPath.row == _index){//点击直播行
+//        model1.onLive = YES;
+//        cell1.model = model1;
+//    }
     
-    if (indexPath.row != _index) {//点击其他行
-        
-        if (cell1.selected == YES) {
-            model1.onLive = NO;//更改model状态以控制cell字体颜色
-            cell1.model = model1;
-            cell1.selected = NO;
-        }
-        
-    }else if (indexPath.row == _index){//点击直播行
-        model1.onLive = YES;
-        cell1.model = model1;
-    }
-    
-    //点击播放新的节目
+    //点击播放新的节目------->播放动作
     if (_model.programState == WillPlay){
         [MBProgressHUD showSuccess:@"节目暂未播出"];
         return;
@@ -194,20 +199,35 @@ static NSString *const footerId = @"footerId";
     }
 }
 
-- (void)dodododo:(NSNotification *)notification{
+- (void)changeLastCellToUnselectedState:(NSNotification *)notification{
     
-    
-    
+   NSInteger selectedViewIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_selectedViewIndex];
+    if (_viewIdentifier == selectedViewIndex) {
+        
+        NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_selectedCellIndex];
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:selectedCellIndex inSection:0];
+        
+        SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        
+        //改变model onLive状态
+        SCLiveProgramModel *model = _liveProgramModelArr[selectedCellIndex];
+        model.onLive = NO;
+        
+        //给cell model赋值使cell变为非选中状态
+        cell.model = model;
+        
+    }
 }
 
 //取消选中操作
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     //通过改变cell对应model的onLive属性来改变cell字体颜色
-    _model = _liveProgramModelArr[indexPath.row];
-    _model.onLive = NO;
-    SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.model = _model;
+//    _model = _liveProgramModelArr[indexPath.row];
+//    _model.onLive = NO;
+//    SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    cell.model = _model;
     
     
 }
