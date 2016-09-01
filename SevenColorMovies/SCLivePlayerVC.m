@@ -367,7 +367,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             
             [self getLiveVideoSignalFlowUrl];//直播
             [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextProgrom object:message];
-        }else{
+        }else {
             [MBProgressHUD showError:@"节目未开始"];//预约
             return;
         }
