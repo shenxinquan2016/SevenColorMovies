@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IJKVideoPlayerVC">
             <connections>
                 <outlet property="mediaControl" destination="zAJ-lD-Fna" id="xgO-J5-soR"/>
-                <outlet property="programOnliveNameLabel" destination="6Xc-iC-Vl7" id="7S8-4u-4BV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -229,6 +228,7 @@
                 <outlet property="goFastView" destination="9mG-uu-5D5" id="HIW-Zp-Bdq"/>
                 <outlet property="overlayPanel" destination="GYR-8Q-AzF" id="aBv-34-Yjq"/>
                 <outlet property="playButton" destination="yF2-q6-6iG" id="TFr-pC-oLS"/>
+                <outlet property="programNameLabel" destination="6Xc-iC-Vl7" id="MHx-Ir-pjx"/>
                 <outlet property="progressSlider" destination="0SY-TZ-qnQ" id="sSR-fa-X8R"/>
                 <outlet property="topPanel" destination="L4f-8A-J5v" id="S4p-gq-fYk"/>
                 <outlet property="totalDurationLabel" destination="EiK-FX-EcO" id="GWz-hv-7Fx"/>

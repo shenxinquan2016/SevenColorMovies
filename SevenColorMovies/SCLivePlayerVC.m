@@ -60,8 +60,6 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     
     
     
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -552,7 +550,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         [self.IJKPlayerViewController closePlayer];
         
         //5.加载新的播放器开始播放
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         [self.view addSubview:self.IJKPlayerViewController.view];
         
@@ -581,7 +579,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     NSDictionary *parameters = @{@"fid" : fidStr,
                                  @"hid" : @""};
     [requestDataManager requestDataWithUrl:ToGetLiveVideoSignalFlowUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        
+        NSLog(@"====responseObject:::%@===",responseObject);
+
         NSString *liveUrl = responseObject[@"play_url"];
         
         NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
@@ -592,10 +591,10 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
         self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
         self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
-        //        self.url = [NSURL fileURLWithPath:@"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1000&mid=1&sid=1&pid=1&uid=10&oemid=30050&fid=230_230&hid=&time=10000&proto=9&key=_tv_230.m3u8"];
         
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithTitle:nil URL:self.url];
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        _IJKPlayerViewController.mediaControl.programNameLabel.text = @"不好弄啊";
         [self.view addSubview:_IJKPlayerViewController.view];
         
         [CommonFunc dismiss];
@@ -675,6 +674,9 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                     programModel.programState = NowPlaying;
                                     programModel.onLive = YES;
                                     _index = idx;//正在播出节目的index
+                                    
+                                    
+                                    
                                     [[NSUserDefaults standardUserDefaults] setInteger:_index forKey:k_for_selectedCellIndex];//被选中的行
                                     [[NSUserDefaults standardUserDefaults] synchronize];
 

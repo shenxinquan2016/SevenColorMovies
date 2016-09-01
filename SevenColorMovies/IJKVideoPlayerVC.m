@@ -32,20 +32,19 @@
 
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void (^)())completion {
     
-    [viewController presentViewController:[[IJKVideoPlayerVC alloc] initWithURL:url Title:title] animated:YES completion:completion];
+    [viewController presentViewController:[[IJKVideoPlayerVC alloc] initWithURL:url] animated:YES completion:completion];
 }
 
-+ (instancetype)initIJKPlayerWithTitle:(NSString *)title URL:(NSURL *)url{
-    IJKVideoPlayerVC *IJKPlayer = [[IJKVideoPlayerVC alloc] initWithURL:url Title:title];
++ (instancetype)initIJKPlayerWithURL:(NSURL *)url{
+    IJKVideoPlayerVC *IJKPlayer = [[IJKVideoPlayerVC alloc] initWithURL:url];
     
     return IJKPlayer;
 }
 
-- (instancetype)initWithURL:(NSURL *)url Title:(NSString *)title{
+- (instancetype)initWithURL:(NSURL *)url{
     self = [self initWithNibName:@"IJKVideoPlayerVC" bundle:nil];
     if (self) {
         self.url = url;
-        self.programOnliveNameLabel.text = title;
     }
     return self;
 }

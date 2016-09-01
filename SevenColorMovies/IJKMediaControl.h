@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIView *overlayPanel;//控制层
 @property (weak, nonatomic) IBOutlet UIView *bottomPanel;//底部视图
 @property (weak, nonatomic) IBOutlet UIView *topPanel;//顶部视图
+@property (weak, nonatomic) IBOutlet UILabel *programNameLabel;//播放的节目名称
 @property (weak, nonatomic) IBOutlet UIButton *goBackButton;//返回按钮
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;//播放暂停按钮
