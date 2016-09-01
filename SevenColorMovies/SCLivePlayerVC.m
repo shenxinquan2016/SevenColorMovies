@@ -28,17 +28,19 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
 @property (nonatomic, assign) NSInteger index;/** 正在播出节目的index */
-
-
+@property (nonatomic, assign) NSUInteger indexOfArrInArr;/* 当前列表的arr在dataSourceArr的位置 */
+@property (nonatomic, copy) NSArray *liveProgramModelArray;/* 选中行所在页的数组 接收回调传值 */
+@property (nonatomic, strong) SCLiveProgramModel *liveModel;/* 接收所选中行的model 接收回调传值 */
 @end
 
 @implementation SCLivePlayerVC
 
 {
     BOOL _isFullScreen;
-    SCLiveProgramModel *model_;/* 接收所选中行的model 接收回调传值 */
-    NSArray *liveProgramModelArray_;/* 选中行所在页的数组 接收回调传值 */
-    NSUInteger indexOfArrInArr_;/* 当前列表的arr在dataSourceArr的位置 */
+    
+    
+    
+    NSString *programOnLiveName_;/* 临时保存直播节目的名称 */
 }
 
 #pragma mark- Initialize
@@ -55,10 +57,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     self.programModelArr = [NSMutableArray arrayWithCapacity:0];
     self.dataSourceArr = [NSMutableArray arrayWithCapacity:0];
     
+    //2.set view
     [self setView];
-    
-    
-    
     
 }
 
@@ -99,9 +99,6 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 #pragma mark- private methods
 - (void)setView{
-    //请求该频道直播流url
-    [self getLiveVideoSignalFlowUrl];
-    
     //请求直播节目列表数据后组装页面
     [self getLiveChannelData];
     
@@ -329,15 +326,15 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     DONGWeakSelf(self);
     //点击节目list切换节目
     _needScrollToTopPage.clickToPlayBlock = ^(SCLiveProgramModel *model, SCLiveProgramModel *nextProgramModel, NSArray *liveProgramModelArray){
-        model_ = model;
-        liveProgramModelArray_ = liveProgramModelArray;
-        indexOfArrInArr_ = [_dataSourceArr indexOfObject:liveProgramModelArray_];
+        DONGStrongSelf(self);
+        strongself.liveModel = model;
+        strongself.liveProgramModelArray = liveProgramModelArray;
+        strongself.indexOfArrInArr = [strongself.dataSourceArr indexOfObject:strongself.liveProgramModelArray];
         
         //请求url并播放
-        [weakself requestProgramHavePastVideoSignalFlowUrlWithModel:model NextProgramModel:nextProgramModel];
+        [strongself requestProgramHavePastVideoSignalFlowUrlWithModel:model NextProgramModel:nextProgramModel];
         timesIndexOfHuikan = 0;//每次点击后将index复位为0
     };
-    
 }
 
 static NSUInteger huikanIndex; //首页播放回看的url在_huikanPlayerUrlArray中的第几个，这个播放完后去播放index + 1的回看
@@ -346,18 +343,18 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 #pragma mark - 播放下一个节目
 - (void)playNextProgram{
     
-    huikanIndex = [liveProgramModelArray_ indexOfObject:model_];
+    huikanIndex = [self.liveProgramModelArray indexOfObject:self.liveModel];
     //NSLog(@">>>>>>>>>>>index::::%lu",huikanIndex);
     //NSLog(@"这个节目播放结束了,播放下一个节目");
     //NSLog(@">>>>>>indexOfArrInArr_::::%lu",indexOfArrInArr_);
     
-    if (huikanIndex+1+ ++timesIndexOfHuikan < liveProgramModelArray_.count) {
+    if (huikanIndex+1+ ++timesIndexOfHuikan < self.liveProgramModelArray.count) {
         
-        SCLiveProgramModel *model1 = liveProgramModelArray_[huikanIndex+timesIndexOfHuikan];
-        SCLiveProgramModel *model2 = liveProgramModelArray_[huikanIndex+timesIndexOfHuikan+1];
+        SCLiveProgramModel *model1 = self.liveProgramModelArray[huikanIndex+timesIndexOfHuikan];
+        SCLiveProgramModel *model2 = self.liveProgramModelArray[huikanIndex+timesIndexOfHuikan+1];
         
         //当前列表的arr在dataSourceArr的位置通知给cellectionView
-        NSString *index = [NSString stringWithFormat:@"%lu",indexOfArrInArr_];
+        NSString *index = [NSString stringWithFormat:@"%lu",self.indexOfArrInArr];
         NSDictionary *message = @{@"model" : model1, @"index" : index};
         
         //请求url并播放
@@ -512,7 +509,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 }
 
 
-
 #pragma mark - 网络请求
 //请求回看节目视频流url
 - (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2{
@@ -552,6 +548,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         //5.加载新的播放器开始播放
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
         [self.view addSubview:self.IJKPlayerViewController.view];
         
         [CommonFunc dismiss];
@@ -559,7 +556,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         [CommonFunc dismiss];
         
     }];
-    
     
 }
 //请求该频道直播流url
@@ -594,7 +590,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        _IJKPlayerViewController.mediaControl.programNameLabel.text = @"不好弄啊";
+        _IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
         [self.view addSubview:_IJKPlayerViewController.view];
         
         [CommonFunc dismiss];
@@ -674,8 +670,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                     programModel.programState = NowPlaying;
                                     programModel.onLive = YES;
                                     _index = idx;//正在播出节目的index
-                                    
-                                    
+                                    programOnLiveName_ = programModel.programName;//保存正在播出的节目的名称
                                     
                                     [[NSUserDefaults standardUserDefaults] setInteger:_index forKey:k_for_selectedCellIndex];//被选中的行
                                     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -698,13 +693,12 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             }
         }
         
-        
-        //4.添加滑动headerView
+        //0.请求该频道直播流url
+        [self getLiveVideoSignalFlowUrl];
+        //1.添加滑动headerView
         [self constructSlideHeaderView];
-        //5.添加contentScrllowView
+        //2.添加contentScrllowView
         [self constructContentView];
-        
-        
         
     } failure:^(id  _Nullable errorObject) {
         [CommonFunc dismiss];
