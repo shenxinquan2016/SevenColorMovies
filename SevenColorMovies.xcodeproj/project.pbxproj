@@ -63,6 +63,7 @@
 		115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21061D41B9750097DE57 /* SCOtherBaseViewController.m */; };
 		115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */; };
 		115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */; };
+		115CCDF41D796E8D0045ED5F /* UILabel+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 115CCDF31D796E8D0045ED5F /* UILabel+Addition.m */; };
 		116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */; };
 		116475F41D40988700A3BC1C /* SCOptionalVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */; };
 		116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */; };
@@ -267,6 +268,8 @@
 		115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveAllEpisodesVC.m; sourceTree = "<group>"; };
 		115A21281D42290C0097DE57 /* SCMoiveIntroduceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveIntroduceVC.h; sourceTree = "<group>"; };
 		115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveIntroduceVC.m; sourceTree = "<group>"; };
+		115CCDF21D796E8D0045ED5F /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Addition.h"; sourceTree = "<group>"; };
+		115CCDF31D796E8D0045ED5F /* UILabel+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Addition.m"; sourceTree = "<group>"; };
 		116475EC1D40977100A3BC1C /* SCOptionalVideoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableView.h; sourceTree = "<group>"; };
 		116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOptionalVideoTableView.m; sourceTree = "<group>"; };
 		116475F11D40988700A3BC1C /* SCOptionalVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableViewCell.h; sourceTree = "<group>"; };
@@ -782,15 +785,24 @@
 			name = MainBody;
 			sourceTree = "<group>";
 		};
+		115CCDF11D7919030045ED5F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				116475F11D40988700A3BC1C /* SCOptionalVideoTableViewCell.h */,
+				116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */,
+				116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */,
+				116475F61D4098EF00A3BC1C /* SCPastVideoTableViewCell.h */,
+				116475F71D4098EF00A3BC1C /* SCPastVideoTableViewCell.m */,
+				116475F81D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		116475EF1D4097E000A3BC1C /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
 				11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */,
 				11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */,
-				116475EC1D40977100A3BC1C /* SCOptionalVideoTableView.h */,
-				116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */,
-				116475FB1D40ADDC00A3BC1C /* SCPastVideoTableView.h */,
-				116475FC1D40ADDC00A3BC1C /* SCPastVideoTableView.m */,
 			);
 			name = MainBody;
 			sourceTree = "<group>";
@@ -800,12 +812,10 @@
 			children = (
 				11FACB4A1D3F19A000AAC216 /* SCSearchBarView.h */,
 				11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */,
-				116475F11D40988700A3BC1C /* SCOptionalVideoTableViewCell.h */,
-				116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */,
-				116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */,
-				116475F61D4098EF00A3BC1C /* SCPastVideoTableViewCell.h */,
-				116475F71D4098EF00A3BC1C /* SCPastVideoTableViewCell.m */,
-				116475F81D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib */,
+				116475EC1D40977100A3BC1C /* SCOptionalVideoTableView.h */,
+				116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */,
+				116475FB1D40ADDC00A3BC1C /* SCPastVideoTableView.h */,
+				116475FC1D40ADDC00A3BC1C /* SCPastVideoTableView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -939,6 +949,7 @@
 			children = (
 				116475EF1D4097E000A3BC1C /* MainBody */,
 				116475F01D40982900A3BC1C /* View */,
+				115CCDF11D7919030045ED5F /* Cell */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -1220,6 +1231,8 @@
 				1101750C1D54A40000E43773 /* NSString+Dong.m */,
 				11C905DD1D6C3BB9004D3749 /* NSDate+Addition.h */,
 				11C905DE1D6C3BB9004D3749 /* NSDate+Addition.m */,
+				115CCDF21D796E8D0045ED5F /* UILabel+Addition.h */,
+				115CCDF31D796E8D0045ED5F /* UILabel+Addition.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -1696,6 +1709,7 @@
 				1187027B1D740A3F005B3895 /* SCVideoLoadingView.m in Sources */,
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
 				116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */,
+				115CCDF41D796E8D0045ED5F /* UILabel+Addition.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
 				1131C0E51D6707F400BA151A /* SCRotatoUtil.m in Sources */,

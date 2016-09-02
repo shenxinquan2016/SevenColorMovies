@@ -8,11 +8,31 @@
 
 #import "SCOptionalVideoTableViewCell.h"
 
+@interface SCOptionalVideoTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *filmNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *directorLabel;
+
+@property (weak, nonatomic) IBOutlet UITextView *mainCharacterTextView;
+
+@property (weak, nonatomic) IBOutlet UILabel *filmIntroduceLabel;
+
+
+@end
+
 @implementation SCOptionalVideoTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.mainCharacterTextView.textContainerInset = UIEdgeInsetsMake(2.5, 0, 0, 0);
+    
+}
+
+- (void)viewDidLayoutSubviews{
+    
+   
+
 }
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {
@@ -21,7 +41,7 @@
     SCOptionalVideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+
     return cell;
 }
 

@@ -3,46 +3,78 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" restorationIdentifier="SCPastVideoTableViewCell" selectionStyle="default" indentationWidth="10" rowHeight="84" id="KGk-i7-Jjw" customClass="SCPastVideoTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="SCPastVideoTableViewCell" selectionStyle="default" indentationWidth="10" rowHeight="94" id="KGk-i7-Jjw" customClass="SCPastVideoTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="83.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="93.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Image-1" translatesAutoresizingMaskIntoConstraints="NO" id="M6f-mH-3zB">
-                        <rect key="frame" x="8" y="8" width="121" height="69"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image-1" translatesAutoresizingMaskIntoConstraints="NO" id="M6f-mH-3zB">
+                        <rect key="frame" x="14" y="13" width="121" height="69"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="121" id="AvV-fr-Tlc"/>
+                            <constraint firstAttribute="height" constant="69" id="FwV-YT-jfM"/>
+                        </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="info.png" translatesAutoresizingMaskIntoConstraints="NO" id="5Cc-HW-NbX">
-                        <rect key="frame" x="137" y="11" width="21" height="21"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NowPlaying" translatesAutoresizingMaskIntoConstraints="NO" id="5Cc-HW-NbX">
+                        <rect key="frame" x="145" y="17" width="12" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="I6e-dg-L9Z"/>
+                            <constraint firstAttribute="width" constant="12" id="YBU-em-jLg"/>
+                        </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SearchImg" translatesAutoresizingMaskIntoConstraints="NO" id="3jT-0z-Yt2">
-                        <rect key="frame" x="137" y="34" width="21" height="21"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NowPlaying" translatesAutoresizingMaskIntoConstraints="NO" id="3jT-0z-Yt2">
+                        <rect key="frame" x="145" y="40" width="12" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="apC-ID-u3J"/>
+                            <constraint firstAttribute="width" constant="12" id="zf7-3x-81X"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="6月15日17:50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGW-ro-8xs">
-                        <rect key="frame" x="166" y="14" width="107" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6月15日17:50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGW-ro-8xs">
+                        <rect key="frame" x="164" y="15" width="142" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="fBS-HE-2Jv"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="大圣归来" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azE-S8-uUk">
-                        <rect key="frame" x="166" y="37" width="107" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大圣归来" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azE-S8-uUk">
+                        <rect key="frame" x="164" y="38" width="142" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="KOF-ht-UWw"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="IGW-ro-8xs" firstAttribute="leading" secondItem="5Cc-HW-NbX" secondAttribute="trailing" constant="7" id="18E-pt-ZKd"/>
+                    <constraint firstItem="azE-S8-uUk" firstAttribute="leading" secondItem="3jT-0z-Yt2" secondAttribute="trailing" constant="7" id="2Ot-cx-WlZ"/>
+                    <constraint firstItem="5Cc-HW-NbX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="9" id="9AX-un-fYc"/>
+                    <constraint firstItem="5Cc-HW-NbX" firstAttribute="leading" secondItem="M6f-mH-3zB" secondAttribute="trailing" constant="10" id="B5s-6G-Tw7"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="azE-S8-uUk" secondAttribute="trailing" constant="6" id="Jal-0q-RdO"/>
+                    <constraint firstItem="M6f-mH-3zB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="6" id="U5J-Ld-0zz"/>
+                    <constraint firstItem="M6f-mH-3zB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Uom-PQ-zgv"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="IGW-ro-8xs" secondAttribute="trailing" constant="6" id="W5K-Dd-GTe"/>
+                    <constraint firstItem="IGW-ro-8xs" firstAttribute="centerY" secondItem="5Cc-HW-NbX" secondAttribute="centerY" id="foB-Cs-jHr"/>
+                    <constraint firstItem="azE-S8-uUk" firstAttribute="centerY" secondItem="3jT-0z-Yt2" secondAttribute="centerY" id="mMX-1E-tM0"/>
+                    <constraint firstItem="3jT-0z-Yt2" firstAttribute="centerX" secondItem="5Cc-HW-NbX" secondAttribute="centerX" id="nKY-tg-b1n"/>
+                    <constraint firstItem="3jT-0z-Yt2" firstAttribute="top" secondItem="5Cc-HW-NbX" secondAttribute="bottom" constant="11" id="nPX-r7-VVQ"/>
+                </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="531" y="223"/>
+            <point key="canvasLocation" x="531" y="228"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="Image-1" width="111" height="62"/>
-        <image name="SearchImg" width="14" height="14"/>
-        <image name="info.png" width="27" height="28"/>
+        <image name="NowPlaying" width="12" height="12"/>
     </resources>
 </document>

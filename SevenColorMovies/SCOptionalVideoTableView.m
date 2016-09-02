@@ -52,6 +52,8 @@ NSString *identifier;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
         SCOptionalVideoTableViewCell *cell = [SCOptionalVideoTableViewCell cellWithTableView:tableView];
+    
+    
         return cell;
 
     
