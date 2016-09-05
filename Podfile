@@ -11,5 +11,8 @@ target 'SevenColorMovies' do
     pod 'AFNetworking', '~>2.5.4'
     pod 'SDCycleScrollView','~> 1.61'
     pod 'MJRefresh', '~> 3.1.10'
+    pod 'IQKeyboardManager', '~> 4.0.5'
+    pod 'ReactiveCocoa'
 
+    
 end

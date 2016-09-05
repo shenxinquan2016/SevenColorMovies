@@ -88,6 +88,7 @@ const CGFloat LabelWidth = 100;
     rightNegativeSpacer.width = -5;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
     self.searchTF = searchView.searchTF;
+    _searchTF.delegate = self;
     _searchTF.returnKeyType =  UIReturnKeySearch;
     //[_searchTF becomeFirstResponder];
     _searchBBI = btn;
