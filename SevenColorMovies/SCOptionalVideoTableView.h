@@ -10,6 +10,8 @@
 
 @interface SCOptionalVideoTableView : UITableViewController
 
+@property (nonatomic, strong) NSMutableArray *dataSource;
+
 + (instancetype)initTableViewWithIdentifier:(NSString *)tag;
 
 @end

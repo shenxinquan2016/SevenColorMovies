@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCFilmModel.h"
 
 @interface SCOptionalVideoTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) SCFilmModel *filmModel;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

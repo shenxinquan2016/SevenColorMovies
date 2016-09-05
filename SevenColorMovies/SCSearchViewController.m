@@ -11,6 +11,7 @@
 #import "SCSlideHeaderLabel.h"
 #import "SCOptionalVideoTableView.h"
 #import "SCPastVideoTableView.h"
+#import "SCFilmModel.h"
 
 const CGFloat TitleHeight = 50.0f;
 const CGFloat StatusBarHeight = 20.0f;
@@ -22,7 +23,9 @@ const CGFloat LabelWidth = 100;
 @property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
 @property (nonatomic, strong) NSArray *titleArr;/** 标题数组 */
 @property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
-@property(nonatomic,strong)  UITextField *searchTF;/** 搜索textField */
+@property (nonatomic, strong) UITextField *searchTF;/** 搜索textField */
+@property (nonatomic, strong) NSMutableArray *VODModelArray;/** 点播搜索结果array */
+@property (nonatomic, strong) NSMutableArray *programModelArray;/** 回看搜索结果array */
 
 @end
 
@@ -35,7 +38,7 @@ const CGFloat LabelWidth = 100;
     self.automaticallyAdjustsScrollViewInsets = NO;//很大的坑
     
     
-
+    
     
     
     //2.添加搜索框
@@ -45,8 +48,11 @@ const CGFloat LabelWidth = 100;
     //4.添加滑动headerView
     [self constructSlideHeaderView];
     //5.添加contentScrllowView
-    [self constructContentView];
+    //[self constructContentView];
     
+    
+   
+   
     
 }
 
@@ -146,7 +152,7 @@ const CGFloat LabelWidth = 100;
     //默认选择第一个label
     SCSlideHeaderLabel *lable = [self.titleScroll.subviews firstObject];
     lable.scale = 1.0;
-
+    
     
 }
 
@@ -166,6 +172,7 @@ const CGFloat LabelWidth = 100;
             case 0:{
                 SCOptionalVideoTableView *tableView = [[SCOptionalVideoTableView alloc] init];
                 [tableView.view setFrame:_contentScroll.bounds];
+                tableView.dataSource = _VODModelArray;
                 [_contentScroll addSubview:tableView.view];
                 [self addChildViewController:tableView];
                 break;
@@ -268,52 +275,76 @@ const CGFloat LabelWidth = 100;
 }
 
 #pragma mark - UITextFieldDelegate
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
-}
-
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
+    [_searchTF resignFirstResponder];
     
+    NSDate *now = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    
+    NSDate *thisWeek = [now dateByAddingTimeInterval: -7*24*3600];
+    NSString *startTime = [formatter stringFromDate:thisWeek];
+    NSString *endTime = [formatter stringFromDate:now];
+    
+    NSLog(@"+++++++%@+++++++++%@+++++",startTime,endTime);
+    
+    // 时间戳
+    NSString *time1 = [now getTimeStamp];
+    NSString *time2 = [NSString stringWithFormat:@"%lf", [[NSDate date ] timeIntervalSince1970]-7*24*3600];
+    
+    NSLog(@"++++++%@++++++++++%@+++++",time1,time2);
+    //[self getProgramHavePastSearchResultWithFilmName:@"新闻联播" StartTime:startTime EndTime:endTime Page:1];
+    
+    [self getVODSearchResultDataWithFilmName:textField.text Page:1];
     return YES;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    
-    
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    
-    return YES;
-}
-
-- (BOOL)textFieldShouldClear:(UITextField *)textField{
-    
-    return YES;
-}
 
 #pragma mark- 网络请求
 - (void)getVODSearchResultDataWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumber{
     
+    if (self.VODModelArray) {
+        [_VODModelArray removeAllObjects];
+    }else if (!self.VODModelArray){
+        _VODModelArray = [NSMutableArray arrayWithCapacity:0];
+    }
+
+    
     [CommonFunc showLoadingWithTips:@""];
     
-    
-    
     NSDictionary *parameters = @{@"keyword" : keyword,
-                                 @"page" : [NSString stringWithFormat:@"%zd",pageNumber]};
+                                 @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
     [requestDataManager requestDataWithUrl:SearchVODUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
         NSLog(@"==========dic:::%@========",responseObject);
         
+        if ([responseObject[@"movieinfo"] isKindOfClass:[NSDictionary class]]) {
+            
+            NSDictionary *dic = responseObject[@"movieinfo"];
+            SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+            if (filmModel) {
+                [_VODModelArray addObject:filmModel];
+            }
+
+        }else if ([responseObject[@"movieinfo"] isKindOfClass:[NSArray class]]){
+            
+            for (NSDictionary *dic in responseObject[@"movieinfo"]) {
+                
+                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                if (filmModel) {
+                    [_VODModelArray addObject:filmModel];
+                }
+            }
+        }
+        
+        
+        
         //1.添加滑动headerView
-            [self constructSlideHeaderView];
-            //2.添加contentScrllowView
-            [self constructContentView];
+        [self constructSlideHeaderView];
+        //2.添加contentScrllowView
+        [self constructContentView];
         
         
         [CommonFunc dismiss];
@@ -323,13 +354,38 @@ const CGFloat LabelWidth = 100;
         [CommonFunc dismiss];
     }];
     
-
-
-
-    
     
 }
 
+- (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword StartTime:(NSString *)startTime EndTime:(NSString *)endTime Page:(NSInteger)pageNumber{
+    
+    
+    
+    NSDictionary *parameters = @{@"keyword" : keyword,
+                                 //@"starttime" : startTime,
+                                 //@"endtime" : endTime,
+                                 @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
+    
+    [requestDataManager requestDataWithUrl:SearchProgramHavePastUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        NSLog(@"==========dic:::%@========",responseObject);
+        
+        //1.添加滑动headerView
+//        [self constructSlideHeaderView];
+        //2.添加contentScrllowView
+        [self constructContentView];
+        
+        
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+    
+    
+    
+}
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{
     return NO;

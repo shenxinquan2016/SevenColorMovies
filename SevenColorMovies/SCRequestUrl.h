@@ -53,9 +53,9 @@
 
 /******************************************影片搜索接口*******************************************/
 // 点播搜索接口
-#define SearchVODUrl @"http://javasearchtest.voole.com:8060/?serachtype=2&ispid=20151103&epgid=909191&field=&categoryid=&weight=&years=&limit=50&format=1&mtype="
+#define SearchVODUrl @"http://10.177.1.235:8060/?serachtype=2&ispid=20151103&epgid=909191&field=&categoryid=&weight=&years=&limit=50&format=1&mtype="
 // 回看搜获接口
-#define SearchProgramHavePastUrl @"http://javasearchtest.voole.com:8060/live/?areaid=cwtest&uid=0&oemid=30050&hid=&limit=50"
+#define SearchProgramHavePastUrl @"http://10.177.1.235:8060/live/?areaid=cwtest&uid=0&oemid=30050&hid=&limit=50"
 
 
 

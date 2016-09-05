@@ -61,13 +61,10 @@ static NSString *const footerId = @"footerId";
     self.view.backgroundColor = [UIColor colorWithHex:@"#dddddd"];
     //1. 设置导航栏的颜色(效果只作用当前页面）
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHex:@"#F0F1F2"]];
-    // 设置导航栏的颜色（效果作用到所有页面）
+   
+    //2.设置导航栏的颜色（效果作用到所有页面）
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setBarTintColor:[UIColor colorWithHex:@"#F1F1F1"]];
-    //2. 初始化数组
-    
-    
-    
     
     //3.添加collectionView
     [self addCollView];
@@ -184,7 +181,7 @@ static NSString *const footerId = @"footerId";
     
     
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
-        
+         //NSLog(@"==========dic:::%@========",responseObject);
         if (responseObject){
             //1.第一层 filmList
             SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
@@ -195,7 +192,7 @@ static NSString *const footerId = @"footerId";
                     
                     [_titleArray addObject:classModel._FilmClassName];
                     [_filmClassArray addObject:classModel];
-                    
+                    _collView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);//留白添加banner
                     [_collView reloadData];
                     
                     //                NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);

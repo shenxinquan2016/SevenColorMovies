@@ -30,6 +30,8 @@ NSString *identifier;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.tableFooterView = [UIView new];
+    
     //集成上拉加载更多
     [self setTableViewRefresh];
     
@@ -42,7 +44,7 @@ NSString *identifier;
 
 #pragma mark - 集成刷新
 - (void)setTableViewRefresh {
-    [CommonFunc setupRefreshWithView:self.tableView withSelf:self headerFunc:@selector(headerRefresh) headerFuncFirst:YES footerFunc:@selector(footerRefresh)];
+    [CommonFunc setupRefreshWithView:self.tableView withSelf:self headerFunc:nil headerFuncFirst:YES footerFunc:@selector(footerRefresh)];
 }
 
 - (void)headerRefresh {
@@ -50,7 +52,7 @@ NSString *identifier;
 }
 
 - (void)footerRefresh {
-//    _page++;
+    //    _page++;
     
     
 }
@@ -58,30 +60,30 @@ NSString *identifier;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 2;
+    
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    return 3;
+    
+    return self.dataSource.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  
-        SCOptionalVideoTableViewCell *cell = [SCOptionalVideoTableViewCell cellWithTableView:tableView];
     
+    SCOptionalVideoTableViewCell *cell = [SCOptionalVideoTableViewCell cellWithTableView:tableView];
+    cell.filmModel = self.dataSource[indexPath.row];
     
-        return cell;
-
+    return cell;
+    
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-   
-        return 164;
-        
+    
+    return 164;
+    
     
 }
 
@@ -104,7 +106,7 @@ NSString *identifier;
         
         NSLog(@"==========dic:::%@========",responseObject);
         
-
+        
         
         
         [CommonFunc dismiss];

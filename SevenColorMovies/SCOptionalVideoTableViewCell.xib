@@ -117,6 +117,7 @@
             </constraints>
             <connections>
                 <outlet property="directorLabel" destination="jxz-Cy-3yS" id="Xjb-6V-9ce"/>
+                <outlet property="filmImageView" destination="vb6-5o-i0Q" id="tqr-LJ-yC5"/>
                 <outlet property="filmIntroduceLabel" destination="pbv-vg-7Vi" id="WRH-f7-cuD"/>
                 <outlet property="filmNameLabel" destination="yC8-QO-Zy3" id="2w4-Uy-p11"/>
                 <outlet property="mainCharacterTextView" destination="sV9-Po-thL" id="Fcz-PJ-CZf"/>

@@ -10,12 +10,11 @@
 
 @interface SCOptionalVideoTableViewCell ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *filmImageView;
 @property (weak, nonatomic) IBOutlet UILabel *filmNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *directorLabel;
-
 @property (weak, nonatomic) IBOutlet UITextView *mainCharacterTextView;
-
 @property (weak, nonatomic) IBOutlet UILabel *filmIntroduceLabel;
 
 
@@ -59,6 +58,16 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setFilmModel:(SCFilmModel *)filmModel{
+    
+    [self.filmImageView sd_setImageWithURL:[NSURL URLWithString:filmModel.smallposterurl] placeholderImage:[UIImage imageNamed:@"NoImage"]];
+    self.filmNameLabel.text = filmModel.cnname;
+    self.scoreLabel.text = [NSString stringWithFormat:@"评分：%@",filmModel.endGrade];
+    self.directorLabel.text = filmModel._Year;
+    self.mainCharacterTextView.text = filmModel.actor;
+    self.filmIntroduceLabel.text = filmModel.storyintro;
 }
 
 @end

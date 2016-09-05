@@ -10,7 +10,6 @@
 
 @interface SCFilmModel : NSObject
 
-
 @property (nonatomic, copy) NSString *FilmName;/** 影片名称 两个都用 */
 @property (nonatomic, copy) NSString *cnname;/** 影片名称 两个都用  */
 @property (nonatomic, copy) NSString *_Title;/** Live频道名称 */
@@ -28,11 +27,14 @@
 @property (nonatomic, copy) NSString *_ImgUrlOriginal;/** banner图片URL  老接口 */
 @property (nonatomic, copy) NSString *_ImgUrlO;/** banner图片URL  新接口 */
 @property (nonatomic, copy) NSString *_PlayUrl;/** Live直播资源 */
-@property (nonatomic, copy) NSString *_Area;/**  */
-@property (nonatomic, copy) NSString *_FilmFormat;/**  */
 @property (nonatomic, copy) NSString *WatchFocus;/** 请求数据时间 */
+
 @property (nonatomic, copy) NSString *nowPlaying;/** 正在播出 直播 */
 @property (nonatomic, copy) NSString *nextPlay;/** 即将播出 直播 */
 @property (nonatomic, copy) NSString *_TvId;/** 直播节目id 直播 */
+
+@property (nonatomic, copy) NSString *storyintro;/** 影片介绍  点播搜索 */
+@property (nonatomic, copy) NSString *actor;/** 主演  点播搜索 */
+@property (nonatomic, copy) NSString *endGrade;/** 评分  点播搜索 */
 
 @end
