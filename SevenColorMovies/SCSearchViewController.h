@@ -11,7 +11,6 @@
 
 @interface SCSearchViewController : SCOtherBaseViewController
 
+@property (nonatomic,strong) UIButton *searchBBI;/** 搜索 */
 
-/** 搜索 */
-@property (nonatomic,strong) UIButton *searchBBI;
 @end

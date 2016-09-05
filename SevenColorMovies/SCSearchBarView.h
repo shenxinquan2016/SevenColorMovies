@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SCSearchBarView : UIView
-/**
- *  搜索textField
- */
-@property(nonatomic,strong)  UITextField *searchTF;
+
+@property(nonatomic,strong)  UITextField *searchTF;/** 搜索textField */
 
 @end

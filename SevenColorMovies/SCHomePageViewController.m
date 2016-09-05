@@ -109,7 +109,7 @@ static NSString *const footerId = @"footerId";
     [_collView setFrame:self.view.bounds];
     
     //2.集成刷新
-    [self setCollectionViewRefresh];
+//    [self setCollectionViewRefresh];
     
 }
 

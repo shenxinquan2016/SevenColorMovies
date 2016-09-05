@@ -12,22 +12,17 @@
 #import "SCOptionalVideoTableView.h"
 #import "SCPastVideoTableView.h"
 
-
-
 const CGFloat TitleHeight = 50.0f;
 const CGFloat StatusBarHeight = 20.0f;
 const CGFloat LabelWidth = 100;
 
-@interface SCSearchViewController ()<UIScrollViewDelegate>
-/** 标题栏scrollView */
-@property (nonatomic, strong) UIScrollView *titleScroll;
-/** 内容栏scrollView */
-@property (nonatomic, strong) UIScrollView *contentScroll;
+@interface SCSearchViewController ()<UIScrollViewDelegate, UITextFieldDelegate>
 
-/** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *titleArr;
-/** 滑动短线 */
-@property (nonatomic, strong) CALayer *bottomLine;
+@property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
+@property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
+@property (nonatomic, strong) NSMutableArray *titleArr;/** 标题数组 */
+@property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
+@property(nonatomic,strong)  UITextField *searchTF;/** 搜索textField */
 
 @end
 
@@ -92,10 +87,12 @@ const CGFloat LabelWidth = 100;
                                             target:nil action:nil];
     rightNegativeSpacer.width = -5;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
+    self.searchTF = searchView.searchTF;
+    _searchTF.returnKeyType =  UIReturnKeySearch;
+    //[_searchTF becomeFirstResponder];
     _searchBBI = btn;
     
 }
-
 
 
 
@@ -268,6 +265,37 @@ const CGFloat LabelWidth = 100;
     _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
 }
+
+#pragma mark - UITextFieldDelegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+    
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    
+    return YES;
+}
+
+
 
 
 // 禁止旋转屏幕
