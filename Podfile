@@ -12,8 +12,8 @@ target 'SevenColorMovies' do
     pod 'SDCycleScrollView','~> 1.61'
     pod 'MJRefresh', '~> 3.1.10'
     pod 'IQKeyboardManager', '~> 4.0.5'
-    pod 'ReactiveCocoa'
-    
-    use_frameworks!
-    
+#    pod 'ReactiveCocoa'
+
+#    use_frameworks!
+
 end

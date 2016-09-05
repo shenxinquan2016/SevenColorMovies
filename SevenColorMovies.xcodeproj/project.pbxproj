@@ -3821,7 +3821,7 @@
 				<string>116B1F581D53236B00E9637A</string>
 				<string>116B1F561D53235600E9637A</string>
 				<string>116B1F541D53211C00E9637A</string>
-				<string>64E85C725F1D2BE3D0087DFA</string>
+				<string>3C8B34AA809C96AD5B335A3F</string>
 			</array>
 			<key>isa</key>
 			<string>PBXFrameworksBuildPhase</string>
@@ -3927,7 +3927,6 @@
 			<array>
 				<string>11BB377A1D38B9A00002D487</string>
 				<string>11BB377B1D38B9A00002D487</string>
-				<string>1187027E1D7436B7005B3895</string>
 				<string>11BB37C41D38DC450002D487</string>
 				<string>11BB37C31D38DC320002D487</string>
 				<string>11BB37C11D38DB290002D487</string>
@@ -4784,6 +4783,7 @@
 		<dict>
 			<key>children</key>
 			<array>
+				<string>1187027E1D7436B7005B3895</string>
 				<string>1122FF671D4A260E00E6E8A2</string>
 				<string>11D422601D49F4E400B4F9AE</string>
 				<string>11D422511D499FF900B4F9AE</string>
@@ -6324,6 +6324,13 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>3C8B34AA809C96AD5B335A3F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>AA24F2F6965B699BDA51AFE8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>44844E586861AA1504AA2D05</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -6352,13 +6359,6 @@
 			<string>Pods</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>64E85C725F1D2BE3D0087DFA</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D697AAF6325EC500C45502A1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>76A379AB0C02107AB0C9423C</key>
 		<dict>
@@ -6414,6 +6414,19 @@ fi
 			<key>showEnvVarsInLog</key>
 			<string>0</string>
 		</dict>
+		<key>AA24F2F6965B699BDA51AFE8</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-SevenColorMovies.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
 		<key>BB7417922FA2A9215D327938</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -6453,19 +6466,6 @@ fi
 			<key>showEnvVarsInLog</key>
 			<string>0</string>
 		</dict>
-		<key>D697AAF6325EC500C45502A1</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>Pods_SevenColorMovies.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
 		<key>EA43CF5B333599320E8DB727</key>
 		<dict>
 			<key>children</key>
@@ -6484,7 +6484,7 @@ fi
 				<string>116B1F571D53236B00E9637A</string>
 				<string>116B1F551D53235600E9637A</string>
 				<string>116B1F531D53211C00E9637A</string>
-				<string>D697AAF6325EC500C45502A1</string>
+				<string>AA24F2F6965B699BDA51AFE8</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>

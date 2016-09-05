@@ -20,7 +20,7 @@ const CGFloat LabelWidth = 100;
 
 @property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
-@property (nonatomic, strong) NSMutableArray *titleArr;/** 标题数组 */
+@property (nonatomic, strong) NSArray *titleArr;/** 标题数组 */
 @property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
 @property(nonatomic,strong)  UITextField *searchTF;/** 搜索textField */
 
@@ -41,7 +41,7 @@ const CGFloat LabelWidth = 100;
     //2.添加搜索框
     [self addSearchBBI];
     //3.初始化数组
-    self.titleArr = [@[@"点播",@"回看"] copy];
+    self.titleArr = @[@"点播(0)", @"回看(0)"];
     //4.添加滑动headerView
     [self constructSlideHeaderView];
     //5.添加contentScrllowView
@@ -296,8 +296,39 @@ const CGFloat LabelWidth = 100;
     return YES;
 }
 
+#pragma mark- 网络请求
+- (void)getVODSearchResultDataWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumber{
+    
+    [CommonFunc showLoadingWithTips:@""];
+    
+    
+    
+    NSDictionary *parameters = @{@"keyword" : keyword,
+                                 @"page" : [NSString stringWithFormat:@"%zd",pageNumber]};
+    
+    [requestDataManager requestDataWithUrl:SearchVODUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        NSLog(@"==========dic:::%@========",responseObject);
+        
+        //1.添加滑动headerView
+            [self constructSlideHeaderView];
+            //2.添加contentScrllowView
+            [self constructContentView];
+        
+        
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+    
 
 
+
+    
+    
+}
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{

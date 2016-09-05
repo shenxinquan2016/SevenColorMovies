@@ -51,6 +51,14 @@
 #define testUrl @"http://interfaceclientzhibosy.voole.com/usrarea_2400/level_0/b2b/livetv/service.php?ctype=4&oemid=765&uid=21&hid=001e4fed8159"
 
 
+/******************************************影片搜索接口*******************************************/
+// 点播搜索接口
+#define SearchVODUrl @"http://javasearchtest.voole.com:8060/?serachtype=2&ispid=20151103&epgid=909191&field=&categoryid=&weight=&years=&limit=50&format=1&mtype="
+// 回看搜获接口
+#define SearchProgramHavePastUrl @"http://javasearchtest.voole.com:8060/live/?areaid=cwtest&uid=0&oemid=30050&hid=&limit=50"
+
+
+
 
 
 #endif /* SCRequestUrl_h */

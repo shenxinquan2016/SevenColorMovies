@@ -82,30 +82,3 @@ strip_invalid_archs() {
   fi
 }
 
-
-if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-SevenColorMovies/AFNetworking.framework"
-  install_framework "Pods-SevenColorMovies/IQKeyboardManager.framework"
-  install_framework "Pods-SevenColorMovies/MBProgressHUD.framework"
-  install_framework "Pods-SevenColorMovies/MJExtension.framework"
-  install_framework "Pods-SevenColorMovies/MJRefresh.framework"
-  install_framework "Pods-SevenColorMovies/Masonry.framework"
-  install_framework "Pods-SevenColorMovies/ReactiveCocoa.framework"
-  install_framework "Pods-SevenColorMovies/Result.framework"
-  install_framework "Pods-SevenColorMovies/SDCycleScrollView.framework"
-  install_framework "Pods-SevenColorMovies/SDWebImage.framework"
-  install_framework "Pods-SevenColorMovies/SVProgressHUD.framework"
-fi
-if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-SevenColorMovies/AFNetworking.framework"
-  install_framework "Pods-SevenColorMovies/IQKeyboardManager.framework"
-  install_framework "Pods-SevenColorMovies/MBProgressHUD.framework"
-  install_framework "Pods-SevenColorMovies/MJExtension.framework"
-  install_framework "Pods-SevenColorMovies/MJRefresh.framework"
-  install_framework "Pods-SevenColorMovies/Masonry.framework"
-  install_framework "Pods-SevenColorMovies/ReactiveCocoa.framework"
-  install_framework "Pods-SevenColorMovies/Result.framework"
-  install_framework "Pods-SevenColorMovies/SDCycleScrollView.framework"
-  install_framework "Pods-SevenColorMovies/SDWebImage.framework"
-  install_framework "Pods-SevenColorMovies/SVProgressHUD.framework"
-fi

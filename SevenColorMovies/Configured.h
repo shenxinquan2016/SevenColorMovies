@@ -32,10 +32,12 @@
 #import "NotificationMacro.h"//通知的宏定义
 #import "UIImageView+WebCache.h"//SDWebImage
 #import "UILabel+Addition.h"
+//@import MJRefresh;
+//@import MJExtension;
 
 
 #if __has_feature(objc_arc)
-#import "ReactiveCocoa.h"
+//#import "ReactiveCocoa.h"
 #endif
 
 #import <AFNetworking/AFNetworking.h>

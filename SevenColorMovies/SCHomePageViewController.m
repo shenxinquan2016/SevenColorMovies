@@ -66,8 +66,8 @@ static NSString *const footerId = @"footerId";
     [navBar setBarTintColor:[UIColor colorWithHex:@"#F1F1F1"]];
     //2. 初始化数组
     
-   
-   
+    
+    
     
     //3.添加collectionView
     [self addCollView];
@@ -109,7 +109,7 @@ static NSString *const footerId = @"footerId";
     [_collView setFrame:self.view.bounds];
     
     //2.集成刷新
-//    [self setCollectionViewRefresh];
+    [self setCollectionViewRefresh];
     
 }
 
@@ -223,7 +223,6 @@ static NSString *const footerId = @"footerId";
                         }else if (_bannerImageUrlArr.count == 0){
                             if (_bannerView) {
                                 [_bannerView removeFromSuperview];
-                                
                             }
                         }
                     }
