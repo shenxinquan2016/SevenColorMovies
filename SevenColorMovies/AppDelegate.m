@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "SCNetUrlManger.h"
+#import "IQKeyboardManager.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +21,9 @@
     
     //    [NSThread sleepForTimeInterval:2.0f];
     //    [self setAppearance];
+    //0.初始化键盘控制
+    [self initKeyboardManager];
+    
     //2.设置网络环境
     [self setNetworkEnvironment];
     
@@ -83,5 +87,16 @@
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     
 }
+
+- (void)initKeyboardManager {
+    
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enable = YES;//enable控制整个功能是否启用。
+    manager.shouldResignOnTouchOutside = YES;//控制点击背景是否收起键盘。
+    manager.shouldToolbarUsesTextFieldTintColor = YES;//控制键盘上的工具条文字颜色是否用户自定义
+    manager.enableAutoToolbar = YES;//控制是否显示键盘上的工具条。
+    
+}
+
 
 @end
