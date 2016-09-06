@@ -14,8 +14,7 @@
 @interface SCOptionalVideoTableView ()
 
 //@property (nonatomic, copy) NSString *identifier;
-@property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic,assign) NSInteger page;/**< 分页标签 */
+@property (nonatomic, copy) NSString *keyWord;/** 键盘输入的内容 */
 
 @end
 
@@ -48,13 +47,11 @@ NSString *identifier;
     [CommonFunc setupRefreshWithView:self.tableView withSelf:self headerFunc:nil headerFuncFirst:YES footerFunc:@selector(footerRefresh)];
 }
 
-- (void)headerRefresh {
+- (void)footerRefresh{
     
-}
-
-- (void)footerRefresh {
-    //    _page++;
-    
+    [self  getVODSearchResultDataWithFilmName:self.keyWord Page:_page++ CallBack:^(id obj) {
+        
+    }];
     
 }
 
@@ -97,14 +94,9 @@ NSString *identifier;
 #pragma mark- 网络请求
 - (void)getVODSearchResultDataWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumber CallBack:(CallBack)callBack{
     
-    if (self.dataSource) {
-        [_dataSource removeAllObjects];
-    }else if (!self.dataSource){
-        _dataSource = [NSMutableArray arrayWithCapacity:0];
-    }
+    self.keyWord = keyword;//保存keyword 供加载更多时使用
     
-    
-    [CommonFunc showLoadingWithTips:@""];
+//    [CommonFunc showLoadingWithTips:@""];
     
     NSDictionary *parameters = @{@"keyword" : keyword,
                                  @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
@@ -143,24 +135,17 @@ NSString *identifier;
         callBack(VODTotalCount);
         
         [self.tableView reloadData];
-        [CommonFunc dismiss];
+        
+        [self.tableView.mj_footer endRefreshing];
+        
         
     } failure:^(id  _Nullable errorObject) {
         
+        [self.tableView.mj_footer endRefreshing];
         [CommonFunc dismiss];
     }];
     
     
 }
-
-    
-    
-    
-    
-    
-    
-
-
-
 
 @end

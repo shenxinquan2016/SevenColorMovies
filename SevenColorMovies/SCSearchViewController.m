@@ -274,6 +274,8 @@ const CGFloat LabelWidth = 100;
     
     //点播搜索
     SCOptionalVideoTableView *VODVC = self.childViewControllers.firstObject;
+    VODVC.dataSource = [NSMutableArray arrayWithCapacity:0];
+    VODVC.page = 2;
     [VODVC getVODSearchResultDataWithFilmName:textField.text Page:1 CallBack:^(id obj) {
         
         NSString *VODTotalCount = [NSString stringWithFormat:@"点播(%@)",obj];
@@ -284,6 +286,8 @@ const CGFloat LabelWidth = 100;
     
     //回看搜索
     SCPastVideoTableView *lookBackVC = self.childViewControllers.lastObject;
+    lookBackVC.dataSource = [NSMutableArray arrayWithCapacity:0];
+    lookBackVC.page = 2;
     [lookBackVC getSearchResultAndChannelLogoWithFilmName:textField.text Page:1 CallBack:^(id obj) {
         
         NSString *lookBackVideoCount = [NSString stringWithFormat:@"回看(%@)",obj];

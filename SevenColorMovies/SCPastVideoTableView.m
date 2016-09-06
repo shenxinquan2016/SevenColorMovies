@@ -12,8 +12,8 @@
 
 @interface SCPastVideoTableView ()
 
-@property (nonatomic, strong) NSMutableArray *dataSource;/** tableView数据数组 */
 @property (nonatomic, strong) NSMutableDictionary *channelLogoDictionary;/** channel Logo字典 */
+@property (nonatomic, copy) NSString *keyWord;/** 键盘输入的内容 */
 
 @end
 
@@ -23,11 +23,26 @@
     [super viewDidLoad];
     self.tableView.tableFooterView = [UIView new];
     
+    //集成上拉加载更多
+    [self setTableViewRefresh];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 集成刷新
+- (void)setTableViewRefresh {
+    [CommonFunc setupRefreshWithView:self.tableView withSelf:self headerFunc:nil headerFuncFirst:YES footerFunc:@selector(footerRefresh)];
+}
+
+- (void)footerRefresh{
+    
+    [self  getProgramHavePastSearchResultWithFilmName:self.keyWord Page:_page++ CallBack:^(id obj) {
+        
+    }];
+    
 }
 
 #pragma mark - Table view data source
@@ -65,6 +80,9 @@
 #pragma mark- 网络请求
 // 获取搜索结果+台标
 - (void)getSearchResultAndChannelLogoWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack{
+    
+    [CommonFunc showLoadingWithTips:@""];
+    
     // 获取台标
     [requestDataManager requestDataWithUrl:GetChannelLogoUrl parameters:nil success:^(id  _Nullable responseObject) {
         
@@ -101,11 +119,7 @@
 // 获取搜索结果
 - (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack{
     
-    if (self.dataSource) {
-        [_dataSource removeAllObjects];
-    }else if (!self.dataSource){
-        _dataSource = [NSMutableArray arrayWithCapacity:0];
-    }
+    self.keyWord = keyword;
     
     NSDate *now = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -162,10 +176,12 @@
         
         [self.tableView reloadData];
         
+        [self.tableView.mj_footer endRefreshing];
         [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
         
+        [self.tableView.mj_footer endRefreshing];
         [CommonFunc dismiss];
     }];
     
