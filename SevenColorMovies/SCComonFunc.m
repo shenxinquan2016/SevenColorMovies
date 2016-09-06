@@ -159,7 +159,7 @@ static int textFieldMoveHight = 0;
             // 隐藏时间
             header.lastUpdatedTimeLabel.hidden = NO;
             
-            /** 忽略多少scrollView的contentInset的top */
+            // 忽略多少scrollView的contentInset的top
             header.ignoredScrollViewContentInsetTop = 165;
             // 隐藏状态
             header.stateLabel.hidden = NO;
@@ -218,9 +218,9 @@ static int textFieldMoveHight = 0;
     
     
     UIImageView *tipImageView = [[UIImageView alloc]init];
-    tipImageView.image = [UIImage imageNamed:@"空白页"];
+    tipImageView.image = [UIImage imageNamed:@"NOData"];
     CGRect rect = tipImageView.frame;
-    rect.origin = CGPointMake((kMainScreenWidth-tipImageView.image.size.width)/2, (ViewHeight(view)-tipImageView.image.size.height)/2-20);
+    rect.origin = CGPointMake((kMainScreenWidth-tipImageView.image.size.width)/2, (ViewHeight(view)-tipImageView.image.size.height)/2-80);
     rect.size = CGSizeMake(tipImageView.image.size.width, tipImageView.image.size.height);
     tipImageView.frame = rect;
     tipImageView.tag = 1001010010;
@@ -229,7 +229,7 @@ static int textFieldMoveHight = 0;
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, (ViewHeight(view)-tipImageView.image.size.height)/2+tipImageView.image.size.height/2+5, kMainScreenWidth-40, 35)];
     tipLabel.textAlignment = NSTextAlignmentCenter;
     tipLabel.numberOfLines = 2;
-    tipLabel.font = [UIFont systemFontOfSize:14.0];
+    tipLabel.font = [UIFont systemFontOfSize:17.0];
     tipLabel.textColor = RGB(175, 175, 175);
     tipLabel.text = tipsStr;
     tipLabel.tag = 1001010011;

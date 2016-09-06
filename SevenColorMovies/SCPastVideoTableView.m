@@ -119,7 +119,7 @@
 // 获取搜索结果
 - (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack{
     
-    self.keyWord = keyword;
+    self.keyWord = keyword;//保存keyword 供加载更多时使用
     
     NSDate *now = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -179,8 +179,14 @@
         [self.tableView.mj_footer endRefreshing];
         [CommonFunc dismiss];
         
-    } failure:^(id  _Nullable errorObject) {
+        if (_dataSource.count == 0) {
+            [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
+        }
+        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:3 responseObject:responseObject];
         
+    } failure:^(id  _Nullable errorObject) {
+       
+        [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
         [self.tableView.mj_footer endRefreshing];
         [CommonFunc dismiss];
     }];

@@ -35,6 +35,7 @@ NSString *identifier;
     //集成上拉加载更多
     [self setTableViewRefresh];
     
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,14 +97,12 @@ NSString *identifier;
     
     self.keyWord = keyword;//保存keyword 供加载更多时使用
     
-//    [CommonFunc showLoadingWithTips:@""];
-    
     NSDictionary *parameters = @{@"keyword" : keyword,
                                  @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
     [requestDataManager requestDataWithUrl:SearchVODUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
-        //NSLog(@"==========dic:::%@========",responseObject);
+        NSLog(@"==========dic:::%@========",responseObject);
         
         if ([responseObject[@"movieinfo"] isKindOfClass:[NSDictionary class]]) {
             
@@ -135,12 +134,16 @@ NSString *identifier;
         callBack(VODTotalCount);
         
         [self.tableView reloadData];
-        
         [self.tableView.mj_footer endRefreshing];
-        
+
+        if (_dataSource.count == 0) {
+            [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
+        }
+        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:3 responseObject:responseObject];
         
     } failure:^(id  _Nullable errorObject) {
         
+        [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
         [self.tableView.mj_footer endRefreshing];
         [CommonFunc dismiss];
     }];
