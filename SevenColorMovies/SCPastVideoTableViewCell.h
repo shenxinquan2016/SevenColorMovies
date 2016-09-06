@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCLiveProgramModel.h"
 
 @interface SCPastVideoTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) SCLiveProgramModel *programModel;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

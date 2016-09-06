@@ -70,6 +70,11 @@
                     <constraint firstItem="3jT-0z-Yt2" firstAttribute="top" secondItem="5Cc-HW-NbX" secondAttribute="bottom" constant="11" id="nPX-r7-VVQ"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="playTimeLabel" destination="IGW-ro-8xs" id="Jfq-L8-AAg"/>
+                <outlet property="programImageView" destination="M6f-mH-3zB" id="9sj-xP-sD2"/>
+                <outlet property="programNameLabel" destination="azE-S8-uUk" id="km7-ip-5ac"/>
+            </connections>
             <point key="canvasLocation" x="531" y="228"/>
         </tableViewCell>
     </objects>

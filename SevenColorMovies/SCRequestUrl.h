@@ -56,7 +56,8 @@
 #define SearchVODUrl @"http://10.177.1.235:8060/?serachtype=2&ispid=20151103&epgid=909191&field=&categoryid=&weight=&years=&limit=50&format=1&mtype="
 // 回看搜获接口
 #define SearchProgramHavePastUrl @"http://10.177.1.235:8060/live/?areaid=cwtest&uid=0&oemid=30050&hid=&limit=50"
-
+// 获取channel logo接口
+#define GetChannelLogoUrl @"http://10.177.1.236:9000/b2b/livetv/service.php?ctype=11&oemid=30050"
 
 
 

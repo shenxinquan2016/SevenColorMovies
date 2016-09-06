@@ -34,7 +34,7 @@
  *
  *  @return 返回时间戳
  */
-+ (NSInteger)timestampFromDate:(NSDate *)date;
++ (NSInteger)timeStampFromDate:(NSDate *)date;
 
 
 /**
@@ -45,7 +45,7 @@
  *
  *  @return 返回时间戳的字符串
  */
-+(NSInteger)timestampFromString:(NSString *)timeStr
++(NSInteger)timeStampFromString:(NSString *)timeStr
                           format:(NSString *)format;
 
 /**

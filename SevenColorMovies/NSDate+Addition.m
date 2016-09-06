@@ -39,7 +39,7 @@
 }
 
 // NSDate转时间戳
-+ (NSInteger)timestampFromDate:(NSDate *)date
++ (NSInteger)timeStampFromDate:(NSDate *)date
 {
     return (long)[date timeIntervalSince1970];
 }
@@ -49,7 +49,7 @@
                           format:(NSString *)format
 {
     NSDate *date = [NSDate dateFromString:timeStr format:format];
-    return [NSDate timestampFromDate:date];
+    return [NSDate timeStampFromDate:date];
 }
 
 // 时间戳转字符串

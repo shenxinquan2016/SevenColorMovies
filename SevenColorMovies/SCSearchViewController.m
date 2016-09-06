@@ -90,7 +90,7 @@ const CGFloat LabelWidth = 100;
     self.searchTF = searchView.searchTF;
     _searchTF.delegate = self;
     _searchTF.returnKeyType =  UIReturnKeySearch;
-    //[_searchTF becomeFirstResponder];
+    [_searchTF becomeFirstResponder];
     _searchBBI = btn;
     
 }
@@ -289,9 +289,8 @@ const CGFloat LabelWidth = 100;
     NSLog(@"++++++%@++++++++++%@+++++",time1,time2);
     //[self getProgramHavePastSearchResultWithFilmName:@"新闻联播" StartTime:startTime EndTime:endTime Page:1];
     
-    SCOptionalVideoTableView *vc = self.childViewControllers.firstObject;
-    
-    [vc getVODSearchResultDataWithFilmName:textField.text Page:1 CallBack:^(id obj) {
+    SCOptionalVideoTableView *VODVC = self.childViewControllers.firstObject;
+    [VODVC getVODSearchResultDataWithFilmName:textField.text Page:1 CallBack:^(id obj) {
         
         NSString *VODTotalCount = [NSString stringWithFormat:@"点播(%@)",obj];
         SCSlideHeaderLabel *lable = [self.titleScroll.subviews firstObject];
@@ -299,40 +298,18 @@ const CGFloat LabelWidth = 100;
         
     }];
     
+    SCPastVideoTableView *lookBackVC = self.childViewControllers.lastObject;
+    [lookBackVC getProgramHavePastSearchResultWithFilmName:textField.text StartTime:startTime EndTime:endTime Page:1 CallBack:^(id obj) {
+        
+        NSString *lookBackVideoCount = [NSString stringWithFormat:@"回看(%@)",obj];
+        SCSlideHeaderLabel *lable = [self.titleScroll.subviews lastObject];
+        lable.text = lookBackVideoCount;
+
+    }];
+    
     return YES;
 }
 
-
-#pragma mark- 网络请求
-- (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword StartTime:(NSString *)startTime EndTime:(NSString *)endTime Page:(NSInteger)pageNumber{
-    
-    
-    
-    NSDictionary *parameters = @{@"keyword" : keyword,
-                                 //@"starttime" : startTime,
-                                 //@"endtime" : endTime,
-                                 @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
-    
-    [requestDataManager requestDataWithUrl:SearchProgramHavePastUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        
-        NSLog(@"==========dic:::%@========",responseObject);
-        
-        //1.添加滑动headerView
-        //        [self constructSlideHeaderView];
-        //2.添加contentScrllowView
-        [self constructContentView];
-        
-        
-        [CommonFunc dismiss];
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        [CommonFunc dismiss];
-    }];
-    
-    
-    
-}
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{
     return NO;

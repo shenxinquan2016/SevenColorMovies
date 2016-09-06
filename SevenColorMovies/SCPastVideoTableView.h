@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^CallBack)(id obj);//回传值block
+
 @interface SCPastVideoTableView : UITableViewController
+
+- (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword StartTime:(NSString *)startTime EndTime:(NSString *)endTime Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack;
 
 @end

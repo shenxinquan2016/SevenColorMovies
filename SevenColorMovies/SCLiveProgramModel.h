@@ -15,4 +15,7 @@
 @property (nonatomic, assign) SCLiveProgramState programState;/* 节目状态:回看/播放/预约 */
 @property (nonatomic, assign, getter = isOnLive) BOOL onLive;/* 节目是否正在播放 */
 
+@property (nonatomic, strong) NSString *forecastdate;/* 回看节目播出时间  回看搜索 */
+@property (nonatomic, strong) NSString *program;/* 回看节目名称  回看搜索 */
+
 @end

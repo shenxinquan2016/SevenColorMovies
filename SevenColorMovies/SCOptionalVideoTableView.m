@@ -14,6 +14,7 @@
 @interface SCOptionalVideoTableView ()
 
 //@property (nonatomic, copy) NSString *identifier;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic,assign) NSInteger page;/**< 分页标签 */
 
 @end
@@ -132,7 +133,13 @@ NSString *identifier;
         }
         
         //总的搜索条数
-        NSString *VODTotalCount = responseObject[@"_dbtotal"];
+        NSString *VODTotalCount ;
+        if (responseObject[@"_dbtotal"]) {
+            VODTotalCount = responseObject[@"_dbtotal"];
+        }else{
+            VODTotalCount = @"0";
+        }
+        
         callBack(VODTotalCount);
         
         [self.tableView reloadData];

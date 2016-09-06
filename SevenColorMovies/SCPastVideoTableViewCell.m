@@ -8,6 +8,13 @@
 
 #import "SCPastVideoTableViewCell.h"
 
+@interface SCPastVideoTableViewCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *programImageView;
+@property (weak, nonatomic) IBOutlet UILabel *playTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *programNameLabel;
+
+@end
+
 @implementation SCPastVideoTableViewCell
 
 - (void)awakeFromNib {
@@ -38,6 +45,17 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setProgramModel:(SCLiveProgramModel *)programModel{
+    
+    
+    self.programNameLabel.text = programModel.program;
+    //NSString - >NSDate
+    NSDate *forecastdate = [NSDate dateFromString:programModel.forecastdate format:@"YYYY-MM-dd HH:mm:ss"];
+    //NSDate -> NSString
+    self.playTimeLabel.text = [NSDate dateStringFromDate:forecastdate withDateFormat:@"MM月dd日 HH:mm"];
+    
 }
 
 @end
