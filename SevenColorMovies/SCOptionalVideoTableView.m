@@ -92,23 +92,50 @@ NSString *identifier;
     NSLog(@"======indexPath.section:%ld",indexPath.section);
 }
 
+
 #pragma mark- 网络请求
-- (void)getVODSearchResultDataWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumber{
+- (void)getVODSearchResultDataWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumber CallBack:(CallBack)callBack{
+    
+    if (self.dataSource) {
+        [_dataSource removeAllObjects];
+    }else if (!self.dataSource){
+        _dataSource = [NSMutableArray arrayWithCapacity:0];
+    }
+    
     
     [CommonFunc showLoadingWithTips:@""];
     
-    
-    
     NSDictionary *parameters = @{@"keyword" : keyword,
-                                 @"page" : [NSString stringWithFormat:@"%zd",pageNumber]};
+                                 @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
     [requestDataManager requestDataWithUrl:SearchVODUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
         NSLog(@"==========dic:::%@========",responseObject);
         
+        if ([responseObject[@"movieinfo"] isKindOfClass:[NSDictionary class]]) {
+            
+            NSDictionary *dic = responseObject[@"movieinfo"];
+            SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+            if (filmModel) {
+                [_dataSource addObject:filmModel];
+            }
+            
+        }else if ([responseObject[@"movieinfo"] isKindOfClass:[NSArray class]]){
+            
+            for (NSDictionary *dic in responseObject[@"movieinfo"]) {
+                
+                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                if (filmModel) {
+                    [_dataSource addObject:filmModel];
+                }
+            }
+        }
         
+        //总的搜索条数
+        NSString *VODTotalCount = responseObject[@"_dbtotal"];
+        callBack(VODTotalCount);
         
-        
+        [self.tableView reloadData];
         [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
@@ -117,11 +144,15 @@ NSString *identifier;
     }];
     
     
-    
-    
-    
-    
 }
+
+    
+    
+    
+    
+    
+    
+
 
 
 

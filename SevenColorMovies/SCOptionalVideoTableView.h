@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^CallBack)(id obj);//回传值block
+
 @interface SCOptionalVideoTableView : UITableViewController
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 + (instancetype)initTableViewWithIdentifier:(NSString *)tag;
+
+- (void)getVODSearchResultDataWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumber CallBack:(CallBack)callBack;
 
 @end

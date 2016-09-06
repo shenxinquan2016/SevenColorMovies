@@ -24,8 +24,7 @@ const CGFloat LabelWidth = 100;
 @property (nonatomic, strong) NSArray *titleArr;/** 标题数组 */
 @property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
 @property (nonatomic, strong) UITextField *searchTF;/** 搜索textField */
-@property (nonatomic, strong) NSMutableArray *VODModelArray;/** 点播搜索结果array */
-@property (nonatomic, strong) NSMutableArray *programModelArray;/** 回看搜索结果array */
+
 
 @end
 
@@ -37,22 +36,17 @@ const CGFloat LabelWidth = 100;
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;//很大的坑
     
-    
-    
-    
-    
-    //2.添加搜索框
+    //1.添加搜索框
     [self addSearchBBI];
-    //3.初始化数组
+    
+    //2.初始化数组
     self.titleArr = @[@"点播(0)", @"回看(0)"];
-    //4.添加滑动headerView
+    
+    //3.添加滑动headerView
     [self constructSlideHeaderView];
-    //5.添加contentScrllowView
-    //[self constructContentView];
     
-    
-   
-   
+    //4.添加contentScrllowView
+    [self constructContentView];
     
 }
 
@@ -172,7 +166,6 @@ const CGFloat LabelWidth = 100;
             case 0:{
                 SCOptionalVideoTableView *tableView = [[SCOptionalVideoTableView alloc] init];
                 [tableView.view setFrame:_contentScroll.bounds];
-                tableView.dataSource = _VODModelArray;
                 [_contentScroll addSubview:tableView.view];
                 [self addChildViewController:tableView];
                 break;
@@ -296,67 +289,21 @@ const CGFloat LabelWidth = 100;
     NSLog(@"++++++%@++++++++++%@+++++",time1,time2);
     //[self getProgramHavePastSearchResultWithFilmName:@"新闻联播" StartTime:startTime EndTime:endTime Page:1];
     
-    [self getVODSearchResultDataWithFilmName:textField.text Page:1];
+    SCOptionalVideoTableView *vc = self.childViewControllers.firstObject;
+    
+    [vc getVODSearchResultDataWithFilmName:textField.text Page:1 CallBack:^(id obj) {
+        
+        NSString *VODTotalCount = [NSString stringWithFormat:@"点播(%@)",obj];
+        SCSlideHeaderLabel *lable = [self.titleScroll.subviews firstObject];
+        lable.text = VODTotalCount;
+        
+    }];
+    
     return YES;
 }
 
 
 #pragma mark- 网络请求
-- (void)getVODSearchResultDataWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumber{
-    
-    if (self.VODModelArray) {
-        [_VODModelArray removeAllObjects];
-    }else if (!self.VODModelArray){
-        _VODModelArray = [NSMutableArray arrayWithCapacity:0];
-    }
-
-    
-    [CommonFunc showLoadingWithTips:@""];
-    
-    NSDictionary *parameters = @{@"keyword" : keyword,
-                                 @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
-    
-    [requestDataManager requestDataWithUrl:SearchVODUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        
-        NSLog(@"==========dic:::%@========",responseObject);
-        
-        if ([responseObject[@"movieinfo"] isKindOfClass:[NSDictionary class]]) {
-            
-            NSDictionary *dic = responseObject[@"movieinfo"];
-            SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-            if (filmModel) {
-                [_VODModelArray addObject:filmModel];
-            }
-
-        }else if ([responseObject[@"movieinfo"] isKindOfClass:[NSArray class]]){
-            
-            for (NSDictionary *dic in responseObject[@"movieinfo"]) {
-                
-                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-                if (filmModel) {
-                    [_VODModelArray addObject:filmModel];
-                }
-            }
-        }
-        
-        
-        
-        //1.添加滑动headerView
-        [self constructSlideHeaderView];
-        //2.添加contentScrllowView
-        [self constructContentView];
-        
-        
-        [CommonFunc dismiss];
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        [CommonFunc dismiss];
-    }];
-    
-    
-}
-
 - (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword StartTime:(NSString *)startTime EndTime:(NSString *)endTime Page:(NSInteger)pageNumber{
     
     
@@ -371,7 +318,7 @@ const CGFloat LabelWidth = 100;
         NSLog(@"==========dic:::%@========",responseObject);
         
         //1.添加滑动headerView
-//        [self constructSlideHeaderView];
+        //        [self constructSlideHeaderView];
         //2.添加contentScrllowView
         [self constructContentView];
         
