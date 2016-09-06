@@ -64,7 +64,7 @@
 
 #pragma mark- 网络请求
 // 获取搜索结果+台标
-- (void)getSearchResultAndChannelLogoWithFilmName:(NSString *)keyword StartTime:(NSString *)startTime EndTime:(NSString *)endTime Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack{
+- (void)getSearchResultAndChannelLogoWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack{
     // 获取台标
     [requestDataManager requestDataWithUrl:GetChannelLogoUrl parameters:nil success:^(id  _Nullable responseObject) {
         
@@ -86,7 +86,7 @@
         }
         
         // 获取搜索结果
-        [self getProgramHavePastSearchResultWithFilmName:keyword StartTime:startTime EndTime:endTime Page:1 CallBack:^(id obj) {
+        [self getProgramHavePastSearchResultWithFilmName:keyword Page:1 CallBack:^(id obj) {
             
             callBack(obj);
         }];
@@ -99,7 +99,7 @@
 }
 
 // 获取搜索结果
-- (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword StartTime:(NSString *)startTime EndTime:(NSString *)endTime Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack{
+- (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack{
     
     if (self.dataSource) {
         [_dataSource removeAllObjects];
@@ -107,6 +107,21 @@
         _dataSource = [NSMutableArray arrayWithCapacity:0];
     }
     
+    NSDate *now = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    
+    NSDate *thisWeek = [now dateByAddingTimeInterval: -7*24*3600];
+    NSString *startTime = [formatter stringFromDate:thisWeek];
+    NSString *endTime = [formatter stringFromDate:now];
+    
+    NSLog(@"+++++++%@+++++++++%@+++++",startTime,endTime);
+    
+    // 时间戳
+    NSString *time1 = [now getTimeStamp];
+    NSString *time2 = [NSString stringWithFormat:@"%lf", [[NSDate date ] timeIntervalSince1970]-7*24*3600];
+    
+    NSLog(@"++++++%@++++++++++%@+++++",time1,time2);
     
     NSDictionary *parameters = @{@"keyword" : keyword,
                                  //@"starttime" : startTime,

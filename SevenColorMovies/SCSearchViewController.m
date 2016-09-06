@@ -272,23 +272,7 @@ const CGFloat LabelWidth = 100;
     
     [_searchTF resignFirstResponder];
     
-    NSDate *now = [NSDate date];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    
-    NSDate *thisWeek = [now dateByAddingTimeInterval: -7*24*3600];
-    NSString *startTime = [formatter stringFromDate:thisWeek];
-    NSString *endTime = [formatter stringFromDate:now];
-    
-    NSLog(@"+++++++%@+++++++++%@+++++",startTime,endTime);
-    
-    // 时间戳
-    NSString *time1 = [now getTimeStamp];
-    NSString *time2 = [NSString stringWithFormat:@"%lf", [[NSDate date ] timeIntervalSince1970]-7*24*3600];
-    
-    NSLog(@"++++++%@++++++++++%@+++++",time1,time2);
-    //[self getProgramHavePastSearchResultWithFilmName:@"新闻联播" StartTime:startTime EndTime:endTime Page:1];
-    
+    //点播搜索
     SCOptionalVideoTableView *VODVC = self.childViewControllers.firstObject;
     [VODVC getVODSearchResultDataWithFilmName:textField.text Page:1 CallBack:^(id obj) {
         
@@ -298,8 +282,9 @@ const CGFloat LabelWidth = 100;
         
     }];
     
+    //回看搜索
     SCPastVideoTableView *lookBackVC = self.childViewControllers.lastObject;
-    [lookBackVC getSearchResultAndChannelLogoWithFilmName:textField.text StartTime:startTime EndTime:endTime Page:1 CallBack:^(id obj) {
+    [lookBackVC getSearchResultAndChannelLogoWithFilmName:textField.text Page:1 CallBack:^(id obj) {
         
         NSString *lookBackVideoCount = [NSString stringWithFormat:@"回看(%@)",obj];
         SCSlideHeaderLabel *lable = [self.titleScroll.subviews lastObject];
