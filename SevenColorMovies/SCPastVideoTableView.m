@@ -12,7 +12,8 @@
 
 @interface SCPastVideoTableView ()
 
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *dataSource;/** tableView数据数组 */
+@property (nonatomic, strong) NSMutableDictionary *channelLogoDictionary;/** channel Logo字典 */
 
 @end
 
@@ -21,8 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.tableFooterView = [UIView new];
-
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,6 +63,42 @@
 }
 
 #pragma mark- 网络请求
+// 获取搜索结果+台标
+- (void)getSearchResultAndChannelLogoWithFilmName:(NSString *)keyword StartTime:(NSString *)startTime EndTime:(NSString *)endTime Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack{
+    // 获取台标
+    [requestDataManager requestDataWithUrl:GetChannelLogoUrl parameters:nil success:^(id  _Nullable responseObject) {
+        
+        //        NSLog(@"==========dic:::%@========",responseObject);
+        
+        self.channelLogoDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
+        [_channelLogoDictionary removeAllObjects];
+        
+        NSArray *array1 = responseObject[@"LiveLookback"];
+        for (NSDictionary *dic1 in array1) {
+            
+            NSArray *array2 = dic1[@"ContentSet"][@"Content"];
+            for (NSDictionary *dic2 in array2) {
+                
+                NSString *key = dic2[@"_ChannelName"];
+                NSString *value = dic2[@"ImgUrl"];
+                [self.channelLogoDictionary setObject:value forKey:key];
+            }
+        }
+        
+        // 获取搜索结果
+        [self getProgramHavePastSearchResultWithFilmName:keyword StartTime:startTime EndTime:endTime Page:1 CallBack:^(id obj) {
+            
+            callBack(obj);
+        }];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+    
+}
+
+// 获取搜索结果
 - (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword StartTime:(NSString *)startTime EndTime:(NSString *)endTime Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack{
     
     if (self.dataSource) {
@@ -70,7 +106,7 @@
     }else if (!self.dataSource){
         _dataSource = [NSMutableArray arrayWithCapacity:0];
     }
-
+    
     
     NSDictionary *parameters = @{@"keyword" : keyword,
                                  //@"starttime" : startTime,
@@ -79,14 +115,14 @@
     
     [requestDataManager requestDataWithUrl:SearchProgramHavePastUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
-        NSLog(@"==========dic:::%@========",responseObject);
+        //NSLog(@"==========dic:::%@========",responseObject);
         
         if ([responseObject[@"program"] isKindOfClass:[NSDictionary class]]) {
             
             NSDictionary *dic = responseObject[@"movieinfo"];
             SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
             
-                [_dataSource addObject:programModel];
+            [_dataSource addObject:programModel];
             
             
         }else if ([responseObject[@"program"] isKindOfClass:[NSArray class]]){
@@ -94,9 +130,9 @@
             for (NSDictionary *dic in responseObject[@"program"]) {
                 
                 SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
+                programModel.channelLogoUrl = [self.channelLogoDictionary objectForKey:programModel.tvchannelen];
                 
-                    [_dataSource addObject:programModel];
-                
+                [_dataSource addObject:programModel];
             }
         }
         
@@ -117,10 +153,6 @@
         
         [CommonFunc dismiss];
     }];
-    
-
-    
-    
     
 }
 

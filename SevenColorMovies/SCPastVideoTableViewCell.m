@@ -49,9 +49,9 @@
 
 - (void)setProgramModel:(SCLiveProgramModel *)programModel{
     
-    
+    [self.programImageView sd_setImageWithURL:[NSURL URLWithString:programModel.channelLogoUrl] placeholderImage:[UIImage imageNamed:@"NoImage"]];
     self.programNameLabel.text = programModel.program;
-    //NSString - >NSDate
+    //NSString -> NSDate
     NSDate *forecastdate = [NSDate dateFromString:programModel.forecastdate format:@"YYYY-MM-dd HH:mm:ss"];
     //NSDate -> NSString
     self.playTimeLabel.text = [NSDate dateStringFromDate:forecastdate withDateFormat:@"MM月dd日 HH:mm"];

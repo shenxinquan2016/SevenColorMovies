@@ -111,7 +111,7 @@ NSString *identifier;
     
     [requestDataManager requestDataWithUrl:SearchVODUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
-        NSLog(@"==========dic:::%@========",responseObject);
+        //NSLog(@"==========dic:::%@========",responseObject);
         
         if ([responseObject[@"movieinfo"] isKindOfClass:[NSDictionary class]]) {
             

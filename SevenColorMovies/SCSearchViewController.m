@@ -299,7 +299,7 @@ const CGFloat LabelWidth = 100;
     }];
     
     SCPastVideoTableView *lookBackVC = self.childViewControllers.lastObject;
-    [lookBackVC getProgramHavePastSearchResultWithFilmName:textField.text StartTime:startTime EndTime:endTime Page:1 CallBack:^(id obj) {
+    [lookBackVC getSearchResultAndChannelLogoWithFilmName:textField.text StartTime:startTime EndTime:endTime Page:1 CallBack:^(id obj) {
         
         NSString *lookBackVideoCount = [NSString stringWithFormat:@"回看(%@)",obj];
         SCSlideHeaderLabel *lable = [self.titleScroll.subviews lastObject];

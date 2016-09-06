@@ -28,9 +28,9 @@
 // filmClass接口
 #define FilmClass @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=gf201606271730129921467019536749"
 // 点播播放接口
-#define VODUrl  @"http://10.177.1.245/Service.do?action=b2bplayauth&pid=101001&playtype=0&checkproduct=0&checkuser=0&adversion=1.3.7&area=1208&hid=00301bba02db&oemid=781&epgid=600111&spid=20120528&uid=0"
+#define VODUrl  @"http://10.177.1.245/Service.do?action=b2bplayauth&pid=101001&playtype=0&checkproduct=0&checkuser=0&adversion=1.3.7&area=1208&hid=00301bba02db&oemid=30050&epgid=600111&spid=20120528&uid=0"
 // 直播页接口
-#define LivePageUrl @"http://10.177.1.236:9000/b2b/livetv/service.php?ctype=4&oemid=300126&uid=0&hid=58:48:22:6b:f3:009"
+#define LivePageUrl @"http://10.177.1.236:9000/b2b/livetv/service.php?ctype=4&oemid=30050&uid=0&hid=58:48:22:6b:f3:009"
 // 直播节目列表接口
 #define LiveProgramList @"http://10.177.1.236:9000/b2b/livetv/service.php?ctype=12&tvid=14&oemid=30050"
 // 获取直播节目播放流url接口
@@ -48,7 +48,7 @@
 
 
 
-#define testUrl @"http://interfaceclientzhibosy.voole.com/usrarea_2400/level_0/b2b/livetv/service.php?ctype=4&oemid=765&uid=21&hid=001e4fed8159"
+#define testUrl @"http://interfaceclientzhibosy.voole.com/usrarea_2400/level_0/b2b/livetv/service.php?ctype=4&oemid=30050&uid=21&hid=001e4fed8159"
 
 
 /******************************************影片搜索接口*******************************************/

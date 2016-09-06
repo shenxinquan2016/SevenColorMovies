@@ -17,5 +17,7 @@
 
 @property (nonatomic, strong) NSString *forecastdate;/* 回看节目播出时间  回看搜索 */
 @property (nonatomic, strong) NSString *program;/* 回看节目名称  回看搜索 */
+@property (nonatomic, strong) NSString *tvchannelen;/* 频道名称  回看搜索 */
+@property (nonatomic, strong) NSString *channelLogoUrl;/* 节目logo url  回看搜索 */
 
 @end
