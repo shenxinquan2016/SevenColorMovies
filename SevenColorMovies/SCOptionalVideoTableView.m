@@ -97,12 +97,15 @@ NSString *identifier;
     
     self.keyWord = keyword;//保存keyword 供加载更多时使用
     
+    if (pageNumber == 1) {
+        [_dataSource removeAllObjects];
+    }
     NSDictionary *parameters = @{@"keyword" : keyword,
                                  @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
     [requestDataManager requestDataWithUrl:SearchVODUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
-        NSLog(@"==========dic:::%@========",responseObject);
+//        NSLog(@"==========dic:::%@========",responseObject);
         
         if ([responseObject[@"movieinfo"] isKindOfClass:[NSDictionary class]]) {
             
@@ -138,11 +141,16 @@ NSString *identifier;
 
         if (_dataSource.count == 0) {
             [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
+        }else{
+            [CommonFunc hideTipsViews:self.tableView];
         }
-        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:3 responseObject:responseObject];
+        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"movieinfo"]];
         
     } failure:^(id  _Nullable errorObject) {
-        
+        //总的搜索条数
+        NSString *VODTotalCount = @"0";
+        callBack(VODTotalCount);
+        [self.tableView reloadData];
         [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
         [self.tableView.mj_footer endRefreshing];
         [CommonFunc dismiss];

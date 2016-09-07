@@ -197,6 +197,7 @@ static int textFieldMoveHight = 0;
  */
 - (void)mj_FooterViewHidden:(UITableView *)tableView dataArray:(NSMutableArray *)dataArray pageMaxNumber:(NSInteger)pageMaxNumber responseObject:(nullable id)responseObject {
     NSArray *arr = responseObject;
+    NSLog(@">>>>>>>>>>dataArray.count:%lu",arr.count);
     if (dataArray.count < pageMaxNumber) {
         tableView.mj_footer.hidden = YES;
     }
@@ -220,13 +221,13 @@ static int textFieldMoveHight = 0;
     UIImageView *tipImageView = [[UIImageView alloc]init];
     tipImageView.image = [UIImage imageNamed:@"NOData"];
     CGRect rect = tipImageView.frame;
-    rect.origin = CGPointMake((kMainScreenWidth-tipImageView.image.size.width)/2, (ViewHeight(view)-tipImageView.image.size.height)/2-80);
+    rect.origin = CGPointMake((kMainScreenWidth-tipImageView.image.size.width)/2, (ViewHeight(view)-tipImageView.image.size.height)/2-60);
     rect.size = CGSizeMake(tipImageView.image.size.width, tipImageView.image.size.height);
     tipImageView.frame = rect;
     tipImageView.tag = 1001010010;
     [view addSubview:tipImageView];
     
-    UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, (ViewHeight(view)-tipImageView.image.size.height)/2+tipImageView.image.size.height/2+5, kMainScreenWidth-40, 35)];
+    UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, tipImageView.frame.origin.y+tipImageView.image.size.height+5, kMainScreenWidth-40, 35)];
     tipLabel.textAlignment = NSTextAlignmentCenter;
     tipLabel.numberOfLines = 2;
     tipLabel.font = [UIFont systemFontOfSize:17.0];

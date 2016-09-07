@@ -79,7 +79,7 @@
 
 #pragma mark- 网络请求
 // 获取搜索结果+台标
-- (void)getSearchResultAndChannelLogoWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack{
+- (void)getSearchResultAndChannelLogoWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumber CallBack:(CallBack)callBack{
     
     [CommonFunc showLoadingWithTips:@""];
     
@@ -104,7 +104,7 @@
         }
         
         // 获取搜索结果
-        [self getProgramHavePastSearchResultWithFilmName:keyword Page:1 CallBack:^(id obj) {
+        [self getProgramHavePastSearchResultWithFilmName:keyword Page:pageNumber CallBack:^(id obj) {
             
             callBack(obj);
         }];
@@ -117,9 +117,14 @@
 }
 
 // 获取搜索结果
-- (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumbe CallBack:(CallBack)callBack{
+- (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumber CallBack:(CallBack)callBack{
     
     self.keyWord = keyword;//保存keyword 供加载更多时使用
+    
+    if (pageNumber == 1) {
+        [_dataSource removeAllObjects];
+    }
+
     
     NSDate *now = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -129,18 +134,18 @@
     NSString *startTime = [formatter stringFromDate:thisWeek];
     NSString *endTime = [formatter stringFromDate:now];
     
-    NSLog(@"+++++++%@+++++++++%@+++++",startTime,endTime);
+    //NSLog(@"+++++++%@+++++++++%@+++++",startTime,endTime);
     
     // 时间戳
     NSString *time1 = [now getTimeStamp];
     NSString *time2 = [NSString stringWithFormat:@"%lf", [[NSDate date ] timeIntervalSince1970]-7*24*3600];
     
-    NSLog(@"++++++%@++++++++++%@+++++",time1,time2);
+    //NSLog(@"++++++%@++++++++++%@+++++",time1,time2);
     
     NSDictionary *parameters = @{@"keyword" : keyword,
                                  //@"starttime" : startTime,
                                  //@"endtime" : endTime,
-                                 @"pg" : [NSString stringWithFormat:@"%zd",pageNumbe]};
+                                 @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
     [requestDataManager requestDataWithUrl:SearchProgramHavePastUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
@@ -181,11 +186,17 @@
         
         if (_dataSource.count == 0) {
             [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
+        }else{
+            [CommonFunc hideTipsViews:self.tableView];
         }
-        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:3 responseObject:responseObject];
+        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"program"]];
         
     } failure:^(id  _Nullable errorObject) {
-       
+        
+        //总的搜索条数
+        NSString *VODTotalCount = @"0";
+        callBack(VODTotalCount);
+        [self.tableView reloadData];
         [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
         [self.tableView.mj_footer endRefreshing];
         [CommonFunc dismiss];
