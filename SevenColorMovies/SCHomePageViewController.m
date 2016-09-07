@@ -102,8 +102,42 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark- Private methods
 - (void)addCollView{
+    
+    SCHomePageFlowLayout *layout = [[SCHomePageFlowLayout alloc]init]; // 布局对象
+    layout.alternateDecorationViews = YES;
+    // 读取xib背景
+    layout.decorationViewOfKinds = @[@"SCHomePageSectionBGReusableView"];
+    
+    _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+    _collView.backgroundColor = [UIColor colorWithHex:@"#F1F1F1"];
+    
+    _collView.alwaysBounceVertical=YES;
+    _collView.dataSource = self;
+    _collView.delegate = self;
+    
+    _collView.contentInset = UIEdgeInsetsMake(165, 0, 49, 0);//留白添加banner
+    // 无banner时的占位图
+    UIView *noBannerView = [[UIView alloc] initWithFrame:CGRectMake(0, -157, kMainScreenWidth, 157)];
+    UIImageView *NoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NoBanner"]];
+    [noBannerView addSubview:NoImageView];
+    [NoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(noBannerView);
+    }];
+    
+    [_collView addSubview:noBannerView];
+    
+    // 注册cell、sectionHeader、sectionFooter
+    //点播栏cell
+    [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemCell"];
+    // 普通栏目cell
+    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageCell"];
+    // 综艺栏目cell
+    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageArtsCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageArtsCell"];
+    
+    [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerId];
+    [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerId];
+    
     [self.view addSubview:self.collView];
-    [_collView setFrame:self.view.bounds];
     
     //2.集成刷新
     [self setCollectionViewRefresh];
@@ -123,42 +157,43 @@ static NSString *const footerId = @"footerId";
 - (void)requestData{
     
     //>>>>>>>>>>>>>>>>>>>>banner测试接口<<<<<<<<<<<<<<<<<<<<<<
-    //        if (_bannerImageUrlArr) {
-    //            [_bannerImageUrlArr removeAllObjects];
-    //        }else if (!_bannerImageUrlArr){
-    //            _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
-    //        }
-    //
-    //        [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
-    //
-    //            NSMutableArray *dataArr = responseObject[@"Film"];
-    //
-    //            if (![dataArr isKindOfClass:[NSNull class]]) {
-    //                for (NSDictionary *dic in dataArr) {
-    //                    SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
-    //                    [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
-    //
-    //                }
-    //
-    //                //添加banner
-    //                if (_bannerImageUrlArr.count > 0) {
-    //                    [self addBannerView];
-    //                    _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-    //                }}else if (_bannerImageUrlArr.count == 0){
-    //                    if (_bannerView) {
-    //                        [_bannerView removeFromSuperview];
-    //
-    //                    }
-    //                }
-    //            [CommonFunc dismiss];
-    //            [_collView.mj_header endRefreshing];
-    //
-    //        } failure:^(id  _Nullable errorObject) {
-    //            [CommonFunc dismiss];
-    //            [_collView.mj_header endRefreshing];
-    //
-    //        }];
-    //
+//            if (_bannerImageUrlArr) {
+//                [_bannerImageUrlArr removeAllObjects];
+//            }else if (!_bannerImageUrlArr){
+//                _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
+//            }
+//    
+//            [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
+//    
+//                NSMutableArray *dataArr = responseObject[@"Film"];
+//    
+//                if (![dataArr isKindOfClass:[NSNull class]]) {
+//                    for (NSDictionary *dic in dataArr) {
+//                        SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
+//                        [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
+//    
+//                    }
+//    
+//                    //添加banner
+//                    if (_bannerImageUrlArr.count > 0) {
+//                        
+//                        [self addBannerView];
+//                        _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
+//                    }}else if (_bannerImageUrlArr.count == 0){
+//                        if (_bannerView) {
+//                            [_bannerView removeFromSuperview];
+//    
+//                        }
+//                    }
+//                [CommonFunc dismiss];
+//                [_collView.mj_header endRefreshing];
+//    
+//            } failure:^(id  _Nullable errorObject) {
+//                [CommonFunc dismiss];
+//                [_collView.mj_header endRefreshing];
+//    
+//            }];
+    
     
     //>>>>>>>>>>>>>>>>>>>>整合后的首页接口调试<<<<<<<<<<<<<<<<<<<<<<
     if (_titleArray) {
@@ -192,7 +227,7 @@ static NSString *const footerId = @"footerId";
                     
                     [_titleArray addObject:classModel._FilmClassName];
                     [_filmClassArray addObject:classModel];
-                    _collView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);//留白添加banner
+                    
                     [_collView reloadData];
                     
                     //                NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
@@ -519,35 +554,6 @@ static NSString *const footerId = @"footerId";
 }
 
 
-#pragma mark- Getters and Setters
-- (UICollectionView *)collView{
-    SCHomePageFlowLayout *layout = [[SCHomePageFlowLayout alloc]init]; // 布局对象
-    layout.alternateDecorationViews = YES;
-    // 读取xib背景
-    layout.decorationViewOfKinds = @[@"SCHomePageSectionBGReusableView"];
-    
-    _collView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    _collView.backgroundColor = [UIColor colorWithHex:@"#F1F1F1"];
-    
-    _collView.alwaysBounceVertical=YES;
-    _collView.dataSource = self;
-    _collView.delegate = self;
-    
-    _collView.contentInset = UIEdgeInsetsMake(165, 0, 0, 0);//留白添加banner
-    
-    // 注册cell、sectionHeader、sectionFooter
-    //点播栏cell
-    [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemCell"];
-    // 普通栏目cell
-    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageCell"];
-    // 综艺栏目cell
-    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageArtsCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageArtsCell"];
-    
-    [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerId];
-    [_collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerId];
-    
-    return _collView;
-}
 
 #pragma mark- Getters and Setters
 - (NSMutableArray *)allItemsArr{

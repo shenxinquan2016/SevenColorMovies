@@ -219,7 +219,7 @@ static int textFieldMoveHight = 0;
     
     
     UIImageView *tipImageView = [[UIImageView alloc]init];
-    tipImageView.image = [UIImage imageNamed:@"NOData"];
+    tipImageView.image = [UIImage imageNamed:@"NoData"];
     CGRect rect = tipImageView.frame;
     rect.origin = CGPointMake((kMainScreenWidth-tipImageView.image.size.width)/2, (ViewHeight(view)-tipImageView.image.size.height)/2-60);
     rect.size = CGSizeMake(tipImageView.image.size.width, tipImageView.image.size.height);

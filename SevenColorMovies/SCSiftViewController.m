@@ -19,7 +19,7 @@
 
 @implementation SCSiftViewController
 
-static NSString *const cellId = @"cellId";
+static NSString *const cellId = @"SCCollectionViewPageCell";
 
 #pragma mark-  ViewLife Cycle
 - (void)viewDidLoad {
@@ -54,7 +54,7 @@ static NSString *const cellId = @"cellId";
     [self.view addSubview:_collView];
     
     // 注册cell、sectionHeader、sectionFooter
-    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
+    [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:cellId];
 }
 
 #pragma mark ---- UICollectionViewDataSource
