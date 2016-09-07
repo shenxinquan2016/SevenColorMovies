@@ -73,8 +73,17 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
         
         [self.collectionView reloadData];
         [CommonFunc dismiss];
+        
+        if (_filmModelArr.count == 0) {
+            [CommonFunc noDataOrNoNetTipsString:@"暂无推荐" addView:self.view];
+        }else{
+            [CommonFunc hideTipsViews:self.collectionView];
+        }
+        
     } failure:^(id  _Nullable errorObject) {
         
+        [self.collectionView reloadData];
+        [CommonFunc noDataOrNoNetTipsString:@"暂无推荐" addView:self.view];
         [CommonFunc dismiss];
     }];
     
