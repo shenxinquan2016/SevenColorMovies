@@ -96,8 +96,6 @@ const CGFloat LabelWidth = 100;
 }
 
 
-
-
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView{
     
@@ -105,7 +103,7 @@ const CGFloat LabelWidth = 100;
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
     
-    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(100, 0, LabelWidth*2, TitleHeight)];//滚动窗口
+    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake((kMainScreenWidth-LabelWidth*2)/2, 0, LabelWidth*2, TitleHeight)];//滚动窗口
     self.titleScroll.showsHorizontalScrollIndicator = NO;
     self.titleScroll.showsVerticalScrollIndicator = NO;
     self.titleScroll.scrollsToTop = NO;
