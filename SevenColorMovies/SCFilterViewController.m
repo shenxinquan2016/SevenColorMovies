@@ -1,23 +1,27 @@
 //
-//  SCSiftViewController.m
+//  SCFilterViewController.m
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/7/29.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  筛选控制器
 
-#import "SCSiftViewController.h"
+#import "SCFilterViewController.h"
 #import "SCPlayerViewController.h"
+#import "SCFliterOptionView.h"
 
-@interface SCSiftViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
+
+@interface SCFilterViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collView;
+
+@property (weak, nonatomic) IBOutlet UIView *filterTitleView;/* 筛选项背景 */
 
 
 
 @end
 
-@implementation SCSiftViewController
+@implementation SCFilterViewController
 
 static NSString *const cellId = @"SCCollectionViewPageCell";
 
@@ -28,8 +32,14 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     self.view.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
     //1.标题
     self.leftBBI.text = @"筛选";
+    
+    SCFliterOptionView *view = [SCFliterOptionView viewWithType:@"类型"];
+    [self.filterTitleView addSubview:view];
+    
     //2.添加collectionView
     [self loadCollectionView];
+    
+    
     
 }
 
@@ -135,4 +145,26 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 
 
 #pragma mark- Event reponse
+
+
+#pragma mark- 网络请求
+// 获取搜索结果+台标
+- (void)getSearchResultAndChannelLogoWithFilmName{
+    
+    [CommonFunc showLoadingWithTips:@""];
+    
+    // 获取台标
+    [requestDataManager requestDataWithUrl:GetChannelLogoUrl parameters:nil success:^(id  _Nullable responseObject) {
+        
+        //        NSLog(@"==========dic:::%@========",responseObject);
+        
+        
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+}
+
+
 @end

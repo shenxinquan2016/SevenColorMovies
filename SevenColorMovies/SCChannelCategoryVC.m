@@ -9,7 +9,7 @@
 #import "SCChannelCategoryVC.h"
 #import "SCSlideHeaderLabel.h"
 #import "SCPlayerViewController.h"
-#import "SCSiftViewController.h"
+#import "SCFilterViewController.h"
 #import "SCFilmClassModel.h"
 #import "SCFilmModel.h"
 #import "SCCollectionViewPageCell.h"
@@ -265,7 +265,7 @@ static NSString *const cellId = @"cellId";
         [_siftBtn setBackgroundImage:[UIImage imageNamed:@"Sift"] forState:UIControlStateNormal];
         NSLog(@">>>>>>>>>>取消筛选>>>>>>>>>>>>");
     }
-    SCSiftViewController *siftVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCSiftViewController");
+    SCFilterViewController *siftVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCSiftViewController");
     siftVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:siftVC animated:YES];
 }
