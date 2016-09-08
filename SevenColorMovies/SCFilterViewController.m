@@ -19,6 +19,9 @@
 @property (nonatomic, strong) SCFliterOptionView *typeOptionView;/* 类型选项卡 */
 @property (nonatomic, strong) SCFliterOptionView *areaOptionView;/* 地区选项卡 */
 @property (nonatomic, strong) SCFliterOptionView *timeOptionView;/* 时间选项卡 */
+@property (nonatomic, strong) NSMutableArray *typeArray;/* 类型 */
+@property (nonatomic, strong) NSMutableArray *areaArray;/* 区域 */
+@property (nonatomic, strong) NSMutableArray *timeArray;/* 时间 */
 
 @end
 
@@ -34,28 +37,19 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     //1.标题
     self.leftBBI.text = @"筛选";
     
+    //初始化数组
+//    self.typeArray = [NSArray array];
+//    self.areaArray = [NSArray array];
+//    self.timeArray = [NSArray array];
     
     
-    // 地区选项卡
-    _areaOptionView = [SCFliterOptionView viewWithType:@"地区"];
-    [_areaOptionView setFrame:CGRectMake(0, (self.filterTitleView.bounds.size.height-21)/2, kMainScreenWidth, 21)];
-    [self.filterTitleView addSubview:_areaOptionView];
-    // 类型选项卡
-    _typeOptionView = [SCFliterOptionView viewWithType:@"类型"];
-   [_typeOptionView setFrame:CGRectMake(0, self.areaOptionView.frame.origin.y-20-21, kMainScreenWidth, 21)];
-    [self.filterTitleView addSubview:_typeOptionView];
-    // 时间选项卡
-    _timeOptionView = [SCFliterOptionView viewWithType:@"时间"];
-    [_timeOptionView setFrame:CGRectMake(0, self.areaOptionView.frame.origin.y+20+21, kMainScreenWidth, 21)];
-    [self.filterTitleView addSubview:_timeOptionView];
     
     
-   
     // 2.添加collectionView
     [self loadCollectionView];
     
-    
-    
+    [self getFilterOptionTabData];
+    [self requestFilterDataWithTypeAndAreaAndTime];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,11 +58,29 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 }
 
 #pragma mark- private methods
-- (void)addSiftView{
+- (void)setFilterOptionTitleView
+{
+    // 地区选项卡
+    _areaOptionView = [SCFliterOptionView viewWithType:@"地区"];
+    _areaOptionView.dataArray = _areaArray;
+    [_areaOptionView setFrame:CGRectMake(0, (self.filterTitleView.bounds.size.height-21)/2, kMainScreenWidth, 21)];
+    [self.filterTitleView addSubview:_areaOptionView];
+    // 类型选项卡
+    _typeOptionView = [SCFliterOptionView viewWithType:@"类型"];
+    _typeOptionView.dataArray = _typeArray;
+    [_typeOptionView setFrame:CGRectMake(0, self.areaOptionView.frame.origin.y-20-21, kMainScreenWidth, 21)];
+    [self.filterTitleView addSubview:_typeOptionView];
+    // 时间选项卡
+    _timeOptionView = [SCFliterOptionView viewWithType:@"时间"];
+    _timeOptionView.dataArray = _timeArray;
+    [_timeOptionView setFrame:CGRectMake(0, self.areaOptionView.frame.origin.y+20+21, kMainScreenWidth, 21)];
+    [self.filterTitleView addSubview:_timeOptionView];
+   
     
 }
 
-- (void)loadCollectionView{
+- (void)loadCollectionView
+{
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     _collView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 80+135, kMainScreenWidth, kMainScreenHeight-80-135) collectionViewLayout:layout];
     _collView.backgroundColor = [UIColor whiteColor];
@@ -163,23 +175,83 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 
 
 #pragma mark- 网络请求
-// 获取搜索结果+台标
-- (void)getSearchResultAndChannelLogoWithFilmName{
+// 获取筛选选项卡
+- (void)getFilterOptionTabData{
     
     [CommonFunc showLoadingWithTips:@""];
     
-    // 获取台标
-    [requestDataManager requestDataWithUrl:GetChannelLogoUrl parameters:nil success:^(id  _Nullable responseObject) {
-        
-        //        NSLog(@"==========dic:::%@========",responseObject);
-        
-        
+    NSDictionary *parameters = @{@"cate" : [_filmClassModel._KeyValue description]};
+    
+    NSString *urlStr = [FilterOptionTypeTabUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *urlString = [FilterOptionAreaAndTimeTab2Url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    //1.创建队列组
+    dispatch_group_t group = dispatch_group_create();
+    //2.创建队列
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //3.多次使用队列组的方法执行任务, 只有异步方法
+    //afn内部是一个block，等数据请求完成之后dispatch_group_notify已经执行过了，所以这里要手动管理group进出
+    dispatch_group_async(group, queue, ^{
+        dispatch_group_enter(group);
+        [requestDataManager requestDataWithUrl:urlStr parameters:parameters success:^(id  _Nullable responseObject){
+//            NSLog(@"==========dic:::%@========",responseObject);
+            self.typeArray = [NSMutableArray arrayWithArray:responseObject[@"Label"][@"LabelName"]];
+            [_typeArray insertObject:@"全部" atIndex:0];
+            dispatch_group_leave(group);
+        } failure:^(id  _Nullable errorObject) {
+            
+            [CommonFunc dismiss];
+            dispatch_group_leave(group);
+        }];
+    });
+    
+    dispatch_group_async(group, queue, ^{
+        dispatch_group_enter(group);
+        [requestDataManager requestDataWithUrl:urlString parameters:parameters success:^(id  _Nullable responseObject){
+//            NSLog(@"==========dic:::%@========",responseObject);
+            
+            self.areaArray = [NSMutableArray arrayWithArray:[responseObject[@"Label"] firstObject][@"LabelName"]];
+            self.timeArray = [NSMutableArray arrayWithArray:[responseObject[@"Label"] lastObject][@"LabelName"]];
+            [_areaArray insertObject:@"全部" atIndex:0];
+            [_timeArray insertObject:@"全部" atIndex:0];
+            
+            dispatch_group_leave(group);
+        } failure:^(id  _Nullable errorObject) {
+            
+            [CommonFunc dismiss];
+            dispatch_group_leave(group);
+        }];
+    });
+
+    //4.都完成后会自动通知
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+      
+        [self setFilterOptionTitleView];
+        [CommonFunc dismiss];
+    });
+
+}
+// 筛选搜索
+- (void)requestFilterDataWithTypeAndAreaAndTime{
+    
+    NSDictionary *parameters = @{@"page" : @"1",
+                                 @"style" : @"",
+                                 @"zone" : @"",
+                                 @"time" : @"",
+                                 @"mtype" : @"",
+                                 @"column" : @""};
+
+    [requestDataManager requestDataWithUrl:FilterUrl parameters:parameters success:^(id  _Nullable responseObject){
+        NSLog(@"==========dic:::%@========",responseObject);
         
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
+        
     }];
-}
 
+    
+}
 
 @end

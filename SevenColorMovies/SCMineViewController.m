@@ -126,7 +126,7 @@
     if (!_dataSource) {
         NSArray *array = @[@[@{@"Default_Avatar" : @"Hi,您好"}],
                            @[@{@"Associator" : @"会员中心"}],
-                           @[@{@"Moive_list" : @"我的节目单"}, @{@"Watch_Record" : @"观看记录"}, @{@"Collection" : @"我的收藏"}],
+                           @[@{@"Moive_list" : @"我的节目单"}, @{@"Watch_Record" : @"观看记录"}, @{@"Collection_1" : @"我的收藏"}],
                            @[@{@"Download" : @"下载管理"}],
                            @[@{@"Message" : @"消息"}],
                            @[@{@"Setting" : @"设置"}]];

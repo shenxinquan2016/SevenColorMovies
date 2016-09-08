@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "SCOtherBaseViewController.h"
+#import "SCFilmClassModel.h"
 
 @interface SCFilterViewController : SCOtherBaseViewController
+
+@property (nonatomic, strong) SCFilmClassModel *filmClassModel;
 
 @end

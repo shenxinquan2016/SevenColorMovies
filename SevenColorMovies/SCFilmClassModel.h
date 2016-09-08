@@ -22,7 +22,7 @@
 @property (nonatomic, copy) NSString *_ChannelCode;/** ... */
 @property (nonatomic, copy) NSString *_FilmClassUrl;/** 老接口FilmClassUrl字段名 */
 @property (nonatomic, copy) NSString *FilmClassUrl;/** 新接口FilmClassUrl字段名 */
-@property (nonatomic, copy) NSString *_IcoUrl;/** ... */
+@property (nonatomic, copy) NSString *_KeyValue;/** 每个类别的关键词 */
 @property (nonatomic, copy) NSString *_FilmClassRealName;/** ... */
 @property (nonatomic, copy) NSString *_Template;/** ... */
 @property (nonatomic, copy) NSString *_Time;/** ... */

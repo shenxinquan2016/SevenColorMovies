@@ -58,7 +58,7 @@ static NSString *const cellId = @"SCFliterOptionCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 10;
+    return self.dataArray.count;
 }
 
 
@@ -66,9 +66,9 @@ static NSString *const cellId = @"SCFliterOptionCell";
 {
     
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    SCFliterOptionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     
-    
+    cell.optionLabel.text = _dataArray[indexPath.row];
     
     return cell;
 }
@@ -77,7 +77,7 @@ static NSString *const cellId = @"SCFliterOptionCell";
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return (CGSize){65,21};
+    return (CGSize){70, 21};
 }
 
 /** CollectionView四周间距 EdgeInsets */
@@ -115,7 +115,7 @@ static NSString *const cellId = @"SCFliterOptionCell";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"======点击=====");
+    NSLog(@"======%@=====",_dataArray[indexPath.item]);
     SCFliterOptionCell *cell = (SCFliterOptionCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.optionLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
     

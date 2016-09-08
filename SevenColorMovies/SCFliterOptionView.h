@@ -11,7 +11,7 @@
 
 @interface SCFliterOptionView : UIView
 
-
+@property (nonatomic, copy) NSArray *dataArray;
 
 + (instancetype)viewWithType:(NSString *)type;
 

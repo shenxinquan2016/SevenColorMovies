@@ -264,7 +264,7 @@ static NSString *const footerId = @"footerId";
         
     }else{
         if (_filmClassArray.count != 0) {
-            channelVC.FilmClassModel = _filmClassArray[indexPath.row-1];
+            channelVC.filmClassModel = _filmClassArray[indexPath.row-1];
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
         }

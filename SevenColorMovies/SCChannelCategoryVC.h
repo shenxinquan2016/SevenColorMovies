@@ -12,8 +12,6 @@
 
 @interface SCChannelCategoryVC : SCOtherBaseViewController
 
-
-/** ... */
-@property (nonatomic, strong) SCFilmClassModel *FilmClassModel;
+@property (nonatomic, strong) SCFilmClassModel *filmClassModel;
 
 @end

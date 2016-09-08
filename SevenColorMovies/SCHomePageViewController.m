@@ -216,7 +216,7 @@ static NSString *const footerId = @"footerId";
     
     
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
-         //NSLog(@"==========dic:::%@========",responseObject);
+//         NSLog(@"==========dic:::%@========",responseObject);
         if (responseObject){
             //1.第一层 filmList
             SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
@@ -347,7 +347,7 @@ static NSString *const footerId = @"footerId";
         NSLog(@"====FilmClassUrl::::%@",filmClassModel.FilmClassUrl);
         
         SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
-        channelVC.FilmClassModel = filmClassModel;
+        channelVC.filmClassModel = filmClassModel;
         channelVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:channelVC animated:YES];
         
@@ -518,7 +518,7 @@ static NSString *const footerId = @"footerId";
             }else{
                 SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row-1];
                 SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
-                channelVC.FilmClassModel = filmClassModel;
+                channelVC.filmClassModel = filmClassModel;
                 channelVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:channelVC animated:YES];
                 

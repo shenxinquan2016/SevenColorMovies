@@ -18,9 +18,19 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.backgroundColor = [UIColor whiteColor];
+    if (self.isSelected) {
+        
+        self.optionLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+
+    }else{
+        self.optionLabel.textColor = [UIColor colorWithHex:@"#666666"];
+
+    }
 }
 
 - (void)setOptionTabModel:(SCFilterOptionTabModel *)optionTabModel{
+    
+    
     
     if (optionTabModel.isSelected) {
         

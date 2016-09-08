@@ -45,7 +45,7 @@
 }
 
 // 字符串转时间戳
-+(NSInteger)timestampFromString:(NSString *)timeStr
++(NSInteger)timeStampFromString:(NSString *)timeStr
                           format:(NSString *)format
 {
     NSDate *date = [NSDate dateFromString:timeStr format:format];

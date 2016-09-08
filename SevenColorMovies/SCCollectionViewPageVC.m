@@ -72,7 +72,7 @@ static NSString *const cellId = @"cellId";
     
     [requestDataManager requestFilmClassDataWithUrl:_urlString parameters:nil success:^(id  _Nullable responseObject) {
         
-        NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
+//        NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
         if (responseObject) {
             if (responseObject[@"FilmClass"]) {// 专题页面(比其他多一层)
                 

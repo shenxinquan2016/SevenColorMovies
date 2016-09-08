@@ -104,7 +104,7 @@ static NSString *const cellId = @"cellId";
 - (void)getFilmClassData{
     
     //域名转换成IP
-    NSString *url = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_FilmClassModel.FilmClassUrl componentsSeparatedByString:@"/"].lastObject];
+    NSString *url = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmClassModel.FilmClassUrl componentsSeparatedByString:@"/"].lastObject];
     NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     [CommonFunc showLoadingWithTips:@""];
@@ -213,7 +213,7 @@ static NSString *const cellId = @"cellId";
             NSString *urlStr = _FilmClassUrlArr[i];
             NSString *url = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             vc.urlString = url;
-            vc.FilmClassModel = _FilmClassModel;// 用于判断cell的显示类型
+            vc.FilmClassModel = _filmClassModel;// 用于判断cell的显示类型
         }
     
         [self addChildViewController:vc];
@@ -265,9 +265,10 @@ static NSString *const cellId = @"cellId";
         [_siftBtn setBackgroundImage:[UIImage imageNamed:@"Sift"] forState:UIControlStateNormal];
         NSLog(@">>>>>>>>>>取消筛选>>>>>>>>>>>>");
     }
-    SCFilterViewController *siftVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCSiftViewController");
-    siftVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:siftVC animated:YES];
+    SCFilterViewController *fliterVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCSiftViewController");
+    fliterVC.filmClassModel = self.filmClassModel;
+    fliterVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:fliterVC animated:YES];
 }
 
 #pragma mark - UIScrollViewDelegate
