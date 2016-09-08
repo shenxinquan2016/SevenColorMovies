@@ -34,17 +34,16 @@ static NSString *const cellId = @"SCFliterOptionCell";
     
     //添加一个自定义布局 必须继承UICollectionViewFlowLayout
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        //滚动方向  水平方向
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-
-    [self.filterOptionCollectionView setCollectionViewLayout:layout];
-    self.filterOptionCollectionView.backgroundColor = [UIColor lightGrayColor];
-    self.filterOptionCollectionView.alwaysBounceHorizontal = YES;//只水平滑动
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;//滚动方向  水平方向
     
+    [self.filterOptionCollectionView setCollectionViewLayout:layout];
+    self.filterOptionCollectionView.backgroundColor = [UIColor whiteColor];
+    self.filterOptionCollectionView.alwaysBounceHorizontal = YES;//只水平滑动
+    self.filterOptionCollectionView.bounces = NO;//禁止回弹效果
     self.filterOptionCollectionView.showsHorizontalScrollIndicator = NO;
     self.filterOptionCollectionView.delegate = self;
     self.filterOptionCollectionView.dataSource = self;
-    
+
     [self.filterOptionCollectionView registerNib:[UINib nibWithNibName:@"SCFliterOptionCell" bundle:nil] forCellWithReuseIdentifier:cellId];
 }
 
@@ -68,7 +67,7 @@ static NSString *const cellId = @"SCFliterOptionCell";
     
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor purpleColor];
+    
     
     
     return cell;
@@ -113,20 +112,26 @@ static NSString *const cellId = @"SCFliterOptionCell";
 }
 
 #pragma mark ---- UICollectionViewDelegate
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"======点击=====");
-    
-    
+    SCFliterOptionCell *cell = (SCFliterOptionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.optionLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
     
 }
+
+//取消选中操作
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //通过改变cell对应model的onLive属性来改变cell字体颜色
+    
+    
+    SCFliterOptionCell *cell = (SCFliterOptionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.optionLabel.textColor = [UIColor colorWithHex:@"#808080"];
+
+    
+}
+
 
 @end

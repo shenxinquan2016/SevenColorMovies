@@ -56,6 +56,7 @@
 		11458EA31D45FEE200EBD16D /* SCMineTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11458EA11D45FEE200EBD16D /* SCMineTopCell.xib */; };
 		11458EA71D45FF2D00EBD16D /* SCMineOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458EA51D45FF2D00EBD16D /* SCMineOtherCell.m */; };
 		11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11458EA61D45FF2D00EBD16D /* SCMineOtherCell.xib */; };
+		114AE1A11D81100F00BED623 /* SCFilterOptionTabModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 114AE1A01D81100F00BED623 /* SCFilterOptionTabModel.m */; };
 		114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */; };
 		11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11588F691D6AEA3700C91E3A /* SCLiveViewController.m */; };
 		11588F6E1D6AECDF00C91E3A /* SCLivePageCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11588F6D1D6AECDF00C91E3A /* SCLivePageCollectionVC.m */; };
@@ -258,6 +259,8 @@
 		11458EA41D45FF2D00EBD16D /* SCMineOtherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMineOtherCell.h; sourceTree = "<group>"; };
 		11458EA51D45FF2D00EBD16D /* SCMineOtherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMineOtherCell.m; sourceTree = "<group>"; };
 		11458EA61D45FF2D00EBD16D /* SCMineOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMineOtherCell.xib; sourceTree = "<group>"; };
+		114AE19F1D81100F00BED623 /* SCFilterOptionTabModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilterOptionTabModel.h; sourceTree = "<group>"; };
+		114AE1A01D81100F00BED623 /* SCFilterOptionTabModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilterOptionTabModel.m; sourceTree = "<group>"; };
 		114BC8071D51D70D0091ECE0 /* UIButton+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Addition.h"; sourceTree = "<group>"; };
 		114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Addition.m"; sourceTree = "<group>"; };
 		11588F681D6AEA3700C91E3A /* SCLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLiveViewController.h; sourceTree = "<group>"; };
@@ -696,6 +699,15 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		114AE19B1D810F3400BED623 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				114AE19F1D81100F00BED623 /* SCFilterOptionTabModel.h */,
+				114AE1A01D81100F00BED623 /* SCFilterOptionTabModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		114BC8061D51C0360091ECE0 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -923,6 +935,7 @@
 				111827891D800AAD005921D6 /* MainBody */,
 				1118278A1D800AC1005921D6 /* View */,
 				1118278B1D800AC4005921D6 /* Cell */,
+				114AE19B1D810F3400BED623 /* Model */,
 			);
 			name = "Filter筛选";
 			sourceTree = "<group>";
@@ -1724,6 +1737,7 @@
 				116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */,
 				1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */,
 				11051ECC1D6D944500E920C1 /* SCLiveProgramListCollectionVC.m in Sources */,
+				114AE1A11D81100F00BED623 /* SCFilterOptionTabModel.m in Sources */,
 				11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */,
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
 				114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */,

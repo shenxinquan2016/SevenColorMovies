@@ -10,7 +10,6 @@
 
 @interface SCFliterOptionCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel *optionLabel;
 
 @end
 
@@ -18,7 +17,18 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.backgroundColor = [UIColor whiteColor];
 }
 
+- (void)setOptionTabModel:(SCFilterOptionTabModel *)optionTabModel{
+    
+    if (optionTabModel.isSelected) {
+        
+        self.optionLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+        
+    }else{
+        
+        self.optionLabel.textColor = [UIColor colorWithHex:@"#666666"];
+    }
+}
 @end
