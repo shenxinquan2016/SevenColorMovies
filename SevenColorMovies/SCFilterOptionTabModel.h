@@ -10,6 +10,7 @@
 
 @interface SCFilterOptionTabModel : NSObject
 
+@property (nonatomic, copy) NSString *tabText;/* 选项卡内容文字 */
 @property (nonatomic, getter=isSelected) BOOL selected;/* 是否被选中 */
 
 @end

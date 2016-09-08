@@ -68,7 +68,7 @@ static NSString *const cellId = @"SCFliterOptionCell";
     
     SCFliterOptionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     
-    cell.optionLabel.text = _dataArray[indexPath.row];
+    cell.optionTabModel = _dataArray[indexPath.row];
     
     return cell;
 }

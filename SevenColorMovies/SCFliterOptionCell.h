@@ -10,6 +10,7 @@
 #import "SCFilterOptionTabModel.h"
 
 @interface SCFliterOptionCell : UICollectionViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *optionLabel;
 
 @property (nonatomic, strong) SCFilterOptionTabModel *optionTabModel;

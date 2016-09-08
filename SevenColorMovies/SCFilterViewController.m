@@ -9,6 +9,7 @@
 #import "SCFilterViewController.h"
 #import "SCPlayerViewController.h"
 #import "SCFliterOptionView.h"
+#import "SCFilterOptionTabModel.h"
 
 
 @interface SCFilterViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
@@ -38,9 +39,9 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     self.leftBBI.text = @"筛选";
     
     //初始化数组
-//    self.typeArray = [NSArray array];
-//    self.areaArray = [NSArray array];
-//    self.timeArray = [NSArray array];
+    self.typeArray = [NSMutableArray arrayWithCapacity:0];
+    self.areaArray = [NSMutableArray arrayWithCapacity:0];
+    self.timeArray = [NSMutableArray arrayWithCapacity:0];
     
     
     
@@ -196,8 +197,16 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
         dispatch_group_enter(group);
         [requestDataManager requestDataWithUrl:urlStr parameters:parameters success:^(id  _Nullable responseObject){
 //            NSLog(@"==========dic:::%@========",responseObject);
-            self.typeArray = [NSMutableArray arrayWithArray:responseObject[@"Label"][@"LabelName"]];
+            
+            [_typeArray removeAllObjects];
+            
+            for (NSString *tabText in responseObject[@"Label"][@"LabelName"]) {
+                SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
+                optionTabModel.tabText = tabText;
+                [_typeArray addObject:optionTabModel];
+            }
             [_typeArray insertObject:@"全部" atIndex:0];
+            
             dispatch_group_leave(group);
         } failure:^(id  _Nullable errorObject) {
             
@@ -211,9 +220,21 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
         [requestDataManager requestDataWithUrl:urlString parameters:parameters success:^(id  _Nullable responseObject){
 //            NSLog(@"==========dic:::%@========",responseObject);
             
-            self.areaArray = [NSMutableArray arrayWithArray:[responseObject[@"Label"] firstObject][@"LabelName"]];
-            self.timeArray = [NSMutableArray arrayWithArray:[responseObject[@"Label"] lastObject][@"LabelName"]];
+            [_timeArray removeAllObjects];
+            [_areaArray removeAllObjects];
+            
+            for (NSString *tabText in [responseObject[@"Label"] firstObject][@"LabelName"]) {
+                SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
+                optionTabModel.tabText = tabText;
+                [_areaArray addObject:optionTabModel];
+            }
             [_areaArray insertObject:@"全部" atIndex:0];
+
+            for (NSString *tabText in [responseObject[@"Label"] lastObject][@"LabelName"]) {
+                SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
+                optionTabModel.tabText = tabText;
+                [_timeArray addObject:optionTabModel];
+            }
             [_timeArray insertObject:@"全部" atIndex:0];
             
             dispatch_group_leave(group);
