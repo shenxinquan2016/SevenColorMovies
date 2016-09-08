@@ -11,14 +11,21 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="类型" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1w0-qO-ZEg">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="类型" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1w0-qO-ZEg">
                     <rect key="frame" x="12" y="16" width="34" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="VDO-Pu-anx"/>
+                        <constraint firstAttribute="width" constant="34" id="VFn-fN-dF7"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="JjA-Uf-bni">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="JjA-Uf-bni">
                     <rect key="frame" x="54" y="16" width="313" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Ymx-e9-cYJ"/>
+                    </constraints>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="dkG-56-YSu">
                         <size key="itemSize" width="50" height="21"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -28,6 +35,13 @@
                 </collectionView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="JjA-Uf-bni" firstAttribute="centerY" secondItem="1w0-qO-ZEg" secondAttribute="centerY" id="8uk-4l-WxU"/>
+                <constraint firstItem="1w0-qO-ZEg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="CAn-Ca-Ufx"/>
+                <constraint firstAttribute="trailing" secondItem="JjA-Uf-bni" secondAttribute="trailing" constant="8" id="CKZ-bm-au0"/>
+                <constraint firstItem="1w0-qO-ZEg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="K21-rF-kWp"/>
+                <constraint firstItem="JjA-Uf-bni" firstAttribute="leading" secondItem="1w0-qO-ZEg" secondAttribute="trailing" constant="8" id="dan-tl-pdl"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

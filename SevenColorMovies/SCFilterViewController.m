@@ -16,8 +16,9 @@
 @property (nonatomic, strong) UICollectionView *collView;
 
 @property (weak, nonatomic) IBOutlet UIView *filterTitleView;/* 筛选项背景 */
-
-
+@property (nonatomic, strong) SCFliterOptionView *typeOptionView;/* 类型选项卡 */
+@property (nonatomic, strong) SCFliterOptionView *areaOptionView;/* 地区选项卡 */
+@property (nonatomic, strong) SCFliterOptionView *timeOptionView;/* 时间选项卡 */
 
 @end
 
@@ -33,10 +34,24 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     //1.标题
     self.leftBBI.text = @"筛选";
     
-    SCFliterOptionView *view = [SCFliterOptionView viewWithType:@"类型"];
-    [self.filterTitleView addSubview:view];
     
-    //2.添加collectionView
+    
+    // 地区选项卡
+    _areaOptionView = [SCFliterOptionView viewWithType:@"地区"];
+    [_areaOptionView setFrame:CGRectMake(0, (self.filterTitleView.bounds.size.height-21)/2, kMainScreenWidth, 21)];
+    [self.filterTitleView addSubview:_areaOptionView];
+    // 类型选项卡
+    _typeOptionView = [SCFliterOptionView viewWithType:@"类型"];
+   [_typeOptionView setFrame:CGRectMake(0, self.areaOptionView.frame.origin.y-20-21, kMainScreenWidth, 21)];
+    [self.filterTitleView addSubview:_typeOptionView];
+    // 时间选项卡
+    _timeOptionView = [SCFliterOptionView viewWithType:@"时间"];
+    [_timeOptionView setFrame:CGRectMake(0, self.areaOptionView.frame.origin.y+20+21, kMainScreenWidth, 21)];
+    [self.filterTitleView addSubview:_timeOptionView];
+    
+    
+   
+    // 2.添加collectionView
     [self loadCollectionView];
     
     
