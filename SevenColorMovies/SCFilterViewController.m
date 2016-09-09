@@ -50,7 +50,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     [self loadCollectionView];
     
     [self getFilterOptionTabData];
-//    [self requestFilterDataWithTypeAndAreaAndTime];
+    //    [self requestFilterDataWithTypeAndAreaAndTime];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,19 +64,22 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     // 地区选项卡
     _areaOptionView = [SCFliterOptionView viewWithType:@"地区"];
     _areaOptionView.dataArray = _areaArray;
+    _areaOptionView.type = FilmArea;
     [_areaOptionView setFrame:CGRectMake(0, (self.filterTitleView.bounds.size.height-21)/2, kMainScreenWidth, 21)];
     [self.filterTitleView addSubview:_areaOptionView];
     // 类型选项卡
     _typeOptionView = [SCFliterOptionView viewWithType:@"类型"];
     _typeOptionView.dataArray = _typeArray;
+    _typeOptionView.type = FilmType;
     [_typeOptionView setFrame:CGRectMake(0, self.areaOptionView.frame.origin.y-20-21, kMainScreenWidth, 21)];
     [self.filterTitleView addSubview:_typeOptionView];
     // 时间选项卡
     _timeOptionView = [SCFliterOptionView viewWithType:@"时间"];
     _timeOptionView.dataArray = _timeArray;
+    _timeOptionView.type = FilmTime;
     [_timeOptionView setFrame:CGRectMake(0, self.areaOptionView.frame.origin.y+20+21, kMainScreenWidth, 21)];
     [self.filterTitleView addSubview:_timeOptionView];
-   
+    
     
 }
 
@@ -196,7 +199,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     dispatch_group_async(group, queue, ^{
         dispatch_group_enter(group);
         [requestDataManager requestDataWithUrl:urlStr parameters:parameters success:^(id  _Nullable responseObject){
-//            NSLog(@"==========dic:::%@========",responseObject);
+            //            NSLog(@"==========dic:::%@========",responseObject);
             
             [_typeArray removeAllObjects];
             
@@ -206,7 +209,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                 optionTabModel.tabText = tabText;
                 [_typeArray addObject:optionTabModel];
             }
-           
+            
             SCFilterOptionTabModel *model = [[SCFilterOptionTabModel alloc] init];
             model.tabText = @"全部";
             model.selected = YES;
@@ -223,7 +226,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     dispatch_group_async(group, queue, ^{
         dispatch_group_enter(group);
         [requestDataManager requestDataWithUrl:urlString parameters:parameters success:^(id  _Nullable responseObject){
-//            NSLog(@"==========dic:::%@========",responseObject);
+            //            NSLog(@"==========dic:::%@========",responseObject);
             
             [_timeArray removeAllObjects];
             [_areaArray removeAllObjects];
@@ -239,7 +242,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             model1.tabText = @"全部";
             model1.selected = YES;
             [_areaArray insertObject:model1 atIndex:0];
-
+            
             for (NSString *tabText in [responseObject[@"Label"] lastObject][@"LabelName"]) {
                 
                 SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
@@ -259,14 +262,14 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             dispatch_group_leave(group);
         }];
     });
-
+    
     //4.都完成后会自动通知
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-      
+        
         [self setFilterOptionTitleView];
         [CommonFunc dismiss];
     });
-
+    
 }
 // 筛选搜索
 - (void)requestFilterDataWithTypeAndAreaAndTime{
@@ -277,7 +280,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                                  @"time" : @"",
                                  @"mtype" : @"",
                                  @"column" : @""};
-
+    
     [requestDataManager requestDataWithUrl:FilterUrl parameters:parameters success:^(id  _Nullable responseObject){
         NSLog(@"==========dic:::%@========",responseObject);
         
@@ -286,7 +289,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
         [CommonFunc dismiss];
         
     }];
-
+    
     
 }
 

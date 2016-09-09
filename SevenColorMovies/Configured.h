@@ -52,6 +52,12 @@ typedef NS_ENUM(NSUInteger, SCLiveProgramState) {
     WillPlay,//预约
 };
 
+typedef NS_ENUM(NSUInteger, SCFilterOptionType) {
+    FilmType = 0,//类型
+    FilmArea,//地区
+    FilmTime,//时间
+};
+
 
 
 #endif /* Configured_h */

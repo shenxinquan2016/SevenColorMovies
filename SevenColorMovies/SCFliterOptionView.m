@@ -120,6 +120,23 @@ static NSString *const cellId = @"SCFliterOptionCell";
     optionModel.selected = YES;
     cell.optionTabModel = optionModel;
     
+    switch (_type) {
+        case FilmType:
+                NSLog(@">>>>>>%lu>>>%@>>>>>>>>>>",(unsigned long)_type,optionModel.tabText);
+            break;
+            
+        case FilmArea:
+                NSLog(@">>>>>>%lu>>>%@>>>>>>>>>>",(unsigned long)_type,optionModel.tabText);
+            break;
+            
+        case FilmTime:
+                NSLog(@">>>>>>%lu>>>%@>>>>>>>>>>",(unsigned long)_type,optionModel.tabText);
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 //取消选中操作
