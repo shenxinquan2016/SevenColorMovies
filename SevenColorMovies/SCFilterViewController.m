@@ -50,7 +50,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     [self loadCollectionView];
     
     [self getFilterOptionTabData];
-    [self requestFilterDataWithTypeAndAreaAndTime];
+//    [self requestFilterDataWithTypeAndAreaAndTime];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -201,11 +201,16 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             [_typeArray removeAllObjects];
             
             for (NSString *tabText in responseObject[@"Label"][@"LabelName"]) {
+                
                 SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
                 optionTabModel.tabText = tabText;
                 [_typeArray addObject:optionTabModel];
             }
-            [_typeArray insertObject:@"全部" atIndex:0];
+           
+            SCFilterOptionTabModel *model = [[SCFilterOptionTabModel alloc] init];
+            model.tabText = @"全部";
+            model.selected = YES;
+            [_typeArray insertObject:model atIndex:0];
             
             dispatch_group_leave(group);
         } failure:^(id  _Nullable errorObject) {
@@ -224,18 +229,28 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             [_areaArray removeAllObjects];
             
             for (NSString *tabText in [responseObject[@"Label"] firstObject][@"LabelName"]) {
+                
                 SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
                 optionTabModel.tabText = tabText;
                 [_areaArray addObject:optionTabModel];
             }
-            [_areaArray insertObject:@"全部" atIndex:0];
+            
+            SCFilterOptionTabModel *model1 = [[SCFilterOptionTabModel alloc] init];
+            model1.tabText = @"全部";
+            model1.selected = YES;
+            [_areaArray insertObject:model1 atIndex:0];
 
             for (NSString *tabText in [responseObject[@"Label"] lastObject][@"LabelName"]) {
+                
                 SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
                 optionTabModel.tabText = tabText;
                 [_timeArray addObject:optionTabModel];
             }
-            [_timeArray insertObject:@"全部" atIndex:0];
+            
+            SCFilterOptionTabModel *model2 = [[SCFilterOptionTabModel alloc] init];
+            model2.tabText = @"全部";
+            model2.selected = YES;
+            [_timeArray insertObject:model2 atIndex:0];
             
             dispatch_group_leave(group);
         } failure:^(id  _Nullable errorObject) {

@@ -67,9 +67,8 @@ static NSString *const cellId = @"SCFliterOptionCell";
     
     
     SCFliterOptionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    
     cell.optionTabModel = _dataArray[indexPath.row];
-    
+
     return cell;
 }
 
@@ -115,9 +114,11 @@ static NSString *const cellId = @"SCFliterOptionCell";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"======%@=====",_dataArray[indexPath.item]);
+    
     SCFliterOptionCell *cell = (SCFliterOptionCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.optionLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+    SCFilterOptionTabModel *optionModel = _dataArray[indexPath.row];
+    optionModel.selected = YES;
+    cell.optionTabModel = optionModel;
     
 }
 
@@ -128,7 +129,9 @@ static NSString *const cellId = @"SCFliterOptionCell";
     
     
     SCFliterOptionCell *cell = (SCFliterOptionCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.optionLabel.textColor = [UIColor colorWithHex:@"#808080"];
+    SCFilterOptionTabModel *optionModel = _dataArray[indexPath.row];
+    optionModel.selected = NO;
+    cell.optionTabModel = optionModel;
 
     
 }

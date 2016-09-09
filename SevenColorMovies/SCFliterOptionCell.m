@@ -10,6 +10,7 @@
 
 @interface SCFliterOptionCell ()
 
+@property (weak, nonatomic) IBOutlet UILabel *optionLabel;
 
 @end
 
@@ -25,6 +26,7 @@
     
     self.optionLabel.text = optionTabModel.tabText;
     
+    // 设定选中及取消选中时的字体颜色
     if (optionTabModel.isSelected) {
         
         self.optionLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
