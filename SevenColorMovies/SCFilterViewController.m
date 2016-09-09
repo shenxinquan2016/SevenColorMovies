@@ -28,7 +28,7 @@
 @property (nonatomic, copy) NSString *area;/* 筛选参数 */
 @property (nonatomic, copy) NSString *time;/* 筛选参数 */
 @property (nonatomic, strong) NSMutableArray *dataArray;
-
+@property (nonatomic, assign) NSInteger page;
 @end
 
 @implementation SCFilterViewController
@@ -43,21 +43,20 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     //1.标题
     self.leftBBI.text = @"筛选";
     
-    //初始化数组
+    //2.初始化数组
     self.typeArray = [NSMutableArray arrayWithCapacity:0];
     self.areaArray = [NSMutableArray arrayWithCapacity:0];
     self.timeArray = [NSMutableArray arrayWithCapacity:0];
+    self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
-    
-    
-    
-    // 2.添加collectionView
-    [self loadCollectionView];
-    
+    //3.初始化page
+    self.page = 2;
+    //4.添加筛选选项卡
     [self getFilterOptionTabData];
-    
-    // 开始筛选
-    [self requestFilterDataWithTypeAndAreaAndTime];
+    //5.添加collectionView
+    [self loadCollectionView];
+    //6.进入页面先请求全局筛选数据一次
+    [self requestFilterDataWithTypeAndAreaAndTimeAndPage:1];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -112,35 +111,23 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     
     // 注册cell、sectionHeader、sectionFooter
     [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:cellId];
+    
+    //集成上拉加载更多
+    [self setTableViewRefresh];
 }
 
-- (void)doFilterAction:(NSNotification *)notification{
-    
-    NSDictionary *dic = notification.object;
-    
-    switch ([dic[@"type"] integerValue]) {
-        case FilmType:
-            _type = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
-            NSLog(@">>>>>>>>>%@>>>>>>>>",_type);
-            break;
-          
-        case FilmArea:
-            _area = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
-            NSLog(@">>>>>>>>>%@>>>>>>>>",_area);
-            break;
 
-        case FilmTime:
-            _time = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
-            NSLog(@">>>>>>>>>%@>>>>>>>>",_time);
-            break;
-
-        default:
-            break;
-    }
-    // 开始筛选
-    [self requestFilterDataWithTypeAndAreaAndTime];
+#pragma mark - 集成刷新
+- (void)setTableViewRefresh {
+    [CommonFunc setupRefreshWithView:_collView withSelf:self headerFunc:nil headerFuncFirst:YES footerFunc:@selector(footerRefresh)];
     
 }
+
+- (void)footerRefresh{
+    
+    [self requestFilterDataWithTypeAndAreaAndTimeAndPage:_page++];
+}
+
 #pragma mark ---- UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -209,8 +196,8 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 
 
 // 选中某item
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    //    NSLog(@"======点击=====");
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
     teleplayPlayer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:teleplayPlayer animated:YES];
@@ -219,6 +206,33 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 
 
 #pragma mark- Event reponse
+- (void)doFilterAction:(NSNotification *)notification{
+    
+    NSDictionary *dic = notification.object;
+    
+    switch ([dic[@"type"] integerValue]) {
+        case FilmType:
+            _type = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
+            NSLog(@">>>>>>>>>%@>>>>>>>>",_type);
+            break;
+            
+        case FilmArea:
+            _area = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
+            NSLog(@">>>>>>>>>%@>>>>>>>>",_area);
+            break;
+            
+        case FilmTime:
+            _time = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
+            NSLog(@">>>>>>>>>%@>>>>>>>>",_time);
+            break;
+            
+        default:
+            break;
+    }
+    // 开始筛选
+    [self requestFilterDataWithTypeAndAreaAndTimeAndPage:1];
+    
+}
 
 
 #pragma mark- 网络请求
@@ -310,30 +324,29 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         
         [self setFilterOptionTitleView];
-        [CommonFunc dismiss];
+        //[CommonFunc dismiss];
     });
     
 }
+
 // 筛选搜索
-- (void)requestFilterDataWithTypeAndAreaAndTime{
+- (void)requestFilterDataWithTypeAndAreaAndTimeAndPage:(NSInteger)page{
     
     [CommonFunc showLoadingWithTips:@""];
-
-    NSDictionary *parameters = @{@"page" : @"1",
+    
+    if (page == 1) {
+        [_dataArray removeAllObjects];
+    }
+    
+    NSDictionary *parameters = @{@"page" : [NSString stringWithFormat:@"%ld",(long)page],
                                  @"style" : _type? _type : @"",
                                  @"zone" : _area? _area : @"",
                                  @"time" : _time? _time : @"",
                                  @"mtype" : _mtype? _mtype : @"",
                                  @"column" : _filmClassModel._FilmClassID? _filmClassModel._FilmClassID : @""};
-
+    
     [requestDataManager requestDataWithUrl:FilterUrl parameters:parameters success:^(id  _Nullable responseObject){
-//        NSLog(@"==========dic:::%@========",responseObject);
-        
-        if (self.dataArray) {
-            [_dataArray removeAllObjects];
-        }else{
-            self.dataArray = [NSMutableArray arrayWithCapacity:0];
-        }
+        //        NSLog(@"==========dic:::%@========",responseObject);
         
         if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]) {
             
@@ -343,24 +356,22 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                 
                 [_dataArray addObject:filmModel];
             }
-            [_collView reloadData];
+            
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        [_collView reloadData];
+        [_collView.mj_footer endRefreshing];
         [CommonFunc dismiss];
-
+        
+        if (_dataArray.count == 0) {
+            [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.collView];
+        }else{
+            [CommonFunc hideTipsViews:self.collView];
+        }
+        
     } failure:^(id  _Nullable errorObject) {
         
+        [_collView.mj_footer endRefreshing];
         [CommonFunc dismiss];
         [_collView reloadData];
     }];

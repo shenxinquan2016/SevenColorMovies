@@ -144,7 +144,8 @@ NSString *identifier;
         }else{
             [CommonFunc hideTipsViews:self.tableView];
         }
-        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"movieinfo"]];
+        
+        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:4 responseObject:responseObject[@"movieinfo"]];
         
     } failure:^(id  _Nullable errorObject) {
         //总的搜索条数

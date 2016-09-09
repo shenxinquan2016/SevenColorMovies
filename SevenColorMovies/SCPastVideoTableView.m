@@ -189,7 +189,8 @@
         }else{
             [CommonFunc hideTipsViews:self.tableView];
         }
-        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"program"]];
+        
+        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:6 responseObject:responseObject[@"program"]];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -199,6 +200,7 @@
         [self.tableView reloadData];
         [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
         [self.tableView.mj_footer endRefreshing];
+        self.tableView.mj_footer.hidden = YES;
         [CommonFunc dismiss];
     }];
     
