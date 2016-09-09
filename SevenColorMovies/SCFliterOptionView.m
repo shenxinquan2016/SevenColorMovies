@@ -120,6 +120,19 @@ static NSString *const cellId = @"SCFliterOptionCell";
     optionModel.selected = YES;
     cell.optionTabModel = optionModel;
     
+    // 第一次如果不是点击第一个cell，要将第一个cell置为非选中状态
+    if (indexPath.row != 0) {
+        
+        NSIndexPath *firstIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+        SCFliterOptionCell *firstCell = (SCFliterOptionCell *)[collectionView cellForItemAtIndexPath:firstIndex];
+        SCFilterOptionTabModel *optionModel = _dataArray[0];
+        optionModel.selected = NO;
+        firstCell.optionTabModel = optionModel;
+
+    }
+    
+    [self.filterOptionCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    
     switch (_type) {
         case FilmType:
                 NSLog(@">>>>>>%lu>>>%@>>>>>>>>>>",(unsigned long)_type,optionModel.tabText);
