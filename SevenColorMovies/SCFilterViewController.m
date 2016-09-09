@@ -10,7 +10,8 @@
 #import "SCPlayerViewController.h"
 #import "SCFliterOptionView.h"
 #import "SCFilterOptionTabModel.h"
-
+#import "SCFilmModel.h"
+#import "SCCollectionViewPageCell.h"
 
 @interface SCFilterViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 
@@ -26,6 +27,7 @@
 @property (nonatomic, copy) NSString *type;/* 筛选参数 */
 @property (nonatomic, copy) NSString *area;/* 筛选参数 */
 @property (nonatomic, copy) NSString *time;/* 筛选参数 */
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
 
@@ -149,15 +151,15 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 16;
+    return self.dataArray.count;
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    SCCollectionViewPageCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
-    
+    cell.model = _dataArray[indexPath.row];
     return cell;
 }
 
@@ -315,24 +317,53 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 // 筛选搜索
 - (void)requestFilterDataWithTypeAndAreaAndTime{
     
+    [CommonFunc showLoadingWithTips:@""];
+
     NSDictionary *parameters = @{@"page" : @"1",
                                  @"style" : _type? _type : @"",
                                  @"zone" : _area? _area : @"",
                                  @"time" : _time? _time : @"",
                                  @"mtype" : _mtype? _mtype : @"",
                                  @"column" : _filmClassModel._FilmClassID? _filmClassModel._FilmClassID : @""};
-    
-    NSLog(@"==========dic:::%@========",parameters);
 
     [requestDataManager requestDataWithUrl:FilterUrl parameters:parameters success:^(id  _Nullable responseObject){
 //        NSLog(@"==========dic:::%@========",responseObject);
         
+        if (self.dataArray) {
+            [_dataArray removeAllObjects];
+        }else{
+            self.dataArray = [NSMutableArray arrayWithCapacity:0];
+        }
+        
+        if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]) {
+            
+            for (NSDictionary *dic in responseObject[@"Film"]) {
+                
+                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                
+                [_dataArray addObject:filmModel];
+            }
+            [_collView reloadData];
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        [CommonFunc dismiss];
+
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
-        
+        [_collView reloadData];
     }];
-    
     
 }
 
