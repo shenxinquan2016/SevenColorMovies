@@ -25,27 +25,17 @@ static const CGFloat LabelWidth = 95.f;
 
 @interface SCChannelCategoryVC ()<UIScrollViewDelegate>
 
-/** 标题栏scrollView */
-@property (nonatomic, strong) UIScrollView *titleScroll;
-/** 内容栏scrollView */
-@property (nonatomic, strong) UIScrollView *contentScroll;
-/** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *titleArr;
-/** ... */
-@property (nonatomic, strong) NSMutableArray *filmClassModelArr;
-/** filmClassUrl数组 */
-@property (nonatomic, strong) NSMutableArray *FilmClassUrlArr;
-/** ... */
-@property (nonatomic, strong) NSMutableArray *filmModelArr;
-/** 滑动短线 */
-@property (nonatomic, strong) CALayer *bottomLine;
-/** 筛选按钮 */
-@property (nonatomic, strong) UIButton *siftBtn;
-/** collectionView加载标识 */
-@property (nonatomic, assign) int tag;
-/** 在当前页设置点击顶部滚动复位 */
-@property (nonatomic, strong) SCCollectionViewPageVC *needScrollToTopPage;
-
+@property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
+@property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
+@property (nonatomic, strong) NSMutableArray *titleArr;/** 标题数组 */
+@property (nonatomic, strong) NSMutableArray *filmClassModelArr;/** ... */
+@property (nonatomic, strong) NSMutableArray *FilmClassUrlArr;/** filmClassUrl数组 */
+@property (nonatomic, strong) NSMutableArray *filmModelArr;/** ... */
+@property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
+@property (nonatomic, strong) UIButton *siftBtn;/** 筛选按钮 */
+@property (nonatomic, assign) int tag;/** collectionView加载标识 */
+@property (nonatomic, strong) SCCollectionViewPageVC *needScrollToTopPage;/** 在当前页设置点击顶部滚动复位 */
+@property (nonatomic, copy) NSString *mtype;/** 下一个页面回传的mType */
 @end
 
 @implementation SCChannelCategoryVC
@@ -88,7 +78,7 @@ static NSString *const cellId = @"cellId";
     btn.frame = CGRectMake(0, 0, 29, 29);
     [btn setBackgroundImage:[UIImage imageNamed:@"Sift"] forState:UIControlStateNormal];
     _siftBtn.selected = NO;
-    [btn addTarget:self action:@selector(doSiftingAction) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(doFilter) forControlEvents:UIControlEventTouchUpInside];
     //    btn.backgroundColor = [UIColor redColor];
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
     UIBarButtonItem *rightNegativeSpacer = [[UIBarButtonItem alloc]
@@ -221,6 +211,10 @@ static NSString *const cellId = @"cellId";
     }
     // 添加默认控制器
     SCCollectionViewPageVC *vc = [self.childViewControllers firstObject];
+    // 接收回传的mtype
+    vc.getMtype = ^(NSString *mtype){
+        self.mtype = mtype;
+    };
     vc.view.frame = self.contentScroll.bounds;
     self.needScrollToTopPage = self.childViewControllers[0];
     
@@ -254,7 +248,7 @@ static NSString *const cellId = @"cellId";
 }
 
 // 筛选
-- (void)doSiftingAction{
+- (void)doFilter{
     if (_siftBtn.selected == NO) {
         _siftBtn.selected = YES;
         [_siftBtn setBackgroundImage:[UIImage imageNamed:@"Sifting"] forState:UIControlStateNormal];
@@ -267,6 +261,7 @@ static NSString *const cellId = @"cellId";
     }
     SCFilterViewController *fliterVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCSiftViewController");
     fliterVC.filmClassModel = self.filmClassModel;
+    fliterVC.mtype = self.mtype;
     fliterVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:fliterVC animated:YES];
 }

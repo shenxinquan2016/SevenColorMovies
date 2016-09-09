@@ -23,6 +23,9 @@
 @property (nonatomic, strong) NSMutableArray *typeArray;/* 类型 */
 @property (nonatomic, strong) NSMutableArray *areaArray;/* 区域 */
 @property (nonatomic, strong) NSMutableArray *timeArray;/* 时间 */
+@property (nonatomic, copy) NSString *type;/* 筛选参数 */
+@property (nonatomic, copy) NSString *area;/* 筛选参数 */
+@property (nonatomic, copy) NSString *time;/* 筛选参数 */
 
 @end
 
@@ -50,7 +53,19 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     [self loadCollectionView];
     
     [self getFilterOptionTabData];
-    //    [self requestFilterDataWithTypeAndAreaAndTime];
+    
+    // 开始筛选
+    [self requestFilterDataWithTypeAndAreaAndTime];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doFilterAction:) name:FilterOptionChanged object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:FilterOptionChanged object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,7 +95,6 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     [_timeOptionView setFrame:CGRectMake(0, self.areaOptionView.frame.origin.y+20+21, kMainScreenWidth, 21)];
     [self.filterTitleView addSubview:_timeOptionView];
     
-    
 }
 
 - (void)loadCollectionView
@@ -98,6 +112,33 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:cellId];
 }
 
+- (void)doFilterAction:(NSNotification *)notification{
+    
+    NSDictionary *dic = notification.object;
+    
+    switch ([dic[@"type"] integerValue]) {
+        case FilmType:
+            _type = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
+            NSLog(@">>>>>>>>>%@>>>>>>>>",_type);
+            break;
+          
+        case FilmArea:
+            _area = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
+            NSLog(@">>>>>>>>>%@>>>>>>>>",_area);
+            break;
+
+        case FilmTime:
+            _time = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
+            NSLog(@">>>>>>>>>%@>>>>>>>>",_time);
+            break;
+
+        default:
+            break;
+    }
+    // 开始筛选
+    [self requestFilterDataWithTypeAndAreaAndTime];
+    
+}
 #pragma mark ---- UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -275,14 +316,16 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 - (void)requestFilterDataWithTypeAndAreaAndTime{
     
     NSDictionary *parameters = @{@"page" : @"1",
-                                 @"style" : @"",
-                                 @"zone" : @"",
-                                 @"time" : @"",
-                                 @"mtype" : @"",
-                                 @"column" : @""};
+                                 @"style" : _type? _type : @"",
+                                 @"zone" : _area? _area : @"",
+                                 @"time" : _time? _time : @"",
+                                 @"mtype" : _mtype? _mtype : @"",
+                                 @"column" : _filmClassModel._FilmClassID? _filmClassModel._FilmClassID : @""};
     
+    NSLog(@"==========dic:::%@========",parameters);
+
     [requestDataManager requestDataWithUrl:FilterUrl parameters:parameters success:^(id  _Nullable responseObject){
-        NSLog(@"==========dic:::%@========",responseObject);
+//        NSLog(@"==========dic:::%@========",responseObject);
         
     } failure:^(id  _Nullable errorObject) {
         

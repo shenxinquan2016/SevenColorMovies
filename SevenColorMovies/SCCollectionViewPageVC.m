@@ -109,6 +109,10 @@ static NSString *const cellId = @"cellId";
                 [CommonFunc dismiss];
             }
         }
+        //将mtype回传给上个控制器
+        SCFilmModel *filmModel = [_filmModelArr firstObject];
+        NSString *mType = filmModel.mtype? filmModel.mtype : filmModel._Mtype;
+        self.getMtype(mType);
         
     } failure:^(id  _Nullable errorObject) {
         [self.collectionView.mj_header endRefreshing];

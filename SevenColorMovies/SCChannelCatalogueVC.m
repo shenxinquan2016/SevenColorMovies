@@ -256,7 +256,7 @@ static NSString *const footerId = @"footerId";
     //设置返回键标题
     NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
     
-    SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
+    
     if (indexPath.row == 0) {
         
         SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
@@ -264,6 +264,8 @@ static NSString *const footerId = @"footerId";
         
     }else{
         if (_filmClassArray.count != 0) {
+            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
+            
             channelVC.filmClassModel = _filmClassArray[indexPath.row-1];
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];

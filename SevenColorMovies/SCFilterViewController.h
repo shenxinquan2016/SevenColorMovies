@@ -13,5 +13,6 @@
 @interface SCFilterViewController : SCOtherBaseViewController
 
 @property (nonatomic, strong) SCFilmClassModel *filmClassModel;
+@property (nonatomic, copy) NSString *mtype;/** mtype筛选参数之一 */
 
 @end

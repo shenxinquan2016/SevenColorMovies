@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^DoBackBlock)(NSInteger tag, NSString *tabText);
 
 @interface SCFliterOptionView : UIView
 
 @property (nonatomic, strong) NSArray *dataArray;
-
 @property (nonatomic, assign) SCFilterOptionType type;/* 筛选卡的type 类型/地区/时间 */
 
 + (instancetype)viewWithType:(NSString *)type;

@@ -133,23 +133,10 @@ static NSString *const cellId = @"SCFliterOptionCell";
     
     [self.filterOptionCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
-    switch (_type) {
-        case FilmType:
-                NSLog(@">>>>>>%lu>>>%@>>>>>>>>>>",(unsigned long)_type,optionModel.tabText);
-            break;
-            
-        case FilmArea:
-                NSLog(@">>>>>>%lu>>>%@>>>>>>>>>>",(unsigned long)_type,optionModel.tabText);
-            break;
-            
-        case FilmTime:
-                NSLog(@">>>>>>%lu>>>%@>>>>>>>>>>",(unsigned long)_type,optionModel.tabText);
-            break;
-            
-        default:
-            break;
-    }
-    
+    NSDictionary *message = @{@"type" : [NSString stringWithFormat:@"%lu", _type],
+                              @"tabText" : optionModel.tabText};
+    [[NSNotificationCenter defaultCenter] postNotificationName:FilterOptionChanged object:message];
+
 }
 
 //取消选中操作

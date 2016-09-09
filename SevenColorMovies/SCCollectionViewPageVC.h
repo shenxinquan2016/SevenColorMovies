@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "SCFilmClassModel.h"
+
+typedef void(^GetMtypeBlock)(NSString *mType);/** 将mTye回传给上一级控制器 */
+
 @interface SCCollectionViewPageVC : UICollectionViewController
 
-/** url端口 */
-@property(nonatomic,copy) NSString *urlString;
-
+@property(nonatomic,copy) NSString *urlString;/** url端口 */
 @property (nonatomic,assign) NSInteger index;
-
-/** 用于区别cell的显示类型 */
-@property (nonatomic, strong) SCFilmClassModel *FilmClassModel;
+@property (nonatomic, strong) SCFilmClassModel *FilmClassModel;/** 用于区别cell的显示类型 */
+@property (nonatomic, copy) GetMtypeBlock getMtype;
 
 @end
