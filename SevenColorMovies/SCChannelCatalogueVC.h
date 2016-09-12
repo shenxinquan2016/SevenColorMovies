@@ -11,11 +11,8 @@
 
 @interface SCChannelCatalogueVC : SCOtherBaseViewController
 
-/** 存储filmList中的filmClass模型（第二层数据）*/
-@property (nonatomic, strong) NSMutableArray *filmClassArray;
-
-/** 所有选项数组 */
-@property (nonatomic, strong) NSMutableArray *allItemsArr;
-
+@property (nonatomic, strong) NSMutableArray *filmClassArray;/** 存储filmList中的filmClass模型（第二层数据）*/
+@property (nonatomic, strong) NSMutableArray *filmClassTitleArray;/** 每个cell的title */
+@property (nonatomic, strong) NSMutableArray *allItemsArr;/** 所有选项数组 */
 
 @end

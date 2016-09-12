@@ -126,14 +126,7 @@ static NSString *const footerId = @"footerId";
 {
     SCChannelCatalogueCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     
-    if (indexPath.row == 0) {
-        
-        NSDictionary *dict = [self.allItemsArr objectAtIndex:0];
-        [cell setModel:dict IndexPath:indexPath];
-        
-    }else{
-        cell.filmClassModel = self.filmClassArray[indexPath.row-1];
-    }
+    [cell setModel:self.filmClassTitleArray[indexPath.row-1] IndexPath:indexPath];
     
     return cell;
 }
@@ -252,21 +245,17 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark - LXReorderableCollectionViewDataSource
 
-- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath {
+- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
+{
+    NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-1];
+    [self.filmClassTitleArray removeObject:filmClassTitle];
+    [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row-1];
     
-    NSDictionary *objc = [_allItemsArr objectAtIndex:fromIndexPath.item];
-    //    从资源数组中移除该数据
-//    [_allItemsArr removeObject:objc];
-//    //    将数据插入到资源数组中的目标位置上
-//    [_allItemsArr insertObject:objc atIndex:toIndexPath.item];
-    
-    SCFilmClassModel *filmClassModel = self.filmClassArray[fromIndexPath.row-1];
-    [self.filmClassArray removeObject:filmClassModel];
-    [self.filmClassArray insertObject:filmClassModel atIndex:toIndexPath.row-1];
 }
 
 
-- (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath {
+- (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath
+{
     
     //if (toIndexPath.row == 0) return NO;//🚫禁止移动到第一个cell
     
