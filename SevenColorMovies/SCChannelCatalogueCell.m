@@ -36,16 +36,29 @@
 - (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath{
     if (model && [model isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dict = (NSDictionary *)model;
-        NSString *keyStr = [dict.allKeys objectAtIndex:0];
+        NSString *keyStr = [dict.allValues objectAtIndex:0];
         
         _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",keyStr]];
         _channelNameLabel.text =  [dict.allValues objectAtIndex:0];
         
         
-        
     }
     
 }
+
+- (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel{
+    
+    _channelNameLabel.text = filmClassModel._FilmClassName;
+    _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassModel._FilmClassName]];
+
+    if (_channelImg.image == nil) {
+        _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
+    }
+    
+    
+
+}
+
 
 
 @end

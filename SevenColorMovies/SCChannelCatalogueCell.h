@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCFilmClassModel.h"
 
 @interface SCChannelCatalogueCell : UICollectionViewCell
+
+@property (nonatomic, strong, nonnull) SCFilmClassModel *filmClassModel;
 
 + (nonnull instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView indexPath:(nonnull NSIndexPath *)indexPath;
 

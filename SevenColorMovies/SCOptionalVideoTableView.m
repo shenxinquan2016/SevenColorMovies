@@ -100,7 +100,8 @@ NSString *identifier;
     if (pageNumber == 1) {
         [_dataSource removeAllObjects];
     }
-    NSDictionary *parameters = @{@"keyword" : keyword,
+    
+    NSDictionary *parameters = @{@"keyword" : keyword? keyword : @"",
                                  @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
     [requestDataManager requestDataWithUrl:SearchVODUrl parameters:parameters success:^(id  _Nullable responseObject) {
@@ -145,7 +146,7 @@ NSString *identifier;
             [CommonFunc hideTipsViews:self.tableView];
         }
         
-        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:4 responseObject:responseObject[@"movieinfo"]];
+        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"movieinfo"]];
         
     } failure:^(id  _Nullable errorObject) {
         //总的搜索条数

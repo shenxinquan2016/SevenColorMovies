@@ -31,18 +31,18 @@
 
 @property (nonatomic, strong) UICollectionView *collView;
 /** tableView数据源 */
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, copy) NSArray *dataSource;
 /** tableView数据源 */
-@property (nonatomic, copy) NSMutableArray *sectionArr;
+@property (nonatomic, strong) NSMutableArray *sectionArr;
 /** 点播栏所有item */
-@property (nonatomic, copy) NSMutableArray *allItemsArr;
+@property (nonatomic, strong) NSMutableArray *allItemsArr;
 @property (nonatomic, strong) SCSycleBanner *bannerView;
 /** banner页图片地址数组 */
-@property (nonatomic, copy) NSMutableArray *bannerImageUrlArr;
+@property (nonatomic, strong) NSMutableArray *bannerImageUrlArr;
 /** 存储filmList中的filmClass模型（第二层数据）*/
-@property (nonatomic, copy) NSMutableArray *filmClassArray;
+@property (nonatomic, strong) NSMutableArray *filmClassArray;
 /** section标题 */
-@property (nonatomic, copy) NSMutableArray *titleArray;
+@property (nonatomic, strong) NSMutableArray *titleArray;
 
 @end
 
@@ -373,12 +373,21 @@ static NSString *const footerId = @"footerId";
 }
 
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    SCDemandChannelItemCell *cell = [SCDemandChannelItemCell cellWithCollectionView:collectionView indexPath:indexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+    
     if (indexPath.section == 0) {
-        NSDictionary *dict = [self.allItemsArr objectAtIndex:indexPath.row];
-        SCDemandChannelItemCell *cell = [SCDemandChannelItemCell cellWithCollectionView:collectionView indexPath:indexPath];
-        cell.backgroundColor = [UIColor whiteColor];
-        [cell setModel:dict IndexPath:indexPath];
+        if (indexPath.row == 0 || indexPath.row == 7) {
+            
+            NSDictionary *dict = [self.allItemsArr objectAtIndex:indexPath.row];
+            [cell setModel:dict IndexPath:indexPath];
+            
+        }else{
+           
+            cell.filmClassModel = _filmClassArray[indexPath.row-1];
+        }
         
         return cell;
         
@@ -496,15 +505,14 @@ static NSString *const footerId = @"footerId";
         if (_filmClassArray.count == 0) {
             [MBProgressHUD showSuccess:@"暂无数据，请稍后再试"];
             return;
-            
         }
-        
         //设置返回键标题
         NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
         if ([[dict.allValues objectAtIndex:0] isEqualToString:@"更多"]) {
             
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
-            moreView.filmClassArray = _filmClassArray;
+//            moreView.filmClassArray = _filmClassArray;
+            moreView.filmClassArray = [NSMutableArray arrayWithArray:_filmClassArray];
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
             
@@ -523,7 +531,6 @@ static NSString *const footerId = @"footerId";
                 [self.navigationController pushViewController:channelVC animated:YES];
                 
             }
-            
         }
         
     }else{

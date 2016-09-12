@@ -142,7 +142,7 @@
     
     //NSLog(@"++++++%@++++++++++%@+++++",time1,time2);
     
-    NSDictionary *parameters = @{@"keyword" : keyword,
+    NSDictionary *parameters = @{@"keyword" : keyword? keyword : @"",
                                  //@"starttime" : startTime,
                                  //@"endtime" : endTime,
                                  @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
@@ -190,7 +190,7 @@
             [CommonFunc hideTipsViews:self.tableView];
         }
         
-        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:6 responseObject:responseObject[@"program"]];
+        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"program"]];
         
     } failure:^(id  _Nullable errorObject) {
         

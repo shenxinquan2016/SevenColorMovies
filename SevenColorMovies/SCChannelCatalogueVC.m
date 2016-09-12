@@ -118,15 +118,22 @@ static NSString *const footerId = @"footerId";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    return self.allItemsArr.count;
+    return self.filmClassArray.count+1;
 }
 
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     SCChannelCatalogueCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    [cell setModel:dict IndexPath:indexPath];
+    
+    if (indexPath.row == 0) {
+        
+        NSDictionary *dict = [self.allItemsArr objectAtIndex:0];
+        [cell setModel:dict IndexPath:indexPath];
+        
+    }else{
+        cell.filmClassModel = self.filmClassArray[indexPath.row-1];
+    }
     
     return cell;
 }
@@ -247,18 +254,21 @@ static NSString *const footerId = @"footerId";
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath {
     
-    NSDictionary* objc = [_allItemsArr objectAtIndex:fromIndexPath.item];
+    NSDictionary *objc = [_allItemsArr objectAtIndex:fromIndexPath.item];
     //    从资源数组中移除该数据
-    [_allItemsArr removeObject:objc];
-    //    将数据插入到资源数组中的目标位置上
-    [_allItemsArr insertObject:objc atIndex:toIndexPath.item];
+//    [_allItemsArr removeObject:objc];
+//    //    将数据插入到资源数组中的目标位置上
+//    [_allItemsArr insertObject:objc atIndex:toIndexPath.item];
+    
+    SCFilmClassModel *filmClassModel = self.filmClassArray[fromIndexPath.row-1];
+    [self.filmClassArray removeObject:filmClassModel];
+    [self.filmClassArray insertObject:filmClassModel atIndex:toIndexPath.row-1];
 }
 
 
 - (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath {
     
-    
-    if (toIndexPath.row == 0) return NO;//🚫目标为第一个cell时禁止移动
+    //if (toIndexPath.row == 0) return NO;//🚫禁止移动到第一个cell
     
     return YES;
 }
@@ -267,10 +277,8 @@ static NSString *const footerId = @"footerId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     //设置返回键标题
-    NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
-    
+    SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row-1];
     
     if (indexPath.row == 0) {
         
@@ -279,7 +287,7 @@ static NSString *const footerId = @"footerId";
         
     }else{
         if (_filmClassArray.count != 0) {
-            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
+            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
             
             channelVC.filmClassModel = _filmClassArray[indexPath.row-1];
             channelVC.hidesBottomBarWhenPushed = YES;
