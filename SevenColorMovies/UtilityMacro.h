@@ -74,29 +74,29 @@
 
 
 //  主要单例
-#define TL_UserDefaults                        [NSUserDefaults standardUserDefaults]
-#define TL_NotificationCenter                  [NSNotificationCenter defaultCenter]
+#define DONG_UserDefaults                        [NSUserDefaults standardUserDefaults]
+#define DONG_NotificationCenter                  [NSNotificationCenter defaultCenter]
 //收到通知后执行什么操作
-#define TL_RecevieNotification(name,expression) [[TL_NotificationCenter rac_addObserverForName:name object:nil] subscribeNext:^(NSNotification *noteification) {expression;}];
+#define DONG_RecevieNotification(name,expression) [[DONG_NotificationCenter rac_addObserverForName:name object:nil] subscribeNext:^(NSNotification *noteification) {expression;}];
 
 
 
 
 
-#define TL_ANIMATION(time,expression)\
+#define DONG_ANIMATION(time,expression)\
 [UIView animateWithDuration:time animations:^{expression}];
 
-#define TL_ANIMATION_COMPLETION(time,expresiion,COMPLETION)\
+#define DONG_ANIMATION_COMPLETION(time,expresiion,COMPLETION)\
 [UIView animateWithDuration:time animations:^{expresiion} completion:^(BOOL finished){COMPLETION}];
 
-#define TL_AFTER(time,expression)\
+#define DONG_AFTER(time,expression)\
 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{expression;});
 
-#define TL_RAC_AFTER(time,expression)\
+#define DONG_RAC_AFTER(time,expression)\
 [[RACScheduler mainThreadScheduler] afterDelay:time schedule:^{expression;}];
 
-#define TL_FONT(FLOAT) [UIFont systemFontOfSize:FLOAT]
-#define TL_FONT_NAME(NAME,SIZE)  [UIFont fontWithName:NAME size:SIZE]
+#define DONG_FONT(FLOAT) [UIFont systemFontOfSize:FLOAT]
+#define DONG_FONT_NAME(NAME,SIZE)  [UIFont fontWithName:NAME size:SIZE]
 
 
 
