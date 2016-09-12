@@ -85,7 +85,7 @@ static NSString *const footerId = @"footerId";
 
 - (void)loadCollectionView{
     
-    //    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+//        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     // 自定义流水布局
     LXReorderableCollectionViewFlowLayout *layout = [[LXReorderableCollectionViewFlowLayout alloc] init];
     
@@ -168,9 +168,11 @@ static NSString *const footerId = @"footerId";
     return nil;
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
+{
     if (_editBtn.selected == YES){//编辑模式
+        
+        if (indexPath.row == 0) return NO;
         
         return YES;
         
@@ -181,7 +183,18 @@ static NSString *const footerId = @"footerId";
     }
 }
 
-
+//- (NSIndexPath *)collectionView:(UICollectionView *)collectionView targetIndexPathForMoveFromItemAtIndexPath:(NSIndexPath *)originalIndexPath toProposedIndexPath:(NSIndexPath *)proposedIndexPath
+//{
+//    /* 判断两个indexPath参数的section属性, 是否在一个分区 */
+//    if (originalIndexPath.section != proposedIndexPath.section) {
+//        return originalIndexPath;
+//    } else if (proposedIndexPath.section == 0 && proposedIndexPath.item == 0) {
+//        return originalIndexPath;
+//    } else {
+//        return proposedIndexPath;
+//    }
+//}
+//
 //- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath{
 //
 //
@@ -244,6 +257,10 @@ static NSString *const footerId = @"footerId";
 
 
 - (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath {
+    
+    if (toIndexPath.row == 0) {
+        return NO;
+    }
     
     return YES;
 }

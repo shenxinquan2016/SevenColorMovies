@@ -77,19 +77,19 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 #pragma mark- private methods
 - (void)setFilterOptionTitleView
 {
-    // 地区选项卡
+    // 1.地区选项卡
     _areaOptionView = [SCFliterOptionView viewWithType:@"地区"];
     _areaOptionView.dataArray = _areaArray;
     _areaOptionView.type = FilmArea;
     [_areaOptionView setFrame:CGRectMake(0, (self.filterTitleView.bounds.size.height-21)/2, kMainScreenWidth, 21)];
     [self.filterTitleView addSubview:_areaOptionView];
-    // 类型选项卡
+    // 2.类型选项卡
     _typeOptionView = [SCFliterOptionView viewWithType:@"类型"];
     _typeOptionView.dataArray = _typeArray;
     _typeOptionView.type = FilmType;
     [_typeOptionView setFrame:CGRectMake(0, self.areaOptionView.frame.origin.y-20-21, kMainScreenWidth, 21)];
     [self.filterTitleView addSubview:_typeOptionView];
-    // 时间选项卡
+    // 3.时间选项卡
     _timeOptionView = [SCFliterOptionView viewWithType:@"时间"];
     _timeOptionView.dataArray = _timeArray;
     _timeOptionView.type = FilmTime;
