@@ -126,7 +126,6 @@ static NSString *const footerId = @"footerId";
     
     NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
     SCChannelCatalogueCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
     [cell setModel:dict IndexPath:indexPath];
     
     return cell;
@@ -172,7 +171,7 @@ static NSString *const footerId = @"footerId";
 {
     if (_editBtn.selected == YES){//编辑模式
         
-        if (indexPath.row == 0) return NO;
+        if (indexPath.row == 0) return NO;//🚫第一个单元格不让移动
         
         return YES;
         
@@ -258,9 +257,8 @@ static NSString *const footerId = @"footerId";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath {
     
-    if (toIndexPath.row == 0) {
-        return NO;
-    }
+    
+    if (toIndexPath.row == 0) return NO;//🚫目标为第一个cell时禁止移动
     
     return YES;
 }
