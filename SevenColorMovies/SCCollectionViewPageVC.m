@@ -109,8 +109,8 @@ static NSString *const cellId = @"cellId";
                 [CommonFunc dismiss];
             }
         }
-        //将mtype回传给上个控制器
-        SCFilmModel *filmModel = [_filmModelArr firstObject];
+        //将mtype回传给上个控制器  （发现传不传没有影响 传时因数据机构缺陷还会有bug）
+//        SCFilmModel *filmModel = [_filmModelArr firstObject];
 //        NSString *mType = filmModel.mtype? filmModel.mtype : filmModel._Mtype;
 //        self.getMtype(mType);
         

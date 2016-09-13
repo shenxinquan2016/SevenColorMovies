@@ -535,14 +535,14 @@
 			name = "New Group";
 			sourceTree = "<group>";
 		};
-		1114481C1D87D15700CB8FA9 /* 优朋 */ = {
+		1114481C1D87D15700CB8FA9 /* 优朋工具包 */ = {
 			isa = PBXGroup;
 			children = (
 				1114481F1D87D1A200CB8FA9 /* 播放的代理 */,
 				1114481E1D87D19F00CB8FA9 /* 域名转换 */,
 				1114481D1D87D19A00CB8FA9 /* UUID */,
 			);
-			name = "优朋";
+			name = "优朋工具包";
 			sourceTree = "<group>";
 		};
 		1114481D1D87D19A00CB8FA9 /* UUID */ = {
@@ -1168,7 +1168,7 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				1114481C1D87D15700CB8FA9 /* 优朋 */,
+				1114481C1D87D15700CB8FA9 /* 优朋工具包 */,
 				1187027E1D7436B7005B3895 /* Reveal.framework */,
 				1122FF671D4A260E00E6E8A2 /* Log(unicode编码) */,
 				11D422601D49F4E400B4F9AE /* XMLParser */,
