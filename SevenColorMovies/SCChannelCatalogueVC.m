@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) UICollectionView *collView;/** collectionView */
 @property (nonatomic, strong) UIButton *editBtn;/** 编辑按钮 */
-@property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary;
+@property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary;/** 将filmClassModel放入字典 */
 
 @end
 
@@ -86,6 +86,7 @@ static NSString *const footerId = @"footerId";
         NSArray *array = [NSArray arrayWithArray:self.filmClassTitleArray];
         [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        self.refreshHomePageBlock();//调整后刷新首页
         NSLog(@">>>>>>>>>>完成编辑>>>>>>>>>>>>");
     }
 }

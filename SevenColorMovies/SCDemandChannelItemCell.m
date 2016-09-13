@@ -19,26 +19,29 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-    
-//    [self.channelImg zy_cornerRadiusRoundingRect];
+
 }
 
 
 
-- (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath{
-    if (model && [model isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dict = (NSDictionary *)model;
-        NSString *keyStr = [dict.allValues objectAtIndex:0];
-        
-        _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",keyStr]];
+- (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath
+{
+    NSArray *array = model;
+    if (indexPath.row == 0) {
+        _channelImg.image = [UIImage imageNamed:@"直播"];
+        _channelNameLabel.text =  @"直播";
+    }else if (indexPath.row == 7){
+        _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
+        _channelNameLabel.text =  @"更多";
+
+    }else{
+        _channelImg.image = [UIImage imageNamed:array[indexPath.row-1]];
         if (_channelImg.image == nil){
             _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         }
-        _channelNameLabel.text =  [dict.allValues objectAtIndex:0];
-        
-    }
-    
+        _channelNameLabel.text =  array[indexPath.row-1];
+
+    } 
 }
 
 - (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel
