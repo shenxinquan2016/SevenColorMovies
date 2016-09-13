@@ -61,7 +61,7 @@ static NSString *const footerId = @"footerId";
     self.view.backgroundColor = [UIColor colorWithHex:@"#dddddd"];
     //1. 设置导航栏的颜色(效果只作用当前页面）
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHex:@"#F0F1F2"]];
-   
+    
     //2.设置导航栏的颜色（效果作用到所有页面）
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setBarTintColor:[UIColor colorWithHex:@"#F1F1F1"]];
@@ -157,42 +157,42 @@ static NSString *const footerId = @"footerId";
 - (void)requestData{
     
     //>>>>>>>>>>>>>>>>>>>>banner测试接口<<<<<<<<<<<<<<<<<<<<<<
-//            if (_bannerImageUrlArr) {
-//                [_bannerImageUrlArr removeAllObjects];
-//            }else if (!_bannerImageUrlArr){
-//                _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
-//            }
-//    
-//            [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
-//    
-//                NSMutableArray *dataArr = responseObject[@"Film"];
-//    
-//                if (![dataArr isKindOfClass:[NSNull class]]) {
-//                    for (NSDictionary *dic in dataArr) {
-//                        SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
-//                        [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
-//    
-//                    }
-//    
-//                    //添加banner
-//                    if (_bannerImageUrlArr.count > 0) {
-//                        
-//                        [self addBannerView];
-//                        _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-//                    }}else if (_bannerImageUrlArr.count == 0){
-//                        if (_bannerView) {
-//                            [_bannerView removeFromSuperview];
-//    
-//                        }
-//                    }
-//                [CommonFunc dismiss];
-//                [_collView.mj_header endRefreshing];
-//    
-//            } failure:^(id  _Nullable errorObject) {
-//                [CommonFunc dismiss];
-//                [_collView.mj_header endRefreshing];
-//    
-//            }];
+    //            if (_bannerImageUrlArr) {
+    //                [_bannerImageUrlArr removeAllObjects];
+    //            }else if (!_bannerImageUrlArr){
+    //                _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
+    //            }
+    //
+    //            [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
+    //
+    //                NSMutableArray *dataArr = responseObject[@"Film"];
+    //
+    //                if (![dataArr isKindOfClass:[NSNull class]]) {
+    //                    for (NSDictionary *dic in dataArr) {
+    //                        SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
+    //                        [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
+    //
+    //                    }
+    //
+    //                    //添加banner
+    //                    if (_bannerImageUrlArr.count > 0) {
+    //
+    //                        [self addBannerView];
+    //                        _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
+    //                    }}else if (_bannerImageUrlArr.count == 0){
+    //                        if (_bannerView) {
+    //                            [_bannerView removeFromSuperview];
+    //
+    //                        }
+    //                    }
+    //                [CommonFunc dismiss];
+    //                [_collView.mj_header endRefreshing];
+    //
+    //            } failure:^(id  _Nullable errorObject) {
+    //                [CommonFunc dismiss];
+    //                [_collView.mj_header endRefreshing];
+    //
+    //            }];
     
     
     //>>>>>>>>>>>>>>>>>>>>整合后的首页接口调试<<<<<<<<<<<<<<<<<<<<<<
@@ -216,7 +216,7 @@ static NSString *const footerId = @"footerId";
     
     
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
-//         NSLog(@"==========dic:::%@========",responseObject);
+        //         NSLog(@"==========dic:::%@========",responseObject);
         if (responseObject){
             //1.第一层 filmList
             SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
@@ -259,7 +259,6 @@ static NSString *const footerId = @"footerId";
                         }
                     }
                 }
-                
             }
         }
         //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
@@ -333,7 +332,6 @@ static NSString *const footerId = @"footerId";
     [_collView addSubview:_bannerView];
 }
 
-
 #pragma mark ---- responce
 - (void)sectionClick:(UIButton *)sender{
     
@@ -385,7 +383,7 @@ static NSString *const footerId = @"footerId";
             [cell setModel:dict IndexPath:indexPath];
             
         }else{
-           
+            
             cell.filmClassModel = _filmClassArray[indexPath.row-1];
         }
         
@@ -507,20 +505,22 @@ static NSString *const footerId = @"footerId";
             return;
         }
         //设置返回键标题
-        NSDictionary *dict = [_allItemsArr objectAtIndex:indexPath.row];
-        if ([[dict.allValues objectAtIndex:0] isEqualToString:@"更多"]) {
+        if (indexPath.row == 7) {
             
-            SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:[dict.allValues objectAtIndex:0]];
+            SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:@"更多"];
             moreView.filmClassArray = [NSMutableArray arrayWithArray:_filmClassArray];
             
+            // 将self.titleArray存到本地，每次点击时先取本地的数组：1、如果本地数组与self.titleArray元素相同，则使用本地数组 2.如果本地数组与self.filmClassArray元素不同，则使用self.titleArray
             
-            
-            //将self.titleArray存到本地，每次点击时先取本地的数组：1、如果本地数组与self.titleArray元素相同，则使用本地数组 2.如果本地数组与self.filmClassArray元素不同，则使用self.titleArray
-            NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray];
+            NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray];// NSUserDefaults 只能读取不可变对象
             if (filmClassTitleArray.count == 0) {
                 
-                [[NSUserDefaults standardUserDefaults] setObject:self.filmClassArray forKey:kFilmClassTitleArray];
+                NSArray *array = [NSArray arrayWithArray:self.titleArray];// NSUserDefaults 只能读取不可变对象
+                [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
                 moreView.filmClassTitleArray = [NSMutableArray arrayWithArray:self.titleArray];
+                
                 NSLog(@">*******************************<");
                 
             }else{
@@ -528,10 +528,13 @@ static NSString *const footerId = @"footerId";
                 if ([filmClassTitleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", self.titleArray]].count == 0 && [self.titleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", filmClassTitleArray]].count == 0) {//本地保存的和新请求到的相同时
                     
                     moreView.filmClassTitleArray = [NSMutableArray arrayWithArray:filmClassTitleArray];
-
+                    
                 }else{
                     //本地保存的和新请求到的不同时
-                    [[NSUserDefaults standardUserDefaults] setObject:self.filmClassArray forKey:kFilmClassTitleArray];
+                    NSArray *array = [NSArray arrayWithArray:self.titleArray];
+                    [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
                     moreView.filmClassTitleArray = [NSMutableArray arrayWithArray:self.titleArray];
                 }
             }

@@ -27,6 +27,12 @@
 		1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4211D48B2E000C17B92 /* SCNetRequsetManger+Home.m */; };
 		1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4271D48C51A00C17B92 /* SCLoadingView.m */; };
 		1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */; };
+		111448251D87D1CE00CB8FA9 /* HLJKeychainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 111448211D87D1CE00CB8FA9 /* HLJKeychainStore.m */; };
+		111448261D87D1CE00CB8FA9 /* HLJUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 111448231D87D1CE00CB8FA9 /* HLJUUID.m */; };
+		111448271D87D1CE00CB8FA9 /* UUID使用说明.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 111448241D87D1CE00CB8FA9 /* UUID使用说明.pdf */; };
+		1114482C1D87D31700CB8FA9 /* 域名替换IP说明.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 111448281D87D31700CB8FA9 /* 域名替换IP说明.pdf */; };
+		1114482D1D87D31700CB8FA9 /* HLJRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1114482A1D87D31700CB8FA9 /* HLJRequest.m */; };
+		111448321D87DC6500CB8FA9 /* HLJDomainNameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 111448311D87DC6500CB8FA9 /* HLJDomainNameModel.m */; };
 		1118278E1D800C92005921D6 /* SCFliterOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1118278D1D800C92005921D6 /* SCFliterOptionView.m */; };
 		111827901D800CD3005921D6 /* SCFliterOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1118278F1D800CD3005921D6 /* SCFliterOptionView.xib */; };
 		1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */; };
@@ -208,6 +214,16 @@
 		1111A4271D48C51A00C17B92 /* SCLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLoadingView.m; sourceTree = "<group>"; };
 		1112D7491D405D51009A5C35 /* SCSlideHeaderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSlideHeaderLabel.h; sourceTree = "<group>"; };
 		1112D74A1D405D51009A5C35 /* SCSlideHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSlideHeaderLabel.m; sourceTree = "<group>"; };
+		111448201D87D1CE00CB8FA9 /* HLJKeychainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJKeychainStore.h; sourceTree = "<group>"; };
+		111448211D87D1CE00CB8FA9 /* HLJKeychainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJKeychainStore.m; sourceTree = "<group>"; };
+		111448221D87D1CE00CB8FA9 /* HLJUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJUUID.h; sourceTree = "<group>"; };
+		111448231D87D1CE00CB8FA9 /* HLJUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJUUID.m; sourceTree = "<group>"; };
+		111448241D87D1CE00CB8FA9 /* UUID使用说明.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "UUID使用说明.pdf"; sourceTree = "<group>"; };
+		111448281D87D31700CB8FA9 /* 域名替换IP说明.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "域名替换IP说明.pdf"; sourceTree = "<group>"; };
+		111448291D87D31700CB8FA9 /* HLJRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJRequest.h; sourceTree = "<group>"; };
+		1114482A1D87D31700CB8FA9 /* HLJRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJRequest.m; sourceTree = "<group>"; };
+		111448301D87DC6500CB8FA9 /* HLJDomainNameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJDomainNameModel.h; sourceTree = "<group>"; };
+		111448311D87DC6500CB8FA9 /* HLJDomainNameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJDomainNameModel.m; sourceTree = "<group>"; };
 		1118278C1D800C92005921D6 /* SCFliterOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFliterOptionView.h; sourceTree = "<group>"; };
 		1118278D1D800C92005921D6 /* SCFliterOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFliterOptionView.m; sourceTree = "<group>"; };
 		1118278F1D800CD3005921D6 /* SCFliterOptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCFliterOptionView.xib; sourceTree = "<group>"; };
@@ -517,6 +533,55 @@
 				1111A4181D48A71300C17B92 /* Reachability.m */,
 			);
 			name = "New Group";
+			sourceTree = "<group>";
+		};
+		1114481C1D87D15700CB8FA9 /* 优朋 */ = {
+			isa = PBXGroup;
+			children = (
+				1114481F1D87D1A200CB8FA9 /* 播放的代理 */,
+				1114481E1D87D19F00CB8FA9 /* 域名转换 */,
+				1114481D1D87D19A00CB8FA9 /* UUID */,
+			);
+			name = "优朋";
+			sourceTree = "<group>";
+		};
+		1114481D1D87D19A00CB8FA9 /* UUID */ = {
+			isa = PBXGroup;
+			children = (
+				111448201D87D1CE00CB8FA9 /* HLJKeychainStore.h */,
+				111448211D87D1CE00CB8FA9 /* HLJKeychainStore.m */,
+				111448221D87D1CE00CB8FA9 /* HLJUUID.h */,
+				111448231D87D1CE00CB8FA9 /* HLJUUID.m */,
+				111448241D87D1CE00CB8FA9 /* UUID使用说明.pdf */,
+			);
+			name = UUID;
+			sourceTree = "<group>";
+		};
+		1114481E1D87D19F00CB8FA9 /* 域名转换 */ = {
+			isa = PBXGroup;
+			children = (
+				111448281D87D31700CB8FA9 /* 域名替换IP说明.pdf */,
+				111448291D87D31700CB8FA9 /* HLJRequest.h */,
+				1114482A1D87D31700CB8FA9 /* HLJRequest.m */,
+				1114482F1D87DC4C00CB8FA9 /* Model */,
+			);
+			name = "域名转换";
+			sourceTree = "<group>";
+		};
+		1114481F1D87D1A200CB8FA9 /* 播放的代理 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "播放的代理";
+			sourceTree = "<group>";
+		};
+		1114482F1D87DC4C00CB8FA9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				111448301D87DC6500CB8FA9 /* HLJDomainNameModel.h */,
+				111448311D87DC6500CB8FA9 /* HLJDomainNameModel.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		111827891D800AAD005921D6 /* MainBody */ = {
@@ -1103,6 +1168,7 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				1114481C1D87D15700CB8FA9 /* 优朋 */,
 				1187027E1D7436B7005B3895 /* Reveal.framework */,
 				1122FF671D4A260E00E6E8A2 /* Log(unicode编码) */,
 				11D422601D49F4E400B4F9AE /* XMLParser */,
@@ -1615,7 +1681,9 @@
 				11458EA31D45FEE200EBD16D /* SCMineTopCell.xib in Resources */,
 				11458E981D45E0D500EBD16D /* SCDiscoveryTableViewCell.xib in Resources */,
 				113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */,
+				111448271D87D1CE00CB8FA9 /* UUID使用说明.pdf in Resources */,
 				113F6C801D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib in Resources */,
+				1114482C1D87D31700CB8FA9 /* 域名替换IP说明.pdf in Resources */,
 				11051ED51D6D950100E920C1 /* SCLiveProgramListCell.xib in Resources */,
 				116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */,
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
@@ -1746,6 +1814,7 @@
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
 				11051ED41D6D950100E920C1 /* SCLiveProgramListCell.m in Sources */,
 				1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */,
+				111448251D87D1CE00CB8FA9 /* HLJKeychainStore.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
 				11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */,
 				1111A4191D48A71300C17B92 /* QINetReachabilityManager.m in Sources */,
@@ -1773,6 +1842,7 @@
 				115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */,
 				11DDB87E1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m in Sources */,
 				116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */,
+				111448321D87DC6500CB8FA9 /* HLJDomainNameModel.m in Sources */,
 				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
 				110175071D54402D00E43773 /* FileManageCommon.m in Sources */,
 				11C1C1C11D8020A300CEE71C /* SCFliterOptionCell.m in Sources */,
@@ -1796,10 +1866,12 @@
 				113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */,
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
 				11588F731D6B079900C91E3A /* SCLivePageCell.m in Sources */,
+				111448261D87D1CE00CB8FA9 /* HLJUUID.m in Sources */,
 				11EBC3F51D5C69F600C1A338 /* SCSpecialTopicDetailVC.m in Sources */,
 				1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
 				1118278E1D800C92005921D6 /* SCFliterOptionView.m in Sources */,
+				1114482D1D87D31700CB8FA9 /* HLJRequest.m in Sources */,
 				11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */,
 				11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */,
 				1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */,

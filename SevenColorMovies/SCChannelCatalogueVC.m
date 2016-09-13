@@ -73,13 +73,18 @@ static NSString *const footerId = @"footerId";
     if (_editBtn.selected == NO) {
         _editBtn.selected = YES;
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
-        NSLog(@">>>>>>>>>>开始编辑>>>>>>>>>>>>");
         
     }else if (_editBtn.selected != NO){
         _editBtn.selected = NO;
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        
+        NSArray *array = [NSArray arrayWithArray:self.filmClassTitleArray];
+        [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         NSLog(@">>>>>>>>>>完成编辑>>>>>>>>>>>>");
     }
+    
+    
 
 }
 
@@ -126,7 +131,7 @@ static NSString *const footerId = @"footerId";
 {
     SCChannelCatalogueCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     
-    [cell setModel:self.filmClassTitleArray[indexPath.row-1] IndexPath:indexPath];
+    [cell setModel:self.filmClassTitleArray IndexPath:indexPath];
     
     return cell;
 }
@@ -247,17 +252,20 @@ static NSString *const footerId = @"footerId";
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-1];
-    [self.filmClassTitleArray removeObject:filmClassTitle];
-    [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row-1];
+    if (fromIndexPath.row-1 < self.filmClassTitleArray.count && toIndexPath.row-1 < self.filmClassTitleArray.count) {
+        
+        NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-1];
+        [self.filmClassTitleArray removeObject:filmClassTitle];
+        [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row-1];
+
+    }
     
 }
 
 
 - (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    
-    //if (toIndexPath.row == 0) return NO;//🚫禁止移动到第一个cell
+    if (toIndexPath.row == 0) return NO;//🚫禁止移动到第一个cell
     
     return YES;
 }
