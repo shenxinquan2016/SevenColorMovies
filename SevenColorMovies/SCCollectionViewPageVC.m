@@ -111,8 +111,8 @@ static NSString *const cellId = @"cellId";
         }
         //将mtype回传给上个控制器
         SCFilmModel *filmModel = [_filmModelArr firstObject];
-        NSString *mType = filmModel.mtype? filmModel.mtype : filmModel._Mtype;
-        self.getMtype(mType);
+//        NSString *mType = filmModel.mtype? filmModel.mtype : filmModel._Mtype;
+//        self.getMtype(mType);
         
         
     } failure:^(id  _Nullable errorObject) {
@@ -151,8 +151,7 @@ static NSString *const cellId = @"cellId";
         return cell;
         
     }else{
-        
-        static NSString * const identifier = @"综艺";
+        static NSString * const identifier = @"专题";
         SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:identifier indexPath:indexPath];
         
         SCFilmClassModel *filmClassModel = _filmModelArr[indexPath.row];
@@ -173,7 +172,7 @@ static NSString *const cellId = @"cellId";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
-        if ([_FilmClassModel._FilmClassName isEqualToString:@"综艺"] || [_FilmClassModel._FilmClassName isEqualToString:@"生活"]) {
+        if ([_FilmClassModel._FilmClassName isEqualToString:@"专题"]) {
             
             return (CGSize){(kMainScreenWidth-24-10)/2,145};
             

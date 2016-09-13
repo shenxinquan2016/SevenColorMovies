@@ -28,7 +28,7 @@
 + (instancetype)cellWithCollectionView:(UICollectionView *)collectionView identifier:(NSString *)identifier indexPath:(NSIndexPath *)indexPath {
     
     static NSString *ID;
-    if ([identifier isEqualToString:@"生活"] || [identifier isEqualToString:@"综艺"]) {
+    if ([identifier isEqualToString:@"专题"]) {
         
         ID = @"SCCollectionViewPageArtsCell";
         

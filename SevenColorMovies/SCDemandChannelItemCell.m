@@ -44,17 +44,6 @@
     } 
 }
 
-- (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel
-{
-    _channelNameLabel.text = filmClassModel._FilmClassName;
-    
-    _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassModel._FilmClassName]];
-    if (_channelImg.image == nil){
-        _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
-    }
-}
-
-
 + (instancetype)cellWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
     
     static NSString *ID;

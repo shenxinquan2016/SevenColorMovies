@@ -425,7 +425,7 @@ static NSString *const footerId = @"footerId";
         //cell.backgroundColor = [UIColor purpleColor];
         
         cell.model = filmModel;
-        //                NSLog(@">>>>>>>>>_SourceUrl:::%@",filmModel.SourceUrl);
+        //NSLog(@">>>>>>>>>_SourceUrl:::%@",filmModel.SourceUrl);
         return cell;
         
     }
@@ -472,7 +472,7 @@ static NSString *const footerId = @"footerId";
     }else{
         // 综艺栏目cell大小
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
-        if ([classModel._FilmClassName isEqualToString:@"综艺"] || [classModel._FilmClassName isEqualToString:@"生活"]) {
+        if ([classModel._FilmClassName isEqualToString:@"专题"]) {
             return (CGSize){(kMainScreenWidth-24-10)/2,145};
             
         }else{
