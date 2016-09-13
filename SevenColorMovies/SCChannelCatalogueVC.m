@@ -54,10 +54,12 @@ static NSString *const footerId = @"footerId";
 - (void)addRightBBI {
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 50, 28);
+    btn.frame = CGRectMake(0, 0, 45, 23);
     
     [btn setTitle:@"编辑" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:15.f];
     [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    btn.enlargedEdge = 5.f;
     [btn.layer setBorderWidth:1.5f];
     [btn.layer setBorderColor:[UIColor grayColor].CGColor];
     [btn addTarget:self action:@selector(doEditingAction) forControlEvents:UIControlEventTouchUpInside];
@@ -70,7 +72,7 @@ static NSString *const footerId = @"footerId";
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
     _editBtn = btn;
     _editBtn.selected = NO;
-    }
+}
 
 - (void)doEditingAction{
     if (_editBtn.selected == NO) {
@@ -100,7 +102,7 @@ static NSString *const footerId = @"footerId";
 
 - (void)loadCollectionView
 {
-//        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+    //        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     // 自定义流水布局
     LXReorderableCollectionViewFlowLayout *layout = [[LXReorderableCollectionViewFlowLayout alloc] init];
     
@@ -192,7 +194,7 @@ static NSString *const footerId = @"footerId";
         
     }else{
         
-    return NO;
+        return NO;
         
     }
 }
@@ -267,7 +269,7 @@ static NSString *const footerId = @"footerId";
         NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-1];
         [self.filmClassTitleArray removeObject:filmClassTitle];
         [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row-1];
-
+        
     }
     
 }
@@ -299,19 +301,8 @@ static NSString *const footerId = @"footerId";
             [self.navigationController pushViewController:channelVC animated:YES];
         }
     }
-  
 }
 
-#pragma mark- Getters and Setters
-- (NSMutableArray *)allItemsArr{
-    if (!_allItemsArr) {
-        NSArray *array =@[@{@"Live" : @"直播"}, @{@"CinemaPlaying" : @"私人影院"}, @{@"ChildrenTheater" : @"少儿剧场"}, @{@"OverseasFilm" : @"海外片场"}, @{@"Moive" : @"电影"}, @{@"Teleplay" : @"电视剧"},  @{@"Children" : @"少儿"}, @{@"Cartoon" : @"动漫"}, @{@"Arts" : @"综艺"}, @{@"Life" : @"生活"}, @{@"Game" : @"游戏"}, @{@"Documentary" : @"纪录片"}, @{@"Music" : @"音乐"},  @{@"SpecialTopic" : @"专题"}];
-        
-        _allItemsArr = [NSMutableArray arrayWithCapacity:0];
-        [_allItemsArr addObjectsFromArray:array];
-    }
-    return _allItemsArr;
-}
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{
