@@ -17,11 +17,11 @@
 
 
 @interface SCChannelCatalogueVC ()<LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout,UICollectionViewDelegate>
-/** collectionView */
-@property (nonatomic, strong) UICollectionView *collView;
 
-/** 编辑按钮 */
-@property (nonatomic, strong) UIButton *editBtn;
+@property (nonatomic, strong) UICollectionView *collView;/** collectionView */
+@property (nonatomic, strong) UIButton *editBtn;/** 编辑按钮 */
+@property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary;
+
 @end
 
 @implementation SCChannelCatalogueVC
@@ -34,6 +34,8 @@ static NSString *const footerId = @"footerId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    //-1.组建filmClassModelDictionary
+    [self setFilmClassModelDictionary];
     
     //0.编辑按钮
     [self addRightBBI];
@@ -48,6 +50,7 @@ static NSString *const footerId = @"footerId";
     
 }
 
+#pragma mark -Private Method
 - (void)addRightBBI {
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -83,13 +86,20 @@ static NSString *const footerId = @"footerId";
         [[NSUserDefaults standardUserDefaults] synchronize];
         NSLog(@">>>>>>>>>>完成编辑>>>>>>>>>>>>");
     }
-    
-    
-
 }
 
-- (void)loadCollectionView{
-    
+
+- (void)setFilmClassModelDictionary
+{
+    self.filmClassModelDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
+    for (SCFilmClassModel *filmClassModel in self.filmClassArray) {
+        NSString *key = filmClassModel._FilmClassName;
+        [_filmClassModelDictionary setObject:filmClassModel forKey:key];
+    }
+}
+
+- (void)loadCollectionView
+{
 //        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     // 自定义流水布局
     LXReorderableCollectionViewFlowLayout *layout = [[LXReorderableCollectionViewFlowLayout alloc] init];
@@ -274,9 +284,6 @@ static NSString *const footerId = @"footerId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //设置返回键标题
-    SCFilmClassModel *filmClassModel = _filmClassArray[indexPath.row-1];
-    
     if (indexPath.row == 0) {
         
         SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
@@ -284,9 +291,10 @@ static NSString *const footerId = @"footerId";
         
     }else{
         if (_filmClassArray.count != 0) {
-            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
+            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-1]];
             
-            channelVC.filmClassModel = _filmClassArray[indexPath.row-1];
+            NSString *key = _filmClassTitleArray[indexPath.row-1];
+            channelVC.filmClassModel = _filmClassModelDictionary[key];
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
         }
