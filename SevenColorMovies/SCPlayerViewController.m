@@ -136,7 +136,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
     
-    // 私人影院 电影 海外片场 音乐
+    // 私人影院 电影 海外片场
     if ([mtype isEqualToString:@"0"] ||
         [mtype isEqualToString:@"2"] ||
         [mtype isEqualToString:@"13"])
