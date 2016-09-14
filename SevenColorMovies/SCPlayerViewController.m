@@ -77,6 +77,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     [self.view addSubview:_IJKPlayerViewController.view];
+    _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
     
     //4.全屏小屏通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
@@ -139,29 +140,18 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     // 私人影院 电影 海外片场 音乐
     if ([mtype isEqualToString:@"0"] ||
         [mtype isEqualToString:@"2"] ||
-        [mtype isEqualToString:@"13"] ||
-        [mtype isEqualToString:@"15"])
+        [mtype isEqualToString:@"13"])
     {
-        self.titleArr = @[@"详情", @"精彩推荐"];
-        self.identifier = @"电影";
         [self getMoveData];
         
     }else if // 综艺 生活
         ([mtype isEqualToString:@"7"] ||
          [mtype isEqualToString:@"30"])
     {
-        self.titleArr = @[@"剧情", @"详情"];
-        self.identifier = @"综艺";
-        
         [self getArtsAndLifeData];
-        
-        
         
     }else{
         //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
-        self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
-        self.identifier = @"电视剧";
-        
         [self getTeleplayData];
     }
     
@@ -503,7 +493,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             break;
         case UIDeviceOrientationLandscapeRight:
             
-            
             [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
             
             self.view.frame = [[UIScreen mainScreen] bounds];
@@ -595,7 +584,16 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     
                 }
             }
-            
+            if (_filmSetsArr.count == 1) {
+                
+                self.titleArr = @[@"详情", @"精彩推荐"];
+                self.identifier = @"电影";
+
+            }else if (_filmSetsArr.count > 1){
+            self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
+            self.identifier = @"电视剧";
+                
+            }
             //4.添加滑动headerView
             [self constructSlideHeaderView];
             //5.添加contentScrllowView
@@ -648,6 +646,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             }
             
         }
+        self.titleArr = @[@"剧情", @"详情"];
+        self.identifier = @"综艺";
         
         //4.添加滑动headerView
         [self constructSlideHeaderView];
@@ -702,7 +702,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             //base64编码downloadUrl
             NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
             
-            
             //获取fid
             NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
             
@@ -713,6 +712,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
             NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",_VODStreamingUrl);
         }
+        self.titleArr = @[@"详情", @"精彩推荐"];
+        self.identifier = @"电影";
+        
         //4.添加滑动headerView
         [self constructSlideHeaderView];
         [self constructContentView];
@@ -726,7 +728,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
 }
 
-#pragma mark - 更新状态了状态 旋转方案二时使用
+#pragma mark - 更新状态栏状态 使用旋转方案二时调用
 - (BOOL)prefersStatusBarHidden{
     if (_IJKPlayerViewController.isFullScreen) {
         return YES;//如果全屏，隐藏状态栏

@@ -37,9 +37,6 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 {
     BOOL _isFullScreen;
-    
-    
-    
     NSString *programOnLiveName_;/* 临时保存直播节目的名称 */
 }
 

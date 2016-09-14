@@ -72,7 +72,7 @@ static NSString *const cellId = @"cellId";
     
     [requestDataManager requestFilmClassDataWithUrl:_urlString parameters:nil success:^(id  _Nullable responseObject) {
         
-        NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
+       //NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
         if (responseObject) {
             if (responseObject[@"FilmClass"]) {// 专题页面(比其他多一层)
                 
@@ -227,7 +227,8 @@ static NSString *const cellId = @"cellId";
 
 
 // 选中某item
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         
         SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
@@ -244,7 +245,6 @@ static NSString *const cellId = @"cellId";
             
             [[self respondController].navigationController pushViewController:teleplayPlayer animated:YES];
         }
-        
         
     }else{// 专题第一级页面点击
         

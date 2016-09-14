@@ -586,8 +586,6 @@ static NSString *const footerId = @"footerId";
     // NSLog(@">>>>>> 滚动到第%ld张图", (long)index);
 }
 
-
-
 #pragma mark- Getters and Setters
 - (NSMutableArray *)allItemsArr{
     if (!_allItemsArr) {
