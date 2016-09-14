@@ -146,7 +146,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         
     }else if // 综艺 生活
         ([mtype isEqualToString:@"7"] ||
-         [mtype isEqualToString:@"30"])
+         [mtype isEqualToString:@"9"])
     {
         [self getArtsAndLifeData];
         
@@ -436,8 +436,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-    
-    
+
     
     // 方案二：自定义旋转90°进入全屏
     //    [self setNeedsStatusBarAppearanceUpdate];
@@ -678,7 +677,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"filmmid" : filmmidStr};
-    
     
     NSLog(@"====filmmidStr:::%@===",filmmidStr);
     [requestDataManager requestDataWithUrl:FilmSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
