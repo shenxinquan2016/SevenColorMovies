@@ -17,14 +17,20 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.backgroundColor = [UIColor whiteColor];
 }
 
-- (void)setModel:(SCFilmSetModel *)model {
+- (void)setFilmSetModel:(SCFilmSetModel *)filmSetModel{
 
-    _contentIndexLabel.text = model._ContentIndex;
+    _contentIndexLabel.text = filmSetModel._ContentIndex;
     
-    
+    if (filmSetModel.isOnLive) {
+        _contentIndexLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
+        
+    }else{
+        //此处若不设置label的默认颜色，cell复用时label的颜色会混乱
+        _contentIndexLabel.textColor = [UIColor colorWithHex:@"#333333"];
+    }
 }
 
 @end

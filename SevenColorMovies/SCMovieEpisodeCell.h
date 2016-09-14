@@ -11,6 +11,6 @@
 
 @interface SCMovieEpisodeCell : UICollectionViewCell
 
-@property (nonatomic, strong) SCFilmSetModel *model;
+@property (nonatomic, strong) SCFilmSetModel *filmSetModel;
 
 @end

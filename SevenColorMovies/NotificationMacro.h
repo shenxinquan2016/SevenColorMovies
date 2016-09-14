@@ -21,8 +21,10 @@ static NSString *const FilterOptionChanged = @"FilterOptionChanged";/** 点击�
 
 
 
-#define k_for_selectedViewIndex @"k_for_selectedViewIndex"/** 正在展示页标识 */
-#define k_for_selectedCellIndex @"k_for_selectedCellIndex"/** 点击cell的标识 */
+#define k_for_Live_selectedViewIndex @"k_for_Live_selectedViewIndex"/** 正在展示页标识 直播 */
+#define k_for_Live_selectedCellIndex @"k_for_Live_selectedCellIndex"/** 点击cell的标识  直播 */
+#define k_for_VOD_selectedViewIndex @"k_for_VOD_selectedViewIndex"/** 正在展示页标识 点播 */
+#define k_for_VOD_selectedCellIndex @"k_for_VOD_selectedCellIndex"/** 点击cell的标识  点播 */
 #define kFilmClassTitleArray @"kFilmClassTitleArray"/** 节目分类title保存到本地 */
 
 

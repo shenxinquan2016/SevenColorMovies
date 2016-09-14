@@ -547,6 +547,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 
                 model.VODStreamingUrl = VODStreamingUrl;
+                
                 NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>>>>%@",downloadUrl);
                 NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>>%@",model.VODStreamingUrl);
                 [_filmSetsArr addObject:model];
@@ -579,6 +580,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     
                 }
             }
+            SCFilmSetModel *model = [_filmSetsArr firstObject];
+            model.onLive = YES;
+            
             if (_filmSetsArr.count == 1) {
                 
                 self.titleArr = @[@"详情", @"精彩推荐"];

@@ -18,5 +18,6 @@
 @property (nonatomic,copy) NSString *_DownUrl;/** 影片下载地址 */
 @property (nonatomic,copy) NSString *Introduction;/** 影片介绍 */
 @property (nonatomic,copy) NSString *VODStreamingUrl;/** 视频流url */
+@property (nonatomic, assign, getter = isOnLive) BOOL onLive;/* 节目是否正在播放 */
 
 @end

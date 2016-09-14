@@ -50,9 +50,9 @@ static const CGFloat LabelWidth = 70.f;
     
 
     [self setView];
+    
+    
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -219,6 +219,7 @@ static const CGFloat LabelWidth = 70.f;
         
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
         SCMoiveAllEpisodesCollectionVC *vc = [[SCMoiveAllEpisodesCollectionVC alloc] initWithCollectionViewLayout:layout];
+        vc.viewIdentifier = i;//页面唯一标识符(响应通知时判断使用)
         vc.dataSource = _dataSource[i];
         [self addChildViewController:vc];
         

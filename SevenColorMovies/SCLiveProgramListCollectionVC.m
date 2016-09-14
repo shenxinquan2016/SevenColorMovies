@@ -17,6 +17,7 @@
 @implementation SCLiveProgramListCollectionVC
 {
     SCLiveProgramModel *_model;
+    NSIndexPath *selectingIndexPath_;
 }
 static NSString *const cellId = @"SCLiveProgramListCell";
 static NSString *const headerId = @"headerId";
@@ -65,6 +66,9 @@ static NSString *const footerId = @"footerId";
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenPlayNextProgrom object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenClickProgramList object:nil];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:k_for_Live_selectedViewIndex];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:k_for_Live_selectedCellIndex];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -143,10 +147,11 @@ static NSString *const footerId = @"footerId";
 //点击某item
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    selectingIndexPath_ = indexPath;
     //通过改变cell对应model的onLive属性来改变选中cell为选中状态
     _model = _liveProgramModelArr[indexPath.row];
     _model.onLive = YES;
+    
     if ([_model.programName isEqualToString:@"结束"]) return;//最后一行没有播放信息
     if (_model.programState == WillPlay){
         [MBProgressHUD showSuccess:@"节目暂未播出"];
@@ -160,8 +165,8 @@ static NSString *const footerId = @"footerId";
     [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenClickProgramList object:indexPath];
     
     //将当前页和选中的行index保存到本地
-    [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_selectedViewIndex];
-    [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:k_for_selectedCellIndex];
+    [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_Live_selectedViewIndex];
+    [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:k_for_Live_selectedCellIndex];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     //点击播放新的节目------->播放动作
@@ -218,20 +223,20 @@ static NSString *const footerId = @"footerId";
         nextPlayCell.model = nextPlayModel;
         
         //将当前页和即将播出的行index保存到本地
-        [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_selectedViewIndex];
-        [[NSUserDefaults standardUserDefaults] setInteger:index forKey:k_for_selectedCellIndex];
+        [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_Live_selectedViewIndex];
+        [[NSUserDefaults standardUserDefaults] setInteger:index forKey:k_for_Live_selectedCellIndex];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
 - (void)changeLastCellToUnselectedState:(NSNotification *)notification{
     
-    NSInteger selectedViewIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_selectedViewIndex];
+    NSInteger selectedViewIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_Live_selectedViewIndex];
     if (_viewIdentifier == selectedViewIndex) {
         
-        NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_selectedCellIndex];
+        NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_Live_selectedCellIndex];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:selectedCellIndex inSection:0];
-        
+        if (indexPath == selectingIndexPath_) return;//重复点击同一个cell，return
         SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
         
         //改变model onLive状态

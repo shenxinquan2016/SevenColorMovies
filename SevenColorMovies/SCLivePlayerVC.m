@@ -207,7 +207,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     vc.index = _index;
     [self.contentScroll addSubview:vc.view];
     
-    [[NSUserDefaults standardUserDefaults] setInteger:_titleArr.count-1 forKey:k_for_selectedViewIndex];//正在显示的view
+    [[NSUserDefaults standardUserDefaults] setInteger:_titleArr.count-1 forKey:k_for_Live_selectedViewIndex];//正在显示的view
     [[NSUserDefaults standardUserDefaults] synchronize];
 
     
@@ -669,7 +669,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                     _index = idx;//正在播出节目的index
                                     programOnLiveName_ = programModel.programName;//保存正在播出的节目的名称
                                     
-                                    [[NSUserDefaults standardUserDefaults] setInteger:_index forKey:k_for_selectedCellIndex];//被选中的行
+                                    [[NSUserDefaults standardUserDefaults] setInteger:_index forKey:k_for_Live_selectedCellIndex];//被选中的行
                                     [[NSUserDefaults standardUserDefaults] synchronize];
 
                                 }else{

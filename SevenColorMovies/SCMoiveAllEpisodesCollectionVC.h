@@ -10,8 +10,7 @@
 
 @interface SCMoiveAllEpisodesCollectionVC : UICollectionViewController
 
-/** sets数据 */
-@property (nonatomic, strong) NSArray *dataSource;
-
+@property (nonatomic, strong) NSArray *dataSource;/** sets数据 */
+@property (nonatomic, assign) NSInteger viewIdentifier;
 
 @end

@@ -26,7 +26,7 @@ static NSString *const cellId = @"SCFliterOptionCell";
     
     SCFliterOptionView *view = [[NSBundle mainBundle] loadNibNamed:@"SCFliterOptionView" owner:nil options:nil][0];
     view.filterTypeLabel.text = type;
-        return view;
+    return view;
     
 }
 
@@ -64,8 +64,6 @@ static NSString *const cellId = @"SCFliterOptionCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
     SCFliterOptionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     cell.optionTabModel = _dataArray[indexPath.row];
 
@@ -114,7 +112,6 @@ static NSString *const cellId = @"SCFliterOptionCell";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     SCFliterOptionCell *cell = (SCFliterOptionCell *)[collectionView cellForItemAtIndexPath:indexPath];
     SCFilterOptionTabModel *optionModel = _dataArray[indexPath.row];
     optionModel.selected = YES;
@@ -144,14 +141,10 @@ static NSString *const cellId = @"SCFliterOptionCell";
 {
     //通过改变cell对应model的onLive属性来改变cell字体颜色
     
-    
     SCFliterOptionCell *cell = (SCFliterOptionCell *)[collectionView cellForItemAtIndexPath:indexPath];
     SCFilterOptionTabModel *optionModel = _dataArray[indexPath.row];
     optionModel.selected = NO;
     cell.optionTabModel = optionModel;
-
-    
 }
-
 
 @end
