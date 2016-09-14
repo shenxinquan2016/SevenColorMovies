@@ -84,7 +84,15 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
     //5.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-
+    //6.注册播放结束通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackDidFinish:)
+                                                 name:IJKMPMoviePlayerPlaybackDidFinishNotification
+                                               object:_IJKPlayerViewController.player];
+    //7.注册点击列表播放通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -104,8 +112,10 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //注销全屏通知
     [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToFullScreen object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToSmallScreen object:nil];
-    //监听屏幕旋转的通知
+    //注销监听屏幕旋转的通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    //注销播放器播放结束的通知
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackDidFinishNotification object:_IJKPlayerViewController.player];
 }
 
 - (void)viewWillLayoutSubviews{
@@ -501,6 +511,61 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         default:
             break;
     }
+}
+
+#pragma mark - IJK播放结束的通知
+- (void)moviePlayBackDidFinish:(NSNotification*)notification
+{
+    //    MPMovieFinishReasonPlaybackEnded,
+    //    MPMovieFinishReasonPlaybackError,
+    //    MPMovieFinishReasonUserExited
+    int reason = [[[notification userInfo] valueForKey:IJKMPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
+    
+    switch (reason)
+    {
+        case IJKMPMovieFinishReasonPlaybackEnded:
+            
+            [self playNextProgram];
+            
+            break;
+            
+        case IJKMPMovieFinishReasonUserExited:
+            
+            break;
+            
+        case IJKMPMovieFinishReasonPlaybackError:
+            
+            break;
+            
+        default:
+            
+            break;
+    }
+}
+
+#pragma mark - 播放下一个节目
+- (void)playNextProgram
+{
+    
+}
+
+- (void)playNewFilm:(NSNotification *)notification{
+    
+    
+    //4.移除当前的播放器
+//    [self.IJKPlayerViewController closePlayer];
+//    //5.开始播放直播
+//    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+//    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+//    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+//    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+//    
+//    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+//    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+//   // _IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
+//    [self.view addSubview:_IJKPlayerViewController.view];
+
+    NSLog(@">******************************<");
 }
 
 #pragma mark - 网络请求

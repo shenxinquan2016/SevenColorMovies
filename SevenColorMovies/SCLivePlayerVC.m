@@ -371,7 +371,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     }
 }
 
-
 #pragma mark - IJK播放结束通知响应时间
 - (void)moviePlayBackDidFinish:(NSNotification*)notification
 {
@@ -401,6 +400,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             break;
     }
 }
+
 
 #pragma mark - 全屏/小屏切换
 - (void)switchToFullScreen {

@@ -10,11 +10,17 @@
 #import "SCMovieEpisodeCell.h"
 #import "SCFilmSetModel.h"
 
+@interface SCMoiveAllEpisodesCollectionVC ()
+
+@property (nonatomic, strong) NSIndexPath *selectingIndexPath;
+
+@end
+
 @implementation SCMoiveAllEpisodesCollectionVC
 
 {
     SCFilmSetModel *filmSetModel_;
-    NSIndexPath *selectingIndexPath_;
+    
 }
 
 static NSString *const cellId = @"cellId";
@@ -46,7 +52,7 @@ static NSString *const cellId = @"cellId";
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenClickProgramList object:nil];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:k_for_VOD_selectedViewIndex];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:k_for_VOD_selectedCellIndex];
-
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark ---- UICollectionViewDataSource
@@ -117,7 +123,7 @@ static NSString *const cellId = @"cellId";
 //点击某item
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    selectingIndexPath_ = indexPath;
+    self.selectingIndexPath = indexPath;
     //通过改变cell对应model的onLive属性来改变选中cell为选中状态
     filmSetModel_ = _dataSource[indexPath.row];
     filmSetModel_.onLive = YES;
@@ -132,22 +138,23 @@ static NSString *const cellId = @"cellId";
     [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_VOD_selectedViewIndex];
     [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:k_for_VOD_selectedCellIndex];
     [[NSUserDefaults standardUserDefaults] synchronize];
-//
-//    //点击播放新的节目------->播放动作
-//    if (self.clickToPlayBlock) {
-//        
-//        //将点击行和点击行的下一行model都传给播放器（以便获取下个节目的开始时间即本节目的结束时间）
-//        //将该页的数组传过去，以便做循环播放
-//        if (indexPath.row+1 < _liveProgramModelArr.count) {
-//            
-//            SCLiveProgramModel *nextProgramModel = _liveProgramModelArr[indexPath.row+1];
-//            
-//            self.clickToPlayBlock(_model, nextProgramModel, _liveProgramModelArr);
-//        }else{
-//            
-//            self.clickToPlayBlock(_model, nil, _liveProgramModelArr);
-//        }
-//    }
+    //
+    //    //点击播放新的节目------->播放动作
+    //    if (self.clickToPlayBlock) {
+    //
+    //        //将点击行和点击行的下一行model都传给播放器（以便获取下个节目的开始时间即本节目的结束时间）
+    //        //将该页的数组传过去，以便做循环播放
+    //        if (indexPath.row+1 < _liveProgramModelArr.count) {
+    //
+    //            SCLiveProgramModel *nextProgramModel = _liveProgramModelArr[indexPath.row+1];
+    //
+    //            self.clickToPlayBlock(_model, nextProgramModel, _liveProgramModelArr);
+    //        }else{
+    //
+    //            self.clickToPlayBlock(_model, nil, _liveProgramModelArr);
+    //        }
+    //    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:PlayVODFilmWhenClick object:nil];
 }
 
 - (void)changeLastCellToUnselectedState:(NSNotification *)notification{
@@ -158,7 +165,13 @@ static NSString *const cellId = @"cellId";
         
         NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_VOD_selectedCellIndex];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:selectedCellIndex inSection:0];
-        if (indexPath == selectingIndexPath_) return;//重复点击同一个cell，return
+        
+        NSLog(@"++++++selectedViewIndex:%lu++++++selectedCellIndex:%lu+++++selectingIndexPath_.row:%lu",selectedViewIndex,selectedCellIndex,self.selectingIndexPath.row);
+        
+        if (selectedCellIndex == self.selectingIndexPath.row){
+            return;//重复点击同一个cell，return
+        }
+        
         SCMovieEpisodeCell *cell = (SCMovieEpisodeCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
         //改变model onLive状态
         SCFilmSetModel *model = _dataSource[indexPath.row];
@@ -166,7 +179,6 @@ static NSString *const cellId = @"cellId";
         
         //给cell model赋值使cell变为非选中状态
         cell.filmSetModel = model;
-        
     }
 }
 
