@@ -87,7 +87,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 }
 
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -154,8 +153,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         [self getTeleplayData];
     }
-    
-    
 }
 
 /** 添加滚动标题栏*/

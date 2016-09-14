@@ -885,7 +885,8 @@
 		115A211A1D4218440097DE57 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				1196A06E1D42640C00B3C5EF /* MoiveAllEpisodes剧情 */,
+				1196A06E1D42640C00B3C5EF /* TeleplayAllEpisodes剧情 */,
+				11DDB87B1D5B147C0074DFAB /* ArtsFilms综艺剧集 */,
 				1196A06D1D42640800B3C5EF /* MoiveDetial详情 */,
 				1196A06C1D4263F800B3C5EF /* MoiveRecommendation精彩推荐 */,
 			);
@@ -1043,13 +1044,13 @@
 			name = "MoiveDetial详情";
 			sourceTree = "<group>";
 		};
-		1196A06E1D42640C00B3C5EF /* MoiveAllEpisodes剧情 */ = {
+		1196A06E1D42640C00B3C5EF /* TeleplayAllEpisodes剧情 */ = {
 			isa = PBXGroup;
 			children = (
 				11B983821D588C4700767E8F /* MainBody */,
-				11B983831D588C6000767E8F /* CollectionView */,
+				11DDB87A1D5B14340074DFAB /* View */,
 			);
-			name = "MoiveAllEpisodes剧情";
+			name = "TeleplayAllEpisodes剧情";
 			sourceTree = "<group>";
 		};
 		1196A06F1D42649F00B3C5EF /* Cell */ = {
@@ -1088,15 +1089,6 @@
 				115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */,
 			);
 			name = MainBody;
-			sourceTree = "<group>";
-		};
-		11B983831D588C6000767E8F /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				11DDB87A1D5B14340074DFAB /* AllEpisodes电视剧剧集 */,
-				11DDB87B1D5B147C0074DFAB /* ArtsFilms综艺剧集 */,
-			);
-			name = CollectionView;
 			sourceTree = "<group>";
 		};
 		11BB376B1D38B9A00002D487 = {
@@ -1471,19 +1463,20 @@
 			name = DownImageManger;
 			sourceTree = "<group>";
 		};
-		11DDB87A1D5B14340074DFAB /* AllEpisodes电视剧剧集 */ = {
+		11DDB87A1D5B14340074DFAB /* View */ = {
 			isa = PBXGroup;
 			children = (
 				11B9837F1D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.h */,
 				11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */,
 				1196A06F1D42649F00B3C5EF /* Cell */,
 			);
-			name = "AllEpisodes电视剧剧集";
+			name = View;
 			sourceTree = "<group>";
 		};
 		11DDB87B1D5B147C0074DFAB /* ArtsFilms综艺剧集 */ = {
 			isa = PBXGroup;
 			children = (
+				11F47A201D88FC5A00A42811 /* MainBody */,
 				11DDB87C1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.h */,
 				11DDB87D1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m */,
 				11DDB87F1D5B14F00074DFAB /* Cell */,
@@ -1508,6 +1501,13 @@
 				11EBC3F41D5C69F600C1A338 /* SCSpecialTopicDetailVC.m */,
 			);
 			name = "SpecialTopic专题";
+			sourceTree = "<group>";
+		};
+		11F47A201D88FC5A00A42811 /* MainBody */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MainBody;
 			sourceTree = "<group>";
 		};
 		11F9E2831D6D4F6A006326F3 /* PlayerVC */ = {

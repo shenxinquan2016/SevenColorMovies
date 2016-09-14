@@ -59,7 +59,7 @@ static const CGFloat LabelWidth = 70.f;
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark- private methods
+#pragma mark - private methods
 
 - (void)setView{
     
@@ -109,6 +109,7 @@ static const CGFloat LabelWidth = 70.f;
     return [array copy];
 }
 
+#pragma mark - 大数组拆分成指定容量的小数组
 - (NSArray *)splitArray: (NSArray *)array withSubSize : (int)subSize{
     //  数组将被拆分成指定长度数组的个数
     unsigned long count = array.count % subSize == 0 ? (array.count / subSize) : (array.count / subSize + 1);
