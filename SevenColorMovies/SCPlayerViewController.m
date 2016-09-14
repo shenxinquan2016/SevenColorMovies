@@ -451,7 +451,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 // 监听屏幕旋转后，更改frame
 - (void)orientChange:(NSNotification *)noti
 {
-    
     //NSDictionary* ntfDict = [noti userInfo];
     
     UIDeviceOrientation  orient = [UIDevice currentDevice].orientation;
@@ -640,7 +639,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     
                 }
             }
-            
         }
         self.titleArr = @[@"剧情", @"详情"];
         self.identifier = @"综艺";
@@ -653,7 +651,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         
         [CommonFunc dismiss];
     }];
-    
     
 }
 

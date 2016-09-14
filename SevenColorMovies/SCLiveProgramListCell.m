@@ -57,7 +57,6 @@
             _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#333333"];
         }
         
-        
     }else if (model.programState == NowPlaying){
         _liveProgramStateLabel.text = @"播放";
         if (model.isOnLive) {
@@ -73,7 +72,6 @@
             _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#333333"];
         }
         
-        
     }else if (model.programState == WillPlay){
         _liveProgramStateLabel.text = @"预约";
         if (model.isOnLive) {
@@ -87,8 +85,6 @@
             _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#333333"];
             _liveProgramStateLabel.textColor = [UIColor colorWithHex:@"#333333"];
         }
-        
-        
     }
 }
 
