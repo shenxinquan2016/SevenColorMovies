@@ -556,9 +556,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 {
     DONGLog(@"播放下个节目");
     
-    if (VODIndex+ timesIndexOfVOD++ < self.filmSetsArr.count) {
+    if (VODIndex+ ++timesIndexOfVOD < self.filmSetsArr.count) {
         //0.获取下一个节目的model
-        SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+ timesIndexOfVOD];
+        SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD];
         
         NSDictionary *message = @{@"mextFilmSetModel" : filmSetModel};
         

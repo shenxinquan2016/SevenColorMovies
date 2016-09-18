@@ -190,7 +190,7 @@ static NSString *const cellId = @"cellId";
     
     if ([self.dataSourceArray containsObject:filmSetModel]) {
         
-        NSUInteger index = [self.dataSourceArray indexOfObject:filmSetModel];
+        NSInteger index = [self.dataSourceArray indexOfObject:filmSetModel];
         DONGLog(@">>>>>>>>%lu<<<<<<<<<",index);
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         //获取即将播出的cell
@@ -199,12 +199,13 @@ static NSString *const cellId = @"cellId";
         cell.filmSetModel = filmSetModel;
         
         //取消正在播放的cell的选中状态
+        if (index-1 >= 0){
         SCFilmSetModel *lastFilmSetModel = self.dataSourceArray[index-1];
         lastFilmSetModel.onLive = NO;
         NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
         SCMovieEpisodeCell *lastCell = (SCMovieEpisodeCell *)[self.collectionView cellForItemAtIndexPath:lastIndexPath];
         lastCell.filmSetModel = lastFilmSetModel;
-        
+        }
         //将当前页和即将播出的行index保存到本地
         [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_VOD_selectedViewIndex];
         [[NSUserDefaults standardUserDefaults] setInteger:index forKey:k_for_VOD_selectedCellIndex];
