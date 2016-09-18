@@ -162,9 +162,19 @@ static NSString *const footerId = @"footerId";
     SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.model = _model;
     
-    //通知选中的cell转为非选中状态
-    [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenClickProgramList object:indexPath];
-    
+    NSInteger selectedViewIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_Live_selectedViewIndex];
+    if (_viewIdentifier == selectedViewIndex) {//点击同一页
+        
+        NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_Live_selectedCellIndex];
+        if (indexPath.row != selectedCellIndex){
+            
+            //通知选中的cell转为非选中状态
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenClickProgramList object:indexPath];
+        }
+    }else{//点击不同页
+        //通知选中的cell转为非选中状态
+        [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenClickProgramList object:indexPath];
+    }
     //将当前页和选中的行index保存到本地
     [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_Live_selectedViewIndex];
     [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:k_for_Live_selectedCellIndex];

@@ -33,7 +33,7 @@ static NSString *const cellId = @"cellId";
     self.collectionView.alwaysBounceVertical=YES;
     // 注册cell、sectionHeader、sectionFooter
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCMovieEpisodeCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
-
+    
     //自动播放下一个节目发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCellStateWhenPlayNextProgrom:) name:ChangeCellStateWhenPlayNextProgrom object:nil];
     //取消上一个cell的选中状态
@@ -139,8 +139,19 @@ static NSString *const cellId = @"cellId";
     SCMovieEpisodeCell *cell = (SCMovieEpisodeCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.filmSetModel = filmSetModel_;
     
-    //通知选中的cell转为非选中状态
-    [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenClickProgramList object:indexPath];
+    NSInteger selectedViewIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_VOD_selectedViewIndex];
+    if (_viewIdentifier == selectedViewIndex) {//点击同一页
+        
+        NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_VOD_selectedCellIndex];
+        if (indexPath.row != selectedCellIndex){
+            
+            //通知选中的cell转为非选中状态
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenClickProgramList object:indexPath];
+        }
+    }else{//点击不同页
+        //通知选中的cell转为非选中状态
+        [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenClickProgramList object:indexPath];
+    }
     
     //将当前页和选中的行index保存到本地
     [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_VOD_selectedViewIndex];
