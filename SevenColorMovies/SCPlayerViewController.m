@@ -738,16 +738,20 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             if ([responseObject[@"Film"] isKindOfClass:[NSDictionary class]]){
                 
                 SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:responseObject[@"Film"]];
+                model.onLive = YES;
                 [_filmsArr addObject:model];
                 
             }else if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]){
                 
-                for (NSDictionary *dic in responseObject[@"Film"]) {
+                [responseObject[@"Film"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     
+                    NSDictionary *dic = obj;
                     SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:dic];
+                    if (idx == 0) {
+                        model.onLive = YES;
+                    }
                     [_filmsArr addObject:model];
-                    
-                }
+                }];
             }
         }
         self.titleArr = @[@"剧情", @"详情"];

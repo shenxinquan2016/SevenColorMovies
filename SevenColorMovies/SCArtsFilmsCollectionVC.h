@@ -10,7 +10,6 @@
 
 @interface SCArtsFilmsCollectionVC : UICollectionViewController
 
-/** sets数据 */
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSArray *dataArray;/** sets数据 */
 
 @end

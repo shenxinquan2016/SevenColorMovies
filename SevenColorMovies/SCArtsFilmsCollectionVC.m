@@ -24,7 +24,6 @@ static NSString *const cellId = @"cellId";
     // 注册cell、sectionHeader、sectionFooter
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCArtsFilmCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
     
-    
 }
 
 #pragma mark ---- UICollectionViewDataSource
@@ -102,13 +101,29 @@ static NSString *const cellId = @"cellId";
 {
     SCFilmModel *model = _dataArray[indexPath.row];
     NSString *urlStr = [model.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    //通过改变cell对应model的onLive属性来改变cell字体颜色
+    model.onLive = YES;
+    SCArtsFilmCell *cell = (SCArtsFilmCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.model = model;
+    
+    // 第一次如果不是点击第一个cell，要将第一个cell置为非选中状态
+    if (indexPath.row != 0) {
+        
+        NSIndexPath *firstIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+        SCArtsFilmCell *firstCell = (SCArtsFilmCell *)[collectionView cellForItemAtIndexPath:firstIndex];
+        SCFilmModel *firstFilmModel = _dataArray[0];
+        firstFilmModel.onLive = NO;
+        firstCell.model = firstFilmModel;
+    }
+
+    
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
         
         if (responseObject) {
             
            NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
-            
             
             //获取fid
             NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
@@ -127,7 +142,17 @@ static NSString *const cellId = @"cellId";
         [CommonFunc dismiss];
     }];
     
-    
 }
+
+//取消选中操作
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //通过改变cell对应model的onLive属性来改变cell字体颜色
+    SCArtsFilmCell *lastCell = (SCArtsFilmCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    SCFilmModel *lastFilmModel = _dataArray[indexPath.row];
+    lastFilmModel.onLive = NO;
+    lastCell.model = lastFilmModel;
+}
+
 
 @end

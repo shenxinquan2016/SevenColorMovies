@@ -37,4 +37,6 @@
 @property (nonatomic, copy) NSString *actor;/** 主演  点播搜索 */
 @property (nonatomic, copy) NSString *endGrade;/** 评分  点播搜索 */
 
+@property (nonatomic, assign, getter = isOnLive) BOOL onLive;/* 节目是否正在播放 */
+
 @end
