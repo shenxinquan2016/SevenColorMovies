@@ -62,7 +62,7 @@ static NSString *const cellId = @"cellId";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-#pragma mark ---- UICollectionViewDataSource
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -83,7 +83,7 @@ static NSString *const cellId = @"cellId";
     return cell;
 }
 
-#pragma mark ---- UICollectionViewDelegateFlowLayout
+#pragma mark - UICollectionViewDelegateFlowLayout
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -120,7 +120,7 @@ static NSString *const cellId = @"cellId";
     return (CGSize){kMainScreenWidth,80};
 }
 
-#pragma mark ---- UICollectionViewDelegate
+#pragma mark - UICollectionViewDelegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -187,7 +187,18 @@ static NSString *const cellId = @"cellId";
     
     NSDictionary *dic = notification.object;
     SCFilmSetModel *filmSetModel = dic[@"mextFilmSetModel"];
+    SCFilmSetModel *lastFilmSetModel = dic[@"lastFilmSetModel"];
     
+    //当发生跳转页播放时 要将前一页最后一个cell置为非播放状态
+    if ([self.dataSourceArray containsObject:lastFilmSetModel] && ([self.dataSourceArray indexOfObject:lastFilmSetModel] == self.dataSourceArray.count-1)) {
+        
+        lastFilmSetModel.onLive = NO;
+        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:self.dataSourceArray.count-1 inSection:0];
+        SCMovieEpisodeCell *lastCell = (SCMovieEpisodeCell *)[self.collectionView cellForItemAtIndexPath:lastIndexPath];
+        lastCell.filmSetModel = lastFilmSetModel;
+    }
+    
+    //将下一个置为播放状态 前一个置为非播放状态
     if ([self.dataSourceArray containsObject:filmSetModel]) {
         
         NSInteger index = [self.dataSourceArray indexOfObject:filmSetModel];
@@ -199,19 +210,16 @@ static NSString *const cellId = @"cellId";
         cell.filmSetModel = filmSetModel;
         
         //取消正在播放的cell的选中状态
-        if (index-1 >= 0){
-        SCFilmSetModel *lastFilmSetModel = self.dataSourceArray[index-1];
         lastFilmSetModel.onLive = NO;
         NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
         SCMovieEpisodeCell *lastCell = (SCMovieEpisodeCell *)[self.collectionView cellForItemAtIndexPath:lastIndexPath];
         lastCell.filmSetModel = lastFilmSetModel;
-        }
+        
         //将当前页和即将播出的行index保存到本地
         [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_VOD_selectedViewIndex];
         [[NSUserDefaults standardUserDefaults] setInteger:index forKey:k_for_VOD_selectedCellIndex];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
     
 }
 

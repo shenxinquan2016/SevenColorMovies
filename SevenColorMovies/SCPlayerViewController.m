@@ -559,8 +559,11 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     if (VODIndex+ ++timesIndexOfVOD < self.filmSetsArr.count) {
         //0.获取下一个节目的model
         SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD];
+        //1.获取下一个节目的model
+        SCFilmSetModel *lastFilmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD-1];
         
-        NSDictionary *message = @{@"mextFilmSetModel" : filmSetModel};
+        NSDictionary *message = @{@"mextFilmSetModel" : filmSetModel,
+                                  @"lastFilmSetModel" : lastFilmSetModel};
         
         [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
         
@@ -602,7 +605,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     
     self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-   
+   _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
     [self.view addSubview:_IJKPlayerViewController.view];
 
      timesIndexOfVOD = 0;//每次点击后将index复位为0
@@ -633,8 +636,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             
             //介绍页model
             self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
-            
-            
             
             if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
                 SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:responseObject[@"ContentSet"][@"Content"]];
