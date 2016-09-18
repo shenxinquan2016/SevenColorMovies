@@ -266,7 +266,7 @@ static const CGFloat LabelWidth = 70.f;
         }
     }];
     
-    //    [self setScrollToTopWithTableViewIndex:index];
+//        [self setScrollToTopWithTableViewIndex:index];
     
     if (vc.view.superview) return;//阻止vc重复添加
     vc.view.frame = scrollView.bounds;

@@ -44,7 +44,7 @@ static NSString *const footerId = @"footerId";
         [self.collectionView selectItemAtIndexPath:selectedIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
     });
     
-    //自动播放下一个节目发出的通知
+    //4.自动播放下一个节目发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCellStateWhenPlayNextProgrom:) name:ChangeCellStateWhenPlayNextProgrom object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLastCellToUnselectedState:) name:ChangeCellStateWhenClickProgramList object:nil];
@@ -54,11 +54,11 @@ static NSString *const footerId = @"footerId";
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-    
 }
 
 - (void)viewDidAppear{
     [super viewDidAppear:YES];
+    
     
 }
 
@@ -66,9 +66,10 @@ static NSString *const footerId = @"footerId";
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenPlayNextProgrom object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenClickProgramList object:nil];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:k_for_Live_selectedViewIndex];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:k_for_Live_selectedCellIndex];
-
+    // 播放列表点击标识置为0
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_Live_selectedViewIndex];
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_Live_selectedCellIndex];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)didReceiveMemoryWarning {

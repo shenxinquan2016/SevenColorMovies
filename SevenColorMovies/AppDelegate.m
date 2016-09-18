@@ -28,6 +28,12 @@
     //2.设置网络环境
     [self setNetworkEnvironment];
     
+    //3.点播播放列表点击标识置为0
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedViewIndex];
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedCellIndex];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    
     return YES;
 }
 

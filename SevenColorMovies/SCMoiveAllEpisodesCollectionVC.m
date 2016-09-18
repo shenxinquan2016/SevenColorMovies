@@ -33,7 +33,7 @@ static NSString *const cellId = @"cellId";
     self.collectionView.alwaysBounceVertical=YES;
     // 注册cell、sectionHeader、sectionFooter
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCMovieEpisodeCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
-    
+
     //自动播放下一个节目发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCellStateWhenPlayNextProgrom:) name:ChangeCellStateWhenPlayNextProgrom object:nil];
     //取消上一个cell的选中状态
@@ -45,13 +45,21 @@ static NSString *const cellId = @"cellId";
     
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewDidAppear{
+    [super viewDidAppear:YES];
+    
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenPlayNextProgrom object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenClickProgramList object:nil];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:k_for_VOD_selectedViewIndex];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:k_for_VOD_selectedCellIndex];
+    //3.点播播放列表点击标识置为0
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedViewIndex];
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedCellIndex];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -166,11 +174,7 @@ static NSString *const cellId = @"cellId";
         NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_VOD_selectedCellIndex];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:selectedCellIndex inSection:0];
         
-        NSLog(@"++++++selectedViewIndex:%lu++++++selectedCellIndex:%lu+++++selectingIndexPath_.row:%lu",selectedViewIndex,selectedCellIndex,self.selectingIndexPath.row);
-        
-//        if (selectedCellIndex == self.selectingIndexPath.row){
-//            return;//重复点击同一个cell，return
-//        }
+        NSLog(@"++++++上次点击页:%lu++++++上次点击行:%lu+++++selectingIndexPath_.row:%lu",selectedViewIndex,selectedCellIndex,self.selectingIndexPath.row);
         
         SCMovieEpisodeCell *cell = (SCMovieEpisodeCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
         //改变model onLive状态

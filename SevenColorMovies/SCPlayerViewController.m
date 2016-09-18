@@ -553,17 +553,17 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     
     //4.移除当前的播放器
-//    [self.IJKPlayerViewController closePlayer];
-//    //5.开始播放直播
-//    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
-//    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-//    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
-//    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-//    
-//    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-//    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-//   // _IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
-//    [self.view addSubview:_IJKPlayerViewController.view];
+    [self.IJKPlayerViewController closePlayer];
+    //5.开始播放直播
+    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+    
+    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+   // _IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
+    [self.view addSubview:_IJKPlayerViewController.view];
 
     NSLog(@">******************************<");
 }
