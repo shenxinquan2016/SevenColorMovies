@@ -11,7 +11,8 @@
 
 static NSString *const SwitchToFullScreen = @"SwitchToFullScreen";/** 进入全屏 */
 static NSString *const SwitchToSmallScreen = @"SwitchToSmallScreen";/** 进入小屏 */
-static NSString *const ChangeCellStateWhenPlayNextProgrom = @"ChangeCellStateWhenPlayNextProgrom";/** 自动播放下一个节目时改变cell状态 */
+static NSString *const ChangeCellStateWhenPlayNextProgrom = @"ChangeCellStateWhenPlayNextProgrom";/** 直播自动播放下一个节目时改变cell状态 */
+static NSString *const ChangeCellStateWhenPlayNextVODFilm = @"ChangeCellStateWhenPlayNextVODFilm";/** VOD自动播放下一个节目时改变cell状态 */
 static NSString *const ChangeCellStateWhenClickProgramList = @"ChangeCellStateWhenClickProgramList";/** 点击播放列通知其他cell改为非选中状态 */
 static NSString *const FilterOptionChanged = @"FilterOptionChanged";/** 点击筛选卡 */
 static NSString *const PlayVODFilmWhenClick = @"PlayVODFilmWhenClick";/** 点击点播节目列表 */

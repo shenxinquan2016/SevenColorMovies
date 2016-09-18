@@ -17,7 +17,6 @@
 @implementation SCLiveProgramListCollectionVC
 {
     SCLiveProgramModel *_model;
-    NSIndexPath *selectingIndexPath_;
 }
 static NSString *const cellId = @"SCLiveProgramListCell";
 static NSString *const headerId = @"headerId";
@@ -148,7 +147,6 @@ static NSString *const footerId = @"footerId";
 //点击某item
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    selectingIndexPath_ = indexPath;
     //通过改变cell对应model的onLive属性来改变选中cell为选中状态
     _model = _liveProgramModelArr[indexPath.row];
     _model.onLive = YES;
@@ -247,7 +245,7 @@ static NSString *const footerId = @"footerId";
         
         NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_Live_selectedCellIndex];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:selectedCellIndex inSection:0];
-//        if (indexPath == selectingIndexPath_) return;//重复点击同一个cell，return
+
         SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
         
         //改变model onLive状态

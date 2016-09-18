@@ -85,13 +85,20 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //5.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     //6.注册播放结束通知
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackDidFinish:)
                                                  name:IJKMPMoviePlayerPlaybackDidFinishNotification
-                                               object:_IJKPlayerViewController.player];
+                                               object:nil];
+
+    
+    
+    
+    
+    
+    
     //7.注册点击列表播放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
-    
     
 }
 
@@ -115,7 +122,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //注销监听屏幕旋转的通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
     //注销播放器播放结束的通知
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackDidFinishNotification object:_IJKPlayerViewController.player];
+        [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackDidFinishNotification object:nil];
 }
 
 - (void)viewWillLayoutSubviews{
@@ -312,7 +319,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 case 0:{// 剧集
                     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
                     SCArtsFilmsCollectionVC *filmsColleView = [[SCArtsFilmsCollectionVC alloc] initWithCollectionViewLayout:layout];
-                    filmsColleView.dataSource = _filmsArr;
+                    filmsColleView.dataArray = _filmsArr;
                     
                     [self addChildViewController:filmsColleView];
                     break;
@@ -524,9 +531,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     switch (reason)
     {
         case IJKMPMovieFinishReasonPlaybackEnded:
-            
-            [self playNextProgram];
-            
+            NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonPlaybackEnded: %d\n", reason);
+            //当前节目播放结束，播放下一个节目
+            [self playNextFilm];
             break;
             
         case IJKMPMovieFinishReasonUserExited:
@@ -543,14 +550,47 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }
 }
 
+
 #pragma mark - 播放下一个节目
-- (void)playNextProgram
+- (void)playNextFilm
 {
+    DONGLog(@"播放下个节目");
+    
+    if (VODIndex+ timesIndexOfVOD++ < self.filmSetsArr.count) {
+        //0.获取下一个节目的model
+        SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+ timesIndexOfVOD];
+        
+        NSDictionary *message = @{@"mextFilmSetModel" : filmSetModel};
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
+        
+        //1.移除当前的播放器
+        [self.IJKPlayerViewController closePlayer];
+        //2.开始播放直播
+        self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+        self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+        
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+        [self.view addSubview:_IJKPlayerViewController.view];
+
+    }
     
 }
 
-- (void)playNewFilm:(NSNotification *)notification{
+static NSUInteger VODIndex; //首页播放回看的url在_huikanPlayerUrlArray中的第几个，这个播放完后去播放index + 1的回看
+static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次数
+
+- (void)playNewFilm:(NSNotification *)notification
+{
+    NSDictionary *dic = notification.object;
+    SCFilmSetModel *filmSetModel = dic[@"model"];
+    VODIndex = [self.filmSetsArr indexOfObject:filmSetModel];
     
+    DONGLog(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
     
     //4.移除当前的播放器
     [self.IJKPlayerViewController closePlayer];
@@ -562,10 +602,10 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-   // _IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
+   
     [self.view addSubview:_IJKPlayerViewController.view];
 
-    NSLog(@">******************************<");
+     timesIndexOfVOD = 0;//每次点击后将index复位为0
 }
 
 #pragma mark - 网络请求

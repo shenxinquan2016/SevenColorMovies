@@ -11,6 +11,6 @@
 @interface SCArtsFilmsCollectionVC : UICollectionViewController
 
 /** sets数据 */
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSArray *dataArray;
 
 @end

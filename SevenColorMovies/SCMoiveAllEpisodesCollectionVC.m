@@ -12,7 +12,6 @@
 
 @interface SCMoiveAllEpisodesCollectionVC ()
 
-@property (nonatomic, strong) NSIndexPath *selectingIndexPath;
 
 @end
 
@@ -35,7 +34,7 @@ static NSString *const cellId = @"cellId";
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCMovieEpisodeCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
     
     //自动播放下一个节目发出的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCellStateWhenPlayNextProgrom:) name:ChangeCellStateWhenPlayNextProgrom object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCellStateWhenPlayNextVODFilm:) name:ChangeCellStateWhenPlayNextVODFilm object:nil];
     //取消上一个cell的选中状态
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLastCellToUnselectedState:) name:ChangeCellStateWhenClickProgramList object:nil];
 }
@@ -55,7 +54,7 @@ static NSString *const cellId = @"cellId";
 {
     [super viewWillDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenPlayNextProgrom object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenPlayNextVODFilm object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangeCellStateWhenClickProgramList object:nil];
     //3.点播播放列表点击标识置为0
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedViewIndex];
@@ -73,13 +72,13 @@ static NSString *const cellId = @"cellId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _dataSource.count;
+    return _dataSourceArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SCMovieEpisodeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    cell.filmSetModel = _dataSource[indexPath.row];
+    cell.filmSetModel = _dataSourceArray[indexPath.row];
     
     return cell;
 }
@@ -131,9 +130,8 @@ static NSString *const cellId = @"cellId";
 //点击某item
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectingIndexPath = indexPath;
     //通过改变cell对应model的onLive属性来改变选中cell为选中状态
-    filmSetModel_ = _dataSource[indexPath.row];
+    filmSetModel_ = _dataSourceArray[indexPath.row];
     filmSetModel_.onLive = YES;
     
     SCMovieEpisodeCell *cell = (SCMovieEpisodeCell *)[collectionView cellForItemAtIndexPath:indexPath];
@@ -157,25 +155,13 @@ static NSString *const cellId = @"cellId";
     [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_VOD_selectedViewIndex];
     [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:k_for_VOD_selectedCellIndex];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    //
-    //    //点击播放新的节目------->播放动作
-    //    if (self.clickToPlayBlock) {
-    //
-    //        //将点击行和点击行的下一行model都传给播放器（以便获取下个节目的开始时间即本节目的结束时间）
-    //        //将该页的数组传过去，以便做循环播放
-    //        if (indexPath.row+1 < _liveProgramModelArr.count) {
-    //
-    //            SCLiveProgramModel *nextProgramModel = _liveProgramModelArr[indexPath.row+1];
-    //
-    //            self.clickToPlayBlock(_model, nextProgramModel, _liveProgramModelArr);
-    //        }else{
-    //
-    //            self.clickToPlayBlock(_model, nil, _liveProgramModelArr);
-    //        }
-    //    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:PlayVODFilmWhenClick object:nil];
+    
+    NSDictionary *message = @{@"model" : filmSetModel_};
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:PlayVODFilmWhenClick object:message];
 }
 
+#pragma mark - Event reponse
 - (void)changeLastCellToUnselectedState:(NSNotification *)notification{
     
     NSInteger selectedViewIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_VOD_selectedViewIndex];
@@ -185,16 +171,49 @@ static NSString *const cellId = @"cellId";
         NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_VOD_selectedCellIndex];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:selectedCellIndex inSection:0];
         
-        NSLog(@"++++++上次点击页:%lu++++++上次点击行:%lu+++++selectingIndexPath_.row:%lu",selectedViewIndex,selectedCellIndex,self.selectingIndexPath.row);
+        NSLog(@"++++++上次点击页:%lu++++++上次点击行:%lu+++++",selectedViewIndex,selectedCellIndex);
         
         SCMovieEpisodeCell *cell = (SCMovieEpisodeCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
         //改变model onLive状态
-        SCFilmSetModel *model = _dataSource[indexPath.row];
+        SCFilmSetModel *model = _dataSourceArray[indexPath.row];
         model.onLive = NO;
         
         //给cell model赋值使cell变为非选中状态
         cell.filmSetModel = model;
     }
 }
+
+- (void)changeCellStateWhenPlayNextVODFilm:(NSNotification *)notification{
+    
+    NSDictionary *dic = notification.object;
+    SCFilmSetModel *filmSetModel = dic[@"mextFilmSetModel"];
+    
+    if ([self.dataSourceArray containsObject:filmSetModel]) {
+        
+        NSUInteger index = [self.dataSourceArray indexOfObject:filmSetModel];
+        DONGLog(@">>>>>>>>%lu<<<<<<<<<",index);
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        //获取即将播出的cell
+        SCMovieEpisodeCell *cell = (SCMovieEpisodeCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        filmSetModel.onLive = YES;
+        cell.filmSetModel = filmSetModel;
+        
+        //取消正在播放的cell的选中状态
+        SCFilmSetModel *lastFilmSetModel = self.dataSourceArray[index-1];
+        lastFilmSetModel.onLive = NO;
+        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
+        SCMovieEpisodeCell *lastCell = (SCMovieEpisodeCell *)[self.collectionView cellForItemAtIndexPath:lastIndexPath];
+        lastCell.filmSetModel = lastFilmSetModel;
+        
+        //将当前页和即将播出的行index保存到本地
+        [[NSUserDefaults standardUserDefaults] setInteger:_viewIdentifier forKey:k_for_VOD_selectedViewIndex];
+        [[NSUserDefaults standardUserDefaults] setInteger:index forKey:k_for_VOD_selectedCellIndex];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    
+}
+
+
 
 @end

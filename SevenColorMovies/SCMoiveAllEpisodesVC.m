@@ -18,16 +18,10 @@ static const CGFloat LabelWidth = 70.f;
 
 @interface SCMoiveAllEpisodesVC ()<UIScrollViewDelegate>
 
-/** 标题栏scrollView */
-@property (nonatomic, strong) UIScrollView *titleScroll;
-/** 内容栏scrollView */
-@property (nonatomic, strong) UIScrollView *contentScroll;
-
-/** 标题数组 */
-@property (nonatomic, strong) NSArray *titleArr;
-
-/** sets数据 */
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
+@property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
+@property (nonatomic, strong) NSArray *titleArr;/** 标题数组 */
+@property (nonatomic, strong) NSArray *dataSourceArray;/** sets数据 */
 
 @end
 
@@ -42,11 +36,11 @@ static const CGFloat LabelWidth = 70.f;
     
     //3.初始化数组
     self.titleArr = [NSArray array];
-    self.dataSource = [NSArray array];
+    self.dataSourceArray = [NSArray array];
     
     
     _titleArr = [self getSlideHeaderArrayFromArray:_filmSetsArr];
-    _dataSource = [self splitArray:_filmSetsArr withSubSize:20];
+    _dataSourceArray = [self splitArray:_filmSetsArr withSubSize:20];
     
 
     [self setView];
@@ -220,7 +214,7 @@ static const CGFloat LabelWidth = 70.f;
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
         SCMoiveAllEpisodesCollectionVC *vc = [[SCMoiveAllEpisodesCollectionVC alloc] initWithCollectionViewLayout:layout];
         vc.viewIdentifier = i;//页面唯一标识符(响应通知时判断使用)
-        vc.dataSource = _dataSource[i];
+        vc.dataSourceArray = _dataSourceArray[i];
         [self addChildViewController:vc];
         
     }

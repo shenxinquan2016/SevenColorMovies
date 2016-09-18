@@ -38,7 +38,7 @@ static NSString *const cellId = @"cellId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _dataSource.count;
+    return _dataArray.count;
 }
 
 
@@ -46,7 +46,7 @@ static NSString *const cellId = @"cellId";
 {
     
     SCArtsFilmCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    cell.model = _dataSource[indexPath.row];
+    cell.model = _dataArray[indexPath.row];
     cell.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
     
     return cell;
@@ -100,7 +100,7 @@ static NSString *const cellId = @"cellId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCFilmModel *model = _dataSource[indexPath.row];
+    SCFilmModel *model = _dataArray[indexPath.row];
     NSString *urlStr = [model.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
