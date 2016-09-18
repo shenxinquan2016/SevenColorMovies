@@ -168,9 +168,9 @@ static NSString *const cellId = @"cellId";
         
         NSLog(@"++++++selectedViewIndex:%lu++++++selectedCellIndex:%lu+++++selectingIndexPath_.row:%lu",selectedViewIndex,selectedCellIndex,self.selectingIndexPath.row);
         
-        if (selectedCellIndex == self.selectingIndexPath.row){
-            return;//重复点击同一个cell，return
-        }
+//        if (selectedCellIndex == self.selectingIndexPath.row){
+//            return;//重复点击同一个cell，return
+//        }
         
         SCMovieEpisodeCell *cell = (SCMovieEpisodeCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
         //改变model onLive状态

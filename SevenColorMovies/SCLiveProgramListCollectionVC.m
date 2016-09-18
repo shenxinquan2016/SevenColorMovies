@@ -236,7 +236,7 @@ static NSString *const footerId = @"footerId";
         
         NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_Live_selectedCellIndex];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:selectedCellIndex inSection:0];
-        if (indexPath == selectingIndexPath_) return;//重复点击同一个cell，return
+//        if (indexPath == selectingIndexPath_) return;//重复点击同一个cell，return
         SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
         
         //改变model onLive状态
