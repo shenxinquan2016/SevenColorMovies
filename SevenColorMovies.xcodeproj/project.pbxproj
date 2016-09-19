@@ -885,7 +885,7 @@
 		115A211A1D4218440097DE57 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				1196A06E1D42640C00B3C5EF /* TeleplayAllEpisodes剧情 */,
+				1196A06E1D42640C00B3C5EF /* TeleplayAllEpisodes电视剧剧集 */,
 				11DDB87B1D5B147C0074DFAB /* ArtsFilms综艺剧集 */,
 				1196A06D1D42640800B3C5EF /* MoiveDetial详情 */,
 				1196A06C1D4263F800B3C5EF /* MoiveRecommendation精彩推荐 */,
@@ -1044,13 +1044,13 @@
 			name = "MoiveDetial详情";
 			sourceTree = "<group>";
 		};
-		1196A06E1D42640C00B3C5EF /* TeleplayAllEpisodes剧情 */ = {
+		1196A06E1D42640C00B3C5EF /* TeleplayAllEpisodes电视剧剧集 */ = {
 			isa = PBXGroup;
 			children = (
 				11B983821D588C4700767E8F /* MainBody */,
 				11DDB87A1D5B14340074DFAB /* View */,
 			);
-			name = "TeleplayAllEpisodes剧情";
+			name = "TeleplayAllEpisodes电视剧剧集";
 			sourceTree = "<group>";
 		};
 		1196A06F1D42649F00B3C5EF /* Cell */ = {

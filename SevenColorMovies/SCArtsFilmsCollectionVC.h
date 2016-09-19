@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SCFilmModel;
+
+typedef void(^ClickToPlayBlock)(SCFilmModel *filmModel,NSString *VODStreamingUrl,NSString *downLoadUrl);//点击切换节目block
 
 @interface SCArtsFilmsCollectionVC : UICollectionViewController
 
 @property (nonatomic, strong) NSArray *dataArray;/** sets数据 */
+@property (nonatomic, copy) ClickToPlayBlock clickToPlayBlock;/** 点击切换节目block */
 
 @end

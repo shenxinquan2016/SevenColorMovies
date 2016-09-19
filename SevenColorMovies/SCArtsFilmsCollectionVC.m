@@ -118,11 +118,12 @@ static NSString *const cellId = @"cellId";
     }
 
     
+    
+    
+    
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
         
-        if (responseObject) {
-            
            NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
             
             //获取fid
@@ -134,8 +135,12 @@ static NSString *const cellId = @"cellId";
             
             NSLog(@">>>>>>>>>>>downLoadUrl>>>>>>>>%@",downLoadUrl);
             NSLog(@">>>>>>>>>>>VODStreamingUrl>>>>>>>>%@",VODStreamingUrl);
+        
+        //播放新节目
+        if (self.clickToPlayBlock) {
+            self.clickToPlayBlock(model,VODStreamingUrl,downLoadUrl);//切换节目BLock
         }
-  
+        
         [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
         

@@ -34,9 +34,12 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) NSMutableArray *filmsArr;/** 综艺生活存放film */
 @property (nonatomic, strong) SCFilmIntroduceModel *filmIntroduceModel;/** 影片介绍model */
 @property (nonatomic, strong) NSString *VODStreamingUrl;/** 电影播放地址url */
-@property (atomic, strong) NSURL *url;
+@property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
 //@property(atomic, retain) id<IJKMediaPlayback> player;
+@property (nonatomic,strong) SCArtsFilmsCollectionVC *needScrollToTopPage;
+@property (nonatomic, copy) NSString *movieType;
+
 @end
 
 @implementation SCPlayerViewController
@@ -85,7 +88,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //5.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     //6.注册播放结束通知
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackDidFinish:)
                                                  name:IJKMPMoviePlayerPlaybackDidFinishNotification
@@ -339,8 +341,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         SCArtsFilmsCollectionVC *vc = [self.childViewControllers firstObject];
         vc.view.frame = self.contentScroll.bounds;
         [self.contentScroll addSubview:vc.view];
-        //    self.needScrollToTopPage = self.childViewControllers[0];
-        
+        self.needScrollToTopPage = vc;
+        [self doPlayNewArtsFilmBlock];
     }
     
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
@@ -556,6 +558,14 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 {
     DONGLog(@"播放下个节目");
     
+    if ([_identifier isEqualToString:@"电影"]){
+        
+    }else if ([_identifier isEqualToString:@"电视剧"]){
+        
+    }else if ([_identifier isEqualToString:@"综艺"]){
+        
+    }
+        
     if (VODIndex+ ++timesIndexOfVOD < self.filmSetsArr.count) {
         //0.获取下一个节目的model
         SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD];
@@ -610,6 +620,32 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 
      timesIndexOfVOD = 0;//每次点击后将index复位为0
 }
+
+#pragma mark - 综艺生活
+- (void)doPlayNewArtsFilmBlock{
+    DONGWeakSelf(self);
+    self.needScrollToTopPage.clickToPlayBlock = ^(SCFilmModel *filmModel,NSString *VODStreamingUrl,NSString *downLoadUrl){
+        DONGLog(@">>>>>>>>>>><<<<<<<<<<<");
+        DONGStrongSelf(self);
+        
+        
+        //1.移除当前的播放器
+        [strongself.IJKPlayerViewController closePlayer];
+        //2.开始播放直播
+        strongself.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+        strongself.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+        strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+        strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+        
+        strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+        strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
+        [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+    };
+    
+}
+
+
 
 #pragma mark - 网络请求
 //电视剧请求数据
