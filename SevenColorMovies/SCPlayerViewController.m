@@ -52,7 +52,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 - (instancetype)initWithWithFilmType:(NSString *)tpye{
     self = [super init];
     if (self) {
-    
+        
     }
     return self;
 }
@@ -76,7 +76,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
     self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
     
-   
+    
     self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     [self.view addSubview:_IJKPlayerViewController.view];
@@ -92,7 +92,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                                              selector:@selector(moviePlayBackDidFinish:)
                                                  name:IJKMPMoviePlayerPlaybackDidFinishNotification
                                                object:nil];
-
+    
     
     
     
@@ -124,7 +124,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //注销监听屏幕旋转的通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
     //注销播放器播放结束的通知
-        [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackDidFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackDidFinishNotification object:nil];
 }
 
 - (void)viewWillLayoutSubviews{
@@ -452,7 +452,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-
+    
     
     // 方案二：自定义旋转90°进入全屏
     //    [self setNeedsStatusBarAppearanceUpdate];
@@ -557,46 +557,62 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 - (void)playNextFilm
 {
     DONGLog(@"播放下个节目");
-    
+    NSDictionary *message;
     if ([_identifier isEqualToString:@"电影"]){
+        
+        return;
         
     }else if ([_identifier isEqualToString:@"电视剧"]){
         
+        if (VODIndex+ ++timesIndexOfVOD < self.filmSetsArr.count) {
+            //0.获取下一个节目的model
+            SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD];
+            //1.获取下一个节目的model
+            SCFilmSetModel *lastFilmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD-1];
+            
+            message = @{@"mextFilmSetModel" : filmSetModel,
+                        @"lastFilmSetModel" : lastFilmSetModel};
+        }else{
+            return;
+        }
     }else if ([_identifier isEqualToString:@"综艺"]){
         
+        if (VODIndex+ ++timesIndexOfVOD < self.filmsArr.count) {
+            //0.获取下一个节目的model
+            SCFilmModel *filmModel = self.filmsArr[VODIndex+timesIndexOfVOD];
+            
+            message = @{@"filmModel" : filmModel,
+                        @"VODIndex" : [NSString stringWithFormat:@"%lu",VODIndex+timesIndexOfVOD]};
+            
+        }else{
+            return;
+        }
+        
     }
-        
-    if (VODIndex+ ++timesIndexOfVOD < self.filmSetsArr.count) {
-        //0.获取下一个节目的model
-        SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD];
-        //1.获取下一个节目的model
-        SCFilmSetModel *lastFilmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD-1];
-        
-        NSDictionary *message = @{@"mextFilmSetModel" : filmSetModel,
-                                  @"lastFilmSetModel" : lastFilmSetModel};
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
-        
-        //1.移除当前的播放器
-        [self.IJKPlayerViewController closePlayer];
-        //2.开始播放直播
-        self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
-        self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
-        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-        
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
-        [self.view addSubview:_IJKPlayerViewController.view];
-
-    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
+    
+    //1.移除当前的播放器
+    [self.IJKPlayerViewController closePlayer];
+    //2.开始播放直播
+    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
+    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
+    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+    
+    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+    _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+    [self.view addSubview:_IJKPlayerViewController.view];
+    
+    
     
 }
 
 static NSUInteger VODIndex; //首页播放回看的url在_huikanPlayerUrlArray中的第几个，这个播放完后去播放index + 1的回看
 static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次数
 
+#pragma mark - 电影播放列表点击事件
 - (void)playNewFilm:(NSNotification *)notification
 {
     NSDictionary *dic = notification.object;
@@ -615,19 +631,21 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     
     self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-   _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+    _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
     [self.view addSubview:_IJKPlayerViewController.view];
-
-     timesIndexOfVOD = 0;//每次点击后将index复位为0
+    
+    timesIndexOfVOD = 0;//每次点击后将index复位为0
 }
 
-#pragma mark - 综艺生活
+#pragma mark - 综艺播放列表点击事件
 - (void)doPlayNewArtsFilmBlock{
     DONGWeakSelf(self);
     self.needScrollToTopPage.clickToPlayBlock = ^(SCFilmModel *filmModel,NSString *VODStreamingUrl,NSString *downLoadUrl){
-        DONGLog(@">>>>>>>>>>><<<<<<<<<<<");
         DONGStrongSelf(self);
         
+        VODIndex = [self.filmsArr indexOfObject:filmModel];
+        timesIndexOfVOD = 0;//每次点击后将index复位为0
+        DONGLog(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
         
         //1.移除当前的播放器
         [strongself.IJKPlayerViewController closePlayer];
@@ -729,10 +747,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 
                 self.titleArr = @[@"详情", @"精彩推荐"];
                 self.identifier = @"电影";
-
+                
             }else if (_filmSetsArr.count > 1){
-            self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
-            self.identifier = @"电视剧";
+                self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
+                self.identifier = @"电视剧";
                 
             }
             //4.添加滑动headerView
@@ -744,7 +762,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         
     } failure:^(id  _Nullable errorObject) {
         [CommonFunc dismiss];
-
+        
     }];
 }
 
@@ -764,7 +782,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                                  @"filmmid" : filmmidStr};
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:ArtsAndLifeSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
-//        NSLog(@"====responseObject======%@===",responseObject);
+        //        NSLog(@"====responseObject======%@===",responseObject);
         [_filmsArr removeAllObjects];
         if (responseObject) {
             

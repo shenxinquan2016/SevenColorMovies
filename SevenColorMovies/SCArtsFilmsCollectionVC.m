@@ -15,6 +15,7 @@
 
 static NSString *const cellId = @"cellId";
 
+#pragma mark-  ViewLife Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -24,7 +25,14 @@ static NSString *const cellId = @"cellId";
     // 注册cell、sectionHeader、sectionFooter
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCArtsFilmCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
     
+    [DONG_NotificationCenter addObserver:self selector:@selector(changeCellStateWhenPlayNextProgrom:) name:ChangeCellStateWhenPlayNextVODFilm object:nil];
 }
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [DONG_NotificationCenter removeObserver:self name:ChangeCellStateWhenPlayNextVODFilm object:nil];
+}
+
 
 #pragma mark ---- UICollectionViewDataSource
 
@@ -96,7 +104,7 @@ static NSString *const cellId = @"cellId";
 }
 
 
-// 选中某item
+// 点击item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SCFilmModel *model = _dataArray[indexPath.row];
@@ -159,5 +167,22 @@ static NSString *const cellId = @"cellId";
     lastCell.model = lastFilmModel;
 }
 
+#pragma mark- Event reponse
+- (void)changeCellStateWhenPlayNextProgrom:(NSNotification *)notification{
+    NSDictionary *dic = notification.object;
+    NSUInteger VODIndex = [dic[@"VODIndex"] integerValue];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:VODIndex inSection:0];
+    SCFilmModel *filmModel = dic[@"filmModel"];
+    filmModel.onLive = YES;
+    SCArtsFilmCell *cell = (SCArtsFilmCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    cell.model = filmModel;
+    //前一个cell置为非播放状态
+    NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:VODIndex-1 inSection:0];
+    SCFilmModel *lastFilmModel = dic[@"filmModel"];
+    lastFilmModel.onLive = NO;
+    SCArtsFilmCell *lastCell = (SCArtsFilmCell *)[self.collectionView cellForItemAtIndexPath:lastIndexPath];
+    lastCell.model = lastFilmModel;
+
+}
 
 @end
