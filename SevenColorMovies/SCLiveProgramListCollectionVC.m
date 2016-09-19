@@ -108,14 +108,14 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
 /** item Size */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     return (CGSize){kMainScreenWidth,53};
 }
 
 /** CollectionView四周间距 EdgeInsets */
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
     return UIEdgeInsetsMake(0, 0, 5, 0);
 }
 
@@ -208,8 +208,8 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark - Event reponse
-- (void)changeCellStateWhenPlayNextProgrom:(NSNotification *)notification{
-    
+- (void)changeCellStateWhenPlayNextProgrom:(NSNotification *)notification
+{
     NSDictionary *dic = notification.object;
     SCLiveProgramModel *nextPlayModel = dic[@"model"];//即将播出节目的model
     NSUInteger identifier = [dic[@"index"] integerValue];
@@ -238,8 +238,8 @@ static NSString *const footerId = @"footerId";
     }
 }
 
-- (void)changeLastCellToUnselectedState:(NSNotification *)notification{
-    
+- (void)changeLastCellToUnselectedState:(NSNotification *)notification
+{
     NSInteger selectedViewIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_Live_selectedViewIndex];
     if (_viewIdentifier == selectedViewIndex) {
         

@@ -36,7 +36,6 @@ static NSString *const cellId = @"cellId";
     [DONG_NotificationCenter removeObserver:self name:ChangeCellStateWhenPlayNextVODFilm object:nil];
 }
 
-
 #pragma mark ---- UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -44,7 +43,6 @@ static NSString *const cellId = @"cellId";
     return 1;
     
 }
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -105,7 +103,6 @@ static NSString *const cellId = @"cellId";
 {
     return YES;
 }
-
 
 // 点击item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -211,8 +208,6 @@ static NSString *const cellId = @"cellId";
         
         [CommonFunc dismiss];
     }];
-    
-    
 }
 
 @end
