@@ -30,6 +30,9 @@ static NSString *const cellId = @"cellId";
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [DONG_UserDefaults setInteger:0 forKey:k_for_VOD_selectedCellIndex];
+    [DONG_UserDefaults synchronize];
+
     [DONG_NotificationCenter removeObserver:self name:ChangeCellStateWhenPlayNextVODFilm object:nil];
 }
 
@@ -107,6 +110,7 @@ static NSString *const cellId = @"cellId";
 // 点击item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+
     SCFilmModel *model = _dataArray[indexPath.row];
     NSString *urlStr = [model.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
@@ -115,20 +119,21 @@ static NSString *const cellId = @"cellId";
     SCArtsFilmCell *cell = (SCArtsFilmCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.model = model;
     
-    // 第一次如果不是点击第一个cell，要将第一个cell置为非选中状态
-    if (indexPath.row != 0) {
-        
-        NSIndexPath *firstIndex = [NSIndexPath indexPathForRow:0 inSection:0];
-        SCArtsFilmCell *firstCell = (SCArtsFilmCell *)[collectionView cellForItemAtIndexPath:firstIndex];
-        SCFilmModel *firstFilmModel = _dataArray[0];
-        firstFilmModel.onLive = NO;
-        firstCell.model = firstFilmModel;
+    //将前一个cell置为费播放状态
+    NSUInteger lastIndex = [DONG_UserDefaults integerForKey:k_for_VOD_selectedCellIndex];
+    NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:lastIndex inSection:0];
+    if (lastIndex != indexPath.row) {
+        //通过改变cell对应model的onLive属性来改变cell字体颜色
+        SCArtsFilmCell *lastCell = (SCArtsFilmCell *)[collectionView cellForItemAtIndexPath:lastIndexPath];
+        SCFilmModel *lastFilmModel = _dataArray[lastIndex];
+        lastFilmModel.onLive = NO;
+        lastCell.model = lastFilmModel;
     }
+ 
+    [DONG_UserDefaults setInteger:indexPath.row forKey:k_for_VOD_selectedCellIndex];
+    [DONG_UserDefaults synchronize];
 
-    
-    
-    
-    
+    //请求播放地址
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
         
@@ -157,32 +162,57 @@ static NSString *const cellId = @"cellId";
     
 }
 
-//取消选中操作
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    //通过改变cell对应model的onLive属性来改变cell字体颜色
-    SCArtsFilmCell *lastCell = (SCArtsFilmCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    SCFilmModel *lastFilmModel = _dataArray[indexPath.row];
-    lastFilmModel.onLive = NO;
-    lastCell.model = lastFilmModel;
-}
-
 #pragma mark- Event reponse
-- (void)changeCellStateWhenPlayNextProgrom:(NSNotification *)notification{
+- (void)changeCellStateWhenPlayNextProgrom:(NSNotification *)notification
+{
     NSDictionary *dic = notification.object;
     NSUInteger VODIndex = [dic[@"VODIndex"] integerValue];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:VODIndex inSection:0];
+    
     SCFilmModel *filmModel = dic[@"filmModel"];
     filmModel.onLive = YES;
     SCArtsFilmCell *cell = (SCArtsFilmCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     cell.model = filmModel;
+    [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+    
     //前一个cell置为非播放状态
     NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:VODIndex-1 inSection:0];
-    SCFilmModel *lastFilmModel = dic[@"filmModel"];
+    SCFilmModel *lastFilmModel = _dataArray[VODIndex-1];
     lastFilmModel.onLive = NO;
     SCArtsFilmCell *lastCell = (SCArtsFilmCell *)[self.collectionView cellForItemAtIndexPath:lastIndexPath];
     lastCell.model = lastFilmModel;
-
+    
+    [DONG_UserDefaults setInteger:VODIndex forKey:k_for_VOD_selectedCellIndex];
+    [DONG_UserDefaults synchronize];
+    
+    NSString *urlStr = [filmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
+        
+        NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+        
+        //获取fid
+        NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+        //base64编码downloadUrl
+        NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
+        //视频播放url
+        NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+        
+        NSLog(@">>>>>>>>>>>downLoadUrl>>>>>>>>%@",downLoadUrl);
+        NSLog(@">>>>>>>>>>>VODStreamingUrl>>>>>>>>%@",VODStreamingUrl);
+        
+        //播放新节目
+        if (self.clickToPlayBlock) {
+            self.clickToPlayBlock(filmModel,VODStreamingUrl,downLoadUrl);//切换节目BLock
+        }
+        
+        [CommonFunc dismiss];
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+    
+    
 }
 
 @end
