@@ -245,16 +245,14 @@ static NSString *const footerId = @"footerId";
         
         NSInteger selectedCellIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_Live_selectedCellIndex];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:selectedCellIndex inSection:0];
-
+        
         SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
         
         //改变model onLive状态
         SCLiveProgramModel *model = _liveProgramModelArr[selectedCellIndex];
         model.onLive = NO;
-        
         //给cell model赋值使cell变为非选中状态
         cell.model = model;
-        
     }
 }
 
