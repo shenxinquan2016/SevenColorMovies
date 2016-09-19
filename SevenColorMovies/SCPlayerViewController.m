@@ -98,7 +98,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     
     
-    
     //7.注册点击列表播放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
     

@@ -107,7 +107,6 @@ static NSString *const cellId = @"cellId";
 // 点击item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
     SCFilmModel *model = _dataArray[indexPath.row];
     NSString *urlStr = [model.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
