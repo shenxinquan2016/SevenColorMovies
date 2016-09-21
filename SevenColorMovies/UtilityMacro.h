@@ -56,9 +56,9 @@
 #endif
 
 #ifdef DEBUG
-#define DONGLog(...) NSLog(@"🔴%s 第%d行 \n %@\n\n",__func__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
+#define DONG_Log(...) NSLog(@"🔴%s 第%d行 \n %@\n\n",__func__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
 #else
-#define DONGLog(...)
+#define DONG_Log(...)
 
 #endif
 

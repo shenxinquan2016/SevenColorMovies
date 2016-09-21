@@ -202,7 +202,7 @@ static NSString *const cellId = @"cellId";
     if ([self.dataSourceArray containsObject:filmSetModel]) {
         
         NSInteger index = [self.dataSourceArray indexOfObject:filmSetModel];
-        DONGLog(@">>>>>>>>%lu<<<<<<<<<",index);
+        DONG_Log(@">>>>>>>>%lu<<<<<<<<<",index);
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         //获取即将播出的cell
         SCMovieEpisodeCell *cell = (SCMovieEpisodeCell *)[self.collectionView cellForItemAtIndexPath:indexPath];

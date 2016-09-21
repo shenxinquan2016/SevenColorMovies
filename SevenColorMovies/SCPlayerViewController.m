@@ -33,7 +33,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) NSMutableArray *filmSetsArr;/** 存放所有film集 */
 @property (nonatomic, strong) NSMutableArray *filmsArr;/** 综艺生活存放film */
 @property (nonatomic, strong) SCFilmIntroduceModel *filmIntroduceModel;/** 影片介绍model */
-@property (nonatomic, strong) NSString *VODStreamingUrl;/** 电影播放地址url */
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
 //@property(atomic, retain) id<IJKMediaPlayback> player;
@@ -71,16 +70,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //2.组建页面
     [self setView];
     
-    //3.直播视频
-    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
-    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
-    
-    
-    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-    [self.view addSubview:_IJKPlayerViewController.view];
-    _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
     
     //4.全屏小屏通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
@@ -555,7 +544,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 #pragma mark - 播放下一个节目
 - (void)playNextFilm
 {
-    DONGLog(@"播放下个节目");
+    DONG_Log(@"播放下个节目");
     NSDictionary *message;
     if ([_identifier isEqualToString:@"电影"]){
         
@@ -613,7 +602,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     SCFilmSetModel *filmSetModel = dic[@"model"];
     VODIndex = [self.filmSetsArr indexOfObject:filmSetModel];
     
-    DONGLog(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
+    DONG_Log(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
     
     //4.移除当前的播放器
     [self.IJKPlayerViewController closePlayer];
@@ -639,7 +628,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         
         VODIndex = [self.filmsArr indexOfObject:filmModel];
         timesIndexOfVOD = 0;//每次点击后将index复位为0
-        DONGLog(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
+        DONG_Log(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
         
         //1.移除当前的播放器
         [strongself.IJKPlayerViewController closePlayer];
@@ -836,8 +825,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     
     NSLog(@"====filmmidStr:::%@===",filmmidStr);
     [requestDataManager requestDataWithUrl:FilmSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        NSLog(@"====responseObject:::%@===",responseObject);
-        if (responseObject) {
+//        NSLog(@"====responseObject:::%@===",responseObject);
+        
             //介绍页model
             self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
             
@@ -859,19 +848,77 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             //获取fid
             NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
             
-            
+            //这只是个请求视频播放流的url地址
             NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
-            
-            _VODStreamingUrl = VODStreamingUrl;
+        
             NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
-            NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",_VODStreamingUrl);
-        }
+            NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+        
+        
+        
+        
+        [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+//            NSLog(@"====responseObject:::%@===",responseObject);
+            NSString *play_url = responseObject[@"play_url"];
+            
+            [[HLJRequest requestWithPlayVideoURL:play_url] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+                
+                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            } failure:^(NSError *error) {
+                
+                
+            }];
+            
+            DONG_Log(@"responseObject:%@",play_url);
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        } failure:^(id  _Nullable errorObject) {
+            
+            
+        }];
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         self.titleArr = @[@"详情", @"精彩推荐"];
         self.identifier = @"电影";
         
         //4.添加滑动headerView
         [self constructSlideHeaderView];
         [self constructContentView];
+        
+        
+        
+//        //3.调用播放器播放
+//        self.url = [NSURL URLWithString:VODStreamingUrl];
+//        self.url = [NSURL URLWithString:@"http://127.0.0.1:5656/play?url='vosp://10.177.1.136:3528/play?fid=ea183d4d49e36ed971bb12706eaed4f1&uid=0&stamp=1474448689&keyid=67290288&s=0&auth=22563ec139438c78908f69ef110b8d5e&ext=oid:30050,eid:909191,code:,f:0,p:1,m:35754114&stime=&etime=&is3d=0&bke=cdnbke.voole.com&proto=6'"];
+//        
+//        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+//        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+//        [self.view addSubview:_IJKPlayerViewController.view];
+//        _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+
+        
+        
+        
+        
+        
         
         [CommonFunc dismiss];
         

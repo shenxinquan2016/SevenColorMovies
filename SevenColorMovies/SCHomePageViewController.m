@@ -556,7 +556,6 @@ static NSString *const footerId = @"footerId";
             channelVC.filmClassModel = _filmClassModelDictionary[key];
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
-            
         }
         
     }else{
@@ -567,7 +566,6 @@ static NSString *const footerId = @"footerId";
         teleplayPlayer.filmModel = filmModel;
         teleplayPlayer.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:teleplayPlayer animated:YES];
-        
     }
 }
 

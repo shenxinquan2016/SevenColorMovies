@@ -33,6 +33,7 @@
 #import "UIImageView+WebCache.h"//SDWebImage
 #import "UILabel+Addition.h"
 #import "libagent_start.h"
+#import "HLJRequest.h"
 
 
 //@import MJRefresh;
