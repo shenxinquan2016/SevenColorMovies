@@ -106,6 +106,7 @@
 		1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC781D4A00D9004AAF23 /* SCFilmClassModel.m */; };
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
 		1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */; };
+		11998CED1D92273C00D8C59B /* libagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11998CEC1D92273C00D8C59B /* libagent.a */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
 		11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */; };
 		11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */; };
@@ -344,6 +345,8 @@
 		1196A0701D42650A00B3C5EF /* SCMovieEpisodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMovieEpisodeCell.h; sourceTree = "<group>"; };
 		1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMovieEpisodeCell.m; sourceTree = "<group>"; };
 		1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMovieEpisodeCell.xib; sourceTree = "<group>"; };
+		11998CEB1D92273C00D8C59B /* libagent_start.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libagent_start.h; sourceTree = "<group>"; };
+		11998CEC1D92273C00D8C59B /* libagent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libagent.a; sourceTree = "<group>"; };
 		11A1D0661D3F433900E2BA0D /* UIView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addition.h"; sourceTree = "<group>"; };
 		11A1D0671D3F433900E2BA0D /* UIView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Addition.m"; sourceTree = "<group>"; };
 		11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchViewController.h; sourceTree = "<group>"; };
@@ -453,6 +456,7 @@
 				116B1F561D53235600E9637A /* libz.tbd in Frameworks */,
 				116B1F541D53211C00E9637A /* IJKMediaFramework.framework in Frameworks */,
 				3C8B34AA809C96AD5B335A3F /* libPods-SevenColorMovies.a in Frameworks */,
+				11998CED1D92273C00D8C59B /* libagent.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,6 +575,8 @@
 		1114481F1D87D1A200CB8FA9 /* 播放的代理 */ = {
 			isa = PBXGroup;
 			children = (
+				11998CEB1D92273C00D8C59B /* libagent_start.h */,
+				11998CEC1D92273C00D8C59B /* libagent.a */,
 			);
 			name = "播放的代理";
 			sourceTree = "<group>";
@@ -2020,6 +2026,19 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Users/yesdgq/Desktop/SevenColorMovies/SevenColorMovies/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/IQKeyboardManager\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MJExtension\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/SDCycleScrollView\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SVProgressHUD\"",
+				);
 				INFOPLIST_FILE = SevenColorMovies/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2081,6 +2100,19 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Users/yesdgq/Desktop/SevenColorMovies/SevenColorMovies/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/IQKeyboardManager\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MJExtension\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/SDCycleScrollView\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SVProgressHUD\"",
+				);
 				INFOPLIST_FILE = SevenColorMovies/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -32,7 +32,12 @@
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedViewIndex];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedCellIndex];
     [[NSUserDefaults standardUserDefaults] synchronize];
-
+    
+    
+    
+//    libagent_finish();
+    
+    
     
     return YES;
 }
