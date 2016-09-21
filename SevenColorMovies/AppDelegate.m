@@ -16,7 +16,6 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     //    [NSThread sleepForTimeInterval:2.0f];
@@ -35,8 +34,7 @@
     
     
     
-//    libagent_finish();
-    
+    libagent_finish();
     
     
     return YES;

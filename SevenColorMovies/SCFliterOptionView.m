@@ -30,8 +30,9 @@ static NSString *const cellId = @"SCFliterOptionCell";
     
 }
 
-- (void)awakeFromNib{
-    
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
     //添加一个自定义布局 必须继承UICollectionViewFlowLayout
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;//滚动方向  水平方向

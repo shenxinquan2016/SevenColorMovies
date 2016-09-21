@@ -111,7 +111,7 @@
 {
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     animation.duration = 0.350;
-    animation.delegate =self;
+    animation.delegate = self;
     animation.removedOnCompletion = YES;
     //    NSMutableArray *values = [NSMutableArray array];
     //    //[values addObject:[NSValue valueWithCGAffineTransform:CGAffineTransformMakeTranslation(0, -5)]];

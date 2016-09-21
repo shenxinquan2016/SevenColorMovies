@@ -99,7 +99,7 @@
 
 //xib的awakeFromNib方法中设置UIViewAutoresizingNone进行清空
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     
 }
 

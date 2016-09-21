@@ -56,7 +56,7 @@
 }
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     //gif动画播放
     //    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"加载gif" ofType:@"gif"]]];
     //    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];

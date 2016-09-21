@@ -53,7 +53,7 @@
 }
 
 - (void)awakeFromNib{
-
+    [super awakeFromNib];
     
 
 }

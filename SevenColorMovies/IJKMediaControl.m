@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
 
 - (void)awakeFromNib
 {
-    
+    [super awakeFromNib];
     self.autoresizingMask = UIViewAutoresizingNone;
     
     self.goBackButton.enlargedEdge = 15.f;
