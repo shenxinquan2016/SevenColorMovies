@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SCNetUrlManger.h"
 #import "IQKeyboardManager.h"
+#import "HLJUUID.h"
 
 @interface AppDelegate ()
 
@@ -21,6 +22,9 @@
     //    [NSThread sleepForTimeInterval:2.0f];
     //    [self setAppearance];
     
+    
+    //-1.启动播放代理包
+    [self setLibagent];
     //0.初始化键盘控制
     [self initKeyboardManager];
     
@@ -31,11 +35,6 @@
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedViewIndex];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedCellIndex];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    
-    
-    libagent_finish();
-    
     
     return YES;
 }
@@ -60,6 +59,8 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    libagent_close();
 }
 
 
@@ -105,8 +106,14 @@
     manager.shouldResignOnTouchOutside = YES;//控制点击背景是否收起键盘。
     manager.shouldToolbarUsesTextFieldTintColor = YES;//控制键盘上的工具条文字颜色是否用户自定义
     manager.enableAutoToolbar = NO;//控制是否显示键盘上的工具条。
-    
 }
 
+//启动播放代理
+- (void)setLibagent{
+    const NSString *uuidStr = [HLJUUID getUUID];
+    const char *uuid = [uuidStr UTF8String];
+    libagent_start(0, NULL, uuid, 5656);
+
+}
 
 @end
