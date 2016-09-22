@@ -622,9 +622,9 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 
 #pragma mark - 综艺播放列表点击事件
 - (void)doPlayNewArtsFilmBlock{
-    DONGWeakSelf(self);
+    DONG_WeakSelf(self);
     self.needScrollToTopPage.clickToPlayBlock = ^(SCFilmModel *filmModel,NSString *VODStreamingUrl,NSString *downLoadUrl){
-        DONGStrongSelf(self);
+        DONG_StrongSelf(self);
         
         VODIndex = [self.filmsArr indexOfObject:filmModel];
         timesIndexOfVOD = 0;//每次点击后将index复位为0
@@ -823,78 +823,61 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"filmmid" : filmmidStr};
     
-    NSLog(@"====filmmidStr:::%@===",filmmidStr);
+    //    DONG_Log(@"====filmmidStr:::%@===",filmmidStr);
+    //请求film详细信息
     [requestDataManager requestDataWithUrl:FilmSourceUrl parameters:parameters success:^(id  _Nullable responseObject) {
-//        NSLog(@"====responseObject:::%@===",responseObject);
+        //        DONG_Log(@"====responseObject:::%@===",responseObject);
         
-            //介绍页model
-            self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
+        //介绍页model
+        self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
+        
+        // 坑：：单片不同film竟然数据结构不同 服了！
+        //downloadUrl
+        NSString *downloadUrl;
+        if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
             
-            // 坑：：单片不同film竟然数据结构不同 服了！
-            //downloadUrl
-            NSString *downloadUrl;
-            if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
-                
-                downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
-                
-            }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
-                
-                downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
-            }
+            downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
             
-            //base64编码downloadUrl
-            NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
+        }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
             
-            //获取fid
-            NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
-            
-            //这只是个请求视频播放流的url地址
-            NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+            downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
+        }
         
-            NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
-            NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+        //base64编码downloadUrl
+        NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
         
+        //获取fid
+        NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
         
+        //这只是个请求视频播放流的url地址
+        NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
         
-        
+        //            DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
+        //            DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+        //请求播放地址
         [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-//            NSLog(@"====responseObject:::%@===",responseObject);
+            //            NSLog(@"====responseObject:::%@===",responseObject);
             NSString *play_url = responseObject[@"play_url"];
-            
+            DONG_Log(@"responseObject:%@",play_url);
+            //请求将播放地址域名转换  并拼接最终的播放地址
             [[HLJRequest requestWithPlayVideoURL:play_url] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
                 
                 DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                //1.拼接新地址
+                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                self.url = [NSURL URLWithString:playUrl];
+                //2.调用播放器播放
+                self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                [self.view addSubview:_IJKPlayerViewController.view];
+                _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                [CommonFunc dismiss];
             } failure:^(NSError *error) {
-                
-                
             }];
-            
-            DONG_Log(@"responseObject:%@",play_url);
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
         } failure:^(id  _Nullable errorObject) {
             
-            
         }];
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         self.titleArr = @[@"详情", @"精彩推荐"];
         self.identifier = @"电影";
@@ -902,25 +885,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         //4.添加滑动headerView
         [self constructSlideHeaderView];
         [self constructContentView];
-        
-        
-        
-//        //3.调用播放器播放
-//        self.url = [NSURL URLWithString:VODStreamingUrl];
-//        self.url = [NSURL URLWithString:@"http://127.0.0.1:5656/play?url='vosp://10.177.1.136:3528/play?fid=ea183d4d49e36ed971bb12706eaed4f1&uid=0&stamp=1474448689&keyid=67290288&s=0&auth=22563ec139438c78908f69ef110b8d5e&ext=oid:30050,eid:909191,code:,f:0,p:1,m:35754114&stime=&etime=&is3d=0&bke=cdnbke.voole.com&proto=6'"];
-//        
-//        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-//        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-//        [self.view addSubview:_IJKPlayerViewController.view];
-//        _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
-
-        
-        
-        
-        
-        
-        
-        [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
         

@@ -47,7 +47,7 @@
         NSMutableArray *returnArray = [[NSMutableArray alloc]init];//要返回的数组
         for (NSDictionary *dataSource in responseObject) {
             if ([dataSource isKindOfClass:[NSDictionary class]]) {
-
+                
                 //RDLivingVCModel *livingVCModel = [RDLivingVCModel objectWithKeyValues:dataSource];
                 //[returnArray addObject:livingVCModel];//返回的数组里面是model类型
             }
@@ -83,7 +83,7 @@
         } else {
             faild(@"获取数据失败!");
         }
-
+        
     }];
     
     
@@ -103,7 +103,7 @@
         } else {
             faild(@"获取数据失败!");
         }
-
+        
         
     }];
     
@@ -145,11 +145,30 @@
         
         
     }];
-
+    
 }
 
-
-
+/** 域名替换成IP */
+- (void)requestDataToReplaceDomainNameWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //1.设置请求格式 返回XMLData
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //2.请求超时时间设置
+    manager.requestSerializer.timeoutInterval = 10;
+    
+    [manager GET:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success(responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"------%@》》》》》》", error);
+        if (faild) {
+            faild(error);
+        }
+    }];
+    
+}
 
 
 
@@ -169,7 +188,7 @@
 //******************☝️☝️☝️☝️☝️☝️☝️☝️下面为通用请求方法☝️☝️☝️☝️☝️☝️☝️☝️****************
 
 - (void)POSTRequestDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild {
-//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
     //manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",nil];
@@ -207,11 +226,11 @@
             id dic = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:&myError];
             
             if ([dic[@"msg"] isEqualToString:@"无效Token"] || [[dic[@"code"] description] isEqualToString:@"110"]) {//token无效的code是 110
-//                if (_loginVC == nil) {
-//                    _loginVC = TL_INSTANT_VC_WITH_ID(@"Main", @"CPLoginViewController");
-//                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_loginVC];
-//                    [TL_KEYWINDOW.rootViewController presentViewController:nav animated:YES completion:nil];
-//                }
+                //                if (_loginVC == nil) {
+                //                    _loginVC = TL_INSTANT_VC_WITH_ID(@"Main", @"CPLoginViewController");
+                //                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_loginVC];
+                //                    [TL_KEYWINDOW.rootViewController presentViewController:nav animated:YES completion:nil];
+                //                }
                 UserInfoManager.isLogin = NO;
                 [dic setObject:@"用户身份已过期，请重新登录！" forKey:@"msg"];
                 return ;
@@ -232,22 +251,23 @@
 
 - (void)GETRequestDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-
-
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"text/xml", nil];
-   
-    // 设置请求格式
-    manager.responseSerializer = [AFXMLParserResponseSerializer new];//返回XMLParser
-//     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    //请求超时时间设置
+    
+    //1.设置请求格式
+    // 1.1
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"text/xml", nil];
+    // 1.2返回XMLParser
+    manager.responseSerializer = [AFXMLParserResponseSerializer new];
+    // 1.3返回XMLData
+    //manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //2.请求超时时间设置
     manager.requestSerializer.timeoutInterval = 10;
     
     [manager GET:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             //利用XMLDictionary工具，将返回的XML直接转换为字典
             NSDictionary *dic = [NSDictionary dictionaryWithXMLParser:responseObject];
-            
-//            NSLog(@"======dic:%@",dic);
+            //NSDictionary *dic = [NSDictionary dictionaryWithXMLData:responseObject];
+            //            NSLog(@"======dic:%@",dic);
             success(dic);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

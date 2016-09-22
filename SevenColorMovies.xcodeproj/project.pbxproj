@@ -31,8 +31,6 @@
 		111448261D87D1CE00CB8FA9 /* HLJUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 111448231D87D1CE00CB8FA9 /* HLJUUID.m */; };
 		111448271D87D1CE00CB8FA9 /* UUID使用说明.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 111448241D87D1CE00CB8FA9 /* UUID使用说明.pdf */; };
 		1114482C1D87D31700CB8FA9 /* 域名替换IP说明.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 111448281D87D31700CB8FA9 /* 域名替换IP说明.pdf */; };
-		1114482D1D87D31700CB8FA9 /* HLJRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1114482A1D87D31700CB8FA9 /* HLJRequest.m */; };
-		111448321D87DC6500CB8FA9 /* HLJDomainNameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 111448311D87DC6500CB8FA9 /* HLJDomainNameModel.m */; };
 		1118278E1D800C92005921D6 /* SCFliterOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1118278D1D800C92005921D6 /* SCFliterOptionView.m */; };
 		111827901D800CD3005921D6 /* SCFliterOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1118278F1D800CD3005921D6 /* SCFliterOptionView.xib */; };
 		1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */; };
@@ -152,6 +150,8 @@
 		11F9E2891D6D7503006326F3 /* SCLivePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F9E2881D6D7503006326F3 /* SCLivePlayerVC.m */; };
 		11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB481D3F16E100AAC216 /* SCBaseViewController.m */; };
 		11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */; };
+		11FEEF1A1D93846E00518029 /* HLJRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FEEF191D93846E00518029 /* HLJRequest.m */; };
+		11FEEF1E1D93848300518029 /* HLJDomainNameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FEEF1D1D93848300518029 /* HLJDomainNameModel.m */; };
 		3C8B34AA809C96AD5B335A3F /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA24F2F6965B699BDA51AFE8 /* libPods-SevenColorMovies.a */; };
 /* End PBXBuildFile section */
 
@@ -221,10 +221,6 @@
 		111448231D87D1CE00CB8FA9 /* HLJUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJUUID.m; sourceTree = "<group>"; };
 		111448241D87D1CE00CB8FA9 /* UUID使用说明.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "UUID使用说明.pdf"; sourceTree = "<group>"; };
 		111448281D87D31700CB8FA9 /* 域名替换IP说明.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "域名替换IP说明.pdf"; sourceTree = "<group>"; };
-		111448291D87D31700CB8FA9 /* HLJRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJRequest.h; sourceTree = "<group>"; };
-		1114482A1D87D31700CB8FA9 /* HLJRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJRequest.m; sourceTree = "<group>"; };
-		111448301D87DC6500CB8FA9 /* HLJDomainNameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJDomainNameModel.h; sourceTree = "<group>"; };
-		111448311D87DC6500CB8FA9 /* HLJDomainNameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJDomainNameModel.m; sourceTree = "<group>"; };
 		1118278C1D800C92005921D6 /* SCFliterOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFliterOptionView.h; sourceTree = "<group>"; };
 		1118278D1D800C92005921D6 /* SCFliterOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFliterOptionView.m; sourceTree = "<group>"; };
 		1118278F1D800CD3005921D6 /* SCFliterOptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCFliterOptionView.xib; sourceTree = "<group>"; };
@@ -431,6 +427,10 @@
 		11FACB481D3F16E100AAC216 /* SCBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseViewController.m; sourceTree = "<group>"; };
 		11FACB4A1D3F19A000AAC216 /* SCSearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchBarView.h; sourceTree = "<group>"; };
 		11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchBarView.m; sourceTree = "<group>"; };
+		11FEEF181D93846E00518029 /* HLJRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJRequest.h; sourceTree = "<group>"; };
+		11FEEF191D93846E00518029 /* HLJRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJRequest.m; sourceTree = "<group>"; };
+		11FEEF1C1D93848300518029 /* HLJDomainNameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJDomainNameModel.h; sourceTree = "<group>"; };
+		11FEEF1D1D93848300518029 /* HLJDomainNameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJDomainNameModel.m; sourceTree = "<group>"; };
 		44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.release.xcconfig"; sourceTree = "<group>"; };
 		AA24F2F6965B699BDA51AFE8 /* libPods-SevenColorMovies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMovies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.debug.xcconfig"; sourceTree = "<group>"; };
@@ -565,9 +565,9 @@
 			isa = PBXGroup;
 			children = (
 				111448281D87D31700CB8FA9 /* 域名替换IP说明.pdf */,
-				111448291D87D31700CB8FA9 /* HLJRequest.h */,
-				1114482A1D87D31700CB8FA9 /* HLJRequest.m */,
-				1114482F1D87DC4C00CB8FA9 /* Model */,
+				11FEEF181D93846E00518029 /* HLJRequest.h */,
+				11FEEF191D93846E00518029 /* HLJRequest.m */,
+				11FEEF1B1D93847300518029 /* Model */,
 			);
 			name = "域名转换";
 			sourceTree = "<group>";
@@ -579,15 +579,6 @@
 				11A39D9E1D9269EE00C9FEA8 /* libagent.a */,
 			);
 			name = "播放的代理";
-			sourceTree = "<group>";
-		};
-		1114482F1D87DC4C00CB8FA9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				111448301D87DC6500CB8FA9 /* HLJDomainNameModel.h */,
-				111448311D87DC6500CB8FA9 /* HLJDomainNameModel.m */,
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		111827891D800AAD005921D6 /* MainBody */ = {
@@ -1545,6 +1536,15 @@
 			name = MainBody;
 			sourceTree = "<group>";
 		};
+		11FEEF1B1D93847300518029 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11FEEF1C1D93848300518029 /* HLJDomainNameModel.h */,
+				11FEEF1D1D93848300518029 /* HLJDomainNameModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		56CA4D536ADE803AF87BD5DE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1848,7 +1848,7 @@
 				115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */,
 				11DDB87E1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m in Sources */,
 				116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */,
-				111448321D87DC6500CB8FA9 /* HLJDomainNameModel.m in Sources */,
+				11FEEF1E1D93848300518029 /* HLJDomainNameModel.m in Sources */,
 				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
 				110175071D54402D00E43773 /* FileManageCommon.m in Sources */,
 				11C1C1C11D8020A300CEE71C /* SCFliterOptionCell.m in Sources */,
@@ -1877,7 +1877,7 @@
 				1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
 				1118278E1D800C92005921D6 /* SCFliterOptionView.m in Sources */,
-				1114482D1D87D31700CB8FA9 /* HLJRequest.m in Sources */,
+				11FEEF1A1D93846E00518029 /* HLJRequest.m in Sources */,
 				11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */,
 				11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */,
 				1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */,

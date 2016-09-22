@@ -320,10 +320,10 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
 #pragma mark - IJK播放控制器的回调
 - (void)doIJKPlayerBlock{
-    DONGWeakSelf(self);
+    DONG_WeakSelf(self);
     //点击节目list切换节目
     _needScrollToTopPage.clickToPlayBlock = ^(SCLiveProgramModel *model, SCLiveProgramModel *nextProgramModel, NSArray *liveProgramModelArray){
-        DONGStrongSelf(self);
+        DONG_StrongSelf(self);
         strongself.liveModel = model;
         strongself.liveProgramModelArray = liveProgramModelArray;
         strongself.indexOfArrInArr = [strongself.dataSourceArr indexOfObject:strongself.liveProgramModelArray];

@@ -9,6 +9,7 @@
 #import "HLJRequest.h"
 #import "HLJDomainNameModel.h"
 
+NSString *const DomainNameXMLURL = @"http://10.177.1.198:8095/b2b/search/domainIpRel.htm";
 
 @interface HLJRequest ()<NSXMLParserDelegate>
 
@@ -54,11 +55,12 @@
 
 - (void)loadXMLData{
     
-    DONGWeakSelf(self);
-    
-    [requestDataManager requestDataWithUrl:nil parameters:nil success:^(id info) {
+    DONG_WeakSelf(self);
+    DONG_StrongSelf(self);
+    [requestDataManager requestDataToReplaceDomainNameWithUrl:DomainNameXMLURL parameters:nil success:^(id info) {
         
-        [weakself beginParse:info];
+        [strongself beginParse:info];
+        
     } failure:^(NSError *error) {
         NSLog(@"HLJRequest---loadXMLDataError---%@",error);
         if (self.parseIPFailure) {

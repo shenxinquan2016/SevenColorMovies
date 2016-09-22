@@ -73,11 +73,11 @@
 #define RGBAlpha(r, g, b, a)     [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:(a)]
 
 // weakself & strongself
-#define DONGWeakSelf(type)  __weak typeof(type) weak##type = type
-#define DONGStrongSelf(type)  __strong typeof(weak##type) strong##type = weak##type
+#define DONG_WeakSelf(type)  __weak typeof(type) weak##type = type
+#define DONG_StrongSelf(type)  __strong typeof(weak##type) strong##type = weak##type
 
-#define DONGToast(str) [NSString stringWithFormat:@"%@",@#str]
-#define DONGNSLog(str) NSLog:@"%@",DONGToast(str)
+#define DONG_Toast(str) [NSString stringWithFormat:@"%@",@#str]
+#define DONG_NSLog(str) NSLog:@"%@",DONGToast(str)
 
 
 //  主要单例
