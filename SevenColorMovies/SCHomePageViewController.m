@@ -24,9 +24,6 @@
 #import "SCFilmClassModel.h"
 #import "SCFilmModel.h"
 
-
-
-
 @interface SCHomePageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate,NSXMLParserDelegate>
 
 @property (nonatomic, strong) UICollectionView *collView;
@@ -49,7 +46,6 @@ static NSString *const cellId = @"cellId";
 static NSString *const cellIdOther = @"cellIdOther";
 static NSString *const headerId = @"headerId";
 static NSString *const footerId = @"footerId";
-
 
 #pragma mark-  ViewLife Cycle
 - (void)viewDidLoad {
