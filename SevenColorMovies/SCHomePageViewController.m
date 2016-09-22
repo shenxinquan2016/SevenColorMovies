@@ -152,46 +152,6 @@ static NSString *const footerId = @"footerId";
 
 - (void)requestData{
     
-    //>>>>>>>>>>>>>>>>>>>>banner测试接口<<<<<<<<<<<<<<<<<<<<<<
-    //            if (_bannerImageUrlArr) {
-    //                [_bannerImageUrlArr removeAllObjects];
-    //            }else if (!_bannerImageUrlArr){
-    //                _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
-    //            }
-    //
-    //            [requestDataManager requestBannerDataWithUrl:BannerURL parameters:nil success:^(id  _Nullable responseObject) {
-    //
-    //                NSMutableArray *dataArr = responseObject[@"Film"];
-    //
-    //                if (![dataArr isKindOfClass:[NSNull class]]) {
-    //                    for (NSDictionary *dic in dataArr) {
-    //                        SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
-    //                        [_bannerImageUrlArr addObject:model._ImgUrlOriginal];
-    //
-    //                    }
-    //
-    //                    //添加banner
-    //                    if (_bannerImageUrlArr.count > 0) {
-    //
-    //                        [self addBannerView];
-    //                        _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
-    //                    }}else if (_bannerImageUrlArr.count == 0){
-    //                        if (_bannerView) {
-    //                            [_bannerView removeFromSuperview];
-    //
-    //                        }
-    //                    }
-    //                [CommonFunc dismiss];
-    //                [_collView.mj_header endRefreshing];
-    //
-    //            } failure:^(id  _Nullable errorObject) {
-    //                [CommonFunc dismiss];
-    //                [_collView.mj_header endRefreshing];
-    //
-    //            }];
-    
-    
-    //>>>>>>>>>>>>>>>>>>>>整合后的首页接口调试<<<<<<<<<<<<<<<<<<<<<<
     if (_titleArray) {
         [_titleArray removeAllObjects];
     }else if (!_titleArray){
@@ -388,13 +348,13 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark ---- UICollectionView  DataSource
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return _titleArray.count+1;
 }
 
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     if (section == 0){
         return 8;
     }else{
@@ -404,7 +364,6 @@ static NSString *const footerId = @"footerId";
     }
     
 }
-
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -432,8 +391,8 @@ static NSString *const footerId = @"footerId";
     return nil;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
     if([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
         UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerId forIndexPath:indexPath];
@@ -464,7 +423,8 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
 /** item Size */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0){
         // 顶部点播栏cell大小
         return (CGSize){(kMainScreenWidth-10-15)/4,70};
@@ -483,7 +443,8 @@ static NSString *const footerId = @"footerId";
 }
 
 /** Section 四周间距 EdgeInsets */
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
     if (section == 0){
         return UIEdgeInsetsMake(5, 5, 5, 5);
     }else{
@@ -493,12 +454,14 @@ static NSString *const footerId = @"footerId";
 }
 
 /** item水平间距 */
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
     return 5.f;
 }
 
 /** item垂直间距 */
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
     if (section == 0){
         return 5;
     }else{
@@ -507,7 +470,8 @@ static NSString *const footerId = @"footerId";
 }
 
 /** section Header 尺寸 */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
     if (section == 0){
         return (CGSize){kMainScreenWidth,0};
     }else{
@@ -517,14 +481,14 @@ static NSString *const footerId = @"footerId";
 }
 
 /** section Footer 尺寸*/
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-    
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
+{
     return (CGSize){kMainScreenWidth,0};
 }
 
 #pragma mark ---- UICollectionView DataDelegate
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     //    NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
     if (indexPath.section ==0) {//点播栏
         if (_filmClassArray.count == 0) {
@@ -571,8 +535,8 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark - SDCycleScrollViewDelegate
 /** 点击图片回调 */
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
-    
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
     //    ALERT(@"点击banner");
     NSLog(@">>>>>> 第%ld张图", (long)index);
     

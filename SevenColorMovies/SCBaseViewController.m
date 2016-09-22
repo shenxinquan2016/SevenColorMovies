@@ -35,7 +35,7 @@
 #pragma mark- private methods
 - (void)addLeftBBI {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 100, 30);
+    btn.frame = CGRectMake(0, 0, 105, 27);
     [btn setBackgroundImage:[UIImage imageNamed:@"BusinessLogo"] forState:UIControlStateNormal];
 //    btn.backgroundColor = [UIColor redColor];
     btn.userInteractionEnabled = NO;
