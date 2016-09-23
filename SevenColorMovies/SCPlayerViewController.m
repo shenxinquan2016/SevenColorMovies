@@ -565,8 +565,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 DONG_Log(@"responseObject:%@",play_url);
                 //请求将播放地址域名转换  并拼接最终的播放地址
                  NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                    
-                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                     //1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                     self.url = [NSURL URLWithString:playUrl];
@@ -614,10 +612,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     [requestDataManager requestDataWithUrl:filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
         //            NSLog(@"====responseObject:::%@===",responseObject);
         NSString *play_url = responseObject[@"play_url"];
-        DONG_Log(@"responseObject:%@",play_url);
         //请求将播放地址域名转换  并拼接最终的播放地址
         NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:play_url];
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             //1.拼接新地址
             NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
             self.url = [NSURL URLWithString:playUrl];
