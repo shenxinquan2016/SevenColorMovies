@@ -581,6 +581,12 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         }
     }else if ([_identifier isEqualToString:@"综艺"]){
         
+        //1.关闭正在播放的节目
+//        if ([self.IJKPlayerViewController.player isPlaying]) {
+//            [self.IJKPlayerViewController.player shutdown];
+//        }
+        
+        
         if (VODIndex+ ++timesIndexOfVOD < self.filmsArr.count) {
             //0.获取下一个节目的model
             SCFilmModel *atrsFilmModel = self.filmsArr[VODIndex+timesIndexOfVOD];

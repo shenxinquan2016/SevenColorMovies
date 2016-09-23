@@ -329,7 +329,18 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         strongself.indexOfArrInArr = [strongself.dataSourceArr indexOfObject:strongself.liveProgramModelArray];
         
         //请求url并播放
-        [strongself requestProgramHavePastVideoSignalFlowUrlWithModel:model NextProgramModel:nextProgramModel];
+        if (model.programState == HavePast) {//回看
+            
+            [strongself requestProgramHavePastVideoSignalFlowUrlWithModel:model NextProgramModel:nextProgramModel];
+            
+        }else if (model.programState == NowPlaying){
+            
+            [strongself getLiveVideoSignalFlowUrl];//直播
+
+        }else {
+            [MBProgressHUD showError:@"节目未开始"];//预约
+            return;
+        }
         timesIndexOfHuikan = 0;//每次点击后将index复位为0
     };
 }
@@ -536,8 +547,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         
         
         
-        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-        //        self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
+        //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+        self.url = [NSURL URLWithString:liveUrl];
         
         //4.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
@@ -547,48 +558,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
         [self.view addSubview:self.IJKPlayerViewController.view];
-        
-        [CommonFunc dismiss];
-    } failure:^(id  _Nullable errorObject) {
-        [CommonFunc dismiss];
-        
-    }];
-    
-}
-//请求该频道直播流url
-- (void)getLiveVideoSignalFlowUrl{
-    
-    //1.关闭正在播放的节目
-    if ([self.IJKPlayerViewController.player isPlaying]) {
-        [self.IJKPlayerViewController.player shutdown];
-    }
-    //2.加载动画
-    [CommonFunc showLoadingWithTips:@"视频加载中..."];
-    //3.请求播放地址url
-    //fid = tvId + "_" + tvId
-    NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
-    //hid = 设备的mac地址
-    
-    NSDictionary *parameters = @{@"fid" : fidStr,
-                                 @"hid" : @""};
-    [requestDataManager requestDataWithUrl:ToGetLiveVideoSignalFlowUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        NSLog(@"====responseObject:::%@===",responseObject);
-
-        NSString *liveUrl = responseObject[@"play_url"];
-        
-        NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
-        
-        //4.移除当前的播放器
-        [self.IJKPlayerViewController closePlayer];
-        //5.开始播放直播
-        self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
-        self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
-        
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        _IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
-        [self.view addSubview:_IJKPlayerViewController.view];
         
         [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
@@ -703,6 +672,45 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     }];
 }
 
+//请求该频道直播流url
+- (void)getLiveVideoSignalFlowUrl{
+    
+    //1.关闭正在播放的节目
+    if ([self.IJKPlayerViewController.player isPlaying]) {
+        [self.IJKPlayerViewController.player shutdown];
+    }
+    //2.加载动画
+    [CommonFunc showLoadingWithTips:@"视频加载中..."];
+    //3.请求播放地址url
+    //fid = tvId + "_" + tvId
+    NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
+    //hid = 设备的mac地址
+    
+    NSDictionary *parameters = @{@"fid" : fidStr,
+                                 @"hid" : @""};
+    [requestDataManager requestDataWithUrl:ToGetLiveVideoSignalFlowUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        NSLog(@"====responseObject:::%@===",responseObject);
+        
+        NSString *liveUrl = responseObject[@"play_url"];
+        
+        NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
+        
+        //4.移除当前的播放器
+        [self.IJKPlayerViewController closePlayer];
+        //5.开始播放直播
+        self.url = [NSURL URLWithString:liveUrl];
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        _IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
+        [self.view addSubview:_IJKPlayerViewController.view];
+        
+        [CommonFunc dismiss];
+    } failure:^(id  _Nullable errorObject) {
+        [CommonFunc dismiss];
+        
+    }];
+    
+}
 
 
 

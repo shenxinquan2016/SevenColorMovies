@@ -273,23 +273,17 @@ static const CGFloat LabelWidth = 95.f;
                             NSString *timeEndString = dic1[@"_StopTime"];
                             //1.创建一个时间格式化对象
                             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                            
                             //2.格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
                             formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-                            
                             //3.利用时间格式化对象让字符串转换成时间 (自动转换0时区/东加西减)
                             NSDate *timeBeginDate = [formatter dateFromString:timeBeginString];
                             NSDate *timeEndDate = [formatter dateFromString:timeEndString];
-                            
                             //4.当前时间
                             NSDate *currenDate = [NSDate date];
-                            
                             //5.日期比较
-                            
                             NSTimeInterval secondsInterval1 = [currenDate timeIntervalSinceDate:timeBeginDate];
                             
                             NSTimeInterval secondsInterval2 = [currenDate timeIntervalSinceDate:timeEndDate];
-                            
                             
                             // 得出即将播出节目和该节目的index
                             if (secondsInterval1 >= 0 && secondsInterval2 <= 0) {
