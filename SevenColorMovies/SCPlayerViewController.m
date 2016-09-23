@@ -37,6 +37,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
 @property (nonatomic,strong) SCArtsFilmsCollectionVC *needScrollToTopPage;
 @property (nonatomic, copy) NSString *movieType;
+@property (nonatomic, strong) HLJRequest *hljRequest;
 
 @end
 
@@ -563,7 +564,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 NSString *play_url = responseObject[@"play_url"];
                 DONG_Log(@"responseObject:%@",play_url);
                 //请求将播放地址域名转换  并拼接最终的播放地址
-                [[HLJRequest requestWithPlayVideoURL:play_url] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+                 NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:play_url];
                     
                     DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                     //1.拼接新地址
@@ -575,8 +576,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     [self.view addSubview:_IJKPlayerViewController.view];
                     _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
                     [CommonFunc dismiss];
-                } failure:^(NSError *error) {
-                }];
                 
             } failure:^(id  _Nullable errorObject) {
                 
@@ -617,8 +616,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         NSString *play_url = responseObject[@"play_url"];
         DONG_Log(@"responseObject:%@",play_url);
         //请求将播放地址域名转换  并拼接最终的播放地址
-        [[HLJRequest requestWithPlayVideoURL:play_url] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
+        NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:play_url];
             DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             //1.拼接新地址
             NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
@@ -629,9 +627,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             [self.view addSubview:_IJKPlayerViewController.view];
             _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
             [CommonFunc dismiss];
-        } failure:^(NSError *error) {
-        }];
-        
+
     } failure:^(id  _Nullable errorObject) {
         
     }];
@@ -662,7 +658,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
         [strongself.view addSubview:strongself.IJKPlayerViewController.view];
     };
-    
 }
 
 #pragma mark - 网络请求
@@ -764,7 +759,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 NSString *play_url = responseObject[@"play_url"];
                 DONG_Log(@"responseObject:%@",play_url);
                 //请求将播放地址域名转换  并拼接最终的播放地址
-                [[HLJRequest requestWithPlayVideoURL:play_url] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+                self.hljRequest = [HLJRequest requestWithPlayVideoURL:play_url];
+                [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
                     
                     DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                     //1.拼接新地址
