@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/7/22.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//  播放页面
+//  点播播放页面
 
 #import <UIKit/UIKit.h>
 #import "SCFilmModel.h"

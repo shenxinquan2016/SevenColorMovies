@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/7/22.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//  播放页面
+//  点播播放页面
 
 #import "SCPlayerViewController.h"
 #import "SCSlideHeaderLabel.h"
@@ -35,7 +35,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) SCFilmIntroduceModel *filmIntroduceModel;/** 影片介绍model */
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
-//@property(atomic, retain) id<IJKMediaPlayback> player;
 @property (nonatomic,strong) SCArtsFilmsCollectionVC *needScrollToTopPage;
 @property (nonatomic, copy) NSString *movieType;
 
@@ -70,24 +69,17 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //2.组建页面
     [self setView];
     
-    
-    //4.全屏小屏通知
+    //3.全屏小屏通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
-    //5.监听屏幕旋转
+    //4.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    //6.注册播放结束通知
+    //5.注册播放结束通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackDidFinish:)
                                                  name:IJKMPMoviePlayerPlaybackDidFinishNotification
                                                object:nil];
-    
-    
-    
-    
-    
-    
-    //7.注册点击列表播放通知
+    //6.注册点击列表播放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
     
 }
@@ -736,11 +728,35 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 self.identifier = @"电视剧";
                 
             }
-            //4.添加滑动headerView
+            //1.添加滑动headerView
             [self constructSlideHeaderView];
-            //5.添加contentScrllowView
+            //2.添加contentScrllowView
             [self constructContentView];
-            [CommonFunc dismiss];
+            
+            //请求播放地址
+            [requestDataManager requestDataWithUrl:model.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+                //            NSLog(@"====responseObject:::%@===",responseObject);
+                NSString *play_url = responseObject[@"play_url"];
+                DONG_Log(@"responseObject:%@",play_url);
+                //请求将播放地址域名转换  并拼接最终的播放地址
+                [[HLJRequest requestWithPlayVideoURL:play_url] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+                    
+                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                    //1.拼接新地址
+                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                    self.url = [NSURL URLWithString:playUrl];
+                    //2.调用播放器播放
+                    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    [self.view addSubview:_IJKPlayerViewController.view];
+                    _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                    [CommonFunc dismiss];
+                } failure:^(NSError *error) {
+                }];
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+            }];
         }
         
     } failure:^(id  _Nullable errorObject) {

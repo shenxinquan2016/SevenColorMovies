@@ -61,12 +61,10 @@ static NSString *const footerId = @"footerId";
     
     //3.添加collectionView
     [self addCollView];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     
 }
 
@@ -169,7 +167,6 @@ static NSString *const footerId = @"footerId";
     
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
 //                 NSLog(@"==========dic:::%@========",responseObject);
-        
         //1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         
@@ -225,8 +222,6 @@ static NSString *const footerId = @"footerId";
         [_collView.mj_header endRefreshing];
         
     }];
-    
-    
 }
 
 - (void)setFilmClassTitleArray
@@ -485,7 +480,6 @@ static NSString *const footerId = @"footerId";
 #pragma mark ---- UICollectionView DataDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    NSLog(@"点击了  ---=== %ld",(long)indexPath.item);
     if (indexPath.section ==0) {//点播栏
         if (_filmClassArray.count == 0) {
             [MBProgressHUD showSuccess:@"暂无数据，请稍后再试"];
@@ -493,7 +487,6 @@ static NSString *const footerId = @"footerId";
         }
         //设置返回键标题
         if (indexPath.row == 7) {//更多
-            
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:@"更多"];
             moreView.filmClassArray = [NSMutableArray arrayWithArray:_filmClassArray];
             
@@ -517,9 +510,9 @@ static NSString *const footerId = @"footerId";
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
         }
-        
+
     }else{
-        
+
         SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
