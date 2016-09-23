@@ -243,7 +243,7 @@ static const CGFloat LabelWidth = 95.f;
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:LivePageUrl parameters:nil success:^(id  _Nullable responseObject) {
         
-        //NSLog(@"==========dic:::%@========",responseObject);
+//        NSLog(@"==========dic:::%@========",responseObject);
         if (responseObject) {
             NSArray *array = responseObject[@"LiveTvSort"];
             

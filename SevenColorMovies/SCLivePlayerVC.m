@@ -31,6 +31,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 @property (nonatomic, assign) NSUInteger indexOfArrInArr;/* 当前列表的arr在dataSourceArr的位置 */
 @property (nonatomic, copy) NSArray *liveProgramModelArray;/* 选中行所在页的数组 接收回调传值 */
 @property (nonatomic, strong) SCLiveProgramModel *liveModel;/* 接收所选中行的model 接收回调传值 */
+
 @end
 
 @implementation SCLivePlayerVC
@@ -518,72 +519,22 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 
 
 #pragma mark - 网络请求
-//请求回看节目视频流url
-- (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2{
-    
-    //1.关闭正在播放的节目
-    if ([self.IJKPlayerViewController.player isPlaying]) {
-        [self.IJKPlayerViewController.player shutdown];
-    }
-    //2.加载动画
-    [CommonFunc showLoadingWithTips:@"视频加载中..."];
-    //3.请求播放地址url
-    
-    NSString *startTime = model1.programTime;
-    NSString *endTime = model2.programTime;
-    NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
-    NSLog(@"<<<<<<<<<<<<<<开始时间：%@  结束时间：%@>>>>>>>>>>>",startTime, endTime);
-    
-    
-    NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
-    NSDictionary *parameters = @{@"fid" : fidStr};
-    [requestDataManager requestDataWithUrl:ToGetProgramHavePastVideoSignalFlowUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        
-        //NSLog(@"====responseObject:::%@===",responseObject);
-        
-        NSString *liveUrl = responseObject[@"play_url"];
-        
-        NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
-        
-        
-        
-        //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-        self.url = [NSURL URLWithString:liveUrl];
-        
-        //4.移除当前的播放器
-        [self.IJKPlayerViewController closePlayer];
-        
-        //5.加载新的播放器开始播放
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-        self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
-        [self.view addSubview:self.IJKPlayerViewController.view];
-        
-        [CommonFunc dismiss];
-    } failure:^(id  _Nullable errorObject) {
-        [CommonFunc dismiss];
-        
-    }];
-    
-}
-
 //请求直播节目列表数据
 - (void)getLiveChannelData{
     
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"tvid" : self.filmModel._TvId ? self.filmModel._TvId : @""};
     [requestDataManager requestDataWithUrl:LiveProgramList parameters:parameters success:^(id  _Nullable responseObject) {
-        //        NSLog(@"====responseObject:::%@===",responseObject);
+                //NSLog(@"====responseObject:::%@===",responseObject);
         [_dataSourceArr removeAllObjects];
         NSArray *array = responseObject[@"FilmClass"][@"FilmlistSet"];
         if (array.count > 0) {
-            //
+            
             [_titleArr removeAllObjects];
             
             for (NSDictionary *dic in array) {
                 
                 NSString *dateStr = dic[@"_Date"];
-                
                 //按格式如:08.28 获取滑动标题头
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 formatter.dateFormat = @"yyyy-MM-dd";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
@@ -601,7 +552,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                         NSDictionary *dic1 = obj;
                         
                         SCLiveProgramModel *programModel = [[SCLiveProgramModel alloc] init];
-                        //
+                        
                         programModel.onLive = NO;
                         //节目名称
                         programModel.programName = dic1[@"FilmName"];
@@ -613,12 +564,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                         formatter.dateFormat = @"HH:mm";
                         NSString *timeString = [formatter stringFromDate:pragramDate];
                         programModel.programTime = timeString;
+                        programModel.startTime = forecastDateString;
                         //获取节目状态
-                        //4.当前时间
+                        //1.当前时间
                         NSDate *currenDate = [NSDate date];
-                        
-                        //5.日期比较
-                        
+                        //2.日期比较
                         NSTimeInterval secondsInterval = [currenDate timeIntervalSinceDate:pragramDate];
                         
                         if (secondsInterval >= 0) {
@@ -626,6 +576,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                 //获取下一个节目的开始时间
                                 NSDictionary *dic2 = arr[idx+1];
                                 NSString *forecastDateString2 = dic2[@"_ForecastDate"];
+                                programModel.endTime = forecastDateString2;//下一个开始即上一个结束时间
                                 formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
                                 NSDate *pragramDate2 = [formatter dateFromString:forecastDateString2];
                                 //日期比较
@@ -709,6 +660,80 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         [CommonFunc dismiss];
         
     }];
+    
+}
+
+//请求回看节目视频流url
+- (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2{
+    
+    //1.关闭正在播放的节目
+    if ([self.IJKPlayerViewController.player isPlaying]) {
+        [self.IJKPlayerViewController.player shutdown];
+    }
+    //2.加载动画
+    [CommonFunc showLoadingWithTips:@"视频加载中..."];
+    //3.请求播放地址url
+    
+    NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    //1.获取0时区的Date
+    NSDate *startDate = [formatter dateFromString:model1.startTime];
+    NSDate *endDate = [formatter dateFromString:model2.startTime];
+    //2.获取当前所处时区
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    //3.获取当前时区和指定时间差
+    NSInteger seconds = [zone secondsFromGMTForDate:[NSDate date]];
+    
+    NSDate *realStartDate = [startDate dateByAddingTimeInterval:seconds];
+    NSDate *realEndDate = [endDate dateByAddingTimeInterval:seconds];
+    //获取时间戳字符串
+    NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromDate:realStartDate]];
+    NSString *endTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromDate:realEndDate]];
+    DONG_Log(@"开始时间：%@  结束时间：%@",startTime,endTime);
+    
+    NSString *extStr = [NSString stringWithFormat:@"stime=%@&etime=%@&port=5656&ext=oid:30050",startTime,endTime];
+    NSString *ext = [extStr stringByBase64Encoding];
+    
+    NSString *tvid = [NSString stringWithFormat:@"%@_%@",_filmModel._TvId,_filmModel._TvId];
+    
+    
+    NSDictionary *parameters = @{@"fid" : tvid,
+                                 @"ext"  : ext };
+    
+    [[HLJRequest requestWithPlayVideoURL:ToGetProgramHavePastVideoSignalFlowUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        
+        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+            
+            NSLog(@"====responseObject:::%@===",responseObject);
+            
+            NSString *liveUrl = responseObject[@"play_url"];
+            
+            //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+            self.url = [NSURL URLWithString:liveUrl];
+            
+            //4.移除当前的播放器
+            [self.IJKPlayerViewController closePlayer];
+            
+            //5.加载新的播放器开始播放
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
+            [self.view addSubview:self.IJKPlayerViewController.view];
+            
+            [CommonFunc dismiss];
+        } failure:^(id  _Nullable errorObject) {
+            [CommonFunc dismiss];
+            
+        }];
+
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
+    
+    
     
 }
 
