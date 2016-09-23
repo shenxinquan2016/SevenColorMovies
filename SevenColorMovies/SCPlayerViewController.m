@@ -556,17 +556,31 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             
             //1.移除当前的播放器
             [self.IJKPlayerViewController closePlayer];
-            //2.开始播放直播
-            self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
-            self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-            self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
-            self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-            
-            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
-            [self.view addSubview:_IJKPlayerViewController.view];
-            
+            //2.请求播放地址
+            [CommonFunc showLoadingWithTips:@""];
+            [requestDataManager requestDataWithUrl:filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+                //            NSLog(@"====responseObject:::%@===",responseObject);
+                NSString *play_url = responseObject[@"play_url"];
+                DONG_Log(@"responseObject:%@",play_url);
+                //请求将播放地址域名转换  并拼接最终的播放地址
+                [[HLJRequest requestWithPlayVideoURL:play_url] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+                    
+                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                    //1.拼接新地址
+                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                    self.url = [NSURL URLWithString:playUrl];
+                    //2.调用播放器播放
+                    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    [self.view addSubview:_IJKPlayerViewController.view];
+                    _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                    [CommonFunc dismiss];
+                } failure:^(NSError *error) {
+                }];
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+            }];
         }
     }else if ([_identifier isEqualToString:@"综艺"]){
         
@@ -579,9 +593,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             
             [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
         }
-        
     }
-    
 }
 
 static NSUInteger VODIndex; //首页播放回看的url在_huikanPlayerUrlArray中的第几个，这个播放完后去播放index + 1的回看
@@ -596,18 +608,33 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     
     DONG_Log(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
     
-    //4.移除当前的播放器
+    //1.移除当前的播放器
     [self.IJKPlayerViewController closePlayer];
-    //5.开始播放直播
-    self.url = [NSURL URLWithString:@"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"];
-    self.url = [NSURL URLWithString:@"http://49.4.161.229:9009/live/chid=8"];
-    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Movies/疯狂动物城.BD1280高清国英双语中英双字.mp4"];
-    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-    
-    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-    _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
-    [self.view addSubview:_IJKPlayerViewController.view];
+    //2.请求播放地址
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager requestDataWithUrl:filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+        //            NSLog(@"====responseObject:::%@===",responseObject);
+        NSString *play_url = responseObject[@"play_url"];
+        DONG_Log(@"responseObject:%@",play_url);
+        //请求将播放地址域名转换  并拼接最终的播放地址
+        [[HLJRequest requestWithPlayVideoURL:play_url] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+            
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            //1.拼接新地址
+            NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+            self.url = [NSURL URLWithString:playUrl];
+            //2.调用播放器播放
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            [self.view addSubview:_IJKPlayerViewController.view];
+            _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+            [CommonFunc dismiss];
+        } failure:^(NSError *error) {
+        }];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+    }];
     
     timesIndexOfVOD = 0;//每次点击后将index复位为0
 }
@@ -637,8 +664,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     };
     
 }
-
-
 
 #pragma mark - 网络请求
 //电视剧请求数据
