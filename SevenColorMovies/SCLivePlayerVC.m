@@ -668,7 +668,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         
         [CommonFunc dismiss];
     }];
-    
 }
 
 //请求回看节目视频流url
@@ -683,10 +682,9 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     //2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
     //3.请求播放地址url
-    
     NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     //1.获取0时区的Date
 //    NSDate *startDate = [formatter dateFromString:model1.startTime];
 //    NSDate *endDate = [formatter dateFromString:model2.startTime];
@@ -699,23 +697,17 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 //    NSDate *realEndDate = [endDate dateByAddingTimeInterval:seconds];
     //获取时间戳字符串
     NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model1.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
-    
     NSString *endTime =  [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model2.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
-    DONG_Log(@"开始时间：%@  结束时间：%@",startTime,endTime);
     
     NSString *extStr = [NSString stringWithFormat:@"stime=%@&etime=%@&port=5656&ext=oid:30050",startTime,endTime];
     NSString *ext = [extStr stringByBase64Encoding];
-    
-    
     NSString *fid = [NSString stringWithFormat:@"%@_%@",_filmModel._TvId,_filmModel._TvId];
-    
     DONG_Log(@"ext：%@ \nfid:%@",ext,fid);
     
     NSDictionary *parameters = @{@"fid" : fid,
                                  @"ext"  : ext };
     //IP替换
     NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:ToGetProgramHavePastVideoSignalFlowUrl];
-    
     [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
 //         NSLog(@"====responseObject:::%@===",responseObject);
@@ -741,12 +733,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         [CommonFunc dismiss];
         
     }];
-    
-    
-    
-    
 
-    
 }
 
 
