@@ -678,6 +678,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player shutdown];
     }
+    
+//    void libagent_finish();
     //2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
     //3.请求播放地址url
@@ -686,19 +688,20 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     //1.获取0时区的Date
-    NSDate *startDate = [formatter dateFromString:model1.startTime];
-    NSDate *endDate = [formatter dateFromString:model2.startTime];
+//    NSDate *startDate = [formatter dateFromString:model1.startTime];
+//    NSDate *endDate = [formatter dateFromString:model2.startTime];
     //2.获取当前所处时区
-    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
     //3.获取当前时区和指定时间差
-    NSInteger seconds = [zone secondsFromGMTForDate:[NSDate date]];
-    
-    NSDate *realStartDate = [startDate dateByAddingTimeInterval:seconds];
-    NSDate *realEndDate = [endDate dateByAddingTimeInterval:seconds];
+//    NSInteger seconds = [zone secondsFromGMTForDate:[NSDate date]];
+//    
+//    NSDate *realStartDate = [startDate dateByAddingTimeInterval:seconds];
+//    NSDate *realEndDate = [endDate dateByAddingTimeInterval:seconds];
     //获取时间戳字符串
-    NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromDate:realStartDate]];
-    NSString *endTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromDate:realEndDate]];
-    DONG_Log(@"开始时间：%@  结束时间：%@",realStartDate,realEndDate);
+    NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model1.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
+    
+    NSString *endTime =  [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model2.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
+    DONG_Log(@"开始时间：%@  结束时间：%@",startTime,endTime);
     
     NSString *extStr = [NSString stringWithFormat:@"stime=%@&etime=%@&port=5656&ext=oid:30050",startTime,endTime];
     NSString *ext = [extStr stringByBase64Encoding];
@@ -715,14 +718,15 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
-         NSLog(@"====responseObject:::%@===",responseObject);
+//         NSLog(@"====responseObject:::%@===",responseObject);
         
         NSString *liveUrl = responseObject[@"play_url"];
         
         NSString *playUrl = [_hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
         
-        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-        self.url = [NSURL URLWithString:liveUrl];
+        //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+        self.url= [NSURL URLWithString:playUrl];
+
         //4.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
         
@@ -741,6 +745,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     
     
+
     
 }
 
