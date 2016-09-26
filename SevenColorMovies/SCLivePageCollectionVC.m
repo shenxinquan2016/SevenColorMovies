@@ -48,14 +48,12 @@ static NSString *const footerId = @"footerId";
     
 }
 
-
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -70,7 +68,6 @@ static NSString *const footerId = @"footerId";
     
     return cell;
 }
-
 
 #pragma mark <UICollectionViewDelegate>
 
@@ -119,7 +116,6 @@ static NSString *const footerId = @"footerId";
     return YES;
 }
 
-
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -131,7 +127,6 @@ static NSString *const footerId = @"footerId";
     livePlayer.channelNameLabel.text = @"zhibozhibo";
     [self.navigationController pushViewController:livePlayer animated:YES];
 }
-
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{

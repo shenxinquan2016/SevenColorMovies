@@ -28,9 +28,10 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
 @property (nonatomic, assign) NSInteger index;/** 正在播出节目的index */
-@property (nonatomic, assign) NSUInteger indexOfArrInArr;/* 当前列表的arr在dataSourceArr的位置 */
-@property (nonatomic, copy) NSArray *liveProgramModelArray;/* 选中行所在页的数组 接收回调传值 */
-@property (nonatomic, strong) SCLiveProgramModel *liveModel;/* 接收所选中行的model 接收回调传值 */
+@property (nonatomic, assign) NSUInteger indexOfArrInArr;/** 当前列表的arr在dataSourceArr的位置 */
+@property (nonatomic, copy) NSArray *liveProgramModelArray;/** 选中行所在页的数组 接收回调传值 */
+@property (nonatomic, strong) SCLiveProgramModel *liveModel;/** 接收所选中行的model 接收回调传值 */
+@property (nonatomic, strong) HLJRequest *hljRequest;/** 域名替换 */
 
 @end
 
@@ -210,7 +211,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     
     [[NSUserDefaults standardUserDefaults] setInteger:_titleArr.count-1 forKey:k_for_Live_selectedViewIndex];//正在显示的view
     [[NSUserDefaults standardUserDefaults] synchronize];
-
+    
     
     self.needScrollToTopPage = [self.childViewControllers lastObject];
     vc.view.frame = self.contentScroll.bounds;
@@ -337,7 +338,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
         }else if (model.programState == NowPlaying){
             
             [strongself getLiveVideoSignalFlowUrl];//直播
-
+            
         }else {
             [MBProgressHUD showError:@"节目未开始"];//预约
             return;
@@ -525,7 +526,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"tvid" : self.filmModel._TvId ? self.filmModel._TvId : @""};
     [requestDataManager requestDataWithUrl:LiveProgramList parameters:parameters success:^(id  _Nullable responseObject) {
-                //NSLog(@"====responseObject:::%@===",responseObject);
+        //NSLog(@"====responseObject:::%@===",responseObject);
         [_dataSourceArr removeAllObjects];
         NSArray *array = responseObject[@"FilmClass"][@"FilmlistSet"];
         if (array.count > 0) {
@@ -591,7 +592,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                     
                                     [[NSUserDefaults standardUserDefaults] setInteger:_index forKey:k_for_Live_selectedCellIndex];//被选中的行
                                     [[NSUserDefaults standardUserDefaults] synchronize];
-
+                                    
                                 }else{
                                     programModel.programState = HavePast;
                                 }
@@ -639,26 +640,33 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     NSDictionary *parameters = @{@"fid" : fidStr,
                                  @"hid" : @""};
-    [requestDataManager requestDataWithUrl:ToGetLiveVideoSignalFlowUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        NSLog(@"====responseObject:::%@===",responseObject);
+    self.hljRequest = [HLJRequest requestWithPlayVideoURL:ToGetLiveVideoSignalFlowUrl];
+    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         
-        NSString *liveUrl = responseObject[@"play_url"];
-        
-        NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
-        
-        //4.移除当前的播放器
-        [self.IJKPlayerViewController closePlayer];
-        //5.开始播放直播
-        self.url = [NSURL URLWithString:liveUrl];
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        _IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
-        [self.view addSubview:_IJKPlayerViewController.view];
+        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+            NSLog(@"====responseObject:::%@===",responseObject);
+            
+            NSString *liveUrl = responseObject[@"play_url"];
+            
+            NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
+            
+            //4.移除当前的播放器
+            [self.IJKPlayerViewController closePlayer];
+            //5.开始播放直播
+            self.url = [NSURL URLWithString:liveUrl];
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            _IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
+            [self.view addSubview:_IJKPlayerViewController.view];
+            
+            [CommonFunc dismiss];
+        } failure:^(id  _Nullable errorObject) {
+            [CommonFunc dismiss];
+            
+        }];
+    } failure:^(NSError *error) {
         
         [CommonFunc dismiss];
-    } failure:^(id  _Nullable errorObject) {
-        [CommonFunc dismiss];
-        
     }];
     
 }
@@ -690,47 +698,46 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     //获取时间戳字符串
     NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromDate:realStartDate]];
     NSString *endTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromDate:realEndDate]];
-    DONG_Log(@"开始时间：%@  结束时间：%@",startTime,endTime);
+    DONG_Log(@"开始时间：%@  结束时间：%@",realStartDate,realEndDate);
     
     NSString *extStr = [NSString stringWithFormat:@"stime=%@&etime=%@&port=5656&ext=oid:30050",startTime,endTime];
     NSString *ext = [extStr stringByBase64Encoding];
     
-    NSString *tvid = [NSString stringWithFormat:@"%@_%@",_filmModel._TvId,_filmModel._TvId];
     
+    NSString *fid = [NSString stringWithFormat:@"%@_%@",_filmModel._TvId,_filmModel._TvId];
     
-    NSDictionary *parameters = @{@"fid" : tvid,
+    DONG_Log(@"ext：%@ \nfid:%@",ext,fid);
+    
+    NSDictionary *parameters = @{@"fid" : fid,
                                  @"ext"  : ext };
+    //IP替换
+    NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:ToGetProgramHavePastVideoSignalFlowUrl];
     
-    [[HLJRequest requestWithPlayVideoURL:ToGetProgramHavePastVideoSignalFlowUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+    [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
+         NSLog(@"====responseObject:::%@===",responseObject);
         
-        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            
-            NSLog(@"====responseObject:::%@===",responseObject);
-            
-            NSString *liveUrl = responseObject[@"play_url"];
-            
-            //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-            self.url = [NSURL URLWithString:liveUrl];
-            
-            //4.移除当前的播放器
-            [self.IJKPlayerViewController closePlayer];
-            
-            //5.加载新的播放器开始播放
-            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-            self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
-            [self.view addSubview:self.IJKPlayerViewController.view];
-            
-            [CommonFunc dismiss];
-        } failure:^(id  _Nullable errorObject) {
-            [CommonFunc dismiss];
-            
-        }];
-
-    } failure:^(NSError *error) {
+        NSString *liveUrl = responseObject[@"play_url"];
         
+        NSString *playUrl = [_hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
+        
+        self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+        self.url = [NSURL URLWithString:liveUrl];
+        //4.移除当前的播放器
+        [self.IJKPlayerViewController closePlayer];
+        
+        //5.加载新的播放器开始播放
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+        self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
+        [self.view addSubview:self.IJKPlayerViewController.view];
+        
+        [CommonFunc dismiss];
+    } failure:^(id  _Nullable errorObject) {
+        [CommonFunc dismiss];
         
     }];
+    
     
     
     
