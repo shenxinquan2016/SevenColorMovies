@@ -52,7 +52,7 @@
     }
     
     NSURL *imgUrl = [NSURL URLWithString:imageUrl];
-    [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"假数据"]];
+    [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"CellLoading"]];
     
     NSString *filmName;
     if (model.FilmName) {
@@ -66,7 +66,7 @@
 - (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel{
     
     NSURL *imgUrl = [NSURL URLWithString:filmClassModel._BigImgUrl];
-    [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"假数据"]];
+    [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"CellLoading"]];
 
     _filmName.text = filmClassModel._FilmClassName;
     
