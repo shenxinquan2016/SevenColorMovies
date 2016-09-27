@@ -629,7 +629,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
-        [self.IJKPlayerViewController.player shutdown];
+        [self.IJKPlayerViewController.player stop];
     }
     //2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
@@ -676,15 +676,16 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
-        [self.IJKPlayerViewController.player shutdown];
+        [self.IJKPlayerViewController.player stop];
     }
+
     
 //    void libagent_finish();
     //2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
     //3.请求播放地址url
-    NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
-
+    DONG_Log(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
+    DONG_Log(@"%@   %@",model1.startTime,model2.startTime);
     //获取时间戳字符串
     NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model1.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
     NSString *endTime =  [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model2.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
@@ -711,7 +712,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 
         //4.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
-        
         //5.加载新的播放器开始播放
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);

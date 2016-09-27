@@ -163,7 +163,7 @@
         make.size.mas_equalTo(CGSizeMake(64, 64));
         
     }];
-
+    
 }
 
 -(void)closePlayer{
@@ -190,10 +190,10 @@
 
 /** 返回 */
 - (IBAction)onClickBack:(id)sender {
-   
+    
     //方案一时使用
     if ( [PlayerViewRotate isOrientationLandscape]) {//如果正在全屏，先返回小屏
-         self.isFullScreen = NO;
+        self.isFullScreen = NO;
         [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
         _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
         //            [self prepareForSmallScreen];
@@ -208,24 +208,24 @@
         // 当前选择的导航控制器
         UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
         [navController popViewControllerAnimated:YES];
-    
+        
     }
-
+    
     
     //方案二时使用
     
-//    if (_isFullScreen || [PlayerViewRotate isOrientationLandscape]) {//如果正在全屏，先返回小屏
-//        
-//        self.isFullScreen = NO;
-//        
-//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
-//        
-//    }else{
-//        
-//        if (self.doBackActionBlock) {
-//            self.doBackActionBlock();
-//        }
-//    }
+    //    if (_isFullScreen || [PlayerViewRotate isOrientationLandscape]) {//如果正在全屏，先返回小屏
+    //
+    //        self.isFullScreen = NO;
+    //
+    //        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
+    //
+    //    }else{
+    //
+    //        if (self.doBackActionBlock) {
+    //            self.doBackActionBlock();
+    //        }
+    //    }
     
 }
 
@@ -248,37 +248,37 @@
 - (IBAction)onClickFullScreenButton:(id)sender {
     
     //旋转方案一 系统方法旋转
-        if ([PlayerViewRotate isOrientationLandscape]) {
-             self.isFullScreen = NO;
-            [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
-            _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
-//            [self prepareForSmallScreen];
-            //使用通知到该控制器的父视图中更改该控制器的视图
-            [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
-
-        }else {
-    
-             self.isFullScreen = YES;
-            [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
-    
-//            [self prepareForFullScreen];
-            //使用通知到该控制器的父视图中更改该控制器的视图
-            [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToFullScreen object:nil];
-        }
+    if ([PlayerViewRotate isOrientationLandscape]) {
+        self.isFullScreen = NO;
+        [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
+        _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
+        //            [self prepareForSmallScreen];
+        //使用通知到该控制器的父视图中更改该控制器的视图
+        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
+        
+    }else {
+        
+        self.isFullScreen = YES;
+        [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+        
+        //            [self prepareForFullScreen];
+        //使用通知到该控制器的父视图中更改该控制器的视图
+        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToFullScreen object:nil];
+    }
     
     //旋转方案二 自定义旋转90°
-//    if (!self.isFullScreen) {
-//        
-//        self.isFullScreen = YES;
-//        //使用通知到该控制器的父视图中更改该控制器的视图
-//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToFullScreen object:nil];
-//        
-//    }else{
-//        
-//        self.isFullScreen = NO;
-//        //使用通知到该控制器的父视图中更改该控制器的视图
-//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
-//    }
+    //    if (!self.isFullScreen) {
+    //
+    //        self.isFullScreen = YES;
+    //        //使用通知到该控制器的父视图中更改该控制器的视图
+    //        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToFullScreen object:nil];
+    //
+    //    }else{
+    //
+    //        self.isFullScreen = NO;
+    //        //使用通知到该控制器的父视图中更改该控制器的视图
+    //        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
+    //    }
 }
 
 /** 进度条 */
