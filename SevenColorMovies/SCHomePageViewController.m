@@ -181,7 +181,6 @@ static NSString *const footerId = @"footerId";
                 //                NSLog(@"====FilmClassUrl::::%@",classModel.FilmClassUrl);
                 
             }else{
-                
                 //添加banner
                 NSArray *dataArr = responseObject[@"FilmClass"];
                 NSDictionary *dic = [dataArr firstObject];
