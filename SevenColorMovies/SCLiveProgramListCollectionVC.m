@@ -195,18 +195,6 @@ static NSString *const footerId = @"footerId";
     }
 }
 
-//取消选中操作
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    //通过改变cell对应model的onLive属性来改变cell字体颜色
-    //    _model = _liveProgramModelArr[indexPath.row];
-    //    _model.onLive = NO;
-    //    SCLiveProgramListCell *cell = (SCLiveProgramListCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    //    cell.model = _model;
-    
-    
-}
-
 #pragma mark - Event reponse
 - (void)changeCellStateWhenPlayNextProgrom:(NSNotification *)notification
 {

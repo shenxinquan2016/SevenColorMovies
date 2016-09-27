@@ -31,7 +31,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 @property (nonatomic, assign) NSUInteger indexOfArrInArr;/** 当前列表的arr在dataSourceArr的位置 */
 @property (nonatomic, copy) NSArray *liveProgramModelArray;/** 选中行所在页的数组 接收回调传值 */
 @property (nonatomic, strong) SCLiveProgramModel *liveModel;/** 接收所选中行的model 接收回调传值 */
-@property (nonatomic, strong) HLJRequest *hljRequest;/** 域名替换 */
+@property (nonatomic, strong) HLJRequest *hljRequest;/** 域名替换工具 */
 
 @end
 
@@ -624,7 +624,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     }];
 }
 
-//请求该频道直播流url
+//请求直播流url
 - (void)getLiveVideoSignalFlowUrl{
     
     //1.关闭正在播放的节目
@@ -654,6 +654,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             [self.IJKPlayerViewController closePlayer];
             //5.开始播放直播
             self.url = [NSURL URLWithString:liveUrl];
+            //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
@@ -683,18 +684,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
     //3.请求播放地址url
     NSLog(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    //1.获取0时区的Date
-//    NSDate *startDate = [formatter dateFromString:model1.startTime];
-//    NSDate *endDate = [formatter dateFromString:model2.startTime];
-    //2.获取当前所处时区
-//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-    //3.获取当前时区和指定时间差
-//    NSInteger seconds = [zone secondsFromGMTForDate:[NSDate date]];
-//    
-//    NSDate *realStartDate = [startDate dateByAddingTimeInterval:seconds];
-//    NSDate *realEndDate = [endDate dateByAddingTimeInterval:seconds];
+
     //获取时间戳字符串
     NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model1.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
     NSString *endTime =  [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model2.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
