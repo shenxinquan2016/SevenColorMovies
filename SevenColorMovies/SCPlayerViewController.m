@@ -582,17 +582,18 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }else if ([_identifier isEqualToString:@"综艺"]){
         
         //1.关闭正在播放的节目
-//        if ([self.IJKPlayerViewController.player isPlaying]) {
-//            [self.IJKPlayerViewController.player shutdown];
-//        }
+        //        if ([self.IJKPlayerViewController.player isPlaying]) {
+        //            [self.IJKPlayerViewController.player shutdown];
+        //        }
         
         
         if (VODIndex+ ++timesIndexOfVOD < self.filmsArr.count) {
             //0.获取下一个节目的model
             SCFilmModel *atrsFilmModel = self.filmsArr[VODIndex+timesIndexOfVOD];
-            
             //请求播放地址
             NSString *urlStr = [atrsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            //1.移除当前的播放器
+            [self.IJKPlayerViewController closePlayer];
             //获取downLoadUrl
             [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
                 
@@ -612,15 +613,16 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     //请求将播放地址域名转换  并拼接最终的播放地址
                     self.hljRequest = [HLJRequest requestWithPlayVideoURL:play_url];
                     NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                        //1.拼接新地址
-                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-                        self.url = [NSURL URLWithString:playUrl];
-                        //2.调用播放器播放
-                        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-                        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                        [self.view addSubview:_IJKPlayerViewController.view];
-                        _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
-                        [CommonFunc dismiss];
+                    //1.拼接新地址
+                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                    self.url = [NSURL URLWithString:playUrl];
+//                    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+                    //2.调用播放器播放
+                    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    [self.view addSubview:_IJKPlayerViewController.view];
+                    _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                    [CommonFunc dismiss];
                     
                 } failure:^(id  _Nullable errorObject) {
                     
@@ -698,6 +700,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             //1.拼接新地址
             NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
             strongself.url = [NSURL URLWithString:playUrl];
+//            strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
             //2.调用播放器播放
             strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
             strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
@@ -707,7 +710,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             [CommonFunc dismiss];
             
         } failure:^(id  _Nullable errorObject) {
-            
+            [CommonFunc dismiss];
         }];
     };
 }
@@ -922,11 +925,11 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
                     [CommonFunc dismiss];
                 } failure:^(NSError *error) {
-                    
+                    [CommonFunc dismiss];
                 }];
                 
             } failure:^(id  _Nullable errorObject) {
-                
+                [CommonFunc dismiss];
             }];
         } failure:^(id  _Nullable errorObject) {
             
