@@ -629,7 +629,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
-        [self.IJKPlayerViewController.player stop];
+        [self.IJKPlayerViewController.player pause];
     }
     //2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
@@ -676,7 +676,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
-        [self.IJKPlayerViewController.player stop];
+        [self.IJKPlayerViewController.player pause];
     }
 
     
