@@ -33,6 +33,7 @@
 @property (nonatomic, strong) NSMutableArray *allItemsArr;/** 点播栏所有item */
 @property (nonatomic, strong) SCSycleBanner *bannerView;
 @property (nonatomic, strong) NSMutableArray *bannerImageUrlArr;/** banner页图片地址数组 */
+@property (nonatomic, strong) NSMutableArray *bannerFilmModelArr;/** banner filmModel数组 */
 @property (nonatomic, strong) NSMutableArray *filmClassArray;/** 存储filmList中的filmClass模型（第二层数据）*/
 @property (nonatomic, strong) NSMutableArray *titleArray;/** section标题 */
 @property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary;/** 将filmClassModel放入字典 */
@@ -52,8 +53,14 @@ static NSString *const footerId = @"footerId";
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithHex:@"#dddddd"];
-    //1. 设置导航栏的颜色(效果只作用当前页面）
+    //0. 设置导航栏的颜色(效果只作用当前页面）
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHex:@"#F0F1F2"]];
+    
+    //1.初始化数组
+    self.titleArray = [NSMutableArray arrayWithCapacity:0];
+    self.filmClassArray = [NSMutableArray arrayWithCapacity:0];
+    self.bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
+    self.bannerFilmModelArr = [NSMutableArray arrayWithCapacity:0];
     
     //2.设置导航栏的颜色（效果作用到所有页面）
     UINavigationBar *navBar = [UINavigationBar appearance];
@@ -146,26 +153,13 @@ static NSString *const footerId = @"footerId";
 
 - (void)requestData{
     
-    if (_titleArray) {
-        [_titleArray removeAllObjects];
-    }else if (!_titleArray){
-        _titleArray = [NSMutableArray arrayWithCapacity:0];
-    }
-    
-    if (_filmClassArray) {
-        [_filmClassArray removeAllObjects];
-    }else if (!_filmClassArray){
-        _filmClassArray = [NSMutableArray arrayWithCapacity:0];
-    }
-    
-    if (_bannerImageUrlArr) {
-        [_bannerImageUrlArr removeAllObjects];
-    }else if (!_bannerImageUrlArr){
-        _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
-    }
+    [_titleArray removeAllObjects];
+    [_filmClassArray removeAllObjects];
+    [_bannerImageUrlArr removeAllObjects];
+    [_bannerFilmModelArr removeAllObjects];
     
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
-//                 NSLog(@"==========dic:::%@========",responseObject);
+        //                 NSLog(@"==========dic:::%@========",responseObject);
         //1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         
@@ -189,7 +183,9 @@ static NSString *const footerId = @"footerId";
                     for (NSDictionary *dic in array) {
                         
                         SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
+                        SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
                         [_bannerImageUrlArr addObject:model._ImgUrlO];
+                        [_bannerFilmModelArr addObject:filmModel];
                     }
                     
                     //添加banner
@@ -324,9 +320,9 @@ static NSString *const footerId = @"footerId";
         
         SCFilmClassModel *filmClassModel = _filmClassArray[sender.tag];
         
-        NSLog(@"====FilmClassUrl::::%@",filmClassModel._FilmClassName);
+        DONG_Log(@"====FilmClassUrl::::%@",filmClassModel._FilmClassName);
         
-        NSLog(@"====FilmClassUrl::::%@",filmClassModel.FilmClassUrl);
+        DONG_Log(@"====FilmClassUrl::::%@",filmClassModel.FilmClassUrl);
         
         SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
         channelVC.filmClassModel = filmClassModel;
@@ -508,9 +504,9 @@ static NSString *const footerId = @"footerId";
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
         }
-
+        
     }else{
-
+        
         SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
@@ -524,9 +520,11 @@ static NSString *const footerId = @"footerId";
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
-    //    ALERT(@"点击banner");
-    NSLog(@">>>>>> 第%ld张图", (long)index);
-    
+    SCFilmModel *filmModel = _bannerFilmModelArr[index];
+    SCPlayerViewController *VODPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+    VODPlayer.filmModel = filmModel;
+    VODPlayer.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:VODPlayer animated:YES];
 }
 
 /** 图片滚动回调 */

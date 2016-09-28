@@ -27,7 +27,7 @@
 // filmClass接口
 #define FilmClass @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=gf201606271730129921467019536749"
 // 点播播放接口
-#define VODUrl  @"http://10.177.1.245/Service.do?action=b2bplayauth&pid=101001&playtype=0&checkproduct=0&checkuser=0&adversion=1.3.7&area=1208&hid=00301bba02db&oemid=30050&epgid=909191&spid=20151103&uid=0"
+#define VODUrl  @"http://userauthb2b.voole.com/Service.do?action=b2bplayauth&pid=101001&playtype=0&checkproduct=0&checkuser=0&adversion=1.3.7&area=1208&hid=00301bba02db&oemid=30050&epgid=909191&spid=20151103&uid=0"
 
 // 直播页接口
 #define LivePageUrl @"http://10.177.1.236:9000/b2b/livetv/service.php?ctype=4&oemid=30050&uid=0&hid=58:48:22:6b:f3:009"
@@ -39,9 +39,9 @@
 #define ToGetProgramHavePastVideoSignalFlowUrl @"http://userauthb2b.voole.com/Service.do?action=b2bplayauth&mid=1&sid=1&pid=1&playtype=1500&oemid=30050&hid=&uid=10"
 
 // 电影 电视剧等 sourceUrl
-#define FilmSourceUrl @"http://10.177.1.236/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=4"
+#define FilmSourceUrl @"http://hljdesktop.voole.com/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=4"
 // 综艺 生活栏目  sourceUrl
-#define ArtsAndLifeSourceUrl @"http://10.177.1.236/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=102"
+#define ArtsAndLifeSourceUrl @"http://hljdesktop.voole.com/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=102"
 // 推荐影片接口
 #define RecommendUrl @"http://10.177.1.236:9040?epgid=909191&format=1&type=1&limit=6"
 

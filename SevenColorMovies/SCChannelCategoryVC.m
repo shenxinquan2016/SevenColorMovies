@@ -16,12 +16,9 @@
 
 #import "SCCollectionViewPageVC.h"
 
-
-
 static const CGFloat TitleHeight = 41.0f;
 static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat LabelWidth = 95.f;
-
 
 @interface SCChannelCategoryVC ()<UIScrollViewDelegate>
 
@@ -59,13 +56,13 @@ static NSString *const cellId = @"cellId";
     //3.网络请求
     [self getFilmClassData];
     
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -92,34 +89,36 @@ static NSString *const cellId = @"cellId";
 
 //
 - (void)getFilmClassData{
-    
     //域名转换成IP
-    NSString *url = [[NetUrlManager.interface5 stringByAppendingString:NetUrlManager.commonPort] stringByAppendingString:[_filmClassModel.FilmClassUrl componentsSeparatedByString:@"/"].lastObject];
-    NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
-        
-        if (responseObject) {
+    [[HLJRequest requestWithPlayVideoURL:_filmClassModel.FilmClassUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
             
-            NSArray *array = responseObject[@"FilmClass"];
-            for (NSDictionary *dic in array) {
+            if (responseObject) {
                 
-                [_titleArr addObject:dic[@"_FilmClassName"]];
-                [_FilmClassUrlArr addObject:dic[@"_FilmClassUrl"]];
+                NSArray *array = responseObject[@"FilmClass"];
+                for (NSDictionary *dic in array) {
+                    
+                    [_titleArr addObject:dic[@"_FilmClassName"]];
+                    [_FilmClassUrlArr addObject:dic[@"_FilmClassUrl"]];
+                    
+                }
+                //1.添加滑动headerView
+                [self constructSlideHeaderView];
+                //2.添加contentScrllowView
+                [self constructContentView];
                 
             }
-            //1.添加滑动headerView
-            [self constructSlideHeaderView];
-            //2.添加contentScrllowView
-            [self constructContentView];
+            //                NSLog(@"==========dic:::%@========",responseObject);
             
-        }
-//                NSLog(@"==========dic:::%@========",responseObject);
+        } failure:^(id  _Nullable errorObject) {
+            
+            [CommonFunc dismiss];
+        }];
 
-    } failure:^(id  _Nullable errorObject) {
+    } failure:^(NSError *error) {
         
-        [CommonFunc dismiss];
+       [CommonFunc dismiss];
     }];
     
 }
