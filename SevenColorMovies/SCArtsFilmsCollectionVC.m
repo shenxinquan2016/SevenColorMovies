@@ -129,33 +129,10 @@ static NSString *const cellId = @"cellId";
     [DONG_UserDefaults setInteger:indexPath.row forKey:k_for_VOD_selectedCellIndex];
     [DONG_UserDefaults synchronize];
 
-    //请求播放地址
-    [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
-        
-           NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
-            
-            //获取fid
-            NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
-            //base64编码downloadUrl
-            NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
-            //视频播放url
-            NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:model._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
-            
-            NSLog(@">>>>>>>>>>>downLoadUrl>>>>>>>>%@",downLoadUrl);
-            NSLog(@">>>>>>>>>>>VODStreamingUrl>>>>>>>>%@",VODStreamingUrl);
-        
         //播放新节目
         if (self.clickToPlayBlock) {
-            self.clickToPlayBlock(model,VODStreamingUrl,downLoadUrl);//切换节目BLock
+            self.clickToPlayBlock(urlStr,model);//切换节目BLock
         }
-        
-        [CommonFunc dismiss];
-    } failure:^(id  _Nullable errorObject) {
-        
-        [CommonFunc dismiss];
-    }];
-    
 }
 
 #pragma mark- Event reponse

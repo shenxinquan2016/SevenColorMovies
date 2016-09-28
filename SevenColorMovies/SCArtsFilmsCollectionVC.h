@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class SCFilmModel;
 
-typedef void(^ClickToPlayBlock)(SCFilmModel *filmModel,NSString *VODStreamingUrl,NSString *downLoadUrl);//点击切换节目block
+typedef void(^ClickToPlayBlock)(NSString *urlStr,SCFilmModel *filmModel);//点击切换节目block
 
 @interface SCArtsFilmsCollectionVC : UICollectionViewController
 
