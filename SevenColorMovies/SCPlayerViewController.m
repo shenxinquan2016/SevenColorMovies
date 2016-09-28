@@ -982,7 +982,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         }];
         
     } failure:^(NSError *error) {
-        
+        [CommonFunc dismiss];
         
     }];
     
