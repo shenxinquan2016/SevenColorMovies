@@ -164,7 +164,6 @@ static NSString *const footerId = @"footerId";
         _bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
     }
     
-    
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
 //                 NSLog(@"==========dic:::%@========",responseObject);
         //1.第一层 filmList
