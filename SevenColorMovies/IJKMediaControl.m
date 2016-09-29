@@ -45,7 +45,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
     self.goBackButton.enlargedEdge = 15.f;
     [self setupProgressSlider];//自定义UISlider
     [self refreshMediaControl];
-    [self showAndFade];
+    [self showNoFade];
     self.goFastView.hidden = YES;
     self.playButton.hidden = YES;//第一次加载时隐藏
     
