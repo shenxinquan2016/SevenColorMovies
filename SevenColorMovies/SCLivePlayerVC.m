@@ -81,20 +81,19 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    //注销全屏通知
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToFullScreen object:nil];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToSmallScreen object:nil];
-    //监听屏幕旋转的通知
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-    //注销播放器播放结束的通知
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackDidFinishNotification object:_IJKPlayerViewController.player];
+    NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
+
 }
 
+-(void)dealloc{
+    NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
+}
 
 #pragma mark- private methods
 - (void)setView{
@@ -158,7 +157,6 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     //默认选择第一个label
     SCSlideHeaderLabel *lable = [self.titleScroll.subviews lastObject];
     lable.scale = 1.0;
-    
     
 }
 
@@ -679,7 +677,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         [self.IJKPlayerViewController.player pause];
     }
     
-//    void libagent_finish();
+    //    void libagent_finish();
     //2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
     //3.请求播放地址url
@@ -700,7 +698,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:ToGetProgramHavePastVideoSignalFlowUrl];
     [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
-//         NSLog(@"====responseObject:::%@===",responseObject);
+        //         NSLog(@"====responseObject:::%@===",responseObject);
         
         NSString *liveUrl = responseObject[@"play_url"];
         
@@ -708,7 +706,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         
         //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
         self.url= [NSURL URLWithString:playUrl];
-
+        
         //4.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
         //5.加载新的播放器开始播放
@@ -722,7 +720,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         [CommonFunc dismiss];
         
     }];
-
+    
 }
 
 

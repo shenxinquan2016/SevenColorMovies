@@ -48,6 +48,10 @@ static const CGFloat LabelWidth = 95.f;
     
 }
 
+-(void)dealloc{
+    NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
+}
+
 #pragma mark- private methods
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView{
