@@ -94,8 +94,6 @@ static const CGFloat LabelWidth = 70.f;
             
             NSString *str = [NSString stringWithFormat:@"%ld-%lu",20+20*(arr.count/20-1)+1,20+20*(arr.count/20-1)+_filmSetsArr.count%20];
             [array addObject:str];
-            
-            
         }
         
     }

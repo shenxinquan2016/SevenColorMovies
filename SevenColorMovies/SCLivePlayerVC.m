@@ -82,13 +82,13 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
+    huikanIndex = 0;
+    timesIndexOfHuikan = 0;
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
-
+    
 }
 
 -(void)dealloc{
