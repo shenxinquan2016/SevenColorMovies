@@ -199,9 +199,10 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+    SCFilmModel *filmModel = _dataArray[indexPath.row];
+    teleplayPlayer.filmModel = filmModel;
     teleplayPlayer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:teleplayPlayer animated:YES];
-    
 }
 
 

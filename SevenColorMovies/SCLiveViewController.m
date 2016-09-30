@@ -67,7 +67,6 @@ static const CGFloat LabelWidth = 95.f;
         titleScrollWith = kMainScreenWidth;
     }
     
-    
     self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, titleScrollWith, TitleHeight)];//滚动窗口
     self.titleScroll.showsHorizontalScrollIndicator = NO;
     self.titleScroll.showsVerticalScrollIndicator = NO;
@@ -146,7 +145,6 @@ static const CGFloat LabelWidth = 95.f;
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
     
-    
 }
 
 #pragma mark- Event reponse
@@ -210,7 +208,6 @@ static const CGFloat LabelWidth = 95.f;
     if (vc.view.superview) return;//阻止vc重复添加
     vc.view.frame = scrollView.bounds;
     [_contentScroll addSubview:vc.view];
-    
     
 }
 

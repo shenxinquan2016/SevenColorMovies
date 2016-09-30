@@ -62,6 +62,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
+    [self.navigationItem setHidesBackButton:YES];
     
     //1.初始化数组
     self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];
@@ -120,7 +121,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
 }
 
-
 #pragma mark- private methods
 
 - (void)setView{
@@ -142,7 +142,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [mtype isEqualToString:@"2"] ||
         [mtype isEqualToString:@"13"])
     {
-        [self getMoveData];
+        [self getMovieData];
         
     }else if // 综艺 生活
         ([mtype isEqualToString:@"7"] ||
@@ -250,7 +250,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 default:
                     break;
             }
-            
         }
         
         // 添加默认控制器
@@ -287,7 +286,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 default:
                     break;
             }
-            
         }
         
         // 添加默认控制器
@@ -316,7 +314,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 default:
                     break;
             }
-            
         }
         // 添加默认控制器
         SCArtsFilmsCollectionVC *vc = [self.childViewControllers firstObject];
@@ -329,8 +326,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
 }
-
-
 
 #pragma mark - UIScrollViewDelegate
 /** 滚动结束后调用（代码导致的滚动停止） */
@@ -998,7 +993,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 }
 
 //电影请求数据
-- (void)getMoveData{
+- (void)getMovieData{
     
     [CommonFunc showLoadingWithTips:@""];
     
@@ -1066,7 +1061,15 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
-                strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
+                
+                NSString *filmName;
+                if (strongself.filmModel.FilmName) {
+                    filmName = strongself.filmModel.FilmName;
+                }else if (strongself.filmModel.cnname){
+                    filmName = strongself.filmModel.cnname;
+                }
+                strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                
                 [CommonFunc dismiss];
                 
             } failure:^(id  _Nullable errorObject) {

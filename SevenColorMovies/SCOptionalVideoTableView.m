@@ -8,7 +8,7 @@
 
 #import "SCOptionalVideoTableView.h"
 #import "SCOptionalVideoTableViewCell.h"
-
+#import "SCPlayerViewController.h"
 
 
 @interface SCOptionalVideoTableView ()
@@ -88,7 +88,13 @@ NSString *identifier;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"======indexPath.section:%ld",indexPath.section);
+    SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+    SCFilmModel *filmModel = self.dataSource[indexPath.row];
+    teleplayPlayer.filmModel = filmModel;
+    teleplayPlayer.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:teleplayPlayer animated:YES];
+    
+    
 }
 
 
@@ -106,7 +112,7 @@ NSString *identifier;
     
     [requestDataManager requestDataWithUrl:SearchVODUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
-//        NSLog(@"==========dic:::%@========",responseObject);
+        //        NSLog(@"==========dic:::%@========",responseObject);
         
         if ([responseObject[@"movieinfo"] isKindOfClass:[NSDictionary class]]) {
             
@@ -139,7 +145,7 @@ NSString *identifier;
         
         [self.tableView reloadData];
         [self.tableView.mj_footer endRefreshing];
-
+        
         if (_dataSource.count == 0) {
             [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
         }else{

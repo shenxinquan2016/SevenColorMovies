@@ -18,7 +18,6 @@
 
 @end
 
-
 @implementation SCMoiveRecommendationCollectionVC
 
 static NSString *const cellId = @"SCCollectionViewPageCell";
@@ -47,7 +46,6 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
         _filmModelArr = [NSMutableArray arrayWithCapacity:0];
     }
     
-    
     NSString *mid;
     if (_filmModel._Mid) {
         mid = _filmModel._Mid;
@@ -56,18 +54,17 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     }
     NSString *midstring = mid ? mid : @"";
     NSDictionary *parameters = @{@"mid" : midstring};
-
+    
     [requestDataManager requestDataWithUrl:RecommendUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        NSLog(@"<<<<<<<<<<<<<responseObject:::%@",responseObject);
+        //NSLog(@"<<<<<<<<<<<<<responseObject:::%@",responseObject);
         if (responseObject) {
             
             NSArray *filmsArr = responseObject[@"movieinfo"];
             for (NSDictionary *dic in filmsArr) {
-
-                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-    
-                [_filmModelArr addObject:filmModel];
                 
+                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                
+                [_filmModelArr addObject:filmModel];
             }
         }
         
@@ -99,17 +96,13 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return _filmModelArr.count;
 }
 
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
     SCCollectionViewPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     SCFilmModel *model = _filmModelArr[indexPath.row];
@@ -119,14 +112,14 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
 /** item Size */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     return (CGSize){(kMainScreenWidth-24-16)/3,180};
 }
 
 /** CollectionView四周间距 EdgeInsets */
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
     return UIEdgeInsetsMake(5, 12, 5, 12);
 }
 
@@ -148,7 +141,6 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     return (CGSize){kMainScreenWidth,0};
 }
 
-
 /** section Footer 尺寸*/
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
@@ -162,21 +154,53 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     return YES;
 }
 
-
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"======点击=====");
     SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
     SCFilmModel *model = _filmModelArr[indexPath.row];
     teleplayPlayer.filmModel = model;
-    teleplayPlayer.filmType = @"1";
     
-    NSLog(@"======点击=====%@",model._Mtype);
-    
+    DONG_Log(@"======点击===%@==%@",model.cnname,model.mtype);
     
     teleplayPlayer.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:teleplayPlayer animated:YES];
-
+//    [self.navigationController pushViewController:teleplayPlayer animated:YES];
+    
+    
+        [self presentViewController:teleplayPlayer animated:YES completion:^{
+            [[self respondController].navigationController popViewControllerAnimated:NO];
+    
+    
+        }];
+    
+    // 取出当前的导航控制器
+//    UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+//    // The view controller associated with the currently selected tab item
+//    // 当前选择的导航控制器
+//    UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+//    [navController popViewControllerAnimated:NO];
+    
+    
 }
+
+
+- (UIViewController *)respondController
+{
+    UIViewController *vc = nil;
+    
+    do {
+        if (!vc) {
+            vc = (UIViewController *)self.nextResponder;
+        }else{
+            vc = (UIViewController *)vc.nextResponder;
+        }
+        
+    }while(![vc isKindOfClass:[UIViewController class]]);
+    if ([vc isKindOfClass:[UIViewController class]]) {
+        return vc;
+    }else{
+        return nil;
+    }
+}
+
 @end
