@@ -3,6 +3,7 @@ platform:ios,’8.0’
 inhibit_all_warnings!
 
 target 'SevenColorMovies' do
+    
     pod 'Masonry'
     pod 'SVProgressHUD', '~> 1.1.3'
     pod 'MBProgressHUD', '~> 0.9.1'
@@ -12,8 +13,6 @@ target 'SevenColorMovies' do
     pod 'SDCycleScrollView','~> 1.61'
     pod 'MJRefresh', '~> 3.1.10'
     pod 'IQKeyboardManager', '~> 4.0.5'
-#    pod 'ReactiveCocoa'
-
-#    use_frameworks!
+    
 
 end
