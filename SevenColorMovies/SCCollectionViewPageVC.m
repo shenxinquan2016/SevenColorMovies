@@ -159,7 +159,6 @@ static NSString *const cellId = @"cellId";
     
 }
 
-
 #pragma mark <UICollectionViewDelegate>
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
@@ -268,7 +267,6 @@ static NSString *const cellId = @"cellId";
 - (BOOL)shouldAutorotate{
     return NO;
 }
-
 
 
 @end
