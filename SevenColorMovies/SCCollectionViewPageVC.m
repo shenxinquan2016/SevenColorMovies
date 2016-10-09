@@ -114,7 +114,6 @@ static NSString *const cellId = @"cellId";
 //        NSString *mType = filmModel.mtype? filmModel.mtype : filmModel._Mtype;
 //        self.getMtype(mType);
         
-        
     } failure:^(id  _Nullable errorObject) {
         [self.collectionView.mj_header endRefreshing];
         [CommonFunc dismiss];
@@ -129,17 +128,14 @@ static NSString *const cellId = @"cellId";
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return _filmModelArr.count;
     
 }
 
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         
         SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:self.FilmClassModel._FilmClassName indexPath:indexPath];
@@ -173,18 +169,12 @@ static NSString *const cellId = @"cellId";
     
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         if ([_FilmClassModel._FilmClassName isEqualToString:@"专题"]) {
-            
             return (CGSize){(kMainScreenWidth-24-10)/2,145};
-            
         }else{
-            
             return (CGSize){(kMainScreenWidth-24-16)/3,180};
         }
-        
     }else{
-        
         return (CGSize){(kMainScreenWidth-24-10)/2,145};
-        
     }
 }
 
@@ -224,7 +214,6 @@ static NSString *const cellId = @"cellId";
 {
     return YES;
 }
-
 
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
