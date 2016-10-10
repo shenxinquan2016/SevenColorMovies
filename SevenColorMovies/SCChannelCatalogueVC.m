@@ -295,6 +295,7 @@ static NSString *const footerId = @"footerId";
     }else{
         if (_filmClassArray.count != 0) {
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-1]];
+            channelVC.bannerFilmModelArray = self.bannerFilmModelArray;
             
             NSString *key = _filmClassTitleArray[indexPath.row-1];
             channelVC.filmClassModel = _filmClassModelDictionary[key];

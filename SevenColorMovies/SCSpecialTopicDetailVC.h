@@ -12,5 +12,6 @@
 
 /** url端口 */
 @property(nonatomic,copy) NSString *urlString;
+@property (nonatomic, copy) NSArray *bannerFilmModelArray;/** 当精彩推荐没有推荐数据时显示banner内容 */
 
 @end

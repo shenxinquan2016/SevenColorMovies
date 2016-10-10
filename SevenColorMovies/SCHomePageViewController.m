@@ -484,6 +484,7 @@ static NSString *const footerId = @"footerId";
         if (indexPath.row == 7) {//更多
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:@"更多"];
             moreView.filmClassArray = [NSMutableArray arrayWithArray:_filmClassArray];
+            moreView.bannerFilmModelArray = _bannerFilmModelArr;
             
             NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray];// NSUserDefaults 只能读取不可变对象
             moreView.filmClassTitleArray = [NSMutableArray arrayWithArray:filmClassTitleArray];
@@ -502,6 +503,7 @@ static NSString *const footerId = @"footerId";
             NSString *key = _filmClassTitleArray[indexPath.row-1];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
             channelVC.filmClassModel = _filmClassModelDictionary[key];
+            channelVC.bannerFilmModelArray = _bannerFilmModelArr;
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
         }
@@ -525,6 +527,7 @@ static NSString *const footerId = @"footerId";
     SCFilmModel *filmModel = _bannerFilmModelArr[index];
     SCPlayerViewController *VODPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
     VODPlayer.filmModel = filmModel;
+    VODPlayer.bannerFilmModelArray = _bannerFilmModelArr;
     VODPlayer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:VODPlayer animated:YES];
 }

@@ -33,6 +33,7 @@
 - (void)addCollectionView{
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
     SCCollectionViewPageVC *vc = [[SCCollectionViewPageVC alloc] initWithCollectionViewLayout:layout];
+    vc.bannerFilmModelArray = self.bannerFilmModelArray;
     self.collectionVC = vc;
     vc.urlString = self.urlString;
     [vc.view setFrame:CGRectMake(0, 72, kMainScreenWidth, kMainScreenHeight-72)];

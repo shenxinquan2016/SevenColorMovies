@@ -13,5 +13,6 @@
 @interface SCChannelCategoryVC : SCOtherBaseViewController
 
 @property (nonatomic, strong) SCFilmClassModel *filmClassModel;
+@property (nonatomic, copy) NSArray *bannerFilmModelArray;/** 当精彩推荐没有推荐数据时显示banner内容 */
 
 @end

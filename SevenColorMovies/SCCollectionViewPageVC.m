@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/8/2.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  film展示页 重复利用率非常高
 
 #import "SCCollectionViewPageVC.h"
 #import "SCCollectionViewPageCell.h"
@@ -222,6 +222,7 @@ static NSString *const cellId = @"cellId";
         SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
         SCFilmModel *model = _filmModelArr[indexPath.row];
         teleplayPlayer.filmModel = model;
+        teleplayPlayer.bannerFilmModelArray = self.bannerFilmModelArray;
         NSLog(@"======点击=====%@",model._Mtype);
         teleplayPlayer.hidesBottomBarWhenPushed = YES;
         
@@ -239,6 +240,7 @@ static NSString *const cellId = @"cellId";
         SCFilmClassModel *filmClassModel = _filmModelArr[indexPath.row];
         SCSpecialTopicDetailVC *vc = [[SCSpecialTopicDetailVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
         vc.urlString = filmClassModel._FilmClassUrl;
+        vc.bannerFilmModelArray = self.bannerFilmModelArray;
         [self.navigationController pushViewController:vc animated:YES];
     }
     

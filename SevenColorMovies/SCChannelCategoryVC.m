@@ -197,6 +197,7 @@ static NSString *const cellId = @"cellId";
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
         
         SCCollectionViewPageVC *vc = [[SCCollectionViewPageVC alloc] initWithCollectionViewLayout:layout];
+        vc.bannerFilmModelArray = self.bannerFilmModelArray;
         
         if (_FilmClassUrlArr.count) {
             NSString *urlStr = _FilmClassUrlArr[i];
