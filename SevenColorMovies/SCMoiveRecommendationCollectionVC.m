@@ -68,14 +68,16 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             }
         }
         
-        [self.collectionView reloadData];
         [CommonFunc dismiss];
         
-        if (_filmModelArr.count == 0) {
-            [CommonFunc noDataOrNoNetTipsString:@"暂无推荐" addView:self.view];
+        if (_filmModelArr.count == 0) {//当推荐无数据的时候显示banner内容
+            _filmModelArr = [_bannerFilmModelArray copy];
+            //[CommonFunc noDataOrNoNetTipsString:@"暂无推荐" addView:self.view];
         }else{
             [CommonFunc hideTipsViews:self.collectionView];
         }
+        
+        [self.collectionView reloadData];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -160,7 +162,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
     SCFilmModel *model = _filmModelArr[indexPath.row];
     teleplayPlayer.filmModel = model;
-    
+    teleplayPlayer.bannerFilmModelArray = self.bannerFilmModelArray;
     DONG_Log(@"======点击===%@==%@",model.cnname,model.mtype);
     
     teleplayPlayer.hidesBottomBarWhenPushed = YES;

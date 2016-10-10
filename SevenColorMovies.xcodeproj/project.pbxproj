@@ -10,13 +10,6 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
-		<key>08631B8A9F47EC02FCD5658D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>92AAB133912B226EEA4011F5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>110174FA1D54241B00E43773</key>
 		<dict>
 			<key>children</key>
@@ -4164,7 +4157,7 @@
 				<string>116B1F561D53235600E9637A</string>
 				<string>116B1F541D53211C00E9637A</string>
 				<string>11A39D9F1D9269EE00C9FEA8</string>
-				<string>08631B8A9F47EC02FCD5658D</string>
+				<string>900B1AC20F9ADCDD217EBCF3</string>
 			</array>
 			<key>isa</key>
 			<string>PBXFrameworksBuildPhase</string>
@@ -6869,6 +6862,19 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>12179939F3550D9A17265830</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-SevenColorMovies.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
 		<key>44844E586861AA1504AA2D05</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -6952,18 +6958,12 @@ fi
 			<key>showEnvVarsInLog</key>
 			<string>0</string>
 		</dict>
-		<key>92AAB133912B226EEA4011F5</key>
+		<key>900B1AC20F9ADCDD217EBCF3</key>
 		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
+			<key>fileRef</key>
+			<string>12179939F3550D9A17265830</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-SevenColorMovies.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>BB7417922FA2A9215D327938</key>
 		<dict>
@@ -7022,7 +7022,7 @@ fi
 				<string>116B1F571D53236B00E9637A</string>
 				<string>116B1F551D53235600E9637A</string>
 				<string>116B1F531D53211C00E9637A</string>
-				<string>92AAB133912B226EEA4011F5</string>
+				<string>12179939F3550D9A17265830</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>

@@ -244,6 +244,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
                     SCMoiveRecommendationCollectionVC *vc = [[SCMoiveRecommendationCollectionVC alloc] initWithCollectionViewLayout:layout];
                     vc.filmModel = self.filmModel;
+                    vc.bannerFilmModelArray = self.bannerFilmModelArray;
                     [self addChildViewController:vc];
                     break;
                 }
@@ -280,6 +281,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
                     SCMoiveRecommendationCollectionVC *vc = [[SCMoiveRecommendationCollectionVC alloc] initWithCollectionViewLayout:layout];
                     vc.filmModel = self.filmModel;
+                    vc.bannerFilmModelArray = self.bannerFilmModelArray;
                     [self addChildViewController:vc];
                     break;
                 }

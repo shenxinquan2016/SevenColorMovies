@@ -24,6 +24,7 @@
 #import "SCFilmClassModel.h"
 #import "SCFilmModel.h"
 
+
 @interface SCHomePageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate,NSXMLParserDelegate>
 
 @property (nonatomic, strong) UICollectionView *collView;
@@ -511,6 +512,7 @@ static NSString *const footerId = @"footerId";
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
         teleplayPlayer.filmModel = filmModel;
+        teleplayPlayer.bannerFilmModelArray = _bannerFilmModelArr;
         teleplayPlayer.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:teleplayPlayer animated:YES];
     }

@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
     [super awakeFromNib];
     self.autoresizingMask = UIViewAutoresizingNone;
     
-    self.goBackButton.enlargedEdge = 15.f;
+    self.goBackButton.enlargedEdge = 100.f;
     [self setupProgressSlider];//自定义UISlider
     [self refreshMediaControl];
     [self showNoFade];

@@ -13,5 +13,5 @@
 @interface SCMoiveRecommendationCollectionVC : UICollectionViewController
 
 @property (nonatomic, strong) SCFilmModel *filmModel;
-
+@property (nonatomic, copy) NSArray *bannerFilmModelArray;/** 当精彩推荐没有推荐数据时显示banner内容 */
 @end
