@@ -457,7 +457,6 @@ static NSString *const footerId = @"footerId";
     if (section == 0){
         return (CGSize){kMainScreenWidth,0};
     }else{
-        
         return (CGSize){kMainScreenWidth,50};
     }
 }

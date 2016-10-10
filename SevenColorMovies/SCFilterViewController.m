@@ -135,12 +135,10 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.dataArray.count;
 }
-
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -201,10 +199,10 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
     SCFilmModel *filmModel = _dataArray[indexPath.row];
     teleplayPlayer.filmModel = filmModel;
+    teleplayPlayer.bannerFilmModelArray = self.bannerFilmModelArray;
     teleplayPlayer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:teleplayPlayer animated:YES];
 }
-
 
 #pragma mark- Event reponse
 - (void)doFilterAction:(NSNotification *)notification{
@@ -234,7 +232,6 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     [self requestFilterDataWithTypeAndAreaAndTimeAndPage:1];
     
 }
-
 
 #pragma mark- 网络请求
 // 获取筛选选项卡

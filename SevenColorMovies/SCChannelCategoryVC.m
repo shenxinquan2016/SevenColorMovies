@@ -45,7 +45,7 @@ static NSString *const cellId = @"cellId";
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     //1.筛选按钮
-    [self addSiftBtn];
+    [self addFilterBtn];
     
     //2.初始化数组
     self.titleArr = [NSMutableArray arrayWithCapacity:0];
@@ -70,7 +70,7 @@ static NSString *const cellId = @"cellId";
 
 #pragma mark- private methods
 // 添加筛选
-- (void)addSiftBtn {
+- (void)addFilterBtn {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 29, 29);
     [btn setBackgroundImage:[UIImage imageNamed:@"Sift"] forState:UIControlStateNormal];
@@ -262,6 +262,7 @@ static NSString *const cellId = @"cellId";
     SCFilterViewController *fliterVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCSiftViewController");
     fliterVC.filmClassModel = self.filmClassModel;
     fliterVC.mtype = self.mtype;
+    fliterVC.bannerFilmModelArray = self.bannerFilmModelArray;
     fliterVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:fliterVC animated:YES];
 }
