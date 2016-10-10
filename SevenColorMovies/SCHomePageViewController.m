@@ -12,18 +12,14 @@
 #import "SCCollectionViewPageCell.h"//其他cell
 #import "SCHomePageFlowLayout.h"
 #import "SCHomePageSectionBGReusableView.h"//senction header
-
 #import "SCChannelCatalogueVC.h"//点播栏目更多
 #import "SCChannelCategoryVC.h"//节目频道分类
 #import "SCLiveViewController.h"//直播首页面
-
 #import "SCPlayerViewController.h"
-
 #import "SCBannerModel.h"
 #import "SCFilmListModel.h"
 #import "SCFilmClassModel.h"
 #import "SCFilmModel.h"
-
 
 @interface SCHomePageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate,NSXMLParserDelegate>
 
@@ -553,7 +549,5 @@ static NSString *const footerId = @"footerId";
 - (BOOL)shouldAutorotate{
     return NO;
 }
-
-
 
 @end
