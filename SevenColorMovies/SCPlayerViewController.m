@@ -38,6 +38,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic,strong) SCArtsFilmsCollectionVC *needScrollToTopPage;
 @property (nonatomic, copy) NSString *movieType;
 @property (nonatomic, strong) HLJRequest *hljRequest;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *gjgj;
 
 @end
 
@@ -63,6 +64,10 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     [self.navigationItem setHidesBackButton:YES];
+    
+//    if (1) {
+////        _gjgj.constant =
+//    }
     
     //1.初始化数组
     self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];

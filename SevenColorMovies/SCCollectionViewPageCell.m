@@ -44,16 +44,18 @@
    
     if ([_identifier isEqualToString:@"综艺"] || [_identifier isEqualToString:@"生活"]) {
         imageUrl = filmModel._ImgUrlB;
+        NSURL *imgUrl = [NSURL URLWithString:imageUrl];
+        [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"CellLoading_Horizontal"]];
+
     }else{
         if (filmModel._ImgUrl) {
             imageUrl = filmModel._ImgUrl;
         }else if (filmModel.smallposterurl){
             imageUrl = filmModel.smallposterurl;
         }
+        NSURL *imgUrl = [NSURL URLWithString:imageUrl];
+        [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"CellLoading"]];
     }
-    
-    NSURL *imgUrl = [NSURL URLWithString:imageUrl];
-    [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"CellLoading"]];
     
     NSString *filmName;
     if (filmModel.FilmName) {
@@ -64,6 +66,7 @@
     _filmName.text = filmName;
 }
 
+//专题
 - (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel{
     
     NSURL *imgUrl = [NSURL URLWithString:filmClassModel._BigImgUrl];
