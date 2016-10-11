@@ -174,12 +174,12 @@ static NSString *const cellId = @"cellId";
     
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         if ([_FilmClassModel._FilmClassName isEqualToString:@"综艺"] || [_FilmClassModel._FilmClassName isEqualToString:@"生活"]) {
-            return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};
+            return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
         }else{
-            return (CGSize){(kMainScreenWidth-24-16)/3,180};
+            return (CGSize){(kMainScreenWidth-24-30)/3,(kMainScreenWidth-24-30)*33/3/24+30};//竖版尺寸
         }
     }else{//专题
-        return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};
+        return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
     }
 }
 
@@ -192,7 +192,7 @@ static NSString *const cellId = @"cellId";
 /** item水平间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 5.f;
+    return 10.f;
 }
 
 /** item垂直间距 */

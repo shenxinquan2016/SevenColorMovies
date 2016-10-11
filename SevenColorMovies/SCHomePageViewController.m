@@ -415,11 +415,10 @@ static NSString *const footerId = @"footerId";
         // 综艺栏目cell大小
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         if ([classModel._FilmClassName isEqualToString:@"综艺"] || [classModel._FilmClassName isEqualToString:@"生活"] || [classModel._FilmClassName isEqualToString:@"专题"]) {
-            return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};
+            return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
             
         }else{
-            // 电视剧栏目cell大小
-            return (CGSize){(kMainScreenWidth-24-16)/3,180};
+            return (CGSize){(kMainScreenWidth-24-30)/3,(kMainScreenWidth-24-30)*33/3/24+30};//竖版尺寸
         }
     }
 }
@@ -438,7 +437,7 @@ static NSString *const footerId = @"footerId";
 /** item水平间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 5.f;
+    return 10.f;
 }
 
 /** item垂直间距 */

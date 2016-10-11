@@ -3,45 +3,48 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="SCCollectionViewPageCell" reuseIdentifier="SCCollectionViewPageCell" id="gTV-IL-0wX" customClass="SCCollectionViewPageCell">
-            <rect key="frame" x="0.0" y="0.0" width="151" height="186"/>
+            <rect key="frame" x="0.0" y="0.0" width="162" height="265"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="151" height="186"/>
+                <rect key="frame" x="0.0" y="0.0" width="162" height="265"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CellLoading" translatesAutoresizingMaskIntoConstraints="NO" id="33v-1D-28D">
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="33v-1D-28D" secondAttribute="height" multiplier="24:33" id="r76-qQ-BNK"/>
+                        </constraints>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="敢死队2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdD-7t-h0q">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="GV2-kg-ea7"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CellLoading" translatesAutoresizingMaskIntoConstraints="NO" id="33v-1D-28D">
-                        <constraints>
-                            <constraint firstAttribute="height" constant="145" id="4zU-Ni-RXF"/>
-                            <constraint firstAttribute="width" constant="107" id="kdt-zz-3Co"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="bdD-7t-h0q" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="5P5-uY-cDM"/>
-                <constraint firstItem="bdD-7t-h0q" firstAttribute="top" secondItem="33v-1D-28D" secondAttribute="bottom" constant="8" id="Khy-h8-tWf"/>
-                <constraint firstAttribute="trailing" secondItem="bdD-7t-h0q" secondAttribute="trailing" id="Noe-nB-Do2"/>
-                <constraint firstItem="33v-1D-28D" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="7" id="ng4-XS-2KO"/>
-                <constraint firstItem="bdD-7t-h0q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="pkT-WP-o2q"/>
-                <constraint firstItem="33v-1D-28D" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="xU1-Ab-rYi"/>
+                <constraint firstAttribute="trailing" secondItem="bdD-7t-h0q" secondAttribute="trailing" id="Fbp-j3-IfN"/>
+                <constraint firstItem="33v-1D-28D" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="KPj-RG-fCu"/>
+                <constraint firstAttribute="trailing" secondItem="33v-1D-28D" secondAttribute="trailing" id="ORm-D4-bg0"/>
+                <constraint firstItem="33v-1D-28D" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="OTh-Z1-Le2"/>
+                <constraint firstItem="bdD-7t-h0q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="YWc-hu-6A7"/>
+                <constraint firstAttribute="bottom" secondItem="bdD-7t-h0q" secondAttribute="bottom" id="ecb-Rr-gdg"/>
             </constraints>
-            <size key="customSize" width="154" height="186"/>
+            <size key="customSize" width="165" height="265"/>
             <connections>
                 <outlet property="filmImage" destination="33v-1D-28D" id="jJI-ja-UHP"/>
                 <outlet property="filmName" destination="bdD-7t-h0q" id="yEQ-qX-qY0"/>
             </connections>
-            <point key="canvasLocation" x="346.5" y="326"/>
+            <point key="canvasLocation" x="352" y="365.5"/>
         </collectionViewCell>
     </objects>
     <resources>
