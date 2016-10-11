@@ -53,7 +53,7 @@
 typedef NS_ENUM(NSUInteger, SCLiveProgramState) {
     HavePast = 0,//回看
     NowPlaying,//直播
-    WillPlay,//预约
+    WillPlay,//未开始
 };
 
 typedef NS_ENUM(NSUInteger, SCFilterOptionType) {

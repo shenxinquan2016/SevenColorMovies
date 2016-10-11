@@ -38,7 +38,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic,strong) SCArtsFilmsCollectionVC *needScrollToTopPage;
 @property (nonatomic, copy) NSString *movieType;
 @property (nonatomic, strong) HLJRequest *hljRequest;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *gjgj;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;
 
 @end
 
@@ -65,9 +65,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     [self.navigationItem setHidesBackButton:YES];
     
-//    if (1) {
-////        _gjgj.constant =
-//    }
+    //0.更新功能区的上约束值
+    _toTopConstraint.constant = kMainScreenWidth * 9 / 16;
     
     //1.初始化数组
     self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];
@@ -100,7 +99,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -113,13 +111,10 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
 -(void)dealloc{
@@ -164,7 +159,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView{
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 280, kMainScreenWidth, TitleHeight)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20+36+8, kMainScreenWidth, TitleHeight)];
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
     
@@ -210,8 +205,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //默认选择第一个label
     SCSlideHeaderLabel *lable = [self.titleScroll.subviews firstObject];
     lable.scale = 1.0;
-    
-    
 }
 
 #pragma mark- Event reponse
@@ -227,7 +220,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 /** 添加正文内容页 */
 - (void)constructContentView{
-    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 338, kMainScreenWidth, kMainScreenHeight-338)];//滚动窗口
+    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20+36+8+TitleHeight+8, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20+36+8+TitleHeight+8))];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
     _contentScroll.pagingEnabled = YES;
@@ -534,7 +527,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             break;
     }
 }
-
 
 #pragma mark - 播放下一个节目
 - (void)playNextFilm
@@ -1099,7 +1091,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         [CommonFunc dismiss];
         
     }];
-    
 }
 
 #pragma mark - 更新状态栏状态 使用旋转方案二时调用

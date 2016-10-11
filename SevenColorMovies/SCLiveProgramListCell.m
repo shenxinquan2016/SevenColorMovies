@@ -73,7 +73,7 @@
         }
         
     }else if (model.programState == WillPlay){
-        _liveProgramStateLabel.text = @"预约";
+        _liveProgramStateLabel.text = @"未开始";
         if (model.isOnLive) {
             _liveProgramTimeLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];
             _liveProgramNameLabel.textColor = [UIColor colorWithHex:@"#78A1FF"];

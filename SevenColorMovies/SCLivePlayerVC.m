@@ -338,7 +338,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
             [strongself getLiveVideoSignalFlowUrl];//直播
             
         }else {
-            [MBProgressHUD showError:@"节目未开始"];//预约
+            [MBProgressHUD showError:@"节目未开始"];//未开始
             return;
         }
         timesIndexOfHuikan = 0;//每次点击后将index复位为0

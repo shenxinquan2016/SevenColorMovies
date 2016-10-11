@@ -153,7 +153,7 @@ static NSString *const footerId = @"footerId";
     
     if ([_model.programName isEqualToString:@"结束"]) return;//最后一行没有播放信息
     if (_model.programState == WillPlay){
-        [MBProgressHUD showSuccess:@"节目暂未播出"];
+        [MBProgressHUD showSuccess:@"节目尚未播出"];
         return;
     }
     
