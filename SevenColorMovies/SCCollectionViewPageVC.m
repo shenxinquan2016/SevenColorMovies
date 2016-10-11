@@ -17,9 +17,8 @@
 
 @interface SCCollectionViewPageVC ()
 
-/** 每页电影模型数组 */
-@property (nonatomic, strong) NSMutableArray *filmModelArr;
-
+@property (nonatomic, strong) NSMutableArray *filmModelArr;/** 每页电影模型数组 */
+@property (nonatomic, strong) HLJRequest *hljRequest;/** ip转换工具 */
 
 @end
 
@@ -69,56 +68,63 @@ static NSString *const cellId = @"cellId";
     }else if (!_filmModelArr){
         _filmModelArr = [NSMutableArray arrayWithCapacity:0];
     }
-    
-    [requestDataManager requestFilmClassDataWithUrl:_urlString parameters:nil success:^(id  _Nullable responseObject) {
+    //域名转IP
+    self.hljRequest = [HLJRequest requestWithPlayVideoURL:_urlString];
+    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         
-       //NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
-        if (responseObject) {
-            if (responseObject[@"FilmClass"]) {// 专题页面(比其他多一层)
-                
-                NSArray *filmsArr = responseObject[@"FilmClass"];
-                [_filmModelArr removeAllObjects];
-                
-                for (NSDictionary *dic in filmsArr) {
+        [requestDataManager requestFilmClassDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
+            
+            //NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
+            if (responseObject) {
+                if (responseObject[@"FilmClass"]) {// 专题页面(比其他多一层)
                     
-                    SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
+                    NSArray *filmsArr = responseObject[@"FilmClass"];
+                    [_filmModelArr removeAllObjects];
                     
-                    [_filmModelArr addObject:filmClassModel];
+                    for (NSDictionary *dic in filmsArr) {
+                        
+                        SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
+                        
+                        [_filmModelArr addObject:filmClassModel];
+                    }
+                    
+                    [self.collectionView reloadData];
+                    [self.collectionView.mj_header endRefreshing];
+                    [self.collectionView.mj_footer endRefreshing];
+                    [CommonFunc dismiss];
+                    
+                }else{// 其他
+                    
+                    NSArray *filmsArr = responseObject[@"Film"];
+                    [_filmModelArr removeAllObjects];
+                    
+                    for (NSDictionary *dic in filmsArr) {
+                        SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                        
+                        [_filmModelArr addObject:filmModel];
+                    }
+                    //        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
+                    
+                    [self.collectionView reloadData];
+                    [self.collectionView.mj_header endRefreshing];
+                    
+                    [CommonFunc dismiss];
                 }
-                
-                [self.collectionView reloadData];
-                [self.collectionView.mj_header endRefreshing];
-                [self.collectionView.mj_footer endRefreshing];
-                [CommonFunc dismiss];
-                
-            }else{// 其他
-                
-                NSArray *filmsArr = responseObject[@"Film"];
-                [_filmModelArr removeAllObjects];
-                
-                for (NSDictionary *dic in filmsArr) {
-                    SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-                    
-                    [_filmModelArr addObject:filmModel];
-                }
-                //        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
-                
-                [self.collectionView reloadData];
-                [self.collectionView.mj_header endRefreshing];
-                
-                [CommonFunc dismiss];
             }
-        }
-        //将mtype回传给上个控制器  （发现传不传没有影响 传时因数据机构缺陷还会有bug）
-//        SCFilmModel *filmModel = [_filmModelArr firstObject];
-//        NSString *mType = filmModel.mtype? filmModel.mtype : filmModel._Mtype;
-//        self.getMtype(mType);
+            //将mtype回传给上个控制器  （发现传不传没有影响 传时因数据机构缺陷还会有bug）
+            //        SCFilmModel *filmModel = [_filmModelArr firstObject];
+            //        NSString *mType = filmModel.mtype? filmModel.mtype : filmModel._Mtype;
+            //        self.getMtype(mType);
+            
+        } failure:^(id  _Nullable errorObject) {
+            [self.collectionView.mj_header endRefreshing];
+            [CommonFunc dismiss];
+        }];
         
-    } failure:^(id  _Nullable errorObject) {
-        [self.collectionView.mj_header endRefreshing];
-        [CommonFunc dismiss];
+    } failure:^(NSError *error) {
+        
+       [CommonFunc dismiss];
     }];
-    
 }
 
 #pragma mark <UICollectionViewDataSource>

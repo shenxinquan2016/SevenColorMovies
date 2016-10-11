@@ -20,6 +20,7 @@
 #import "SCFilmListModel.h"
 #import "SCFilmClassModel.h"
 #import "SCFilmModel.h"
+#import "SCSpecialTopicDetailVC.h"
 
 @interface SCHomePageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate,NSXMLParserDelegate>
 
@@ -156,7 +157,7 @@ static NSString *const footerId = @"footerId";
     [_bannerFilmModelArr removeAllObjects];
     
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
-        //NSLog(@"==========dic:::%@========",responseObject);
+        NSLog(@"==========dic:::%@========",responseObject);
         //1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         
@@ -413,8 +414,8 @@ static NSString *const footerId = @"footerId";
     }else{
         // 综艺栏目cell大小
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
-        if ([classModel._FilmClassName isEqualToString:@"专题"]) {
-            return (CGSize){(kMainScreenWidth-24-10)/2,145};
+        if ([classModel._FilmClassName isEqualToString:@"综艺"] || [classModel._FilmClassName isEqualToString:@"生活"] || [classModel._FilmClassName isEqualToString:@"专题"]) {
+            return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};
             
         }else{
             // 电视剧栏目cell大小
@@ -504,13 +505,23 @@ static NSString *const footerId = @"footerId";
         
     }else{
         
-        SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
-        teleplayPlayer.filmModel = filmModel;
-        teleplayPlayer.bannerFilmModelArray = _bannerFilmModelArr;
-        teleplayPlayer.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:teleplayPlayer animated:YES];
+        if ([classModel._FilmClassName isEqualToString:@"专题"]) {
+            SCSpecialTopicDetailVC *vc = [[SCSpecialTopicDetailVC alloc] initWithWithTitle:filmModel.FilmName];
+            vc.urlString = filmModel.SourceUrl;
+            vc.bannerFilmModelArray = _bannerFilmModelArr;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }else{
+            SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+            teleplayPlayer.filmModel = filmModel;
+            teleplayPlayer.bannerFilmModelArray = _bannerFilmModelArr;
+            teleplayPlayer.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:teleplayPlayer animated:YES];
+            
+        }
+        
     }
 }
 
