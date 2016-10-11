@@ -24,6 +24,7 @@
 @property (nonatomic, copy) NSString *Subject;/** film内容介绍 */
 @property (nonatomic, copy) NSString *_ImgUrl;/** 图片url 两个都用 */
 @property (nonatomic, copy) NSString *smallposterurl;/** 图片url 两个都用 */
+@property (nonatomic, copy) NSString *_ImgUrlB;/** 横版图片url 综艺生活 */
 @property (nonatomic, copy) NSString *_ImgUrlOriginal;/** banner图片URL  老接口 */
 @property (nonatomic, copy) NSString *_ImgUrlO;/** banner图片URL  新接口 */
 @property (nonatomic, copy) NSString *_PlayUrl;/** Live直播资源 */

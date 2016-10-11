@@ -43,7 +43,7 @@
                 <outlet property="filmImage" destination="1Jh-cf-zvd" id="aGW-6C-Von"/>
                 <outlet property="filmName" destination="I8w-ly-gGT" id="tT5-pg-qsq"/>
             </connections>
-            <point key="canvasLocation" x="543.5" y="219"/>
+            <point key="canvasLocation" x="539" y="216"/>
         </collectionViewCell>
     </objects>
 </document>

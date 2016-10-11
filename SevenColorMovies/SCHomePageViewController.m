@@ -156,7 +156,7 @@ static NSString *const footerId = @"footerId";
     [_bannerFilmModelArr removeAllObjects];
     
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
-                         NSLog(@"==========dic:::%@========",responseObject);
+        //NSLog(@"==========dic:::%@========",responseObject);
         //1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         

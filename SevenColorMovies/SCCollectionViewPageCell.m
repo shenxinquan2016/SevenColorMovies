@@ -11,12 +11,10 @@
 @interface SCCollectionViewPageCell()
 
 @property (weak, nonatomic) IBOutlet UIImageView *filmImage;
-
 @property (weak, nonatomic) IBOutlet UILabel *filmName;
-
+@property (nonatomic, copy) NSString *identifier;
 
 @end
-
 
 @implementation SCCollectionViewPageCell
 
@@ -28,37 +26,40 @@
 + (instancetype)cellWithCollectionView:(UICollectionView *)collectionView identifier:(NSString *)identifier indexPath:(NSIndexPath *)indexPath {
     
     static NSString *ID;
-    if ([identifier isEqualToString:@"专题"]) {
-        
+    if ([identifier isEqualToString:@"综艺"] || [identifier isEqualToString:@"生活"] || [identifier isEqualToString:@"专题"]) {
         ID = @"SCCollectionViewPageArtsCell";
-        
     }else{
-    
         ID = @"SCCollectionViewPageCell";
     }
     
     SCCollectionViewPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
+    cell.identifier = identifier;
     return cell;
 }
 
-- (void)setModel:(SCFilmModel *)model {
+- (void)setModel:(SCFilmModel *)filmModel {
     
     NSString *imageUrl;
-    if (model._ImgUrl) {
-        imageUrl = model._ImgUrl;
-    }else if (model.smallposterurl){
-        imageUrl = model.smallposterurl;
+   
+    if ([_identifier isEqualToString:@"综艺"] || [_identifier isEqualToString:@"生活"]) {
+        imageUrl = filmModel._ImgUrlB;
+    }else{
+        if (filmModel._ImgUrl) {
+            imageUrl = filmModel._ImgUrl;
+        }else if (filmModel.smallposterurl){
+            imageUrl = filmModel.smallposterurl;
+        }
     }
     
     NSURL *imgUrl = [NSURL URLWithString:imageUrl];
     [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"CellLoading"]];
     
     NSString *filmName;
-    if (model.FilmName) {
-        filmName = model.FilmName;
-    }else if (model.cnname){
-        filmName = model.cnname;
+    if (filmModel.FilmName) {
+        filmName = filmModel.FilmName;
+    }else if (filmModel.cnname){
+        filmName = filmModel.cnname;
     }
     _filmName.text = filmName;
 }

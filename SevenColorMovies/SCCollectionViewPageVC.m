@@ -72,7 +72,7 @@ static NSString *const cellId = @"cellId";
     
     [requestDataManager requestFilmClassDataWithUrl:_urlString parameters:nil success:^(id  _Nullable responseObject) {
         
-       //NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
+       NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
         if (responseObject) {
             if (responseObject[@"FilmClass"]) {// 专题页面(比其他多一层)
                 
@@ -167,12 +167,12 @@ static NSString *const cellId = @"cellId";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
-        if ([_FilmClassModel._FilmClassName isEqualToString:@"专题"]) {
+        if ([_FilmClassModel._FilmClassName isEqualToString:@"综艺"] || [_FilmClassModel._FilmClassName isEqualToString:@"生活"]) {
             return (CGSize){(kMainScreenWidth-24-10)/2,145};
         }else{
             return (CGSize){(kMainScreenWidth-24-16)/3,180};
         }
-    }else{
+    }else{//专题
         return (CGSize){(kMainScreenWidth-24-10)/2,145};
     }
 }
