@@ -274,33 +274,40 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AU6-pC-Xoa">
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NcL-zt-Smf">
-                                        <frame key="frameInset" minX="10" minY="7" width="113" height="23"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NcL-zt-Smf">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="113" id="SRl-HH-JnD"/>
+                                            <constraint firstAttribute="height" constant="23" id="oVk-Zg-QWa"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <state key="normal" title="   加入节目单" image="AddToPlayList">
                                             <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edT-o3-lwm">
-                                        <frame key="frameInset" minX="259" minY="5" width="26" height="26"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edT-o3-lwm">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="26" id="mLS-Db-hsZ"/>
+                                            <constraint firstAttribute="height" constant="26" id="tVs-L9-PW2"/>
+                                        </constraints>
                                         <state key="normal" image="DownLoad_Click"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gsb-sb-XSX">
-                                        <frame key="frameInset" minX="299" minY="5" width="26" height="26"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gsb-sb-XSX">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="26" id="Xcr-Ea-Ntf"/>
+                                            <constraint firstAttribute="height" constant="26" id="kZW-5O-isd"/>
+                                        </constraints>
                                         <state key="normal" image="Collection"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBz-Wa-65Q">
-                                        <frame key="frameInset" minX="338" minY="5" width="26" height="26"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="Share"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="NcL-zt-Smf" firstAttribute="centerY" secondItem="AU6-pC-Xoa" secondAttribute="centerY" id="66y-Ao-oM9"/>
                                     <constraint firstAttribute="height" constant="36" id="9JA-za-ngp"/>
+                                    <constraint firstItem="NcL-zt-Smf" firstAttribute="leading" secondItem="AU6-pC-Xoa" secondAttribute="leading" constant="10" id="Dht-Qa-emG"/>
+                                    <constraint firstItem="Gsb-sb-XSX" firstAttribute="centerY" secondItem="AU6-pC-Xoa" secondAttribute="centerY" id="RG5-I2-634"/>
+                                    <constraint firstItem="Gsb-sb-XSX" firstAttribute="leading" secondItem="edT-o3-lwm" secondAttribute="trailing" constant="12" id="RXA-pA-w7u"/>
+                                    <constraint firstItem="edT-o3-lwm" firstAttribute="centerY" secondItem="AU6-pC-Xoa" secondAttribute="centerY" id="WKr-Rk-wDu"/>
+                                    <constraint firstAttribute="trailing" secondItem="Gsb-sb-XSX" secondAttribute="trailing" constant="12" id="sDp-ay-81I"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -317,7 +324,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Icg-Qr-bfU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2285.5" y="215.5"/>
+            <point key="canvasLocation" x="2401" y="215"/>
         </scene>
     </scenes>
     <resources>
