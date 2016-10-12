@@ -72,13 +72,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSLog(@"======indexPath.section:%ld",indexPath.section);
-//    IJKVideoPlayerVC *IJKPlayer = [IJKVideoPlayerVC initIJKPlayerWithURL:nil];
-//    IJKPlayer.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-//    IJKPlayer.mediaControl.programNameLabel.text = nil;
 
     SCHuikanPlayerViewController *playerVC = [[SCHuikanPlayerViewController alloc] init];
+    playerVC.programModel = _dataSource[indexPath.row];
     [self.navigationController pushViewController:playerVC animated:YES];
 }
 
@@ -153,11 +149,11 @@
     
     [requestDataManager requestDataWithUrl:SearchProgramHavePastUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
-        //NSLog(@"==========dic:::%@========",responseObject);
+        NSLog(@"==========dic:::%@========",responseObject);
         
         if ([responseObject[@"program"] isKindOfClass:[NSDictionary class]]) {
             
-            NSDictionary *dic = responseObject[@"movieinfo"];
+            NSDictionary *dic = responseObject[@"program"];
             SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
             
             [_dataSource addObject:programModel];
@@ -169,7 +165,7 @@
                 
                 SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
                 programModel.channelLogoUrl = [self.channelLogoDictionary objectForKey:programModel.tvchannelen];
-                
+//                DONG_Log(@"%@",programModel.tvid);
                 [_dataSource addObject:programModel];
             }
         }

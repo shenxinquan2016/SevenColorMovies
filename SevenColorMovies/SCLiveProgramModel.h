@@ -21,5 +21,6 @@
 @property (nonatomic, copy) NSString *program;/* 回看节目名称  回看搜索 */
 @property (nonatomic, copy) NSString *tvchannelen;/* 频道名称  回看搜索 */
 @property (nonatomic, copy) NSString *channelLogoUrl;/* 节目logo url  回看搜索 */
-
+@property (nonatomic, copy) NSString *tvid;/* TVID  回看搜索 */
+@property (nonatomic, copy) NSString *endtime;/* 节目时间结束时间 yyyy-MM-dd HH:mm:ss 回看搜索 */
 @end

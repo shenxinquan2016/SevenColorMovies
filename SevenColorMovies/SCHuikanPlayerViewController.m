@@ -21,29 +21,69 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //1.拼接新地址
-    //    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-    //    self.url = [NSURL URLWithString:playUrl];
-    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
     
-    //2.调用播放器播放
-    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-    [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-    _IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-    [self.view addSubview:_IJKPlayerViewController.view];
+    //获取时间戳字符串
+    NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:_programModel.forecastdate format:@"yyyy-MM-dd HH:mm:ss"]];
+    NSString *endTime =  [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:_programModel.endtime format:@"yyyy-MM-dd HH:mm:ss"]];
     
-    [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-   // [self setNeedsStatusBarAppearanceUpdate];
+    NSString *extStr = [NSString stringWithFormat:@"stime=%@&etime=%@&port=5656&ext=oid:30050",startTime,endTime];
+    NSString *ext = [extStr stringByBase64Encoding];
+    NSString *fid = [NSString stringWithFormat:@"%@_%@",_programModel.tvid,_programModel.tvid];
+    DONG_Log(@"ext：%@ \nfid:%@",ext,fid);
     
-    //进入全屏模式
-    [UIView animateWithDuration:0.2 animations:^{
+    NSDictionary *parameters = @{@"fid" : fid,
+                                 @"ext"  : ext };
+    //IP替换
+    [CommonFunc showLoadingWithTips:@""];
+    _hljRequest = [HLJRequest requestWithPlayVideoURL:ToGetProgramHavePastVideoSignalFlowUrl];
+    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
         
-        _IJKPlayerViewController.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
-        _IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-        _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
-        [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                     NSLog(@"====responseObject:::%@===",responseObject);
+            
+            NSString *liveUrl = responseObject[@"play_url"];
+            
+            NSString *playUrl = [_hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
+            
+            DONG_Log(@"playUrl：%@ ",playUrl);
+//            self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+            self.url= [NSURL URLWithString:playUrl];
+            //2.调用播放器播放
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+            _IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            _IJKPlayerViewController.mediaControl.programNameLabel.text = _programModel.program;
+            [self.view addSubview:_IJKPlayerViewController.view];
+            
+//            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+            // [self setNeedsStatusBarAppearanceUpdate];
+            
+            //进入全屏模式
+            [UIView animateWithDuration:0.2 animations:^{
+                
+                _IJKPlayerViewController.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
+                _IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+                _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
+                [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+                
+            }];
+
+            [CommonFunc dismiss];
+        } failure:^(id  _Nullable errorObject) {
+            [CommonFunc dismiss];
+            
+        }];
+
+    } failure:^(NSError *error) {
         
+        [CommonFunc dismiss];
     }];
+    
+    
+    
+    
+    
     
 }
 
@@ -75,9 +115,9 @@
 
 }
 
-- (BOOL)prefersStatusBarHidden{
-    return YES;//隐藏状态栏
-}
+//- (BOOL)prefersStatusBarHidden{
+//    return YES;//隐藏状态栏
+//}
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{

@@ -696,14 +696,14 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                  @"ext"  : ext };
     //IP替换
     NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:ToGetProgramHavePastVideoSignalFlowUrl];
+    DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
     [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
         //         NSLog(@"====responseObject:::%@===",responseObject);
         
         NSString *liveUrl = responseObject[@"play_url"];
         
         NSString *playUrl = [_hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
-        
+        DONG_Log(@"playUrl：%@ ",playUrl);
         //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
         self.url= [NSURL URLWithString:playUrl];
         

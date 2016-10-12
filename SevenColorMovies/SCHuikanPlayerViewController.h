@@ -7,7 +7,10 @@
 //
 
 #import "SCOtherBaseViewController.h"
+#import "SCLiveProgramModel.h"
 
 @interface SCHuikanPlayerViewController : SCOtherBaseViewController
+
+@property (nonatomic, strong) SCLiveProgramModel *programModel;
 
 @end
