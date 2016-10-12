@@ -253,7 +253,7 @@
         self.isFullScreen = NO;
         [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
         _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
-        //            [self prepareForSmallScreen];
+//                    [self prepareForSmallScreen];
         //使用通知到该控制器的父视图中更改该控制器的视图
         [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
         
