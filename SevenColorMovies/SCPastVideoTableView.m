@@ -9,6 +9,7 @@
 #import "SCPastVideoTableView.h"
 #import "SCPastVideoTableViewCell.h"
 #import "SCLiveProgramModel.h"
+#import "SCHuikanPlayerViewController.h"
 
 @interface SCPastVideoTableView ()
 
@@ -68,13 +69,17 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return 94;
-    
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"======indexPath.section:%ld",indexPath.section);
+//    IJKVideoPlayerVC *IJKPlayer = [IJKVideoPlayerVC initIJKPlayerWithURL:nil];
+//    IJKPlayer.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+//    IJKPlayer.mediaControl.programNameLabel.text = nil;
+
+    SCHuikanPlayerViewController *playerVC = [[SCHuikanPlayerViewController alloc] init];
+    [self.navigationController pushViewController:playerVC animated:YES];
 }
 
 #pragma mark- 网络请求
@@ -125,7 +130,6 @@
         [_dataSource removeAllObjects];
     }
 
-    
     NSDate *now = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
@@ -143,8 +147,8 @@
     //NSLog(@"++++++%@++++++++++%@+++++",time1,time2);
     
     NSDictionary *parameters = @{@"keyword" : keyword? keyword : @"",
-                                 //@"starttime" : startTime,
-                                 //@"endtime" : endTime,
+                                // @"starttime" : time1,
+                                 //@"endtime" : time2,
                                  @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
     [requestDataManager requestDataWithUrl:SearchProgramHavePastUrl parameters:parameters success:^(id  _Nullable responseObject) {
@@ -185,6 +189,7 @@
         [CommonFunc dismiss];
         
         if (_dataSource.count == 0) {
+            [CommonFunc hideTipsViews:self.tableView];
             [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
         }else{
             [CommonFunc hideTipsViews:self.tableView];
@@ -198,6 +203,7 @@
         NSString *VODTotalCount = @"0";
         callBack(VODTotalCount);
         [self.tableView reloadData];
+        [CommonFunc hideTipsViews:self.tableView];
         [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
         [self.tableView.mj_footer endRefreshing];
         self.tableView.mj_footer.hidden = YES;

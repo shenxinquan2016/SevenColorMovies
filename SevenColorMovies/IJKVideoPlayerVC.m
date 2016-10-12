@@ -61,7 +61,6 @@
     
     self.isFullScreen = NO;
     
-    
     //1.初始化播放器
     [self setupIJKPlayer];
     
