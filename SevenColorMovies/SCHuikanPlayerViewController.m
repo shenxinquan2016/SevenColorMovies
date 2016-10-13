@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/10/12.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  搜索-->回看 简介播放器
 
 #import "SCHuikanPlayerViewController.h"
 #import "IJKVideoPlayerVC.h"
@@ -34,40 +34,47 @@
     NSDictionary *parameters = @{@"fid" : fid,
                                  @"ext"  : ext };
     //IP替换
-    [CommonFunc showLoadingWithTips:@""];
+//    [CommonFunc showLoadingWithTips:@""];
+    DONG_WeakSelf(self);
     _hljRequest = [HLJRequest requestWithPlayVideoURL:ToGetProgramHavePastVideoSignalFlowUrl];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
         
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                      NSLog(@"====responseObject:::%@===",responseObject);
-            
+            DONG_StrongSelf(self);
             NSString *liveUrl = responseObject[@"play_url"];
             
-            NSString *playUrl = [_hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
+            NSString *playUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
             
             DONG_Log(@"playUrl：%@ ",playUrl);
-//            self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-            self.url= [NSURL URLWithString:playUrl];
+            strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+            strongself.url= [NSURL URLWithString:playUrl];
             //2.调用播放器播放
-            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            _IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            _IJKPlayerViewController.mediaControl.programNameLabel.text = _programModel.program;
-            [self.view addSubview:_IJKPlayerViewController.view];
-            
+            strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+            [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+            strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.programModel.program;
+            [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+
 //            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            // [self setNeedsStatusBarAppearanceUpdate];
-            
+//            // [self setNeedsStatusBarAppearanceUpdate];
+//            
             //进入全屏模式
+            
             [UIView animateWithDuration:0.2 animations:^{
                 
-                _IJKPlayerViewController.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
-                _IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-                _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
-                [self.view bringSubviewToFront:_IJKPlayerViewController.view];
-                
+                strongself.IJKPlayerViewController.view.transform = CGAffineTransformRotate(strongself.view.transform, M_PI_2);
+                strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+                strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
+                [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
+//
             }];
+            
+            //            [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+            //            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            //            _IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
+            //            _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
 
             [CommonFunc dismiss];
         } failure:^(id  _Nullable errorObject) {
@@ -79,12 +86,6 @@
         
         [CommonFunc dismiss];
     }];
-    
-    
-    
-    
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -115,9 +116,9 @@
 
 }
 
-//- (BOOL)prefersStatusBarHidden{
-//    return YES;//隐藏状态栏
-//}
+- (BOOL)prefersStatusBarHidden{
+    return YES;//隐藏状态栏
+}
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{
