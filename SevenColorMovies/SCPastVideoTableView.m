@@ -134,77 +134,82 @@
     NSString *startTime = [formatter stringFromDate:thisWeek];
     NSString *endTime = [formatter stringFromDate:now];
     
-    //NSLog(@"+++++++%@+++++++++%@+++++",startTime,endTime);
+    DONG_Log(@"startTime:%@ \nendTime:%@",startTime,endTime);
     
-    // 时间戳
-    NSString *time1 = [now getTimeStamp];
-    NSString *time2 = [NSString stringWithFormat:@"%lf", [[NSDate date ] timeIntervalSince1970]-7*24*3600];
-    
-    //NSLog(@"++++++%@++++++++++%@+++++",time1,time2);
+    NSString *statrTimeStr = [startTime stringByTrimmingBlank];
+    NSString *endTimeStr = [endTime stringByTrimmingBlank];
     
     NSDictionary *parameters = @{@"keyword" : keyword? keyword : @"",
-                                // @"starttime" : time1,
-                                 //@"endtime" : time2,
+                                 @"starttime" : statrTimeStr,
+                                 @"endtime" : endTimeStr,
                                  @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
-    [requestDataManager requestDataWithUrl:SearchProgramHavePastUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        
-        NSLog(@"==========dic:::%@========",responseObject);
-        
-        if ([responseObject[@"program"] isKindOfClass:[NSDictionary class]]) {
+    [[HLJRequest requestWithPlayVideoURL:SearchProgramHavePastUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
             
-            NSDictionary *dic = responseObject[@"program"];
-            SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
+            //NSLog(@"==========dic:::%@========",responseObject);
             
-            [_dataSource addObject:programModel];
-            
-            
-        }else if ([responseObject[@"program"] isKindOfClass:[NSArray class]]){
-            
-            for (NSDictionary *dic in responseObject[@"program"]) {
+            if ([responseObject[@"program"] isKindOfClass:[NSDictionary class]]) {
                 
+                NSDictionary *dic = responseObject[@"program"];
                 SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
-                programModel.channelLogoUrl = [self.channelLogoDictionary objectForKey:programModel.tvchannelen];
-//                DONG_Log(@"%@",programModel.tvid);
+                
                 [_dataSource addObject:programModel];
+                
+                
+            }else if ([responseObject[@"program"] isKindOfClass:[NSArray class]]){
+                
+                for (NSDictionary *dic in responseObject[@"program"]) {
+                    
+                    SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
+                    programModel.channelLogoUrl = [self.channelLogoDictionary objectForKey:programModel.tvchannelen];
+                    //                DONG_Log(@"%@",programModel.tvid);
+                    [_dataSource addObject:programModel];
+                }
             }
-        }
-        
-        //总的搜索条数
-        NSString *lookBackVideoTotalCount ;
-        if (responseObject[@"_dbtotal"]) {
-            lookBackVideoTotalCount = responseObject[@"_dbtotal"];
-        }else{
-            lookBackVideoTotalCount = @"0";
-        }
-        callBack(lookBackVideoTotalCount);
-        
-        [self.tableView reloadData];
-        
-        [self.tableView.mj_footer endRefreshing];
-        [CommonFunc dismiss];
-        
-        if (_dataSource.count == 0) {
+            
+            //总的搜索条数
+            NSString *lookBackVideoTotalCount ;
+            if (responseObject[@"_dbtotal"]) {
+                lookBackVideoTotalCount = responseObject[@"_dbtotal"];
+            }else{
+                lookBackVideoTotalCount = @"0";
+            }
+            callBack(lookBackVideoTotalCount);
+            
+            [self.tableView reloadData];
+            
+            [self.tableView.mj_footer endRefreshing];
+            [CommonFunc dismiss];
+            
+            if (_dataSource.count == 0) {
+                [CommonFunc hideTipsViews:self.tableView];
+                [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
+            }else{
+                [CommonFunc hideTipsViews:self.tableView];
+            }
+            
+            [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"program"]];
+            
+        } failure:^(id  _Nullable errorObject) {
+            
+            //总的搜索条数
+            NSString *VODTotalCount = @"0";
+            callBack(VODTotalCount);
+            [self.tableView reloadData];
             [CommonFunc hideTipsViews:self.tableView];
             [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
-        }else{
-            [CommonFunc hideTipsViews:self.tableView];
-        }
+            [self.tableView.mj_footer endRefreshing];
+            self.tableView.mj_footer.hidden = YES;
+            [CommonFunc dismiss];
+        }];
+
         
-        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"program"]];
+    } failure:^(NSError *error) {
         
-    } failure:^(id  _Nullable errorObject) {
-        
-        //总的搜索条数
-        NSString *VODTotalCount = @"0";
-        callBack(VODTotalCount);
-        [self.tableView reloadData];
-        [CommonFunc hideTipsViews:self.tableView];
-        [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
-        [self.tableView.mj_footer endRefreshing];
-        self.tableView.mj_footer.hidden = YES;
         [CommonFunc dismiss];
     }];
+     
     
 }
 

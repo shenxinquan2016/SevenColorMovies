@@ -41,6 +41,8 @@
 - (instancetype)stringByTrimmingString:(NSString *)string;
 // 去除中横线
 - (instancetype)stringByTrimmingHyphen;
+// 去除空格
+- (instancetype)stringByTrimmingBlank;
 - (instancetype)absoluteDateString;
 // Base64
 - (instancetype)stringByBase64Encoding;

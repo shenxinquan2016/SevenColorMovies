@@ -103,6 +103,10 @@
     return [self stringByTrimmingString:@"-"];
 }
 
+- (instancetype)stringByTrimmingBlank{
+    return [self stringByTrimmingString:@" "];
+}
+
 - (instancetype)absoluteDateString {
     return [[[self stringByTrimmingString:@"-"] stringByTrimmingString:@":"] stringByTrimmingString:@" "];
 }

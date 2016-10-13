@@ -31,9 +31,6 @@
     self.leftBBI.text = @"遥控器";
     
     
-
-
-    
     
     
 }
@@ -55,13 +52,17 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
     
-
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+-(void)dealloc{
+    NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
+    
+}
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{

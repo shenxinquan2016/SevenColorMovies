@@ -34,7 +34,7 @@
     NSDictionary *parameters = @{@"fid" : fid,
                                  @"ext"  : ext };
     //IP替换
-//    [CommonFunc showLoadingWithTips:@""];
+    [CommonFunc showLoadingWithTips:@""];
     DONG_WeakSelf(self);
     _hljRequest = [HLJRequest requestWithPlayVideoURL:ToGetProgramHavePastVideoSignalFlowUrl];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
@@ -48,7 +48,7 @@
             NSString *playUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
             
             DONG_Log(@"playUrl：%@ ",playUrl);
-            strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+            //strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
             strongself.url= [NSURL URLWithString:playUrl];
             //2.调用播放器播放
             strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];

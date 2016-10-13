@@ -136,7 +136,6 @@ static NSString *const cellId = @"cellId";
         titleScrollWith = kMainScreenWidth;
     }
     
-    
     self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, titleScrollWith, TitleHeight)];//滚动窗口
     self.titleScroll.showsHorizontalScrollIndicator = NO;
     self.titleScroll.showsVerticalScrollIndicator = NO;
