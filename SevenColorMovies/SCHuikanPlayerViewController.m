@@ -55,6 +55,7 @@
             [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
             strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.programModel.program;
+            strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
             [strongself.view addSubview:strongself.IJKPlayerViewController.view];
 
 //            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];

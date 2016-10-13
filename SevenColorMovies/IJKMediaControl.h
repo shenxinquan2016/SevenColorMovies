@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *goFastImageView;//快件图标
 @property (weak, nonatomic) IBOutlet UILabel *currentLabel;//快进视图当前时间
 @property (weak, nonatomic) IBOutlet UILabel *durationTimeLabel;//快进视图总时间
+@property (weak, nonatomic) IBOutlet UIButton *fullScreenButton;//全屏按钮
 
 @property (weak, nonatomic) IBOutlet UILabel *currentTimeLabel;//进度条当前时间
 @property (weak, nonatomic) IBOutlet UILabel *totalDurationLabel;//进度条总时间
