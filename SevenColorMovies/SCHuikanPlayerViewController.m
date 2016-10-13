@@ -91,17 +91,18 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
 
 }
 
@@ -112,12 +113,7 @@
 
 -(void)dealloc{
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
 
-}
-
-- (BOOL)prefersStatusBarHidden{
-    return YES;//隐藏状态栏
 }
 
 // 禁止旋转屏幕
