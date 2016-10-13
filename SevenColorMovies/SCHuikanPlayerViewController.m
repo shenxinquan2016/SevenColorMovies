@@ -41,7 +41,7 @@
         DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
         
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-                     NSLog(@"====responseObject:::%@===",responseObject);
+//                     NSLog(@"====responseObject:::%@===",responseObject);
             DONG_StrongSelf(self);
             NSString *liveUrl = responseObject[@"play_url"];
             
@@ -58,24 +58,15 @@
             strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
             [strongself.view addSubview:strongself.IJKPlayerViewController.view];
 
-//            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-//            // [self setNeedsStatusBarAppearanceUpdate];
-//            
             //进入全屏模式
-            
             [UIView animateWithDuration:0.2 animations:^{
                 
                 strongself.IJKPlayerViewController.view.transform = CGAffineTransformRotate(strongself.view.transform, M_PI_2);
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
                 strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
                 [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
-//
+
             }];
-            
-            //            [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
-            //            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
-            //            _IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
-            //            _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
 
             [CommonFunc dismiss];
         } failure:^(id  _Nullable errorObject) {
