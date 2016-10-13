@@ -56,13 +56,13 @@ NSString *const DomainNameXMLURL = @"http://10.177.1.198:8095/b2b/search/domainI
 - (void)loadXMLData{
     
     DONG_WeakSelf(self);
+    DONG_StrongSelf(self);
     [requestDataManager requestDataToReplaceDomainNameWithUrl:DomainNameXMLURL parameters:nil success:^(id info) {
-        DONG_StrongSelf(self);
         
         [strongself beginParse:info];
         
     } failure:^(NSError *error) {
-        DONG_StrongSelf(self);
+        
         NSLog(@"HLJRequest---loadXMLDataError---%@",error);
         if (strongself.parseIPFailure) {
             strongself.parseIPFailure(error);
