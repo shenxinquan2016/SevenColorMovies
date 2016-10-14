@@ -9,6 +9,11 @@
 #import "SCMineViewController.h"
 #import "SCMineTopCell.h"
 #import "SCMineOtherCell.h"
+#import "SCMyProgramListVC.h"
+#import "SCMyWatchingHistoryVC.h"
+#import "SCMyCollectionVC.h"
+#import "SCMyDownloadManagerVC.h"
+
 
 @interface SCMineViewController ()
 
@@ -81,18 +86,18 @@
         NSArray *array = self.dataSource[indexPath.section];
         if (indexPath.row < array.count) {
             NSDictionary *dict = [array objectAtIndex:indexPath.row];
-            if (indexPath.section == 0) {
-                SCMineTopCell *cell = [SCMineTopCell cellWithTableView:tableView];
-                
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                return cell;
-                
-            }else{
+//            if (indexPath.section == 0) {
+//                SCMineTopCell *cell = [SCMineTopCell cellWithTableView:tableView];
+//                
+//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//                return cell;
+//                
+//            }else{
                 SCMineOtherCell *cell = [SCMineOtherCell cellWithTableView:tableView];
                 [cell setModel:dict IndexPath:indexPath];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
-            }
+//            }
         }
     }
     return nil;
@@ -100,13 +105,52 @@
 
 #pragma mark -  UITableViewDataDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) return 90.f;
-    else return 56.f;
+//    if (indexPath.section == 0) return 90.f;
+//    else return 56.f;
+    return 56.f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"======indexPath.section:%ld",indexPath.section);
+    if (indexPath.section == 0 ) {
+        switch (indexPath.row) {
+            case 0:{
+                SCMyProgramListVC *programListVC = [[SCMyProgramListVC alloc] initWithWithTitle:@"我的节目单"];
+                [programListVC setHidesBottomBarWhenPushed:YES];
+                [self.navigationController pushViewController:programListVC animated:YES];
+                break;
+            }
+                
+            case 1:{
+                SCMyWatchingHistoryVC *watchHistoryVC = [[SCMyWatchingHistoryVC alloc] initWithWithTitle:@"观看记录"];
+                [watchHistoryVC setHidesBottomBarWhenPushed:YES];
+                [self.navigationController pushViewController:watchHistoryVC animated:YES];
+                break;
+            }
+                
+            case 2:{
+                SCMyCollectionVC *collectionVC = [[SCMyCollectionVC alloc] initWithWithTitle:@"我的收藏"];
+                [collectionVC setHidesBottomBarWhenPushed:YES];
+                [self.navigationController pushViewController:collectionVC animated:YES];
+                break;
+            }
+                
+            default:
+                break;
+        }
+        
+    }else if (indexPath.section == 1){
+        
+        SCMyDownloadManagerVC *downloadManangerVC = [[SCMyDownloadManagerVC alloc] initWithWithTitle:@"下载管理"];
+        [downloadManangerVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:downloadManangerVC animated:YES];
+        
+        
+    }else if (indexPath.section == 2){
+        
+    }else if (indexPath.section == 3){
+        
+    }
     
     
 }
@@ -124,8 +168,8 @@
 #pragma mark- Getters and Setters
 - (NSArray *)dataSource{
     if (!_dataSource) {
-        NSArray *array = @[@[@{@"Default_Avatar" : @"Hi,您好"}],
-                           @[@{@"Associator" : @"会员中心"}],
+        NSArray *array = @[/*@[@{@"Default_Avatar" : @"Hi,您好"}],
+                           @[@{@"Associator" : @"会员中心"}],*/
                            @[@{@"Moive_list" : @"我的节目单"}, @{@"Watch_Record" : @"观看记录"}, @{@"Collection_1" : @"我的收藏"}],
                            @[@{@"Download" : @"下载管理"}],
                            @[@{@"Message" : @"消息"}],

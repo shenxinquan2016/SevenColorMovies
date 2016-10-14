@@ -50,7 +50,7 @@
         _leftImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",keyStr]];
         _titleLabel.text =  [dict.allValues objectAtIndex:0];
 
-        if (indexPath.section == 2 && (indexPath.row == 0 || indexPath.row == 1)) {
+        if (indexPath.section == 0 && (indexPath.row == 0 || indexPath.row == 1)) {
             _bottomLine.hidden = NO;
         }
     }

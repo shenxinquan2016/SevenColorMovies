@@ -95,6 +95,10 @@
 		116B1F6A1D5327FA00E9637A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F691D5327FA00E9637A /* QuartzCore.framework */; };
 		116B1F6C1D53280600E9637A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F6B1D53280600E9637A /* UIKit.framework */; };
 		116B1F6E1D53281E00E9637A /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B1F6D1D53281E00E9637A /* VideoToolbox.framework */; };
+		116E0F551DB0872E00E280C6 /* SCMyProgramListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E0F541DB0872E00E280C6 /* SCMyProgramListVC.m */; };
+		116E0F581DB0888C00E280C6 /* SCMyWatchingHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E0F571DB0888C00E280C6 /* SCMyWatchingHistoryVC.m */; };
+		116E0F5B1DB088BF00E280C6 /* SCMyCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E0F5A1DB088BF00E280C6 /* SCMyCollectionVC.m */; };
+		116E0F5E1DB0891D00E280C6 /* SCMyDownloadManagerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E0F5D1DB0891D00E280C6 /* SCMyDownloadManagerVC.m */; };
 		116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D561D4AFAF800B488EC /* SCBannerModel.m */; };
 		116E1D5E1D4B4E0200B488EC /* SCFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D5D1D4B4E0200B488EC /* SCFilterViewController.m */; };
 		116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */; };
@@ -325,6 +329,14 @@
 		116B1F691D5327FA00E9637A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		116B1F6B1D53280600E9637A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		116B1F6D1D53281E00E9637A /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		116E0F531DB0872E00E280C6 /* SCMyProgramListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMyProgramListVC.h; sourceTree = "<group>"; };
+		116E0F541DB0872E00E280C6 /* SCMyProgramListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMyProgramListVC.m; sourceTree = "<group>"; };
+		116E0F561DB0888C00E280C6 /* SCMyWatchingHistoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMyWatchingHistoryVC.h; sourceTree = "<group>"; };
+		116E0F571DB0888C00E280C6 /* SCMyWatchingHistoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMyWatchingHistoryVC.m; sourceTree = "<group>"; };
+		116E0F591DB088BF00E280C6 /* SCMyCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMyCollectionVC.h; sourceTree = "<group>"; };
+		116E0F5A1DB088BF00E280C6 /* SCMyCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMyCollectionVC.m; sourceTree = "<group>"; };
+		116E0F5C1DB0891D00E280C6 /* SCMyDownloadManagerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMyDownloadManagerVC.h; sourceTree = "<group>"; };
+		116E0F5D1DB0891D00E280C6 /* SCMyDownloadManagerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMyDownloadManagerVC.m; sourceTree = "<group>"; };
 		116E1D551D4AFAF800B488EC /* SCBannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBannerModel.h; sourceTree = "<group>"; };
 		116E1D561D4AFAF800B488EC /* SCBannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBannerModel.m; sourceTree = "<group>"; };
 		116E1D5C1D4B4E0200B488EC /* SCFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilterViewController.h; sourceTree = "<group>"; };
@@ -727,6 +739,14 @@
 		113F8D951D3C705D00B12D39 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				116E0F531DB0872E00E280C6 /* SCMyProgramListVC.h */,
+				116E0F541DB0872E00E280C6 /* SCMyProgramListVC.m */,
+				116E0F561DB0888C00E280C6 /* SCMyWatchingHistoryVC.h */,
+				116E0F571DB0888C00E280C6 /* SCMyWatchingHistoryVC.m */,
+				116E0F591DB088BF00E280C6 /* SCMyCollectionVC.h */,
+				116E0F5A1DB088BF00E280C6 /* SCMyCollectionVC.m */,
+				116E0F5C1DB0891D00E280C6 /* SCMyDownloadManagerVC.h */,
+				116E0F5D1DB0891D00E280C6 /* SCMyDownloadManagerVC.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1799,6 +1819,7 @@
 			files = (
 				1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */,
 				1101750A1D549B3C00E43773 /* SCFilmSetModel.m in Sources */,
+				116E0F581DB0888C00E280C6 /* SCMyWatchingHistoryVC.m in Sources */,
 				11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */,
 				11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */,
 				11E97A051D6320CA00512D10 /* PlayerViewRotate.m in Sources */,
@@ -1820,6 +1841,7 @@
 				11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */,
 				11458E921D45D86800EBD16D /* SCHomePageSectionBGReusableView.m in Sources */,
 				11458EA71D45FF2D00EBD16D /* SCMineOtherCell.m in Sources */,
+				116E0F551DB0872E00E280C6 /* SCMyProgramListVC.m in Sources */,
 				116E1D5E1D4B4E0200B488EC /* SCFilterViewController.m in Sources */,
 				116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */,
 				1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */,
@@ -1837,6 +1859,7 @@
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
 				11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */,
 				1111A4191D48A71300C17B92 /* QINetReachabilityManager.m in Sources */,
+				116E0F5E1DB0891D00E280C6 /* SCMyDownloadManagerVC.m in Sources */,
 				11458E9C1D45EECE00EBD16D /* SCDiscoveryCellModel.m in Sources */,
 				1111A4121D48A62500C17B92 /* SCNetHelper.m in Sources */,
 				1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */,
@@ -1877,6 +1900,7 @@
 				113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */,
 				1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */,
+				116E0F5B1DB088BF00E280C6 /* SCMyCollectionVC.m in Sources */,
 				115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,
 				11588F6E1D6AECDF00C91E3A /* SCLivePageCollectionVC.m in Sources */,
