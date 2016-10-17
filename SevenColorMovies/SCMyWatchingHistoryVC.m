@@ -7,6 +7,8 @@
 //
 
 #import "SCMyWatchingHistoryVC.h"
+#import "SCWatchingHistoryCell.h"
+
 #import "SCProgramListCell.h"
 #import "SCFilmModel.h"
 
@@ -214,7 +216,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCProgramListCell *cell = [SCProgramListCell cellWithTableView:tableView];
+    SCWatchingHistoryCell *cell = [SCWatchingHistoryCell cellWithTableView:tableView];
     cell.filmModel = _dataArray[indexPath.row];
     return cell;
 }
