@@ -4,17 +4,21 @@
 //
 //  Created by yesdgq on 16/10/14.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  我的节目单控制器
 
 #import "SCMyProgramListVC.h"
 #import "SCProgramListCell.h"
-
+#import "SCFilmModel.h"
 
 @interface SCMyProgramListVC () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UIButton *editBtn;/** 编辑按钮 */
 @property (nonatomic, strong) UITableView *listView;
-@property (nonatomic, copy) NSArray *dataArray;
+@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) UIView *bottomBtnView;
+@property (nonatomic, strong) UIButton *selectAllBtn;/** 全选按钮 */
+@property (nonatomic, assign) BOOL isEditing;/** 标记是否正在编辑 */
+@property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;/** 标记是否被全部选中 */
 
 @end
 
@@ -23,9 +27,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //self.automaticallyAdjustsScrollViewInsets = NO;
+    self.dataArray = [NSMutableArray arrayWithCapacity:0];
+    for (int i = 0; i<5; i++) {
+        SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+        
+        
+        [_dataArray addObject:filmModel];
+    }
+    
+    
+    
+    
+    //1.初始化
+    _isEditing = NO;
+    
+    //2.加载分视图
     [self addRightBBI];
     [self setTableView];
-    [self setBOttomView];
+    [self setBOttomBtnView];
     
 }
 
@@ -36,8 +55,8 @@
 
 
 #pragma mark - Private Method
-- (void)setBOttomView{
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight-60, kMainScreenWidth, 60)];
+- (void)setBOttomBtnView{
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, 60)];
     bottomView.backgroundColor = [UIColor whiteColor];
     [bottomView.layer setBorderWidth:1.f];
     [bottomView.layer setBorderColor:[UIColor grayColor].CGColor];
@@ -50,8 +69,14 @@
         make.center.mas_equalTo(bottomView);
         make.size.mas_equalTo(CGSizeMake(1, 60));
     }];
+    
     //全选按钮
     UIButton *selectAllBtn = [[UIButton alloc] init];
+    [selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
+    selectAllBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
+    _selectAllBtn = selectAllBtn;
+    [selectAllBtn addTarget:self action:@selector(selcetAll) forControlEvents:UIControlEventTouchUpInside];
+    [selectAllBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [bottomView addSubview:selectAllBtn];
     [selectAllBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(bottomView.mas_top);
@@ -60,8 +85,13 @@
         make.right.equalTo(separateLine);
         
     }];
+    
     //删除按钮
     UIButton *deleteAllBtn = [[UIButton alloc] init];
+    [deleteAllBtn setTitle:@"删除" forState:UIControlStateNormal];
+    deleteAllBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
+    [deleteAllBtn addTarget:self action:@selector(deleteAll) forControlEvents:UIControlEventTouchUpInside];
+    [deleteAllBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [bottomView addSubview:deleteAllBtn];
     [deleteAllBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(bottomView.mas_top);
@@ -70,9 +100,35 @@
         make.right.equalTo(bottomView.mas_right);
     }];
     
-    
+    _bottomBtnView = bottomView;
     [self.view addSubview:bottomView];
 
+}
+
+- (void)selcetAll{
+    if (!self.isSelectAll) {
+        _selectAll = YES;
+        [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
+        [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            SCFilmModel *filmModel = obj;
+            filmModel.selected = YES;
+        }];
+    }else{
+        _selectAll = NO;
+        [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
+        [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            SCFilmModel *filmModel = obj;
+            filmModel.selected = NO;
+        }];
+    }
+    [_listView reloadData];
+    
+}
+
+- (void)deleteAll{
+    
+
+    
 }
 
 - (void)setTableView{
@@ -109,16 +165,36 @@
 }
 
 - (void)doEditingAction{
-    if (_editBtn.selected == NO) {
+    if (_editBtn.selected == NO) {//正在编辑
+        _isEditing = YES;
         _editBtn.selected = YES;
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
-        [_listView setEditing:YES];
+        //[_listView setEditing:YES];
+        [UIView animateWithDuration:0.3f animations:^{
+            [_bottomBtnView setFrame:(CGRect){0, kMainScreenHeight-60, kMainScreenWidth, 60}];
+        }];
         
-    }else if (_editBtn.selected != NO){
+        [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            SCFilmModel *filmModel = obj;
+            filmModel.showDeleteBtn = YES;
+        }];
+        [_listView reloadData];
+        
+        
+    }else if (_editBtn.selected != NO){//完成编辑
+        _isEditing = NO;
         _editBtn.selected = NO;
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        [_listView setEditing:NO];
-                NSLog(@">>>>>>>>>>完成编辑>>>>>>>>>>>>");
+        //[_listView setEditing:NO];
+        [UIView animateWithDuration:0.3f animations:^{
+            [_bottomBtnView setFrame:(CGRect){0, kMainScreenHeight, kMainScreenWidth, 60}];
+        }];
+
+        [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            SCFilmModel *filmModel = obj;
+            filmModel.showDeleteBtn = NO;
+        }];
+         [_listView reloadData];
     }
     
 }
@@ -131,13 +207,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return _dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCProgramListCell *cell = [SCProgramListCell cellWithTableView:tableView];
-    
+    cell.filmModel = _dataArray[indexPath.row];
     return cell;
 }
 
@@ -182,7 +258,23 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
+    
+    if (_isEditing) {//处在编辑状态
+        SCFilmModel *filmModel = _dataArray[indexPath.row];
+        SCProgramListCell *cell = (SCProgramListCell *)[tableView cellForRowAtIndexPath:indexPath];
+        if (filmModel.isSelecting) {
+            filmModel.selected = NO;
+            //从数据库删除
+            
+        }else{
+            filmModel.selected = YES;
+            //添加到数据库
+            
 
-
+        }
+        cell.filmModel = filmModel;
+    }
+}
 
 @end

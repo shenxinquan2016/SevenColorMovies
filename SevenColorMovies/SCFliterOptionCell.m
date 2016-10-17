@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *optionLabel;
 
+
 @end
 
 @implementation SCFliterOptionCell

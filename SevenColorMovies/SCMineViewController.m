@@ -118,6 +118,7 @@
                 SCMyProgramListVC *programListVC = [[SCMyProgramListVC alloc] initWithWithTitle:@"我的节目单"];
                 [programListVC setHidesBottomBarWhenPushed:YES];
                 [self.navigationController pushViewController:programListVC animated:YES];
+                
                 break;
             }
                 

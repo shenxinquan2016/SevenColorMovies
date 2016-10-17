@@ -76,7 +76,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -227,7 +226,6 @@
         
         [navController popToRootViewControllerAnimated:YES];
     }
-    
     
     //方案二时使用
     

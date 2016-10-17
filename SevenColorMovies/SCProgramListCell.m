@@ -8,11 +8,16 @@
 
 #import "SCProgramListCell.h"
 
+@interface SCProgramListCell ()
+
+
+@end
+
 @implementation SCProgramListCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.deleteBtn.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -38,6 +43,23 @@
     }
     return self;
 }
+
+- (void)setFilmModel:(SCFilmModel *)filmModel{
+    if (filmModel.isShowDeleteBtn) {
+        _deleteBtn.hidden = NO;
+    
+        if (filmModel.isSelecting) {
+            [_deleteBtn setImage:[UIImage imageNamed:@"OK"]];
+        }else{
+            [_deleteBtn setImage:[UIImage imageNamed:@"RemoteControl"]];
+            
+        }
+
+    }else{
+        _deleteBtn.hidden = YES;
+    }
+    
+    }
 
 
 @end

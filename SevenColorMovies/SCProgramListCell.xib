@@ -17,7 +17,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4bv-zB-4BW">
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OK" translatesAutoresizingMaskIntoConstraints="NO" id="M68-c6-VYU">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RemoteControl" translatesAutoresizingMaskIntoConstraints="NO" id="M68-c6-VYU">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="dpx-kN-CZw"/>
                                     <constraint firstAttribute="width" constant="21" id="tz3-1Z-Woh"/>
@@ -49,10 +49,13 @@
                     <constraint firstItem="IAb-kO-rE0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="rvh-IS-Sgj"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="deleteBtn" destination="M68-c6-VYU" id="gSp-Zr-jAb"/>
+            </connections>
             <point key="canvasLocation" x="-309" y="72"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="OK" width="96" height="96"/>
+        <image name="RemoteControl" width="19" height="19"/>
     </resources>
 </document>

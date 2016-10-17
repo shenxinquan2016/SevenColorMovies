@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCFilmModel.h"
 
 @interface SCProgramListCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *deleteBtn;
+@property (nonatomic, strong) SCFilmModel *filmModel;
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end
