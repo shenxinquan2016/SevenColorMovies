@@ -11,8 +11,8 @@
 #import "PlayerViewRotate.h"//横竖屏强制转换
 #import "SCRotatoUtil.h"
 #import "SCVideoLoadingView.h"
-
-
+#import "SCChannelCategoryVC.h"
+#import "SCFilterViewController.h"
 
 @interface IJKVideoPlayerVC ()
 
@@ -77,6 +77,10 @@
     [super viewWillAppear:animated];
     
     
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -203,13 +207,25 @@
         
         // 取出当前的导航控制器
         UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-        // The view controller associated with the currently selected tab item
         // 当前选择的导航控制器
         UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+       
+        //pop到指定页面
+        for (UIViewController* controller in navController.viewControllers) {
+             DONG_Log(@"controller:%@",[controller class]);
+            if ([controller isKindOfClass:[SCFilterViewController class]]) {
+                
+                [navController popToViewController:controller animated:YES];
+                return;
+                
+            }else if ([controller isKindOfClass:[SCChannelCategoryVC class]]){
+                
+                [navController popToViewController:controller animated:YES];
+                return;
+            }
+        }
         
-        [navController popViewControllerAnimated:YES];
-        [navController dismissViewControllerAnimated:YES completion:nil];//双保险
-        
+        [navController popToRootViewControllerAnimated:YES];
     }
     
     
@@ -253,7 +269,7 @@
         self.isFullScreen = NO;
         [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
         _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
-//                    [self prepareForSmallScreen];
+        //                    [self prepareForSmallScreen];
         //使用通知到该控制器的父视图中更改该控制器的视图
         [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
         

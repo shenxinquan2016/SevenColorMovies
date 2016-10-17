@@ -99,6 +99,8 @@
 		116E0F581DB0888C00E280C6 /* SCMyWatchingHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E0F571DB0888C00E280C6 /* SCMyWatchingHistoryVC.m */; };
 		116E0F5B1DB088BF00E280C6 /* SCMyCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E0F5A1DB088BF00E280C6 /* SCMyCollectionVC.m */; };
 		116E0F5E1DB0891D00E280C6 /* SCMyDownloadManagerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E0F5D1DB0891D00E280C6 /* SCMyDownloadManagerVC.m */; };
+		116E0F781DB0C03F00E280C6 /* SCProgramListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E0F761DB0C03F00E280C6 /* SCProgramListCell.m */; };
+		116E0F791DB0C03F00E280C6 /* SCProgramListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116E0F771DB0C03F00E280C6 /* SCProgramListCell.xib */; };
 		116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D561D4AFAF800B488EC /* SCBannerModel.m */; };
 		116E1D5E1D4B4E0200B488EC /* SCFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D5D1D4B4E0200B488EC /* SCFilterViewController.m */; };
 		116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */; };
@@ -337,6 +339,9 @@
 		116E0F5A1DB088BF00E280C6 /* SCMyCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMyCollectionVC.m; sourceTree = "<group>"; };
 		116E0F5C1DB0891D00E280C6 /* SCMyDownloadManagerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMyDownloadManagerVC.h; sourceTree = "<group>"; };
 		116E0F5D1DB0891D00E280C6 /* SCMyDownloadManagerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMyDownloadManagerVC.m; sourceTree = "<group>"; };
+		116E0F751DB0C03F00E280C6 /* SCProgramListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCProgramListCell.h; sourceTree = "<group>"; };
+		116E0F761DB0C03F00E280C6 /* SCProgramListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCProgramListCell.m; sourceTree = "<group>"; };
+		116E0F771DB0C03F00E280C6 /* SCProgramListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCProgramListCell.xib; sourceTree = "<group>"; };
 		116E1D551D4AFAF800B488EC /* SCBannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBannerModel.h; sourceTree = "<group>"; };
 		116E1D561D4AFAF800B488EC /* SCBannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBannerModel.m; sourceTree = "<group>"; };
 		116E1D5C1D4B4E0200B488EC /* SCFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilterViewController.h; sourceTree = "<group>"; };
@@ -736,27 +741,11 @@
 			name = MainBody;
 			sourceTree = "<group>";
 		};
-		113F8D951D3C705D00B12D39 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				116E0F531DB0872E00E280C6 /* SCMyProgramListVC.h */,
-				116E0F541DB0872E00E280C6 /* SCMyProgramListVC.m */,
-				116E0F561DB0888C00E280C6 /* SCMyWatchingHistoryVC.h */,
-				116E0F571DB0888C00E280C6 /* SCMyWatchingHistoryVC.m */,
-				116E0F591DB088BF00E280C6 /* SCMyCollectionVC.h */,
-				116E0F5A1DB088BF00E280C6 /* SCMyCollectionVC.m */,
-				116E0F5C1DB0891D00E280C6 /* SCMyDownloadManagerVC.h */,
-				116E0F5D1DB0891D00E280C6 /* SCMyDownloadManagerVC.m */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
 		113F8D961D3C706300B12D39 /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
-				113F8D8B1D3C6FFB00B12D39 /* SCMineViewController.h */,
-				113F8D8C1D3C6FFB00B12D39 /* SCMineViewController.m */,
-				11458E9E1D45FEB600EBD16D /* Cell */,
+				116E0F731DB0BA9600E280C6 /* Controller */,
+				116E0F741DB0BAC100E280C6 /* View */,
 			);
 			name = MainBody;
 			sourceTree = "<group>";
@@ -776,19 +765,6 @@
 				11458E941D45E0D500EBD16D /* SCDiscoveryTableViewCell.h */,
 				11458E951D45E0D500EBD16D /* SCDiscoveryTableViewCell.m */,
 				11458E961D45E0D500EBD16D /* SCDiscoveryTableViewCell.xib */,
-			);
-			name = Cell;
-			sourceTree = "<group>";
-		};
-		11458E9E1D45FEB600EBD16D /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				11458E9F1D45FEE200EBD16D /* SCMineTopCell.h */,
-				11458EA01D45FEE200EBD16D /* SCMineTopCell.m */,
-				11458EA11D45FEE200EBD16D /* SCMineTopCell.xib */,
-				11458EA41D45FF2D00EBD16D /* SCMineOtherCell.h */,
-				11458EA51D45FF2D00EBD16D /* SCMineOtherCell.m */,
-				11458EA61D45FF2D00EBD16D /* SCMineOtherCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -1013,6 +989,145 @@
 				116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		116E0F5F1DB0B6F900E280C6 /* ProgramList */ = {
+			isa = PBXGroup;
+			children = (
+				116E0F6C1DB0B8BD00E280C6 /* Controller */,
+				116E0F6B1DB0B8B200E280C6 /* View */,
+			);
+			name = ProgramList;
+			sourceTree = "<group>";
+		};
+		116E0F611DB0B72E00E280C6 /* WatchingHistory */ = {
+			isa = PBXGroup;
+			children = (
+				116E0F6E1DB0B92000E280C6 /* Controller */,
+				116E0F6D1DB0B91900E280C6 /* View */,
+			);
+			name = WatchingHistory;
+			sourceTree = "<group>";
+		};
+		116E0F631DB0B77B00E280C6 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				116E0F701DB0B94400E280C6 /* Controller */,
+				116E0F6F1DB0B93C00E280C6 /* View */,
+			);
+			name = Collection;
+			sourceTree = "<group>";
+		};
+		116E0F651DB0B7A600E280C6 /* DownLoadManager */ = {
+			isa = PBXGroup;
+			children = (
+				116E0F721DB0B96000E280C6 /* Controller */,
+				116E0F711DB0B95900E280C6 /* View */,
+			);
+			name = DownLoadManager;
+			sourceTree = "<group>";
+		};
+		116E0F671DB0B7D200E280C6 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		116E0F681DB0B7DE00E280C6 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		116E0F6B1DB0B8B200E280C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				116E0F751DB0C03F00E280C6 /* SCProgramListCell.h */,
+				116E0F761DB0C03F00E280C6 /* SCProgramListCell.m */,
+				116E0F771DB0C03F00E280C6 /* SCProgramListCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		116E0F6C1DB0B8BD00E280C6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				116E0F531DB0872E00E280C6 /* SCMyProgramListVC.h */,
+				116E0F541DB0872E00E280C6 /* SCMyProgramListVC.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		116E0F6D1DB0B91900E280C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		116E0F6E1DB0B92000E280C6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				116E0F561DB0888C00E280C6 /* SCMyWatchingHistoryVC.h */,
+				116E0F571DB0888C00E280C6 /* SCMyWatchingHistoryVC.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		116E0F6F1DB0B93C00E280C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		116E0F701DB0B94400E280C6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				116E0F591DB088BF00E280C6 /* SCMyCollectionVC.h */,
+				116E0F5A1DB088BF00E280C6 /* SCMyCollectionVC.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		116E0F711DB0B95900E280C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		116E0F721DB0B96000E280C6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				116E0F5C1DB0891D00E280C6 /* SCMyDownloadManagerVC.h */,
+				116E0F5D1DB0891D00E280C6 /* SCMyDownloadManagerVC.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		116E0F731DB0BA9600E280C6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				113F8D8B1D3C6FFB00B12D39 /* SCMineViewController.h */,
+				113F8D8C1D3C6FFB00B12D39 /* SCMineViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		116E0F741DB0BAC100E280C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				11458E9F1D45FEE200EBD16D /* SCMineTopCell.h */,
+				11458EA01D45FEE200EBD16D /* SCMineTopCell.m */,
+				11458EA11D45FEE200EBD16D /* SCMineTopCell.xib */,
+				11458EA41D45FF2D00EBD16D /* SCMineOtherCell.h */,
+				11458EA51D45FF2D00EBD16D /* SCMineOtherCell.m */,
+				11458EA61D45FF2D00EBD16D /* SCMineOtherCell.xib */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		116E1D541D4AFADA00B488EC /* Model */ = {
@@ -1293,7 +1408,12 @@
 			isa = PBXGroup;
 			children = (
 				113F8D961D3C706300B12D39 /* MainBody */,
-				113F8D951D3C705D00B12D39 /* View */,
+				116E0F5F1DB0B6F900E280C6 /* ProgramList */,
+				116E0F611DB0B72E00E280C6 /* WatchingHistory */,
+				116E0F631DB0B77B00E280C6 /* Collection */,
+				116E0F651DB0B7A600E280C6 /* DownLoadManager */,
+				116E0F671DB0B7D200E280C6 /* Message */,
+				116E0F681DB0B7DE00E280C6 /* Setting */,
 			);
 			name = Mine;
 			sourceTree = "<group>";
@@ -1740,6 +1860,7 @@
 				11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */,
 				11BB37D21D38E5C90002D487 /* News.storyboard in Resources */,
 				11BB37C81D38E3A00002D487 /* devEnvironment.plist in Resources */,
+				116E0F791DB0C03F00E280C6 /* SCProgramListCell.xib in Resources */,
 				1187027D1D740A57005B3895 /* SCVideoLoadingView.xib in Resources */,
 				1131C0E11D6705CD00BA151A /* IJKVideoPlayerVC.xib in Resources */,
 				1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */,
@@ -1831,6 +1952,7 @@
 				116475F91D4098EF00A3BC1C /* SCPastVideoTableViewCell.m in Sources */,
 				1111A41F1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m in Sources */,
 				11051ED91D6D9FED00E920C1 /* SCLiveProgramModel.m in Sources */,
+				116E0F781DB0C03F00E280C6 /* SCProgramListCell.m in Sources */,
 				11F9E2891D6D7503006326F3 /* SCLivePlayerVC.m in Sources */,
 				11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */,
 				1131C0D91D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m in Sources */,

@@ -166,22 +166,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     DONG_Log(@"======点击===%@==%@",model.cnname,model.mtype);
     
     teleplayPlayer.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:teleplayPlayer animated:YES];
-    
-    
-        [self presentViewController:teleplayPlayer animated:YES completion:^{
-            [[self respondController].navigationController popViewControllerAnimated:NO];
-    
-    
-        }];
-    
-    // 取出当前的导航控制器
-//    UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-//    // The view controller associated with the currently selected tab item
-//    // 当前选择的导航控制器
-//    UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
-//    [navController popViewControllerAnimated:NO];
-    
+    [self.navigationController pushViewController:teleplayPlayer animated:YES];
     
 }
 

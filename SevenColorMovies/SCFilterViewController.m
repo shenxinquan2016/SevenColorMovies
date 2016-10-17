@@ -57,6 +57,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     [self loadCollectionView];
     //6.进入页面先请求全局筛选数据一次
     [self requestFilterDataWithTypeAndAreaAndTimeAndPage:1];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -72,6 +73,10 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc{
+    
 }
 
 #pragma mark- private methods
