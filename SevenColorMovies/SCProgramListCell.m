@@ -31,6 +31,7 @@
     static NSString *ID = @"SCProgramListCell";
     SCProgramListCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
     return cell;
 }
@@ -59,7 +60,7 @@
         _deleteBtn.hidden = YES;
     }
     
-    }
+}
 
 
 @end

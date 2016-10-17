@@ -28,10 +28,10 @@
     [super viewDidLoad];
     //self.automaticallyAdjustsScrollViewInsets = NO;
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
+    
+    //假数据
     for (int i = 0; i<5; i++) {
         SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-        
-        
         [_dataArray addObject:filmModel];
     }
     
@@ -44,7 +44,7 @@
     //2.加载分视图
     [self addRightBBI];
     [self setTableView];
-    [self setBOttomBtnView];
+    [self setBottomBtnView];
     
 }
 
@@ -55,7 +55,8 @@
 
 
 #pragma mark - Private Method
-- (void)setBOttomBtnView{
+//全选 || 删除 按钮视图
+- (void)setBottomBtnView{
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, 60)];
     bottomView.backgroundColor = [UIColor whiteColor];
     [bottomView.layer setBorderWidth:1.f];
@@ -109,6 +110,7 @@
     if (!self.isSelectAll) {
         _selectAll = YES;
         [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
+        //遍历model以更改cell视图
         [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             SCFilmModel *filmModel = obj;
             filmModel.selected = YES;
@@ -170,7 +172,7 @@
         _editBtn.selected = YES;
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
         //[_listView setEditing:YES];
-        [UIView animateWithDuration:0.3f animations:^{
+        [UIView animateWithDuration:0.2f animations:^{
             [_bottomBtnView setFrame:(CGRect){0, kMainScreenHeight-60, kMainScreenWidth, 60}];
         }];
         
@@ -186,7 +188,7 @@
         _editBtn.selected = NO;
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         //[_listView setEditing:NO];
-        [UIView animateWithDuration:0.3f animations:^{
+        [UIView animateWithDuration:0.2f animations:^{
             [_bottomBtnView setFrame:(CGRect){0, kMainScreenHeight, kMainScreenWidth, 60}];
         }];
 
@@ -265,11 +267,11 @@
         SCProgramListCell *cell = (SCProgramListCell *)[tableView cellForRowAtIndexPath:indexPath];
         if (filmModel.isSelecting) {
             filmModel.selected = NO;
-            //从数据库删除
+            //从临时数据中删除
             
         }else{
             filmModel.selected = YES;
-            //添加到数据库
+            //添加到临时数组中 待确定后从数据库中删除
             
 
         }
