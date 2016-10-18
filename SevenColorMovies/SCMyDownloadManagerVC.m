@@ -38,7 +38,6 @@
     
     
     
-    
     //1.初始化
     _isEditing = NO;
     
@@ -239,6 +238,21 @@
     return NULL;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        // 1.把model相应的数据删掉
+        [self.dataArray removeObjectAtIndex:indexPath.row];
+        
+        // 2.把view相应的cell删掉
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
+    
+    
+}
+
 #pragma mark - UITableView Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -255,21 +269,7 @@
     return 0;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        // 1.把model相应的数据删掉
-        [self.dataArray removeObjectAtIndex:indexPath.row];
-        
-        // 2.把view相应的cell删掉
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-    
-    
-    
-}
-
+//将delete改为删除
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return @"删除";
