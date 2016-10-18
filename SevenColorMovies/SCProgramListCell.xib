@@ -17,7 +17,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4bv-zB-4BW">
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RemoteControl" translatesAutoresizingMaskIntoConstraints="NO" id="M68-c6-VYU">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Unselected" translatesAutoresizingMaskIntoConstraints="NO" id="M68-c6-VYU">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="dpx-kN-CZw"/>
                                     <constraint firstAttribute="width" constant="21" id="tz3-1Z-Woh"/>
@@ -26,7 +26,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="M68-c6-VYU" secondAttribute="trailing" constant="12" id="XSF-sh-nrz"/>
+                            <constraint firstAttribute="trailing" secondItem="M68-c6-VYU" secondAttribute="trailing" constant="15" id="XSF-sh-nrz"/>
                             <constraint firstItem="M68-c6-VYU" firstAttribute="centerY" secondItem="4bv-zB-4BW" secondAttribute="centerY" id="fad-1F-tsI"/>
                         </constraints>
                     </view>
@@ -56,6 +56,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="RemoteControl" width="19" height="19"/>
+        <image name="Unselected" width="22" height="22"/>
     </resources>
 </document>

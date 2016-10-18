@@ -7,7 +7,7 @@
 //
 
 #import "SCMyDownloadManagerVC.h"
-#import "SCProgramListCell.h"
+#import "SCMyDownLoadManagerCell.h"
 #import "SCFilmModel.h"
 
 @interface SCMyDownloadManagerVC () <UITableViewDelegate, UITableViewDataSource>
@@ -214,7 +214,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCProgramListCell *cell = [SCProgramListCell cellWithTableView:tableView];
+    SCMyDownLoadManagerCell *cell = [SCMyDownLoadManagerCell cellWithTableView:tableView];
     cell.filmModel = _dataArray[indexPath.row];
     return cell;
 }
@@ -232,7 +232,7 @@
 #pragma mark - UITableView Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 80;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -250,7 +250,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         // 1.把model相应的数据删掉
-        // [self.members removeObjectAtIndex:indexPath.row];
+         [self.dataArray removeObjectAtIndex:indexPath.row];
         
         // 2.把view相应的cell删掉
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -260,11 +260,16 @@
     
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     
     if (_isEditing) {//处在编辑状态
         SCFilmModel *filmModel = _dataArray[indexPath.row];
-        SCProgramListCell *cell = (SCProgramListCell *)[tableView cellForRowAtIndexPath:indexPath];
+        SCMyDownLoadManagerCell *cell = (SCMyDownLoadManagerCell *)[tableView cellForRowAtIndexPath:indexPath];
         if (filmModel.isSelecting) {
             filmModel.selected = NO;
             //从临时数据中删除

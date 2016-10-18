@@ -44,6 +44,8 @@
 		1131C0E81D67081E00BA151A /* SCPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0E71D67081E00BA151A /* SCPlayerViewController.m */; };
 		11323E0A1DB5C4B80089A207 /* SCMyCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11323E081DB5C4B80089A207 /* SCMyCollectionCell.m */; };
 		11323E0B1DB5C4B80089A207 /* SCMyCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11323E091DB5C4B80089A207 /* SCMyCollectionCell.xib */; };
+		11323E0F1DB5CB650089A207 /* SCMyDownLoadManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11323E0D1DB5CB650089A207 /* SCMyDownLoadManagerCell.m */; };
+		11323E101DB5CB650089A207 /* SCMyDownLoadManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11323E0E1DB5CB650089A207 /* SCMyDownLoadManagerCell.xib */; };
 		113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 113E62E71D49F63100FB8F3A /* SCFilmModel.m */; };
 		113F6C801D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 113F6C7F1D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib */; };
 		113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */; };
@@ -256,6 +258,9 @@
 		11323E071DB5C4B80089A207 /* SCMyCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMyCollectionCell.h; sourceTree = "<group>"; };
 		11323E081DB5C4B80089A207 /* SCMyCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMyCollectionCell.m; sourceTree = "<group>"; };
 		11323E091DB5C4B80089A207 /* SCMyCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMyCollectionCell.xib; sourceTree = "<group>"; };
+		11323E0C1DB5CB650089A207 /* SCMyDownLoadManagerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMyDownLoadManagerCell.h; sourceTree = "<group>"; };
+		11323E0D1DB5CB650089A207 /* SCMyDownLoadManagerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMyDownLoadManagerCell.m; sourceTree = "<group>"; };
+		11323E0E1DB5CB650089A207 /* SCMyDownLoadManagerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMyDownLoadManagerCell.xib; sourceTree = "<group>"; };
 		113E62E61D49F63100FB8F3A /* SCFilmModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmModel.h; sourceTree = "<group>"; };
 		113E62E71D49F63100FB8F3A /* SCFilmModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmModel.m; sourceTree = "<group>"; };
 		113F6C7F1D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCCollectionViewPageArtsCell.xib; sourceTree = "<group>"; };
@@ -1111,6 +1116,9 @@
 		116E0F711DB0B95900E280C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				11323E0C1DB5CB650089A207 /* SCMyDownLoadManagerCell.h */,
+				11323E0D1DB5CB650089A207 /* SCMyDownLoadManagerCell.m */,
+				11323E0E1DB5CB650089A207 /* SCMyDownLoadManagerCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1875,6 +1883,7 @@
 				111827901D800CD3005921D6 /* SCFliterOptionView.xib in Resources */,
 				11BB37841D38B9A00002D487 /* Assets.xcassets in Resources */,
 				1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */,
+				11323E101DB5CB650089A207 /* SCMyDownLoadManagerCell.xib in Resources */,
 				11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */,
 				11BB37D21D38E5C90002D487 /* News.storyboard in Resources */,
 				11BB37C81D38E3A00002D487 /* devEnvironment.plist in Resources */,
@@ -2019,6 +2028,7 @@
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
 				116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */,
 				115CCDF41D796E8D0045ED5F /* UILabel+Addition.m in Sources */,
+				11323E0F1DB5CB650089A207 /* SCMyDownLoadManagerCell.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
 				1131C0E51D6707F400BA151A /* SCRotatoUtil.m in Sources */,

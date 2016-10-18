@@ -17,7 +17,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0oa-sF-PrT">
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RemoteControl" translatesAutoresizingMaskIntoConstraints="NO" id="wsz-pf-bsx">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Unselected" translatesAutoresizingMaskIntoConstraints="NO" id="wsz-pf-bsx">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="9PB-7q-SXE"/>
                                     <constraint firstAttribute="width" constant="21" id="Jtv-ku-uSd"/>
@@ -26,7 +26,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="wsz-pf-bsx" secondAttribute="trailing" constant="12" id="GpS-MF-riA"/>
+                            <constraint firstAttribute="trailing" secondItem="wsz-pf-bsx" secondAttribute="trailing" constant="15" id="GpS-MF-riA"/>
                             <constraint firstItem="wsz-pf-bsx" firstAttribute="centerY" secondItem="0oa-sF-PrT" secondAttribute="centerY" id="sg2-Ea-Iby"/>
                         </constraints>
                     </view>
@@ -83,6 +83,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="RemoteControl" width="19" height="19"/>
+        <image name="Unselected" width="22" height="22"/>
     </resources>
 </document>

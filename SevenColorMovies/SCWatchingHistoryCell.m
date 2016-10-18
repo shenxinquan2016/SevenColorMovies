@@ -45,9 +45,9 @@
         _deleteBtn.hidden = NO;
         
         if (filmModel.isSelecting) {
-            [_deleteBtn setImage:[UIImage imageNamed:@"OK"]];
+            [_deleteBtn setImage:[UIImage imageNamed:@"Select"]];
         }else{
-            [_deleteBtn setImage:[UIImage imageNamed:@"RemoteControl"]];
+            [_deleteBtn setImage:[UIImage imageNamed:@"Unselected"]];
             
         }
         

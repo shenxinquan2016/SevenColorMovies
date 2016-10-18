@@ -42,5 +42,6 @@
 
 @property (nonatomic, assign, getter = isShowDeleteBtn) BOOL showDeleteBtn;/** 是否显示删除按钮 */
 @property (nonatomic, assign, getter = isSelecting) BOOL selected;/** 是否正被点击 */
+@property (nonatomic,assign) BOOL isDownLoading;/** 是否正在下载 */
 
 @end

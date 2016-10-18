@@ -1,14 +1,20 @@
 //
-//  SCMyCollectionCell.m
+//  SCMyDownLoadManagerCell.m
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/10/18.
 //  Copyright © 2016年 yesdgq. All rights reserved.
 //
 
-#import "SCMyCollectionCell.h"
+#import "SCMyDownLoadManagerCell.h"
 
-@implementation SCMyCollectionCell
+@interface SCMyDownLoadManagerCell ()
+
+@property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;
+
+@end
+
+@implementation SCMyDownLoadManagerCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -23,8 +29,8 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {
     
-    static NSString *ID = @"SCMyCollectionCell";
-    SCMyCollectionCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    static NSString *ID = @"SCMyDownLoadManagerCell";
+    SCMyDownLoadManagerCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
@@ -43,7 +49,7 @@
 - (void)setFilmModel:(SCFilmModel *)filmModel{
     if (filmModel.isShowDeleteBtn) {
         _deleteBtn.hidden = NO;
-        
+        _downLoadBtn.hidden = YES;
         if (filmModel.isSelecting) {
             [_deleteBtn setImage:[UIImage imageNamed:@"Select"]];
         }else{
@@ -53,7 +59,29 @@
         
     }else{
         _deleteBtn.hidden = YES;
+        _downLoadBtn.hidden = NO;
+        
+        if (filmModel.isDownLoading) {
+            [_downLoadBtn setImage:[UIImage imageNamed:@"PauseDownload"] forState:UIControlStateNormal];
+        }else{
+            [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoadIMG"] forState:UIControlStateNormal];
+            
+        }
+        
     }
+}
+
+- (IBAction)startOrPauseDownLoad:(UIButton *)sender {
+    
+    _filmModel.isDownLoading = NO;
+    DONG_Log(@"_filmModel.isDownLoading:%d",_filmModel.isDownLoading);
+    
+//    _filmModel.isDownLoading = !_filmModel.isDownLoading;
+//    
+//    
+//    DONG_Log(@"_filmModel.isDownLoading:%d",_filmModel.isDownLoading);
+    
+    
 }
 
 @end
