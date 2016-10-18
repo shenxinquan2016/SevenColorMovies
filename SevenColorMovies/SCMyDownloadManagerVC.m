@@ -249,8 +249,6 @@
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
     
-    
-    
 }
 
 #pragma mark - UITableView Delegate
@@ -266,7 +264,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0;
+    return 60;
 }
 
 //将delete改为删除
