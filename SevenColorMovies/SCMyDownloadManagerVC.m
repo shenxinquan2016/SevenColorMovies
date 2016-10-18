@@ -31,7 +31,7 @@
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
     //假数据
-    for (int i = 0; i<5; i++) {
+    for (int i = 0; i<15; i++) {
         SCFilmModel *filmModel = [[SCFilmModel alloc] init];
         [_dataArray addObject:filmModel];
     }
@@ -183,7 +183,6 @@
         }];
         [_listView reloadData];
         
-        
     }else if (_editBtn.selected != NO){//完成编辑
         _isEditing = NO;
         _editBtn.selected = NO;
@@ -217,11 +216,16 @@
 {
     SCMyDownLoadManagerCell *cell = [SCMyDownLoadManagerCell cellWithTableView:tableView];
     SCFilmModel *filmModel =  _dataArray[indexPath.row];
-
-    cell.downloadBlock = ^{
-        filmModel.isDownLoading = !filmModel.isDownLoading;
-    };
     cell.filmModel = filmModel;
+    
+    //此处为点击cell的downloadBtn的block回调
+    DONG_WeakSelf(cell);
+    cell.downloadBlock = ^{
+        DONG_StrongSelf(cell);
+        filmModel.isDownLoading = !filmModel.isDownLoading;
+        strongcell.filmModel = filmModel;
+    };
+    
     return cell;
 }
 
