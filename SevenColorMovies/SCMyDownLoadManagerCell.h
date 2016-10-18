@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "SCFilmModel.h"
 
+typedef void(^DownloadBlock)(void);
+
 @interface SCMyDownLoadManagerCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *deleteBtn;
 @property (nonatomic, strong) SCFilmModel *filmModel;
+@property (nonatomic, copy) DownloadBlock downloadBlock;
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end

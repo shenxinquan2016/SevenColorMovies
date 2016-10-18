@@ -10,6 +10,7 @@
 #import "SCMyDownLoadManagerCell.h"
 #import "SCFilmModel.h"
 
+
 @interface SCMyDownloadManagerVC () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UIButton *editBtn;/** 编辑按钮 */
@@ -215,7 +216,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCMyDownLoadManagerCell *cell = [SCMyDownLoadManagerCell cellWithTableView:tableView];
-    cell.filmModel = _dataArray[indexPath.row];
+    SCFilmModel *filmModel =  _dataArray[indexPath.row];
+
+    cell.downloadBlock = ^{
+        filmModel.isDownLoading = !filmModel.isDownLoading;
+    };
+    cell.filmModel = filmModel;
     return cell;
 }
 
@@ -250,7 +256,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         // 1.把model相应的数据删掉
-         [self.dataArray removeObjectAtIndex:indexPath.row];
+        [self.dataArray removeObjectAtIndex:indexPath.row];
         
         // 2.把view相应的cell删掉
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -269,7 +275,11 @@
     
     if (_isEditing) {//处在编辑状态
         SCFilmModel *filmModel = _dataArray[indexPath.row];
+        
         SCMyDownLoadManagerCell *cell = (SCMyDownLoadManagerCell *)[tableView cellForRowAtIndexPath:indexPath];
+        
+        
+        
         if (filmModel.isSelecting) {
             filmModel.selected = NO;
             //从临时数据中删除

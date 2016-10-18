@@ -72,9 +72,13 @@
 }
 
 - (IBAction)startOrPauseDownLoad:(UIButton *)sender {
+    if (self.downloadBlock) {
+        self.downloadBlock();
+
+    }
     
-    _filmModel.isDownLoading = NO;
-    DONG_Log(@"_filmModel.isDownLoading:%d",_filmModel.isDownLoading);
+//    self.filmModel.isDownLoading = YES;
+//    DONG_Log(@"_filmModel.isDownLoading:%d",self.filmModel.isDownLoading);
     
 //    _filmModel.isDownLoading = !_filmModel.isDownLoading;
 //    
