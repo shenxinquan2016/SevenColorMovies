@@ -42,9 +42,9 @@
                 <constraints>
                     <constraint firstItem="IAb-kO-rE0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="62I-F3-PRB"/>
                     <constraint firstAttribute="trailing" secondItem="IAb-kO-rE0" secondAttribute="trailing" constant="50" id="H8u-n4-Esb"/>
-                    <constraint firstItem="4bv-zB-4BW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="IxU-H6-4D7"/>
+                    <constraint firstItem="4bv-zB-4BW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="IxU-H6-4D7"/>
                     <constraint firstItem="4bv-zB-4BW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="UPy-FD-6ZQ"/>
-                    <constraint firstAttribute="bottom" secondItem="4bv-zB-4BW" secondAttribute="bottom" constant="5" id="agT-ac-bjw"/>
+                    <constraint firstAttribute="bottom" secondItem="4bv-zB-4BW" secondAttribute="bottom" constant="3" id="agT-ac-bjw"/>
                     <constraint firstAttribute="trailing" secondItem="4bv-zB-4BW" secondAttribute="trailing" id="fBf-dp-bXJ"/>
                     <constraint firstItem="IAb-kO-rE0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="rvh-IS-Sgj"/>
                 </constraints>

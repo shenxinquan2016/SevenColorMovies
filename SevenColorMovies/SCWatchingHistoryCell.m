@@ -54,7 +54,6 @@
     }else{
         _deleteBtn.hidden = YES;
     }
-    
 }
 
 

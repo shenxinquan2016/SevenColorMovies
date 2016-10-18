@@ -8,51 +8,78 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="76" id="KGk-i7-Jjw" customClass="SCWatchingHistoryCell">
-            <rect key="frame" x="0.0" y="0.0" width="355" height="76"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="68" id="KGk-i7-Jjw" customClass="SCWatchingHistoryCell">
+            <rect key="frame" x="0.0" y="0.0" width="355" height="68"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="355" height="75"/>
+                <frame key="frameInset" width="355" height="67"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0oa-sF-PrT">
-                        <frame key="frameInset" minY="5" width="355" height="65"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0oa-sF-PrT">
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="胭脂" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tP8-IW-6dd">
-                                <frame key="frameInset" minX="10" minY="12" width="222" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="已播放00：00：09" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rjw-Uz-GR8">
-                                <frame key="frameInset" minX="10" minY="47" width="150" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RemoteControl" translatesAutoresizingMaskIntoConstraints="NO" id="wsz-pf-bsx">
-                                <frame key="frameInset" minX="322" minY="22.5" width="21" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RemoteControl" translatesAutoresizingMaskIntoConstraints="NO" id="wsz-pf-bsx">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="9PB-7q-SXE"/>
+                                    <constraint firstAttribute="width" constant="21" id="Jtv-ku-uSd"/>
+                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="第16集" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45r-aP-Wkn">
-                                <frame key="frameInset" minX="86.12%" minY="27.27%" width="74" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="wsz-pf-bsx" secondAttribute="trailing" constant="12" id="GpS-MF-riA"/>
+                            <constraint firstItem="wsz-pf-bsx" firstAttribute="centerY" secondItem="0oa-sF-PrT" secondAttribute="centerY" id="sg2-Ea-Iby"/>
+                        </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="胭脂" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tP8-IW-6dd">
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="222" id="4Ud-9a-a81"/>
+                            <constraint firstAttribute="height" constant="21" id="B8z-rA-OZg"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已播放00:00:09" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rjw-Uz-GR8">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="Ord-1Z-BTh"/>
+                            <constraint firstAttribute="height" constant="14" id="lho-k5-G8H"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第16集" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45r-aP-Wkn">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Nmz-FC-O89"/>
+                            <constraint firstAttribute="width" constant="64" id="cc1-LQ-Yr5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="0oa-sF-PrT" secondAttribute="trailing" id="6Bs-wz-S4H"/>
+                    <constraint firstAttribute="bottom" secondItem="Rjw-Uz-GR8" secondAttribute="bottom" constant="5" id="7hv-oF-EJI"/>
+                    <constraint firstItem="45r-aP-Wkn" firstAttribute="centerY" secondItem="tP8-IW-6dd" secondAttribute="centerY" id="8x4-TV-aRy"/>
+                    <constraint firstItem="0oa-sF-PrT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Cxy-pt-9BM"/>
+                    <constraint firstItem="0oa-sF-PrT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="DY8-K1-8br"/>
+                    <constraint firstItem="Rjw-Uz-GR8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="O9u-Rp-5fr"/>
+                    <constraint firstAttribute="bottom" secondItem="0oa-sF-PrT" secondAttribute="bottom" constant="3" id="PF8-h5-vjR"/>
+                    <constraint firstItem="0oa-sF-PrT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="W9c-M6-duJ"/>
+                    <constraint firstItem="0oa-sF-PrT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="b2g-Wf-7vS"/>
+                    <constraint firstItem="tP8-IW-6dd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="bm1-1b-QHr"/>
+                    <constraint firstItem="45r-aP-Wkn" firstAttribute="leading" secondItem="tP8-IW-6dd" secondAttribute="trailing" constant="10" id="bnF-W9-o8U"/>
+                    <constraint firstAttribute="bottom" secondItem="0oa-sF-PrT" secondAttribute="bottom" constant="3" id="kO9-Rv-Pyc"/>
+                    <constraint firstItem="0oa-sF-PrT" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nOS-PI-lKA"/>
+                    <constraint firstAttribute="trailing" secondItem="0oa-sF-PrT" secondAttribute="trailing" id="q9q-8y-F1K"/>
+                    <constraint firstItem="tP8-IW-6dd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="y9h-aS-8bT"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="deleteBtn" destination="wsz-pf-bsx" id="mdr-9V-uaU"/>
             </connections>
-            <point key="canvasLocation" x="-8.5" y="81"/>
+            <point key="canvasLocation" x="-8.5" y="77"/>
         </tableViewCell>
     </objects>
     <resources>
