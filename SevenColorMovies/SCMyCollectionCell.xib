@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="SCMyCollectionCell" selectionStyle="default" indentationWidth="10" rowHeight="68" id="Wqz-MG-K7i" customClass="SCMyCollectionCell">
+            <rect key="frame" x="0.0" y="0.0" width="355" height="68"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wqz-MG-K7i" id="d73-PL-oFb">
+                <frame key="frameInset" width="355" height="67"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nag-S1-Duz">
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RemoteControl" translatesAutoresizingMaskIntoConstraints="NO" id="Mb9-CP-amv">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="TJj-Ra-pvH"/>
+                                    <constraint firstAttribute="width" constant="21" id="iOt-1h-g2s"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Mb9-CP-amv" secondAttribute="trailing" constant="12" id="8qq-sE-AhZ"/>
+                            <constraint firstItem="Mb9-CP-amv" firstAttribute="centerY" secondItem="nag-S1-Duz" secondAttribute="centerY" id="dv2-sn-Fob"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="胭脂" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTe-AO-MR1">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="EQY-UY-SQJ"/>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="xHF-KF-g7t"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第16集" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gpb-rF-RwM">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="A5r-2D-DwX"/>
+                            <constraint firstAttribute="width" constant="64" id="XsX-Hc-hV4"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="uTe-AO-MR1" firstAttribute="leading" secondItem="d73-PL-oFb" secondAttribute="leading" constant="15" id="6ZU-ri-ZQr"/>
+                    <constraint firstItem="Gpb-rF-RwM" firstAttribute="leading" secondItem="uTe-AO-MR1" secondAttribute="trailing" constant="10" id="9np-OR-YSb"/>
+                    <constraint firstItem="nag-S1-Duz" firstAttribute="leading" secondItem="d73-PL-oFb" secondAttribute="leading" id="Trx-5a-lvW"/>
+                    <constraint firstItem="uTe-AO-MR1" firstAttribute="centerY" secondItem="nag-S1-Duz" secondAttribute="centerY" id="VoF-yK-UnK"/>
+                    <constraint firstItem="nag-S1-Duz" firstAttribute="top" secondItem="d73-PL-oFb" secondAttribute="top" constant="3" id="W6m-Ni-ePg"/>
+                    <constraint firstItem="nag-S1-Duz" firstAttribute="leading" secondItem="d73-PL-oFb" secondAttribute="leading" id="azg-qb-0ao"/>
+                    <constraint firstAttribute="trailing" secondItem="nag-S1-Duz" secondAttribute="trailing" id="bV7-AR-qFr"/>
+                    <constraint firstAttribute="trailing" secondItem="nag-S1-Duz" secondAttribute="trailing" id="fBC-ID-rig"/>
+                    <constraint firstAttribute="bottom" secondItem="nag-S1-Duz" secondAttribute="bottom" constant="3" id="gXe-VX-3sS"/>
+                    <constraint firstItem="nag-S1-Duz" firstAttribute="centerY" secondItem="d73-PL-oFb" secondAttribute="centerY" id="n2h-LC-Onc"/>
+                    <constraint firstItem="Gpb-rF-RwM" firstAttribute="centerY" secondItem="uTe-AO-MR1" secondAttribute="centerY" id="pTS-HT-RCZ"/>
+                    <constraint firstAttribute="bottom" secondItem="nag-S1-Duz" secondAttribute="bottom" constant="3" id="pxo-YV-UYd"/>
+                    <constraint firstItem="nag-S1-Duz" firstAttribute="top" secondItem="d73-PL-oFb" secondAttribute="top" constant="3" id="s1l-Ln-MUQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="deleteBtn" destination="Mb9-CP-amv" id="h84-zW-qAN"/>
+            </connections>
+            <point key="canvasLocation" x="-8.5" y="77"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="RemoteControl" width="19" height="19"/>
+    </resources>
+</document>

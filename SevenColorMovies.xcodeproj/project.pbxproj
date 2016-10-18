@@ -42,6 +42,8 @@
 		1131C0E11D6705CD00BA151A /* IJKVideoPlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */; };
 		1131C0E51D6707F400BA151A /* SCRotatoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0E41D6707F400BA151A /* SCRotatoUtil.m */; };
 		1131C0E81D67081E00BA151A /* SCPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0E71D67081E00BA151A /* SCPlayerViewController.m */; };
+		11323E0A1DB5C4B80089A207 /* SCMyCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11323E081DB5C4B80089A207 /* SCMyCollectionCell.m */; };
+		11323E0B1DB5C4B80089A207 /* SCMyCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11323E091DB5C4B80089A207 /* SCMyCollectionCell.xib */; };
 		113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 113E62E71D49F63100FB8F3A /* SCFilmModel.m */; };
 		113F6C801D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 113F6C7F1D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib */; };
 		113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */; };
@@ -251,6 +253,9 @@
 		1131C0E61D67081E00BA151A /* SCPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPlayerViewController.h; sourceTree = "<group>"; };
 		1131C0E71D67081E00BA151A /* SCPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPlayerViewController.m; sourceTree = "<group>"; };
 		1131C0E91D670B7000BA151A /* NotificationMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationMacro.h; sourceTree = "<group>"; };
+		11323E071DB5C4B80089A207 /* SCMyCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMyCollectionCell.h; sourceTree = "<group>"; };
+		11323E081DB5C4B80089A207 /* SCMyCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMyCollectionCell.m; sourceTree = "<group>"; };
+		11323E091DB5C4B80089A207 /* SCMyCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMyCollectionCell.xib; sourceTree = "<group>"; };
 		113E62E61D49F63100FB8F3A /* SCFilmModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmModel.h; sourceTree = "<group>"; };
 		113E62E71D49F63100FB8F3A /* SCFilmModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmModel.m; sourceTree = "<group>"; };
 		113F6C7F1D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCCollectionViewPageArtsCell.xib; sourceTree = "<group>"; };
@@ -1087,6 +1092,9 @@
 		116E0F6F1DB0B93C00E280C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				11323E071DB5C4B80089A207 /* SCMyCollectionCell.h */,
+				11323E081DB5C4B80089A207 /* SCMyCollectionCell.m */,
+				11323E091DB5C4B80089A207 /* SCMyCollectionCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1859,6 +1867,7 @@
 				11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */,
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */,
+				11323E0B1DB5C4B80089A207 /* SCMyCollectionCell.xib in Resources */,
 				11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */,
 				11D4225C1D49A8EC00B4F9AE /* SCLoadingView.xib in Resources */,
 				11C8CFBC1D45157B00C04F38 /* SCCollectionViewPageCell.xib in Resources */,
@@ -1980,6 +1989,7 @@
 				114AE1A11D81100F00BED623 /* SCFilterOptionTabModel.m in Sources */,
 				11EB4A671DB4D5EB0032F2C4 /* SCWatchingHistoryCell.m in Sources */,
 				11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */,
+				11323E0A1DB5C4B80089A207 /* SCMyCollectionCell.m in Sources */,
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
 				114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */,
 				1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */,

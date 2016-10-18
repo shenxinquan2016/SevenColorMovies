@@ -7,7 +7,7 @@
 //
 
 #import "SCMyCollectionVC.h"
-#import "SCProgramListCell.h"
+#import "SCMyCollectionCell.h"
 #import "SCFilmModel.h"
 
 @interface SCMyCollectionVC () <UITableViewDelegate, UITableViewDataSource>
@@ -214,7 +214,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCProgramListCell *cell = [SCProgramListCell cellWithTableView:tableView];
+    SCMyCollectionCell *cell = [SCMyCollectionCell cellWithTableView:tableView];
     cell.filmModel = _dataArray[indexPath.row];
     return cell;
 }
@@ -264,7 +264,7 @@
     
     if (_isEditing) {//处在编辑状态
         SCFilmModel *filmModel = _dataArray[indexPath.row];
-        SCProgramListCell *cell = (SCProgramListCell *)[tableView cellForRowAtIndexPath:indexPath];
+        SCMyCollectionCell *cell = (SCMyCollectionCell *)[tableView cellForRowAtIndexPath:indexPath];
         if (filmModel.isSelecting) {
             filmModel.selected = NO;
             //从临时数据中删除
