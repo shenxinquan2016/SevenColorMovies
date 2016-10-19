@@ -10,7 +10,6 @@
 #import "SCMyDownLoadManagerCell.h"
 #import "SCFilmModel.h"
 
-
 @interface SCMyDownloadManagerVC () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UIButton *editBtn;/** 编辑按钮 */
@@ -20,6 +19,8 @@
 @property (nonatomic, strong) UIButton *selectAllBtn;/** 全选按钮 */
 @property (nonatomic, assign) BOOL isEditing;/** 标记是否正在编辑 */
 @property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;/** 标记是否被全部选中 */
+@property (nonatomic, strong) NSMutableArray *tempArray;/** 保存临时选择的要删除的filmModel */
+@property (nonatomic, strong) NSMutableArray *tempIndexArray;
 
 @end
 
@@ -29,7 +30,6 @@
     [super viewDidLoad];
     //self.automaticallyAdjustsScrollViewInsets = NO;
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
-    
     //假数据
     for (int i = 0; i<15; i++) {
         SCFilmModel *filmModel = [[SCFilmModel alloc] init];
@@ -38,8 +38,10 @@
     
     
     
-    //1.初始化
+    //1.初始化变量
     _isEditing = NO;
+    self.tempArray = [NSMutableArray arrayWithCapacity:0];
+    self.tempIndexArray = [NSMutableArray arrayWithCapacity:0];
     
     //2.加载分视图
     [self addRightBBI];
@@ -52,7 +54,6 @@
     [super didReceiveMemoryWarning];
     
 }
-
 
 #pragma mark - Private Method
 //全选 || 删除 按钮视图
@@ -91,7 +92,7 @@
     UIButton *deleteAllBtn = [[UIButton alloc] init];
     [deleteAllBtn setTitle:@"删除" forState:UIControlStateNormal];
     deleteAllBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
-    [deleteAllBtn addTarget:self action:@selector(deleteAll) forControlEvents:UIControlEventTouchUpInside];
+    [deleteAllBtn addTarget:self action:@selector(deleteSelected) forControlEvents:UIControlEventTouchUpInside];
     [deleteAllBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [bottomView addSubview:deleteAllBtn];
     [deleteAllBtn mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -127,10 +128,14 @@
     
 }
 
-- (void)deleteAll{
+- (void)deleteSelected{
+    //1.从数据库中删除数据
+    [_dataArray removeObjectsInArray:_tempArray];
+    [_tempArray removeAllObjects];
     
-    
-    
+    // 2.把view相应的cell删掉
+    [_listView deleteRowsAtIndexPaths:_tempIndexArray withRowAnimation:UITableViewRowAnimationFade];
+    [_tempIndexArray removeAllObjects];
 }
 
 - (void)setTableView{
@@ -277,22 +282,28 @@
     
     if (_isEditing) {//处在编辑状态
         SCFilmModel *filmModel = _dataArray[indexPath.row];
-        
         SCMyDownLoadManagerCell *cell = (SCMyDownLoadManagerCell *)[tableView cellForRowAtIndexPath:indexPath];
-        
-        
         
         if (filmModel.isSelecting) {
             filmModel.selected = NO;
             //从临时数据中删除
+            [_tempArray removeObject:filmModel];
+            [_tempIndexArray removeObject:indexPath];
             
         }else{
             filmModel.selected = YES;
             //添加到临时数组中 待确定后从数据库中删除
-            
+            [_tempArray addObject:filmModel];
+            [_tempIndexArray addObject:indexPath];
             
         }
         cell.filmModel = filmModel;
+        DONG_Log(@"%ld,%ld",_tempArray.count,_tempIndexArray.count);
+        
+    }else{//非编辑状态，点击cell播放film
+        
+        
+        
     }
 }
 
