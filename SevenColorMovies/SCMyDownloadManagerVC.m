@@ -20,7 +20,6 @@
 @property (nonatomic, assign) BOOL isEditing;/** 标记是否正在编辑 */
 @property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;/** 标记是否被全部选中 */
 @property (nonatomic, strong) NSMutableArray *tempArray;/** 保存临时选择的要删除的filmModel */
-@property (nonatomic, strong) NSMutableArray *tempIndexArray;
 
 @end
 
@@ -41,7 +40,6 @@
     //1.初始化变量
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
-    self.tempIndexArray = [NSMutableArray arrayWithCapacity:0];
     
     //2.加载分视图
     [self addRightBBI];
@@ -112,13 +110,16 @@
         _selectAll = YES;
         [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
         //遍历model以更改cell视图
+        [_tempArray removeAllObjects];
         [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             SCFilmModel *filmModel = obj;
             filmModel.selected = YES;
+            [_tempArray addObject:filmModel];
         }];
     }else{
         _selectAll = NO;
         [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
+        [_tempArray removeAllObjects];
         [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             SCFilmModel *filmModel = obj;
             filmModel.selected = NO;
@@ -130,12 +131,18 @@
 
 - (void)deleteSelected{
     //1.从数据库中删除数据
+    NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
+    [_tempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        SCFilmModel *filmModel = obj;
+        NSInteger index = [_dataArray indexOfObject:filmModel];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [indexPathArray addObject:indexPath];
+    }];
     [_dataArray removeObjectsInArray:_tempArray];
-    [_tempArray removeAllObjects];
-    
     // 2.把view相应的cell删掉
-    [_listView deleteRowsAtIndexPaths:_tempIndexArray withRowAnimation:UITableViewRowAnimationFade];
-    [_tempIndexArray removeAllObjects];
+    [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
+    [_tempArray removeAllObjects];
+    [indexPathArray removeAllObjects];
 }
 
 - (void)setTableView{
@@ -246,12 +253,15 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
+        SCFilmModel *filmModel = _dataArray[indexPath.row];
         // 1.把model相应的数据删掉
-        [self.dataArray removeObjectAtIndex:indexPath.row];
+        [self.dataArray removeObject:filmModel];
         
         // 2.把view相应的cell删掉
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [_tempArray removeObject:filmModel];
+
+        
     }
     
 }
@@ -288,17 +298,17 @@
             filmModel.selected = NO;
             //从临时数据中删除
             [_tempArray removeObject:filmModel];
-            [_tempIndexArray removeObject:indexPath];
+
             
         }else{
             filmModel.selected = YES;
             //添加到临时数组中 待确定后从数据库中删除
             [_tempArray addObject:filmModel];
-            [_tempIndexArray addObject:indexPath];
+
             
         }
         cell.filmModel = filmModel;
-        DONG_Log(@"%ld,%ld",_tempArray.count,_tempIndexArray.count);
+        
         
     }else{//非编辑状态，点击cell播放film
         
