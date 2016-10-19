@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIButton *selectAllBtn;/** 全选按钮 */
 @property (nonatomic, assign) BOOL isEditing;/** 标记是否正在编辑 */
 @property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;/** 标记是否被全部选中 */
+@property (nonatomic, strong) NSMutableArray *tempArray;/** 保存临时选择的要删除的filmModel */
 
 @end
 
@@ -42,6 +43,7 @@
     
     //1.初始化
     _isEditing = NO;
+    self.tempArray = [NSMutableArray arrayWithCapacity:0];
 
     //2.加载分视图
     [self addRightBBI];
@@ -113,25 +115,40 @@
         _selectAll = YES;
         [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
         //遍历model以更改cell视图
+        [_tempArray removeAllObjects];
         [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             SCFilmModel *filmModel = obj;
             filmModel.selected = YES;
+            [_tempArray addObject:filmModel];
         }];
     }else{
         _selectAll = NO;
         [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
+        [_tempArray removeAllObjects];
         [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             SCFilmModel *filmModel = obj;
             filmModel.selected = NO;
         }];
     }
     [_listView reloadData];
-    
 }
 
 - (void)deleteAll{
-    
-    
+    //1.从数据库中删除数据
+    NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
+    [_tempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        SCFilmModel *filmModel = obj;
+        NSInteger index = [_dataArray indexOfObject:filmModel];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [indexPathArray addObject:indexPath];
+    }];
+    [_dataArray removeObjectsInArray:_tempArray];
+    // 2.把view相应的cell删掉
+    [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
+    [_tempArray removeAllObjects];
+    [indexPathArray removeAllObjects];
+
+
     
 }
 
@@ -231,6 +248,22 @@
     return NULL;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        SCFilmModel *filmModel = _dataArray[indexPath.row];
+        // 1.把model相应的数据删掉
+        [self.dataArray removeObject:filmModel];
+        
+        // 2.把view相应的cell删掉
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [_tempArray removeObject:filmModel];
+        
+        
+    }
+    
+}
+
 #pragma mark - UITableView Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -247,37 +280,38 @@
     return 0;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//将delete改为删除
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        // 1.把model相应的数据删掉
-        // [self.members removeObjectAtIndex:indexPath.row];
-        
-        // 2.把view相应的cell删掉
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-    
-    
-    
+    return @"删除";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     
     if (_isEditing) {//处在编辑状态
         SCFilmModel *filmModel = _dataArray[indexPath.row];
-        SCProgramListCell *cell = (SCProgramListCell *)[tableView cellForRowAtIndexPath:indexPath];
+        SCWatchingHistoryCell *cell = (SCWatchingHistoryCell *)[tableView cellForRowAtIndexPath:indexPath];
+        
         if (filmModel.isSelecting) {
             filmModel.selected = NO;
             //从临时数据中删除
+            [_tempArray removeObject:filmModel];
+            
             
         }else{
             filmModel.selected = YES;
             //添加到临时数组中 待确定后从数据库中删除
+            [_tempArray addObject:filmModel];
             
             
         }
         cell.filmModel = filmModel;
+        
+        
+    }else{//非编辑状态，点击cell播放film
+        
+        
+        
     }
 }
 
