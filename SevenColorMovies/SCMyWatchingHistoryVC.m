@@ -148,8 +148,6 @@
     [_tempArray removeAllObjects];
     [indexPathArray removeAllObjects];
 
-
-    
 }
 
 - (void)setTableView{

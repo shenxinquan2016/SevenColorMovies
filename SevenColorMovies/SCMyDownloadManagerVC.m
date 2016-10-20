@@ -152,6 +152,7 @@
     _listView.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
     _listView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _listView.tableFooterView = [UIView new];
+    _listView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     [self.view addSubview:_listView];
 }
 
@@ -183,7 +184,8 @@
         _isEditing = YES;
         _editBtn.selected = YES;
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
-        //[_listView setEditing:YES];
+//        [_listView setEditing:YES];
+//        _listView.allowsMultipleSelectionDuringEditing = YES;
         [UIView animateWithDuration:0.2f animations:^{
             [_bottomBtnView setFrame:(CGRect){0, kMainScreenHeight-60, kMainScreenWidth, 60}];
         }];
@@ -279,7 +281,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 60;
+    return 0;
 }
 
 //将delete改为删除
@@ -290,9 +292,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     
+    SCMyDownLoadManagerCell *cell = (SCMyDownLoadManagerCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (_isEditing) {//处在编辑状态
         SCFilmModel *filmModel = _dataArray[indexPath.row];
-        SCMyDownLoadManagerCell *cell = (SCMyDownLoadManagerCell *)[tableView cellForRowAtIndexPath:indexPath];
         
         if (filmModel.isSelecting) {
             filmModel.selected = NO;
@@ -309,14 +311,13 @@
         }
         cell.filmModel = filmModel;
         
-        
     }else{//非编辑状态，点击cell播放film
         
         
         
     }
+    DONG_Log(@"cell:%ld: \n:%d",(long)indexPath.row,cell.selected);
 }
-
 
 
 @end
