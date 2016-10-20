@@ -32,6 +32,7 @@
     //假数据
     for (int i = 0; i<15; i++) {
         SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+        filmModel.FilmName = [NSString stringWithFormat:@"%d%d%d%d",i,i,i,i];
         [_dataArray addObject:filmModel];
     }
     

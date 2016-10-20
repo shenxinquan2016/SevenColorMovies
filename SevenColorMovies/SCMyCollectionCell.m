@@ -8,6 +8,13 @@
 
 #import "SCMyCollectionCell.h"
 
+@interface SCMyCollectionCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *filmNameLabel;/** 影片名称 */
+@property (weak, nonatomic) IBOutlet UILabel *filmEpisodeLabel;/** 第几集 */
+
+@end
+
 @implementation SCMyCollectionCell
 
 - (void)awakeFromNib {
@@ -41,6 +48,9 @@
 }
 
 - (void)setFilmModel:(SCFilmModel *)filmModel{
+    
+    _filmNameLabel.text = filmModel.FilmName;
+    
     if (filmModel.isShowDeleteBtn) {
         _deleteBtn.hidden = NO;
         

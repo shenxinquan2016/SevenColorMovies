@@ -10,6 +10,7 @@
 
 @interface SCProgramListCell ()
 
+@property (weak, nonatomic) IBOutlet UILabel *filmNameLabel;/** fiml名称 */
 
 @end
 
@@ -46,9 +47,12 @@
 }
 
 - (void)setFilmModel:(SCFilmModel *)filmModel{
+    
+    _filmNameLabel.text = filmModel.FilmName;
+    
     if (filmModel.isShowDeleteBtn) {
         _deleteBtn.hidden = NO;
-    
+        
         if (filmModel.isSelecting) {
             [_deleteBtn setImage:[UIImage imageNamed:@"Select"]];
         }else{

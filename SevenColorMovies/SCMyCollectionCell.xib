@@ -67,6 +67,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="deleteBtn" destination="Mb9-CP-amv" id="h84-zW-qAN"/>
+                <outlet property="filmEpisodeLabel" destination="Gpb-rF-RwM" id="pxV-Zr-fcA"/>
+                <outlet property="filmNameLabel" destination="uTe-AO-MR1" id="PHU-we-ng3"/>
             </connections>
             <point key="canvasLocation" x="-8.5" y="77"/>
         </tableViewCell>

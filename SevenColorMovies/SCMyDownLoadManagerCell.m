@@ -11,6 +11,11 @@
 @interface SCMyDownLoadManagerCell ()
 
 @property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;
+@property (weak, nonatomic) IBOutlet UILabel *fimlNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *filmEpisodeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *downLoadProgressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *downLoadStateLabel;
+@property (weak, nonatomic) IBOutlet UIProgressView *downLoadProgressView;
 
 @end
 
@@ -47,6 +52,8 @@
 }
 
 - (void)setFilmModel:(SCFilmModel *)filmModel{
+    _fimlNameLabel.text = filmModel.FilmName;
+    
     if (filmModel.isShowDeleteBtn) {
         _deleteBtn.hidden = NO;
         _downLoadBtn.hidden = YES;

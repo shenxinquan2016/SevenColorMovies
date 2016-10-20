@@ -78,6 +78,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="deleteBtn" destination="wsz-pf-bsx" id="mdr-9V-uaU"/>
+                <outlet property="filmEpisodeLabel" destination="45r-aP-Wkn" id="co3-Yo-NyM"/>
+                <outlet property="filmNameLabel" destination="tP8-IW-6dd" id="Ovt-ec-z6s"/>
+                <outlet property="watchTimeLabel" destination="Rjw-Uz-GR8" id="fKQ-FI-XMc"/>
             </connections>
             <point key="canvasLocation" x="-8.5" y="77"/>
         </tableViewCell>

@@ -8,6 +8,14 @@
 
 #import "SCWatchingHistoryCell.h"
 
+@interface SCWatchingHistoryCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *filmNameLabel;/** fiml名称 */
+@property (weak, nonatomic) IBOutlet UILabel *filmEpisodeLabel;/** 第几集 */
+@property (weak, nonatomic) IBOutlet UILabel *watchTimeLabel;/** 已经观看的时间 */
+
+@end
+
 @implementation SCWatchingHistoryCell
 
 - (void)awakeFromNib {
@@ -41,6 +49,9 @@
 }
 
 - (void)setFilmModel:(SCFilmModel *)filmModel{
+    
+    _filmNameLabel.text = filmModel.FilmName;
+    
     if (filmModel.isShowDeleteBtn) {
         _deleteBtn.hidden = NO;
         

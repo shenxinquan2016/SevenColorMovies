@@ -35,6 +35,7 @@
     //假数据
     for (int i = 0; i<5; i++) {
         SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+        filmModel.FilmName = [NSString stringWithFormat:@"%d%d%d%d",i,i,i,i];
         [_dataArray addObject:filmModel];
     }
     
@@ -157,6 +158,7 @@
     _listView.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
     _listView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _listView.tableFooterView = [UIView new];
+    _listView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     [self.view addSubview:_listView];
 }
 

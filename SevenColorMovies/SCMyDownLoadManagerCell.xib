@@ -105,6 +105,11 @@
             <connections>
                 <outlet property="deleteBtn" destination="ka2-I2-6YH" id="wvD-aR-h9a"/>
                 <outlet property="downLoadBtn" destination="du2-aI-ola" id="22T-EL-bTo"/>
+                <outlet property="downLoadProgressLabel" destination="0CZ-oH-0pD" id="k1H-ZX-CJ9"/>
+                <outlet property="downLoadProgressView" destination="I56-qD-xfW" id="eYF-qF-WDx"/>
+                <outlet property="downLoadStateLabel" destination="m7T-SZ-2ex" id="IqC-qJ-bWE"/>
+                <outlet property="filmEpisodeLabel" destination="vJj-95-mel" id="cJi-1t-AGW"/>
+                <outlet property="fimlNameLabel" destination="VdD-gc-IzR" id="gL9-rO-dMT"/>
             </connections>
             <point key="canvasLocation" x="4.5" y="-23"/>
         </tableViewCell>
