@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Realm/Realm.h>
 
-@interface SCFilmModel : NSObject
+@interface SCFilmModel : RLMObject
 
 @property (nonatomic, copy) NSString *FilmName;/** 影片名称 两个都用 */
 @property (nonatomic, copy) NSString *cnname;/** 影片名称 两个都用  */

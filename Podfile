@@ -13,8 +13,15 @@ target 'SevenColorMovies' do
     pod 'SDCycleScrollView','~> 1.61'
     pod 'MJRefresh', '~> 3.1.10'
     pod 'IQKeyboardManager', '~> 4.0.5'
-    
+    pod 'Realm'
     #use_frameworks!
     #pod 'ReactiveCocoa', '~> 4.0.4-alpha-4'
 
+end
+
+
+target 'SevenColorMoviesTests' do
+    
+    pod 'Realm/Headers'
+    
 end
