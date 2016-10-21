@@ -214,8 +214,8 @@
         DONG_Log(@"%@",navController.viewControllers);
         
         
-        //pop到指定页面
-        // 因为是出栈，所以要倒叙遍历navController.viewControllers
+        // pop到指定页面
+        // 因为是出栈，所以要倒叙遍历navController.viewControllers 从栈顶到栈底遍历
         for (int i = 0; i < navController.viewControllers.count ; i++) {
             unsigned long index = navController.viewControllers.count - i;
             UIViewController* controller = navController.viewControllers[index-1];
