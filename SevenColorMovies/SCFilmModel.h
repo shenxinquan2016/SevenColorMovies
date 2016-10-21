@@ -36,7 +36,7 @@
 @property (nonatomic, copy) NSString *_TvId;/** 直播节目id 直播 */
 
 @property (nonatomic, copy) NSString *storyintro;/** 影片介绍  点播搜索 */
-@property (nonatomic, copy) NSString *actor;/** 主演  点播搜索 */
+@property (nonatomic, copy) NSString *actor;/** 主演 点播搜索 */
 @property (nonatomic, copy) NSString *endGrade;/** 评分  点播搜索 */
 
 @property (nonatomic, assign, getter = isOnLive) BOOL onLive;/* 节目是否正在播放 */

@@ -18,6 +18,8 @@
 #import "SCFilmIntroduceModel.h"
 #import "SCArtsFilmsCollectionVC.h"
 #import "IJKVideoPlayerVC.h"//播放器
+#import <Realm/Realm.h>//数据库
+
 
 static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
@@ -38,7 +40,13 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic,strong) SCArtsFilmsCollectionVC *needScrollToTopPage;
 @property (nonatomic, copy) NSString *movieType;
 @property (nonatomic, strong) HLJRequest *hljRequest;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;/** 控制区距顶部约束 */
+
+@property (weak, nonatomic) IBOutlet UIButton *addProgramListBtn;/** 添加节目单button */
+
+@property (weak, nonatomic) IBOutlet UIButton *addMyCollectionBtn;/** 添加收藏button */
+
+@property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;/** 下载button */
 
 @end
 
@@ -48,7 +56,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     BOOL _isFullScreen;
 }
 
-#pragma mark- Initialize
+#pragma mark - Initialize
 - (instancetype)initWithWithFilmType:(NSString *)tpye{
     self = [super init];
     if (self) {
@@ -57,7 +65,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     return self;
 }
 
-#pragma mark-  ViewLife Cycle
+#pragma mark -  ViewLife Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -121,8 +129,25 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
 }
 
-#pragma mark- private methods
+#pragma mark - IBAction
+// 添加收藏
+- (IBAction)addFilmToMyCollection:(UIButton *)sender {
+    DONG_Log(@"添加收藏");
+}
 
+// 添加节目单
+- (IBAction)addFilmToProgramList:(UIButton *)sender {
+    DONG_Log(@"添加节目单");
+
+}
+
+// 下载
+- (IBAction)beginDownload:(id)sender {
+    
+    DONG_Log(@"下载");
+}
+
+#pragma mark- private methods
 - (void)setView{
     
     NSString *mtype;
@@ -1092,6 +1117,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         
     }];
 }
+
+
 
 #pragma mark - 更新状态栏状态 使用旋转方案二时调用
 - (BOOL)prefersStatusBarHidden{
