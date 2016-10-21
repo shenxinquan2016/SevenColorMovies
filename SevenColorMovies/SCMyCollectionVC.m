@@ -28,28 +28,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //self.automaticallyAdjustsScrollViewInsets = NO;
+    // 1.初始化数组
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
-    //假数据
-    for (int i = 0; i<5; i++) {
-        SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-        filmModel.FilmName = [NSString stringWithFormat:@"%d",i];
-
+    // 2.读取数据库信息
+    NSString *documentPath = [FileManageCommon GetDocumentPath];
+    NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
+    NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
+    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+    RLMResults *results = [SCFilmModel allObjectsInRealm:realm];
+    
+    for (int i = 0; i< results.count; i++) {
+        SCFilmModel  *filmModel = results[i];
         [_dataArray addObject:filmModel];
     }
     
-    
-    
-    
-    //1.初始化
+    // 3.初始化
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
-
-    //2.加载分视图
-    [self addRightBBI];
-    [self setTableView];
-    [self setBottomBtnView];
     
+    // 4.加载分视图
+    [self addRightBBI];
+    
+    if (_dataArray.count == 0) {
+        [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
+        
+    }else{
+        [CommonFunc hideTipsViews:_listView];
+        [self setTableView];
+        
+    }
+    
+    [self setBottomBtnView];
 }
 
 - (void)didReceiveMemoryWarning {

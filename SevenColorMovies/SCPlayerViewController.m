@@ -41,11 +41,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic, copy) NSString *movieType;
 @property (nonatomic, strong) HLJRequest *hljRequest;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;/** 控制区距顶部约束 */
-
 @property (weak, nonatomic) IBOutlet UIButton *addProgramListBtn;/** 添加节目单button */
-
 @property (weak, nonatomic) IBOutlet UIButton *addMyCollectionBtn;/** 添加收藏button */
-
 @property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;/** 下载button */
 
 @end
@@ -66,7 +63,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 }
 
 #pragma mark -  ViewLife Cycle
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -130,15 +126,28 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 }
 
 #pragma mark - IBAction
-// 添加收藏
-- (IBAction)addFilmToMyCollection:(UIButton *)sender {
-    DONG_Log(@"添加收藏");
-}
 
 // 添加节目单
 - (IBAction)addFilmToProgramList:(UIButton *)sender {
     DONG_Log(@"添加节目单");
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    [realm addObject:_filmModel];
+    [realm commitWriteTransaction];
 
+
+}
+
+// 添加收藏
+- (IBAction)addFilmToMyCollection:(UIButton *)sender {
+    DONG_Log(@"添加收藏");
+    NSString *documentPath = [FileManageCommon GetDocumentPath];
+    NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
+    NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
+    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+    [realm beginWriteTransaction];
+    [realm addObject:_filmModel];
+    [realm commitWriteTransaction];
 }
 
 // 下载

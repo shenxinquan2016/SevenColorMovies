@@ -73,9 +73,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    SCHuikanPlayerViewController *playerVC = [[SCHuikanPlayerViewController alloc] init];
-    playerVC.programModel = _dataSource[indexPath.row];
+    SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController playHUIKANProgramWithProgramModel:_dataSource[indexPath.row]];
     [self.navigationController pushViewController:playerVC animated:YES];
+    
 }
 
 #pragma mark- 网络请求

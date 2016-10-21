@@ -34,6 +34,7 @@
 #import "UILabel+Addition.h"
 #import "libagent_start.h"
 #import "HLJRequest.h"
+#import "FileManageCommon.h"
 
 
 //@import MJRefresh;

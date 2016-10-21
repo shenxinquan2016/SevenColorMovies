@@ -7,10 +7,12 @@
 //  搜索-->回看 简介播放器
 
 #import "SCOtherBaseViewController.h"
-#import "SCLiveProgramModel.h"
+@class SCFilmModel;
+@class SCLiveProgramModel;
 
 @interface SCHuikanPlayerViewController : SCOtherBaseViewController
 
-@property (nonatomic, strong) SCLiveProgramModel *programModel;
++ (instancetype)playFilmWithFilmModel:(SCFilmModel *)filmModel;
++ (instancetype)playHUIKANProgramWithProgramModel:(SCLiveProgramModel *)programModel;
 
 @end

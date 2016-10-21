@@ -13,6 +13,8 @@
 #import "SCVideoLoadingView.h"
 #import "SCChannelCategoryVC.h"
 #import "SCFilterViewController.h"
+#import "SCSearchViewController.h"
+#import "SCFilterViewController.h"
 
 @interface IJKVideoPlayerVC ()
 
@@ -209,15 +211,26 @@
         // 当前选择的导航控制器
         UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
        
+        DONG_Log(@"%@",navController.viewControllers);
+        
+        
         //pop到指定页面
-        for (UIViewController* controller in navController.viewControllers) {
-             DONG_Log(@"controller:%@",[controller class]);
+        // 因为是出栈，所以要倒叙遍历navController.viewControllers
+        for (int i = 0; i < navController.viewControllers.count ; i++) {
+            unsigned long index = navController.viewControllers.count - i;
+            UIViewController* controller = navController.viewControllers[index-1];
+            
             if ([controller isKindOfClass:[SCFilterViewController class]]) {
                 
                 [navController popToViewController:controller animated:YES];
                 return;
                 
             }else if ([controller isKindOfClass:[SCChannelCategoryVC class]]){
+                
+                [navController popToViewController:controller animated:YES];
+                return;
+                
+            }else if ([controller isKindOfClass:[SCSearchViewController class]]){
                 
                 [navController popToViewController:controller animated:YES];
                 return;

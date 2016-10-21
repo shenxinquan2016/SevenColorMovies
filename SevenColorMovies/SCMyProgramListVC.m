@@ -9,6 +9,8 @@
 #import "SCMyProgramListVC.h"
 #import "SCProgramListCell.h"
 #import "SCFilmModel.h"
+#import "SCHuikanPlayerViewController.h"
+#import <Realm/Realm.h>//数据库
 
 @interface SCMyProgramListVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -28,25 +30,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //self.automaticallyAdjustsScrollViewInsets = NO;
+    // 1.初始化数组
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
-    //假数据
-    for (int i = 0; i<5; i++) {
-        SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-        filmModel.FilmName = [NSString stringWithFormat:@"%d",i];
+    // 2.读取数据库信息
+    //    RLMRealm *realm = [RLMRealm defaultRealm];
+    //    RLMResults *results = [SCFilmModel allObjectsInRealm:realm];
+    RLMResults *results = [SCFilmModel allObjects];
+    for (int i = 0; i< results.count; i++) {
+        SCFilmModel  *filmModel = results[i];
         [_dataArray addObject:filmModel];
     }
     
     
     
-    
-    //1.初始化
+    // 3.初始化
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
-
-    //2.加载分视图
+    
+    // 4.加载分视图
     [self addRightBBI];
-    [self setTableView];
+    
+    if (_dataArray.count == 0) {
+        [CommonFunc noDataOrNoNetTipsString:@"还没有添加任何节目哦" addView:self.view];
+        
+    }else{
+        [CommonFunc hideTipsViews:_listView];
+        [self setTableView];
+        
+    }
+    
     [self setBottomBtnView];
     
 }
@@ -64,7 +77,7 @@
     bottomView.backgroundColor = [UIColor whiteColor];
     [bottomView.layer setBorderWidth:1.f];
     [bottomView.layer setBorderColor:[UIColor grayColor].CGColor];
-
+    
     UIView *separateLine = [[UIView alloc] init];
     //中间分割线
     separateLine.backgroundColor = [UIColor grayColor];
@@ -106,7 +119,7 @@
     
     _bottomBtnView = bottomView;
     [self.view addSubview:bottomView];
-
+    
 }
 
 - (void)selcetAll{
@@ -146,7 +159,7 @@
     [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
     [_tempArray removeAllObjects];
     [indexPathArray removeAllObjects];
-
+    
 }
 
 - (void)setTableView{
@@ -208,12 +221,12 @@
         [UIView animateWithDuration:0.2f animations:^{
             [_bottomBtnView setFrame:(CGRect){0, kMainScreenHeight, kMainScreenWidth, 60}];
         }];
-
+        
         [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             SCFilmModel *filmModel = obj;
             filmModel.showDeleteBtn = NO;
         }];
-         [_listView reloadData];
+        [_listView reloadData];
     }
     
 }
