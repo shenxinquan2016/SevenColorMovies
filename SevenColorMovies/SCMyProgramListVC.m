@@ -39,6 +39,7 @@
     RLMResults *results = [SCFilmModel allObjects];
     for (int i = 0; i< results.count; i++) {
         SCFilmModel  *filmModel = results[i];
+        
         [_dataArray addObject:filmModel];
     }
     
@@ -107,7 +108,7 @@
     UIButton *deleteAllBtn = [[UIButton alloc] init];
     [deleteAllBtn setTitle:@"删除" forState:UIControlStateNormal];
     deleteAllBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
-    [deleteAllBtn addTarget:self action:@selector(deleteAll) forControlEvents:UIControlEventTouchUpInside];
+    [deleteAllBtn addTarget:self action:@selector(delete) forControlEvents:UIControlEventTouchUpInside];
     [deleteAllBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [bottomView addSubview:deleteAllBtn];
     [deleteAllBtn mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -145,8 +146,8 @@
     [_listView reloadData];
 }
 
-- (void)deleteAll{
-    //1.从数据库中删除数据
+- (void)delete{
+    // 遍历model获取对应的下标
     NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
     [_tempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         SCFilmModel *filmModel = obj;
@@ -154,9 +155,17 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [indexPathArray addObject:indexPath];
     }];
+    // 删除cell前 必须先删除tableview的数据源
     [_dataArray removeObjectsInArray:_tempArray];
-    // 2.把view相应的cell删掉
+    // 把view相应的cell删掉
     [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
+    
+    // 删除数据库中的数据
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    [realm deleteObjects:_tempArray];
+    [realm commitWriteTransaction];
+    // 清空变量
     [_tempArray removeAllObjects];
     [indexPathArray removeAllObjects];
     
@@ -269,6 +278,12 @@
         // 2.把view相应的cell删掉
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [_tempArray removeObject:filmModel];
+        
+        // 3.删除数据库中的数据
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        [realm beginWriteTransaction];
+        [realm deleteObject:filmModel];
+        [realm commitWriteTransaction];
     }
 }
 

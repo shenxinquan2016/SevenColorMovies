@@ -130,24 +130,33 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 // 添加节目单
 - (IBAction)addFilmToProgramList:(UIButton *)sender {
     DONG_Log(@"添加节目单");
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    [realm beginWriteTransaction];
-    [realm addObject:_filmModel];
-    [realm commitWriteTransaction];
-
-
+    
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        [realm beginWriteTransaction];
+        [realm addObject: _filmModel];
+        [realm commitWriteTransaction];
+        
+    
 }
 
 // 添加收藏
 - (IBAction)addFilmToMyCollection:(UIButton *)sender {
     DONG_Log(@"添加收藏");
-    NSString *documentPath = [FileManageCommon GetDocumentPath];
-    NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
-    NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
-    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
-    [realm beginWriteTransaction];
-    [realm addObject:_filmModel];
-    [realm commitWriteTransaction];
+    DONG_Log(@"current ======= %@",[NSThread currentThread]);
+    
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        
+//         });
+        NSString *documentPath = [FileManageCommon GetDocumentPath];
+        NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
+        NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
+        RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+    
+        [realm beginWriteTransaction];
+        [realm addObject: _filmModel];
+        [realm commitWriteTransaction];
+
+    
 }
 
 // 下载

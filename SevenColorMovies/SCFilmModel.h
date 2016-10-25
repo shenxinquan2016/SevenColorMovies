@@ -46,3 +46,6 @@
 @property (nonatomic,assign) BOOL isDownLoading;/** 是否正在下载 */
 
 @end
+
+RLM_ARRAY_TYPE(SCFilmModel)
+
