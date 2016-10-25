@@ -62,6 +62,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doFilterAction:) name:FilterOptionChanged object:nil];
 }
 

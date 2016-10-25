@@ -93,6 +93,7 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToFullScreen object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToSmallScreen object:nil];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -212,7 +213,6 @@
         UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
        
         DONG_Log(@"%@",navController.viewControllers);
-        
         
         // pop到指定页面
         // 因为是出栈，所以要倒叙遍历navController.viewControllers 从栈顶到栈底遍历
