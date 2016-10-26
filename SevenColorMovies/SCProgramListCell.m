@@ -11,6 +11,7 @@
 @interface SCProgramListCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *filmNameLabel;/** fiml名称 */
+@property (weak, nonatomic) IBOutlet UILabel *filmEpisodeLabel;/** 第几集 */
 
 @end
 

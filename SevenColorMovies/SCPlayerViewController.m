@@ -156,7 +156,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [realm addObject: _filmModel];
         [realm commitWriteTransaction];
 
-    
 }
 
 // 下载
