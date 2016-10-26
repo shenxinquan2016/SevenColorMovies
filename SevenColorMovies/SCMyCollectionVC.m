@@ -49,17 +49,16 @@
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
     
     // 4.加载分视图
+    // 4.1 编辑按钮
     [self addRightBBI];
-    
     if (_dataArray.count == 0) {
         [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
-        
     }else{
         [CommonFunc hideTipsViews:_listView];
+        // 4.2 tableview
         [self setTableView];
-        
     }
-    
+    // 4.3 全选/删除
     [self setBottomBtnView];
 }
 
