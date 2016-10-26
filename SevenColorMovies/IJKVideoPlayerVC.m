@@ -15,6 +15,7 @@
 #import "SCFilterViewController.h"
 #import "SCSearchViewController.h"
 #import "SCFilterViewController.h"
+#import "SCMyProgramListVC.h"
 
 @interface IJKVideoPlayerVC ()
 
@@ -220,7 +221,13 @@
             unsigned long index = navController.viewControllers.count - i;
             UIViewController* controller = navController.viewControllers[index-1];
             
-            if ([controller isKindOfClass:[SCFilterViewController class]]) {
+            
+            if ([controller isKindOfClass:[SCMyProgramListVC class]]) {
+                
+                [navController popToViewController:controller animated:YES];
+                return;
+                
+            }else if ([controller isKindOfClass:[SCFilterViewController class]]) {
                 
                 [navController popToViewController:controller animated:YES];
                 return;

@@ -50,7 +50,7 @@
 - (void)setFilmModel:(SCFilmModel *)filmModel{
     
     _filmNameLabel.text = filmModel.FilmName;
-    
+    _filmEpisodeLabel.text = @"第一百集";
     if (filmModel.isShowDeleteBtn) {
         _deleteBtn.hidden = NO;
         

@@ -9,6 +9,7 @@
 #import "SCMyCollectionVC.h"
 #import "SCMyCollectionCell.h"
 #import "SCFilmModel.h"
+#import "SCHuikanPlayerViewController.h"
 
 @interface SCMyCollectionVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -338,7 +339,10 @@
         
     }else{//非编辑状态，点击cell播放film
         
-        
+        RLMResults *results = [SCFilmModel allObjects];
+        SCFilmModel *filmModel = results[indexPath.row];
+        SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
+        [self.navigationController pushViewController:playerVC animated:YES];
         
     }
 }

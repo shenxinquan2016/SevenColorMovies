@@ -12,7 +12,9 @@
 
 @interface SCHuikanPlayerViewController : SCOtherBaseViewController
 
-+ (instancetype)playFilmWithFilmModel:(SCFilmModel *)filmModel;
-+ (instancetype)playHUIKANProgramWithProgramModel:(SCLiveProgramModel *)programModel;
+// 由我的节目单进入
++ (instancetype)initPlayerWithFilmModel:(SCFilmModel *)filmModel;
+// 由回看搜索单进入
++ (instancetype)initPlayerWithProgramModel:(SCLiveProgramModel *)programModel;
 
 @end

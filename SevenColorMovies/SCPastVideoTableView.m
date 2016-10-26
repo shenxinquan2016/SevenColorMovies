@@ -73,7 +73,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController playHUIKANProgramWithProgramModel:_dataSource[indexPath.row]];
+    SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithProgramModel:_dataSource[indexPath.row]];
     [self.navigationController pushViewController:playerVC animated:YES];
     
 }
@@ -212,7 +212,6 @@
      
     
 }
-
 
 
 @end

@@ -65,11 +65,16 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
 }
-
 
 #pragma mark - Private Method
 //全选 || 删除 按钮视图
@@ -333,8 +338,10 @@
         
         
     }else{//非编辑状态，点击cell播放film
-        
-        
+        RLMResults *results = [SCFilmModel allObjects];
+        SCFilmModel *filmModel = results[indexPath.row];
+        SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
+        [self.navigationController pushViewController:playerVC animated:YES];
         
     }
 }
