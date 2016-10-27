@@ -89,14 +89,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                                                object:nil];
     //6.注册点击列表播放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
-    //7.查询是否已经添加到节目单
-    RLMResults *results = [SCFilmModel objectsWhere:@"FilmName = %@", _filmModel.FilmName];
-    if (results.count) {
-        [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
-    }
-    //8.查询是否已经收藏
-    
-    //9.查询是否已经下载
+    //7.查询数据库以更新功能区按钮视图
+    [self refreshButtonStateFromQueryDatabase];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -138,25 +132,28 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //});
     
     SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
-    RLMResults *results = [SCFilmModel objectsWhere:@"FilmName = %@", _filmModel.FilmName];
+    
+    // 使用 NSPredicate 查询
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
+                         _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
+    RLMResults *results = [SCFilmModel objectsWithPredicate:pred];
+    
     DONG_Log(@"tempArray.count:%ld",results.count);
     
     if (results.count) {//已经添加则取消收藏 从数据库删除
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList"] forState:UIControlStateNormal];
-            RLMRealm *realm = [RLMRealm defaultRealm];
-            [realm transactionWithBlock:^{
-                [realm deleteObject:results.firstObject];
-            }];
-       
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        [realm transactionWithBlock:^{
+            [realm deleteObject:results.firstObject];
+        }];
         
     }else {//未添加 添加到数据库
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
-
-            RLMRealm *realm = [RLMRealm defaultRealm];
-            [realm transactionWithBlock:^{
-                [realm addObject: filmModel];
-            }];
         
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        [realm transactionWithBlock:^{
+            [realm addObject: filmModel];
+        }];
         
     }
     
@@ -165,17 +162,32 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 // 添加收藏
 - (IBAction)addFilmToMyCollection:(UIButton *)sender {
     DONG_Log(@"添加到收藏");
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *documentPath = [FileManageCommon GetDocumentPath];
-        NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
-        NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
-        RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
-        SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
+    
+    SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
+    NSString *documentPath = [FileManageCommon GetDocumentPath];
+    NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
+    NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
+    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+    
+    // 使用 NSPredicate 查询
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
+                         _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
+    RLMResults *results = [SCFilmModel objectsInRealm:realm withPredicate:pred];
+    
+    if (results.count) {//已经添加则取消收藏 从数据库删除
+        [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection"] forState:UIControlStateNormal];
+        [realm transactionWithBlock:^{
+            [realm deleteObject:results.firstObject];
+        }];
+        
+    }else {//未添加 添加到数据库
+        [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection_Click"] forState:UIControlStateNormal];
+        
         [realm transactionWithBlock:^{
             [realm addObject: filmModel];
         }];
-    });
-    
+        
+    }
 }
 
 // 下载
@@ -184,7 +196,32 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
 }
 
+
 #pragma mark- private methods
+-(void)refreshButtonStateFromQueryDatabase{
+    //1.查询是否已经添加到节目单
+    //使用 NSPredicate 查询
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
+                         _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
+    RLMResults *results = [SCFilmModel objectsWithPredicate:pred];
+    if (results.count) {
+        [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
+    }
+    
+    //2.查询是否已经收藏
+    NSString *documentPath = [FileManageCommon GetDocumentPath];
+    NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
+    NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
+    RLMRealm *realm2 = [RLMRealm realmWithURL:databaseUrl];
+    //使用 NSPredicate 查询
+    RLMResults *results2 = [SCFilmModel objectsInRealm:realm2 withPredicate:pred];
+    if (results2.count) {
+        [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection_Click"] forState:UIControlStateNormal];
+    }
+    
+    //3.查询是否已经下载
+}
+
 - (void)setView{
     
     NSString *mtype;
