@@ -209,6 +209,7 @@
 
 - (void)doEditingAction{
     if (_editBtn.selected == NO) {//正在编辑
+        
         _isEditing = YES;
         _editBtn.selected = YES;
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
@@ -334,15 +335,9 @@
         
     }else{//非编辑状态，点击cell播放film
         
-        //        NSLog(@"000000");
-        //        NSLog(@"111== %@",[_dataArray[0] class] );
-        
-        
-        //        RLMResults *results = [SCFilmModel allObjects];
         SCFilmModel *filmModel = _dataArray[indexPath.row];
         SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
         [self.navigationController pushViewController:playerVC animated:YES];
-        
     }
 }
 

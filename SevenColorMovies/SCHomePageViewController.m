@@ -506,6 +506,7 @@ static NSString *const footerId = @"footerId";
         
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
+        
         if ([classModel._FilmClassName isEqualToString:@"专题"]) {
             SCSpecialTopicDetailVC *vc = [[SCSpecialTopicDetailVC alloc] initWithWithTitle:filmModel.FilmName];
             vc.urlString = filmModel.SourceUrl;

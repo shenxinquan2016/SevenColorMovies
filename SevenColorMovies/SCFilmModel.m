@@ -17,9 +17,9 @@
 }
 
 //忽略的字段
-//+ (NSArray *)ignoredProperties {
-//    return @[@"showDeleteBtn", @"selected"];
-//}
++ (NSArray *)ignoredProperties {
+    return @[@"showDeleteBtn", @"selected"];
+}
 
 
 @end

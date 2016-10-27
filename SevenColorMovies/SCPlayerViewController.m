@@ -92,7 +92,14 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                                                object:nil];
     //6.注册点击列表播放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
+    //7.查询是否已经添加到节目单
+    RLMResults *results = [SCFilmModel objectsWhere:@"FilmName = %@", _filmModel.FilmName];
+    if (results.count) {
+        [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
+    }
+    //8.查询是否收藏
     
+    //9.查询是否已经下载
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -127,53 +134,57 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 }
 
 #pragma mark - IBAction
-
 // 添加节目单
 - (IBAction)addFilmToProgramList:(UIButton *)sender {
-    DONG_Log(@"添加节目单");
+    DONG_Log(@"添加到节目单");
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    //});
     
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    NSLog(@"111 == %@",realm);
+    SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
+    RLMResults *results = [SCFilmModel objectsWhere:@"FilmName = %@", _filmModel.FilmName];
+    DONG_Log(@"tempArray.count:%ld",results.count);
     
-    SCFilmModel *cctv = _filmModel;
-    
-    [realm beginWriteTransaction];
-    [realm addObject: cctv];
-    [realm commitWriteTransaction];
-    
-   
-    
-    
-    
-    
+    if (results.count) {//已经添加则取消收藏 从数据库删除
+        [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList"] forState:UIControlStateNormal];
+            RLMRealm *realm = [RLMRealm defaultRealm];
+            [realm transactionWithBlock:^{
+                [realm deleteObject:results.firstObject];
+            }];
+       
+        
+    }else {//未添加 添加到数据库
+        [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
+
+            RLMRealm *realm = [RLMRealm defaultRealm];
+            [realm transactionWithBlock:^{
+                [realm addObject: filmModel];
+            }];
+        
+        
+    }
     
 }
 
 // 添加收藏
 - (IBAction)addFilmToMyCollection:(UIButton *)sender {
-    DONG_Log(@"添加收藏");
-    DONG_Log(@"current ======= %@",[NSThread currentThread]);
-    
-    //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    //
-    //         });
-    
-    NSString *documentPath = [FileManageCommon GetDocumentPath];
-    NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
-    NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
-    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
-    NSLog(@"2222 == %@",realm);
-
-    [realm beginWriteTransaction];
-    [realm addObject: _filmModel];
-    [realm commitWriteTransaction];
-    
+    DONG_Log(@"添加到收藏");
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *documentPath = [FileManageCommon GetDocumentPath];
+        NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
+        NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
+        RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+        SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
+        [realm transactionWithBlock:^{
+            [realm addObject: filmModel];
+        }];
+    });
     
 }
 
 // 下载
 - (IBAction)beginDownload:(id)sender {
     DONG_Log(@"下载");
+    
 }
 
 #pragma mark- private methods
@@ -227,7 +238,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     //0.添加lab
     [self addLabel];//添加标题label
-    //1、底部滑动短线
+    //1.底部滑动短线
     _bottomLine = [CALayer layer];
     [_bottomLine setBackgroundColor:[UIColor colorWithHex:@"#5184FF"].CGColor];
     _bottomLine.frame = CGRectMake(0, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
@@ -602,6 +613,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             
             //0.获取下一个节目的model
             SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD];
+            _filmModel.jiIndex = VODIndex+timesIndexOfVOD;
             //1.获取下一个节目的model
             SCFilmSetModel *lastFilmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD-1];
             
@@ -705,7 +717,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     SCFilmSetModel *filmSetModel = dic[@"model"];
     _filmSetModel = filmSetModel;
     VODIndex = [self.filmSetsArr indexOfObject:filmSetModel];
-    
+    _filmModel.jiIndex = VODIndex+1;
     DONG_Log(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
     
     //1.关闭正在播放的节目
@@ -885,7 +897,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 SCFilmSetModel *model = [_filmSetsArr firstObject];
                 _filmSetModel = model;
                 model.onLive = YES;
-                
+                _filmModel.jiIndex = 1;
                 if (_filmSetsArr.count == 1) {
                     
                     self.titleArr = @[@"详情", @"精彩推荐"];
