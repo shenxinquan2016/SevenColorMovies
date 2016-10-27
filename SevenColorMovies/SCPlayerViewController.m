@@ -72,14 +72,11 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     //0.更新功能区的上约束值
     _toTopConstraint.constant = kMainScreenWidth * 9 / 16;
-    
     //1.初始化数组
     self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];
     self.filmsArr = [NSMutableArray arrayWithCapacity:0];
-    
     //2.组建页面
     [self setView];
-    
     //3.全屏小屏通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
@@ -97,7 +94,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     if (results.count) {
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
     }
-    //8.查询是否收藏
+    //8.查询是否已经收藏
     
     //9.查询是否已经下载
 }
