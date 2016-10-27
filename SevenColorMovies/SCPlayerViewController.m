@@ -146,7 +146,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [realm transactionWithBlock:^{
             [realm deleteObject:results.firstObject];
         }];
-        
+        [MBProgressHUD showSuccess:@"从节目单移除"];
     }else {//未添加 添加到数据库
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
         
@@ -154,7 +154,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [realm transactionWithBlock:^{
             [realm addObject: filmModel];
         }];
-        
+        [MBProgressHUD showSuccess:@"添加到节目单"];
     }
     
 }
@@ -179,14 +179,14 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [realm transactionWithBlock:^{
             [realm deleteObject:results.firstObject];
         }];
-        
+        [MBProgressHUD showSuccess:@"取消收藏"];
     }else {//未添加 添加到数据库
         [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection_Click"] forState:UIControlStateNormal];
         
         [realm transactionWithBlock:^{
             [realm addObject: filmModel];
         }];
-        
+        [MBProgressHUD showSuccess:@"添加收藏"];
     }
 }
 
