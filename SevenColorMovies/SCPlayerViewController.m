@@ -89,8 +89,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                                                object:nil];
     //6.注册点击列表播放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
-    //7.查询数据库以更新功能区按钮视图
-    [self refreshButtonStateFromQueryDatabase];
+    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -114,6 +114,12 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
+    //7.查询数据库以更新功能区按钮视图
+    [self refreshButtonStateFromQueryDatabase];
+}
+
+- (void)awakeFromNib{
+    [super awakeFromNib];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -206,6 +212,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     RLMResults *results = [SCFilmModel objectsWithPredicate:pred];
     if (results.count) {
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
+    }else{
+        
+      [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList"] forState:UIControlStateNormal];
     }
     
     //2.查询是否已经收藏
@@ -217,6 +226,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     RLMResults *results2 = [SCFilmModel objectsInRealm:realm2 withPredicate:pred];
     if (results2.count) {
         [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection_Click"] forState:UIControlStateNormal];
+    }else{
+        [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection"] forState:UIControlStateNormal];
     }
     
     //3.查询是否已经下载
@@ -648,6 +659,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             //0.获取下一个节目的model
             SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD];
             _filmModel.jiIndex = VODIndex+timesIndexOfVOD;
+            //查询数据库以更新功能区按钮视图
+            [self refreshButtonStateFromQueryDatabase];
             //1.获取下一个节目的model
             SCFilmSetModel *lastFilmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD-1];
             
@@ -751,7 +764,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     SCFilmSetModel *filmSetModel = dic[@"model"];
     _filmSetModel = filmSetModel;
     VODIndex = [self.filmSetsArr indexOfObject:filmSetModel];
+    // 对jiIndex赋值
     _filmModel.jiIndex = VODIndex+1;
+    // 查询数据库以更新功能区按钮视图
+    [self refreshButtonStateFromQueryDatabase];
     DONG_Log(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
     
     //1.关闭正在播放的节目

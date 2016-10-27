@@ -50,6 +50,14 @@
 - (void)setFilmModel:(SCFilmModel *)filmModel{
     
     _filmNameLabel.text = filmModel.FilmName;
+    // 第几集
+    NSString *jiStr;
+    if (filmModel.jiIndex) {
+        jiStr = [NSString stringWithFormat:@"第%ld集",(long)filmModel.jiIndex];
+    }else{
+        jiStr = @"";
+    }
+    _filmEpisodeLabel.text = jiStr;
     
     if (filmModel.isShowDeleteBtn) {
         _deleteBtn.hidden = NO;
