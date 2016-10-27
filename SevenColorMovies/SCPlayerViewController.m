@@ -40,7 +40,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic,strong) SCArtsFilmsCollectionVC *needScrollToTopPage;
 @property (nonatomic, copy) NSString *movieType;
 @property (nonatomic, strong) HLJRequest *hljRequest;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;/** 控制区距顶部约束 */
+@property (nonatomic, strong) SCFilmSetModel *filmSetModel;/** 存储正在播放的剧集 */
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;/** 功能区距顶部约束 */
 @property (weak, nonatomic) IBOutlet UIButton *addProgramListBtn;/** 添加节目单button */
 @property (weak, nonatomic) IBOutlet UIButton *addMyCollectionBtn;/** 添加收藏button */
 @property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;/** 下载button */
@@ -131,11 +132,20 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 - (IBAction)addFilmToProgramList:(UIButton *)sender {
     DONG_Log(@"添加节目单");
     
-        RLMRealm *realm = [RLMRealm defaultRealm];
-        [realm beginWriteTransaction];
-        [realm addObject: _filmModel];
-        [realm commitWriteTransaction];
-        
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    NSLog(@"111 == %@",realm);
+    
+    SCFilmModel *cctv = _filmModel;
+    
+    [realm beginWriteTransaction];
+    [realm addObject: cctv];
+    [realm commitWriteTransaction];
+    
+   
+    
+    
+    
+    
     
 }
 
@@ -144,23 +154,25 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     DONG_Log(@"添加收藏");
     DONG_Log(@"current ======= %@",[NSThread currentThread]);
     
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        
-//         });
-        NSString *documentPath = [FileManageCommon GetDocumentPath];
-        NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
-        NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
-        RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+    //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    //
+    //         });
     
-        [realm beginWriteTransaction];
-        [realm addObject: _filmModel];
-        [realm commitWriteTransaction];
+    NSString *documentPath = [FileManageCommon GetDocumentPath];
+    NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
+    NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
+    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+    NSLog(@"2222 == %@",realm);
 
+    [realm beginWriteTransaction];
+    [realm addObject: _filmModel];
+    [realm commitWriteTransaction];
+    
+    
 }
 
 // 下载
 - (IBAction)beginDownload:(id)sender {
-    
     DONG_Log(@"下载");
 }
 
@@ -691,6 +703,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 {
     NSDictionary *dic = notification.object;
     SCFilmSetModel *filmSetModel = dic[@"model"];
+    _filmSetModel = filmSetModel;
     VODIndex = [self.filmSetsArr indexOfObject:filmSetModel];
     
     DONG_Log(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
@@ -870,6 +883,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     }
                 }
                 SCFilmSetModel *model = [_filmSetsArr firstObject];
+                _filmSetModel = model;
                 model.onLive = YES;
                 
                 if (_filmSetsArr.count == 1) {

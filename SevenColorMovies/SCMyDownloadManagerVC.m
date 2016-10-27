@@ -37,8 +37,6 @@
     }
     
     
-    
-    
     // 3.初始化
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];

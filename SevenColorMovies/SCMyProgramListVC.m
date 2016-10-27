@@ -34,22 +34,21 @@
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
     // 2.读取数据库信息
-    //    RLMRealm *realm = [RLMRealm defaultRealm];
-    //    RLMResults *results = [SCFilmModel allObjectsInRealm:realm];
-    RLMResults *results = [SCFilmModel allObjects];
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    RLMResults *results = [SCFilmModel allObjectsInRealm:realm];
+    
     for (int i = 0; i< results.count; i++) {
         SCFilmModel  *filmModel = results[i];
         
         [_dataArray addObject:filmModel];
     }
     
-    
-    
+    DONG_Log(@"%@",[RLMRealmConfiguration defaultConfiguration].fileURL);
     // 3.初始化
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
     
-    // 4.加载分视图
+    // 4 加载分视图
     // 4.1 编辑按钮
     [self addRightBBI];
     if (_dataArray.count == 0) {
@@ -66,9 +65,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
+    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -331,14 +329,17 @@
             //添加到临时数组中 待确定后从数据库中删除
             [_tempArray addObject:filmModel];
             
-            
         }
         cell.filmModel = filmModel;
         
-        
     }else{//非编辑状态，点击cell播放film
-        RLMResults *results = [SCFilmModel allObjects];
-        SCFilmModel *filmModel = results[indexPath.row];
+        
+        //        NSLog(@"000000");
+        //        NSLog(@"111== %@",[_dataArray[0] class] );
+        
+        
+        //        RLMResults *results = [SCFilmModel allObjects];
+        SCFilmModel *filmModel = _dataArray[indexPath.row];
         SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
         [self.navigationController pushViewController:playerVC animated:YES];
         
