@@ -402,7 +402,6 @@ static NSString *const footerId = @"footerId";
     return nil;
 }
 
-
 #pragma mark ---- UICollectionViewDelegateFlowLayout
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -521,7 +520,6 @@ static NSString *const footerId = @"footerId";
             [self.navigationController pushViewController:teleplayPlayer animated:YES];
             
         }
-        
     }
 }
 

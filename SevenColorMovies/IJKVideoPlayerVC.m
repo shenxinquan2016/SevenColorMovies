@@ -16,6 +16,7 @@
 #import "SCSearchViewController.h"
 #import "SCFilterViewController.h"
 #import "SCMyProgramListVC.h"
+#import "SCLiveViewController.h"
 
 @interface IJKVideoPlayerVC ()
 
@@ -213,7 +214,7 @@
         // 当前选择的导航控制器
         UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
        
-        DONG_Log(@"%@",navController.viewControllers);
+        //DONG_Log(@"%@",navController.viewControllers);
         
         // pop到指定页面
         // 因为是出栈，所以要倒叙遍历navController.viewControllers 从栈顶到栈底遍历
@@ -222,22 +223,27 @@
             UIViewController* controller = navController.viewControllers[index-1];
             
             
-            if ([controller isKindOfClass:[SCMyProgramListVC class]]) {
+            if ([controller isKindOfClass:[SCMyProgramListVC class]]) {//我的节目单
                 
                 [navController popToViewController:controller animated:YES];
                 return;
                 
-            }else if ([controller isKindOfClass:[SCFilterViewController class]]) {
+            }else if ([controller isKindOfClass:[SCLiveViewController class]]) {//直播频道列表页
                 
                 [navController popToViewController:controller animated:YES];
                 return;
                 
-            }else if ([controller isKindOfClass:[SCChannelCategoryVC class]]){
+            }else if ([controller isKindOfClass:[SCFilterViewController class]]) {//筛选
                 
                 [navController popToViewController:controller animated:YES];
                 return;
                 
-            }else if ([controller isKindOfClass:[SCSearchViewController class]]){
+            }else if ([controller isKindOfClass:[SCChannelCategoryVC class]]){//点播节目频道分类
+                
+                [navController popToViewController:controller animated:YES];
+                return;
+                
+            }else if ([controller isKindOfClass:[SCSearchViewController class]]){//搜索控制器
                 
                 [navController popToViewController:controller animated:YES];
                 return;

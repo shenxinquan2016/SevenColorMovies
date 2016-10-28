@@ -1844,7 +1844,7 @@
 				TargetAttributes = {
 					11BB37731D38B9A00002D487 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = J5EPCRFAR9;
+						DevelopmentTeam = Z54S8SVE43;
 					};
 					11BB378C1D38B9A00002D487 = {
 						CreatedOnToolsVersion = 7.3;
@@ -2279,6 +2279,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: MengJiao Zhang (492V3PZ5UY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: MengJiao Zhang (492V3PZ5UY)";
+				DEVELOPMENT_TEAM = Z54S8SVE43;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2342,7 +2343,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.midou.enpr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d6f640e3-494f-446d-8396-d4e91e1e3e40";
+				PROVISIONING_PROFILE = "140bd16a-8e87-438f-956d-d41eec6ae355";
+				PROVISIONING_PROFILE_SPECIFIER = midou_0602;
 			};
 			name = Debug;
 		};
@@ -2354,6 +2356,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: MengJiao Zhang (492V3PZ5UY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: MengJiao Zhang (492V3PZ5UY)";
+				DEVELOPMENT_TEAM = Z54S8SVE43;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2417,7 +2420,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.midou.enpr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d6f640e3-494f-446d-8396-d4e91e1e3e40";
+				PROVISIONING_PROFILE = "140bd16a-8e87-438f-956d-d41eec6ae355";
+				PROVISIONING_PROFILE_SPECIFIER = midou_0602;
 			};
 			name = Release;
 		};
