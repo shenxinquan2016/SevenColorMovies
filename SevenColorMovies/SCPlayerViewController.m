@@ -202,7 +202,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
 }
 
-
 #pragma mark- private methods
 -(void)refreshButtonStateFromQueryDatabase{
     //1.查询是否已经添加到节目单

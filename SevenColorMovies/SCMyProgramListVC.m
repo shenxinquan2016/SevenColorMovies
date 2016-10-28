@@ -336,9 +336,48 @@
     }else{//非编辑状态，点击cell播放film
         
         SCFilmModel *filmModel = _dataArray[indexPath.row];
-        SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
-        [self.navigationController pushViewController:playerVC animated:YES];
+        
+        NSString *mtype;
+        if (filmModel._Mtype) {
+            
+            mtype = filmModel._Mtype;
+            
+        }else if (filmModel.mtype){
+            
+            mtype = filmModel.mtype;
+        }
+        
+        // 私人影院 电影 海外片场
+        if ([mtype isEqualToString:@"0"] ||
+            [mtype isEqualToString:@"2"] ||
+            [mtype isEqualToString:@"13"])
+        {
+            [self playFilmWithFilmModel:filmModel];
+            
+        }else if // 综艺 生活
+            ([mtype isEqualToString:@"7"] ||
+             [mtype isEqualToString:@"9"])
+        {
+            
+            
+        }else{
+            //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
+            
+        }
     }
+}
+
+- (void)playFilmWithFilmModel:(SCFilmModel *)filmModel{
+    SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
+    [self.navigationController pushViewController:playerVC animated:YES];
+}
+
+- (void)playTeleplay{
+    
+}
+
+- (void)playArtAndLifeMovie{
+    
 }
 
 @end
