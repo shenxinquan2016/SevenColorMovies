@@ -151,7 +151,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [realm transactionWithBlock:^{
             //若只删除filmModel 数据库中的filmSetModel不会被删除 故要先删除filmModel.filmSetModel
             if (filmModel.filmSetModel) {//不能删除空对象
-                [realm deleteObject:filmModel.filmSetModel];
+                //[realm deleteObject:filmModel.filmSetModel];
             }
             [realm deleteObject:filmModel];
         }];
