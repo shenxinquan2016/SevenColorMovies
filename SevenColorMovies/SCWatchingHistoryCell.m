@@ -50,7 +50,12 @@
 
 - (void)setFilmModel:(SCFilmModel *)filmModel{
     
+    // 名称
     _filmNameLabel.text = filmModel.FilmName;
+    // 第几集
+    if (filmModel.filmSetModel) {
+        _filmEpisodeLabel.text = filmModel.filmSetModel._ContentIndex;
+    }
     
     if (filmModel.isShowDeleteBtn) {
         _deleteBtn.hidden = NO;

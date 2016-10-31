@@ -48,17 +48,13 @@
 }
 
 - (void)setFilmModel:(SCFilmModel *)filmModel{
-    
+    // 名称
     _filmNameLabel.text = filmModel.FilmName;
     // 第几集
-    NSString *jiStr;
-    if (filmModel.jiIndex) {
-        jiStr = [NSString stringWithFormat:@"第%ld集",(long)filmModel.jiIndex];
-    }else{
-        jiStr = @"";
+    if (filmModel.filmSetModel) {
+        _filmEpisodeLabel.text = filmModel.filmSetModel._ContentIndex;
     }
-    _filmEpisodeLabel.text = jiStr;
-    
+    // 通过filmModel的属性变化改变对应的视图UI更新
     if (filmModel.isShowDeleteBtn) {
         _deleteBtn.hidden = NO;
         
