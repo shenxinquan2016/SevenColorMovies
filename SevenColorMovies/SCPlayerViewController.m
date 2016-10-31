@@ -171,8 +171,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
     NSString *documentPath = [FileManageCommon GetDocumentPath];
-    NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
-    NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
+    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
+    NSURL *databaseUrl = [NSURL URLWithString:filePath];
     RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
     
     // 使用 NSPredicate 查询

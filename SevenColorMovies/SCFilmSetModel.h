@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Realm/Realm.h>
 
-@interface SCFilmSetModel : NSObject
+@interface SCFilmSetModel : RLMObject
 
 @property (nonatomic,copy) NSString *_ContentSetName;/** 影片名称*/
 @property (nonatomic,copy) NSString *_ContentIndex;/** 第几集 */
@@ -21,3 +22,5 @@
 @property (nonatomic, assign, getter = isOnLive) BOOL onLive;/* 节目是否正在播放 */
 
 @end
+
+RLM_ARRAY_TYPE(SCFilmSetModel)

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Realm/Realm.h>
+#import "SCFilmSetModel.h"
 
 @interface SCFilmModel : RLMObject
 
@@ -47,6 +48,7 @@
 @property  BOOL isDownLoading;/** 是否正在下载 */
 
 @property (nonatomic, assign) NSInteger jiIndex;/** 伪属性 记录第几集 */
+@property (nonatomic, strong) SCFilmSetModel *filmSetModel;
 
 @end
 

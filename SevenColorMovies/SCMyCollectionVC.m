@@ -34,8 +34,8 @@
     
     // 2.读取数据库信息
     NSString *documentPath = [FileManageCommon GetDocumentPath];
-    NSString *dataBasePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
-    NSURL *databaseUrl = [NSURL URLWithString:dataBasePath];
+    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
+    NSURL *databaseUrl = [NSURL URLWithString:filePath];
     RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
     RLMResults *results = [SCFilmModel allObjectsInRealm:realm];
     
