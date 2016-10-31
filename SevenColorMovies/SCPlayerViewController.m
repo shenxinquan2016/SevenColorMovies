@@ -90,7 +90,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //6.注册点击列表播放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
     
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -213,7 +213,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
     }else{
         
-      [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList"] forState:UIControlStateNormal];
+        [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList"] forState:UIControlStateNormal];
     }
     
     //2.查询是否已经收藏
@@ -658,6 +658,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             //0.获取下一个节目的model
             SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD];
             _filmModel.jiIndex = VODIndex+timesIndexOfVOD;
+            //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
+            _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
             //查询数据库以更新功能区按钮视图
             [self refreshButtonStateFromQueryDatabase];
             //1.获取下一个节目的model
@@ -765,6 +767,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     VODIndex = [self.filmSetsArr indexOfObject:filmSetModel];
     // 对jiIndex赋值
     _filmModel.jiIndex = VODIndex+1;
+    //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
+    _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
     // 查询数据库以更新功能区按钮视图
     [self refreshButtonStateFromQueryDatabase];
     DONG_Log(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
@@ -943,10 +947,12 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         
                     }
                 }
-                SCFilmSetModel *model = [_filmSetsArr firstObject];
-                _filmSetModel = model;
-                model.onLive = YES;
+                SCFilmSetModel *filmSetModel = [_filmSetsArr firstObject];
+                _filmSetModel = filmSetModel;
+                filmSetModel.onLive = YES;
                 _filmModel.jiIndex = 1;
+                //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
+                _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
                 if (_filmSetsArr.count == 1) {
                     
                     self.titleArr = @[@"详情", @"精彩推荐"];
@@ -963,7 +969,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 [self constructContentView];
                 
                 //请求第一集的播放地址
-                [requestDataManager requestDataWithUrl:model.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+                [requestDataManager requestDataWithUrl:filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                     //            NSLog(@"====responseObject:::%@===",responseObject);
                     NSString *play_url = responseObject[@"play_url"];
                     DONG_Log(@"responseObject:%@",play_url);
