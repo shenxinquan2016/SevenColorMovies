@@ -137,7 +137,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     //});
     
-    SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
+    
     
     // 使用 NSPredicate 查询
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
@@ -149,13 +149,20 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     if (results.count) {//已经添加则取消收藏 从数据库删除
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList"] forState:UIControlStateNormal];
         RLMRealm *realm = [RLMRealm defaultRealm];
+        SCFilmModel *filmModel = results.firstObject;
         [realm transactionWithBlock:^{
-            [realm deleteObject:results.firstObject];
+            //若只删除filmModel 数据库中的filmSetModel不会被删除 故要先删除filmModel.filmSetModel
+            if (filmModel.filmSetModel) {//不能删除空对象
+                //[realm deleteObject:filmModel.filmSetModel];
+            }
+            [realm deleteObject:filmModel];
         }];
         [MBProgressHUD showSuccess:@"从节目单移除"];
-    }else {//未添加 添加到数据库
-        [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
         
+    }else {//未添加 添加到数据库
+        
+        SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
+        [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
         RLMRealm *realm = [RLMRealm defaultRealm];
         [realm transactionWithBlock:^{
             [realm addObject: filmModel];
@@ -169,7 +176,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 - (IBAction)addFilmToMyCollection:(UIButton *)sender {
     DONG_Log(@"添加到收藏");
     
-    SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
+    
     NSString *documentPath = [FileManageCommon GetDocumentPath];
     NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
     NSURL *databaseUrl = [NSURL URLWithString:filePath];
@@ -182,11 +189,20 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     if (results.count) {//已经添加则取消收藏 从数据库删除
         [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection"] forState:UIControlStateNormal];
+        SCFilmModel *filmModel = results.firstObject;
         [realm transactionWithBlock:^{
-            [realm deleteObject:results.firstObject];
+            //若只删除filmModel 数据库中的filmSetModel不会被删除 故要先删除filmModel.filmSetModel
+            if (filmModel.filmSetModel) {//不能删除空对象
+                //[realm deleteObject:filmModel.filmSetModel];
+            }
+            [realm deleteObject:filmModel];
         }];
+        
         [MBProgressHUD showSuccess:@"取消收藏"];
+        
     }else {//未添加 添加到数据库
+        
+        SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
         [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection_Click"] forState:UIControlStateNormal];
         
         [realm transactionWithBlock:^{
