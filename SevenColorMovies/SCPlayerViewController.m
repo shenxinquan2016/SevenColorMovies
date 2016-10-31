@@ -137,8 +137,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     //});
     
-    
-    
     // 使用 NSPredicate 查询
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
                          _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
@@ -153,7 +151,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [realm transactionWithBlock:^{
             //若只删除filmModel 数据库中的filmSetModel不会被删除 故要先删除filmModel.filmSetModel
             if (filmModel.filmSetModel) {//不能删除空对象
-                //[realm deleteObject:filmModel.filmSetModel];
+                [realm deleteObject:filmModel.filmSetModel];
             }
             [realm deleteObject:filmModel];
         }];
@@ -203,6 +201,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }else {//未添加 添加到数据库
         
         SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
+        //更新UI
         [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection_Click"] forState:UIControlStateNormal];
         
         [realm transactionWithBlock:^{
