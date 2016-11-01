@@ -27,9 +27,31 @@
 #pragma mark - Initialize
 // 由我的节目单进入
 + (instancetype)initPlayerWithFilmModel:(SCFilmModel *)filmModel{
-    SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
-    [player playFilmWithFilmModel:filmModel];
-    return player;
+    
+    NSString *mtype;
+    if (filmModel._Mtype) {
+        
+        mtype = filmModel._Mtype;
+        
+    }else if (filmModel.mtype){
+        
+        mtype = filmModel.mtype;
+    }
+    
+    // 综艺 生活
+    if ([mtype isEqualToString:@"7"] ||
+        [mtype isEqualToString:@"9"])
+    {
+        SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
+        [player playArtAndLifeFilmWithSCFilmModel:filmModel];
+        return player;
+    }else {
+        //电影 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
+        SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
+        [player playFilmWithFilmModel:filmModel];
+        return player;
+    }
+    
 }
 
 //由回看搜索进入
@@ -76,6 +98,7 @@
 }
 
 #pragma mark - private method
+// 播放电影 电视剧
 - (void)playFilmWithFilmModel:(SCFilmModel *)filmModel{
     [CommonFunc showLoadingWithTips:@""];
     
@@ -232,6 +255,75 @@
 
 }
 
+// 播放综艺
+- (void)playArtAndLifeFilmWithSCFilmModel:(SCFilmModel *)filmModel{
+    //请求播放地址
+    [CommonFunc showLoadingWithTips:@""];
+    DONG_WeakSelf(self);
+    //请求播放地址
+    NSString *urlStr = [filmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject){
+        NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+        //获取fid
+        NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+        //base64编码downloadUrl
+        NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
+        //视频播放url
+        NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+        
+        //2.请求播放地址
+        [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+            DONG_StrongSelf(self);
+            //            NSLog(@"====responseObject:::%@===",responseObject);
+            NSString *play_url = responseObject[@"play_url"];
+            //请求将播放地址域名转换  并拼接最终的播放地址
+            NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+            //1.拼接新地址
+            NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+            strongself.url = [NSURL URLWithString:playUrl];
+            //            strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+            
+            //2.调用播放器播放
+            strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+            [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+            strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;
+            strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+            [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+            
+            //进入全屏模式
+            [UIView animateWithDuration:0.2 animations:^{
+                
+                strongself.IJKPlayerViewController.view.transform = CGAffineTransformRotate(strongself.view.transform, M_PI_2);
+                strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+                strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
+                [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
+                
+            }];
+            
+            NSString *filmName;
+            if (strongself.filmModel.FilmName) {
+                filmName = strongself.filmModel.FilmName;
+            }else if (strongself.filmModel.cnname){
+                filmName = strongself.filmModel.cnname;
+            }
+            strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+            [CommonFunc dismiss];
+
+        } failure:^(id  _Nullable errorObject) {
+            
+            [CommonFunc dismiss];
+            
+        }];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+    
+}
+
+// 播放搜索回看
 - (void)playFilmWithProgramModel:(SCLiveProgramModel *)programModel{
     //获取时间戳字符串
     NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:programModel.forecastdate format:@"yyyy-MM-dd HH:mm:ss"]];

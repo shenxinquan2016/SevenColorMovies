@@ -324,7 +324,6 @@
             //从临时数据中删除
             [_tempArray removeObject:filmModel];
             
-            
         }else{
             filmModel.selected = YES;
             //添加到临时数组中 待确定后从数据库中删除
@@ -336,40 +335,10 @@
     }else{//非编辑状态，点击cell播放film
         
         SCFilmModel *filmModel = _dataArray[indexPath.row];
-        
-        NSString *mtype;
-        if (filmModel._Mtype) {
-            
-            mtype = filmModel._Mtype;
-            
-        }else if (filmModel.mtype){
-            
-            mtype = filmModel.mtype;
-        }
-        
-        // 综艺 生活
-        if ([mtype isEqualToString:@"7"] ||
-            [mtype isEqualToString:@"9"])
-        {
-            //电影 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
-//            SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
-//            [self.navigationController pushViewController:playerVC animated:YES];
-            
-        }else {
-            //电影 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
-            SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
-            [self.navigationController pushViewController:playerVC animated:YES];
-        }
+        SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
+        [self.navigationController pushViewController:playerVC animated:YES];
     }
 }
 
-
-- (void)playTeleplay{
-    
-}
-
-- (void)playArtAndLifeMovie{
-    
-}
 
 @end

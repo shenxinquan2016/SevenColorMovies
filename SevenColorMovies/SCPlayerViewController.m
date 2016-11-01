@@ -114,6 +114,26 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
+    NSString *mtype;
+    if (_filmModel._Mtype) {
+        
+        mtype = _filmModel._Mtype;
+        
+    }else if (_filmModel.mtype){
+        
+        mtype = _filmModel.mtype;
+    }
+    
+    // 综艺 生活
+    if ([mtype isEqualToString:@"7"] ||
+         [mtype isEqualToString:@"9"])
+    {
+       
+        
+    }else{
+        // 私人影院 电影 海外片场 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
+        
+    }
     //7.查询数据库以更新功能区按钮视图
     [self refreshButtonStateFromQueryDatabase];
 }
@@ -714,6 +734,10 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         if (VODIndex+ ++timesIndexOfVOD < self.filmsArr.count) {
             //0.获取下一个节目的model
             SCFilmModel *atrsFilmModel = self.filmsArr[VODIndex+timesIndexOfVOD];
+            //更改属性值为指定单元节目的filmModel 方便存取
+            _filmModel = atrsFilmModel;
+            //查询数据库以更新功能区按钮视图
+            [self refreshButtonStateFromQueryDatabase];
             //请求播放地址
             NSString *urlStr = [atrsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
@@ -826,6 +850,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     DONG_WeakSelf(self);
     self.needScrollToTopPage.clickToPlayBlock = ^(NSString *urlStr,SCFilmModel *filmModel){
         DONG_StrongSelf(self);
+        //更改属性值为指定单元节目的filmModel 方便存取
+        _filmModel = filmModel;
+        //查询数据库以更新功能区按钮视图
+        [strongself refreshButtonStateFromQueryDatabase];
         //1.关闭正在播放的节目
         if ([strongself.IJKPlayerViewController.player isPlaying]) {
             [strongself.IJKPlayerViewController.player pause];
@@ -974,6 +1002,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     self.identifier = @"电影";
                     
                 }else if (_filmSetsArr.count > 1){
+                    
                     self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
                     self.identifier = @"电视剧";
                     
@@ -1014,8 +1043,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             }
             
         } failure:^(id  _Nullable errorObject) {
-            [CommonFunc dismiss];
             
+            [CommonFunc dismiss];
         }];
         
     } failure:^(NSError *error) {
@@ -1044,7 +1073,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
             DONG_StrongSelf(self);
-            //        NSLog(@"====responseObject======%@===",responseObject);
+            //NSLog(@"====responseObject======%@===",responseObject);
             [strongself.filmsArr removeAllObjects];
             if (responseObject) {
                 
@@ -1079,6 +1108,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             
             //请求播放地址
             SCFilmModel *atrsFilmModel = [strongself.filmsArr firstObject];
+            _filmModel = atrsFilmModel;
             NSString *urlStr = [atrsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             //获取downLoadUrl
             [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
