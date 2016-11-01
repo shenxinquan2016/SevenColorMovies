@@ -347,30 +347,22 @@
             mtype = filmModel.mtype;
         }
         
-        // 私人影院 电影 海外片场
-        if ([mtype isEqualToString:@"0"] ||
-            [mtype isEqualToString:@"2"] ||
-            [mtype isEqualToString:@"13"])
+        // 综艺 生活
+        if ([mtype isEqualToString:@"7"] ||
+            [mtype isEqualToString:@"9"])
         {
-            [self playFilmWithFilmModel:filmModel];
+            //电影 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
+//            SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
+//            [self.navigationController pushViewController:playerVC animated:YES];
             
-        }else if // 综艺 生活
-            ([mtype isEqualToString:@"7"] ||
-             [mtype isEqualToString:@"9"])
-        {
-            
-            
-        }else{
-            //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
-            
+        }else {
+            //电影 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
+            SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
+            [self.navigationController pushViewController:playerVC animated:YES];
         }
     }
 }
 
-- (void)playFilmWithFilmModel:(SCFilmModel *)filmModel{
-    SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
-    [self.navigationController pushViewController:playerVC animated:YES];
-}
 
 - (void)playTeleplay{
     
