@@ -114,26 +114,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    NSString *mtype;
-    if (_filmModel._Mtype) {
-        
-        mtype = _filmModel._Mtype;
-        
-    }else if (_filmModel.mtype){
-        
-        mtype = _filmModel.mtype;
-    }
-    
-    // 综艺 生活
-    if ([mtype isEqualToString:@"7"] ||
-         [mtype isEqualToString:@"9"])
-    {
-       
-        
-    }else{
-        // 私人影院 电影 海外片场 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
-        
-    }
     //7.查询数据库以更新功能区按钮视图
     [self refreshButtonStateFromQueryDatabase];
 }
@@ -178,9 +158,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [MBProgressHUD showSuccess:@"从节目单移除"];
         
     }else {//未添加 添加到数据库
-        
-        SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
+        //更新UI
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
+        SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
         RLMRealm *realm = [RLMRealm defaultRealm];
         [realm transactionWithBlock:^{
             [realm addObject: filmModel];
@@ -193,7 +173,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 // 添加收藏
 - (IBAction)addFilmToMyCollection:(UIButton *)sender {
     DONG_Log(@"添加到收藏");
-    
     
     NSString *documentPath = [FileManageCommon GetDocumentPath];
     NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myCollection.realm"];
@@ -220,13 +199,15 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         
     }else {//未添加 添加到数据库
         
-        SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
         //更新UI
         [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection_Click"] forState:UIControlStateNormal];
+        
+        SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
         
         [realm transactionWithBlock:^{
             [realm addObject: filmModel];
         }];
+        
         [MBProgressHUD showSuccess:@"添加收藏"];
     }
 }
