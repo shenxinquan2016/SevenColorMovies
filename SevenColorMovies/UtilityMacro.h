@@ -62,6 +62,9 @@
 
 #endif
 
+#define DONG_Toast(str) [NSString stringWithFormat:@"%@",@#str]
+#define DONG_NSLog(str) NSLog(@"🔴%s 第%d行 \n %@\n\n",__func__, __LINE__, [NSString stringWithFormat:@#str])
+
 //获取view的frame某值
 #define ViewWidth(v)                        v.frame.size.width
 #define ViewHeight(v)                       v.frame.size.height
@@ -76,8 +79,6 @@
 #define DONG_WeakSelf(type)  __weak typeof(type) weak##type = type
 #define DONG_StrongSelf(type)  __strong typeof(weak##type) strong##type = weak##type
 
-#define DONG_Toast(str) [NSString stringWithFormat:@"%@",@#str]
-#define DONG_NSLog(str) NSLog:@"%@",DONGToast(str)
 
 
 //  主要单例

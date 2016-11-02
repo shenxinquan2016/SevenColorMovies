@@ -134,6 +134,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 // 添加节目单
 - (IBAction)addFilmToProgramList:(UIButton *)sender {
     DONG_Log(@"添加到节目单");
+    
     //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     //});
     
@@ -151,7 +152,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [realm transactionWithBlock:^{
             //若只删除filmModel 数据库中的filmSetModel不会被删除 故要先删除filmModel.filmSetModel
             if (filmModel.filmSetModel) {//不能删除空对象
-                //[realm deleteObject:filmModel.filmSetModel];
+                [realm deleteObject:filmModel.filmSetModel];
             }
             [realm deleteObject:filmModel];
         }];
@@ -160,15 +161,16 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }else {//未添加 添加到数据库
         //更新UI
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
-        
+        //保存到数据库
         SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
         RLMRealm *realm = [RLMRealm defaultRealm];
         
         if (_filmModel.filmSetModel) {
             
             SCFilmSetModel *filmSetModel = [[SCFilmSetModel alloc] initWithValue:_filmModel.filmSetModel];
+            filmModel.filmSetModel = filmSetModel;
+           
             [realm transactionWithBlock:^{
-                filmModel.filmSetModel = filmSetModel;
                 [realm addObject: filmModel];
             }];
             
@@ -205,7 +207,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         [realm transactionWithBlock:^{
             //若只删除filmModel 数据库中的filmSetModel不会被删除 故要先删除filmModel.filmSetModel
             if (filmModel.filmSetModel) {//不能删除空对象
-                //[realm deleteObject:filmModel.filmSetModel];
+                [realm deleteObject:filmModel.filmSetModel];
             }
             [realm deleteObject:filmModel];
         }];
@@ -216,14 +218,15 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         
         //更新UI
         [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection_Click"] forState:UIControlStateNormal];
-        
+        //保存到数据库
         SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
         
         if (_filmModel.filmSetModel) {
             
             SCFilmSetModel *filmSetModel = [[SCFilmSetModel alloc] initWithValue:_filmModel.filmSetModel];
+            filmModel.filmSetModel = filmSetModel;
+            
             [realm transactionWithBlock:^{
-                filmModel.filmSetModel = filmSetModel;
                 [realm addObject: filmModel];
             }];
             
