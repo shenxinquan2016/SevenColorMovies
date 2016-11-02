@@ -160,11 +160,26 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }else {//未添加 添加到数据库
         //更新UI
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
+        
         SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
         RLMRealm *realm = [RLMRealm defaultRealm];
-        [realm transactionWithBlock:^{
-            [realm addObject: filmModel];
-        }];
+        
+        if (_filmModel.filmSetModel) {
+            
+            SCFilmSetModel *filmSetModel = [[SCFilmSetModel alloc] initWithValue:_filmModel.filmSetModel];
+            [realm transactionWithBlock:^{
+                filmModel.filmSetModel = filmSetModel;
+                [realm addObject: filmModel];
+            }];
+            
+        }else{
+            
+            [realm transactionWithBlock:^{
+                [realm addObject: filmModel];
+            }];
+            
+        }
+        
         [MBProgressHUD showSuccess:@"添加到节目单"];
     }
     
@@ -204,10 +219,21 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         
         SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
         
-        [realm transactionWithBlock:^{
-            [realm addObject: filmModel];
-        }];
-        
+        if (_filmModel.filmSetModel) {
+            
+            SCFilmSetModel *filmSetModel = [[SCFilmSetModel alloc] initWithValue:_filmModel.filmSetModel];
+            [realm transactionWithBlock:^{
+                filmModel.filmSetModel = filmSetModel;
+                [realm addObject: filmModel];
+            }];
+            
+        }else{
+            
+            [realm transactionWithBlock:^{
+                [realm addObject: filmModel];
+            }];
+            
+        }
         [MBProgressHUD showSuccess:@"添加收藏"];
     }
 }
