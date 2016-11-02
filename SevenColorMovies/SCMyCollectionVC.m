@@ -62,6 +62,11 @@
     [self setBottomBtnView];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -351,8 +356,7 @@
         
     }else{//非编辑状态，点击cell播放film
         
-        RLMResults *results = [SCFilmModel allObjects];
-        SCFilmModel *filmModel = results[indexPath.row];
+        SCFilmModel *filmModel = _dataArray[indexPath.row];
         SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
         [self.navigationController pushViewController:playerVC animated:YES];
         

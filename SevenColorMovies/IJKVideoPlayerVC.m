@@ -17,10 +17,9 @@
 #import "SCFilterViewController.h"
 #import "SCMyProgramListVC.h"
 #import "SCLiveViewController.h"
+#import "SCMyCollectionVC.h"
 
 @interface IJKVideoPlayerVC ()
-
-
 
 @end
 
@@ -224,6 +223,11 @@
             
             
             if ([controller isKindOfClass:[SCMyProgramListVC class]]) {//我的节目单
+                
+                [navController popToViewController:controller animated:YES];
+                return;
+                
+            }else if ([controller isKindOfClass:[SCMyCollectionVC class]]) {//我的收藏
                 
                 [navController popToViewController:controller animated:YES];
                 return;

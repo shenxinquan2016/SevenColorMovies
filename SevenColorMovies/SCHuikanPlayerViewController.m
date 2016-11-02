@@ -89,12 +89,10 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
 -(void)dealloc{
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
-    
 }
 
 #pragma mark - private method
