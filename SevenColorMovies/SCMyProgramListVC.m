@@ -157,16 +157,25 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [indexPathArray addObject:indexPath];
     }];
+    
     // 删除cell前 必须先删除tableview的数据源
     [_dataArray removeObjectsInArray:_tempArray];
     // 把view相应的cell删掉
     [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
     
-    // 删除数据库中的数据
+    // 删除数据库中的数据 如果filmModel的filmSetModel不为空 要删除filmSetmodel再删除filmModel
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
-    [realm deleteObjects:_tempArray];
+    
+    for (SCFilmModel *filmModel in _tempArray) {
+        // 若只删除filmModel 数据库中的filmSetModel不会被删除 故要先删除filmModel.filmSetModel
+        if (filmModel.filmSetModel) {// 不能删除空对象
+            [realm deleteObject:filmModel.filmSetModel];
+        }
+        [realm deleteObject:filmModel];
+    }
     [realm commitWriteTransaction];
+    
     // 清空变量
     [_tempArray removeAllObjects];
     [indexPathArray removeAllObjects];
@@ -285,6 +294,10 @@
         // 3.删除数据库中的数据
         RLMRealm *realm = [RLMRealm defaultRealm];
         [realm beginWriteTransaction];
+        //若只删除filmModel 数据库中的filmSetModel不会被删除 故要先删除filmModel.filmSetModel
+        if (filmModel.filmSetModel) {//不能删除空对象
+            [realm deleteObject:filmModel.filmSetModel];
+        }
         [realm deleteObject:filmModel];
         [realm commitWriteTransaction];
     }
