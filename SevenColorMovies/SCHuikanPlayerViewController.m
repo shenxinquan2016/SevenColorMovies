@@ -43,7 +43,7 @@
         [mtype isEqualToString:@"9"])
     {
         SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
-        [player playArtAndLifeFilmWithSCFilmModel:filmModel];
+        [player playArtAndLifeFilmWithFilmModel:filmModel];
         return player;
     }else {
         //电影 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
@@ -66,7 +66,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -84,7 +84,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,7 +94,7 @@
 
 -(void)dealloc{
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
-
+    
 }
 
 #pragma mark - private method
@@ -245,18 +245,18 @@
                 
                 [CommonFunc dismiss];
             }];
-
+            
         }
         
     } failure:^(NSError *error) {
         [CommonFunc dismiss];
         
     }];
-
+    
 }
 
 // 播放综艺
-- (void)playArtAndLifeFilmWithSCFilmModel:(SCFilmModel *)filmModel{
+- (void)playArtAndLifeFilmWithFilmModel:(SCFilmModel *)filmModel{
     //请求播放地址
     [CommonFunc showLoadingWithTips:@""];
     DONG_WeakSelf(self);
@@ -274,42 +274,50 @@
         //2.请求播放地址
         [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
             DONG_StrongSelf(self);
-            //            NSLog(@"====responseObject:::%@===",responseObject);
+            //DONG_Log(@"====responseObject:::%@===",responseObject);
             NSString *play_url = responseObject[@"play_url"];
+            
             //请求将播放地址域名转换  并拼接最终的播放地址
-            NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-            //1.拼接新地址
-            NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-            strongself.url = [NSURL URLWithString:playUrl];
-            //            strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-            
-            //2.调用播放器播放
-            strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
-            [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;
-            strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
-            [strongself.view addSubview:strongself.IJKPlayerViewController.view];
-            
-            //进入全屏模式
-            [UIView animateWithDuration:0.2 animations:^{
+            [[HLJRequest requestWithPlayVideoURL:play_url] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+                //1.拼接新地址
+                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                strongself.url = [NSURL URLWithString:playUrl];
+                //            strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+                DONG_Log(@"====url:::%@===",strongself.url);
+                //2.调用播放器播放
+                strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;
+                strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+                [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                 
-                strongself.IJKPlayerViewController.view.transform = CGAffineTransformRotate(strongself.view.transform, M_PI_2);
-                strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-                strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
-                [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
+                //进入全屏模式
+                [UIView animateWithDuration:0.2 animations:^{
+                    
+                    strongself.IJKPlayerViewController.view.transform = CGAffineTransformRotate(strongself.view.transform, M_PI_2);
+                    strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+                    strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
+                    [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
+                    
+                }];
+                
+                NSString *filmName;
+                if (strongself.filmModel.FilmName) {
+                    filmName = strongself.filmModel.FilmName;
+                }else if (strongself.filmModel.cnname){
+                    filmName = strongself.filmModel.cnname;
+                }
+                strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                
+                [CommonFunc dismiss];
+                
+            } failure:^(NSError *error) {
+                
+                [CommonFunc dismiss];
                 
             }];
             
-            NSString *filmName;
-            if (strongself.filmModel.FilmName) {
-                filmName = strongself.filmModel.FilmName;
-            }else if (strongself.filmModel.cnname){
-                filmName = strongself.filmModel.cnname;
-            }
-            strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
-            [CommonFunc dismiss];
-
         } failure:^(id  _Nullable errorObject) {
             
             [CommonFunc dismiss];
@@ -381,7 +389,7 @@
         
         [CommonFunc dismiss];
     }];
-
+    
 }
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{
