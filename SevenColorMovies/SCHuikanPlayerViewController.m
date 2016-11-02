@@ -138,7 +138,6 @@
                 strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                 [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.programModel.program;
                 strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                 
@@ -152,12 +151,14 @@
                     
                 }];
                 
+                // 名称
                 NSString *filmName;
-                if (strongself.filmModel.FilmName) {
-                    filmName = strongself.filmModel.FilmName;
-                }else if (strongself.filmModel.cnname){
-                    filmName = strongself.filmModel.cnname;
+                if (filmModel.FilmName) {
+                    filmName = [NSString stringWithFormat:@"%@ 第%@集",filmModel.FilmName,filmModel.filmSetModel._ContentIndex];
+                }else if (filmModel.cnname){
+                    filmName = [NSString stringWithFormat:@"%@ 第%@集",filmModel.cnname,filmModel.filmSetModel._ContentIndex];
                 }
+                
                 strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
                 
                 [CommonFunc dismiss];
@@ -212,7 +213,6 @@
                     strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                     [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
                     strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                    strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.programModel.program;
                     strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
                     [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                     
@@ -226,12 +226,14 @@
                         
                     }];
                     
+                    // 名称
                     NSString *filmName;
-                    if (strongself.filmModel.FilmName) {
-                        filmName = strongself.filmModel.FilmName;
-                    }else if (strongself.filmModel.cnname){
-                        filmName = strongself.filmModel.cnname;
+                    if (filmModel.FilmName) {
+                        filmName = filmModel.FilmName;
+                    }else if (filmModel.cnname){
+                        filmName = filmModel.cnname;
                     }
+                    
                     strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
                     
                     [CommonFunc dismiss];
@@ -288,7 +290,6 @@
                 strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                 [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;
                 strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                 
@@ -302,12 +303,14 @@
                     
                 }];
                 
+                // 名称
                 NSString *filmName;
-                if (strongself.filmModel.FilmName) {
-                    filmName = strongself.filmModel.FilmName;
-                }else if (strongself.filmModel.cnname){
-                    filmName = strongself.filmModel.cnname;
+                if (filmModel.FilmName) {
+                    filmName = filmModel.FilmName;
+                }else if (filmModel.cnname){
+                    filmName = filmModel.cnname;
                 }
+                
                 strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
                 
                 [CommonFunc dismiss];
