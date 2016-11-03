@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/10/18.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  下载cell
 
 #import <UIKit/UIKit.h>
 #import "SCFilmModel.h"

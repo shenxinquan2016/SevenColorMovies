@@ -42,8 +42,8 @@
 
 @property (getter = isOnLive) BOOL onLive;/* 节目是否正在播放 */
 
-@property (getter = isShowDeleteBtn) BOOL showDeleteBtn;/** 是否显示删除按钮 */
-@property (getter = isSelecting) BOOL selected;/** 是否正被点击 */
+@property (nonatomic, assign, getter = isShowDeleteBtn) BOOL showDeleteBtn;/** 是否显示删除按钮 */
+@property (nonatomic, assign, getter = isSelecting) BOOL selected;/** 是否正被点击 */
 @property BOOL isDownLoading;/** 是否正在下载 */
 
 

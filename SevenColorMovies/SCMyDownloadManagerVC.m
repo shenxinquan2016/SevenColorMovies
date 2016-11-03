@@ -25,17 +25,22 @@
 
 @implementation SCMyDownloadManagerVC
 
+{
+    UIImageView *downloadIV_;
+    UILabel *headerTitlelabel_;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     //self.automaticallyAdjustsScrollViewInsets = NO;
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
+    
     //假数据
-    for (int i = 0; i<15; i++) {
+    for (int i = 0; i<5; i++) {
         SCFilmModel *filmModel = [[SCFilmModel alloc] init];
         filmModel.FilmName = [NSString stringWithFormat:@"%d%d%d%d",i,i,i,i];
         [_dataArray addObject:filmModel];
     }
-    
     
     // 3.初始化
     _isEditing = NO;
@@ -222,6 +227,10 @@
     
 }
 
+- (void)beginOrPauseDownload{
+    DONG_NSLog(开始下载);
+}
+
 #pragma mark - UITableView dataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -252,7 +261,7 @@
 
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return NULL;
+    return @"全部开始";
 }
 
 - (nullable NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
@@ -284,12 +293,52 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0;
+    return 40.f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIView *view = [[UIImageView alloc] init];
+    view.frame = CGRectMake(0, 0, kMainScreenWidth, 40.f);
+    view.backgroundColor = [UIColor whiteColor];
+    
+    //下载图标
+    UIImageView *downLoadIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DownLoadIMG"]];
+    [view addSubview:downLoadIV];
+    [downLoadIV mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view);
+        make.left.equalTo(view).and.offset(12);
+        make.size.mas_equalTo(CGSizeMake(21, 21));
+        
+    }];
+
+    //全部开始
+    UILabel *headerTitlelabel = [[UILabel alloc] init];
+    headerTitlelabel.text = @"全部开始";
+    headerTitlelabel.font = [UIFont systemFontOfSize:15];
+    headerTitlelabel.textAlignment = NSTextAlignmentLeft;
+    [view addSubview:headerTitlelabel];
+    [headerTitlelabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view);
+        make.left.equalTo(downLoadIV.mas_right).and.offset(10);
+        make.size.mas_equalTo(CGSizeMake(70, 21));
+        
+    }];
+    
+    downloadIV_ = downLoadIV;
+    headerTitlelabel_ = headerTitlelabel;
+    
+    //header点击手势
+    UITapGestureRecognizer *headerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(beginOrPauseDownload)];
+    [view addGestureRecognizer:headerTap];
+    view.userInteractionEnabled = YES;
+    
+    return view;
 }
 
 //将delete改为删除
@@ -315,16 +364,17 @@
             //添加到临时数组中 待确定后从数据库中删除
             [_tempArray addObject:filmModel];
 
-            
         }
         cell.filmModel = filmModel;
         
-    }else{//非编辑状态，点击cell播放film
+    }else{//非编辑状态
         
+        //未完成下载 弹出提示
         
+        //完成下载 播放
         
     }
-    DONG_Log(@"cell:%ld: \n:%d",(long)indexPath.row,cell.selected);
+    
 }
 
 

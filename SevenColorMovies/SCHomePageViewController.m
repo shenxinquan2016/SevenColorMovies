@@ -382,7 +382,7 @@ static NSString *const footerId = @"footerId";
         {
             headerView = [[UICollectionReusableView alloc] init];
         }
-        //                headerView.backgroundColor = [UIColor purpleColor];
+        //headerView.backgroundColor = [UIColor purpleColor];
         UIView *view = [self addSectionHeaderViewWithTitle:_titleArray[indexPath.section-1] tag:indexPath.section-1];
         [headerView addSubview:view];
         return headerView;

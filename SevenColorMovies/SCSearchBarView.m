@@ -39,8 +39,8 @@
         make.size.mas_equalTo(searchImageView.image.size);
     }];
     
+    //搜索textField
     _searchTF = [[UITextField alloc] init];
-    
     _searchTF.borderStyle = UITextBorderStyleNone;
     _searchTF.clearButtonMode = UITextFieldViewModeWhileEditing;
     _searchTF.returnKeyType = UIReturnKeySearch;

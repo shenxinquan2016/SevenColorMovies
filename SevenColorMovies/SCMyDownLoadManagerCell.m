@@ -4,18 +4,18 @@
 //
 //  Created by yesdgq on 16/10/18.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  下载cell
 
 #import "SCMyDownLoadManagerCell.h"
 
 @interface SCMyDownLoadManagerCell ()
 
 @property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;
-@property (weak, nonatomic) IBOutlet UILabel *fimlNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *filmEpisodeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *downLoadProgressLabel;
-@property (weak, nonatomic) IBOutlet UILabel *downLoadStateLabel;
-@property (weak, nonatomic) IBOutlet UIProgressView *downLoadProgressView;
+@property (weak, nonatomic) IBOutlet UILabel *fimlNameLabel;/** 影片名称 */
+@property (weak, nonatomic) IBOutlet UILabel *filmEpisodeLabel;/** 第几集 */
+@property (weak, nonatomic) IBOutlet UILabel *downLoadProgressLabel;/** 数字进度 */
+@property (weak, nonatomic) IBOutlet UILabel *downLoadStateLabel;/** 下载状态 */
+@property (weak, nonatomic) IBOutlet UIProgressView *downLoadProgressView;/** 进度条 */
 
 @end
 
