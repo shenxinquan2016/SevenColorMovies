@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="355" height="68"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wqz-MG-K7i" id="d73-PL-oFb">
-                <frame key="frameInset" width="355" height="67"/>
+                <frame key="frameInset" width="355" height="67.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nag-S1-Duz">
@@ -33,7 +33,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="胭脂" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTe-AO-MR1">
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="EQY-UY-SQJ"/>
-                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="xHF-KF-g7t"/>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="220" id="xHF-KF-g7t"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>

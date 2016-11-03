@@ -52,7 +52,7 @@
     _filmNameLabel.text = filmModel.FilmName;
     // 第几集
     if (filmModel.filmSetModel) {
-        _filmEpisodeLabel.text = filmModel.filmSetModel._ContentIndex;
+        _filmEpisodeLabel.text =[NSString stringWithFormat:@"第%@集", filmModel.filmSetModel._ContentIndex];
     }
     // 通过filmModel的属性变化改变对应的视图UI更新
     if (filmModel.isShowDeleteBtn) {
