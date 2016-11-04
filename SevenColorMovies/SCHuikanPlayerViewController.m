@@ -165,7 +165,7 @@
                 [CommonFunc dismiss];
             }];
             
-        }else{
+        }else{// 电影
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 //        DONG_Log(@"====responseObject:::%@===",responseObject);

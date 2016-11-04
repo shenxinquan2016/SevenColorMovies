@@ -169,7 +169,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             
             SCFilmSetModel *filmSetModel = [[SCFilmSetModel alloc] initWithValue:_filmModel.filmSetModel];
             filmModel.filmSetModel = filmSetModel;
-           
+            
             [realm transactionWithBlock:^{
                 [realm addObject: filmModel];
             }];
@@ -251,11 +251,11 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         
         if (_filmModel.filmSetModel) {
             
-          filmName = [NSString stringWithFormat:@"%@第%@集",_filmModel.FilmName,_filmModel.filmSetModel._ContentIndex];
+            filmName = [NSString stringWithFormat:@"%@第%@集",_filmModel.FilmName,_filmModel.filmSetModel._ContentIndex];
             
         }else{
             
-           filmName = [NSString stringWithFormat:@"%@",_filmModel.FilmName];
+            filmName = [NSString stringWithFormat:@"%@",_filmModel.FilmName];
         }
         
     }else if (_filmModel.cnname){
@@ -269,14 +269,170 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             filmName = [NSString stringWithFormat:@"%@",_filmModel.cnname];
         }
     }
-
-    DONG_Log(@"filmName:%@",filmName);
     
     NSString *downloadPath = [FileManageCommon CreateList:[FileManageCommon GetDocumentPath] ListName:@"download"];
     
     NSString *filePath = [downloadPath stringByAppendingString:[NSString stringWithFormat:@"/%@.mp4",filmName]];
     
     DONG_Log(@"filePath:%@",filePath);
+    
+    
+    
+    
+    NSString *mid;
+    if (_filmModel._Mid) {
+        mid = _filmModel._Mid;
+    }else if (_filmModel.mid){
+        mid = _filmModel.mid;
+    }
+    
+    NSString *filmmidStr = mid ? mid : @"";
+    
+    NSDictionary *parameters = @{@"pagesize" : @"1000",
+                                 @"filmmid" : filmmidStr};
+    
+    DONG_WeakSelf(self);
+    //请求film详细信息
+    self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
+    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        
+        if (_filmModel.filmSetModel) {// 电视剧 系列影片通道
+            
+            //请求播放地址
+            [requestDataManager requestDataWithUrl:_filmModel.filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+                DONG_StrongSelf(self);
+                //NSLog(@"====responseObject:::%@===",responseObject);
+                NSString *play_url = responseObject[@"play_url"];
+                DONG_Log(@"responseObject:%@",play_url);
+                //请求将播放地址域名转换  并拼接最终的播放地址
+                NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+                
+                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                //1.拼接新地址
+                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                strongself.url = [NSURL URLWithString:playUrl];
+                
+                
+                
+                
+                
+                
+                [CommonFunc dismiss];
+                
+            } failure:^(id  _Nullable errorObject) {
+                [CommonFunc dismiss];
+            }];
+            
+        }else{// 电影
+            
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                //        DONG_Log(@"====responseObject:::%@===",responseObject);
+                
+                DONG_StrongSelf(self);
+                // 坑：：单片不同film竟然数据结构不同 服了！
+                //downloadUrl
+                NSString *downloadUrl;
+                if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
+                    
+                    downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+                    
+                }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
+                    
+                    downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
+                }
+                
+                //base64编码downloadUrl
+                NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
+                
+                //获取fid
+                NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+                
+                //这只是个请求视频播放流的url地址
+                NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
+                NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                
+                //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
+                //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+                //请求播放地址
+                [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+                    //                //            NSLog(@"====responseObject:::%@===",responseObject);
+                    NSString *play_url = responseObject[@"play_url"];
+                    DONG_Log(@"responseObject:%@",play_url);
+                    //请求将播放地址域名转换  并拼接最终的播放地址
+                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+                    
+                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                    //1.拼接新地址
+                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                    strongself.url = [NSURL URLWithString:playUrl];
+                    
+                    
+                    
+                    
+                    
+                    
+                    NSURLRequest *request = [NSURLRequest requestWithURL:strongself.url];
+                    
+                    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+                    
+                    operation.inputStream   = [NSInputStream inputStreamWithURL:strongself.url];
+                    operation.outputStream  = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
+                    
+                    //下载进度控制
+                    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+                        
+                        NSString *progress = [NSString stringWithFormat:@"%f",(float)totalBytesRead/totalBytesExpectedToRead];
+                         [MBProgressHUD showSuccess:@"下载进度控制"];
+                    }];
+                    
+                    
+                    //已完成下载
+                    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        
+                        
+                        NSData *audioData = [NSData dataWithContentsOfFile:filePath];
+                        NSString *byte = [NSString stringWithFormat:@"%lu",(unsigned long)audioData.length];
+                         [MBProgressHUD showSuccess:@"下载完成"];
+                        //设置下载数据到res字典对象中并用代理返回下载数据NSData
+                        // [self requestFinished:[NSDictionary dictionaryWithObject:audioData forKey:@"res"] tag:aTag];
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        
+                         [MBProgressHUD showSuccess:@"下载失败"];
+                        //下载失败
+                        //[self requestFailed:aTag];
+                    }];
+                    [operation start];
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    [CommonFunc dismiss];
+                    
+                } failure:^(id  _Nullable errorObject) {
+                    [CommonFunc dismiss];
+                }];
+                
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+                [CommonFunc dismiss];
+            }];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        [CommonFunc dismiss];
+        
+    }];
     
 }
 
