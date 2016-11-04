@@ -245,6 +245,39 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 - (IBAction)beginDownload:(id)sender {
     DONG_Log(@"下载");
     
+    // 名称
+    NSString *filmName;
+    if (_filmModel.FilmName) {
+        
+        if (_filmModel.filmSetModel) {
+            
+          filmName = [NSString stringWithFormat:@"%@第%@集",_filmModel.FilmName,_filmModel.filmSetModel._ContentIndex];
+            
+        }else{
+            
+           filmName = [NSString stringWithFormat:@"%@",_filmModel.FilmName];
+        }
+        
+    }else if (_filmModel.cnname){
+        
+        if (_filmModel.filmSetModel) {
+            
+            filmName = [NSString stringWithFormat:@"%@第%@集",_filmModel.cnname,_filmModel.filmSetModel._ContentIndex];
+            
+        }else{
+            
+            filmName = [NSString stringWithFormat:@"%@",_filmModel.cnname];
+        }
+    }
+
+    DONG_Log(@"filmName:%@",filmName);
+    
+    NSString *downloadPath = [FileManageCommon CreateList:[FileManageCommon GetDocumentPath] ListName:@"download"];
+    
+    NSString *filePath = [downloadPath stringByAppendingString:[NSString stringWithFormat:@"/%@.mp4",filmName]];
+    
+    DONG_Log(@"filePath:%@",filePath);
+    
 }
 
 #pragma mark- private methods

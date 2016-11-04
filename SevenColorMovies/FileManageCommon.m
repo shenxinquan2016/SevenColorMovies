@@ -117,30 +117,30 @@
  ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
  */
 
-//+(NSString*) readFromFile:(NSString*)filepath  {
-//    
-//    if([[NSFileManager defaultManager] fileExistsAtPath:filepath]) {
-//        NSArray*content =[[NSArray alloc]initWithContentsOfFile:filepath];
-//        NSString*data =[[NSString alloc]initWithFormat:@"%@", [content objectAtIndex:0]];
++(NSString*) readFromFile:(NSString*)filepath  {
+    
+    if([[NSFileManager defaultManager] fileExistsAtPath:filepath]) {
+        NSArray*content =[[NSArray alloc]initWithContentsOfFile:filepath];
+        NSString*data =[[NSString alloc]initWithFormat:@"%@", [content objectAtIndex:0]];
 //        [content release];
-//        return data;
-//    }else{
-//        return nil;
-//    }
-//}
+        return data;
+    }else{
+        return nil;
+    }
+}
 
 
-//+(void) writeToFile:(NSString*)text withFileName:(NSString*)filePath  {
-//    
-//    NSMutableArray*array =[[NSMutableArray alloc]init];
-//    
-//    [array addObject:text];
-//    
-//    [array writeToFile:filePath atomically:YES];
-//    
++(void) writeToFile:(NSString*)text withFileName:(NSString*)filePath  {
+    
+    NSMutableArray*array =[[NSMutableArray alloc]init];
+    
+    [array addObject:text];
+    
+    [array writeToFile:filePath atomically:YES];
+    
 //    [array release];
-//    
-//}
+    
+}
 
 +(BOOL)WriteFileArray:(NSArray *)ArrarObject SpecifiedFile:(NSString *)path
 {

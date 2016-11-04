@@ -23,8 +23,8 @@
 //创建目录文件夹
 +(NSString *)CreateList:(NSString *)List ListName:(NSString *)Name;
 //写入NsArray文件
-//+(NSString*) readFromFile:(NSString*)filepath;
-//+(void) writeToFile:(NSString*)text withFileName:(NSString*)filePath;
++(NSString*) readFromFile:(NSString*)filepath;
++(void) writeToFile:(NSString*)text withFileName:(NSString*)filePath;
 
 +(BOOL)WriteFileArray:(NSArray *)ArrarObject SpecifiedFile:(NSString *)path;
 //写入NSDictionary文件

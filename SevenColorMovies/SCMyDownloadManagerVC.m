@@ -227,8 +227,19 @@
     
 }
 
+BOOL isLoading = NO;
 - (void)beginOrPauseDownload{
-    DONG_NSLog(开始下载);
+    
+    if (isLoading) {
+        isLoading = !isLoading;
+        [downloadIV_ setImage:[UIImage imageNamed:@"DownLoadIMG"]];
+        [headerTitlelabel_ setText:@"全部开始"];
+    }else{
+        isLoading = !isLoading;
+        [downloadIV_ setImage:[UIImage imageNamed:@"PauseDownload"]];
+        [headerTitlelabel_ setText:@"全部暂停"];
+    }
+    
 }
 
 #pragma mark - UITableView dataSource
@@ -282,7 +293,6 @@
 
         
     }
-    
 }
 
 #pragma mark - UITableView Delegate

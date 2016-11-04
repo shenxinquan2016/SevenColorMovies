@@ -182,8 +182,8 @@ static NSString *const footerId = @"footerId";
                         
                         SCBannerModel *model = [SCBannerModel mj_objectWithKeyValues:dic];
                         SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-                        [_bannerImageUrlArr addObject:model._ImgUrlO];
-                        [_bannerFilmModelArr addObject:filmModel];
+//                        [_bannerImageUrlArr addObject:model._ImgUrlO];
+//                        [_bannerFilmModelArr addObject:filmModel];
                     }
                     
                     //添加banner
