@@ -1,5 +1,5 @@
 //
-//  downloadManager.h
+//  SCDownloadManager.h
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/11/7.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface downloadManager : NSObject
+@interface SCDownloadManager : NSObject
 
 /**
  *  下载管理器单例
@@ -26,5 +26,11 @@
  */
 - (void)downloadWith:(NSURL *)url cacheFilePath:(NSString *)filePath pregressBlock:(void (^)(CGFloat progress))progressBlock complete:(void(^)(NSString *path,NSError *error))complete;
 
+/**
+ *  取消操作
+ *
+ *  @param url  要取消下载的url
+ */
+- (void)cancelDownload:(NSURL *)url;
 
 @end

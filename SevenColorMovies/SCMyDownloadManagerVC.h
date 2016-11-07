@@ -7,7 +7,11 @@
 //
 
 #import "SCOtherBaseViewController.h"
+@class HJMURLDownloadManager;
 
 @interface SCMyDownloadManagerVC : SCOtherBaseViewController
+
+@property (strong, nonatomic) HJMURLDownloadManager *downloadManager;
+
 
 @end

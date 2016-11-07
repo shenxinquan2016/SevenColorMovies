@@ -1,0 +1,1 @@
+../../../HJMURLDownloader/HJMURLDownloader/Models/HJMUserInfoTransformer.h

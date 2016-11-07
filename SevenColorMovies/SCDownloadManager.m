@@ -1,15 +1,15 @@
 //
-//  downloadManager.m
+//  SCDownloadManager.m
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/11/7.
 //  Copyright © 2016年 yesdgq. All rights reserved.
 //  下载管理器
 
-#import "downloadManager.h"
-#import "downloadOperation.h"
+#import "SCDownloadManager.h"
+#import "SCDownloadOperation.h"
 
-@interface downloadManager ()
+@interface SCDownloadManager ()
 
 /**
  *  下载操作缓存,以url为key，防止多次下载
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation downloadManager
+@implementation SCDownloadManager
 
 /**
  *  下载管理器单例
@@ -32,7 +32,7 @@
  */
 + (instancetype)sharedManager{
     static dispatch_once_t onceToken;
-    static downloadManager *manager;
+    static SCDownloadManager *manager;
     dispatch_once(&onceToken, ^{
         manager = [[self alloc]init];
     });
@@ -53,7 +53,7 @@
         return;
     }
     //开始下载文件
-    downloadOperation *download = [downloadOperation downloadWith:url cacheFilePath:filePath progressBlock:progressBlock complete:^(NSString *path, NSError *error) {
+    SCDownloadOperation *download = [SCDownloadOperation downloadWith:url cacheFilePath:filePath progressBlock:progressBlock complete:^(NSString *path, NSError *error) {
         //下载完成
         //移除下载操作缓存
         [self.downloadCache removeObjectForKey:url];
@@ -68,7 +68,7 @@
 
 - (void)cancelDownload:(NSURL *)url{
     //从字典中取出下载操作
-    downloadOperation *down = [self.downloadCache objectForKey:url];
+    SCDownloadOperation *down = [self.downloadCache objectForKey:url];
     [down cancleDown];
     //从字典中移除
     [self.downloadCache removeObjectForKey:url];

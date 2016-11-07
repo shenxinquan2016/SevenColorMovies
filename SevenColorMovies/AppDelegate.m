@@ -10,6 +10,10 @@
 #import "SCNetUrlManger.h"
 #import "IQKeyboardManager.h"
 #import "HLJUUID.h"
+#import <HJMURLDownload.h>
+#import <HJMURLDownloader/HJMDownloadCoreDataManager.h>
+//#import "HJMURLDownloaderInstance.h"
+
 
 @interface AppDelegate ()
 

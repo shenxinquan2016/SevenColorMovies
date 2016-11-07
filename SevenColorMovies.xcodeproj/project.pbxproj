@@ -55,8 +55,9 @@
 		113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 113F8D9A1D3C77E000B12D39 /* HomePage.storyboard */; };
 		113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */; };
 		113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */; };
-		114005771DD029F000A3181C /* downloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 114005761DD029F000A3181C /* downloadManager.m */; };
+		114005771DD029F000A3181C /* SCDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 114005761DD029F000A3181C /* SCDownloadManager.m */; };
 		1140057A1DD02A1100A3181C /* downloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 114005791DD02A1100A3181C /* downloadOperation.m */; };
+		1140057D1DD0872500A3181C /* HJMURLDownloaderInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 1140057C1DD0872500A3181C /* HJMURLDownloaderInstance.m */; };
 		11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458E8D1D45D7E000EBD16D /* SCHomePageFlowLayout.m */; };
 		11458E921D45D86800EBD16D /* SCHomePageSectionBGReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458E901D45D86800EBD16D /* SCHomePageSectionBGReusableView.m */; };
 		11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11458E911D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib */; };
@@ -281,10 +282,12 @@
 		113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addition.m"; sourceTree = "<group>"; };
 		113F8D9F1D3CAAC200B12D39 /* UIColor+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Addition.h"; sourceTree = "<group>"; };
 		113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Addition.m"; sourceTree = "<group>"; };
-		114005751DD029F000A3181C /* downloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = downloadManager.h; sourceTree = "<group>"; };
-		114005761DD029F000A3181C /* downloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = downloadManager.m; sourceTree = "<group>"; };
-		114005781DD02A1100A3181C /* downloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = downloadOperation.h; sourceTree = "<group>"; };
+		114005751DD029F000A3181C /* SCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDownloadManager.h; sourceTree = "<group>"; };
+		114005761DD029F000A3181C /* SCDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDownloadManager.m; sourceTree = "<group>"; };
+		114005781DD02A1100A3181C /* SCDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDownloadOperation.h; sourceTree = "<group>"; };
 		114005791DD02A1100A3181C /* downloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = downloadOperation.m; sourceTree = "<group>"; };
+		1140057B1DD0872500A3181C /* HJMURLDownloaderInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJMURLDownloaderInstance.h; sourceTree = "<group>"; };
+		1140057C1DD0872500A3181C /* HJMURLDownloaderInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMURLDownloaderInstance.m; sourceTree = "<group>"; };
 		11458E8C1D45D7E000EBD16D /* SCHomePageFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHomePageFlowLayout.h; sourceTree = "<group>"; };
 		11458E8D1D45D7E000EBD16D /* SCHomePageFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHomePageFlowLayout.m; sourceTree = "<group>"; };
 		11458E8F1D45D86800EBD16D /* SCHomePageSectionBGReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHomePageSectionBGReusableView.h; sourceTree = "<group>"; };
@@ -780,10 +783,12 @@
 		114005741DD0288E00A3181C /* DownLoadManager */ = {
 			isa = PBXGroup;
 			children = (
-				114005751DD029F000A3181C /* downloadManager.h */,
-				114005761DD029F000A3181C /* downloadManager.m */,
-				114005781DD02A1100A3181C /* downloadOperation.h */,
+				114005751DD029F000A3181C /* SCDownloadManager.h */,
+				114005761DD029F000A3181C /* SCDownloadManager.m */,
+				114005781DD02A1100A3181C /* SCDownloadOperation.h */,
 				114005791DD02A1100A3181C /* downloadOperation.m */,
+				1140057B1DD0872500A3181C /* HJMURLDownloaderInstance.h */,
+				1140057C1DD0872500A3181C /* HJMURLDownloaderInstance.m */,
 			);
 			name = DownLoadManager;
 			sourceTree = "<group>";
@@ -2072,7 +2077,7 @@
 				11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */,
 				113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */,
 				11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */,
-				114005771DD029F000A3181C /* downloadManager.m in Sources */,
+				114005771DD029F000A3181C /* SCDownloadManager.m in Sources */,
 				11458E921D45D86800EBD16D /* SCHomePageSectionBGReusableView.m in Sources */,
 				11458EA71D45FF2D00EBD16D /* SCMineOtherCell.m in Sources */,
 				116E0F551DB0872E00E280C6 /* SCMyProgramListVC.m in Sources */,
@@ -2134,6 +2139,7 @@
 				1111A40B1D488C1E00C17B92 /* DNIPhoneInfo.m in Sources */,
 				110591701D5046B20043C833 /* SCCollectionViewPageVC.m in Sources */,
 				116475FD1D40ADDC00A3BC1C /* SCPastVideoTableView.m in Sources */,
+				1140057D1DD0872500A3181C /* HJMURLDownloaderInstance.m in Sources */,
 				11C905DF1D6C3BB9004D3749 /* NSDate+Addition.m in Sources */,
 				113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */,
 				1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */,

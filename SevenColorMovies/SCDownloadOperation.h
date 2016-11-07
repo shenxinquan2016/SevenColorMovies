@@ -1,5 +1,5 @@
 //
-//  downloadOperation.h
+//  SCDownloadOperation.h
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/11/7.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface downloadOperation : NSOperation
+@interface SCDownloadOperation : NSOperation
 
 + (instancetype)downloadWith:(NSURL *)url cacheFilePath:(NSString *)filePath progressBlock:(void (^)(CGFloat progress))progressBlock complete:(void (^)(NSString *path,NSError *error))complete;
 

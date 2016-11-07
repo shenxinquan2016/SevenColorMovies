@@ -1,0 +1,1 @@
+../../../HJMURLDownloader/HJMURLDownloader/Extensions/NSManagedObject+Additions.h

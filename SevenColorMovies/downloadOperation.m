@@ -1,14 +1,14 @@
 //
-//  downloadOperation.m
+//  SCDownloadOperation.m
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/11/7.
 //  Copyright © 2016年 yesdgq. All rights reserved.
 //
 
-#import "downloadOperation.h"
+#import "SCDownloadOperation.h"
 
-@interface downloadOperation ()
+@interface SCDownloadOperation ()
 
 /**
  *  文件总大小
@@ -44,6 +44,7 @@
  *  文件保存的路径
  */
 @property (nonatomic, copy) NSString *targetPath;
+
 /**
  *  <#Description#>
  */
@@ -53,10 +54,10 @@
 @end
 
 
-@implementation downloadOperation
+@implementation SCDownloadOperation
 
 + (instancetype)downloadWith:(NSURL *)url cacheFilePath:(NSString *)filePath progressBlock:(void (^)(CGFloat progress))progressBlock complete:(void (^)(NSString *path,NSError *error))complete{
-    downloadOperation *down = [[self alloc] init];
+    SCDownloadOperation *down = [[self alloc] init];
     //把block保存起来
     down.progressBlock = progressBlock;
     down.complete = complete;

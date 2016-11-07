@@ -19,7 +19,7 @@
 #import "SCArtsFilmsCollectionVC.h"
 #import "IJKVideoPlayerVC.h"//播放器
 #import <Realm/Realm.h>//数据库
-#import "downloadManager.h"//下载管理器
+#import "SCDownloadManager.h"//下载管理器
 
 
 static const CGFloat StatusBarHeight = 20.0f;
@@ -389,7 +389,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     //要下载的文件的URL
                     NSURL *url = [NSURL URLWithString:@"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg"];
                     //通过下载管理器单例执行下载
-                    [[downloadManager sharedManager] downloadWith:url cacheFilePath:filePath pregressBlock:^(CGFloat progress) {
+                    [[SCDownloadManager sharedManager] downloadWith:url cacheFilePath:filePath pregressBlock:^(CGFloat progress) {
                         //进度回调，返回下载进度
                         dispatch_async(dispatch_get_main_queue(), ^{
                             //回到主线程刷新进度提醒
