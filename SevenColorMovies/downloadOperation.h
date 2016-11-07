@@ -10,7 +10,7 @@
 
 @interface downloadOperation : NSOperation
 
-+ (instancetype)downloadWith:(NSURL *)url progressBlock:(void (^)(CGFloat progress))progressBlock complete:(void (^)(NSString *path,NSError *error))complete;
++ (instancetype)downloadWith:(NSURL *)url cacheFilePath:(NSString *)filePath progressBlock:(void (^)(CGFloat progress))progressBlock complete:(void (^)(NSString *path,NSError *error))complete;
 
 
 - (void)cancleDown;

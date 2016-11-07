@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/11/7.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  下载管理器
 
 #import "downloadManager.h"
 #import "downloadOperation.h"
@@ -38,6 +38,7 @@
     });
     return manager;
 }
+
 /**
  *  下载操作
  *
@@ -45,14 +46,14 @@
  *  @param progressBlock 进度回调
  *  @param complete      完成回调
  */
-- (void)downloadWith:(NSURL *)url pregressBlock:(void (^)(CGFloat progress))progressBlock complete:(void(^)(NSString *path,NSError *error))complete{
+- (void)downloadWith:(NSURL *)url cacheFilePath:(NSString *)filePath pregressBlock:(void (^)(CGFloat progress))progressBlock complete:(void(^)(NSString *path,NSError *error))complete{
     //在开始下载之前，判断是否正在下载
     if ([self.downloadCache objectForKey:url]) {
         NSLog(@"正在下载");
         return;
     }
     //开始下载文件
-    downloadOperation *download = [downloadOperation downloadWith:url progressBlock:progressBlock complete:^(NSString *path, NSError *error) {
+    downloadOperation *download = [downloadOperation downloadWith:url cacheFilePath:filePath progressBlock:progressBlock complete:^(NSString *path, NSError *error) {
         //下载完成
         //移除下载操作缓存
         [self.downloadCache removeObjectForKey:url];
@@ -72,7 +73,8 @@
     //从字典中移除
     [self.downloadCache removeObjectForKey:url];
 }
-#pragma mark -数据懒加载
+
+#pragma mark - 数据懒加载
 - (NSMutableDictionary *)downloadCache{
     if (_downloadCache == nil) {
         _downloadCache = [NSMutableDictionary dictionary];

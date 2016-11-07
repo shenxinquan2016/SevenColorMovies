@@ -13,40 +13,41 @@
 /**
  *  文件总大小
  */
-@property (nonatomic,assign)long long expectLength;
+@property (nonatomic, assign) long long expectLength;
 /**
  *  已经下载的大小
  */
-@property (nonatomic,assign)long long downloadLength;
+@property (nonatomic, assign) long long downloadLength;
 
 /**
  *  文件输出流
  */
-@property (nonatomic,strong)NSOutputStream *outPut;
+@property (nonatomic, strong) NSOutputStream *outPut;
 
 /**
  *  下载连接
  */
-@property (nonatomic,strong)NSURLConnection *connection;
+@property (nonatomic, strong) NSURLConnection *connection;
+@property (nonatomic, strong) NSURLSession *session;
 
 /**
  *  进度回调block
  */
-@property (nonatomic,copy)void (^progressBlock)(CGFloat);
+@property (nonatomic, copy) void (^progressBlock)(CGFloat);
 
 /**
  *  完成回调block
  */
-@property (nonatomic,copy)void (^complete)(NSString *,NSError *);
+@property (nonatomic, copy) void (^complete)(NSString *,NSError *);
 
 /**
  *  文件保存的路径
  */
-@property (nonatomic,copy)NSString *targetPath;
+@property (nonatomic, copy) NSString *targetPath;
 /**
  *  <#Description#>
  */
-@property (nonatomic,strong)NSURL *url;
+@property (nonatomic, strong) NSURL *url;
 
 
 @end
@@ -54,13 +55,14 @@
 
 @implementation downloadOperation
 
-+ (instancetype)downloadWith:(NSURL *)url progressBlock:(void (^)(CGFloat progress))progressBlock complete:(void (^)(NSString *path,NSError *error))complete{
++ (instancetype)downloadWith:(NSURL *)url cacheFilePath:(NSString *)filePath progressBlock:(void (^)(CGFloat progress))progressBlock complete:(void (^)(NSString *path,NSError *error))complete{
     downloadOperation *down = [[self alloc] init];
     //把block保存起来
     down.progressBlock = progressBlock;
     down.complete = complete;
     //拼接文件保存的路径
 //    down.targetPath = [url.path appendCaches];
+    down.targetPath = filePath;
     down.url = url;
     //调用下载方法
     //[down download:url];
@@ -95,6 +97,7 @@
     [[NSRunLoop currentRunLoop] run];
     
 }
+
 //检查服务器上文件的大小
 - (long long)checkServerFileSize:(NSURL *)url{
     //要下载文件的url
@@ -110,8 +113,9 @@
     //记录服务器文件的大小，用于计算进度
     self.expectLength = serverSize;
     //拼接文件路径
-//    NSString *path = [headResponse.suggestedFilename appendCaches];
-    NSString *path = nil;
+    NSString *downloadPath = [FileManageCommon CreateList:[FileManageCommon GetDocumentPath] ListName:@"download"];
+    NSString *path = [headResponse.suggestedFilename stringByAppendingString:downloadPath];
+    DONG_Log(@"headResponse.suggestedFilename:%@",headResponse.suggestedFilename);
     //判断服务器文件大小跟本地文件大小的关系
     NSFileManager *manager = [NSFileManager defaultManager];
     if (![manager fileExistsAtPath:path]) {
@@ -148,6 +152,7 @@
     //在入文件之前，先打开文件
     [self.outPut open];
 }
+
 //接收到数据
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
     //分多次接收数据，加起来就是总数据
@@ -169,6 +174,7 @@
     [self.outPut write:data.bytes maxLength:data.length];
     
 }
+
 //下载完成
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
     //关闭文件
@@ -178,9 +184,11 @@
         self.complete(self.targetPath,nil);
     });
 }
+
 //取消下载
 - (void)cancleDown{
     [self.connection cancel];
+
 }
 
 @end
