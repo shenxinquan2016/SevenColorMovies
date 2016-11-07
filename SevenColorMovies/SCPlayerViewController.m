@@ -52,6 +52,17 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 {
     BOOL _isFullScreen;
+    
+    // AFN的客户端，使用基本地址初始化，同时会实例化一个操作队列，以便于后续的多线程处理
+//    AFHTTPClient   *_httpClient;
+    
+    // 下载操作
+    AFHTTPRequestOperation *_downloadOperation;
+    
+    NSOperationQueue *_queue;
+    
+    
+    
 }
 
 #pragma mark - Initialize
@@ -368,9 +379,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     
                     
                     
+                    NSURL *downloadUrl = [NSURL URLWithString:@"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg"];
                     
-                    
-                    
+                    //NSURLRequest *request = [NSURLRequest requestWithURL:downloadUrl];
                     NSURLRequest *request = [NSURLRequest requestWithURL:strongself.url];
                     
                     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -378,30 +389,41 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     operation.inputStream   = [NSInputStream inputStreamWithURL:strongself.url];
                     operation.outputStream  = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
                     
-                    //下载进度控制
+                    /*
+                     bytesRead                      当前一次读取的字节数(100k)
+                     totalBytesRead                 已经下载的字节数(4.9M）
+                     totalBytesExpectedToRead       文件总大小(5M)
+                     */
+                    
+                    // 设置下载进程
                     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
                         
                         NSString *progress = [NSString stringWithFormat:@"%f",(float)totalBytesRead/totalBytesExpectedToRead];
-                         [MBProgressHUD showSuccess:@"下载进度控制"];
+                        [MBProgressHUD showSuccess:@"下载进度控制"];
+                        DONG_Log(@"prograss:%@",progress);
                     }];
                     
-                    
-                    //已完成下载
+                    // 设置下载完成操作
                     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
                         
                         NSData *audioData = [NSData dataWithContentsOfFile:filePath];
                         NSString *byte = [NSString stringWithFormat:@"%lu",(unsigned long)audioData.length];
-                         [MBProgressHUD showSuccess:@"下载完成"];
-                        //设置下载数据到res字典对象中并用代理返回下载数据NSData
-                        // [self requestFinished:[NSDictionary dictionaryWithObject:audioData forKey:@"res"] tag:aTag];
+                        [MBProgressHUD showSuccess:@"下载完成"];
+                        
+                         DONG_Log(@"byte:%@",byte);
+                        
+                        
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
-                         [MBProgressHUD showSuccess:@"下载失败"];
+                        [MBProgressHUD showSuccess:@"下载失败"];
                         //下载失败
                         //[self requestFailed:aTag];
                     }];
+                    
+                    // 启动下载
                     [operation start];
+                    [operation resume];
                     
                     
                     
