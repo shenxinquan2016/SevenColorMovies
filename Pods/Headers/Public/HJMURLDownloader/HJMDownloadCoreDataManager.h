@@ -1,1 +1,0 @@
-../../../HJMURLDownloader/HJMURLDownloader/HJMDownloadCoreDataManager.h
