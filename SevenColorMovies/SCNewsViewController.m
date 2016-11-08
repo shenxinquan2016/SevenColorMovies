@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [CommonFunc noDataOrNoNetTipsString:@"建设中..." addView:self.view];
 
 }
 
