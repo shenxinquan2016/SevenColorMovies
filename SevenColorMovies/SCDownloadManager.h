@@ -33,4 +33,12 @@
  */
 - (void)cancelDownload:(NSURL *)url;
 
+
+
+
+
+
+
+
+
 @end

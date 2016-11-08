@@ -56,7 +56,7 @@
 		113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */; };
 		113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */; };
 		114005771DD029F000A3181C /* SCDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 114005761DD029F000A3181C /* SCDownloadManager.m */; };
-		1140057A1DD02A1100A3181C /* downloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 114005791DD02A1100A3181C /* downloadOperation.m */; };
+		1140057A1DD02A1100A3181C /* SCDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 114005791DD02A1100A3181C /* SCDownloadOperation.m */; };
 		11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458E8D1D45D7E000EBD16D /* SCHomePageFlowLayout.m */; };
 		11458E921D45D86800EBD16D /* SCHomePageSectionBGReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458E901D45D86800EBD16D /* SCHomePageSectionBGReusableView.m */; };
 		11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11458E911D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib */; };
@@ -284,7 +284,7 @@
 		114005751DD029F000A3181C /* SCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDownloadManager.h; sourceTree = "<group>"; };
 		114005761DD029F000A3181C /* SCDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDownloadManager.m; sourceTree = "<group>"; };
 		114005781DD02A1100A3181C /* SCDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDownloadOperation.h; sourceTree = "<group>"; };
-		114005791DD02A1100A3181C /* downloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = downloadOperation.m; sourceTree = "<group>"; };
+		114005791DD02A1100A3181C /* SCDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDownloadOperation.m; sourceTree = "<group>"; };
 		11458E8C1D45D7E000EBD16D /* SCHomePageFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHomePageFlowLayout.h; sourceTree = "<group>"; };
 		11458E8D1D45D7E000EBD16D /* SCHomePageFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHomePageFlowLayout.m; sourceTree = "<group>"; };
 		11458E8F1D45D86800EBD16D /* SCHomePageSectionBGReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHomePageSectionBGReusableView.h; sourceTree = "<group>"; };
@@ -783,7 +783,7 @@
 				114005751DD029F000A3181C /* SCDownloadManager.h */,
 				114005761DD029F000A3181C /* SCDownloadManager.m */,
 				114005781DD02A1100A3181C /* SCDownloadOperation.h */,
-				114005791DD02A1100A3181C /* downloadOperation.m */,
+				114005791DD02A1100A3181C /* SCDownloadOperation.m */,
 			);
 			name = DownLoadManager;
 			sourceTree = "<group>";
@@ -2087,7 +2087,7 @@
 				11323E0A1DB5C4B80089A207 /* SCMyCollectionCell.m in Sources */,
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
 				114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */,
-				1140057A1DD02A1100A3181C /* downloadOperation.m in Sources */,
+				1140057A1DD02A1100A3181C /* SCDownloadOperation.m in Sources */,
 				1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */,
 				11DDB8821D5B15760074DFAB /* SCArtsFilmCell.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
@@ -2226,6 +2226,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;

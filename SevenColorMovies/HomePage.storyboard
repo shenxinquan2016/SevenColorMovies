@@ -86,16 +86,6 @@
                                 <frame key="frameInset" minY="240" width="375" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uk0-ka-EKV">
-                                        <frame key="frameInset" minX="299" minY="5" width="26" height="26"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="Collection"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2d0-pW-kkK">
-                                        <frame key="frameInset" minX="338" minY="5" width="26" height="26"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="Share"/>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CCTV" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4V-oX-dGt">
                                         <frame key="frameInset" minX="13" minY="8" width="118" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -292,7 +282,7 @@
                                             <constraint firstAttribute="width" constant="26" id="mLS-Db-hsZ"/>
                                             <constraint firstAttribute="height" constant="26" id="tVs-L9-PW2"/>
                                         </constraints>
-                                        <state key="normal" image="DownLoad_Click"/>
+                                        <state key="normal" image="DownLoadIMG"/>
                                         <connections>
                                             <action selector="beginDownload:" destination="frI-ri-kJM" eventType="touchUpInside" id="dxn-Th-M43"/>
                                         </connections>
@@ -342,9 +332,8 @@
     <resources>
         <image name="AddToPlayList" width="22" height="22"/>
         <image name="Collection" width="26" height="26"/>
-        <image name="DownLoad_Click" width="26" height="26"/>
+        <image name="DownLoadIMG" width="22" height="22"/>
         <image name="Home" width="24" height="22"/>
         <image name="Home_sel" width="24" height="23"/>
-        <image name="Share" width="26" height="26"/>
     </resources>
 </document>

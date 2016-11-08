@@ -267,6 +267,13 @@ BOOL isLoading = NO;
         strongcell.filmModel = filmModel;
     };
     
+    
+    
+    
+    
+    
+    
+    
     return cell;
 }
 
