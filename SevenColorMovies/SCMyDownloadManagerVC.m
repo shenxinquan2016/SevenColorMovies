@@ -9,6 +9,8 @@
 #import "SCMyDownloadManagerVC.h"
 #import "SCMyDownLoadManagerCell.h"
 #import "SCFilmModel.h"
+#import "Dong_DownloadManager.h"//下载器
+#import "Dong_DownloadModel.h"//下载数据模型
 
 @interface SCMyDownloadManagerVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -250,28 +252,44 @@ BOOL isLoading = NO;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _dataArray.count;
+    //return _dataArray.count;
+    return [Dong_DownloadManager sharedManager].downloadModels.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCMyDownLoadManagerCell *cell = [SCMyDownLoadManagerCell cellWithTableView:tableView];
-    SCFilmModel *filmModel =  _dataArray[indexPath.row];
-    cell.filmModel = filmModel;
+   
+//    SCFilmModel *filmModel =  _dataArray[indexPath.row];
+//    cell.filmModel = filmModel;
+//    
+//    //此处为点击cell的downloadBtn的block回调
+//    DONG_WeakSelf(cell);
+//    cell.downloadBlock = ^{
+//        DONG_StrongSelf(cell);
+//        filmModel.isDownLoading = !filmModel.isDownLoading;
+//        strongcell.filmModel = filmModel;
+//    };
     
+    
+    Dong_DownloadModel *downloadModel = [Dong_DownloadManager sharedManager].downloadModels[indexPath.row];
+    cell.downloadModel = downloadModel;
+    
+    downloadModel.onStatusChanged = ^(Dong_DownloadModel *changedModel) {
+        cell.downloadModel = changedModel;
+    };
+    
+    downloadModel.onProgressChanged = ^(Dong_DownloadModel *changedModel) {
+        cell.downloadModel = changedModel;
+    };
+
     //此处为点击cell的downloadBtn的block回调
     DONG_WeakSelf(cell);
     cell.downloadBlock = ^{
         DONG_StrongSelf(cell);
-        filmModel.isDownLoading = !filmModel.isDownLoading;
-        strongcell.filmModel = filmModel;
+        downloadModel.isDownLoading = !downloadModel.isDownLoading;
+        strongcell.downloadModel = downloadModel;
     };
-    
-    
-    
-    
-    
-    
     
     
     return cell;

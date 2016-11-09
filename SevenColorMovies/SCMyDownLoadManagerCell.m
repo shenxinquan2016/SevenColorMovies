@@ -7,6 +7,7 @@
 //  下载cell
 
 #import "SCMyDownLoadManagerCell.h"
+#import "Dong_DownloadModel.h"
 
 @interface SCMyDownLoadManagerCell ()
 
@@ -51,7 +52,7 @@
     return self;
 }
 
-- (void)setFilmModel:(SCFilmModel *)filmModel{
+- (void)setFilmModel:(SCFilmModel *)filmModel {
     _fimlNameLabel.text = filmModel.FilmName;
     
     if (filmModel.isShowDeleteBtn) {
@@ -78,6 +79,41 @@
     }
 }
 
+- (void)setDownloadModel:(Dong_DownloadModel *)downloadModel {
+    if (_downloadModel != downloadModel) {
+        _downloadModel = downloadModel;
+    }
+    
+    self.fimlNameLabel.text = downloadModel.filmName;
+    self.downLoadProgressLabel.text = downloadModel.progressText;
+    [self.downLoadProgressView setProgress:downloadModel.progress];
+    self.downLoadStateLabel.text = downloadModel.statusText;
+    
+    if (downloadModel.isShowDeleteBtn) {
+        _deleteBtn.hidden = NO;
+        _downLoadBtn.hidden = YES;
+        if (downloadModel.isSelecting) {
+            [_deleteBtn setImage:[UIImage imageNamed:@"Select"]];
+        }else{
+            [_deleteBtn setImage:[UIImage imageNamed:@"Unselected"]];
+            
+        }
+        
+    }else{
+        _deleteBtn.hidden = YES;
+        _downLoadBtn.hidden = NO;
+        
+        if (downloadModel.isDownLoading) {
+            [_downLoadBtn setImage:[UIImage imageNamed:@"PauseDownload"] forState:UIControlStateNormal];
+        }else{
+            [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoadIMG"] forState:UIControlStateNormal];
+            
+        }
+        
+    }
+}
+
+// 开始下载或暂停下载
 - (IBAction)startOrPauseDownLoad:(UIButton *)sender {
     if (self.downloadBlock) {
         self.downloadBlock();
