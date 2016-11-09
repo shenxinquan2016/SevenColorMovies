@@ -24,7 +24,7 @@
 /**
  *  添加视频模型，只是添加并不会下载
  *
- *  @param  downloadModels 存储下载模型的数组
+ *  @param  downloadModels 要添加的下载模型的数组
  */
 - (void)addVideoModels:(NSArray<Dong_DownloadModel *> *)downloadModels;
 

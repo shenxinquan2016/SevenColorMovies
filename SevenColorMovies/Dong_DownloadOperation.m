@@ -20,8 +20,8 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 
 @implementation NSURLSessionTask (VideoModel)
 
-- (void)setDownloadModel:(Dong_DownloadModel *)hyb_videoModel {
-    objc_setAssociatedObject(self, s_Dong_downloadModelKey, hyb_videoModel, OBJC_ASSOCIATION_ASSIGN);
+- (void)setDownloadModel:(Dong_DownloadModel *)downloadModel {
+    objc_setAssociatedObject(self, s_Dong_downloadModelKey, downloadModel, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (Dong_DownloadModel *)downloadModel {
@@ -32,20 +32,20 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 
 
 
-@interface Dong_DownloadOperation () {
-    BOOL _finished;
-    BOOL _executing;
-}
+@interface Dong_DownloadOperation ()
 
 @property (nonatomic, strong) NSURLSessionDownloadTask *task;
 @property (nonatomic, weak) NSURLSession *session;
-
-
 
 @end
 
 
 @implementation Dong_DownloadOperation
+
+{
+    BOOL _finished;
+    BOOL _executing;
+}
 
 - (instancetype)initWithModel:(Dong_DownloadModel *)downloadModel session:(NSURLSession *)session {
     if (self = [super init]) {
@@ -75,19 +75,23 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     }
 }
 
+//将downloadModel 与 SessionDownloadTask 关联
 - (void)configTask {
     self.task.downloadModel = self.model;
 }
 
+//开始下载(全新下载)
 - (void)statRequest {
     NSURL *url = [NSURL URLWithString:self.model.videoUrl];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url
                                                   cachePolicy:NSURLRequestUseProtocolCachePolicy
                                               timeoutInterval:kTimeoutInterval];
     self.task = [self.session downloadTaskWithRequest:request];
+    //将downloadModel 与 SessionDownloadTask 关联
     [self configTask];
 }
 
+//重写start方法时,要做好isCannelled的判断  start方法开启任务执行操作,NSOperation对象默认按同步方式执行
 - (void)start {
     if (self.isCancelled) {
         kKVOBlock(@"isFinished", ^{
@@ -108,14 +112,17 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     [self didChangeValueForKey:@"isExecuting"];
 }
 
+//重写isExecuting  isExecuting:可判断任务是否正在执行中
 - (BOOL)isExecuting {
     return _executing;
 }
 
+//重写isFinished  isFinished:可判断任务是否已经执行完成
 - (BOOL)isFinished {
     return _finished;
 }
 
+//重写isConcurrent  isConcurrent判断是否是同步 默认值为NO,表示操作与调用线程同步执行
 - (BOOL)isConcurrent {
     return YES;
 }
@@ -167,6 +174,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     return self.task;
 }
 
+//重写cancel，并处理好isCancelled KVO处理  isCancelled:可判断任务是否已经执行完成，而要取消任务，可调用cancel方法
 - (void)cancel {
     [self willChangeValueForKey:@"isCancelled"];
     [super cancel];

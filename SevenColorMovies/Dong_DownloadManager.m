@@ -12,9 +12,7 @@
 
 
 
-@interface Dong_DownloadManager ()<NSURLSessionDownloadDelegate> {
-    NSMutableArray *_downloadModels;
-}
+@interface Dong_DownloadManager ()<NSURLSessionDownloadDelegate>
 
 @property (nonatomic, strong) NSOperationQueue *queue;
 @property (nonatomic, strong) NSURLSession *session;
@@ -23,6 +21,11 @@
 @end
 
 @implementation Dong_DownloadManager
+
+{
+    NSMutableArray *_downloadModels;
+}
+
 
 /**
  *  下载管理器单例
@@ -44,7 +47,7 @@
         _downloadModels = [[NSMutableArray alloc] init];
         self.queue = [[NSOperationQueue alloc] init];
         // 设置允许最大线程并行数量
-        self.queue.maxConcurrentOperationCount = 1;
+        self.queue.maxConcurrentOperationCount = 3;
         NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
         // 不能传self.queue
         self.session = [NSURLSession sessionWithConfiguration:config
@@ -60,9 +63,9 @@
 }
 
 /**
+ *  添加视频模型，只是添加并不会下载
  *
- *
- *  @param  downloadModels 存储下载模型的数组
+ *  @param  downloadModels 要添加的下载模型的数组
  */
 - (void)addVideoModels:(NSArray<Dong_DownloadModel *> *)downloadModels {
     if ([downloadModels isKindOfClass:[NSArray class]]) {
