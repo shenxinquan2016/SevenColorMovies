@@ -38,27 +38,40 @@
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
     //假数据
+        for (int i = 0; i<5; i++) {
+            SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+            filmModel.FilmName = [NSString stringWithFormat:@"%d%d%d%d",i,i,i,i];
+            [_dataArray addObject:filmModel];
+        }
+    
+    NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
+    
+    NSMutableArray *downloadModels = [[NSMutableArray alloc] init];
     for (int i = 0; i<5; i++) {
-        SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-        filmModel.FilmName = [NSString stringWithFormat:@"%d%d%d%d",i,i,i,i];
-        [_dataArray addObject:filmModel];
+        Dong_DownloadModel *downloadModel = [[Dong_DownloadModel alloc] init];
+        downloadModel.filmName = [NSString stringWithFormat:@"%d%d%d%d%d",i,i,i,i,i];
+        downloadModel.videoUrl = downloadUrl;
+        
+        [downloadModels addObject:downloadModel];
     }
     
-    // 3.初始化
+    [[Dong_DownloadManager sharedManager] addVideoModels:downloadModels];
+    
+    //3.初始化
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
     
-    // 4.加载分视图
-    // 4.1 编辑按钮
+    //4.加载分视图
+    //4.1 编辑按钮
     [self addRightBBI];
     if (_dataArray.count == 0) {
-        [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
+        [CommonFunc noDataOrNoNetTipsString:@"还没有下载任何视频哦" addView:self.view];
     }else{
         [CommonFunc hideTipsViews:_listView];
         // 4.2 tableview
         [self setTableView];
     }
-    // 4.3 全选/删除
+    //4.3 全选/删除
     [self setBottomBtnView];
     
 }
@@ -199,8 +212,8 @@
         _isEditing = YES;
         _editBtn.selected = YES;
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
-//        [_listView setEditing:YES];
-//        _listView.allowsMultipleSelectionDuringEditing = YES;
+        //        [_listView setEditing:YES];
+        //        _listView.allowsMultipleSelectionDuringEditing = YES;
         [UIView animateWithDuration:0.2f animations:^{
             [_bottomBtnView setFrame:(CGRect){0, kMainScreenHeight-60, kMainScreenWidth, 60}];
         }];
@@ -259,17 +272,17 @@ BOOL isLoading = NO;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCMyDownLoadManagerCell *cell = [SCMyDownLoadManagerCell cellWithTableView:tableView];
-   
-//    SCFilmModel *filmModel =  _dataArray[indexPath.row];
-//    cell.filmModel = filmModel;
-//    
-//    //此处为点击cell的downloadBtn的block回调
-//    DONG_WeakSelf(cell);
-//    cell.downloadBlock = ^{
-//        DONG_StrongSelf(cell);
-//        filmModel.isDownLoading = !filmModel.isDownLoading;
-//        strongcell.filmModel = filmModel;
-//    };
+    
+    //    SCFilmModel *filmModel =  _dataArray[indexPath.row];
+    //    cell.filmModel = filmModel;
+    //
+    //    //此处为点击cell的downloadBtn的block回调
+    //    DONG_WeakSelf(cell);
+    //    cell.downloadBlock = ^{
+    //        DONG_StrongSelf(cell);
+    //        filmModel.isDownLoading = !filmModel.isDownLoading;
+    //        strongcell.filmModel = filmModel;
+    //    };
     
     
     Dong_DownloadModel *downloadModel = [Dong_DownloadManager sharedManager].downloadModels[indexPath.row];
@@ -282,7 +295,7 @@ BOOL isLoading = NO;
     downloadModel.onProgressChanged = ^(Dong_DownloadModel *changedModel) {
         cell.downloadModel = changedModel;
     };
-
+    
     //此处为点击cell的downloadBtn的block回调
     DONG_WeakSelf(cell);
     cell.downloadBlock = ^{
@@ -315,7 +328,7 @@ BOOL isLoading = NO;
         // 2.把view相应的cell删掉
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [_tempArray removeObject:filmModel];
-
+        
         
     }
 }
@@ -351,7 +364,7 @@ BOOL isLoading = NO;
         make.size.mas_equalTo(CGSizeMake(21, 21));
         
     }];
-
+    
     //全部开始
     UILabel *headerTitlelabel = [[UILabel alloc] init];
     headerTitlelabel.text = @"全部开始";
@@ -392,24 +405,58 @@ BOOL isLoading = NO;
             filmModel.selected = NO;
             //从临时数据中删除
             [_tempArray removeObject:filmModel];
-
+            
             
         }else{
             filmModel.selected = YES;
             //添加到临时数组中 待确定后从数据库中删除
             [_tempArray addObject:filmModel];
-
+            
         }
         cell.filmModel = filmModel;
         
     }else{//非编辑状态
         
-        //未完成下载 弹出提示
+        Dong_DownloadModel *downloadModel = [Dong_DownloadManager sharedManager].downloadModels[indexPath.row];
         
-        //完成下载 播放
         
+        
+        switch (downloadModel.status) {
+            case kDownloadStateNotFound: {
+                
+                break;
+            }
+            case kDownloadStateUnDownLoad: {
+                [[Dong_DownloadManager sharedManager] startWithVideoModel:downloadModel];
+                break;
+            }
+            case kDownloadStateDownloading: {
+                [[Dong_DownloadManager sharedManager] suspendWithVideoModel:downloadModel];
+                break;
+            }
+            case kDownloadStatePause: {
+                [[Dong_DownloadManager sharedManager] resumeWithVideoModel:downloadModel];
+                break;
+            }
+            case kDownloadStateCompleted: {
+                NSLog(@"已下载完成，可以播放了，播放路径：%@", downloadModel.localPath);
+                break;
+            }
+            case kDownloadStateFailed: {
+                [[Dong_DownloadManager sharedManager] resumeWithVideoModel:downloadModel];
+                break;
+            }
+            case kDownloadStateWaitting: {
+                [[Dong_DownloadManager sharedManager] startWithVideoModel:downloadModel];
+                break;
+            case kDownloadStateContinue: {
+                
+                break;
+                
+            }
+            }
+        }
     }
-    
 }
 
 
