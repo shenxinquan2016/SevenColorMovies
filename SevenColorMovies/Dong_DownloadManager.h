@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/11/9.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  下载管理器
 
 #import <Foundation/Foundation.h>
 

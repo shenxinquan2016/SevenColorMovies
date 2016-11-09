@@ -18,7 +18,6 @@
 @end
 
 
-
 @interface Dong_DownloadOperation : NSOperation
 
 - (instancetype)initWithModel:(Dong_DownloadModel *)model session:(NSURLSession *)session;

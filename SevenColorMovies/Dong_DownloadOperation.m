@@ -16,16 +16,16 @@ BLOCK(); \
 [self didChangeValueForKey:KEYPATH];
 
 static NSTimeInterval kTimeoutInterval = 60.0;
-static const void *s_Dong_videoModelKey = "s_Dong_videoModelKey";
+static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 
 @implementation NSURLSessionTask (VideoModel)
 
 - (void)setDownloadModel:(Dong_DownloadModel *)hyb_videoModel {
-    objc_setAssociatedObject(self, s_Dong_videoModelKey, hyb_videoModel, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, s_Dong_downloadModelKey, hyb_videoModel, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (Dong_DownloadModel *)downloadModel {
-    return objc_getAssociatedObject(self, s_Dong_videoModelKey);
+    return objc_getAssociatedObject(self, s_Dong_downloadModelKey);
 }
 
 @end

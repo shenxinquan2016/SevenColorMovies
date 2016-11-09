@@ -4,13 +4,13 @@
 //
 //  Created by yesdgq on 16/11/9.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  下载管理器
 
 #import "Dong_DownloadManager.h"
 #import "Dong_DownloadModel.h"
 #import "Dong_DownloadOperation.h"
 
-static Dong_DownloadManager *downloadManager = nil;
+
 
 @interface Dong_DownloadManager ()<NSURLSessionDownloadDelegate> {
     NSMutableArray *_downloadModels;
@@ -31,6 +31,7 @@ static Dong_DownloadManager *downloadManager = nil;
  */
 + (instancetype)sharedManager {
     static dispatch_once_t onceToken;
+    static Dong_DownloadManager *downloadManager = nil;
     dispatch_once(&onceToken, ^{
         downloadManager = [[self alloc] init];
     });
@@ -42,7 +43,7 @@ static Dong_DownloadManager *downloadManager = nil;
     if (self = [super init]) {
         _downloadModels = [[NSMutableArray alloc] init];
         self.queue = [[NSOperationQueue alloc] init];
-        // 设置最大下载数量
+        // 设置允许最大线程并行数量
         self.queue.maxConcurrentOperationCount = 4;
         NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
         // 不能传self.queue

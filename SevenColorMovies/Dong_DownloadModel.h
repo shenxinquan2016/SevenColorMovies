@@ -28,7 +28,7 @@ typedef void(^Dong_DownloadProgressChanged)(Dong_DownloadModel *model);
 
 @interface Dong_DownloadModel : NSObject
 
-@property (nonatomic, copy) NSString *videoId;
+@property (nonatomic, copy) NSString *filmName;//影片名称
 @property (nonatomic, copy) NSString *videoUrl;
 @property (nonatomic, copy) NSString *imageUrl;
 @property (nonatomic, copy) NSString *title;
@@ -47,7 +47,6 @@ typedef void(^Dong_DownloadProgressChanged)(Dong_DownloadModel *model);
 @property (nonatomic, copy) Dong_DownloadProgressChanged onProgressChanged;
 
 @property (nonatomic, readonly, copy) NSString *statusText;
-
 
 
 @end
