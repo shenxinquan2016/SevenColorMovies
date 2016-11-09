@@ -19,7 +19,8 @@ typedef NS_ENUM(NSUInteger, DownLoadStateType) {
     kDownloadStateCompleted,//下载完成
     kDownloadStateDownloading,//正在下载
     kDownloadStateWaitting,//等待下载
-    kDownloadStateContinue //继续下载
+    kDownloadStateContinue, //继续下载
+    kDownloadStateFailed //下载失败
 };
 
 typedef void(^Dong_DownloadStatusChanged)(Dong_DownloadModel *model);
