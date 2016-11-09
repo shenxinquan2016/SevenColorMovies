@@ -44,7 +44,7 @@
         _downloadModels = [[NSMutableArray alloc] init];
         self.queue = [[NSOperationQueue alloc] init];
         // 设置允许最大线程并行数量
-        self.queue.maxConcurrentOperationCount = 4;
+        self.queue.maxConcurrentOperationCount = 1;
         NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
         // 不能传self.queue
         self.session = [NSURLSession sessionWithConfiguration:config

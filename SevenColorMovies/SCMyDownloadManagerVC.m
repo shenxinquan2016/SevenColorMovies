@@ -46,16 +46,25 @@
     
     NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
     
-    NSMutableArray *downloadModels = [[NSMutableArray alloc] init];
-    for (int i = 0; i<5; i++) {
-        Dong_DownloadModel *downloadModel = [[Dong_DownloadModel alloc] init];
-        downloadModel.filmName = [NSString stringWithFormat:@"%d%d%d%d%d",i,i,i,i,i];
-        downloadModel.videoUrl = downloadUrl;
-        
-        [downloadModels addObject:downloadModel];
-    }
     
-    [[Dong_DownloadManager sharedManager] addVideoModels:downloadModels];
+
+    
+    
+    
+    
+    
+    
+    
+//    NSMutableArray *downloadModels = [[NSMutableArray alloc] init];
+//    for (int i = 0; i<5; i++) {
+//        Dong_DownloadModel *downloadModel = [[Dong_DownloadModel alloc] init];
+//        downloadModel.filmName = [NSString stringWithFormat:@"%d%d%d%d%d",i,i,i,i,i];
+//        downloadModel.videoUrl = downloadUrl;
+//        
+//        [downloadModels addObject:downloadModel];
+//    }
+//    
+//    [[Dong_DownloadManager sharedManager] addVideoModels:downloadModels];
     
     //3.初始化
     _isEditing = NO;

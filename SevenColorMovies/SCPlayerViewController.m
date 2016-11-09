@@ -20,7 +20,8 @@
 #import "IJKVideoPlayerVC.h"//播放器
 #import <Realm/Realm.h>//数据库
 #import "SCDownloadManager.h"//下载管理器
-
+#import "Dong_DownloadManager.h"
+#import "Dong_DownloadModel.h"
 
 static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
@@ -377,30 +378,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     //1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                     strongself.url = [NSURL URLWithString:playUrl];
-                    NSURL *downloadUrl = [NSURL URLWithString:@"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg"];
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    //要下载的文件的URL
-                    NSURL *url = [NSURL URLWithString:@"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg"];
-                    //通过下载管理器单例执行下载
-                    [[SCDownloadManager sharedManager] downloadWith:url cacheFilePath:filePath pregressBlock:^(CGFloat progress) {
-                        //进度回调，返回下载进度
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            //回到主线程刷新进度提醒
-//                            self.progress.progress = progress;
-                            
-                            DONG_Log(@"prograss:%lf",progress);
-                        });
-                    } complete:^(NSString *path, NSError *error) {
-                        //完成回调，返回文件路径或者失败信息
-                        NSLog(@"下载完成%@",path);
-                    }];
+
                     
                     
                     
@@ -414,55 +392,19 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     
                     
                     
+                    NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
+                    
+                    NSMutableArray *downloadModels = [[NSMutableArray alloc] init];
+                   
+                        Dong_DownloadModel *downloadModel = [[Dong_DownloadModel alloc] init];
+                        downloadModel.filmName = filmName;
+                        downloadModel.videoUrl = playUrl;
+                        
+                        [downloadModels addObject:downloadModel];
                     
                     
-                    
-                    
-                    
-                    
-//                    //NSURLRequest *request = [NSURLRequest requestWithURL:downloadUrl];
-//                    NSURLRequest *request = [NSURLRequest requestWithURL:strongself.url];
-//                    
-//                    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-//                    
-//                    operation.inputStream   = [NSInputStream inputStreamWithURL:strongself.url];
-//                    operation.outputStream  = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
-//                    
-//                    /*
-//                     bytesRead                      当前一次读取的字节数(100k)
-//                     totalBytesRead                 已经下载的字节数(4.9M）
-//                     totalBytesExpectedToRead       文件总大小(5M)
-//                     */
-//                    
-//                    // 设置下载进程
-//                    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-//                        
-//                        NSString *progress = [NSString stringWithFormat:@"%f",(float)totalBytesRead/totalBytesExpectedToRead];
-//                        [MBProgressHUD showSuccess:@"下载进度控制"];
-//                        DONG_Log(@"prograss:%@",progress);
-//                    }];
-//                    
-//                    // 设置下载完成操作
-//                    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                        
-//                        
-//                        NSData *audioData = [NSData dataWithContentsOfFile:filePath];
-//                        NSString *byte = [NSString stringWithFormat:@"%lu",(unsigned long)audioData.length];
-//                        [MBProgressHUD showSuccess:@"下载完成"];
-//                        
-//                         DONG_Log(@"byte:%@",byte);
-//                        
-//                        
-//                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//                        
-//                        [MBProgressHUD showSuccess:@"下载失败"];
-//                        //下载失败
-//                        //[self requestFailed:aTag];
-//                    }];
-//                    
-//                    // 启动下载
-//                    [operation start];
-//                    [operation resume];
+                    [[Dong_DownloadManager sharedManager] addVideoModels:downloadModels];
+                    [[Dong_DownloadManager sharedManager] startWithVideoModel:downloadModel];
                     
                     
                     
