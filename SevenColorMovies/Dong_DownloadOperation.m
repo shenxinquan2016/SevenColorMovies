@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/11/9.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  下载类
 
 #import "Dong_DownloadOperation.h"
 #import "Dong_DownloadModel.h"
@@ -47,9 +47,9 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 
 @implementation Dong_DownloadOperation
 
-- (instancetype)initWithModel:(Dong_DownloadModel *)model session:(NSURLSession *)session {
+- (instancetype)initWithModel:(Dong_DownloadModel *)downloadModel session:(NSURLSession *)session {
     if (self = [super init]) {
-        self.model = model;
+        self.model = downloadModel;
         self.session = session;
         [self statRequest];
     }
@@ -143,6 +143,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 }
 
 - (void)resume {
+    
     if (self.model.status == kDownloadStateCompleted) {
         return;
     }

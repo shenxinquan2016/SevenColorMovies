@@ -22,28 +22,28 @@
 + (instancetype)sharedManager;
 
 /**
- *
+ *  添加视频模型，只是添加并不会下载
  *
  *  @param  downloadModels 存储下载模型的数组
  */
 - (void)addVideoModels:(NSArray<Dong_DownloadModel *> *)downloadModels;
 
 /**
- *  开始下载
+ *  开始下载某个视频
  *
  *  @param  downloadModel 下载的数据模型
  */
 - (void)startWithVideoModel:(Dong_DownloadModel *)downloadModel;
 
 /**
- *  暂停下载
+ *  暂停下载某个视频
  *
  *  @param  downloadModel 下载的数据模型
  */
 - (void)suspendWithVideoModel:(Dong_DownloadModel *)downloadModel;
 
 /**
- *  重新下载
+ *  恢复下载
  *
  *  @param  downloadModel 下载的数据模型
  */

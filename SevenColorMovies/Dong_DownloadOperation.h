@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/11/9.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  下载类
 
 #import <Foundation/Foundation.h>
 
@@ -20,13 +20,13 @@
 
 @interface Dong_DownloadOperation : NSOperation
 
-- (instancetype)initWithModel:(Dong_DownloadModel *)model session:(NSURLSession *)session;
+- (instancetype)initWithModel:(Dong_DownloadModel *)downloadModel session:(NSURLSession *)session;
 
 @property (nonatomic, weak) Dong_DownloadModel *model;
 @property (nonatomic, strong, readonly) NSURLSessionDownloadTask *downloadTask;
 
-- (void)suspend;
-- (void)resume;
-- (void)downloadFinished;
+- (void)suspend;//暂停下载
+- (void)resume;//恢复下载
+- (void)downloadFinished;//下载完成时调用
 
 @end

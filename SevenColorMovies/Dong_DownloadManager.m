@@ -102,7 +102,7 @@
 }
 
 /**
- *  重新下载
+ *  恢复下载
  *
  *  @param  downloadModel 下载的数据模型
  */
@@ -137,9 +137,8 @@
 
 
 #pragma mark - NSURLSessionDownloadDelegate
-- (void)URLSession:(NSURLSession *)session
-      downloadTask:(NSURLSessionDownloadTask *)downloadTask
-didFinishDownloadingToURL:(NSURL *)location {
+// 下载完成时，会回调
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     //本地的文件路径，使用fileURLWithPath:来创建
     if (downloadTask.downloadModel.localPath) {
         NSURL *toURL = [NSURL fileURLWithPath:downloadTask.downloadModel.localPath];
@@ -151,6 +150,7 @@ didFinishDownloadingToURL:(NSURL *)location {
     NSLog(@"path = %@", downloadTask.downloadModel.localPath);
 }
 
+// 下载失败或者成功时，会回调。其中失败有可能是暂停下载导致，所以需要做一些判断
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (error == nil) {
@@ -165,11 +165,13 @@ didFinishDownloadingToURL:(NSURL *)location {
     });
 }
 
+// 这个是处理进度的
 - (void)URLSession:(NSURLSession *)session
-      downloadTask:(NSURLSessionDownloadTask *)downloadTask
+downloadTask:(NSURLSessionDownloadTask *)downloadTask
       didWriteData:(int64_t)bytesWritten
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    
     double byts =  totalBytesWritten * 1.0 / 1024 / 1024;
     double total = totalBytesExpectedToWrite * 1.0 / 1024 / 1024;
     NSString *text = [NSString stringWithFormat:@"%.1lfMB/%.1fMB",byts,total];
@@ -181,10 +183,12 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     });
 }
 
+// 当通过resume恢复下载时，会回调一次这里，更新进度
 - (void)URLSession:(NSURLSession *)session
       downloadTask:(NSURLSessionDownloadTask *)downloadTask
  didResumeAtOffset:(int64_t)fileOffset
 expectedTotalBytes:(int64_t)expectedTotalBytes {
+    
     double byts =  fileOffset * 1.0 / 1024 / 1024;
     double total = expectedTotalBytes * 1.0 / 1024 / 1024;
     NSString *text = [NSString stringWithFormat:@"%.1lfMB/%.1fMB",byts,total];
