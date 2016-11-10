@@ -392,13 +392,13 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     
                     
                     
-                    NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
+                    NSString *downloadUrl = @"http://sw.bos.baidu.com/sw-search-sp/software/a974c8ed7c9/dd_mac_1.9.1.dmg";
                     
                     NSMutableArray *downloadModels = [[NSMutableArray alloc] init];
                    
                         Dong_DownloadModel *downloadModel = [[Dong_DownloadModel alloc] init];
                         downloadModel.filmName = filmName;
-                        downloadModel.videoUrl = playUrl;
+                        downloadModel.videoUrl = downloadUrl;
                         
                         [downloadModels addObject:downloadModel];
                     

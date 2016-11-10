@@ -10,6 +10,9 @@
 
 @class Dong_DownloadModel;
 
+/*
+ *  扩展NSURLSessionTask的属性
+ */
 @interface NSURLSessionTask (DownloadModel)
 
 // 为了更方便去获取，而不需要遍历，采用扩展的方式，可直接提取，提高效率

@@ -15,9 +15,12 @@
 BLOCK(); \
 [self didChangeValueForKey:KEYPATH];
 
-static NSTimeInterval kTimeoutInterval = 60.0;
+static NSTimeInterval kTimeoutInterval = 10.0;
 static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 
+/*
+ *  扩展NSURLSessionTask的属性
+ */
 @implementation NSURLSessionTask (VideoModel)
 
 - (void)setDownloadModel:(Dong_DownloadModel *)downloadModel {
@@ -61,6 +64,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     self.task = nil;
 }
 
+//为每一个task注册观察者self 监听task属性"state"的变化
 - (void)setTask:(NSURLSessionDownloadTask *)task {
     [_task removeObserver:self forKeyPath:@"state"];
     
@@ -127,6 +131,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     return YES;
 }
 
+//暂停下载
 - (void)suspend {
     if (self.task) {
         __weak __typeof(self) weakSelf = self;
@@ -136,6 +141,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
         
         [self.task cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
             weakSelf.model.resumeData = resumeData;
+            DONG_Log(@"resumeData:%@",resumeData);
             weakTask = nil;
             isExecuting = NO;
             [weakSelf didChangeValueForKey:@"isExecuting"];
@@ -157,6 +163,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     self.model.status = kDownloadStateDownloading;
     
     if (self.model.resumeData) {
+         DONG_Log(@"resumeData:%@",self.model.resumeData);
         self.task = [self.session downloadTaskWithResumeData:self.model.resumeData];
         [self configTask];
     } else if (self.task == nil
@@ -196,6 +203,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     [self didChangeValueForKey:@"isFinished"];
 }
 
+//KVO监听动作
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary<NSString *,id> *)change
@@ -224,6 +232,8 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 - (void)downloadFinished {
     [self completeOperation];
 }
+
+
 
 
 

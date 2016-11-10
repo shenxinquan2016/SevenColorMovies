@@ -64,7 +64,19 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     
-//    libagent_close();
+    // 当应用被关闭终止时，可以判断当前如果存在下载任务，可以取消任务并保存resumeData
+//    if(!self.downTask){
+//        return;
+//    }
+//    [self.downTask cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
+//        if(resumeData){
+//            self.resumeData = resumeData;
+//            //可以进一步存储到NSUserDefault或持久化文件中,等下次应用启动后决定是否需要断点续传重新下载
+//        }
+//    }];
+    
+    
+   //    libagent_close();
 }
 
 

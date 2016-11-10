@@ -17,7 +17,6 @@
 @property (nonatomic, strong) NSOperationQueue *queue;
 @property (nonatomic, strong) NSURLSession *session;
 
-
 @end
 
 @implementation Dong_DownloadManager
@@ -25,7 +24,6 @@
 {
     NSMutableArray *_downloadModels;
 }
-
 
 /**
  *  下载管理器单例
@@ -155,6 +153,7 @@
 }
 
 // 下载失败或者成功时，会回调。其中失败有可能是暂停下载导致，所以需要做一些判断
+// 当传输失败网络异常会接收到下面的回调函数，可以从error中获取resumeData
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -166,6 +165,10 @@
         } else if ([error code] < 0) {
             // 网络异常
             task.downloadModel.status = kDownloadStateFailed;
+            
+            if (error.userInfo && [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData]) {
+                //self.resumeData = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
+            }
         }
     });
 }
@@ -176,6 +179,8 @@ downloadTask:(NSURLSessionDownloadTask *)downloadTask
       didWriteData:(int64_t)bytesWritten
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    // 当前次的下载量  当前的下载总量  需下载总量
+    DONG_Log(@"resumeData:%lld",totalBytesExpectedToWrite);
     
     double byts =  totalBytesWritten * 1.0 / 1024 / 1024;
     double total = totalBytesExpectedToWrite * 1.0 / 1024 / 1024;
