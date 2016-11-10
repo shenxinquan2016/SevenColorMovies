@@ -142,6 +142,7 @@
 #pragma mark - NSURLSessionDownloadDelegate
 // 下载完成时，会回调
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+    
     //本地的文件路径，使用fileURLWithPath:来创建
     if (downloadTask.downloadModel.localPath) {
         NSURL *toURL = [NSURL fileURLWithPath:downloadTask.downloadModel.localPath];
@@ -155,6 +156,7 @@
 
 // 下载失败或者成功时，会回调。其中失败有可能是暂停下载导致，所以需要做一些判断
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         if (error == nil) {
             task.downloadModel.status = kDownloadStateCompleted;

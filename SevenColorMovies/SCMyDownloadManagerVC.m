@@ -297,10 +297,11 @@ BOOL isLoading = NO;
     Dong_DownloadModel *downloadModel = [Dong_DownloadManager sharedManager].downloadModels[indexPath.row];
     cell.downloadModel = downloadModel;
     
+    //下载状态的回调
     downloadModel.onStatusChanged = ^(Dong_DownloadModel *changedModel) {
         cell.downloadModel = changedModel;
     };
-    
+    //下载进度的回调
     downloadModel.onProgressChanged = ^(Dong_DownloadModel *changedModel) {
         cell.downloadModel = changedModel;
     };

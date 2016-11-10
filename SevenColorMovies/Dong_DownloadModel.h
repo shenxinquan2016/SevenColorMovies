@@ -49,7 +49,7 @@ typedef void(^Dong_DownloadProgressChanged)(Dong_DownloadModel *model);
 @property (nonatomic, copy) Dong_DownloadStatusChanged onStatusChanged;
 @property (nonatomic, copy) Dong_DownloadProgressChanged onProgressChanged;
 
-@property (nonatomic, readonly, copy) NSString *statusText;
+@property (nonatomic, readonly, copy) NSString *statusText;//下载状态提示
 
 @property (nonatomic, assign, getter = isShowDeleteBtn) BOOL showDeleteBtn;/** 是否显示删除按钮 */
 @property (nonatomic, assign, getter = isSelecting) BOOL selected;/** 是否正被点击 */
