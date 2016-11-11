@@ -9,6 +9,7 @@
 #import "SCMyDownLoadManagerCell.h"
 #import "Dong_DownloadModel.h"
 
+
 @interface SCMyDownLoadManagerCell ()
 
 @property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;
@@ -17,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *downLoadProgressLabel;/** 数字进度 */
 @property (weak, nonatomic) IBOutlet UILabel *downLoadStateLabel;/** 下载状态 */
 @property (weak, nonatomic) IBOutlet UIProgressView *downLoadProgressView;/** 进度条 */
+
 
 @end
 
@@ -113,22 +115,69 @@
     }
 }
 
+- (void)setFileInfo:(ZFFileModel *)fileInfo {
+    
+    _fileInfo = fileInfo;
+    self.fimlNameLabel.text = fileInfo.fileName;
+    // 服务器可能响应的慢，拿不到视频总长度 && 不是下载状态
+    if ([fileInfo.fileSize longLongValue] == 0 && !(fileInfo.downloadState == ZFDownloading)) {
+        self.downLoadProgressLabel.text = @"--";
+        if (fileInfo.downloadState == ZFStopDownload) {
+            self.downLoadStateLabel.text = @"已暂停";
+        } else if (fileInfo.downloadState == ZFWillDownload) {
+            self.downLoadBtn.selected = YES;
+            self.downLoadStateLabel.text = @"等待下载";
+        }
+        self.downLoadProgressView.progress = 0.0;
+        return;
+    }
+    NSString *currentSize = [ZFCommonHelper getFileSizeString:fileInfo.fileReceivedSize];
+    NSString *totalSize = [ZFCommonHelper getFileSizeString:fileInfo.fileSize];
+    // 下载进度
+    float progress = (float)[fileInfo.fileReceivedSize longLongValue] / [fileInfo.fileSize longLongValue];
+    
+    self.downLoadProgressLabel.text = [NSString stringWithFormat:@"%@ / %@ (%.2f%%)",currentSize, totalSize, progress*100];
+    
+    self.downLoadProgressView.progress = progress;
+    
+    NSString *spped = [NSString stringWithFormat:@"%@/S",[ZFCommonHelper getFileSizeString:[NSString stringWithFormat:@"%lu",[ASIHTTPRequest averageBandwidthUsedPerSecond]]]];
+    self.downLoadStateLabel.text = spped;
+    
+    if (fileInfo.downloadState == ZFDownloading) { //文件正在下载
+        self.downLoadBtn.selected = NO;
+    } else if (fileInfo.downloadState == ZFStopDownload&&!fileInfo.error) {
+        self.downLoadBtn.selected = YES;
+        self.downLoadStateLabel.text = @"已暂停";
+    }else if (fileInfo.downloadState == ZFWillDownload&&!fileInfo.error) {
+        self.downLoadBtn.selected = YES;
+        self.downLoadStateLabel.text = @"等待下载";
+    } else if (fileInfo.error) {
+        self.downLoadBtn.selected = YES;
+        self.downLoadStateLabel.text = @"错误";
+    }
+}
+
 // 开始下载或暂停下载
 - (IBAction)startOrPauseDownLoad:(UIButton *)sender {
-    if (self.downloadBlock) {
-        self.downloadBlock();
-
+   
+    // 执行操作过程中应该禁止该按键的响应 否则会引起异常
+    sender.userInteractionEnabled = NO;
+    ZFFileModel *downFile = self.fileInfo;
+    ZFDownloadManager *filedownmanage = [ZFDownloadManager sharedDownloadManager];
+    if(downFile.downloadState == ZFDownloading) { //文件正在下载，点击之后暂停下载 有可能进入等待状态
+        self.downLoadBtn.selected = YES;
+        [filedownmanage stopRequest:self.request];
+    } else {
+        self.downLoadBtn.selected = NO;
+        [filedownmanage resumeRequest:self.request];
     }
     
-//    self.filmModel.isDownLoading = YES;
-//    DONG_Log(@"_filmModel.isDownLoading:%d",self.filmModel.isDownLoading);
-    
-//    _filmModel.isDownLoading = !_filmModel.isDownLoading;
-//    
-//    
-//    DONG_Log(@"_filmModel.isDownLoading:%d",_filmModel.isDownLoading);
-    
-    
+    // 暂停意味着这个Cell里的ASIHttprequest已被释放，要及时更新table的数据，使最新的ASIHttpreqst控制Cell
+    if (self.downloadBlock) {
+        self.downloadBlock();
+    }
+    sender.userInteractionEnabled = YES;
 }
+
 
 @end

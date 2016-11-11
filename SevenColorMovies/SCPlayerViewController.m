@@ -22,6 +22,9 @@
 #import "SCDownloadManager.h"//下载管理器
 #import "Dong_DownloadManager.h"
 #import "Dong_DownloadModel.h"
+#import "ZFDownloadManager.h"//第三方下载工具
+
+#define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
 static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
@@ -397,24 +400,20 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     
                     
                     
+                    NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
+                    
+                    
+                    
+                    // 此处是截取的下载地址，可以自己根据服务器的视频名称来赋值
+                    NSString *name = [[playUrl componentsSeparatedByString:@"/"] lastObject];
+                    [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:name fileimage:nil];
+                    // 设置最多同时下载个数（默认是3）
+                    [ZFDownloadManager sharedDownloadManager].maxCount = 2;
                     
                     
                     
                     
-                    
-                    NSString *downloadUrl = @"http://sw.bos.baidu.com/sw-search-sp/software/a974c8ed7c9/dd_mac_1.9.1.dmg";
-                    
-                    NSMutableArray *downloadModels = [[NSMutableArray alloc] init];
-                   
-                        Dong_DownloadModel *downloadModel = [[Dong_DownloadModel alloc] init];
-                        downloadModel.filmName = filmName;
-                        downloadModel.videoUrl = downloadUrl;
-                        
-                        [downloadModels addObject:downloadModel];
-                    
-                    
-                    [[Dong_DownloadManager sharedManager] addVideoModels:downloadModels];
-                    [[Dong_DownloadManager sharedManager] startWithVideoModel:downloadModel];
+                  
                     
                     
                     

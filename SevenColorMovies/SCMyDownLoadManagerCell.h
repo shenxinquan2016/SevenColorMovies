@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "SCFilmModel.h"
+#import "ZFDownloadManager.h"
 
 @class Dong_DownloadModel;
+
 
 typedef void(^DownloadBlock)(void);
 
@@ -20,6 +22,11 @@ typedef void(^DownloadBlock)(void);
 @property (weak, nonatomic) IBOutlet UIImageView *deleteBtn;
 @property (nonatomic, strong) SCFilmModel *filmModel;
 @property (nonatomic, copy) DownloadBlock downloadBlock;
+/** 下载信息模型 */
+@property (nonatomic, strong) ZFFileModel      *fileInfo;
+/** 该文件发起的请求 */
+@property (nonatomic,retain ) ZFHttpRequest    *request;
+
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

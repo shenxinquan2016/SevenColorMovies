@@ -146,7 +146,6 @@ static ZFDownloadManager *sharedDownloadManager = nil;
 }
 
 #pragma mark - 下载开始
-
 - (void)beginRequest:(ZFFileModel *)fileInfo isBeginDown:(BOOL)isBeginDown
 {
     for(ZFHttpRequest *tempRequest in self.downinglist)
