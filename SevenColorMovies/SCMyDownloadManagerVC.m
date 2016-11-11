@@ -52,13 +52,13 @@
         [_dataArray addObject:filmModel];
     }
     
-   
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
     
     
     //3.初始化
@@ -281,14 +281,14 @@ BOOL isLoading = NO;
 #pragma mark - UITableView dataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //return _dataArray.count;
     //return [Dong_DownloadManager sharedManager].downloadModels.count;
-    NSArray *sectionArray = self.downloadObjectArr[1];
+    NSArray *sectionArray = self.downloadObjectArr[section];
     return sectionArray.count;
 }
 
@@ -328,25 +328,34 @@ BOOL isLoading = NO;
     //        strongcell.downloadModel = downloadModel;
     //    };
     
-    
-    ZFHttpRequest *request = self.downloadObjectArr[1][indexPath.row];
-    if (request == nil) { return nil; }
-    ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
-    
-    //此处为点击cell的downloadBtn的block回调
-    // 下载按钮点击时候的要刷新列表
-    DONG_WeakSelf(self);
-    cell.downloadBlock = ^{
-        DONG_StrongSelf(self);
-        [strongself initData];
-    };
-    // 下载模型赋值
-    cell.fileInfo = fileInfo;
-    // 下载的request
-    cell.request = request;
-    
-    return cell;
+    if (indexPath.section == 0) {
+        ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
+        cell.fileInfo = fileInfo;
+        return cell;
+        
+    } else if (indexPath.section == 1) {
+        
+        ZFHttpRequest *request = self.downloadObjectArr[indexPath.section][indexPath.row];
+        if (request == nil) { return nil; }
+        ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+        
+        //此处为点击cell的downloadBtn的block回调
+        // 下载按钮点击时候的要刷新列表
+        DONG_WeakSelf(self);
+        cell.downloadBlock = ^{
+            DONG_StrongSelf(self);
+            [strongself initData];
+        };
+        // 下载模型赋值
+        cell.fileInfo = fileInfo;
+        // 下载的request
+        cell.request = request;
+        
+        return cell;
+    }
+    return nil;
 }
+
 
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
