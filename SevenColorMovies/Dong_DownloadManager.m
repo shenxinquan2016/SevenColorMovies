@@ -137,7 +137,10 @@
 
 
 #pragma mark - NSURLSessionDownloadDelegate
-// 下载完成时，会回调
+/**
+ *  下载完成时回调
+ *
+ */
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     
     //本地的文件路径，使用fileURLWithPath:来创建
@@ -151,8 +154,10 @@
     NSLog(@"path = %@", downloadTask.downloadModel.localPath);
 }
 
-// 下载失败或者成功时，会回调。其中失败有可能是暂停下载导致，所以需要做一些判断
-// 当传输失败网络异常会接收到下面的回调函数，可以从error中获取resumeData
+/*
+ *  下载失败或者成功时，会回调。其中失败有可能是暂停下载导致，所以需要做一些判断
+ *  当传输失败网络异常会接收到下面的回调函数，可以从error中获取resumeData
+ */
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -178,13 +183,20 @@
     });
 }
 
-// 这个是处理进度的
+
+/*
+ *  下载过程调用
+ *
+ *  bytesWritten               当前次的下载量
+ *  totalBytesWritten          当前的下载总量
+ *  totalBytesExpectedToWrite  需下载总量
+ */
 - (void)URLSession:(NSURLSession *)session
 downloadTask:(NSURLSessionDownloadTask *)downloadTask
       didWriteData:(int64_t)bytesWritten
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
-    // 当前次的下载量  当前的下载总量  需下载总量
+    
     DONG_Log(@"resumeData:%lld",totalBytesExpectedToWrite);
     
     double byts =  totalBytesWritten * 1.0 / 1024 / 1024;
@@ -198,7 +210,13 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     });
 }
 
-// 当通过resume恢复下载时，会回调一次这里，更新进度
+
+/*
+ *  resume恢复下载时，会回调一次这里，更新进度
+ *
+ *  fileOffset          已下载数量
+ *  expectedTotalBytes  需下载总量
+ */
 - (void)URLSession:(NSURLSession *)session
       downloadTask:(NSURLSessionDownloadTask *)downloadTask
  didResumeAtOffset:(int64_t)fileOffset
