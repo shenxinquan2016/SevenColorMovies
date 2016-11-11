@@ -60,12 +60,13 @@
  *  全部暂停
  *
  */
+- (void)pauseAll;
 
 /**
  *  全部开始
  *
  */
-
+- (void)resumeAll;
 
 
 @end
