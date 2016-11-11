@@ -22,7 +22,6 @@
 		1111A4121D48A62500C17B92 /* SCNetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4111D48A62500C17B92 /* SCNetHelper.m */; };
 		1111A4191D48A71300C17B92 /* QINetReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4141D48A71300C17B92 /* QINetReachabilityManager.m */; };
 		1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4161D48A71300C17B92 /* QIReachability.m */; };
-		1111A41B1D48A71300C17B92 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4181D48A71300C17B92 /* Reachability.m */; };
 		1111A41F1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A41E1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m */; };
 		1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4211D48B2E000C17B92 /* SCNetRequsetManger+Home.m */; };
 		1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4271D48C51A00C17B92 /* SCLoadingView.m */; };
@@ -224,8 +223,6 @@
 		1111A4141D48A71300C17B92 /* QINetReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QINetReachabilityManager.m; sourceTree = "<group>"; };
 		1111A4151D48A71300C17B92 /* QIReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QIReachability.h; sourceTree = "<group>"; };
 		1111A4161D48A71300C17B92 /* QIReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QIReachability.m; sourceTree = "<group>"; };
-		1111A4171D48A71300C17B92 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		1111A4181D48A71300C17B92 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1111A41D1D48A8D100C17B92 /* MBProgressHUD+Addidtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Addidtion.h"; sourceTree = "<group>"; };
 		1111A41E1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Addidtion.m"; sourceTree = "<group>"; };
 		1111A4201D48B2E000C17B92 /* SCNetRequsetManger+Home.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCNetRequsetManger+Home.h"; sourceTree = "<group>"; };
@@ -589,8 +586,6 @@
 				1111A4141D48A71300C17B92 /* QINetReachabilityManager.m */,
 				1111A4151D48A71300C17B92 /* QIReachability.h */,
 				1111A4161D48A71300C17B92 /* QIReachability.m */,
-				1111A4171D48A71300C17B92 /* Reachability.h */,
-				1111A4181D48A71300C17B92 /* Reachability.m */,
 			);
 			name = "New Group";
 			sourceTree = "<group>";
@@ -2118,7 +2113,6 @@
 				1111A4121D48A62500C17B92 /* SCNetHelper.m in Sources */,
 				1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */,
 				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,
-				1111A41B1D48A71300C17B92 /* Reachability.m in Sources */,
 				1131C0E81D67081E00BA151A /* SCPlayerViewController.m in Sources */,
 				1131C0E01D6705CD00BA151A /* IJKVideoPlayerVC.m in Sources */,
 				1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */,

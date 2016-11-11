@@ -14,7 +14,8 @@ target 'SevenColorMovies' do
     pod 'MJRefresh',         '~> 3.1.10'
     pod 'IQKeyboardManager', '~> 4.0.7'
     pod 'Realm',             '~> 2.0.2'
-
+    pod 'ZFDownload',        '~> 1.0.2'
+    
     #use_frameworks!
     #pod 'ReactiveCocoa', '~> 4.0.4-alpha-4'
 
