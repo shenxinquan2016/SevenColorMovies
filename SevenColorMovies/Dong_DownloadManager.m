@@ -11,7 +11,6 @@
 #import "Dong_DownloadOperation.h"
 
 
-
 @interface Dong_DownloadManager ()<NSURLSessionDownloadDelegate>
 
 @property (nonatomic, strong) NSOperationQueue *queue;
@@ -45,9 +44,9 @@
         _downloadModels = [[NSMutableArray alloc] init];
         self.queue = [[NSOperationQueue alloc] init];
         // 设置允许最大线程并行数量
-        self.queue.maxConcurrentOperationCount = 3;
+        self.queue.maxConcurrentOperationCount = 1;
         NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-        // 不能传self.queue
+        // 不能传self.queue  可以传[NSOperationQueue mainQueue]
         self.session = [NSURLSession sessionWithConfiguration:config
                                                      delegate:self
                                                 delegateQueue:nil];
@@ -160,15 +159,21 @@
         if (error == nil) {
             task.downloadModel.status = kDownloadStateCompleted;
             [task.downloadModel.operation downloadFinished];
-        } else if (task.downloadModel.status == kDownloadStatePause) {
-            task.downloadModel.status = kDownloadStatePause;
-        } else if ([error code] < 0) {
-            // 网络异常
-            task.downloadModel.status = kDownloadStateFailed;
-            
-            if (error.userInfo && [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData]) {
-                //self.resumeData = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
+        }  else if ([error code] < 0) {
+            if (task.downloadModel.status == kDownloadStatePause) {
+                // 暂停
+                task.downloadModel.status = kDownloadStatePause;
+                if (error.userInfo && [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData]) {
+                    //self.resumeData = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
+                }
+            } else{
+                // 网络异常
+                task.downloadModel.status = kDownloadStateFailed;
+                if (error.userInfo && [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData]) {
+                    //self.resumeData = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
+                }
             }
+           
         }
     });
 }

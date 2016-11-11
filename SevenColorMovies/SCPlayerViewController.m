@@ -327,7 +327,17 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 
                 
                 
+                NSMutableArray *downloadModels = [[NSMutableArray alloc] init];
                 
+                Dong_DownloadModel *downloadModel = [[Dong_DownloadModel alloc] init];
+                downloadModel.filmName = filmName;
+                downloadModel.videoUrl = playUrl;
+                
+                [downloadModels addObject:downloadModel];
+                
+                
+                [[Dong_DownloadManager sharedManager] addVideoModels:downloadModels];
+                [[Dong_DownloadManager sharedManager] startWithVideoModel:downloadModel];
                 
                 
                 [CommonFunc dismiss];
