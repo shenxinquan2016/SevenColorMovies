@@ -118,6 +118,31 @@
 - (void)setFileInfo:(ZFFileModel *)fileInfo {
     
     _fileInfo = fileInfo;
+    
+    if (fileInfo.isShowDeleteBtn) {
+        _deleteBtn.hidden = NO;
+        _downLoadBtn.hidden = YES;
+        if (fileInfo.isSelecting) {
+            [_deleteBtn setImage:[UIImage imageNamed:@"Select"]];
+        }else{
+            [_deleteBtn setImage:[UIImage imageNamed:@"Unselected"]];
+            
+        }
+        
+    }else{
+        _deleteBtn.hidden = YES;
+        _downLoadBtn.hidden = NO;
+        
+        if (fileInfo.downloadState == ZFDownloading) {
+            [_downLoadBtn setImage:[UIImage imageNamed:@"PauseDownload"] forState:UIControlStateNormal];
+        }else{
+            [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoadIMG"] forState:UIControlStateNormal];
+            
+        }
+        
+    }
+
+    
     self.fimlNameLabel.text = fileInfo.fileName;
     // 服务器可能响应的慢，拿不到视频总长度 && 不是下载状态
     if ([fileInfo.fileSize longLongValue] == 0 && !(fileInfo.downloadState == ZFDownloading)) {
@@ -166,9 +191,11 @@
     ZFDownloadManager *filedownmanage = [ZFDownloadManager sharedDownloadManager];
     if(downFile.downloadState == ZFDownloading) { //文件正在下载，点击之后暂停下载 有可能进入等待状态
         self.downLoadBtn.selected = YES;
+        [self.downLoadBtn setImage:[UIImage imageNamed:@"PauseDownload"] forState:UIControlStateNormal];
         [filedownmanage stopRequest:self.request];
     } else {
         self.downLoadBtn.selected = NO;
+        [self.downLoadBtn setImage:[UIImage imageNamed:@"DownLoadIMG"] forState:UIControlStateNormal];
         [filedownmanage resumeRequest:self.request];
     }
     

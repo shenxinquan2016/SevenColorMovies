@@ -63,4 +63,8 @@ typedef NS_ENUM(NSInteger,ZFDownLoadState) {
 /** 文件的附属图片 */
 @property (nonatomic,strong ) UIImage         *fileimage;
 
+@property (nonatomic, assign, getter = isShowDeleteBtn) BOOL showDeleteBtn;/** 是否显示删除按钮 */
+@property (nonatomic, assign, getter = isSelecting) BOOL selected;/** 是否正被点击 */
+@property BOOL isDownLoading;/** 是否正在下载 */
+
 @end

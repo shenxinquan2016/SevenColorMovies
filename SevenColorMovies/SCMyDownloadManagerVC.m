@@ -48,11 +48,11 @@
     
     
     //假数据
-    for (int i = 0; i<5; i++) {
-        SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-        filmModel.FilmName = [NSString stringWithFormat:@"%d%d%d%d",i,i,i,i];
-        [_dataArray addObject:filmModel];
-    }
+//    for (int i = 0; i<5; i++) {
+//        SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+//        filmModel.FilmName = [NSString stringWithFormat:@"%d%d%d%d",i,i,i,i];
+//        [_dataArray addObject:filmModel];
+//    }
     
     
     
@@ -70,8 +70,7 @@
     //4.加载分视图
     //4.1 编辑按钮
     [self addRightBBI];
-    
-    
+
     //4.3 全选/删除
     [self setBottomBtnView];
     
@@ -103,9 +102,7 @@
         [CommonFunc hideTipsViews:_listView];
         // 4.2 tableview
         [self setTableView];
-        
     }
-    
 }
 
 //全选 || 删除 按钮视图
@@ -210,6 +207,8 @@
         _listView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
         [self setTableViewTopButton];
         [self.view addSubview:_listView];
+        //4.3 全选/删除
+        [self setBottomBtnView];
     } else {
         [self.listView reloadData];
     }
