@@ -7,7 +7,9 @@
 //
 
 #import "SCMyDownloadManagerVC.h"
-#import "SCMyDownLoadManagerCell.h"
+#import "SCMyDownLoadManagerCell.h"//正在下载cell
+#import "SCDownloadedCell.h"//下载完成时的cell
+
 #import "SCFilmModel.h"
 #import "Dong_DownloadManager.h"//下载器
 #import "Dong_DownloadModel.h"//下载数据模型
@@ -206,6 +208,7 @@
         _listView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _listView.tableFooterView = [UIView new];
         _listView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+        [self setTableViewTopButton];
         [self.view addSubview:_listView];
     } else {
         [self.listView reloadData];
@@ -270,6 +273,45 @@
     
 }
 
+- (void)setTableViewTopButton {
+    UIView *view = [[UIImageView alloc] init];
+    view.frame = CGRectMake(0, 0, kMainScreenWidth, 40.f);
+    view.backgroundColor = [UIColor whiteColor];
+    
+    //下载图标
+    UIImageView *downLoadIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DownLoadIMG"]];
+    [view addSubview:downLoadIV];
+    [downLoadIV mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view);
+        make.left.equalTo(view).and.offset(12);
+        make.size.mas_equalTo(CGSizeMake(21, 21));
+        
+    }];
+    
+    //全部开始
+    UILabel *headerTitlelabel = [[UILabel alloc] init];
+    headerTitlelabel.text = @"全部开始";
+    headerTitlelabel.font = [UIFont systemFontOfSize:15];
+    headerTitlelabel.textAlignment = NSTextAlignmentLeft;
+    [view addSubview:headerTitlelabel];
+    [headerTitlelabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view);
+        make.left.equalTo(downLoadIV.mas_right).and.offset(10);
+        make.size.mas_equalTo(CGSizeMake(70, 21));
+        
+    }];
+    
+    downloadIV_ = downLoadIV;
+    headerTitlelabel_ = headerTitlelabel;
+    
+    //header点击手势
+    UITapGestureRecognizer *headerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(beginOrPauseDownload)];
+    [view addGestureRecognizer:headerTap];
+    view.userInteractionEnabled = YES;
+    //把View添加到tableHeaderView上
+    self.listView.tableHeaderView = view;
+}
+
 BOOL isLoading = NO;
 - (void)beginOrPauseDownload {
     
@@ -302,7 +344,6 @@ BOOL isLoading = NO;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCMyDownLoadManagerCell *cell = [SCMyDownLoadManagerCell cellWithTableView:tableView];
     
     //    SCFilmModel *filmModel =  _dataArray[indexPath.row];
     //    cell.filmModel = filmModel;
@@ -337,12 +378,14 @@ BOOL isLoading = NO;
     //    };
     
     if (indexPath.section == 0) {
+        SCDownloadedCell *cell = [SCDownloadedCell cellWithTableView:tableView];
         ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
         cell.fileInfo = fileInfo;
         return cell;
         
     } else if (indexPath.section == 1) {
-        
+        SCMyDownLoadManagerCell *cell = [SCMyDownLoadManagerCell cellWithTableView:tableView];
+
         ZFHttpRequest *request = self.downloadObjectArr[indexPath.section][indexPath.row];
         if (request == nil) { return nil; }
         ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
@@ -393,12 +436,16 @@ BOOL isLoading = NO;
 #pragma mark - UITableView Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    if (indexPath.section == 0) {
+        return 60;
+    } else {
+        return 80;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 40.f;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -406,44 +453,9 @@ BOOL isLoading = NO;
     return 0;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    UIView *view = [[UIImageView alloc] init];
-    view.frame = CGRectMake(0, 0, kMainScreenWidth, 40.f);
-    view.backgroundColor = [UIColor whiteColor];
-    
-    //下载图标
-    UIImageView *downLoadIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DownLoadIMG"]];
-    [view addSubview:downLoadIV];
-    [downLoadIV mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(view);
-        make.left.equalTo(view).and.offset(12);
-        make.size.mas_equalTo(CGSizeMake(21, 21));
-        
-    }];
-    
-    //全部开始
-    UILabel *headerTitlelabel = [[UILabel alloc] init];
-    headerTitlelabel.text = @"全部开始";
-    headerTitlelabel.font = [UIFont systemFontOfSize:15];
-    headerTitlelabel.textAlignment = NSTextAlignmentLeft;
-    [view addSubview:headerTitlelabel];
-    [headerTitlelabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(view);
-        make.left.equalTo(downLoadIV.mas_right).and.offset(10);
-        make.size.mas_equalTo(CGSizeMake(70, 21));
-        
-    }];
-    
-    downloadIV_ = downLoadIV;
-    headerTitlelabel_ = headerTitlelabel;
-    
-    //header点击手势
-    UITapGestureRecognizer *headerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(beginOrPauseDownload)];
-    [view addGestureRecognizer:headerTap];
-    view.userInteractionEnabled = YES;
-    
-    return view;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return nil;
 }
 
 //将delete改为删除

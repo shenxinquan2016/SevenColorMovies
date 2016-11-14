@@ -122,6 +122,8 @@
 		11B072281DD2B7C800DD3FED /* Dong_DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B072271DD2B7C800DD3FED /* Dong_DownloadModel.m */; };
 		11B0722B1DD2BAD200DD3FED /* Dong_DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0722A1DD2BAD200DD3FED /* Dong_DownloadManager.m */; };
 		11B0722E1DD2BBDF00DD3FED /* Dong_DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0722D1DD2BBDF00DD3FED /* Dong_DownloadOperation.m */; };
+		11B496271DD967A400C51B8A /* SCDownloadedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B496251DD967A400C51B8A /* SCDownloadedCell.m */; };
+		11B496281DD967A400C51B8A /* SCDownloadedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11B496261DD967A400C51B8A /* SCDownloadedCell.xib */; };
 		11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */; };
 		11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */; };
 		11BB37791D38B9A00002D487 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37781D38B9A00002D487 /* main.m */; };
@@ -393,6 +395,9 @@
 		11B0722A1DD2BAD200DD3FED /* Dong_DownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dong_DownloadManager.m; sourceTree = "<group>"; };
 		11B0722C1DD2BBDF00DD3FED /* Dong_DownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dong_DownloadOperation.h; sourceTree = "<group>"; };
 		11B0722D1DD2BBDF00DD3FED /* Dong_DownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dong_DownloadOperation.m; sourceTree = "<group>"; };
+		11B496241DD967A400C51B8A /* SCDownloadedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDownloadedCell.h; sourceTree = "<group>"; };
+		11B496251DD967A400C51B8A /* SCDownloadedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDownloadedCell.m; sourceTree = "<group>"; };
+		11B496261DD967A400C51B8A /* SCDownloadedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCDownloadedCell.xib; sourceTree = "<group>"; };
 		11B9837C1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveRecommendationCollectionVC.h; sourceTree = "<group>"; };
 		11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveRecommendationCollectionVC.m; sourceTree = "<group>"; };
 		11B9837F1D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveAllEpisodesCollectionVC.h; sourceTree = "<group>"; };
@@ -1161,6 +1166,9 @@
 				11323E0C1DB5CB650089A207 /* SCMyDownLoadManagerCell.h */,
 				11323E0D1DB5CB650089A207 /* SCMyDownLoadManagerCell.m */,
 				11323E0E1DB5CB650089A207 /* SCMyDownLoadManagerCell.xib */,
+				11B496241DD967A400C51B8A /* SCDownloadedCell.h */,
+				11B496251DD967A400C51B8A /* SCDownloadedCell.m */,
+				11B496261DD967A400C51B8A /* SCDownloadedCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1926,6 +1934,7 @@
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */,
 				11323E0B1DB5C4B80089A207 /* SCMyCollectionCell.xib in Resources */,
+				11B496281DD967A400C51B8A /* SCDownloadedCell.xib in Resources */,
 				11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */,
 				11D4225C1D49A8EC00B4F9AE /* SCLoadingView.xib in Resources */,
 				11C8CFBC1D45157B00C04F38 /* SCCollectionViewPageCell.xib in Resources */,
@@ -2070,6 +2079,7 @@
 				11458E971D45E0D500EBD16D /* SCDiscoveryTableViewCell.m in Sources */,
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
 				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
+				11B496271DD967A400C51B8A /* SCDownloadedCell.m in Sources */,
 				1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */,
 				116475F91D4098EF00A3BC1C /* SCPastVideoTableViewCell.m in Sources */,
 				1111A41F1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m in Sources */,
