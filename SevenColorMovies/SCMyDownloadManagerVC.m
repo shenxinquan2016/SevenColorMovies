@@ -68,13 +68,8 @@
     //4.加载分视图
     //4.1 编辑按钮
     [self addRightBBI];
-    if (_dataArray.count == 0) {
-        [CommonFunc noDataOrNoNetTipsString:@"还没有下载任何视频哦" addView:self.view];
-    }else{
-        [CommonFunc hideTipsViews:_listView];
-        // 4.2 tableview
-        [self setTableView];
-    }
+    
+    
     //4.3 全选/删除
     [self setBottomBtnView];
     
@@ -99,7 +94,16 @@
     self.downloadObjectArr = @[].mutableCopy;
     [self.downloadObjectArr addObject:downladed];
     [self.downloadObjectArr addObject:downloading];
-    [self.listView reloadData];
+    
+    if ([_downloadObjectArr.firstObject count] == 0 && [_downloadObjectArr.lastObject count] == 0) {
+        [CommonFunc noDataOrNoNetTipsString:@"还没有下载任何视频哦" addView:self.view];
+    }else{
+        [CommonFunc hideTipsViews:_listView];
+        // 4.2 tableview
+        [self setTableView];
+        
+    }
+    
 }
 
 //全选 || 删除 按钮视图
@@ -194,14 +198,18 @@
 }
 
 - (void)setTableView {
-    _listView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    _listView.delegate = self;
-    _listView.dataSource = self;
-    _listView.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
-    _listView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _listView.tableFooterView = [UIView new];
-    _listView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
-    [self.view addSubview:_listView];
+    if (!_listView) {
+        _listView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64) style:UITableViewStylePlain];
+        _listView.delegate = self;
+        _listView.dataSource = self;
+        _listView.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
+        _listView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _listView.tableFooterView = [UIView new];
+        _listView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+        [self.view addSubview:_listView];
+    } else {
+        [self.listView reloadData];
+    }
 }
 
 - (void)addRightBBI {
