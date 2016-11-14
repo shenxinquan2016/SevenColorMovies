@@ -404,9 +404,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     
                     
                     
-                    // 此处是截取的下载地址，可以自己根据服务器的视频名称来赋值
-                    NSString *name = [[downloadUrl componentsSeparatedByString:@"/"] lastObject];
-                    [[ZFDownloadManager sharedDownloadManager] downFileUrl:downloadUrl filename:filmName fileimage:nil];
+                    [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
                     // 设置最多同时下载个数（默认是3）
                     [ZFDownloadManager sharedDownloadManager].maxCount = 1;
                     

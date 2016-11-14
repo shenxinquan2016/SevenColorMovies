@@ -512,7 +512,6 @@ static ZFDownloadManager *sharedDownloadManager = nil;
             [_finishedlist addObject:file];
         }
     }
-    
 }
 
 - (void)saveFinishedFile

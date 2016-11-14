@@ -483,18 +483,20 @@ BOOL isLoading = NO;
         }
         cell.filmModel = filmModel;
         
-    }else{//非编辑状态
+    }else{//非编辑状态 播放
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        if (indexPath.section == 0) {
+            ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
+            NSString *path = [[FileManageCommon GetLibraryPath] stringByAppendingString:[NSString stringWithFormat:@"/Caches/ZFDownload/CacheList/%@",fileInfo.fileName]];
+            if([FileManageCommon IsFileExists:path]){
+                DONG_Log(@"路径存在");
+                
+                
+                
+                
+            }
+        }
+
     }
 }
 
