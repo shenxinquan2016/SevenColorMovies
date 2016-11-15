@@ -23,6 +23,8 @@
 #import "Dong_DownloadManager.h"
 #import "Dong_DownloadModel.h"
 #import "ZFDownloadManager.h"//第三方下载工具
+#import "SCDSJDownloadView.h"
+
 
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
@@ -57,6 +59,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 {
     BOOL _isFullScreen;
+    SCDSJDownloadView *_downloadView;
 }
 
 #pragma mark - Initialize
@@ -89,7 +92,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -242,24 +244,15 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     // 名称
     NSString *filmName;
     if (_filmModel.FilmName) {
-        
         if (_filmModel.filmSetModel) {
-            
             filmName = [NSString stringWithFormat:@"%@第%@集",_filmModel.FilmName,_filmModel.filmSetModel._ContentIndex];
-            
         }else{
-            
             filmName = [NSString stringWithFormat:@"%@",_filmModel.FilmName];
         }
-        
     }else if (_filmModel.cnname){
-        
         if (_filmModel.filmSetModel) {
-            
             filmName = [NSString stringWithFormat:@"%@第%@集",_filmModel.cnname,_filmModel.filmSetModel._ContentIndex];
-            
         }else{
-            
             filmName = [NSString stringWithFormat:@"%@",_filmModel.cnname];
         }
     }
@@ -275,77 +268,18 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"filmmid" : filmmidStr};
-    
-    if (_filmModel.filmSetModel) {// 电视剧 系列影片通道
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        DONG_WeakSelf(self);
-        self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            //请求播放地址
-            [requestDataManager requestDataWithUrl:_filmModel.filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-                DONG_StrongSelf(self);
-                //NSLog(@"====responseObject:::%@===",responseObject);
-                NSString *play_url = responseObject[@"play_url"];
-                DONG_Log(@"responseObject:%@",play_url);
-                //请求将播放地址域名转换  并拼接最终的播放地址
-                NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                
-                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-                //1.拼接新地址
-                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-                
-                
-                
-                
-                
-                
-                
-                
-                [CommonFunc dismiss];
-                
-            } failure:^(id  _Nullable errorObject) {
-                [CommonFunc dismiss];
-            }];
-        } failure:^(NSError *error) {
-            [CommonFunc dismiss];
-        }];
-        
-    } else {// 电影
-        
+    NSString *mtype;
+    if (_filmModel._Mtype) {
+        mtype = _filmModel._Mtype;
+    }else if (_filmModel.mtype){
+        mtype = _filmModel.mtype;
+    }
+    NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
+    // 私人影院 电影 海外片场
+    if ([mtype isEqualToString:@"0"] ||
+        [mtype isEqualToString:@"2"] ||
+        [mtype isEqualToString:@"13"])
+    {
         DONG_WeakSelf(self);
         self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
         [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
@@ -425,10 +359,72 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         } failure:^(NSError *error) {
             [CommonFunc dismiss];
         }];
+
+    }else if // 综艺 生活
+        ([mtype isEqualToString:@"7"] ||
+         [mtype isEqualToString:@"9"])
+    {
+        DONG_Log(@"综艺");
+        return;
+        
+    }else{//电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
+        
+        if (!_downloadView) {
+            _downloadView = [[SCDSJDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20+36+8, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20+36+8))];
+            _downloadView.dataSourceArray = _filmSetsArr;
+            DONG_WeakSelf(_downloadView);
+            _downloadView.backBtnBlock = ^{
+                [weak_downloadView removeFromSuperview];
+                _downloadView = nil;
+            };
+            [self.view addSubview:_downloadView];
+        }
+        
+
+    
     }
+
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+//    if (_filmModel.filmSetModel) {// 电视剧 系列影片通道
+//        DONG_WeakSelf(self);
+//        self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            //请求播放地址
+//            [requestDataManager requestDataWithUrl:_filmModel.filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+//                DONG_StrongSelf(self);
+//                //NSLog(@"====responseObject:::%@===",responseObject);
+//                NSString *play_url = responseObject[@"play_url"];
+//                DONG_Log(@"responseObject:%@",play_url);
+//                //请求将播放地址域名转换  并拼接最终的播放地址
+//                NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                
+//                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//                //1.拼接新地址
+//                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+//
+//                [CommonFunc dismiss];
+//                
+//            } failure:^(id  _Nullable errorObject) {
+//                [CommonFunc dismiss];
+//            }];
+//        } failure:^(NSError *error) {
+//            [CommonFunc dismiss];
+//        }];
+//        
+//    }
 }
 
-#pragma mark- private methods
+#pragma mark - private methods
 -(void)refreshButtonStateFromQueryDatabase{
     //1.查询是否已经添加到节目单
     //使用 NSPredicate 查询
@@ -507,20 +503,20 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 }
 
 - (void)registerNotification {
-    //3.全屏小屏通知
+    //1.全屏小屏通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
-    //4.监听屏幕旋转
+    //2.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    //5.注册播放结束通知
+    //3.注册播放结束通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackDidFinish:)
                                                  name:IJKMPMoviePlayerPlaybackDidFinishNotification
                                                object:nil];
-    //6.注册点击列表播放通知
+    //4.注册点击列表播放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
-    
 }
+
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView {
     

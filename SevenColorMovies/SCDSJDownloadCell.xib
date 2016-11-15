@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="SCDSJDownloadCell">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DSJDownloaded" translatesAutoresizingMaskIntoConstraints="NO" id="nat-GA-awI">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="Non-0x-IKs"/>
+                            <constraint firstAttribute="width" constant="12" id="etw-OK-dh5"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVZ-vD-Qvt">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19.5" id="Pd1-cB-0ju"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="nat-GA-awI" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="1P0-7Y-iOu"/>
+                <constraint firstAttribute="trailing" secondItem="zVZ-vD-Qvt" secondAttribute="trailing" id="6bE-n4-zV6"/>
+                <constraint firstItem="zVZ-vD-Qvt" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9zc-iR-HG1"/>
+                <constraint firstItem="zVZ-vD-Qvt" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="DKQ-hG-X94"/>
+                <constraint firstItem="nat-GA-awI" firstAttribute="top" secondItem="zVZ-vD-Qvt" secondAttribute="bottom" id="wQ5-VN-A7N"/>
+            </constraints>
+            <connections>
+                <outlet property="contentIndexLabel" destination="zVZ-vD-Qvt" id="Fhz-kK-iHF"/>
+                <outlet property="downloadImageView" destination="nat-GA-awI" id="YDe-X2-U6O"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="DSJDownloaded" width="10" height="8"/>
+    </resources>
+</document>

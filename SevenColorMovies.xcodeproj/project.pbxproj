@@ -77,6 +77,9 @@
 		115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */; };
 		115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */; };
 		115CCDF41D796E8D0045ED5F /* UILabel+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 115CCDF31D796E8D0045ED5F /* UILabel+Addition.m */; };
+		115F02491DDAF73D00DF911F /* SCDSJDownloadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 115F02481DDAF73D00DF911F /* SCDSJDownloadView.m */; };
+		115F024D1DDAFEC400DF911F /* SCDSJDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 115F024B1DDAFEC400DF911F /* SCDSJDownloadCell.m */; };
+		115F024E1DDAFEC400DF911F /* SCDSJDownloadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 115F024C1DDAFEC400DF911F /* SCDSJDownloadCell.xib */; };
 		116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */; };
 		116475F41D40988700A3BC1C /* SCOptionalVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */; };
 		116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */; };
@@ -324,6 +327,11 @@
 		115A21291D42290C0097DE57 /* SCMoiveIntroduceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveIntroduceVC.m; sourceTree = "<group>"; };
 		115CCDF21D796E8D0045ED5F /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Addition.h"; sourceTree = "<group>"; };
 		115CCDF31D796E8D0045ED5F /* UILabel+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Addition.m"; sourceTree = "<group>"; };
+		115F02471DDAF73D00DF911F /* SCDSJDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDSJDownloadView.h; sourceTree = "<group>"; };
+		115F02481DDAF73D00DF911F /* SCDSJDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDSJDownloadView.m; sourceTree = "<group>"; };
+		115F024A1DDAFEC400DF911F /* SCDSJDownloadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDSJDownloadCell.h; sourceTree = "<group>"; };
+		115F024B1DDAFEC400DF911F /* SCDSJDownloadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDSJDownloadCell.m; sourceTree = "<group>"; };
+		115F024C1DDAFEC400DF911F /* SCDSJDownloadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCDSJDownloadCell.xib; sourceTree = "<group>"; };
 		116475EC1D40977100A3BC1C /* SCOptionalVideoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableView.h; sourceTree = "<group>"; };
 		116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOptionalVideoTableView.m; sourceTree = "<group>"; };
 		116475F11D40988700A3BC1C /* SCOptionalVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableViewCell.h; sourceTree = "<group>"; };
@@ -825,6 +833,11 @@
 		11468AE21DC0856500BB26EA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				115F02471DDAF73D00DF911F /* SCDSJDownloadView.h */,
+				115F02481DDAF73D00DF911F /* SCDSJDownloadView.m */,
+				115F024A1DDAFEC400DF911F /* SCDSJDownloadCell.h */,
+				115F024B1DDAFEC400DF911F /* SCDSJDownloadCell.m */,
+				115F024C1DDAFEC400DF911F /* SCDSJDownloadCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1921,6 +1934,7 @@
 				11C1C1C21D8020A300CEE71C /* SCFliterOptionCell.xib in Resources */,
 				11458EA31D45FEE200EBD16D /* SCMineTopCell.xib in Resources */,
 				11458E981D45E0D500EBD16D /* SCDiscoveryTableViewCell.xib in Resources */,
+				115F024E1DDAFEC400DF911F /* SCDSJDownloadCell.xib in Resources */,
 				113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */,
 				111448271D87D1CE00CB8FA9 /* UUID使用说明.pdf in Resources */,
 				113F6C801D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib in Resources */,
@@ -2177,10 +2191,12 @@
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
 				1118278E1D800C92005921D6 /* SCFliterOptionView.m in Sources */,
 				11FEEF1A1D93846E00518029 /* HLJRequest.m in Sources */,
+				115F024D1DDAFEC400DF911F /* SCDSJDownloadCell.m in Sources */,
 				11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */,
 				11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */,
 				1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */,
 				11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */,
+				115F02491DDAF73D00DF911F /* SCDSJDownloadView.m in Sources */,
 				1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
