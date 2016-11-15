@@ -315,6 +315,41 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         
         if (_filmModel.filmSetModel) {// 电视剧 系列影片通道
             
+           
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             //请求播放地址
             [requestDataManager requestDataWithUrl:_filmModel.filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                 DONG_StrongSelf(self);
@@ -382,20 +417,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                     //1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-                    strongself.url = [NSURL URLWithString:playUrl];
-
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     
                     NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
-                    
-                    
-                    
+                    // 利用ZFDownloadManager下载
                     [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
                     // 设置最多同时下载个数（默认是3）
                     [ZFDownloadManager sharedDownloadManager].maxCount = 1;
@@ -419,38 +443,17 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                             [realm addObject: filmModel];
                         }];
                     }
-
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     [CommonFunc dismiss];
-                    
                 } failure:^(id  _Nullable errorObject) {
                     [CommonFunc dismiss];
                 }];
-                
-                
             } failure:^(id  _Nullable errorObject) {
-                
                 [CommonFunc dismiss];
             }];
-            
         }
-        
     } failure:^(NSError *error) {
         [CommonFunc dismiss];
-        
     }];
-    
 }
 
 #pragma mark- private methods
@@ -505,33 +508,26 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
 }
 
-- (void)setView{
+- (void)setView {
     
     NSString *mtype;
     if (_filmModel._Mtype) {
-        
         mtype = _filmModel._Mtype;
-        
     }else if (_filmModel.mtype){
-        
         mtype = _filmModel.mtype;
     }
-    
     NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
-    
     // 私人影院 电影 海外片场
     if ([mtype isEqualToString:@"0"] ||
         [mtype isEqualToString:@"2"] ||
         [mtype isEqualToString:@"13"])
     {
         [self getMovieData];
-        
     }else if // 综艺 生活
         ([mtype isEqualToString:@"7"] ||
          [mtype isEqualToString:@"9"])
     {
         [self getArtsAndLifeData];
-        
     }else{
         //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         [self getTeleplayData];
@@ -539,7 +535,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 }
 
 /** 添加滚动标题栏*/
-- (void)constructSlideHeaderView{
+- (void)constructSlideHeaderView {
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20+36+8, kMainScreenWidth, TitleHeight)];
     backgroundView.backgroundColor = [UIColor whiteColor];
@@ -565,7 +561,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 }
 
 /** 添加标题栏label */
-- (void)addLabel{
+- (void)addLabel {
     for (int i = 0; i < _titleArr.count; i++) {
         CGFloat lbW = LabelWidth;        //宽
         CGFloat lbH = TitleHeight;       //高
@@ -590,7 +586,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 }
 
 #pragma mark- Event reponse
-- (void)labelClick:(UITapGestureRecognizer *)recognizer{
+- (void)labelClick:(UITapGestureRecognizer *)recognizer {
     SCSlideHeaderLabel *label = (SCSlideHeaderLabel *)recognizer.view;
     CGFloat offsetX = label.tag * _contentScroll.frame.size.width;
     
@@ -601,7 +597,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 }
 
 /** 添加正文内容页 */
-- (void)constructContentView{
+- (void)constructContentView {
     _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20+36+8+TitleHeight+8, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20+36+8+TitleHeight+8))];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
@@ -711,7 +707,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 #pragma mark - UIScrollViewDelegate
 /** 滚动结束后调用（代码导致的滚动停止） */
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     // 获得索引
     NSUInteger index = scrollView.contentOffset.x / _contentScroll.frame.size.width;
     // 滚动标题栏
@@ -754,12 +750,12 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 }
 
 /** 滚动结束（手势导致的滚动停止） */
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 
 /** 正在滚动 */
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // 取出绝对值 避免最左边往右拉时形变超过1
     CGFloat value = ABS(scrollView.contentOffset.x / scrollView.frame.size.width);
     NSUInteger leftIndex = (int)value;
