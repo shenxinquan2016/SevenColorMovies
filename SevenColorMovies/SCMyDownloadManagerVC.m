@@ -16,7 +16,6 @@
 #import "ZFDownloadManager.h"//第三方下载工具
 #import "SCHuikanPlayerViewController.h"
 
-
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
 @interface SCMyDownloadManagerVC () <UITableViewDelegate, UITableViewDataSource, ZFDownloadDelegate>
@@ -47,24 +46,7 @@
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
     DownloadManager.downloadDelegate = self;
-    
-    
-    //假数据
-//    for (int i = 0; i<5; i++) {
-//        SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-//        filmModel.FilmName = [NSString stringWithFormat:@"%d%d%d%d",i,i,i,i];
-//        [_dataArray addObject:filmModel];
-//    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     //3.初始化
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
@@ -489,27 +471,16 @@ BOOL isLoading = NO;
         
         if (indexPath.section == 0) {
             ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
-          
-            
             if ([FileManageCommon IsFileExists:FILE_PATH(fileInfo.fileName)]) {
                 DONG_Log(@"FileManageCommon路径存在");
-                NSURL *fileUrl = [NSURL fileURLWithPath:FILE_PATH(fileInfo.fileName)];
-                
                 SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilePath:FILE_PATH(fileInfo.fileName)];
                 [self.navigationController pushViewController:playerVC animated:YES];
-                
+            } else {
+                [MBProgressHUD showSuccess:@"文件不存在"];
             }
-            
-                
-                
-            
-
-                
-            
         }
     }
 }
-
 
 #pragma mark - ZFDownloadDelegate
 // 开始下载
