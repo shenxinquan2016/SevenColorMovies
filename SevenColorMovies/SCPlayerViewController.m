@@ -132,6 +132,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [super viewWillLayoutSubviews];
     //7.查询数据库以更新功能区按钮视图
     [self refreshButtonStateFromQueryDatabase];
+    [self refreshDownloadButtonStateFromQueryDatabase];
 }
 
 - (void)awakeFromNib{
@@ -326,21 +327,12 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                 //1.拼接新地址
                 NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-                strongself.url = [NSURL URLWithString:playUrl];
                 
                 
                 
-                NSMutableArray *downloadModels = [[NSMutableArray alloc] init];
-                
-                Dong_DownloadModel *downloadModel = [[Dong_DownloadModel alloc] init];
-                downloadModel.filmName = filmName;
-                downloadModel.videoUrl = playUrl;
-                
-                [downloadModels addObject:downloadModel];
                 
                 
-                [[Dong_DownloadManager sharedManager] addVideoModels:downloadModels];
-                [[Dong_DownloadManager sharedManager] startWithVideoModel:downloadModel];
+                
                 
                 
                 [CommonFunc dismiss];
@@ -349,7 +341,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 [CommonFunc dismiss];
             }];
             
-        }else{// 电影
+        } else {// 电影
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 //        DONG_Log(@"====responseObject:::%@===",responseObject);
@@ -407,12 +399,27 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
                     // 设置最多同时下载个数（默认是3）
                     [ZFDownloadManager sharedDownloadManager].maxCount = 1;
+                     [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoad_Click"] forState:UIControlStateNormal];
                     
+                    // 初始化Realm
+                    NSString *documentPath = [FileManageCommon GetDocumentPath];
+                    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
+                    NSURL *databaseUrl = [NSURL URLWithString:filePath];
+                    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+                    // 使用 NSPredicate 查询
+                    NSPredicate *pred = [NSPredicate predicateWithFormat:
+                                         @"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
+                                         _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
+                    RLMResults *results = [SCFilmModel objectsInRealm:realm withPredicate:pred];
                     
-                    
-                    
-                  
-                    
+                    if (!results.count) {//没有保存过才保存
+                        //保存到数据库
+                        SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
+                        [realm transactionWithBlock:^{
+                            [realm addObject: filmModel];
+                        }];
+                    }
+
                     
                     
                     
@@ -474,6 +481,28 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }
     
     //3.查询是否已经下载
+}
+
+-(void)refreshDownloadButtonStateFromQueryDatabase {
+    
+    // 初始化Realm
+    NSString *documentPath = [FileManageCommon GetDocumentPath];
+    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
+    NSURL *databaseUrl = [NSURL URLWithString:filePath];
+    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+    // 使用 NSPredicate 查询
+    NSPredicate *pred = [NSPredicate predicateWithFormat:
+                         @"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
+                         _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
+    RLMResults *results = [SCFilmModel objectsInRealm:realm withPredicate:pred];
+    
+    if (results.count) {//已经下载
+        [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoad_Click"] forState:UIControlStateNormal];
+    } else {
+        [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoadIMG"] forState:UIControlStateNormal];
+    }
+
+    
 }
 
 - (void)setView{

@@ -137,7 +137,7 @@ static ZFDownloadManager *sharedDownloadManager = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
             [alert show];
         });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)( 0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)( 0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [alert dismissWithClickedButtonIndex:0 animated:YES];
         });
     }
