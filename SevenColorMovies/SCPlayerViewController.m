@@ -57,17 +57,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 {
     BOOL _isFullScreen;
-    
-    // AFN的客户端，使用基本地址初始化，同时会实例化一个操作队列，以便于后续的多线程处理
-//    AFHTTPClient   *_httpClient;
-    
-    // 下载操作
-    AFHTTPRequestOperation *_downloadOperation;
-    
-    NSOperationQueue *_queue;
-    
-    
-    
 }
 
 #pragma mark - Initialize
@@ -93,20 +82,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     self.filmsArr = [NSMutableArray arrayWithCapacity:0];
     //2.组建页面
     [self setView];
-    //3.全屏小屏通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
-    //4.监听屏幕旋转
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    //5.注册播放结束通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayBackDidFinish:)
-                                                 name:IJKMPMoviePlayerPlaybackDidFinishNotification
-                                               object:nil];
-    //6.注册点击列表播放通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
-    
-    
+    //3.注册通知
+    [self registerNotification];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -287,15 +264,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         }
     }
     
-    NSString *downloadPath = [FileManageCommon CreateList:[FileManageCommon GetDocumentPath] ListName:@"download"];
-    
-    NSString *filePath = [downloadPath stringByAppendingString:[NSString stringWithFormat:@"/%@.mp4",filmName]];
-    
-    DONG_Log(@"filePath:%@",filePath);
-    
-    
-    
-    
     NSString *mid;
     if (_filmModel._Mid) {
         mid = _filmModel._Mid;
@@ -308,48 +276,45 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"filmmid" : filmmidStr};
     
-    DONG_WeakSelf(self);
-    //请求film详细信息
-    self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
-    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+    if (_filmModel.filmSetModel) {// 电视剧 系列影片通道
         
-        if (_filmModel.filmSetModel) {// 电视剧 系列影片通道
-            
-           
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        DONG_WeakSelf(self);
+        self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             //请求播放地址
             [requestDataManager requestDataWithUrl:_filmModel.filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                 DONG_StrongSelf(self);
@@ -375,8 +340,15 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             } failure:^(id  _Nullable errorObject) {
                 [CommonFunc dismiss];
             }];
-            
-        } else {// 电影
+        } failure:^(NSError *error) {
+            [CommonFunc dismiss];
+        }];
+        
+    } else {// 电影
+        
+        DONG_WeakSelf(self);
+        self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 //        DONG_Log(@"====responseObject:::%@===",responseObject);
@@ -423,7 +395,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
                     // 设置最多同时下载个数（默认是3）
                     [ZFDownloadManager sharedDownloadManager].maxCount = 1;
-                     [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoad_Click"] forState:UIControlStateNormal];
+                    [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoad_Click"] forState:UIControlStateNormal];
                     
                     // 初始化Realm
                     NSString *documentPath = [FileManageCommon GetDocumentPath];
@@ -450,10 +422,10 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             } failure:^(id  _Nullable errorObject) {
                 [CommonFunc dismiss];
             }];
-        }
-    } failure:^(NSError *error) {
-        [CommonFunc dismiss];
-    }];
+        } failure:^(NSError *error) {
+            [CommonFunc dismiss];
+        }];
+    }
 }
 
 #pragma mark- private methods
@@ -504,7 +476,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     } else {
         [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoadIMG"] forState:UIControlStateNormal];
     }
-
+    
     
 }
 
@@ -534,6 +506,21 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }
 }
 
+- (void)registerNotification {
+    //3.全屏小屏通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
+    //4.监听屏幕旋转
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    //5.注册播放结束通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackDidFinish:)
+                                                 name:IJKMPMoviePlayerPlaybackDidFinishNotification
+                                               object:nil];
+    //6.注册点击列表播放通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
+    
+}
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView {
     
