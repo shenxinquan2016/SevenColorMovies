@@ -62,6 +62,37 @@
     return player;
 }
 
+// 播放本地文件
++ (instancetype)initPlayerWithFilePath:(NSString *)filePath {
+    
+    SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
+    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
+    NSString *name = [[filePath componentsSeparatedByString:@"/"] lastObject];
+    //2.调用播放器播放
+    player.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:filePathUrl];
+    [player.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+    player.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+    player.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+    player.IJKPlayerViewController.mediaControl.programNameLabel.text = name;//节目名称
+    [player.view addSubview:player.IJKPlayerViewController.view];
+    
+    //进入全屏模式
+    [UIView animateWithDuration:0.2 animations:^{
+        
+        player.IJKPlayerViewController.view.transform = CGAffineTransformRotate(player.view.transform, M_PI_2);
+        player.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+        player.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
+        [player.view bringSubviewToFront:player.IJKPlayerViewController.view];
+        
+    }];
+
+    return player;
+    
+}
+
+
+
+
 #pragma mark -  ViewLife Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];

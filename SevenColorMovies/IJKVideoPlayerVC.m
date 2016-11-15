@@ -18,6 +18,7 @@
 #import "SCMyProgramListVC.h"
 #import "SCLiveViewController.h"
 #import "SCMyCollectionVC.h"
+#import "SCMyDownloadManagerVC.h"
 
 @interface IJKVideoPlayerVC ()
 
@@ -228,6 +229,11 @@
                 return;
                 
             }else if ([controller isKindOfClass:[SCMyCollectionVC class]]) {//我的收藏
+                
+                [navController popToViewController:controller animated:YES];
+                return;
+                
+            }else if ([controller isKindOfClass:[SCMyDownloadManagerVC class]]) {//我的下载
                 
                 [navController popToViewController:controller animated:YES];
                 return;

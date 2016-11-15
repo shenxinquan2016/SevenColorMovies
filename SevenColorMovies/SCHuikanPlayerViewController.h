@@ -16,5 +16,7 @@
 + (instancetype)initPlayerWithFilmModel:(SCFilmModel *)filmModel;
 // 由回看搜索单进入
 + (instancetype)initPlayerWithProgramModel:(SCLiveProgramModel *)programModel;
+// 播放本地文件
++ (instancetype)initPlayerWithFilePath:(NSString *)filePath;
 
 @end

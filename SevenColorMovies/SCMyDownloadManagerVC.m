@@ -14,6 +14,8 @@
 #import "Dong_DownloadManager.h"//下载器
 #import "Dong_DownloadModel.h"//下载数据模型
 #import "ZFDownloadManager.h"//第三方下载工具
+#import "SCHuikanPlayerViewController.h"
+
 
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
@@ -487,16 +489,24 @@ BOOL isLoading = NO;
         
         if (indexPath.section == 0) {
             ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
-            NSString *path = [[FileManageCommon GetLibraryPath] stringByAppendingString:[NSString stringWithFormat:@"/Caches/ZFDownload/CacheList/%@",fileInfo.fileName]];
-            if([FileManageCommon IsFileExists:path]){
-                DONG_Log(@"路径存在");
+          
+            
+            if ([FileManageCommon IsFileExists:FILE_PATH(fileInfo.fileName)]) {
+                DONG_Log(@"FileManageCommon路径存在");
+                NSURL *fileUrl = [NSURL fileURLWithPath:FILE_PATH(fileInfo.fileName)];
                 
-                
-                
+                SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilePath:FILE_PATH(fileInfo.fileName)];
+                [self.navigationController pushViewController:playerVC animated:YES];
                 
             }
-        }
+            
+                
+                
+            
 
+                
+            
+        }
     }
 }
 
