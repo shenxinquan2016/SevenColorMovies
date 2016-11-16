@@ -193,9 +193,9 @@ static NSString *const cellId = @"cellId";
             }
             DONG_Log(@"%@",filmName);
 //            // 利用ZFDownloadManager下载
-//            [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
-//            // 设置最多同时下载个数（默认是3）
-//            [ZFDownloadManager sharedDownloadManager].maxCount = 1;
+            [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
+            // 设置最多同时下载个数（默认是3）
+            [ZFDownloadManager sharedDownloadManager].maxCount = 1;
             
             // 初始化Realm
             NSString *documentPath = [FileManageCommon GetDocumentPath];
@@ -209,7 +209,7 @@ static NSString *const cellId = @"cellId";
                                  @"_FilmContentID = %@",filmSetModel._FilmContentID];
             RLMResults *results = [SCFilmSetModel objectsInRealm:realm withPredicate:pred];
 
-            DONG_Log(@"results:%ld",results.count);
+            DONG_Log(@"results:%ld",(unsigned long)results.count);
             if (!results.count) {//没有保存过才保存
                 //保存到数据库
                 SCFilmSetModel *realmFilmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
