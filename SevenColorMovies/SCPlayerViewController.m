@@ -370,7 +370,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }else{//电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         
         if (!_downloadView) {
-            _downloadView = [[SCDSJDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20+36+8, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20+36+8))];
+            _downloadView = [[SCDSJDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +30+36+8, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20+36+8))];
             _downloadView.dataSourceArray = _filmSetsArr;
             DONG_WeakSelf(_downloadView);
             _downloadView.backBtnBlock = ^{
@@ -378,6 +378,10 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 _downloadView = nil;
             };
             [self.view addSubview:_downloadView];
+            
+            [UIView animateWithDuration:0.2f animations:^{
+                [_downloadView setFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20+36+8, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20+36+8))];
+            }];
         }
         
 

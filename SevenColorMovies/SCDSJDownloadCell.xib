@@ -35,8 +35,8 @@
                 <constraint firstItem="nat-GA-awI" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="1P0-7Y-iOu"/>
                 <constraint firstAttribute="trailing" secondItem="zVZ-vD-Qvt" secondAttribute="trailing" id="6bE-n4-zV6"/>
                 <constraint firstItem="zVZ-vD-Qvt" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9zc-iR-HG1"/>
-                <constraint firstItem="zVZ-vD-Qvt" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="DKQ-hG-X94"/>
-                <constraint firstItem="nat-GA-awI" firstAttribute="top" secondItem="zVZ-vD-Qvt" secondAttribute="bottom" id="wQ5-VN-A7N"/>
+                <constraint firstItem="zVZ-vD-Qvt" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="18" id="DKQ-hG-X94"/>
+                <constraint firstItem="nat-GA-awI" firstAttribute="top" secondItem="zVZ-vD-Qvt" secondAttribute="bottom" constant="-2" id="wQ5-VN-A7N"/>
             </constraints>
             <connections>
                 <outlet property="contentIndexLabel" destination="zVZ-vD-Qvt" id="Fhz-kK-iHF"/>
