@@ -34,6 +34,27 @@ static NSString *const cellId = @"cellId";
     return self;
 }
 
+#pragma mark - 查询数据库
+- (void)refreshDownloadStateByQueryRealm {
+    // 初始化Realm
+    NSString *documentPath = [FileManageCommon GetDocumentPath];
+    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
+    NSURL *databaseUrl = [NSURL URLWithString:filePath];
+    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+    RLMResults *results = [SCFilmSetModel allObjectsInRealm:realm];
+    // 遍历_dataSourceArray的filmSetModel是否存在于results，如果存在，则filmSetModel.downloaded=YES
+    if (_dataSourceArray) {
+        for (SCFilmSetModel *filmSetModel in _dataSourceArray) {
+            NSInteger den = [results indexOfObject:filmSetModel];
+            DONG_Log(@"index:%ld",den);
+        }
+        
+    }
+
+    
+    
+}
+
 #pragma mark - private method
 - (void)setBackButton {
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -171,34 +192,32 @@ static NSString *const cellId = @"cellId";
                     filmName = [NSString stringWithFormat:@"%@ 第%@集",_filmModel.cnname, filmSetModel._ContentIndex];
             }
             DONG_Log(@"%@",filmName);
-            // 利用ZFDownloadManager下载
-            [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
-            // 设置最多同时下载个数（默认是3）
-            [ZFDownloadManager sharedDownloadManager].maxCount = 1;
+//            // 利用ZFDownloadManager下载
+//            [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
+//            // 设置最多同时下载个数（默认是3）
+//            [ZFDownloadManager sharedDownloadManager].maxCount = 1;
             
             // 初始化Realm
-//            NSString *documentPath = [FileManageCommon GetDocumentPath];
-//            NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
-//            NSURL *databaseUrl = [NSURL URLWithString:filePath];
-//            RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
-//            // 使用 NSPredicate 查询
+            NSString *documentPath = [FileManageCommon GetDocumentPath];
+            NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
+            NSURL *databaseUrl = [NSURL URLWithString:filePath];
+            RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+            // 使用 NSPredicate 查询
 //            NSPredicate *pred = [NSPredicate predicateWithFormat:
-//                                 @"VODStreamingUrl = %@", filmSetModel.VODStreamingUrl];
-//            RLMResults *results = [SCFilmSetModel objectsInRealm:realm withPredicate:pred];
-//            
-//            if (!results.count) {//没有保存过才保存
-//                //保存到数据库
-//                SCFilmSetModel *realmFilmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
-//                [realm transactionWithBlock:^{
-//                    [realm addObject: realmFilmSetModel];
-//                }];
-//            }
+//                                 @"_FilmContentID = %@",filmSetModel._FilmContentID];
+            NSPredicate *pred = [NSPredicate predicateWithFormat:
+                                 @"_FilmContentID = %@",filmSetModel._FilmContentID];
+            RLMResults *results = [SCFilmSetModel objectsInRealm:realm withPredicate:pred];
 
-            
-            
-            
-            
-            
+            DONG_Log(@"results:%ld",results.count);
+            if (!results.count) {//没有保存过才保存
+                //保存到数据库
+                SCFilmSetModel *realmFilmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
+                [realm transactionWithBlock:^{
+                    [realm addObject: realmFilmSetModel];
+                }];
+            }
+
             [CommonFunc dismiss];
             
         } failure:^(id  _Nullable errorObject) {
