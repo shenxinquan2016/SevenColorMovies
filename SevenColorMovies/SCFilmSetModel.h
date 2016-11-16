@@ -20,6 +20,7 @@
 @property NSString *Introduction;/** 影片介绍 */
 @property NSString *VODStreamingUrl;/** 视频流url */
 @property (getter = isOnLive) BOOL onLive;/* 节目是否正在播放 */
+@property (getter = isDownLoaded) BOOL downloaded;/* 节目是否被下载 */
 
 @end
 

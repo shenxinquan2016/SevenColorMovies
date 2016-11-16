@@ -8,10 +8,14 @@
 
 #import "SCDSJDownloadView.h"
 #import "SCDSJDownloadCell.h"
+#import "SCFilmSetModel.h"
+#import "SCFilmModel.h"
+#import <ZFDownloadManager.h>
 
 @interface SCDSJDownloadView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) HLJRequest *hljRequest;
 
 @end
 
@@ -40,6 +44,7 @@ static NSString *const cellId = @"cellId";
     [backBtn setImage:[UIImage imageNamed:@"Back_Arrow"] forState:UIControlStateNormal];
     [backBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
     backBtn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft;
+    backBtn.enlargedEdge = 20;
     [backBtn addTarget:self action:@selector(removeDownloadView) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:backBtn];
@@ -81,7 +86,9 @@ static NSString *const cellId = @"cellId";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SCDSJDownloadCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-
+    SCFilmSetModel *filmSetModel = _dataSourceArray[indexPath.item];
+    cell.filmSetModle = filmSetModel;
+    
     return cell;
 }
 
@@ -132,10 +139,76 @@ static NSString *const cellId = @"cellId";
 //点击某item
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    // 下载图标控制
+    SCDSJDownloadCell *cell = (SCDSJDownloadCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    SCFilmSetModel *filmSetModel = _dataSourceArray[indexPath.item];
+    if (!filmSetModel.isDownLoaded) {
+        filmSetModel.downloaded = YES;
+        cell.filmSetModle = filmSetModel;
+    }
+    // 下载
+    DONG_WeakSelf(self);
+    self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
+    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        //请求播放地址
+        [requestDataManager requestDataWithUrl:filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+            DONG_StrongSelf(self);
+            //NSLog(@"====responseObject:::%@===",responseObject);
+            NSString *play_url = responseObject[@"play_url"];
+            DONG_Log(@"responseObject:%@",play_url);
+            //请求将播放地址域名转换  并拼接最终的播放地址
+            NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+            
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            //1.拼接新地址
+            NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+            
+            // 名称
+            NSString *filmName;
+            if (_filmModel.FilmName) {
+                    filmName = [NSString stringWithFormat:@"%@ 第%@集",_filmModel.FilmName, filmSetModel._ContentIndex];
+            }else if (_filmModel.cnname){
+                    filmName = [NSString stringWithFormat:@"%@ 第%@集",_filmModel.cnname, filmSetModel._ContentIndex];
+            }
+            DONG_Log(@"%@",filmName);
+            // 利用ZFDownloadManager下载
+            [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
+            // 设置最多同时下载个数（默认是3）
+            [ZFDownloadManager sharedDownloadManager].maxCount = 1;
+            
+            // 初始化Realm
+//            NSString *documentPath = [FileManageCommon GetDocumentPath];
+//            NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
+//            NSURL *databaseUrl = [NSURL URLWithString:filePath];
+//            RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+//            // 使用 NSPredicate 查询
+//            NSPredicate *pred = [NSPredicate predicateWithFormat:
+//                                 @"VODStreamingUrl = %@", filmSetModel.VODStreamingUrl];
+//            RLMResults *results = [SCFilmSetModel objectsInRealm:realm withPredicate:pred];
+//            
+//            if (!results.count) {//没有保存过才保存
+//                //保存到数据库
+//                SCFilmSetModel *realmFilmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
+//                [realm transactionWithBlock:^{
+//                    [realm addObject: realmFilmSetModel];
+//                }];
+//            }
 
+            
+            
+            
+            
+            
+            [CommonFunc dismiss];
+            
+        } failure:^(id  _Nullable errorObject) {
+            [CommonFunc dismiss];
+        }];
+    } failure:^(NSError *error) {
+        [CommonFunc dismiss];
+    }];
+    
 }
-
-
 
 
 

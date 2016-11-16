@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class SCFilmSetModel;
+
 @interface SCDSJDownloadCell : UICollectionViewCell
 
+@property (nonatomic, strong) SCFilmSetModel *filmSetModle;
 
 @end

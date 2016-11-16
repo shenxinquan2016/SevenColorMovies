@@ -7,6 +7,7 @@
 //
 
 #import "SCDSJDownloadCell.h"
+#import "SCFilmSetModel.h"
 
 @interface SCDSJDownloadCell ()
 
@@ -21,6 +22,15 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
+}
+
+- (void)setFilmSetModle:(SCFilmSetModel *)filmSetModle {
+    _contentIndexLabel.text = filmSetModle._ContentIndex;
+    if (filmSetModle.isDownLoaded) {
+        _downloadImageView.hidden = NO;
+    } else {
+       _downloadImageView.hidden = YES;
+    }
 }
 
 @end

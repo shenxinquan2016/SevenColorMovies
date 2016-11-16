@@ -245,13 +245,13 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     NSString *filmName;
     if (_filmModel.FilmName) {
         if (_filmModel.filmSetModel) {
-            filmName = [NSString stringWithFormat:@"%@第%@集",_filmModel.FilmName,_filmModel.filmSetModel._ContentIndex];
+            filmName = [NSString stringWithFormat:@"%@ 第%@集",_filmModel.FilmName,_filmModel.filmSetModel._ContentIndex];
         }else{
             filmName = [NSString stringWithFormat:@"%@",_filmModel.FilmName];
         }
     }else if (_filmModel.cnname){
         if (_filmModel.filmSetModel) {
-            filmName = [NSString stringWithFormat:@"%@第%@集",_filmModel.cnname,_filmModel.filmSetModel._ContentIndex];
+            filmName = [NSString stringWithFormat:@"%@ 第%@集",_filmModel.cnname,_filmModel.filmSetModel._ContentIndex];
         }else{
             filmName = [NSString stringWithFormat:@"%@",_filmModel.cnname];
         }
@@ -372,6 +372,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         if (!_downloadView) {
             _downloadView = [[SCDSJDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +30+36+8, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20+36+8))];
             _downloadView.dataSourceArray = _filmSetsArr;
+            _downloadView.filmModel = _filmModel;
             DONG_WeakSelf(_downloadView);
             _downloadView.backBtnBlock = ^{
                 [weak_downloadView removeFromSuperview];
@@ -383,49 +384,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 [_downloadView setFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20+36+8, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20+36+8))];
             }];
         }
-        
-
-    
     }
-
-    
-  
-    
-    
-    
-    
-    
-    
-    
-    
-  
-//    if (_filmModel.filmSetModel) {// 电视剧 系列影片通道
-//        DONG_WeakSelf(self);
-//        self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
-//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-//            //请求播放地址
-//            [requestDataManager requestDataWithUrl:_filmModel.filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-//                DONG_StrongSelf(self);
-//                //NSLog(@"====responseObject:::%@===",responseObject);
-//                NSString *play_url = responseObject[@"play_url"];
-//                DONG_Log(@"responseObject:%@",play_url);
-//                //请求将播放地址域名转换  并拼接最终的播放地址
-//                NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-//                
-//                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-//                //1.拼接新地址
-//                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-//
-//                [CommonFunc dismiss];
-//                
-//            } failure:^(id  _Nullable errorObject) {
-//                [CommonFunc dismiss];
-//            }];
-//        } failure:^(NSError *error) {
-//            [CommonFunc dismiss];
-//        }];
-//        
-//    }
 }
 
 #pragma mark - private methods

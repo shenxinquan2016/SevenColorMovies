@@ -133,7 +133,7 @@ static ZFDownloadManager *sharedDownloadManager = nil;
     if (self.VCdelegate && [self.VCdelegate respondsToSelector:@selector(allowNextRequest)]) {
         [self.VCdelegate allowNextRequest];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"成功添加到下载" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"成功添加到下载" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             [alert show];
         });
