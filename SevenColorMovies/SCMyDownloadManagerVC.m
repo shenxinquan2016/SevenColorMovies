@@ -138,7 +138,13 @@
         [downloading addObject:fileInfo];
     }];
     
-    //1.在下载队列中删除对应任务 并分别遍历获取所选的model在原始数组中的位置 以获取对应的indexPath
+    //初始化realm
+    NSString *documentPath = [FileManageCommon GetDocumentPath];
+    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
+    NSURL *databaseUrl = [NSURL URLWithString:filePath];
+    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+    
+    //1.在下载队列中删除对应任务 删除realm中相应数据   并分别遍历获取所选的model在原始数组中的位置 以获取对应的indexPath
     NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
     [_downloadedTempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ZFFileModel *fileInfo = obj;
@@ -147,6 +153,29 @@
         [indexPathArray addObject:indexPath];
         //删除本地文件
         [DownloadManager deleteFinishFile:fileInfo];
+        
+        //从realm中删除
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:
+                              @"_ContentSetName = %@",fileInfo.fileName];
+        NSPredicate *pred2 = [NSPredicate predicateWithFormat:
+                              @"FilmName = %@",fileInfo.fileName];
+        RLMResults *filmSetModelResults = [SCFilmSetModel objectsInRealm:realm withPredicate:pred1];
+        RLMResults *filmModelResults = [SCFilmModel objectsInRealm:realm withPredicate:pred2];
+        
+        if (filmModelResults.count) {
+            SCFilmModel *filmModel = filmModelResults.firstObject;
+            [realm transactionWithBlock:^{
+                [realm deleteObject:filmModel];
+            }];
+        }
+        
+        if (filmSetModelResults.count) {
+            SCFilmSetModel *filmSetModel = filmSetModelResults.firstObject;
+            [realm transactionWithBlock:^{
+                [realm deleteObject:filmSetModel];
+            }];
+        }
+
     }];
     
     [_downloadingTempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -156,18 +185,38 @@
         [indexPathArray addObject:indexPath];
         //删除下载请求
         [DownloadManager deleteRequest:downloadingRequest[index]];
+        
+        //从realm中删除
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:
+                              @"_ContentSetName = %@",fileInfo.fileName];
+        NSPredicate *pred2 = [NSPredicate predicateWithFormat:
+                              @"FilmName = %@",fileInfo.fileName];
+        RLMResults *filmSetModelResults = [SCFilmSetModel objectsInRealm:realm withPredicate:pred1];
+        RLMResults *filmModelResults = [SCFilmModel objectsInRealm:realm withPredicate:pred2];
+        
+        if (filmModelResults.count) {
+            SCFilmModel *filmModel = filmModelResults.firstObject;
+            [realm transactionWithBlock:^{
+                [realm deleteObject:filmModel];
+            }];
+        }
+        
+        if (filmSetModelResults.count) {
+            SCFilmSetModel *filmSetModel = filmSetModelResults.firstObject;
+            [realm transactionWithBlock:^{
+                [realm deleteObject:filmSetModel];
+            }];
+        }
+
     }];
     //2.把view相应的cell删掉
     [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
-    //3.从realm中删除
-    
-    
-    
-    //4.清空数组
+    //3.清空数组
     [_downloadingTempArray removeAllObjects];
     [_downloadedTempArray removeAllObjects];
     [downloading removeAllObjects];
     [indexPathArray removeAllObjects];
+    downloadingRequest = nil;
 }
 
 #pragma mark - Private Method
@@ -421,40 +470,7 @@ BOOL isLoading = NO;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    //    SCFilmModel *filmModel =  _dataArray[indexPath.row];
-    //    cell.filmModel = filmModel;
-    //
-    //    //此处为点击cell的downloadBtn的block回调
-    //    DONG_WeakSelf(cell);
-    //    cell.downloadBlock = ^{
-    //        DONG_StrongSelf(cell);
-    //        filmModel.isDownLoading = !filmModel.isDownLoading;
-    //        strongcell.filmModel = filmModel;
-    //    };
-    
-    
-    //    Dong_DownloadModel *downloadModel = [Dong_DownloadManager sharedManager].downloadModels[indexPath.row];
-    //    cell.downloadModel = downloadModel;
-    //
-    //    //下载状态的回调
-    //    downloadModel.onStatusChanged = ^(Dong_DownloadModel *changedModel) {
-    //        cell.downloadModel = changedModel;
-    //    };
-    //    //下载进度的回调
-    //    downloadModel.onProgressChanged = ^(Dong_DownloadModel *changedModel) {
-    //        cell.downloadModel = changedModel;
-    //    };
-    //
-    //    //此处为点击cell的downloadBtn的block回调
-    //    DONG_WeakSelf(cell);
-    //    cell.downloadBlock = ^{
-    //        DONG_StrongSelf(cell);
-    //        downloadModel.isDownLoading = !downloadModel.isDownLoading;
-    //        strongcell.downloadModel = downloadModel;
-    //    };
-    
+{    
     if (indexPath.section == 0) {
         SCDownloadedCell *cell = [SCDownloadedCell cellWithTableView:tableView];
         ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
@@ -519,20 +535,18 @@ BOOL isLoading = NO;
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
-        // 初始化Realm
+        //删除realm中留存数据
         NSString *documentPath = [FileManageCommon GetDocumentPath];
         NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
         NSURL *databaseUrl = [NSURL URLWithString:filePath];
         RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
-        // 使用 NSPredicate 查询
+        //使用 NSPredicate 查询
         NSPredicate *pred1 = [NSPredicate predicateWithFormat:
                              @"_ContentSetName = %@",fileInfo.fileName];
         NSPredicate *pred2 = [NSPredicate predicateWithFormat:
                               @"FilmName = %@",fileInfo.fileName];
         RLMResults *filmSetModelResults = [SCFilmSetModel objectsInRealm:realm withPredicate:pred1];
         RLMResults *filmModelResults = [SCFilmModel objectsInRealm:realm withPredicate:pred2];
-        DONG_Log(@"filmModelResults:%ld",(unsigned long)filmModelResults.count);
-        DONG_Log(@"filmSetModelResults:%ld",(unsigned long)filmSetModelResults.count);
         
         if (filmModelResults.count) {
             SCFilmModel *filmModel = filmModelResults.firstObject;
@@ -547,10 +561,7 @@ BOOL isLoading = NO;
                 [realm deleteObject:filmSetModel];
             }];
         }
-        
-
     }
-    
 }
 
 #pragma mark - UITableView Delegate
