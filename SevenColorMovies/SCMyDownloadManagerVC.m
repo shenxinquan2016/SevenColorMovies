@@ -140,30 +140,50 @@
     
 }
 
+#pragma mark - 全选
 - (void)selcetAll {
+    NSMutableArray *downladed = DownloadManager.finishedlist;
+    NSMutableArray *downloading = DownloadManager.downinglist;
+    
     if (!self.isSelectAll) {
         _selectAll = YES;
         [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
         //遍历model以更改cell视图
         [_tempArray removeAllObjects];
-        [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            SCFilmModel *filmModel = obj;
-            filmModel.selected = YES;
-            [_tempArray addObject:filmModel];
+        // 已下载
+        [downladed enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFFileModel *fileInfo = obj;
+            fileInfo.selected = YES;
         }];
+        // 正在下载
+        [downloading enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFHttpRequest *request = obj;
+            ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+            fileInfo.selected = YES;
+            [_tempArray addObject:fileInfo];
+        }];
+        
     }else{
         _selectAll = NO;
         [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
         [_tempArray removeAllObjects];
-        [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            SCFilmModel *filmModel = obj;
-            filmModel.selected = NO;
+        // 已下载
+        [downladed enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFFileModel *fileInfo = obj;
+            fileInfo.selected = NO;
+        }];
+        // 正在下载
+        [downloading enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFHttpRequest *request = obj;
+            ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+            fileInfo.selected = NO;
         }];
     }
-    [_listView reloadData];
     
+    [_listView reloadData];
 }
 
+#pragma mark - 删除
 - (void)deleteSelected {
     //1.从数据库中删除数据
     NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
@@ -221,6 +241,7 @@
     _editBtn.selected = NO;
 }
 
+#pragma mark - 编辑
 - (void)doEditingAction {
     NSMutableArray *downladed = DownloadManager.finishedlist;
     NSMutableArray *downloading = DownloadManager.downinglist;
@@ -494,7 +515,6 @@ BOOL isLoading = NO;
                 fileInfo.selected = YES;
                 //添加到临时数组中 待确定后从数据库中删除
                 [_tempArray addObject:fileInfo];
-                
             }
             cell.fileInfo = fileInfo;
             

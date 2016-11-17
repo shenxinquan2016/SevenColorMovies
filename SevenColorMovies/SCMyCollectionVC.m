@@ -125,7 +125,9 @@
     
 }
 
+#pragma mark - 全选
 - (void)selcetAll{
+    
     if (!self.isSelectAll) {
         _selectAll = YES;
         [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
@@ -149,6 +151,7 @@
     
 }
 
+#pragma mark - 删除
 - (void)delete{
     // 遍历model获取对应的下标
     NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
@@ -220,6 +223,7 @@
     _editBtn.selected = NO;
 }
 
+#pragma mark - 编辑
 - (void)doEditingAction{
     if (_editBtn.selected == NO) {//正在编辑
         _isEditing = YES;
