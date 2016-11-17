@@ -29,30 +29,33 @@ static NSString *const cellId = @"cellId";
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [self setBackButton];
+        
         [self setCollectionView];
     }
     return self;
 }
 
-#pragma mark - 查询数据库
-- (void)refreshDownloadStateByQueryRealm {
+#pragma mark - setter
+- (void)setDataSourceArray:(NSArray *)dataSourceArray {
     // 初始化Realm
     NSString *documentPath = [FileManageCommon GetDocumentPath];
     NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
     NSURL *databaseUrl = [NSURL URLWithString:filePath];
     RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
     RLMResults *results = [SCFilmSetModel allObjectsInRealm:realm];
-    // 遍历_dataSourceArray的filmSetModel是否存在于results，如果存在，则filmSetModel.downloaded=YES
-    if (_dataSourceArray) {
-        for (SCFilmSetModel *filmSetModel in _dataSourceArray) {
-            NSInteger den = [results indexOfObject:filmSetModel];
-            DONG_Log(@"index:%ld",den);
+    DONG_Log(@"results:%ld",results.count);
+    
+    //遍历dataSourceArray的filmSetModel是否存在于results，如果存在，则filmSetModel.downloaded=YES
+        if (dataSourceArray) {
+            for (SCFilmSetModel *filmSetModel in dataSourceArray) {
+                for (SCFilmSetModel *realmFilmSetModel in results) {
+                    if (filmSetModel._FilmContentID == realmFilmSetModel._FilmContentID) {
+                        filmSetModel.downloaded = YES;
+                    }
+                }
+            }
         }
-        
-    }
-
-    
-    
+    _dataSourceArray = dataSourceArray;
 }
 
 #pragma mark - private method
