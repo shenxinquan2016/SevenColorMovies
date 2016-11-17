@@ -387,7 +387,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }
 }
 
-#pragma mark - private methods
+#pragma mark - query database
+// 查询收藏和节目单
 -(void)refreshButtonStateFromQueryDatabase{
     //1.查询是否已经添加到节目单
     //使用 NSPredicate 查询
@@ -413,12 +414,10 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }else{
         [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection"] forState:UIControlStateNormal];
     }
-    
-    //3.查询是否已经下载
 }
 
+// 查询电影下载
 -(void)refreshDownloadButtonStateFromQueryDatabase {
-    
     // 初始化Realm
     NSString *documentPath = [FileManageCommon GetDocumentPath];
     NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
@@ -439,6 +438,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
 }
 
+#pragma mark - private methods
 - (void)setView {
     
     NSString *mtype;

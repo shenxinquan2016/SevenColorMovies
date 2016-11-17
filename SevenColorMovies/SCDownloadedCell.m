@@ -11,6 +11,9 @@
 @interface SCDownloadedCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *filmNameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *rightArrowImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *deleteImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *playImageView;
 
 @end
 
@@ -41,9 +44,21 @@
 - (void)setFileInfo:(ZFFileModel *)fileInfo {
     
     _fileInfo = fileInfo;
+    if (fileInfo.isShowDeleteBtn) {
+        _deleteImageView.hidden = NO;
+        _rightArrowImageView.hidden = YES;
+        _playImageView.hidden = YES;
+        if (fileInfo.isSelecting) {
+            [_deleteImageView setImage:[UIImage imageNamed:@"Select"]];
+        }else{
+            [_deleteImageView setImage:[UIImage imageNamed:@"Unselected"]];
+        }
+    }else{
+        _deleteImageView.hidden = YES;
+        _rightArrowImageView.hidden = NO;
+        _playImageView.hidden = NO;
+    }
     self.filmNameLabel.text = fileInfo.fileName;
-    
-    
 }
 
 @end

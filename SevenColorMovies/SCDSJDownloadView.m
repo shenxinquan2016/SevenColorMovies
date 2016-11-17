@@ -195,10 +195,11 @@ static NSString *const cellId = @"cellId";
                     filmName = [NSString stringWithFormat:@"%@ 第%@集",_filmModel.cnname, filmSetModel._ContentIndex];
             }
             DONG_Log(@"%@",filmName);
+            NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
 //            // 利用ZFDownloadManager下载
             [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
             // 设置最多同时下载个数（默认是3）
-            [ZFDownloadManager sharedDownloadManager].maxCount = 1;
+            [ZFDownloadManager sharedDownloadManager].maxCount = 2;
             
             // 初始化Realm
             NSString *documentPath = [FileManageCommon GetDocumentPath];

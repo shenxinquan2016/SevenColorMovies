@@ -46,7 +46,7 @@
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
     DownloadManager.downloadDelegate = self;
-
+    
     //3.初始化
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
@@ -54,7 +54,7 @@
     //4.加载分视图
     //4.1 编辑按钮
     [self addRightBBI];
-
+    
     //4.3 全选/删除
     [self setBottomBtnView];
     
@@ -222,6 +222,9 @@
 }
 
 - (void)doEditingAction {
+    NSMutableArray *downladed = DownloadManager.finishedlist;
+    NSMutableArray *downloading = DownloadManager.downinglist;
+    
     if (_editBtn.selected == NO) {//正在编辑
         _isEditing = YES;
         _editBtn.selected = YES;
@@ -231,10 +234,16 @@
         [UIView animateWithDuration:0.2f animations:^{
             [_bottomBtnView setFrame:(CGRect){0, kMainScreenHeight-60, kMainScreenWidth, 60}];
         }];
-        
-        [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            SCFilmModel *filmModel = obj;
-            filmModel.showDeleteBtn = YES;
+        // 已下载
+        [downladed enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFFileModel *fileInfo = obj;
+            fileInfo.showDeleteBtn = YES;
+        }];
+        // 正在下载
+        [downloading enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFHttpRequest *request = obj;
+            ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+            fileInfo.showDeleteBtn = YES;
         }];
         [_listView reloadData];
         
@@ -247,9 +256,16 @@
             [_bottomBtnView setFrame:(CGRect){0, kMainScreenHeight, kMainScreenWidth, 60}];
         }];
         
-        [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            SCFilmModel *filmModel = obj;
-            filmModel.showDeleteBtn = NO;
+        // 已下载
+        [downladed enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFFileModel *fileInfo = obj;
+            fileInfo.showDeleteBtn = NO;
+        }];
+        // 正在下载
+        [downloading enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFHttpRequest *request = obj;
+            ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+            fileInfo.showDeleteBtn = NO;
         }];
         [_listView reloadData];
     }
@@ -368,7 +384,7 @@ BOOL isLoading = NO;
         
     } else if (indexPath.section == 1) {
         SCMyDownLoadManagerCell *cell = [SCMyDownLoadManagerCell cellWithTableView:tableView];
-
+        
         ZFHttpRequest *request = self.downloadObjectArr[indexPath.section][indexPath.row];
         if (request == nil) { return nil; }
         ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
@@ -447,36 +463,52 @@ BOOL isLoading = NO;
     return @"删除";
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    
-    SCMyDownLoadManagerCell *cell = (SCMyDownLoadManagerCell *)[tableView cellForRowAtIndexPath:indexPath];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
     if (_isEditing) {//处在编辑状态
-        SCFilmModel *filmModel = _dataArray[indexPath.row];
-        
-        if (filmModel.isSelecting) {
-            filmModel.selected = NO;
-            //从临时数据中删除
-            [_tempArray removeObject:filmModel];
-            
-            
-        }else{
-            filmModel.selected = YES;
-            //添加到临时数组中 待确定后从数据库中删除
-            [_tempArray addObject:filmModel];
-            
-        }
-        cell.filmModel = filmModel;
-        
-    }else{//非编辑状态 播放
-        
         if (indexPath.section == 0) {
+            SCDownloadedCell *cell = (SCDownloadedCell *)[tableView cellForRowAtIndexPath:indexPath];
             ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
-            if ([FileManageCommon IsFileExists:FILE_PATH(fileInfo.fileName)]) {
-                DONG_Log(@"FileManageCommon路径存在");
-                SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilePath:FILE_PATH(fileInfo.fileName)];
-                [self.navigationController pushViewController:playerVC animated:YES];
-            } else {
-                [MBProgressHUD showSuccess:@"文件不存在"];
+            if (fileInfo.isSelecting) {
+                fileInfo.selected = NO;
+                //从临时数据中删除
+                [_tempArray removeObject:fileInfo];
+            }else{
+                fileInfo.selected = YES;
+                //添加到临时数组中 待确定后从数据库中删除
+                [_tempArray addObject:fileInfo];
+            }
+            cell.fileInfo = fileInfo;
+            
+        } else if (indexPath.section == 1) {
+            SCMyDownLoadManagerCell *cell = (SCMyDownLoadManagerCell *)[tableView cellForRowAtIndexPath:indexPath];
+            ZFHttpRequest *request = self.downloadObjectArr[indexPath.section][indexPath.row];
+            if (request == nil) { return; }
+            ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+            
+            if (fileInfo.isSelecting) {
+                fileInfo.selected = NO;
+                //从临时数据中删除
+                [_tempArray removeObject:fileInfo];
+            }else{
+                fileInfo.selected = YES;
+                //添加到临时数组中 待确定后从数据库中删除
+                [_tempArray addObject:fileInfo];
+                
+            }
+            cell.fileInfo = fileInfo;
+            
+        }else{//非编辑状态 播放
+            
+            if (indexPath.section == 0) {
+                ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
+                if ([FileManageCommon IsFileExists:FILE_PATH(fileInfo.fileName)]) {
+                    DONG_Log(@"FileManageCommon路径存在");
+                    SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilePath:FILE_PATH(fileInfo.fileName)];
+                    [self.navigationController pushViewController:playerVC animated:YES];
+                } else {
+                    [MBProgressHUD showSuccess:@"文件不存在"];
+                }
             }
         }
     }
