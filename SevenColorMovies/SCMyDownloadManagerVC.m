@@ -30,7 +30,8 @@
 @property (nonatomic, strong) NSMutableArray *tempArray;/** 保存临时选择的要删除的filmModel */
 
 @property (atomic, strong) NSMutableArray *downloadObjectArr;
-
+@property (nonatomic, strong) NSMutableArray *downloadingTempArray;;/** 保存临时选择的要删除的正在下载的model */
+@property (nonatomic, strong) NSMutableArray *downloadedTempArray;;/** 保存临时选择的要删除的完成下载的model */
 @end
 
 @implementation SCMyDownloadManagerVC
@@ -50,6 +51,8 @@
     //3.初始化
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
+    self.downloadingTempArray = [NSMutableArray arrayWithCapacity:0];
+    self.downloadedTempArray = [NSMutableArray arrayWithCapacity:0];
     
     //4.加载分视图
     //4.1 编辑按钮
@@ -66,12 +69,127 @@
     [self initData];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    // 因为是单例 需将ZFFileModel的部分属性重置
+    [self resetDownloadModel];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
 }
 
+#pragma mark - 全选
+- (void)selcetAll {
+    NSMutableArray *downladed = DownloadManager.finishedlist;
+    NSMutableArray *downloading = DownloadManager.downinglist;
+    
+    if (!self.isSelectAll) {
+        _selectAll = YES;
+        [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
+        //遍历model以更改cell视图
+        [_downloadingTempArray removeAllObjects];
+        [_downloadedTempArray removeAllObjects];
+        // 已下载
+        [downladed enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFFileModel *fileInfo = obj;
+            fileInfo.selected = YES;
+            [_downloadedTempArray addObject:fileInfo];
+        }];
+        // 正在下载
+        [downloading enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFHttpRequest *request = obj;
+            ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+            fileInfo.selected = YES;
+            [_downloadingTempArray addObject:fileInfo];
+        }];
+        
+    }else{
+        _selectAll = NO;
+        [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
+        [_downloadingTempArray removeAllObjects];
+        [_downloadedTempArray removeAllObjects];
+        // 已下载
+        [downladed enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFFileModel *fileInfo = obj;
+            fileInfo.selected = NO;
+        }];
+        // 正在下载
+        [downloading enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZFHttpRequest *request = obj;
+            ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+            fileInfo.selected = NO;
+        }];
+    }
+    
+    [_listView reloadData];
+}
+
+#pragma mark - 删除
+- (void)deleteSelected {
+    NSMutableArray *downladed = DownloadManager.finishedlist;
+    NSMutableArray *downloading = [NSMutableArray arrayWithCapacity:0];//保存下载中的ZFFileModel
+    NSArray *downloadingRequest = [NSArray arrayWithArray: DownloadManager.downinglist];//保存下载中的ZFHttpRequest  DownloadManager.downinglist是个坑 必须要copy出来一份 否则遍历时inde对不上
+    
+    [downloadingRequest enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ZFHttpRequest *request = obj;
+        ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+        [downloading addObject:fileInfo];
+    }];
+    
+    //1.在下载队列中删除对应任务 并分别遍历获取所选的model在原始数组中的位置 以获取对应的indexPath
+    NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
+    [_downloadedTempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ZFFileModel *fileInfo = obj;
+        NSInteger index = [downladed indexOfObject:fileInfo];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [indexPathArray addObject:indexPath];
+        //删除本地文件
+        [DownloadManager deleteFinishFile:fileInfo];
+    }];
+    
+    [_downloadingTempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ZFFileModel *fileInfo = obj;
+        NSInteger index = [downloading indexOfObject:fileInfo];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:1];
+        [indexPathArray addObject:indexPath];
+        //删除下载请求
+        [DownloadManager deleteRequest:downloadingRequest[index]];
+    }];
+    //2.把view相应的cell删掉
+    [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
+    //3.从realm中删除
+    
+    
+    
+    //4.清空数组
+    [_downloadingTempArray removeAllObjects];
+    [_downloadedTempArray removeAllObjects];
+    [downloading removeAllObjects];
+    [indexPathArray removeAllObjects];
+}
+
 #pragma mark - Private Method
+- (void)resetDownloadModel {
+    // 因为是单例 需将ZFFileModel的部分属性重置
+    NSMutableArray *downladed = DownloadManager.finishedlist;
+    NSMutableArray *downloading = DownloadManager.downinglist;
+    // 已下载
+    [downladed enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ZFFileModel *fileInfo = obj;
+        fileInfo.showDeleteBtn = NO;
+        fileInfo.selected = NO;
+    }];
+    // 正在下载
+    [downloading enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ZFHttpRequest *request = obj;
+        ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+        fileInfo.showDeleteBtn = NO;
+        fileInfo.selected = NO;
+    }];
+}
+
 - (void)initData {
     [DownloadManager startLoad];
     NSMutableArray *downladed = DownloadManager.finishedlist;
@@ -138,66 +256,6 @@
     _bottomBtnView = bottomView;
     [self.view addSubview:bottomView];
     
-}
-
-#pragma mark - 全选
-- (void)selcetAll {
-    NSMutableArray *downladed = DownloadManager.finishedlist;
-    NSMutableArray *downloading = DownloadManager.downinglist;
-    
-    if (!self.isSelectAll) {
-        _selectAll = YES;
-        [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
-        //遍历model以更改cell视图
-        [_tempArray removeAllObjects];
-        // 已下载
-        [downladed enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            ZFFileModel *fileInfo = obj;
-            fileInfo.selected = YES;
-        }];
-        // 正在下载
-        [downloading enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            ZFHttpRequest *request = obj;
-            ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
-            fileInfo.selected = YES;
-            [_tempArray addObject:fileInfo];
-        }];
-        
-    }else{
-        _selectAll = NO;
-        [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
-        [_tempArray removeAllObjects];
-        // 已下载
-        [downladed enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            ZFFileModel *fileInfo = obj;
-            fileInfo.selected = NO;
-        }];
-        // 正在下载
-        [downloading enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            ZFHttpRequest *request = obj;
-            ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
-            fileInfo.selected = NO;
-        }];
-    }
-    
-    [_listView reloadData];
-}
-
-#pragma mark - 删除
-- (void)deleteSelected {
-    //1.从数据库中删除数据
-    NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
-    [_tempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        SCFilmModel *filmModel = obj;
-        NSInteger index = [_dataArray indexOfObject:filmModel];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [indexPathArray addObject:indexPath];
-    }];
-    [_dataArray removeObjectsInArray:_tempArray];
-    // 2.把view相应的cell删掉
-    [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
-    [_tempArray removeAllObjects];
-    [indexPathArray removeAllObjects];
 }
 
 - (void)setTableView {
@@ -427,7 +485,6 @@ BOOL isLoading = NO;
     return nil;
 }
 
-
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return @"全部开始";
@@ -441,15 +498,24 @@ BOOL isLoading = NO;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        SCFilmModel *filmModel = _dataArray[indexPath.row];
-        // 1.把model相应的数据删掉
-        [self.dataArray removeObject:filmModel];
+        if (indexPath.section == 0) {
+            ZFFileModel *fileInfo = DownloadManager.finishedlist[indexPath.row];
+            //删除本地文件
+            [DownloadManager deleteFinishFile:fileInfo];
+            //从已选择添加的数组中删除
+            [_downloadedTempArray removeObject:fileInfo];
+            
+        } else {
+            
+            ZFHttpRequest *request = DownloadManager.downinglist[indexPath.row];
+            ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+            //删除下载请求
+            [DownloadManager deleteRequest:request];
+            //从已选择添加的数组中删除
+            [_downloadingTempArray removeObject:fileInfo];
+        }
         
-        // 2.把view相应的cell删掉
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [_tempArray removeObject:filmModel];
-        
-        
     }
 }
 
@@ -493,11 +559,11 @@ BOOL isLoading = NO;
             if (fileInfo.isSelecting) {
                 fileInfo.selected = NO;
                 //从临时数据中删除
-                [_tempArray removeObject:fileInfo];
+                [_downloadedTempArray removeObject:fileInfo];
             }else{
                 fileInfo.selected = YES;
                 //添加到临时数组中 待确定后从数据库中删除
-                [_tempArray addObject:fileInfo];
+                [_downloadedTempArray addObject:fileInfo];
             }
             cell.fileInfo = fileInfo;
             
@@ -510,25 +576,24 @@ BOOL isLoading = NO;
             if (fileInfo.isSelecting) {
                 fileInfo.selected = NO;
                 //从临时数据中删除
-                [_tempArray removeObject:fileInfo];
+                [_downloadingTempArray removeObject:fileInfo];
             }else{
                 fileInfo.selected = YES;
                 //添加到临时数组中 待确定后从数据库中删除
-                [_tempArray addObject:fileInfo];
+                [_downloadingTempArray addObject:fileInfo];
             }
             cell.fileInfo = fileInfo;
-            
-        }else{//非编辑状态 播放
-            
-            if (indexPath.section == 0) {
-                ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
-                if ([FileManageCommon IsFileExists:FILE_PATH(fileInfo.fileName)]) {
-                    DONG_Log(@"FileManageCommon路径存在");
-                    SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilePath:FILE_PATH(fileInfo.fileName)];
-                    [self.navigationController pushViewController:playerVC animated:YES];
-                } else {
-                    [MBProgressHUD showSuccess:@"文件不存在"];
-                }
+        }
+    } else {//非编辑状态 播放
+        
+        if (indexPath.section == 0) {
+            ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
+            if ([FileManageCommon IsFileExists:FILE_PATH(fileInfo.fileName)]) {
+                DONG_Log(@"FileManageCommon路径存在");
+                SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilePath:FILE_PATH(fileInfo.fileName)];
+                [self.navigationController pushViewController:playerVC animated:YES];
+            } else {
+                [MBProgressHUD showSuccess:@"文件不存在"];
             }
         }
     }
