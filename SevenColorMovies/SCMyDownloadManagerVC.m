@@ -498,17 +498,19 @@ BOOL isLoading = NO;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        ZFFileModel *fileInfo = nil;
         if (indexPath.section == 0) {
-            ZFFileModel *fileInfo = DownloadManager.finishedlist[indexPath.row];
+            fileInfo = DownloadManager.finishedlist[indexPath.row];
             //删除本地文件
             [DownloadManager deleteFinishFile:fileInfo];
             //从已选择添加的数组中删除
             [_downloadedTempArray removeObject:fileInfo];
             
+            
         } else {
             
             ZFHttpRequest *request = DownloadManager.downinglist[indexPath.row];
-            ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+            fileInfo = [request.userInfo objectForKey:@"File"];
             //删除下载请求
             [DownloadManager deleteRequest:request];
             //从已选择添加的数组中删除
@@ -516,7 +518,39 @@ BOOL isLoading = NO;
         }
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        // 初始化Realm
+        NSString *documentPath = [FileManageCommon GetDocumentPath];
+        NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
+        NSURL *databaseUrl = [NSURL URLWithString:filePath];
+        RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+        // 使用 NSPredicate 查询
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:
+                             @"_ContentSetName = %@",fileInfo.fileName];
+        NSPredicate *pred2 = [NSPredicate predicateWithFormat:
+                              @"FilmName = %@",fileInfo.fileName];
+        RLMResults *filmSetModelResults = [SCFilmSetModel objectsInRealm:realm withPredicate:pred1];
+        RLMResults *filmModelResults = [SCFilmModel objectsInRealm:realm withPredicate:pred2];
+        DONG_Log(@"filmModelResults:%ld",(unsigned long)filmModelResults.count);
+        DONG_Log(@"filmSetModelResults:%ld",(unsigned long)filmSetModelResults.count);
+        
+        if (filmModelResults.count) {
+            SCFilmModel *filmModel = filmModelResults.firstObject;
+            [realm transactionWithBlock:^{
+                [realm deleteObject:filmModel];
+            }];
+        }
+        
+        if (filmSetModelResults.count) {
+            SCFilmSetModel *filmSetModel = filmSetModelResults.firstObject;
+            [realm transactionWithBlock:^{
+                [realm deleteObject:filmSetModel];
+            }];
+        }
+        
+
     }
+    
 }
 
 #pragma mark - UITableView Delegate

@@ -240,7 +240,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 // 下载
 - (IBAction)beginDownload:(id)sender {
     DONG_Log(@"下载");
-    
     // 名称
     NSString *filmName;
     if (_filmModel.FilmName) {
