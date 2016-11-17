@@ -59,7 +59,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 {
     BOOL _isFullScreen;
-    SCDSJDownloadView *_downloadView;
+    SCDSJDownloadView *_dsjdownloadView;
 }
 
 #pragma mark - Initialize
@@ -323,7 +323,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     //1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                     
-                    NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
                     // 利用ZFDownloadManager下载
                     [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
                     // 设置最多同时下载个数（默认是3）
@@ -363,24 +362,38 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         ([mtype isEqualToString:@"7"] ||
          [mtype isEqualToString:@"9"])
     {
-        DONG_Log(@"综艺");
-        return;
+        if (!_dsjdownloadView) {
+            _dsjdownloadView = [[SCDSJDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +40, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
+            _dsjdownloadView.dataSourceArray = _filmSetsArr;
+            _dsjdownloadView.filmModel = _filmModel;
+            DONG_WeakSelf(_dsjdownloadView);
+            _dsjdownloadView.backBtnBlock = ^{
+                [weak_dsjdownloadView removeFromSuperview];
+                _dsjdownloadView = nil;
+            };
+            [self.view addSubview:_dsjdownloadView];
+            
+            [UIView animateWithDuration:0.2f animations:^{
+                [_dsjdownloadView setFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
+            }];
+        }
+        
         
     }else{//电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         
-        if (!_downloadView) {
-            _downloadView = [[SCDSJDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +40, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
-            _downloadView.dataSourceArray = _filmSetsArr;
-            _downloadView.filmModel = _filmModel;
-            DONG_WeakSelf(_downloadView);
-            _downloadView.backBtnBlock = ^{
-                [weak_downloadView removeFromSuperview];
-                _downloadView = nil;
+        if (!_dsjdownloadView) {
+            _dsjdownloadView = [[SCDSJDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +40, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
+            _dsjdownloadView.dataSourceArray = _filmSetsArr;
+            _dsjdownloadView.filmModel = _filmModel;
+            DONG_WeakSelf(_dsjdownloadView);
+            _dsjdownloadView.backBtnBlock = ^{
+                [weak_dsjdownloadView removeFromSuperview];
+                _dsjdownloadView = nil;
             };
-            [self.view addSubview:_downloadView];
+            [self.view addSubview:_dsjdownloadView];
             
             [UIView animateWithDuration:0.2f animations:^{
-                [_downloadView setFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
+                [_dsjdownloadView setFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
             }];
         }
     }
