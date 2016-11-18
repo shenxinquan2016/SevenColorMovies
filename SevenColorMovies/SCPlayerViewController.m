@@ -358,7 +358,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         } failure:^(NSError *error) {
             [CommonFunc dismiss];
         }];
-
+        
     }else if // 综艺 生活
         ([mtype isEqualToString:@"7"] ||
          [mtype isEqualToString:@"9"])
@@ -427,25 +427,37 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }
 }
 
-// 查询电影下载
+// 查询电影下载 电视剧和综艺无需查询
 -(void)refreshDownloadButtonStateFromQueryDatabase {
-    // 初始化Realm
-    NSString *documentPath = [FileManageCommon GetDocumentPath];
-    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
-    NSURL *databaseUrl = [NSURL URLWithString:filePath];
-    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
-    // 使用 NSPredicate 查询
-    NSPredicate *pred = [NSPredicate predicateWithFormat:
-                         @"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
-                         _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
-    RLMResults *results = [SCFilmModel objectsInRealm:realm withPredicate:pred];
-    if (results.count) {//已经下载
-        [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoad_Click"] forState:UIControlStateNormal];
-    } else {
-        [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoadIMG"] forState:UIControlStateNormal];
+    NSString *mtype;
+    if (_filmModel._Mtype) {
+        mtype = _filmModel._Mtype;
+    }else if (_filmModel.mtype){
+        mtype = _filmModel.mtype;
     }
-    
-    
+    NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
+    // 私人影院 电影 海外片场
+    if ([mtype isEqualToString:@"0"] ||
+        [mtype isEqualToString:@"2"] ||
+        [mtype isEqualToString:@"13"])
+    {
+        // 初始化Realm
+        NSString *documentPath = [FileManageCommon GetDocumentPath];
+        NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
+        NSURL *databaseUrl = [NSURL URLWithString:filePath];
+        RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+        // 使用 NSPredicate 查询
+        NSPredicate *pred = [NSPredicate predicateWithFormat:
+                             @"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
+                             _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
+        RLMResults *results = [SCFilmModel objectsInRealm:realm withPredicate:pred];
+        if (results.count) {//已经下载
+            [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoad_Click"] forState:UIControlStateNormal];
+        } else {
+            [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoadIMG"] forState:UIControlStateNormal];
+        }
+        
+    }
 }
 
 #pragma mark - private methods
@@ -1251,7 +1263,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 
 //综艺请求数据
 - (void)getArtsAndLifeData {
-
+    
     NSString *mid;
     if (_filmModel._Mid) {
         mid = _filmModel._Mid;
