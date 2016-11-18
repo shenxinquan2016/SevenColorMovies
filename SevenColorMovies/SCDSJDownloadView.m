@@ -49,7 +49,7 @@ static NSString *const cellId = @"cellId";
         if (dataSourceArray) {
             for (SCFilmSetModel *filmSetModel in dataSourceArray) {
                 for (SCFilmSetModel *realmFilmSetModel in results) {
-                    if (filmSetModel._FilmContentID == realmFilmSetModel._FilmContentID) {
+                    if ([filmSetModel._FilmContentID isEqualToString:realmFilmSetModel._FilmContentID]) {
                         filmSetModel.downloaded = YES;
                     }
                 }
@@ -99,7 +99,6 @@ static NSString *const cellId = @"cellId";
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
-    
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section

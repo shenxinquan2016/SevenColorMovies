@@ -439,7 +439,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                          @"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
                          _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
     RLMResults *results = [SCFilmModel objectsInRealm:realm withPredicate:pred];
-    
     if (results.count) {//已经下载
         [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoad_Click"] forState:UIControlStateNormal];
     } else {
@@ -1053,7 +1052,13 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         //请求播放地址
         [CommonFunc showLoadingWithTips:@""];
         [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject){
-            NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+            NSString *downLoadUrl = nil;
+            if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]) {
+                downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+            } else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
+                NSArray *array = responseObject[@"ContentSet"][@"Content"];
+                downLoadUrl = [array firstObject][@"_DownUrl"];
+            }
             
             //获取fid
             NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
@@ -1245,8 +1250,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 }
 
 //综艺请求数据
-- (void)getArtsAndLifeData{
-    
+- (void)getArtsAndLifeData {
+
     NSString *mid;
     if (_filmModel._Mid) {
         mid = _filmModel._Mid;

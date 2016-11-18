@@ -48,7 +48,7 @@ static NSString *const cellId = @"cellId";
     if (dataSourceArray && results.count) {
         for (SCFilmModel *filmModel in dataSourceArray) {
             for (SCFilmModel *realmFilmModel in results) {
-                if (filmModel.FilmName == realmFilmModel.FilmName) {
+                if ([filmModel.FilmName isEqualToString:realmFilmModel.FilmName]) {
                     filmModel.downloaded = YES;
                 }
             }
@@ -178,7 +178,13 @@ static NSString *const cellId = @"cellId";
         //获取downLoadUrl
         [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
             DONG_StrongSelf(self);
-            NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+            NSString *downLoadUrl = nil;
+            if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]) {
+                downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+            } else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
+                NSArray *array = responseObject[@"ContentSet"][@"Content"];
+                downLoadUrl = [array firstObject][@"_DownUrl"];
+            }
             
             //获取fid
             NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
