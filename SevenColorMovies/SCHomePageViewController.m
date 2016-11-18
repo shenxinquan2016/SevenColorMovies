@@ -430,7 +430,6 @@ static NSString *const footerId = @"footerId";
     }else{
         return UIEdgeInsetsMake(5, 12, 5, 12);
     }
-    
 }
 
 /** item水平间距 */
