@@ -462,7 +462,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
 #pragma mark - private methods
 - (void)setView {
-    
     NSString *mtype;
     if (_filmModel._Mtype) {
         mtype = _filmModel._Mtype;
@@ -1275,13 +1274,14 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"filmmid" : filmmidStr};
+    
     [CommonFunc showLoadingWithTips:@""];
     DONG_WeakSelf(self);
     self.hljRequest = [HLJRequest requestWithPlayVideoURL:ArtsAndLifeSourceUrl];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
             DONG_StrongSelf(self);
-            //NSLog(@"====responseObject======%@===",responseObject);
+//            NSLog(@"====responseObject======%@===",responseObject);
             [strongself.filmsArr removeAllObjects];
             if (responseObject) {
                 
@@ -1390,7 +1390,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            //        DONG_Log(@"====responseObject:::%@===",responseObject);
+                    DONG_Log(@"====responseObject:::%@===",responseObject);
             
             DONG_StrongSelf(self);
             //介绍页model
