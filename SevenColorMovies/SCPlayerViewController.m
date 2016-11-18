@@ -24,7 +24,7 @@
 #import "Dong_DownloadModel.h"
 #import "ZFDownloadManager.h"//第三方下载工具
 #import "SCDSJDownloadView.h"
-
+#import "SCArtsDownloadView.h"
 
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
@@ -60,6 +60,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 {
     BOOL _isFullScreen;
     SCDSJDownloadView *_dsjdownloadView;
+    SCArtsDownloadView *_artsDownloadView;
 }
 
 #pragma mark - Initialize
@@ -362,23 +363,21 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         ([mtype isEqualToString:@"7"] ||
          [mtype isEqualToString:@"9"])
     {
-        if (!_dsjdownloadView) {
-            _dsjdownloadView = [[SCDSJDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +40, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
-            _dsjdownloadView.dataSourceArray = _filmSetsArr;
-            _dsjdownloadView.filmModel = _filmModel;
-            DONG_WeakSelf(_dsjdownloadView);
-            _dsjdownloadView.backBtnBlock = ^{
-                [weak_dsjdownloadView removeFromSuperview];
-                _dsjdownloadView = nil;
+        if (!_artsDownloadView) {
+            _artsDownloadView = [[SCArtsDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +40, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
+            _artsDownloadView.dataSourceArray = _filmsArr;
+            _artsDownloadView.filmModel = _filmModel;
+            DONG_WeakSelf(_artsDownloadView);
+            _artsDownloadView.backBtnBlock = ^{
+                [weak_artsDownloadView removeFromSuperview];
+                _artsDownloadView = nil;
             };
-            [self.view addSubview:_dsjdownloadView];
+            [self.view addSubview:_artsDownloadView];
             
             [UIView animateWithDuration:0.2f animations:^{
-                [_dsjdownloadView setFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
+                [_artsDownloadView setFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
             }];
         }
-        
-        
     }else{//电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         
         if (!_dsjdownloadView) {

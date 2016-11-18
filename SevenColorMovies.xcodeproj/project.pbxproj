@@ -66,6 +66,9 @@
 		11458EA31D45FEE200EBD16D /* SCMineTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11458EA11D45FEE200EBD16D /* SCMineTopCell.xib */; };
 		11458EA71D45FF2D00EBD16D /* SCMineOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458EA51D45FF2D00EBD16D /* SCMineOtherCell.m */; };
 		11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11458EA61D45FF2D00EBD16D /* SCMineOtherCell.xib */; };
+		1147FBB11DDE9B6300126F2E /* SCArtsDownloadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1147FBB01DDE9B6300126F2E /* SCArtsDownloadView.m */; };
+		1147FBB51DDE9D6000126F2E /* SCArtsDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1147FBB31DDE9D5F00126F2E /* SCArtsDownloadCell.m */; };
+		1147FBB61DDE9D6000126F2E /* SCArtsDownloadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1147FBB41DDE9D5F00126F2E /* SCArtsDownloadCell.xib */; };
 		114AE1A11D81100F00BED623 /* SCFilterOptionTabModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 114AE1A01D81100F00BED623 /* SCFilterOptionTabModel.m */; };
 		114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */; };
 		11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11588F691D6AEA3700C91E3A /* SCLiveViewController.m */; };
@@ -306,6 +309,11 @@
 		11458EA41D45FF2D00EBD16D /* SCMineOtherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMineOtherCell.h; sourceTree = "<group>"; };
 		11458EA51D45FF2D00EBD16D /* SCMineOtherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMineOtherCell.m; sourceTree = "<group>"; };
 		11458EA61D45FF2D00EBD16D /* SCMineOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMineOtherCell.xib; sourceTree = "<group>"; };
+		1147FBAF1DDE9B6300126F2E /* SCArtsDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCArtsDownloadView.h; sourceTree = "<group>"; };
+		1147FBB01DDE9B6300126F2E /* SCArtsDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCArtsDownloadView.m; sourceTree = "<group>"; };
+		1147FBB21DDE9D5F00126F2E /* SCArtsDownloadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCArtsDownloadCell.h; sourceTree = "<group>"; };
+		1147FBB31DDE9D5F00126F2E /* SCArtsDownloadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCArtsDownloadCell.m; sourceTree = "<group>"; };
+		1147FBB41DDE9D5F00126F2E /* SCArtsDownloadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCArtsDownloadCell.xib; sourceTree = "<group>"; };
 		114AE19F1D81100F00BED623 /* SCFilterOptionTabModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilterOptionTabModel.h; sourceTree = "<group>"; };
 		114AE1A01D81100F00BED623 /* SCFilterOptionTabModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilterOptionTabModel.m; sourceTree = "<group>"; };
 		114BC8071D51D70D0091ECE0 /* UIButton+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Addition.h"; sourceTree = "<group>"; };
@@ -838,6 +846,11 @@
 				115F024A1DDAFEC400DF911F /* SCDSJDownloadCell.h */,
 				115F024B1DDAFEC400DF911F /* SCDSJDownloadCell.m */,
 				115F024C1DDAFEC400DF911F /* SCDSJDownloadCell.xib */,
+				1147FBAF1DDE9B6300126F2E /* SCArtsDownloadView.h */,
+				1147FBB01DDE9B6300126F2E /* SCArtsDownloadView.m */,
+				1147FBB21DDE9D5F00126F2E /* SCArtsDownloadCell.h */,
+				1147FBB31DDE9D5F00126F2E /* SCArtsDownloadCell.m */,
+				1147FBB41DDE9D5F00126F2E /* SCArtsDownloadCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1934,6 +1947,7 @@
 				11C1C1C21D8020A300CEE71C /* SCFliterOptionCell.xib in Resources */,
 				11458EA31D45FEE200EBD16D /* SCMineTopCell.xib in Resources */,
 				11458E981D45E0D500EBD16D /* SCDiscoveryTableViewCell.xib in Resources */,
+				1147FBB61DDE9D6000126F2E /* SCArtsDownloadCell.xib in Resources */,
 				115F024E1DDAFEC400DF911F /* SCDSJDownloadCell.xib in Resources */,
 				113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */,
 				111448271D87D1CE00CB8FA9 /* UUID使用说明.pdf in Resources */,
@@ -2085,6 +2099,7 @@
 			files = (
 				1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */,
 				1101750A1D549B3C00E43773 /* SCFilmSetModel.m in Sources */,
+				1147FBB11DDE9B6300126F2E /* SCArtsDownloadView.m in Sources */,
 				116E0F581DB0888C00E280C6 /* SCMyWatchingHistoryVC.m in Sources */,
 				11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */,
 				11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */,
@@ -2132,6 +2147,7 @@
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
 				11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */,
 				1111A4191D48A71300C17B92 /* QINetReachabilityManager.m in Sources */,
+				1147FBB51DDE9D6000126F2E /* SCArtsDownloadCell.m in Sources */,
 				116E0F5E1DB0891D00E280C6 /* SCMyDownloadManagerVC.m in Sources */,
 				11458E9C1D45EECE00EBD16D /* SCDiscoveryCellModel.m in Sources */,
 				1111A4121D48A62500C17B92 /* SCNetHelper.m in Sources */,

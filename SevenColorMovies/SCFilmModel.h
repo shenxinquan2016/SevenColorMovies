@@ -45,7 +45,7 @@
 @property (nonatomic, assign, getter = isShowDeleteBtn) BOOL showDeleteBtn;/** 是否显示删除按钮 */
 @property (nonatomic, assign, getter = isSelecting) BOOL selected;/** 是否正被点击 */
 @property BOOL isDownLoading;/** 是否正在下载 */
-
+@property (getter = isDownLoaded) BOOL downloaded;/* 节目是否被下载 */
 
 @property NSInteger jiIndex;/** 伪属性 记录第几集 */
 @property SCFilmSetModel *filmSetModel;

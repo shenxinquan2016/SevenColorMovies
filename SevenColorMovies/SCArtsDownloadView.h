@@ -1,10 +1,10 @@
 //
-//  SCDownloadView.h
-//  SCDSJDownloadView
+//  SCArtsDownloadView.h
+//  SevenColorMovies
 //
-//  Created by yesdgq on 16/11/15.
+//  Created by yesdgq on 16/11/18.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//  电视剧下载页
+//  综艺生活下载页
 
 #import <UIKit/UIKit.h>
 
@@ -12,7 +12,7 @@
 
 typedef void (^BackBtnBlock)(void);
 
-@interface SCDSJDownloadView : UIView
+@interface SCArtsDownloadView : UIView
 
 @property (nonatomic, strong) NSArray *dataSourceArray;
 @property (nonatomic, strong) SCFilmModel *filmModel;
