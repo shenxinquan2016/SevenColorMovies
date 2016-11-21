@@ -740,9 +740,8 @@
 		113F8D8E1D3C700900B12D39 /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
-				11BB37D51D38E6650002D487 /* SCHomePageViewController.h */,
-				11BB37D61D38E6650002D487 /* SCHomePageViewController.m */,
-				11DC2BBE1D3DCD2900012480 /* Cell */,
+				1168345E1DE299E700C43813 /* Controller */,
+				11DC2BBE1D3DCD2900012480 /* View */,
 			);
 			name = MainBody;
 			sourceTree = "<group>";
@@ -1060,6 +1059,15 @@
 			children = (
 				11588F681D6AEA3700C91E3A /* SCLiveViewController.h */,
 				11588F691D6AEA3700C91E3A /* SCLiveViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		1168345E1DE299E700C43813 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				11BB37D51D38E6650002D487 /* SCHomePageViewController.h */,
+				11BB37D61D38E6650002D487 /* SCHomePageViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1669,7 +1677,7 @@
 			name = XMLParser;
 			sourceTree = "<group>";
 		};
-		11DC2BBE1D3DCD2900012480 /* Cell */ = {
+		11DC2BBE1D3DCD2900012480 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				11DC2BBF1D3DCDEA00012480 /* SCDemandChannelCell.h */,
@@ -1683,7 +1691,7 @@
 				11458E901D45D86800EBD16D /* SCHomePageSectionBGReusableView.m */,
 				11458E911D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib */,
 			);
-			name = Cell;
+			name = View;
 			sourceTree = "<group>";
 		};
 		11DC2BC91D3DD76700012480 /* DownImageManger */ = {

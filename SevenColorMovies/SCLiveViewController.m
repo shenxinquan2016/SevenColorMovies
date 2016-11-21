@@ -124,27 +124,21 @@ static const CGFloat LabelWidth = 95.f;
     //添加子控制器
     for (int i=0 ; i<_titleArr.count ;i++){
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
-        
         SCLivePageCollectionVC *vc = [[SCLivePageCollectionVC alloc] initWithCollectionViewLayout:layout];
         
         if (_dataSourceArr) {
-            
             vc.filmModelArr = _dataSourceArr[i];
         }
-        
         [self addChildViewController:vc];
-        
     }
     // 添加默认控制器
     SCLivePageCollectionVC *vc = [self.childViewControllers firstObject];
     vc.view.frame = self.contentScroll.bounds;
     self.needScrollToTopPage = self.childViewControllers[0];
-    
     [self.contentScroll addSubview:vc.view];
     
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
-    
 }
 
 #pragma mark- Event reponse
@@ -152,12 +146,9 @@ static const CGFloat LabelWidth = 95.f;
 - (void)labelClick:(UITapGestureRecognizer *)recognizer{
     SCSlideHeaderLabel *label = (SCSlideHeaderLabel *)recognizer.view;
     CGFloat offsetX = label.tag * _contentScroll.frame.size.width;
-    
     CGFloat offsetY = _contentScroll.contentOffset.y;
     CGPoint offset = CGPointMake(offsetX, offsetY);
-    
     [_contentScroll setContentOffset:offset animated:YES];
-    
     [self setScrollToTopWithTableViewIndex:label.tag];
 }
 

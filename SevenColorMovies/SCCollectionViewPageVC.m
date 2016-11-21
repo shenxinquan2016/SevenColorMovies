@@ -69,7 +69,6 @@ static NSString *const cellId = @"cellId";
     //域名转IP
     self.hljRequest = [HLJRequest requestWithPlayVideoURL:_urlString];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-        
         [requestDataManager requestFilmClassDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
             
             //NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
@@ -142,21 +141,16 @@ static NSString *const cellId = @"cellId";
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         
         SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:self.FilmClassModel._FilmClassName indexPath:indexPath];
-        
         cell.backgroundColor = [UIColor whiteColor];
-        
         cell.model = _filmModelArr[indexPath.row];
-        
         return cell;
         
     }else{
         static NSString * const identifier = @"专题";
         SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:identifier indexPath:indexPath];
-        
         SCFilmClassModel *filmClassModel = _filmModelArr[indexPath.row];
         cell.backgroundColor = [UIColor whiteColor];
         cell.filmClassModel = filmClassModel;
-        
         return cell;
     }
 }
