@@ -126,11 +126,9 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 #pragma mark - 集成刷新
 - (void)setTableViewRefresh {
     [CommonFunc setupRefreshWithView:_collView withSelf:self headerFunc:nil headerFuncFirst:YES footerFunc:@selector(footerRefresh)];
-    
 }
 
 - (void)footerRefresh{
-    
     [self requestFilterDataWithTypeAndAreaAndTimeAndPage:_page++];
 }
 

@@ -582,6 +582,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		110CF6681DE2D1CB00D365CE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */,
+				11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		1111A3FD1D48550800C17B92 /* FlowLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -964,24 +973,11 @@
 			name = MainBody;
 			sourceTree = "<group>";
 		};
-		115CCDF11D7919030045ED5F /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				116475F11D40988700A3BC1C /* SCOptionalVideoTableViewCell.h */,
-				116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */,
-				116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */,
-				116475F61D4098EF00A3BC1C /* SCPastVideoTableViewCell.h */,
-				116475F71D4098EF00A3BC1C /* SCPastVideoTableViewCell.m */,
-				116475F81D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib */,
-			);
-			name = Cell;
-			sourceTree = "<group>";
-		};
 		116475EF1D4097E000A3BC1C /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
-				11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */,
-				11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */,
+				110CF6681DE2D1CB00D365CE /* Controller */,
+				116475F01D40982900A3BC1C /* View */,
 			);
 			name = MainBody;
 			sourceTree = "<group>";
@@ -995,6 +991,12 @@
 				116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */,
 				116475FB1D40ADDC00A3BC1C /* SCPastVideoTableView.h */,
 				116475FC1D40ADDC00A3BC1C /* SCPastVideoTableView.m */,
+				116475F11D40988700A3BC1C /* SCOptionalVideoTableViewCell.h */,
+				116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */,
+				116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */,
+				116475F61D4098EF00A3BC1C /* SCPastVideoTableViewCell.h */,
+				116475F71D4098EF00A3BC1C /* SCPastVideoTableViewCell.m */,
+				116475F81D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1305,8 +1307,6 @@
 			isa = PBXGroup;
 			children = (
 				116475EF1D4097E000A3BC1C /* MainBody */,
-				116475F01D40982900A3BC1C /* View */,
-				115CCDF11D7919030045ED5F /* Cell */,
 				1122149A1DADDD9300277BD6 /* PastVideoPlayer */,
 			);
 			name = Search;

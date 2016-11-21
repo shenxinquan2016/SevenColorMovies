@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) NSMutableArray *filmModelArr;/** 每页电影模型数组 */
 @property (nonatomic, strong) HLJRequest *hljRequest;/** ip转换工具 */
+@property (nonatomic,assign) NSInteger page;/**< 分页的页码 */
 
 @end
 
@@ -39,6 +40,7 @@ static NSString *const cellId = @"cellId";
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageArtsCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageArtsCell"];
     
     //1.初始化数组
+    self.filmModelArr = [NSMutableArray arrayWithCapacity:0];
     
     //3.集成刷新
     [self setCollectionViewRefresh];
@@ -52,39 +54,39 @@ static NSString *const cellId = @"cellId";
 
 #pragma mark - 集成刷新
 - (void)setCollectionViewRefresh {
-    [CommonFunc setupRefreshWithView:self.collectionView withSelf:self headerFunc:@selector(headerRefresh) headerFuncFirst:YES footerFunc:nil];
+    [CommonFunc setupRefreshWithView:self.collectionView withSelf:self headerFunc:@selector(headerRefresh) headerFuncFirst:YES footerFunc:@selector(loadMoreData)];
 }
 
 - (void)headerRefresh {
-    [self requestData];
+    _page = 1;
+    [self requestDataWithPage:_page];
 }
 
-- (void)requestData{
+- (void)loadMoreData {
+    _page++;
+    [self requestDataWithPage:_page];
+}
+
+- (void)requestDataWithPage:(NSInteger)page {
+    NSDictionary *parameters = @{@"page" : [NSString stringWithFormat:@"%zd",page]};
     
-    if (_filmModelArr) {
+    if (page == 1) {
         [_filmModelArr removeAllObjects];
-    }else if (!_filmModelArr){
-        _filmModelArr = [NSMutableArray arrayWithCapacity:0];
     }
+    
     //域名转IP
     self.hljRequest = [HLJRequest requestWithPlayVideoURL:_urlString];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-        [requestDataManager requestFilmClassDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
-            
+        [requestDataManager requestFilmClassDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
             //NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
             if (responseObject) {
                 if (responseObject[@"FilmClass"]) {// 专题页面(比其他多一层)
                     
                     NSArray *filmsArr = responseObject[@"FilmClass"];
-                    [_filmModelArr removeAllObjects];
-                    
                     for (NSDictionary *dic in filmsArr) {
-                        
                         SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
-                        
                         [_filmModelArr addObject:filmClassModel];
                     }
-                    
                     [self.collectionView reloadData];
                     [self.collectionView.mj_header endRefreshing];
                     [self.collectionView.mj_footer endRefreshing];
@@ -93,18 +95,13 @@ static NSString *const cellId = @"cellId";
                 }else{// 其他
                     
                     NSArray *filmsArr = responseObject[@"Film"];
-                    [_filmModelArr removeAllObjects];
-                    
                     for (NSDictionary *dic in filmsArr) {
                         SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-                        
                         [_filmModelArr addObject:filmModel];
                     }
-                    //        NSLog(@">>>>>>>>>>>>22222::::%ld",_filmModelArr.count);
-                    
                     [self.collectionView reloadData];
                     [self.collectionView.mj_header endRefreshing];
-                    
+                    [self.collectionView.mj_footer endRefreshing];
                     [CommonFunc dismiss];
                 }
             }
@@ -115,6 +112,7 @@ static NSString *const cellId = @"cellId";
             
         } failure:^(id  _Nullable errorObject) {
             [self.collectionView.mj_header endRefreshing];
+            [self.collectionView.mj_footer endRefreshing];
             [CommonFunc dismiss];
         }];
         
@@ -158,8 +156,8 @@ static NSString *const cellId = @"cellId";
 #pragma mark - <UICollectionViewDelegate>
 #pragma mark - UICollectionViewDelegateFlowLayout
 /** item Size */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         if ([_FilmClassModel._FilmClassName isEqualToString:@"综艺"] || [_FilmClassModel._FilmClassName isEqualToString:@"生活"]) {
             return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
