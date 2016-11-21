@@ -68,19 +68,17 @@ static NSString *const footerId = @"footerId";
     [self addCollView];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
 }
 
-- (void)viewWillLayoutSubviews{
+- (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,14 +87,8 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark- Initialize
 
-#pragma mark- CustomDelegate
-
-
-#pragma mark- Event reponse
-
-
 #pragma mark- Private methods
-- (void)addCollView{
+- (void)addCollView {
     
     SCHomePageFlowLayout *layout = [[SCHomePageFlowLayout alloc]init]; // 布局对象
     layout.alternateDecorationViews = YES;
@@ -145,11 +137,10 @@ static NSString *const footerId = @"footerId";
 }
 
 - (void)headerRefresh {
-    
     [self requestData];
 }
 
-- (void)requestData{
+- (void)requestData {
     
     [_titleArray removeAllObjects];
     [_filmClassArray removeAllObjects];
@@ -257,7 +248,7 @@ static NSString *const footerId = @"footerId";
 }
 
 //section header
-- (UIView *)addSectionHeaderViewWithTitle:(NSString *)title tag:(NSInteger)tag{
+- (UIView *)addSectionHeaderViewWithTitle:(NSString *)title tag:(NSInteger)tag {
     UIView *view = [[UIImageView alloc] init];
     view.frame = CGRectMake(0, 10, kMainScreenWidth, 40.f);
     view.backgroundColor = [UIColor whiteColor];
@@ -303,7 +294,7 @@ static NSString *const footerId = @"footerId";
     return view;
 }
 
-- (void)addBannerView{
+- (void)addBannerView {
     
     _bannerView = [[SCSycleBanner alloc] initWithView:nil];
     _bannerView.delegate = self;
@@ -311,7 +302,7 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark ---- responce
-- (void)sectionClick:(UIButton *)sender{
+- (void)sectionClick:(UIButton *)sender {
     
     if (_filmClassArray) {
         
@@ -344,7 +335,6 @@ static NSString *const footerId = @"footerId";
         SCFilmClassModel *model = _filmClassArray[section-1];
         return model.filmArray.count;
     }
-    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -541,7 +531,7 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark- Getters and Setters
-- (NSMutableArray *)allItemsArr{
+- (NSMutableArray *)allItemsArr {
     if (!_allItemsArr) {
         NSArray *array =@[@"私人影院", @"少儿剧场", @"院线热映", @"电影", @"电视剧",  @"少儿", @"更多", @"二人转", @"动漫", @"综艺", @"生活", @"纪录片", @"游戏", @"音乐", @"专题"];
         
@@ -552,7 +542,7 @@ static NSString *const footerId = @"footerId";
 }
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
+- (BOOL)shouldAutorotate {
     return NO;
 }
 
