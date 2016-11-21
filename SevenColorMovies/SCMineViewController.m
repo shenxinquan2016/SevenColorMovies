@@ -32,7 +32,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self setTableView];
-    
     //1.商标
     [self addLeftBBI];
     
@@ -59,7 +58,7 @@
 }
 
 #pragma mark- private methods
-- (void)setTableView{
+- (void)setTableView {
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor colorWithHex:@"#F0F1F2"];
 //    _tableView.scrollEnabled = NO;
@@ -72,7 +71,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     if (self.dataSource.count > section) {
         NSArray *array = self.dataSource[section];
         return array.count;
@@ -81,7 +79,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (indexPath.section < self.dataSource.count) {
         NSArray *array = self.dataSource[indexPath.section];
         if (indexPath.row < array.count) {
@@ -111,7 +108,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (indexPath.section == 0 ) {
         switch (indexPath.row) {
             case 0:{
