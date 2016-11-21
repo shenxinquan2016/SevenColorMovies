@@ -656,8 +656,9 @@
 		111827891D800AAD005921D6 /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
-				116E1D5C1D4B4E0200B488EC /* SCFilterViewController.h */,
-				116E1D5D1D4B4E0200B488EC /* SCFilterViewController.m */,
+				1168345F1DE2A23100C43813 /* Controller */,
+				1118278A1D800AC1005921D6 /* View */,
+				114AE19B1D810F3400BED623 /* Model */,
 			);
 			name = MainBody;
 			sourceTree = "<group>";
@@ -668,18 +669,11 @@
 				1118278C1D800C92005921D6 /* SCFliterOptionView.h */,
 				1118278D1D800C92005921D6 /* SCFliterOptionView.m */,
 				1118278F1D800CD3005921D6 /* SCFliterOptionView.xib */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		1118278B1D800AC4005921D6 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
 				11C1C1BE1D8020A300CEE71C /* SCFliterOptionCell.h */,
 				11C1C1BF1D8020A300CEE71C /* SCFliterOptionCell.m */,
 				11C1C1C01D8020A300CEE71C /* SCFliterOptionCell.xib */,
 			);
-			name = Cell;
+			name = View;
 			sourceTree = "<group>";
 		};
 		1122149A1DADDD9300277BD6 /* PastVideoPlayer */ = {
@@ -1072,6 +1066,15 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		1168345F1DE2A23100C43813 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				116E1D5C1D4B4E0200B488EC /* SCFilterViewController.h */,
+				116E1D5D1D4B4E0200B488EC /* SCFilterViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		116E0F5F1DB0B6F900E280C6 /* ProgramList */ = {
 			isa = PBXGroup;
 			children = (
@@ -1237,9 +1240,6 @@
 			isa = PBXGroup;
 			children = (
 				111827891D800AAD005921D6 /* MainBody */,
-				1118278A1D800AC1005921D6 /* View */,
-				1118278B1D800AC4005921D6 /* Cell */,
-				114AE19B1D810F3400BED623 /* Model */,
 			);
 			name = "Filter筛选";
 			sourceTree = "<group>";
