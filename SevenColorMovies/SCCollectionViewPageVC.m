@@ -56,9 +56,7 @@ static NSString *const cellId = @"cellId";
 }
 
 - (void)headerRefresh {
-    
     [self requestData];
-    
 }
 
 - (void)requestData{
@@ -111,7 +109,7 @@ static NSString *const cellId = @"cellId";
                     [CommonFunc dismiss];
                 }
             }
-            //将mtype回传给上个控制器  （发现传不传没有影响 传时因数据机构缺陷还会有bug）
+            //将mtype回传给上个控制器  （发现传不传没有影响 传时因数据结构缺陷还会有bug）
             //        SCFilmModel *filmModel = [_filmModelArr firstObject];
             //        NSString *mType = filmModel.mtype? filmModel.mtype : filmModel._Mtype;
             //        self.getMtype(mType);
@@ -123,11 +121,11 @@ static NSString *const cellId = @"cellId";
         
     } failure:^(NSError *error) {
         
-       [CommonFunc dismiss];
+        [CommonFunc dismiss];
     }];
 }
 
-#pragma mark <UICollectionViewDataSource>
+#pragma mark - <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -137,7 +135,6 @@ static NSString *const cellId = @"cellId";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return _filmModelArr.count;
-    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -147,7 +144,7 @@ static NSString *const cellId = @"cellId";
         SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:self.FilmClassModel._FilmClassName indexPath:indexPath];
         
         cell.backgroundColor = [UIColor whiteColor];
-
+        
         cell.model = _filmModelArr[indexPath.row];
         
         return cell;
@@ -162,15 +159,12 @@ static NSString *const cellId = @"cellId";
         
         return cell;
     }
-    
 }
 
-#pragma mark <UICollectionViewDelegate>
-
-#pragma mark ---- UICollectionViewDelegateFlowLayout
-
+#pragma mark - <UICollectionViewDelegate>
+#pragma mark - UICollectionViewDelegateFlowLayout
 /** item Size */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         if ([_FilmClassModel._FilmClassName isEqualToString:@"综艺"] || [_FilmClassModel._FilmClassName isEqualToString:@"生活"]) {
@@ -184,8 +178,8 @@ static NSString *const cellId = @"cellId";
 }
 
 /** CollectionView四周间距 EdgeInsets */
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
     return UIEdgeInsetsMake(5, 12, 5, 12);
 }
 
@@ -233,11 +227,8 @@ static NSString *const cellId = @"cellId";
         teleplayPlayer.hidesBottomBarWhenPushed = YES;
         
         if (self.navigationController) {
-            
             [self.navigationController pushViewController:teleplayPlayer animated:YES];
-            
         }else{
-            
             [[self respondController].navigationController pushViewController:teleplayPlayer animated:YES];
         }
         
@@ -249,21 +240,19 @@ static NSString *const cellId = @"cellId";
         vc.bannerFilmModelArray = self.bannerFilmModelArray;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    
 }
 
 - (UIViewController *)respondController
 {
     UIViewController *vc = nil;
-    
     do {
         if (!vc) {
             vc = (UIViewController *)self.nextResponder;
         }else{
             vc = (UIViewController *)vc.nextResponder;
         }
-        
     }while(![vc isKindOfClass:[UIViewController class]]);
+    
     if ([vc isKindOfClass:[UIViewController class]]) {
         return vc;
     }else{
@@ -272,7 +261,7 @@ static NSString *const cellId = @"cellId";
 }
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
+- (BOOL)shouldAutorotate {
     return NO;
 }
 

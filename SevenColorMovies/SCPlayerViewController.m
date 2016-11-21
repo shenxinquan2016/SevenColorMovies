@@ -1470,7 +1470,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 }
 
 
-
 #pragma mark - 更新状态栏状态 使用旋转方案二时调用
 - (BOOL)prefersStatusBarHidden{
     if (_IJKPlayerViewController.isFullScreen) {

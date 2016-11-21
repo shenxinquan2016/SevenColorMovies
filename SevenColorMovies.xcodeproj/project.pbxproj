@@ -893,27 +893,11 @@
 			name = "Live直播";
 			sourceTree = "<group>";
 		};
-		11588F641D6AE5F700C91E3A /* TimeShift时移 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "TimeShift时移";
-			sourceTree = "<group>";
-		};
-		11588F651D6AE60700C91E3A /* Lookback回看 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Lookback回看";
-			sourceTree = "<group>";
-		};
 		11588F661D6AE74600C91E3A /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
-				11588F681D6AEA3700C91E3A /* SCLiveViewController.h */,
-				11588F691D6AEA3700C91E3A /* SCLiveViewController.m */,
+				1168345D1DE2953E00C43813 /* Controller */,
 				11588F6B1D6AECA700C91E3A /* View */,
-				11588F6F1D6B077000C91E3A /* Cell */,
 			);
 			name = MainBody;
 			sourceTree = "<group>";
@@ -935,18 +919,11 @@
 			children = (
 				11588F6C1D6AECDF00C91E3A /* SCLivePageCollectionVC.h */,
 				11588F6D1D6AECDF00C91E3A /* SCLivePageCollectionVC.m */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		11588F6F1D6B077000C91E3A /* Cell */ = {
-			isa = PBXGroup;
-			children = (
 				11588F701D6B079900C91E3A /* SCLivePageCell.h */,
 				11588F711D6B079900C91E3A /* SCLivePageCell.m */,
 				11588F721D6B079900C91E3A /* SCLivePageCell.xib */,
 			);
-			name = Cell;
+			name = View;
 			sourceTree = "<group>";
 		};
 		115A21001D41B4E20097DE57 /* VOD点播 */ = {
@@ -1076,6 +1053,15 @@
 				116476081D40CA8900A3BC1C /* SCChannelCatalogueCell.xib */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		1168345D1DE2953E00C43813 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				11588F681D6AEA3700C91E3A /* SCLiveViewController.h */,
+				11588F691D6AEA3700C91E3A /* SCLiveViewController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		116E0F5F1DB0B6F900E280C6 /* ProgramList */ = {
@@ -1430,8 +1416,6 @@
 				113F8D8F1D3C701B00B12D39 /* Banner */,
 				115A21001D41B4E20097DE57 /* VOD点播 */,
 				11588F621D6AE3D500C91E3A /* Live直播 */,
-				11588F641D6AE5F700C91E3A /* TimeShift时移 */,
-				11588F651D6AE60700C91E3A /* Lookback回看 */,
 				11EBC3F21D5C698600C1A338 /* SpecialTopic专题 */,
 				116E1D5B1D4B4D4600B488EC /* Filter筛选 */,
 				113E62E51D49F5FE00FB8F3A /* FilmModel */,
