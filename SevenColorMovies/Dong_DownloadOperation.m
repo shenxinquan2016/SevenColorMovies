@@ -228,6 +228,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
         });
     }
 }
+
 //当下载完成之后，一定要回调downloadFinished，目的是让任务退队。要让任务退队，只有保证isFinished为YES才能退队 否则任务完成后还可以重新下载，通常情况下不会自动退队
 - (void)downloadFinished {
     [self completeOperation];

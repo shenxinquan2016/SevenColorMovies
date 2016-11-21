@@ -72,7 +72,6 @@
     [self installMovieNotificationObservers];
     [self.player prepareToPlay];
     
-    
 }
 
 

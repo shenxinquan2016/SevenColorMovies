@@ -44,11 +44,11 @@
 /************************************** UIAlertView *************************************/
 //弹出信息
 #define ALERT(msg) [[[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
-// 带占字符弹出信息(format, ## __VA_ARGS__)
+//带占字符弹出信息(format, ## __VA_ARGS__)
 #define ALERT_FORMAT(format, ...) [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:format, ## __VA_ARGS__] delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
 #define ALERT_TITLE(title, msg) [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
 
-// NSLog(...)
+//NSLog(...)
 #ifdef DEBUG
 #define NSLog(...) NSLog(__VA_ARGS__)
 #else
@@ -75,13 +75,13 @@
 #define RGB(r, g, b)             [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:1.0]
 #define RGBAlpha(r, g, b, a)     [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:(a)]
 
-// weakself & strongself
+//weakself & strongself
 #define DONG_WeakSelf(type)  __weak typeof(type) weak##type = type
 #define DONG_StrongSelf(type)  __strong typeof(weak##type) strong##type = weak##type
 
 
 
-//  主要单例
+//主要单例
 #define DONG_UserDefaults                        [NSUserDefaults standardUserDefaults]
 #define DONG_NotificationCenter                  [NSNotificationCenter defaultCenter]
 //收到通知后执行什么操作
@@ -90,27 +90,52 @@
 
 
 
-
+//UIView动画
 #define DONG_ANIMATION(time,expression)\
 [UIView animateWithDuration:time animations:^{expression}];
-
 #define DONG_ANIMATION_COMPLETION(time,expresiion,COMPLETION)\
 [UIView animateWithDuration:time animations:^{expresiion} completion:^(BOOL finished){COMPLETION}];
 
+//延迟执行
 #define DONG_AFTER(time,expression)\
 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{expression;});
-
 #define DONG_RAC_AFTER(time,expression)\
 [[RACScheduler mainThreadScheduler] afterDelay:time schedule:^{expression;}];
 
+//设定系统字体大小
 #define DONG_FONT(FLOAT) [UIFont systemFontOfSize:FLOAT]
+//设定指定字体和大小
 #define DONG_FONT_NAME(NAME,SIZE)  [UIFont fontWithName:NAME size:SIZE]
+//粗体
+#define DONG_DEFALUT_BOLD @"Helvetica-Bold"
+
+//GCD （子线程、主线程定义）
+#define DONG_BACK(block) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block)
+
+#define DONG_MAIN(block) dispatch_async(dispatch_get_main_queue(),block)
+
+#define DONG_MAIN_DELAY(s,block) \
+double delayInSeconds = s;   \
+dispatch_time_t delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC); \
+dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);\
+dispatch_after(delayInNanoSeconds, concurrentQueue, block);
 
 
+#define DONG_SubThread(expression) \
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ expression; })
 
+#define  DONG_MainThread(expression)\
+dispatch_async(dispatch_get_main_queue(), ^{expression});
 
+// 获取版本号
+#ifdef DEBUG
+#define LOCAL_VER_STR [[NSBundle mainBundle]infoDictionary][@"CFBundleVersion"]
+#else
+#define LOCAL_VER_STR [[NSBundle mainBundle]infoDictionary][@"CFBundleShortVersionString"]
+#endif
 
-
+#define LOCAL_DEBUG_VER_STR [[NSBundle mainBundle]infoDictionary][@"CFBundleVersion"]
+#define LOCAL_RELEASE_VER_STR [[NSBundle mainBundle]infoDictionary][@"CFBundleShortVersionString"]
 
 
 
