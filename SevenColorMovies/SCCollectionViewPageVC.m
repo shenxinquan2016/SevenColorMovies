@@ -42,7 +42,7 @@ static NSString *const cellId = @"cellId";
     //1.初始化数组
     self.filmModelArr = [NSMutableArray arrayWithCapacity:0];
     
-    //3.集成刷新
+    //2.集成刷新
     [self setCollectionViewRefresh];
     
 }
@@ -69,11 +69,9 @@ static NSString *const cellId = @"cellId";
 
 - (void)requestDataWithPage:(NSInteger)page {
     NSDictionary *parameters = @{@"page" : [NSString stringWithFormat:@"%zd",page]};
-    
     if (page == 1) {
         [_filmModelArr removeAllObjects];
     }
-    
     //域名转IP
     self.hljRequest = [HLJRequest requestWithPlayVideoURL:_urlString];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
@@ -91,7 +89,7 @@ static NSString *const cellId = @"cellId";
                     [self.collectionView.mj_header endRefreshing];
                     [self.collectionView.mj_footer endRefreshing];
                     [CommonFunc dismiss];
-                    
+
                 }else{// 其他
                     
                     NSArray *filmsArr = responseObject[@"Film"];
@@ -115,9 +113,7 @@ static NSString *const cellId = @"cellId";
             [self.collectionView.mj_footer endRefreshing];
             [CommonFunc dismiss];
         }];
-        
     } failure:^(NSError *error) {
-        
         [CommonFunc dismiss];
     }];
 }
