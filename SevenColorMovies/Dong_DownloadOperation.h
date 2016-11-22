@@ -20,16 +20,17 @@
 
 @end
 
-
 @interface Dong_DownloadOperation : NSOperation
-
-- (instancetype)initWithModel:(Dong_DownloadModel *)downloadModel session:(NSURLSession *)session;
 
 @property (nonatomic, weak) Dong_DownloadModel *model;
 @property (nonatomic, strong, readonly) NSURLSessionDownloadTask *downloadTask;
 
+- (instancetype)initWithModel:(Dong_DownloadModel *)downloadModel session:(NSURLSession *)session;
 - (void)suspend;//暂停下载
 - (void)resume;//恢复下载
 - (void)downloadFinished;//下载完成时调用
 
 @end
+
+
+

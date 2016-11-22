@@ -34,7 +34,6 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 @end
 
 
-
 @interface Dong_DownloadOperation ()
 
 @property (nonatomic, strong) NSURLSessionDownloadTask *task;
@@ -56,7 +55,6 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
         self.session = session;
         [self statRequest];
     }
-    
     return self;
 }
 
@@ -64,7 +62,14 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     self.task = nil;
 }
 
-//为每一个task注册观察者self 监听task属性"state"的变化
+ /* 
+  * 为每一个task注册观察者self 监听task属性"state"的变化
+  *
+  * NSURLSessionTaskStateRunning = 0,
+  * NSURLSessionTaskStateSuspended = 1,
+  * NSURLSessionTaskStateCanceling = 2,
+  * NSURLSessionTaskStateCompleted = 3,
+  */
 - (void)setTask:(NSURLSessionDownloadTask *)task {
     [_task removeObserver:self forKeyPath:@"state"];
     
@@ -84,7 +89,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     self.task.downloadModel = self.model;
 }
 
-//开始下载(全新下载)
+//开始下载(初始化task 全新下载)
 - (void)statRequest {
     NSURL *url = [NSURL URLWithString:self.model.videoUrl];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url
@@ -95,7 +100,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     [self configTask];
 }
 
-//重写start方法时,要做好isCannelled的判断  start方法开启任务执行操作,NSOperation对象默认按同步方式执行
+//重写start方法时,要做好isCancelled的判断  start方法开启任务执行操作,NSOperation对象默认按同步方式执行
 - (void)start {
     if (self.isCancelled) {
         kKVOBlock(@"isFinished", ^{
@@ -105,30 +110,14 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     }
     
     [self willChangeValueForKey:@"isExecuting"];
-    if (self.model.resumeData) {
+    if (self.model.resumeData) {//断点续传
         [self resume];
-    } else {
+    } else {//从0开始
         [self.task resume];
-        self.model.status = kDownloadStateDownloading;
+        self.model.downloadStatus = kDownloadStateDownloading;
     }
-    
     _executing = YES;
     [self didChangeValueForKey:@"isExecuting"];
-}
-
-//重写isExecuting  isExecuting:可判断任务是否正在执行中
-- (BOOL)isExecuting {
-    return _executing;
-}
-
-//重写isFinished  isFinished:可判断任务是否已经执行完成
-- (BOOL)isFinished {
-    return _finished;
-}
-
-//重写isConcurrent  isConcurrent判断是否是同步 默认值为NO,表示操作与调用线程同步执行
-- (BOOL)isConcurrent {
-    return YES;
 }
 
 //暂停下载
@@ -147,7 +136,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
             [weakSelf didChangeValueForKey:@"isExecuting"];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.model.status = kDownloadStatePause;
+                weakSelf.model.downloadStatus = kDownloadStatePause;
             });
         }];
         
@@ -155,15 +144,15 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     }
 }
 
+//恢复下载
 - (void)resume {
     
-    if (self.model.status == kDownloadStateCompleted) {
+    if (self.model.downloadStatus == kDownloadStateCompleted) {
         return;
     }
-    self.model.status = kDownloadStateDownloading;
+    self.model.downloadStatus = kDownloadStateDownloading;
     
     if (self.model.resumeData) {
-         DONG_Log(@"resumeData:%@",self.model.resumeData);
         self.task = [self.session downloadTaskWithResumeData:self.model.resumeData];
         [self configTask];
     } else if (self.task == nil
@@ -179,6 +168,22 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 
 - (NSURLSessionDownloadTask *)downloadTask {
     return self.task;
+}
+
+#pragma mark - 重写option的主要方法
+//重写isExecuting  isExecuting:可判断任务是否正在执行中
+- (BOOL)isExecuting {
+    return _executing;
+}
+
+//重写isFinished  isFinished:可判断任务是否已经执行完成
+- (BOOL)isFinished {
+    return _finished;
+}
+
+//重写isConcurrent  isConcurrent判断是否是同步 默认值为NO,表示操作与调用线程同步执行
+- (BOOL)isConcurrent {
+    return YES;
 }
 
 //重写cancel，并处理好isCancelled KVO处理  isCancelled:可判断任务是否已经执行完成，而要取消任务，可调用cancel方法
@@ -203,6 +208,12 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
     [self didChangeValueForKey:@"isFinished"];
 }
 
+//当下载完成之后，一定要回调downloadFinished，目的是让任务退队。要让任务退队，只有保证isFinished为YES才能退队 否则任务完成后还可以重新下载，通常情况下不会自动退队
+- (void)downloadFinished {
+    [self completeOperation];
+    
+}
+
 //KVO监听动作
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
@@ -213,14 +224,14 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
         dispatch_async(dispatch_get_main_queue(), ^{
             switch (self.task.state) {
                 case NSURLSessionTaskStateSuspended: {
-                    self.model.status = kDownloadStatePause;
+                    self.model.downloadStatus = kDownloadStatePause;
                     break;
                 }
                 case NSURLSessionTaskStateCompleted:
                     if (self.model.progress >= 1.0) {
-                        self.model.status = kDownloadStateCompleted;
+                        self.model.downloadStatus = kDownloadStateCompleted;
                     } else {
-                        self.model.status = kDownloadStatePause;
+                        self.model.downloadStatus = kDownloadStatePause;
                     }
                 default:
                     break;
@@ -228,16 +239,6 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
         });
     }
 }
-
-//当下载完成之后，一定要回调downloadFinished，目的是让任务退队。要让任务退队，只有保证isFinished为YES才能退队 否则任务完成后还可以重新下载，通常情况下不会自动退队
-- (void)downloadFinished {
-    [self completeOperation];
-    
-   
-}
-
-
-
 
 
 

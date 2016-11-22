@@ -44,14 +44,13 @@
         _downloadModels = [[NSMutableArray alloc] init];
         self.queue = [[NSOperationQueue alloc] init];
         // 设置允许最大线程并行数量
-        self.queue.maxConcurrentOperationCount = 1;
+        self.queue.maxConcurrentOperationCount = 4;
         NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-        // 不能传self.queue  可以传[NSOperationQueue mainQueue]
+        // delegateQueue不能传self.queue 可以传[NSOperationQueue mainQueue]
         self.session = [NSURLSession sessionWithConfiguration:config
                                                      delegate:self
                                                 delegateQueue:nil];
     }
-    
     return self;
 }
 
@@ -76,8 +75,8 @@
  *  @param  downloadModel 下载的数据模型
  */
 - (void)startWithVideoModel:(Dong_DownloadModel *)downloadModel {
-    if (downloadModel.status != kDownloadStateCompleted) {
-        downloadModel.status = kDownloadStateDownloading;
+    if (downloadModel.downloadStatus != kDownloadStateCompleted) {
+        downloadModel.downloadStatus = kDownloadStateDownloading;
         
         if (downloadModel.operation == nil) {
             downloadModel.operation = [[Dong_DownloadOperation alloc] initWithModel:downloadModel
@@ -96,7 +95,7 @@
  *  @param  downloadModel 下载的数据模型
  */
 - (void)suspendWithVideoModel:(Dong_DownloadModel *)downloadModel {
-    if (downloadModel.status != kDownloadStateCompleted) {
+    if (downloadModel.downloadStatus != kDownloadStateCompleted) {
         [downloadModel.operation suspend];
     }
 }
@@ -107,7 +106,7 @@
  *  @param  downloadModel 下载的数据模型
  */
 - (void)resumeWithVideoModel:(Dong_DownloadModel *)downloadModel {
-    if (downloadModel.status != kDownloadStateCompleted) {
+    if (downloadModel.downloadStatus != kDownloadStateCompleted) {
         [downloadModel.operation resume];
     }
 }
@@ -130,7 +129,6 @@
 - (void)pauseAll{
     
 }
-
 
 /**
  *  全部开始
@@ -166,18 +164,18 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         if (error == nil) {
-            task.downloadModel.status = kDownloadStateCompleted;
+            task.downloadModel.downloadStatus = kDownloadStateCompleted;
             [task.downloadModel.operation downloadFinished];
         }  else if ([error code] < 0) {
-            if (task.downloadModel.status == kDownloadStatePause) {
+            if (task.downloadModel.downloadStatus == kDownloadStatePause) {
                 // 暂停
-                task.downloadModel.status = kDownloadStatePause;
+                task.downloadModel.downloadStatus = kDownloadStatePause;
                 if (error.userInfo && [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData]) {
                     //self.resumeData = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
                 }
             } else{
                 // 网络异常
-                task.downloadModel.status = kDownloadStateFailed;
+                task.downloadModel.downloadStatus = kDownloadStateFailed;
                 if (error.userInfo && [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData]) {
                     //self.resumeData = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
                 }

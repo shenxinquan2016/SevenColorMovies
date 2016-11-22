@@ -12,8 +12,8 @@
 @class Dong_DownloadModel;
 @class Dong_DownloadOperation;
 
-typedef NS_ENUM(NSUInteger, DownLoadStateType) {
-    kDownloadStateNotFound = -1,
+typedef NS_ENUM(NSUInteger, DownloadStateType) {
+    kDownloadStateNotFound = -1,//
     kDownloadStateUnDownLoad = 0,//未下载
     kDownloadStatePause,//暂停下载
     kDownloadStateCompleted,//下载完成
@@ -29,7 +29,7 @@ typedef void(^Dong_DownloadProgressChanged)(Dong_DownloadModel *model);
 @interface Dong_DownloadModel : NSObject
 
 @property (nonatomic, copy) NSString *filmName;//影片名称
-@property (nonatomic, copy) NSString *videoUrl;
+@property (nonatomic, copy) NSString *videoUrl;//下载地址
 @property (nonatomic, copy) NSString *imageUrl;
 @property (nonatomic, copy) NSString *title;
 
@@ -40,7 +40,7 @@ typedef void(^Dong_DownloadProgressChanged)(Dong_DownloadModel *model);
 @property (nonatomic, copy) NSString *progressText;
 
 @property (nonatomic, assign) CGFloat progress;//非常关键的属性，进度变化会自动回调onProgressChanged
-@property (nonatomic, assign) DownLoadStateType status;//状态变化会自动回调onStatusChanged
+@property (nonatomic, assign) DownloadStateType downloadStatus;//状态变化会自动回调onStatusChanged
 // 这里为什么要引用operation且是强引用？因为管理器直接管理的是model，
 // 而真正做下载任务的是operation。
 // 为什么没有将这两个分别作为属性呢？为了整体更简单！
@@ -53,6 +53,6 @@ typedef void(^Dong_DownloadProgressChanged)(Dong_DownloadModel *model);
 
 @property (nonatomic, assign, getter = isShowDeleteBtn) BOOL showDeleteBtn;/** 是否显示删除按钮 */
 @property (nonatomic, assign, getter = isSelecting) BOOL selected;/** 是否正被点击 */
-@property BOOL isDownLoading;/** 是否正在下载 */
+@property (nonatomic, assign) BOOL isDownLoading;/** 是否正在下载 */
 
 @end

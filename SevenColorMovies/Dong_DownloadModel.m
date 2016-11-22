@@ -32,9 +32,9 @@
     }
 }
 
-- (void)setStatus:(DownLoadStateType)status {
-    if (_status != status) {
-        _status = status;
+- (void)setDownloadStatus:(DownloadStateType)downloadStatus {
+    if (_downloadStatus != downloadStatus) {
+        _downloadStatus = downloadStatus;
         
         if (self.onStatusChanged) {
             self.onStatusChanged(self);
@@ -43,9 +43,9 @@
 }
 
 - (NSString *)statusText {
-    switch (self.status) {
+    switch (self.downloadStatus) {
         case kDownloadStateNotFound: {
-            return @"";
+            return @"未找到资源";
             break;
         }
         case kDownloadStateUnDownLoad: {
