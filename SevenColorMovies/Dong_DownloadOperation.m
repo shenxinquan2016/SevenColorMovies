@@ -65,7 +65,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
  /* 
   * 为每一个task注册观察者self 监听task属性"state"的变化
   *
-  * NSURLSessionTaskStateRunning = 0,
+  * NSURLSessionTaskStateRunning   = 0,
   * NSURLSessionTaskStateSuspended = 1,
   * NSURLSessionTaskStateCanceling = 2,
   * NSURLSessionTaskStateCompleted = 3,

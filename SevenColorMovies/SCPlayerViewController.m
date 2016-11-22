@@ -19,7 +19,6 @@
 #import "SCArtsFilmsCollectionVC.h"
 #import "IJKVideoPlayerVC.h"//播放器
 #import <Realm/Realm.h>//数据库
-#import "SCDownloadManager.h"//下载管理器
 #import "Dong_DownloadManager.h"
 #import "Dong_DownloadModel.h"
 #import "ZFDownloadManager.h"//第三方下载工具

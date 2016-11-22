@@ -212,7 +212,6 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     });
 }
 
-
 /*
  *  resume恢复下载时，会回调一次这里，更新进度
  *

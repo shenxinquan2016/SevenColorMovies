@@ -116,7 +116,6 @@
 }
 
 - (void)initKeyboardManager {
-    
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
     manager.enable = YES;//enable控制整个功能是否启用。
     manager.shouldResignOnTouchOutside = YES;//控制点击背景是否收起键盘。
