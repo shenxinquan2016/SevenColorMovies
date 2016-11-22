@@ -462,7 +462,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 // 监听屏幕旋转后，更改frame
 - (void)orientChange:(NSNotification *)noti
 {
-    
     //NSDictionary* ntfDict = [noti userInfo];
     
     UIDeviceOrientation  orient = [UIDevice currentDevice].orientation;
@@ -493,7 +492,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
             _IJKPlayerViewController.mediaControl.frame = self.view.frame;
             [self.view bringSubviewToFront:_IJKPlayerViewController.view];
-            
+             DONG_Log(@"全屏");
             break;
         case UIDeviceOrientationPortraitUpsideDown:
             
@@ -508,7 +507,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
             _IJKPlayerViewController.mediaControl.frame = self.view.frame;
             [self.view bringSubviewToFront:_IJKPlayerViewController.view];
-            
+            DONG_Log(@"全屏");
             break;
             
         default:

@@ -809,6 +809,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
             
             break;
         case UIDeviceOrientationLandscapeLeft:
@@ -817,13 +818,14 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
             _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
             _IJKPlayerViewController.mediaControl.frame = self.view.frame;
             [self.view bringSubviewToFront:_IJKPlayerViewController.view];
             
             break;
         case UIDeviceOrientationPortraitUpsideDown:
-            
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
             break;
         case UIDeviceOrientationLandscapeRight:
             
@@ -831,6 +833,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
             _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
             _IJKPlayerViewController.mediaControl.frame = self.view.frame;
             [self.view bringSubviewToFront:_IJKPlayerViewController.view];

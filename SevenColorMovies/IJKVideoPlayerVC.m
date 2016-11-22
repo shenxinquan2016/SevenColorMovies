@@ -376,7 +376,6 @@
         [self.mediaControl.fullScreenLockButton setImage:[UIImage imageNamed:@"FullScreenUnlock"] forState:UIControlStateNormal];
     }
     
-    
     DONG_NSLog(锁定屏幕);
 }
 
@@ -474,7 +473,6 @@
         }
     }
 }
-
 
 #pragma mark - Notifications
 -(void)installMovieNotificationObservers
