@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentTimeLabel;//进度条当前时间
 @property (weak, nonatomic) IBOutlet UILabel *totalDurationLabel;//进度条总时间
 @property (weak, nonatomic) IBOutlet UISlider *progressSlider;//进度条
+@property (weak, nonatomic) IBOutlet UIButton *fullScreenLockButton;
 
 - (void)showNoFade;
 - (void)showAndFade;

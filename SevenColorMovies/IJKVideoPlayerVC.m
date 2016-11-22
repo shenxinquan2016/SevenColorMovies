@@ -357,6 +357,9 @@
     
 }
 
+- (IBAction)fullScreenLock:(id)sender {
+    DONG_NSLog(锁定屏幕);
+}
 
 
 #pragma mark - IJK通知响应事件

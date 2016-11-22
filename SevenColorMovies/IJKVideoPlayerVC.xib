@@ -191,9 +191,21 @@
                         <constraint firstAttribute="height" constant="87" id="xN2-qb-Ksd"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfM-Tb-8eb">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="fVk-li-XR8"/>
+                        <constraint firstAttribute="width" constant="40" id="s0w-lh-uJr"/>
+                    </constraints>
+                    <state key="normal" image="FullScreenUnlock"/>
+                    <connections>
+                        <action selector="fullScreenLock:" destination="-1" eventType="touchUpInside" id="lTp-Yg-IQY"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="JfM-Tb-8eb" firstAttribute="leading" secondItem="zAJ-lD-Fna" secondAttribute="leading" constant="20" id="6SQ-Xx-d8K"/>
+                <constraint firstItem="JfM-Tb-8eb" firstAttribute="centerY" secondItem="GYR-8Q-AzF" secondAttribute="centerY" id="8IU-tM-hhW"/>
                 <constraint firstItem="9mG-uu-5D5" firstAttribute="centerX" secondItem="GYR-8Q-AzF" secondAttribute="centerX" id="QLh-bB-a4I"/>
                 <constraint firstAttribute="trailing" secondItem="GYR-8Q-AzF" secondAttribute="trailing" id="SvR-G8-oCb"/>
                 <constraint firstItem="GYR-8Q-AzF" firstAttribute="top" secondItem="zAJ-lD-Fna" secondAttribute="top" id="VLl-zE-EqO"/>
@@ -210,6 +222,7 @@
                 <outlet property="currentTimeLabel" destination="2KC-yb-4vl" id="SYk-6P-8Im"/>
                 <outlet property="durationTimeLabel" destination="xIU-eF-pFP" id="h43-i3-sH4"/>
                 <outlet property="fullScreenButton" destination="TfL-Dg-BUN" id="Y7P-8T-XMG"/>
+                <outlet property="fullScreenLockButton" destination="JfM-Tb-8eb" id="UUl-nV-a9F"/>
                 <outlet property="goBackButton" destination="GKE-nQ-f0w" id="40R-c1-ttU"/>
                 <outlet property="goFastImageView" destination="c4K-Ii-EJB" id="3KF-CA-mJD"/>
                 <outlet property="goFastView" destination="9mG-uu-5D5" id="HIW-Zp-Bdq"/>
@@ -227,6 +240,7 @@
         <image name="Back_WhiteArrow" width="16" height="16"/>
         <image name="FastForward" width="25" height="19"/>
         <image name="FullScreen" width="19" height="19"/>
+        <image name="FullScreenUnlock" width="40" height="40"/>
         <image name="InteractScreen" width="17" height="17"/>
         <image name="Pause" width="43" height="43"/>
     </resources>
