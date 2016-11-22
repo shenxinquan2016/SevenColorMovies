@@ -21,7 +21,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 /*
  *  扩展NSURLSessionTask的属性
  */
-@implementation NSURLSessionTask (VideoModel)
+@implementation NSURLSessionTask (DownloadModel)
 
 - (void)setDownloadModel:(Dong_DownloadModel *)downloadModel {
     objc_setAssociatedObject(self, s_Dong_downloadModelKey, downloadModel, OBJC_ASSOCIATION_ASSIGN);
@@ -157,7 +157,7 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
         [self configTask];
     } else if (self.task == nil
                || (self.task.state == NSURLSessionTaskStateCompleted && self.model.progress < 1.0)) {
-        [self statRequest];
+        [self statRequest];//重新下载
     }
     
     [self willChangeValueForKey:@"isExecuting"];
@@ -241,5 +241,51 @@ static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 }
 
 
+
+
+
+
+//参考
+//检查服务器上文件的大小
+- (long long)checkServerFileSize:(NSURL *)url{
+    //要下载文件的url
+    //NSURL *url = [NSURL URLWithString:@"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg"];
+    //创建获取文件大小的请求
+    NSMutableURLRequest *headRequest = [NSMutableURLRequest requestWithURL:url];
+    //请求方法
+    headRequest.HTTPMethod = @"HEAD";
+    //创建一个响应头
+    NSURLResponse *headResponse;
+    [NSURLConnection sendSynchronousRequest:headRequest returningResponse:&headResponse error:nil];
+    long long serverSize = headResponse.expectedContentLength;
+    //记录服务器文件的大小，用于计算进度
+    //self.expectLength = serverSize;
+    //拼接文件路径
+    NSString *downloadPath = [FileManageCommon CreateList:[FileManageCommon GetDocumentPath] ListName:@"download"];
+    NSString *path = [headResponse.suggestedFilename stringByAppendingString:downloadPath];
+    DONG_Log(@"headResponse.suggestedFilename:%@",headResponse.suggestedFilename);
+    //判断服务器文件大小跟本地文件大小的关系
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if (![manager fileExistsAtPath:path]) {
+        NSLog(@"不存在，从头开始下载");
+        return 0;
+    }
+    //获取文件的属性
+    NSDictionary *dict = [manager attributesOfItemAtPath:path error:nil];
+    //获取本地文件的大小
+    long long fileSize = dict.fileSize;
+    if (fileSize > serverSize) {
+        //文件出错，删除文件
+        [manager removeItemAtPath:path error:nil];
+        NSLog(@"从头开始");
+        return 0;
+    } else if (fileSize < serverSize){
+        NSLog(@"从本地文件大小开始下载");
+        return fileSize;
+    } else {
+        NSLog(@"已经下载完毕");
+        return fileSize;
+    }
+}
 
 @end
