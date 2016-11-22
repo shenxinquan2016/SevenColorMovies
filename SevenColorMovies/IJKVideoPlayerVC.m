@@ -112,7 +112,8 @@
 
 #pragma mark - 初始化播放器
 
-- (void) setupIJKPlayer{
+- (void) setupIJKPlayer
+{
     //1. 根据当前环境设置日志信息
     //1.1如果是Debug状态的
 #ifdef DEBUG
@@ -172,7 +173,8 @@
     
 }
 
--(void)closePlayer{
+-(void)closePlayer
+{
     if (self.player) {
         [self.player shutdown];
         [self.player.view removeFromSuperview];
@@ -185,18 +187,20 @@
 
 #pragma mark - IBAction
 /** 控制面板底层 */
-- (IBAction)onClickMediaControl:(id)sender {
+- (IBAction)onClickMediaControl:(id)sender
+{
     [self.mediaControl showAndFade];
 }
 
 /** 控制面板 */
-- (IBAction)onClickOverlay:(id)sender {
+- (IBAction)onClickOverlay:(id)sender
+{
     [self.mediaControl hide];
 }
 
 /** 返回 */
-- (IBAction)onClickBack:(id)sender {
-    
+- (IBAction)onClickBack:(id)sender
+{
     //方案一时使用
     if ( [PlayerViewRotate isOrientationLandscape]) {//如果正在全屏，先返回小屏
         self.isFullScreen = NO;
@@ -280,7 +284,8 @@
 }
 
 /** 播放&暂停 */
-- (IBAction)onClickPlay:(id)sender {
+- (IBAction)onClickPlay:(id)sender
+{
     if ([self.player isPlaying]) {
         [self.player pause];
         [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Play"] forState:UIControlStateNormal];
@@ -295,8 +300,8 @@
 }
 
 /** 全屏 */
-- (IBAction)onClickFullScreenButton:(id)sender {
-    
+- (IBAction)onClickFullScreenButton:(id)sender
+{
     //旋转方案一 系统方法旋转
     if ([PlayerViewRotate isOrientationLandscape]) {
         self.isFullScreen = NO;
@@ -332,35 +337,48 @@
 }
 
 /** 进度条 */
-- (IBAction)didSliderTouchDown:(id)sender {
+- (IBAction)didSliderTouchDown:(id)sender
+{
     [self.mediaControl beginDragMediaSlider];
     
 }
 
-- (IBAction)didSliderTouchCancel:(id)sender {
+- (IBAction)didSliderTouchCancel:(id)sender
+{
     [self.mediaControl endDragMediaSlider];
 }
 
-- (IBAction)didSliderTouchUpOutside:(id)sender {
+- (IBAction)didSliderTouchUpOutside:(id)sender
+{
     [self.mediaControl endDragMediaSlider];
     
 }
 
-- (IBAction)didSliderTouchUpInside:(id)sender {
+- (IBAction)didSliderTouchUpInside:(id)sender
+{
     self.player.currentPlaybackTime = self.mediaControl.progressSlider.value;
     [self.mediaControl endDragMediaSlider];
     
 }
 
-- (IBAction)didSliderValueChanged:(id)sender {
+- (IBAction)didSliderValueChanged:(id)sender
+{
     [self.mediaControl continueDragMediaSlider];
     
 }
 
-- (IBAction)fullScreenLock:(id)sender {
+/** 全屏锁定 */
+- (IBAction)fullScreenLock:(id)sender
+{
+    if (self.isFullScreen) {
+        [self.mediaControl.fullScreenLockButton setImage:[UIImage imageNamed:@"FullScreenLock"] forState:UIControlStateNormal];
+    } else {
+        [self.mediaControl.fullScreenLockButton setImage:[UIImage imageNamed:@"FullScreenUnlock"] forState:UIControlStateNormal];
+    }
+    
+    
     DONG_NSLog(锁定屏幕);
 }
-
 
 #pragma mark - IJK通知响应事件
 - (void)loadStateDidChange:(NSNotification*)notification
@@ -369,14 +387,12 @@
     
     if ((loadState & IJKMPMovieLoadStatePlaythroughOK) != 0) {
         NSLog(@"loadStateDidChange: IJKMPMovieLoadStatePlaythroughOK: %d\n", (int)loadState);
-        
         //结束加载 取消隐藏播放按钮
         [_loadView endAnimating];
         self.mediaControl.playButton.hidden = NO;
         
     } else if ((loadState & IJKMPMovieLoadStateStalled) != 0) {
         NSLog(@"loadStateDidChange: IJKMPMovieLoadStateStalled: %d\n", (int)loadState);
-        
         //开始加载 隐藏播放按钮
         [_loadView startAnimating];
         self.mediaControl.playButton.hidden = YES;

@@ -27,6 +27,16 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GYR-8Q-AzF" userLabel="OverlayPanel" customClass="UIControl">
                     <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfM-Tb-8eb">
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="cbz-6K-zvL"/>
+                                <constraint firstAttribute="height" constant="40" id="nao-51-IIN"/>
+                            </constraints>
+                            <state key="normal" image="FullScreenUnlock"/>
+                            <connections>
+                                <action selector="fullScreenLock:" destination="-1" eventType="touchUpInside" id="lTp-Yg-IQY"/>
+                            </connections>
+                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yF2-q6-6iG">
                             <constraints>
                                 <constraint firstAttribute="height" constant="43" id="7Xw-Qm-VSO"/>
@@ -141,9 +151,11 @@
                         <constraint firstItem="yF2-q6-6iG" firstAttribute="centerY" secondItem="GYR-8Q-AzF" secondAttribute="centerY" id="EnC-zB-s6I"/>
                         <constraint firstItem="L4f-8A-J5v" firstAttribute="leading" secondItem="GYR-8Q-AzF" secondAttribute="leading" id="GEg-nR-HJ4"/>
                         <constraint firstItem="L4f-8A-J5v" firstAttribute="top" secondItem="GYR-8Q-AzF" secondAttribute="top" id="Kgg-qo-o4j"/>
+                        <constraint firstItem="JfM-Tb-8eb" firstAttribute="leading" secondItem="GYR-8Q-AzF" secondAttribute="leading" constant="20" id="MLQ-Rw-4bF"/>
                         <constraint firstItem="yBG-kq-hxh" firstAttribute="leading" secondItem="GYR-8Q-AzF" secondAttribute="leading" id="dmD-oK-RUF"/>
                         <constraint firstAttribute="trailing" secondItem="L4f-8A-J5v" secondAttribute="trailing" id="ebh-WX-pQg"/>
                         <constraint firstAttribute="bottom" secondItem="yBG-kq-hxh" secondAttribute="bottom" id="gqs-GZ-JYS"/>
+                        <constraint firstItem="JfM-Tb-8eb" firstAttribute="centerY" secondItem="GYR-8Q-AzF" secondAttribute="centerY" id="irW-G4-gQz"/>
                         <constraint firstItem="yF2-q6-6iG" firstAttribute="centerX" secondItem="GYR-8Q-AzF" secondAttribute="centerX" id="uSc-P0-1DV"/>
                     </constraints>
                     <connections>
@@ -191,21 +203,9 @@
                         <constraint firstAttribute="height" constant="87" id="xN2-qb-Ksd"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfM-Tb-8eb">
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="fVk-li-XR8"/>
-                        <constraint firstAttribute="width" constant="40" id="s0w-lh-uJr"/>
-                    </constraints>
-                    <state key="normal" image="FullScreenUnlock"/>
-                    <connections>
-                        <action selector="fullScreenLock:" destination="-1" eventType="touchUpInside" id="lTp-Yg-IQY"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="JfM-Tb-8eb" firstAttribute="leading" secondItem="zAJ-lD-Fna" secondAttribute="leading" constant="20" id="6SQ-Xx-d8K"/>
-                <constraint firstItem="JfM-Tb-8eb" firstAttribute="centerY" secondItem="GYR-8Q-AzF" secondAttribute="centerY" id="8IU-tM-hhW"/>
                 <constraint firstItem="9mG-uu-5D5" firstAttribute="centerX" secondItem="GYR-8Q-AzF" secondAttribute="centerX" id="QLh-bB-a4I"/>
                 <constraint firstAttribute="trailing" secondItem="GYR-8Q-AzF" secondAttribute="trailing" id="SvR-G8-oCb"/>
                 <constraint firstItem="GYR-8Q-AzF" firstAttribute="top" secondItem="zAJ-lD-Fna" secondAttribute="top" id="VLl-zE-EqO"/>
@@ -233,7 +233,7 @@
                 <outlet property="topPanel" destination="L4f-8A-J5v" id="S4p-gq-fYk"/>
                 <outlet property="totalDurationLabel" destination="EiK-FX-EcO" id="GWz-hv-7Fx"/>
             </connections>
-            <point key="canvasLocation" x="239.5" y="316.5"/>
+            <point key="canvasLocation" x="240" y="317"/>
         </view>
     </objects>
     <resources>

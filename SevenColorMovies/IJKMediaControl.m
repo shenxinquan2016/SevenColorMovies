@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
     [self showNoFade];
     self.goFastView.hidden = YES;
     self.playButton.hidden = YES;//第一次加载时隐藏
-    
+//    self.fullScreenLockButton.hidden = YES;
     //9.根据手势获取系统音量
     _changeBrightnessAndVolumeToolView = [[SCChangeBrightnessAndVolumeTool alloc] init];
     _changeBrightnessAndVolumeToolView.panView = self;
@@ -60,13 +60,15 @@ typedef NS_ENUM(NSUInteger, Direction) {
     
 }
 
-- (void)panViewChange:(UIPanGestureRecognizer *)pan{
+- (void)panViewChange:(UIPanGestureRecognizer *)pan
+{
     [_changeBrightnessAndVolumeToolView panDirection:pan];
 }
 
 
 // 自定义UISlider的样式和滑块
-- (void)setupProgressSlider{
+- (void)setupProgressSlider
+{
     // 轨道图片
     UIImage *stetchLeftTrack = [UIImage imageNamed:@"LeftTrack"];
     UIImage *stetchRightTrack = [UIImage imageNamed:@"RightTrack"];
