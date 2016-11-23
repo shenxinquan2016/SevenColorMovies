@@ -43,10 +43,11 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 @property (nonatomic, strong) SCFilmIntroduceModel *filmIntroduceModel;/** 影片介绍model */
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
-@property (nonatomic,strong) SCArtsFilmsCollectionVC *needScrollToTopPage;
+@property (nonatomic, strong) SCArtsFilmsCollectionVC *needScrollToTopPage;
 @property (nonatomic, copy) NSString *movieType;
 @property (nonatomic, strong) HLJRequest *hljRequest;
 @property (nonatomic, strong) SCFilmSetModel *filmSetModel;/** 存储正在播放的剧集 */
+@property (nonatomic, assign) BOOL fullScreenLock;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;/** 功能区距顶部约束 */
 @property (weak, nonatomic) IBOutlet UIButton *addProgramListBtn;/** 添加节目单button */
 @property (weak, nonatomic) IBOutlet UIButton *addMyCollectionBtn;/** 添加收藏button */
@@ -60,6 +61,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     BOOL _isFullScreen;
     SCDSJDownloadView *_dsjdownloadView;
     SCArtsDownloadView *_artsDownloadView;
+    BOOL _isFullScreenLock;
 }
 
 #pragma mark - Initialize
@@ -801,53 +803,49 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
      UIDeviceOrientationLandscapeRight,      // Device oriented horizontally, home button on the left
      UIDeviceOrientationFaceUp,              // Device oriented flat, face up
      UIDeviceOrientationFaceDown             // Device oriented flat, face down   */
-    
-    switch (orient)
-    {
-        case UIDeviceOrientationPortrait: {
-            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
-            
-            break;
+    DONG_Log(@"_isFullScreen:%d",self.fullScreenLock);
+
+        switch (orient) {
+            case UIDeviceOrientationPortrait: {
+                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
+                break;
+            }
+                
+            case UIDeviceOrientationLandscapeLeft: {
+                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                self.view.frame = [[UIScreen mainScreen] bounds];
+                _IJKPlayerViewController.view.frame = self.view.bounds;
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+                _IJKPlayerViewController.isFullScreen = YES;
+                _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+                [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+                break;
+            }
+                
+            case UIDeviceOrientationPortraitUpsideDown: {
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+                _IJKPlayerViewController.isFullScreen = YES;
+                DONG_Log(@"fullLock:%d",_isFullScreen);
+            }
+                
+            case UIDeviceOrientationLandscapeRight: {
+                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                self.view.frame = [[UIScreen mainScreen] bounds];
+                _IJKPlayerViewController.view.frame = self.view.bounds;
+                _IJKPlayerViewController.isFullScreen = YES;
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+                _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+                [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+                break;
+            }
+            default:
+                break;
         }
-            
-        case UIDeviceOrientationLandscapeLeft: {
-            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            self.view.frame = [[UIScreen mainScreen] bounds];
-            _IJKPlayerViewController.view.frame = self.view.bounds;
-            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
-            _IJKPlayerViewController.isFullScreen = YES;
-            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
-            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
-            [self.view bringSubviewToFront:_IJKPlayerViewController.view];
-            
-            break;
-        }
-            
-        case UIDeviceOrientationPortraitUpsideDown: {
-            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
-            _IJKPlayerViewController.isFullScreen = YES;
-            
-            break;
-        }
-            
-        case UIDeviceOrientationLandscapeRight: {
-            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            self.view.frame = [[UIScreen mainScreen] bounds];
-            _IJKPlayerViewController.view.frame = self.view.bounds;
-            _IJKPlayerViewController.isFullScreen = YES;
-            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
-            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
-            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
-            [self.view bringSubviewToFront:_IJKPlayerViewController.view];
-            
-            break;
-        }
-        default:
-            break;
-    }
 }
 
 #pragma mark - IJK播放结束的通知
@@ -1451,6 +1449,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     filmName = strongself.filmModel.cnname;
                 }
                 strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+                    self.fullScreenLock = isFullScreenLock;
+                    [self shouldAutorotate];
+                };
                 
                 [CommonFunc dismiss];
                 
@@ -1483,6 +1485,15 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         return YES;//如果全屏，隐藏状态栏
     }
     return NO;
+}
+
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate {
+    if (self.fullScreenLock) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 @end

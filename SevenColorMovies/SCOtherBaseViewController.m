@@ -18,7 +18,7 @@
 
 
 #pragma mark- Initialize
-- (instancetype)initWithWithTitle:(NSString *)title{
+- (instancetype)initWithWithTitle:(NSString *)title {
     self = [super init];
     if (self) {
         __title = title;
@@ -78,7 +78,8 @@
     _leftBBI = titleLabel;
 }
 
-- (void)goBack{
+- (void)goBack {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 @end

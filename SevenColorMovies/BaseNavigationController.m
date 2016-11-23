@@ -44,7 +44,6 @@
     return self.viewControllers.count > 1 && ![[self valueForKey:@"_isTransitioning"] boolValue] && [gestureRecognizer translationInView:gestureRecognizer.view].x > 0;
 }
 
-
 //支持横竖屏显示
 - (BOOL)shouldAutorotate
 {

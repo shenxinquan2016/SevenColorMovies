@@ -22,6 +22,8 @@
 
 @interface IJKVideoPlayerVC ()
 
+@property (nonatomic, assign) BOOL isLockFullScreen;
+
 @end
 
 @implementation IJKVideoPlayerVC
@@ -29,7 +31,7 @@
 {
     UIInterfaceOrientation _lastOrientaion;
     SCVideoLoadingView *_loadView;
-    BOOL isLockFullScreen;
+    
 }
 
 #pragma mark- Initialize
@@ -202,20 +204,23 @@
 - (IBAction)onClickBack:(id)sender
 {
     //方案一时使用
-    if ( [PlayerViewRotate isOrientationLandscape]) {//如果正在全屏，先返回小屏
-        //do解锁
-        isLockFullScreen = NO;
+    self.isLockFullScreen = NO;
+    //如果正在全屏，先只返回小屏
+    if ( [PlayerViewRotate isOrientationLandscape]) {//全屏
+        //do解锁fullScreenLock 先回调block使播放器页面支持旋转
+        if (self.fullScreenLockBlock) {
+            self.fullScreenLockBlock(NO);
+        }
         [self.mediaControl.fullScreenLockButton setImage:[UIImage imageNamed:@"FullScreenUnlock"] forState:UIControlStateNormal];
-        
         
         self.isFullScreen = NO;
         [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
         _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
         //            [self prepareForSmallScreen];
         //使用通知到该控制器的父视图中更改该控制器的视图
-        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
         
-    }else{
+    } else {//小屏
         
         // 取出当前的导航控制器
         UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
@@ -229,7 +234,6 @@
         for (int i = 0; i < navController.viewControllers.count ; i++) {
             unsigned long index = navController.viewControllers.count - i;
             UIViewController* controller = navController.viewControllers[index-1];
-            
             
             if ([controller isKindOfClass:[SCMyProgramListVC class]]) {//我的节目单
                 
@@ -308,13 +312,20 @@
 - (IBAction)onClickFullScreenButton:(id)sender
 {
     //旋转方案一 系统方法旋转
-    if ([PlayerViewRotate isOrientationLandscape]) {
+    if ([PlayerViewRotate isOrientationLandscape]) {//全屏
+        self.isLockFullScreen = NO;
+        //do解锁fullScreenLock 先回调block使播放器页面支持旋转
+        if (self.fullScreenLockBlock) {
+            self.fullScreenLockBlock(NO);
+        }
+        [self.mediaControl.fullScreenLockButton setImage:[UIImage imageNamed:@"FullScreenUnlock"] forState:UIControlStateNormal];
+        
         self.isFullScreen = NO;
         [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
         _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
         //                    [self prepareForSmallScreen];
         //使用通知到该控制器的父视图中更改该控制器的视图
-        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
         
     }else {
         
@@ -323,7 +334,7 @@
         
         //            [self prepareForFullScreen];
         //使用通知到该控制器的父视图中更改该控制器的视图
-        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToFullScreen object:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToFullScreen object:nil];
     }
     
     //旋转方案二 自定义旋转90°
@@ -375,20 +386,24 @@
 /** 全屏锁定 */
 - (IBAction)fullScreenLock:(id)sender
 {
-    if (!isLockFullScreen) {
+    if (!self.isLockFullScreen) {
         //do锁定
-        isLockFullScreen = YES;
+        self.isLockFullScreen = YES;
         [self.mediaControl.fullScreenLockButton setImage:[UIImage imageNamed:@"FullScreenLock"] forState:UIControlStateNormal];
-        
         //♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫
+        if (self.fullScreenLockBlock) {
+            self.fullScreenLockBlock(YES);
+        }
+        
     } else {
         //do解锁
-        isLockFullScreen = NO;
+        self.isLockFullScreen = NO;
         [self.mediaControl.fullScreenLockButton setImage:[UIImage imageNamed:@"FullScreenUnlock"] forState:UIControlStateNormal];
-        
+        //♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫
+        if (self.fullScreenLockBlock) {
+            self.fullScreenLockBlock(NO);
+        }
     }
-    
-    
 }
 
 #pragma mark - IJK通知响应事件
@@ -538,7 +553,6 @@
     self.player.view.frame = self.view.bounds;
     self.mediaControl.frame = self.view.bounds;
 }
-
 
 
 

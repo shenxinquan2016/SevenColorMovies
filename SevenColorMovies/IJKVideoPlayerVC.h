@@ -10,14 +10,16 @@
 #import <IJKMediaFramework/IJKMediaFramework.h>
 @class IJKMediaControl;
 
+typedef void(^FullScreenLockBlock)(BOOL lock);
+
 @interface IJKVideoPlayerVC : UIViewController
 
-@property(atomic,strong) NSURL *url;
-@property(atomic, retain) id<IJKMediaPlayback> player;
+@property (atomic,strong) NSURL *url;
+@property (atomic, retain) id<IJKMediaPlayback> player;
 @property (nonatomic, assign) BOOL isFullScreen;//是否正处于全屏状态
+@property (nonatomic, copy) FullScreenLockBlock fullScreenLockBlock;
 
 - (id)initWithURL:(NSURL *)url;
-
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void(^)())completion;
 + (instancetype)initIJKPlayerWithURL:(NSURL *)url;
 -(void)closePlayer;/** 关闭播放器 */
@@ -27,8 +29,6 @@
 - (IBAction)onClickOverlay:(id)sender;/** 控制面板 */
 - (IBAction)onClickPlay:(id)sender;/** 播放&暂停 */
 - (IBAction)onClickFullScreenButton:(id)sender;/** 全屏 */
-
-
 
 - (IBAction)didSliderTouchDown:(id)sender;/** 进度条 */
 - (IBAction)didSliderTouchCancel:(id)sender;
