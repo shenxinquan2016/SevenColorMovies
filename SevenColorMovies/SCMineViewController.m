@@ -86,11 +86,11 @@
             NSDictionary *dict = [array objectAtIndex:indexPath.row];
 //            if (indexPath.section == 0) {
 //                SCMineTopCell *cell = [SCMineTopCell cellWithTableView:tableView];
-//                
 //                cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //                return cell;
 //                
 //            }else{
+            
                 SCMineOtherCell *cell = [SCMineOtherCell cellWithTableView:tableView];
                 [cell setModel:dict IndexPath:indexPath];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -155,8 +155,6 @@
         [settingVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:settingVC animated:YES];
     }
-    
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
