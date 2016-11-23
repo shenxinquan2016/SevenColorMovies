@@ -804,42 +804,47 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     switch (orient)
     {
-        case UIDeviceOrientationPortrait:
-            
+        case UIDeviceOrientationPortrait: {
             [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
             
             break;
-        case UIDeviceOrientationLandscapeLeft:
+        }
             
+        case UIDeviceOrientationLandscapeLeft: {
             [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+            _IJKPlayerViewController.isFullScreen = YES;
+            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+            [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+            
+            break;
+        }
+            
+        case UIDeviceOrientationPortraitUpsideDown: {
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+            _IJKPlayerViewController.isFullScreen = YES;
+            
+            break;
+        }
+            
+        case UIDeviceOrientationLandscapeRight: {
+            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+            self.view.frame = [[UIScreen mainScreen] bounds];
+            _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.isFullScreen = YES;
             _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
             _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
             _IJKPlayerViewController.mediaControl.frame = self.view.frame;
             [self.view bringSubviewToFront:_IJKPlayerViewController.view];
             
             break;
-        case UIDeviceOrientationPortraitUpsideDown:
-            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
-            break;
-        case UIDeviceOrientationLandscapeRight:
-            
-            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            
-            self.view.frame = [[UIScreen mainScreen] bounds];
-            _IJKPlayerViewController.view.frame = self.view.bounds;
-            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
-            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
-            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
-            [self.view bringSubviewToFront:_IJKPlayerViewController.view];
-            
-            break;
-            
+        }
         default:
             break;
     }
@@ -1283,7 +1288,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
             DONG_StrongSelf(self);
-//            NSLog(@"====responseObject======%@===",responseObject);
+            //            NSLog(@"====responseObject======%@===",responseObject);
             [strongself.filmsArr removeAllObjects];
             if (responseObject) {
                 
@@ -1392,7 +1397,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-                    DONG_Log(@"====responseObject:::%@===",responseObject);
+            DONG_Log(@"====responseObject:::%@===",responseObject);
             
             DONG_StrongSelf(self);
             //介绍页model

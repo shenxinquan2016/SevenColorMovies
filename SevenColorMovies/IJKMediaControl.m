@@ -65,7 +65,6 @@ typedef NS_ENUM(NSUInteger, Direction) {
     [_changeBrightnessAndVolumeToolView panDirection:pan];
 }
 
-
 // 自定义UISlider的样式和滑块
 - (void)setupProgressSlider
 {
@@ -140,7 +139,6 @@ typedef NS_ENUM(NSUInteger, Direction) {
         self.totalDurationLabel.text = @"--:--:--";
         self.progressSlider.maximumValue = 1.0f;
     }
-    
     
     // position
     NSTimeInterval position;

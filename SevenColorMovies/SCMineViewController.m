@@ -13,7 +13,8 @@
 #import "SCMyWatchingHistoryVC.h"
 #import "SCMyCollectionVC.h"
 #import "SCMyDownloadManagerVC.h"
-
+#import "SCMessageCenterVC.h"
+#import "SCSettingVC.h"
 
 @interface SCMineViewController ()
 
@@ -136,17 +137,23 @@
                 break;
         }
         
-    }else if (indexPath.section == 1){
+    } else if (indexPath.section == 1) {
         
         SCMyDownloadManagerVC *downloadManangerVC = [[SCMyDownloadManagerVC alloc] initWithWithTitle:@"下载管理"];
         [downloadManangerVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:downloadManangerVC animated:YES];
         
+    } else if (indexPath.section == 2) {
         
-    }else if (indexPath.section == 2){
+        SCMessageCenterVC *messageVC = [[SCMessageCenterVC alloc] initWithWithTitle:@"消息"];
+        [messageVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:messageVC animated:YES];
         
-    }else if (indexPath.section == 3){
+    } else if (indexPath.section == 3) {
         
+        SCSettingVC *settingVC = [[SCSettingVC alloc] initWithWithTitle:@"设置"];
+        [settingVC setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:settingVC animated:YES];
     }
     
     

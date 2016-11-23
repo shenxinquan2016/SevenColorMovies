@@ -28,10 +28,10 @@
 
 {
     UIInterfaceOrientation _lastOrientaion;
-    
     SCVideoLoadingView *_loadView;
-    
+    BOOL isLockFullScreen;
 }
+
 #pragma mark- Initialize
 
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void (^)())completion {
@@ -203,6 +203,11 @@
 {
     //方案一时使用
     if ( [PlayerViewRotate isOrientationLandscape]) {//如果正在全屏，先返回小屏
+        //do解锁
+        isLockFullScreen = NO;
+        [self.mediaControl.fullScreenLockButton setImage:[UIImage imageNamed:@"FullScreenUnlock"] forState:UIControlStateNormal];
+        
+        
         self.isFullScreen = NO;
         [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
         _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
@@ -370,13 +375,20 @@
 /** 全屏锁定 */
 - (IBAction)fullScreenLock:(id)sender
 {
-    if (self.isFullScreen) {
+    if (!isLockFullScreen) {
+        //do锁定
+        isLockFullScreen = YES;
         [self.mediaControl.fullScreenLockButton setImage:[UIImage imageNamed:@"FullScreenLock"] forState:UIControlStateNormal];
+        
+        //♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫♫
     } else {
+        //do解锁
+        isLockFullScreen = NO;
         [self.mediaControl.fullScreenLockButton setImage:[UIImage imageNamed:@"FullScreenUnlock"] forState:UIControlStateNormal];
+        
     }
     
-    DONG_NSLog(锁定屏幕);
+    
 }
 
 #pragma mark - IJK通知响应事件
