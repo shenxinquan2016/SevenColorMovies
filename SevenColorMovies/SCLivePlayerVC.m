@@ -32,13 +32,13 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 @property (nonatomic, copy) NSArray *liveProgramModelArray;/** 选中行所在页的数组 接收回调传值 */
 @property (nonatomic, strong) SCLiveProgramModel *liveModel;/** 接收所选中行的model 接收回调传值 */
 @property (nonatomic, strong) HLJRequest *hljRequest;/** 域名替换工具 */
+@property (nonatomic, assign) BOOL fullScreenLock;/** 是否全屏锁定 */
 
 @end
 
 @implementation SCLivePlayerVC
 
 {
-    BOOL _isFullScreen;
     NSString *programOnLiveName_;/* 临时保存直播节目的名称 */
 }
 
@@ -64,11 +64,8 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
-    //4.全屏/小屏通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullScreen) name:SwitchToFullScreen object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToSmallScreen) name:SwitchToSmallScreen object:nil];
-    //5.监听屏幕旋转
+
+    //3.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     //注册播放结束通知
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -412,53 +409,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     }
 }
 
-
 #pragma mark - 全屏/小屏切换
-- (void)switchToFullScreen {
-    // 方案一：系统旋转
-    [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-    
-    self.view.frame = [[UIScreen mainScreen] bounds];
-    _IJKPlayerViewController.view.frame = self.view.bounds;
-    _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
-    _IJKPlayerViewController.mediaControl.frame = self.view.frame;
-    
-    
-    // 方案二：自定义旋转90°进入全屏
-    //    [self setNeedsStatusBarAppearanceUpdate];
-    //
-    //    [UIView animateWithDuration:0.3 animations:^{
-    //
-    //        _IJKPlayerViewController.view.transform = CGAffineTransformRotate(self.view.transform, M_PI_2);
-    //        _IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-    //        _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
-    //        [self.view bringSubviewToFront:_IJKPlayerViewController.view];
-    //
-    //    }];
-    
-}
-
-- (void)switchToSmallScreen {
-    // 方案一：系统旋转
-    [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-    _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-    
-    
-    
-    // 方案二：自定义旋转90°进入全屏
-    //    [self setNeedsStatusBarAppearanceUpdate];
-    //
-    //    [UIView animateWithDuration:0.3 animations:^{
-    //
-    //    _IJKPlayerViewController.view.transform = CGAffineTransformIdentity;
-    //    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9/ 16);
-    //    _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9/ 16);
-    //
-    //    }];
-    
-}
-
 // 监听屏幕旋转后，更改frame
 - (void)orientChange:(NSNotification *)noti
 {
@@ -474,36 +425,52 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
      UIDeviceOrientationFaceUp,              // Device oriented flat, face up
      UIDeviceOrientationFaceDown             // Device oriented flat, face down   */
     
-    switch (orient)
-    {
+    switch (orient) {
         case UIDeviceOrientationPortrait:
-            
-            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            //此方向为正常竖屏方向，当锁定全屏设备旋转至此方向时，屏幕虽然不显示StatusBar，但会留出StatusBar位置，所以调整IJKPlayer的位置
+            if (self.fullScreenLock) {
+                _IJKPlayerViewController.isFullScreen = YES;
+                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                _IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+                DONG_Log(@"全屏锁定");
+                
+            } else {
+                
+                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
+            }
             
             break;
+            
         case UIDeviceOrientationLandscapeLeft:
-            
             [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.isFullScreen = YES;
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
             _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
             _IJKPlayerViewController.mediaControl.frame = self.view.frame;
             [self.view bringSubviewToFront:_IJKPlayerViewController.view];
              DONG_Log(@"全屏");
             break;
+            
         case UIDeviceOrientationPortraitUpsideDown:
-            
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+            _IJKPlayerViewController.isFullScreen = YES;
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+            DONG_Log(@"全屏");
             break;
+            
         case UIDeviceOrientationLandscapeRight:
-            
-            
             [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.isFullScreen = YES;
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
             _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
             _IJKPlayerViewController.mediaControl.frame = self.view.frame;
             [self.view bringSubviewToFront:_IJKPlayerViewController.view];
@@ -655,6 +622,15 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
+          
+            //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+            DONG_WeakSelf(self);
+            self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+                DONG_StrongSelf(self);
+                strongself.fullScreenLock = isFullScreenLock;
+                [strongself shouldAutorotate];
+            };
+
             [self.view addSubview:_IJKPlayerViewController.view];
             
             [CommonFunc dismiss];
@@ -712,6 +688,15 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
+        
+        //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+        DONG_WeakSelf(self);
+        self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+            DONG_StrongSelf(self);
+            strongself.fullScreenLock = isFullScreenLock;
+            [strongself shouldAutorotate];
+        };
+
         [self.view addSubview:self.IJKPlayerViewController.view];
         
         [CommonFunc dismiss];
@@ -722,6 +707,13 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
 }
 
-
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate {
+    if (self.fullScreenLock) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
 
 @end

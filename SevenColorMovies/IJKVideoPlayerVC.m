@@ -203,11 +203,10 @@
 /** 返回 */
 - (IBAction)onClickBack:(id)sender
 {
-    //方案一时使用
+    //如果正在全屏，先只返回小屏 返回小屏时需要旋转 如果此时处于全屏锁定状态，控制器不支持屏幕旋转，要先回调block使控制器支持屏幕旋转
     self.isLockFullScreen = NO;
-    //如果正在全屏，先只返回小屏
     if ( [PlayerViewRotate isOrientationLandscape]) {//全屏
-        //do解锁fullScreenLock 先回调block使播放器页面支持旋转
+        //解锁fullScreenLock 先回调block使控制器页面支持旋转
         if (self.fullScreenLockBlock) {
             self.fullScreenLockBlock(NO);
         }
@@ -216,9 +215,6 @@
         self.isFullScreen = NO;
         [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
         _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
-        //            [self prepareForSmallScreen];
-        //使用通知到该控制器的父视图中更改该控制器的视图
-//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
         
     } else {//小屏
         
@@ -274,22 +270,6 @@
         
         [navController popToRootViewControllerAnimated:YES];
     }
-    
-    //方案二时使用
-    
-    //    if (_isFullScreen || [PlayerViewRotate isOrientationLandscape]) {//如果正在全屏，先返回小屏
-    //
-    //        self.isFullScreen = NO;
-    //
-    //        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
-    //
-    //    }else{
-    //
-    //        if (self.doBackActionBlock) {
-    //            self.doBackActionBlock();
-    //        }
-    //    }
-    
 }
 
 /** 播放&暂停 */
@@ -311,10 +291,10 @@
 /** 全屏 */
 - (IBAction)onClickFullScreenButton:(id)sender
 {
-    //旋转方案一 系统方法旋转
+    //全屏锁定时控制器不支持屏幕旋转 如需旋转，要先使控制器支持屏幕旋转
     if ([PlayerViewRotate isOrientationLandscape]) {//全屏
         self.isLockFullScreen = NO;
-        //do解锁fullScreenLock 先回调block使播放器页面支持旋转
+        //解锁fullScreenLock 先回调block使控制器页面支持旋转
         if (self.fullScreenLockBlock) {
             self.fullScreenLockBlock(NO);
         }
@@ -323,40 +303,18 @@
         self.isFullScreen = NO;
         [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
         _lastOrientaion = [UIApplication sharedApplication].statusBarOrientation;
-        //                    [self prepareForSmallScreen];
-        //使用通知到该控制器的父视图中更改该控制器的视图
-//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
         
     }else {
         
         self.isFullScreen = YES;
         [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
-        
-        //            [self prepareForFullScreen];
-        //使用通知到该控制器的父视图中更改该控制器的视图
-//        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToFullScreen object:nil];
     }
-    
-    //旋转方案二 自定义旋转90°
-    //    if (!self.isFullScreen) {
-    //
-    //        self.isFullScreen = YES;
-    //        //使用通知到该控制器的父视图中更改该控制器的视图
-    //        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToFullScreen object:nil];
-    //
-    //    }else{
-    //
-    //        self.isFullScreen = NO;
-    //        //使用通知到该控制器的父视图中更改该控制器的视图
-    //        [[NSNotificationCenter defaultCenter] postNotificationName:SwitchToSmallScreen object:nil];
-    //    }
 }
 
 /** 进度条 */
 - (IBAction)didSliderTouchDown:(id)sender
 {
     [self.mediaControl beginDragMediaSlider];
-    
 }
 
 - (IBAction)didSliderTouchCancel:(id)sender
@@ -386,6 +344,7 @@
 /** 全屏锁定 */
 - (IBAction)fullScreenLock:(id)sender
 {
+    //通过block回调，通知父视图支持旋转与否来实现锁定全屏的功能
     if (!self.isLockFullScreen) {
         //do锁定
         self.isLockFullScreen = YES;
