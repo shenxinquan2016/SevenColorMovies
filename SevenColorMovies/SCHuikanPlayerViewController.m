@@ -10,6 +10,7 @@
 #import "IJKVideoPlayerVC.h"
 #import "SCLiveProgramModel.h"
 #import "SCFilmModel.h"
+#import "PlayerViewRotate.h"//横竖屏强制转换
 
 @interface SCHuikanPlayerViewController ()
 
@@ -18,11 +19,10 @@
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
 @property (nonatomic, strong) HLJRequest *hljRequest;/** 域名替换工具 */
 @property (nonatomic, strong) NSURL *url;
-
+@property (nonatomic, assign) BOOL isProhibitRotate;
 @end
 
 @implementation SCHuikanPlayerViewController
-
 
 #pragma mark - Initialize
 // 由我的节目单进入
@@ -85,10 +85,10 @@
         [player.view bringSubviewToFront:player.IJKPlayerViewController.view];
         
     }];
-
+    
     return player;
     
-   
+    
 }
 
 
@@ -101,14 +101,18 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    //1.监听屏幕旋转
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    //注销所有通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -122,6 +126,77 @@
 
 -(void)dealloc{
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
+}
+
+#pragma mark - 屏幕旋转的监听
+- (void)orientChange:(NSNotification *)noti
+{
+    //NSDictionary* ntfDict = [noti userInfo];
+    
+    UIDeviceOrientation  orient = [UIDevice currentDevice].orientation;
+    /*
+     UIDeviceOrientationUnknown,
+     UIDeviceOrientationPortrait,            // Device oriented vertically, home button on the bottom
+     UIDeviceOrientationPortraitUpsideDown,  // Device oriented vertically, home button on the top
+     UIDeviceOrientationLandscapeLeft,       // Device oriented horizontally, home button on the right
+     UIDeviceOrientationLandscapeRight,      // Device oriented horizontally, home button on the left
+     UIDeviceOrientationFaceUp,              // Device oriented flat, face up
+     UIDeviceOrientationFaceDown             // Device oriented flat, face down   */
+    
+    switch (orient) {
+        case UIDeviceOrientationPortrait: {
+            //此方向为正常竖屏方向，当禁止旋转下设备旋转至此方向时，屏幕虽然不显示StatusBar，但会留出StatusBar位置，所以调整IJKPlayer的位置
+            if (_isProhibitRotate) {
+                self.view.frame = [[UIScreen mainScreen] bounds];
+                _IJKPlayerViewController.view.frame = self.view.bounds;
+                _IJKPlayerViewController.isFullScreen = YES;
+                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                _IJKPlayerViewController.mediaControl.frame = self.view.bounds;
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
+                
+            } else {
+                
+                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
+            }
+            break;
+        }
+            
+        case UIDeviceOrientationLandscapeLeft: {
+            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+            self.view.frame = [[UIScreen mainScreen] bounds];
+            _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
+            _IJKPlayerViewController.isFullScreen = YES;
+            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+            [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+            break;
+        }
+            
+        case UIDeviceOrientationPortraitUpsideDown: {
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
+            _IJKPlayerViewController.isFullScreen = YES;
+            
+        }
+            
+        case UIDeviceOrientationLandscapeRight: {
+            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+            self.view.frame = [[UIScreen mainScreen] bounds];
+            _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.isFullScreen = YES;
+            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
+            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+            [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+            break;
+        }
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - private method
@@ -177,22 +252,6 @@
                     [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
                     
                 }];
-                
-                //    //设置statusBar
-                //    [[UIApplication sharedApplication] setStatusBarOrientation:orientation];
-                //    //计算旋转角度
-                //    float arch;
-                //    if (orientation == UIInterfaceOrientationLandscapeLeft)  {
-                //        rch = -M_PI_2;
-                //    }  else if (orientation == UIInterfaceOrientationLandscapeRight) {
-                //        arch = M_PI_2;
-                //    } else {
-                //        arch = 0;
-                //    }
-                //    //对navigationController.view 进行强制旋转
-                //    self.navigationController.view.transform = CGAffineTransformMakeRotation(arch);
-                //    self.navigationController.view.bounds = UIInterfaceOrientationIsLandscape(orientation) ? CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH) : initialBounds;
-                //
                 
                 // 名称
                 NSString *filmName;
@@ -256,18 +315,44 @@
                     strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                     [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
                     strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    strongself.IJKPlayerViewController.isSinglePlayerView = YES;
                     strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+                    
+                    weakself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
+                        _isProhibitRotate = isProhibitRotate;
+                        [strongself shouldAutorotate];
+                    };
+                    
                     [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                     
-                    //进入全屏模式
-                    [UIView animateWithDuration:0.2 animations:^{
-                        
-                        strongself.IJKPlayerViewController.view.transform = CGAffineTransformRotate(strongself.view.transform, M_PI_2);
-                        strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-                        strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
-                        [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
-                        
-                    }];
+                    strongself.IJKPlayerViewController.isFullScreen = YES;
+                    [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+                    strongself.isProhibitRotate = YES;
+                    [strongself shouldAutorotate];
+
+                    //同时旋转statusBar和navigation才能旋转彻底(使系统视图(音量图标)一起旋转) 但是返回时有问题😅😅😅😅转不回来了
+                    //                    UIInterfaceOrientation orientation = UIInterfaceOrientationLandscapeRight;
+                    //                    [[UIApplication sharedApplication] setStatusBarOrientation:orientation];
+                    //                    //计算旋转角度
+                    //                    float arch;
+                    //                    if (orientation == UIInterfaceOrientationLandscapeLeft)  {
+                    //                        arch = -M_PI_2;
+                    //                    }  else if (orientation == UIInterfaceOrientationLandscapeRight) {
+                    //                        arch = M_PI_2;
+                    //                    } else {
+                    //                        arch = 0;
+                    //                    }
+                    //
+                    //                    [UIView animateWithDuration:0.2 animations:^{
+                    //
+                    //                    //对navigationController.view 进行强制旋转
+                    //                    strongself.navigationController.view.transform = CGAffineTransformMakeRotation(arch);
+                    //                    strongself.navigationController.view.bounds = UIInterfaceOrientationIsLandscape(orientation) ? CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight) : CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
+                    //                    strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+                    //                    strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
+                    //
+                    //                    }];
+                    
                     
                     // 名称
                     NSString *filmName;
@@ -439,7 +524,11 @@
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{
-    return NO;
+    if (_isProhibitRotate) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 

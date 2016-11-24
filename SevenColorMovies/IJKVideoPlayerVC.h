@@ -11,13 +11,16 @@
 @class IJKMediaControl;
 
 typedef void(^FullScreenLockBlock)(BOOL lock);
+typedef void(^WhetherToSupportRotationBlock)(BOOL lock);
 
 @interface IJKVideoPlayerVC : UIViewController
 
 @property (atomic,strong) NSURL *url;
 @property (atomic, retain) id<IJKMediaPlayback> player;
 @property (nonatomic, assign) BOOL isFullScreen;//是否正处于全屏状态
-@property (nonatomic, copy) FullScreenLockBlock fullScreenLockBlock;
+@property (nonatomic, copy) FullScreenLockBlock fullScreenLockBlock;//全屏锁定的回调
+@property (nonatomic, copy) WhetherToSupportRotationBlock supportRotationBlock;//改变父视图是否支持旋转的回调
+@property (nonatomic, assign) BOOL isSinglePlayerView;
 
 - (id)initWithURL:(NSURL *)url;
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void(^)())completion;
