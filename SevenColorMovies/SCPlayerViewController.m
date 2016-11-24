@@ -805,14 +805,22 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     switch (orient) {
         case UIDeviceOrientationPortrait: {
-            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
+           //此方向为正常竖屏方向，当锁定全屏设备旋转至此方向时，屏幕虽然不显示StatusBar，但会留出StatusBar位置，所以调整IJKPlayer的位置
             if (self.fullScreenLock) {
                 _IJKPlayerViewController.isFullScreen = YES;
-                 [self setNeedsStatusBarAppearanceUpdate];
+                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                _IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
+
+            } else {
+                
+                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
             }
+            
             break;
         }
             
