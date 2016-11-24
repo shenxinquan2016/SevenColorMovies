@@ -88,30 +88,13 @@
 
     return player;
     
-//    //设置statusBar
-//    [[UIApplication sharedApplication] setStatusBarOrientation:orientation];
-//    //计算旋转角度
-//    float arch;
-//    if (orientation == UIInterfaceOrientationLandscapeLeft)  {
-//        rch = -M_PI_2;
-//    }  else if (orientation == UIInterfaceOrientationLandscapeRight) {
-//        arch = M_PI_2;
-//    } else {
-//        arch = 0;
-//    }
-//    //对navigationController.view 进行强制旋转
-//    self.navigationController.view.transform = CGAffineTransformMakeRotation(arch);
-//    self.navigationController.view.bounds = UIInterfaceOrientationIsLandscape(orientation) ? CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH) : initialBounds;
-//    
+   
 }
-
-
 
 
 #pragma mark -  ViewLife Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     
 }
 
@@ -194,6 +177,22 @@
                     [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
                     
                 }];
+                
+                //    //设置statusBar
+                //    [[UIApplication sharedApplication] setStatusBarOrientation:orientation];
+                //    //计算旋转角度
+                //    float arch;
+                //    if (orientation == UIInterfaceOrientationLandscapeLeft)  {
+                //        rch = -M_PI_2;
+                //    }  else if (orientation == UIInterfaceOrientationLandscapeRight) {
+                //        arch = M_PI_2;
+                //    } else {
+                //        arch = 0;
+                //    }
+                //    //对navigationController.view 进行强制旋转
+                //    self.navigationController.view.transform = CGAffineTransformMakeRotation(arch);
+                //    self.navigationController.view.bounds = UIInterfaceOrientationIsLandscape(orientation) ? CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH) : initialBounds;
+                //
                 
                 // 名称
                 NSString *filmName;
@@ -436,8 +435,8 @@
         
         [CommonFunc dismiss];
     }];
-    
 }
+
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{
     return NO;
