@@ -18,6 +18,7 @@
 #import "SCLiveViewController.h"
 #import "SCMyCollectionVC.h"
 #import "SCMyDownloadManagerVC.h"
+#import "AppDelegate.h"
 
 @interface IJKVideoPlayerVC ()
 
@@ -208,7 +209,7 @@
         if (self.supportRotationBlock) {
             self.supportRotationBlock(NO);
         }
-        
+
         self.isFullScreen = NO;
         [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
         
@@ -237,7 +238,12 @@
                 [navController popToViewController:controller animated:YES];
                 return;
                 
+            }else if ([controller isKindOfClass:[SCSearchViewController class]]){//搜索控制器
+                
+                [navController popToViewController:controller animated:YES];
+                return;
             }
+
         }
         
     } else {
@@ -553,7 +559,6 @@
     self.player.view.frame = self.view.bounds;
     self.mediaControl.frame = self.view.bounds;
 }
-
 
 
 @end

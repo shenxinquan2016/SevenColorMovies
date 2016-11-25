@@ -43,6 +43,20 @@
     return YES;
 }
 
+////禁用横屏
+//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+//{
+//    if (self.lanscape == YES) {
+////                return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskPortrait;
+//        return UIInterfaceOrientationMaskLandscapeRight;
+//        
+//    }
+//    else
+//    {
+//        return UIInterfaceOrientationMaskPortrait;
+//    }
+//}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     
     //    libagent_close();

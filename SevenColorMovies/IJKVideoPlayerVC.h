@@ -21,6 +21,7 @@ typedef void(^WhetherToSupportRotationBlock)(BOOL lock);
 @property (nonatomic, copy) FullScreenLockBlock fullScreenLockBlock;//全屏锁定的回调
 @property (nonatomic, copy) WhetherToSupportRotationBlock supportRotationBlock;//改变父视图是否支持旋转的回调
 @property (nonatomic, assign) BOOL isSinglePlayerView;
+@property (strong, nonatomic) IBOutlet IJKMediaControl *mediaControl;
 
 - (id)initWithURL:(NSURL *)url;
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void(^)())completion;
@@ -38,9 +39,6 @@ typedef void(^WhetherToSupportRotationBlock)(BOOL lock);
 - (IBAction)didSliderTouchUpOutside:(id)sender;
 - (IBAction)didSliderTouchUpInside:(id)sender;
 - (IBAction)didSliderValueChanged:(id)sender;
-
-
-@property (strong, nonatomic) IBOutlet IJKMediaControl *mediaControl;
 
 
 

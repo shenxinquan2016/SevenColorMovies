@@ -11,7 +11,7 @@
 #import "SCLiveProgramModel.h"
 #import "SCFilmModel.h"
 #import "PlayerViewRotate.h"//横竖屏强制转换
-
+#import "AppDelegate.h"
 @interface SCHuikanPlayerViewController ()
 
 @property (nonatomic, strong) SCLiveProgramModel *programModel;
@@ -20,6 +20,7 @@
 @property (nonatomic, strong) HLJRequest *hljRequest;/** 域名替换工具 */
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, assign) BOOL isProhibitRotate;
+
 @end
 
 @implementation SCHuikanPlayerViewController
@@ -95,7 +96,6 @@
 #pragma mark -  ViewLife Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -118,13 +118,14 @@
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
--(void)dealloc{
+-(void)dealloc {
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
 }
 
@@ -223,6 +224,9 @@
         
         if (filmModel.filmSetModel) {// 电视剧 系列影片通道
             
+            //睡一会以解决屏幕旋转时的bug
+            [NSThread sleepForTimeInterval:.5f];
+            
             //请求播放地址
             [requestDataManager requestDataWithUrl:filmModel.filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                 DONG_StrongSelf(self);
@@ -236,22 +240,29 @@
                 //1.拼接新地址
                 NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                 strongself.url = [NSURL URLWithString:playUrl];
+                
                 //2.调用播放器播放
                 strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                 [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-                strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                //strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                strongself.IJKPlayerViewController.isSinglePlayerView = YES;
                 strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+
                 
-                //进入全屏模式
-                [UIView animateWithDuration:0.2 animations:^{
-                    
-                    strongself.IJKPlayerViewController.view.transform = CGAffineTransformRotate(strongself.view.transform, M_PI_2);
-                    strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-                    strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
-                    [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
-                    
-                }];
+
+                //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+                strongself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
+                    DONG_StrongSelf(self);
+                    strongself.isProhibitRotate = isProhibitRotate;
+                    [strongself shouldAutorotate];
+                };
+                
+                //4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
+                [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+                strongself.IJKPlayerViewController.isFullScreen = YES;
+                strongself.isProhibitRotate = YES;
+                [strongself shouldAutorotate];
                 
                 // 名称
                 NSString *filmName;
@@ -311,6 +322,7 @@
                     //1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                     strongself.url = [NSURL URLWithString:playUrl];
+                    
                     //2.调用播放器播放
                     strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                     [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
@@ -318,18 +330,20 @@
                     strongself.IJKPlayerViewController.isSinglePlayerView = YES;
                     strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
                     
-                    weakself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
-                        _isProhibitRotate = isProhibitRotate;
+                    //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+                    strongself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
+                        DONG_StrongSelf(self);
+                        strongself.isProhibitRotate = isProhibitRotate;
                         [strongself shouldAutorotate];
                     };
                     
-                    [strongself.view addSubview:strongself.IJKPlayerViewController.view];
-                    
+                    //4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
                     strongself.IJKPlayerViewController.isFullScreen = YES;
                     [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
                     strongself.isProhibitRotate = YES;
                     [strongself shouldAutorotate];
 
+                    [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                     //同时旋转statusBar和navigation才能旋转彻底(使系统视图(音量图标)一起旋转) 但是返回时有问题😅😅😅😅转不回来了
                     //                    UIInterfaceOrientation orientation = UIInterfaceOrientationLandscapeRight;
                     //                    [[UIApplication sharedApplication] setStatusBarOrientation:orientation];
@@ -414,22 +428,29 @@
                 strongself.url = [NSURL URLWithString:playUrl];
                 //            strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
                 DONG_Log(@"====url:::%@===",strongself.url);
+                
                 //2.调用播放器播放
                 strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                 [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+                strongself.IJKPlayerViewController.isSinglePlayerView = YES;
+
+                //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+                weakself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
+                    DONG_StrongSelf(self);
+                    strongself.isProhibitRotate = isProhibitRotate;
+                    [strongself shouldAutorotate];
+                };
+                
+                //4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
+                strongself.IJKPlayerViewController.isFullScreen = YES;
+                [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+                strongself.isProhibitRotate = YES;
+                [strongself shouldAutorotate];
+                
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                 
-                //进入全屏模式
-                [UIView animateWithDuration:0.2 animations:^{
-                    
-                    strongself.IJKPlayerViewController.view.transform = CGAffineTransformRotate(strongself.view.transform, M_PI_2);
-                    strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-                    strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
-                    [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
-                    
-                }];
                 
                 // 名称
                 NSString *filmName;
@@ -482,6 +503,9 @@
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
         
+        //睡一会以解决屏幕旋转时的bug
+        [NSThread sleepForTimeInterval:.5f];
+
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
             //                     NSLog(@"====responseObject:::%@===",responseObject);
             DONG_StrongSelf(self);
@@ -492,23 +516,29 @@
             DONG_Log(@"playUrl：%@ ",playUrl);
             //strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
             strongself.url= [NSURL URLWithString:playUrl];
+            
             //2.调用播放器播放
             strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
             [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
             strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.programModel.program;
             strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
-            [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+            strongself.IJKPlayerViewController.isSinglePlayerView = YES;
+
+            //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+            weakself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
+                DONG_StrongSelf(self);
+                strongself.isProhibitRotate = isProhibitRotate;
+                [strongself shouldAutorotate];
+            };
             
-            //进入全屏模式
-            [UIView animateWithDuration:0.2 animations:^{
-                
-                strongself.IJKPlayerViewController.view.transform = CGAffineTransformRotate(strongself.view.transform, M_PI_2);
-                strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-                strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
-                [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
-                
-            }];
+            //4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
+            strongself.IJKPlayerViewController.isFullScreen = YES;
+            [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+            strongself.isProhibitRotate = YES;
+            [strongself shouldAutorotate];
+            
+            [strongself.view addSubview:strongself.IJKPlayerViewController.view];
             
             [CommonFunc dismiss];
         } failure:^(id  _Nullable errorObject) {
@@ -523,13 +553,15 @@
 }
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
-    if (_isProhibitRotate) {
+- (BOOL)shouldAutorotate {
+    DONG_Log(@"(self.isProhibitRotate:%d",self.isProhibitRotate);
+    if (self.isProhibitRotate) {
         return NO;
     } else {
         return YES;
     }
 }
+
 
 
 @end
