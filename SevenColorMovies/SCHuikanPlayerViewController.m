@@ -69,11 +69,14 @@
     SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
     NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
     NSString *name = [[filePath componentsSeparatedByString:@"/"] lastObject];
+    
     //2.调用播放器播放
     player.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:filePathUrl];
     [player.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
     player.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     player.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+    player.IJKPlayerViewController.isSinglePlayerView = YES;
+
     player.IJKPlayerViewController.mediaControl.programNameLabel.text = name;//节目名称
     [player.view addSubview:player.IJKPlayerViewController.view];
     
@@ -87,11 +90,28 @@
         
     }];
     
+    //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+//    DONG_WeakSelf(player);
+//    player.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
+//        
+//        weakplayer.isProhibitRotate = isProhibitRotate;
+//        [weakplayer shouldAutorotate];
+//    };
+//    
+//    //4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
+//    [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+//    player.IJKPlayerViewController.isFullScreen = YES;
+//    player.isProhibitRotate = YES;
+//    [player shouldAutorotate];
+    
     return player;
     
     
 }
 
+- (void)setIJKPlayer:(NSString *)filePath {
+    
+}
 
 #pragma mark -  ViewLife Cycle
 - (void)viewDidLoad {
@@ -101,7 +121,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     //1.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
@@ -110,7 +130,7 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     //注销所有通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

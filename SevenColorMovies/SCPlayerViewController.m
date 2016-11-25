@@ -323,6 +323,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                     //1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                    //NSString *str = @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4";
                     
                     // 利用ZFDownloadManager下载
                     [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
