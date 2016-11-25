@@ -305,6 +305,9 @@
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 //        DONG_Log(@"====responseObject:::%@===",responseObject);
                 
+                //睡一会以解决屏幕旋转时的bug
+                [NSThread sleepForTimeInterval:.1f];
+                
                 DONG_StrongSelf(self);
                 // 坑：：单片不同film竟然数据结构不同 服了！
                 //downloadUrl
