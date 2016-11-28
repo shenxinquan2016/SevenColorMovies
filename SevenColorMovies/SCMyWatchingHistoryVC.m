@@ -39,9 +39,6 @@
         [_dataArray addObject:filmModel];
     }
     
-    
-    
-    
     // 3.初始化
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
@@ -326,4 +323,5 @@
 - (BOOL)shouldAutorotate {
     return NO;
 }
+
 @end

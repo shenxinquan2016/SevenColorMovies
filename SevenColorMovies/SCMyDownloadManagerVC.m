@@ -9,7 +9,6 @@
 #import "SCMyDownloadManagerVC.h"
 #import "SCMyDownLoadManagerCell.h"//正在下载cell
 #import "SCDownloadedCell.h"//下载完成时的cell
-
 #import "SCFilmModel.h"
 #import "Dong_DownloadManager.h"//下载器
 #import "Dong_DownloadModel.h"//下载数据模型
@@ -697,7 +696,6 @@ BOOL isLoading = NO;
 - (void)setIsCanRotate:(BOOL)isCanRotate {
     _isCanRotate = isCanRotate;
     [self shouldAutorotate];
-    
 }
 
 @end

@@ -65,6 +65,18 @@
 // 获取channel logo接口
 #define GetChannelLogoUrl @"http://10.177.1.236:9000/b2b/livetv/service.php?ctype=11&oemid=30050"
 
+/******************************************我的接口*******************************************/
+// 添加观看历史记录
+#define AddWatchHistory @"http://10.177.1.236:8080/b2b/resume?ctype=2&spid=20151103&epgid=909191&uid=0&totalsid=999&&version=3.0";
+// 查看观看历史记录
+#define GetWatchHistory @"http://10.177.1.236:8080/b2b/resume?ctype=3&spid=20151103&epgid=909191&uid=0&orderby=1&version=3.0&pagesize=1000";
+// 删除观看历史记录
+#define DeleteWatchHistory @"http://10.177.1.236:8080/b2b/resume?ctype=4&spid=20151103&epgid=909191&uid=0&&ip=&&version=3.0";
+// 删除全部历史记录
+#define DeleteAllWatchHistory @"http://10.177.1.236:8080/b2b/resume?ctype=4&spid=20151103&epgid=909191&uid=0&version=3.0";
+// 查看观看时间
+#define GetTimeHaveWatched @"http://interface.voole.com/b2b/resume/service.php?ctype=1&spid=20151103&epgid=909191&uid=0&detailurl=";
+
 
 
 
