@@ -10,6 +10,7 @@
 #import "SCMyCollectionCell.h"
 #import "SCFilmModel.h"
 #import "SCHuikanPlayerViewController.h"
+#import "PlayerViewRotate.h"//强制旋转
 
 @interface SCMyCollectionVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -369,7 +370,7 @@
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate {
-    return NO;
+        return NO;
 }
 
 @end

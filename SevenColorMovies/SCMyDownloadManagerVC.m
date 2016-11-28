@@ -34,7 +34,7 @@
 @property (atomic, strong) NSMutableArray *downloadObjectArr;
 @property (nonatomic, strong) NSMutableArray *downloadingTempArray;;/** 保存临时选择的要删除的正在下载的model */
 @property (nonatomic, strong) NSMutableArray *downloadedTempArray;;/** 保存临时选择的要删除的完成下载的model */
-@property (nonatomic, assign) BOOL isCanRotate;
+@property (nonatomic, assign) BOOL isCanRotate;//控制是否支持旋转
 
 
 @end
@@ -70,9 +70,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    self.isCanRotate = NO;
     // 更新数据源
     [self initData];
-    self.isCanRotate = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

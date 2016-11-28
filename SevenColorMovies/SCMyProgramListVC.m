@@ -11,6 +11,7 @@
 #import "SCFilmModel.h"
 #import "SCHuikanPlayerViewController.h"
 #import <Realm/Realm.h>//数据库
+#import "PlayerViewRotate.h"//强制旋转
 
 @interface SCMyProgramListVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -22,6 +23,7 @@
 @property (nonatomic, assign) BOOL isEditing;/** 标记是否正在编辑 */
 @property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;/** 标记是否被全部选中 */
 @property (nonatomic, strong) NSMutableArray *tempArray;/** 保存临时选择的要删除的filmModel */
+
 
 @end
 
@@ -66,11 +68,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    //注销所有通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
 
@@ -354,8 +358,12 @@
     }
 }
 
+
+
+
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate {
     return NO;
 }
+
 @end
