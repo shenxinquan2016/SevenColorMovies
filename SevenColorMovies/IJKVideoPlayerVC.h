@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <IJKMediaFramework/IJKMediaFramework.h>
+
 @class IJKMediaControl;
 
 typedef void(^FullScreenLockBlock)(BOOL lock);

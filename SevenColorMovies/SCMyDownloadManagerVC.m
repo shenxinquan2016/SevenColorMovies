@@ -15,6 +15,8 @@
 #import "Dong_DownloadModel.h"//下载数据模型
 #import "ZFDownloadManager.h"//第三方下载工具
 #import "SCHuikanPlayerViewController.h"
+#import "PlayerViewRotate.h"//强制旋转
+
 
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
@@ -32,6 +34,9 @@
 @property (atomic, strong) NSMutableArray *downloadObjectArr;
 @property (nonatomic, strong) NSMutableArray *downloadingTempArray;;/** 保存临时选择的要删除的正在下载的model */
 @property (nonatomic, strong) NSMutableArray *downloadedTempArray;;/** 保存临时选择的要删除的完成下载的model */
+@property (nonatomic, assign) BOOL isCanRotate;
+
+
 @end
 
 @implementation SCMyDownloadManagerVC
@@ -67,6 +72,7 @@
     [super viewWillAppear:YES];
     // 更新数据源
     [self initData];
+    self.isCanRotate = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -175,7 +181,7 @@
                 [realm deleteObject:filmSetModel];
             }];
         }
-
+        
     }];
     
     [_downloadingTempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -207,7 +213,7 @@
                 [realm deleteObject:filmSetModel];
             }];
         }
-
+        
     }];
     //2.把view相应的cell删掉
     [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
@@ -470,7 +476,7 @@ BOOL isLoading = NO;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{    
+{
     if (indexPath.section == 0) {
         SCDownloadedCell *cell = [SCDownloadedCell cellWithTableView:tableView];
         ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
@@ -542,7 +548,7 @@ BOOL isLoading = NO;
         RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
         //使用 NSPredicate 查询
         NSPredicate *pred1 = [NSPredicate predicateWithFormat:
-                             @"_ContentSetName = %@",fileInfo.fileName];
+                              @"_ContentSetName = %@",fileInfo.fileName];
         NSPredicate *pred2 = [NSPredicate predicateWithFormat:
                               @"FilmName = %@",fileInfo.fileName];
         RLMResults *filmSetModelResults = [SCFilmSetModel objectsInRealm:realm withPredicate:pred1];
@@ -636,6 +642,10 @@ BOOL isLoading = NO;
             if ([FileManageCommon IsFileExists:FILE_PATH(fileInfo.fileName)]) {
                 DONG_Log(@"FileManageCommon路径存在");
                 SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithFilePath:FILE_PATH(fileInfo.fileName)];
+                self.isCanRotate = YES;
+                //强制旋转
+                [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+
                 [self.navigationController pushViewController:playerVC animated:YES];
             } else {
                 [MBProgressHUD showSuccess:@"文件不存在"];
@@ -676,7 +686,18 @@ BOOL isLoading = NO;
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate {
-    return NO;
+    DONG_Log(@"(self.isProhibitRotate:%d",self.isCanRotate);
+    if (self.isCanRotate) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)setIsCanRotate:(BOOL)isCanRotate {
+    _isCanRotate = isCanRotate;
+    [self shouldAutorotate];
+    
 }
 
 @end
