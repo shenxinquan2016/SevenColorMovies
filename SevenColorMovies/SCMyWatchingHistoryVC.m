@@ -352,7 +352,6 @@
             [self setTableView];
             // 4.3 全选/删除
             [self setBottomBtnView];
-            
         } else {
             [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
         }
@@ -361,8 +360,6 @@
     }failure:^(id  _Nullable errorObject) {
         [CommonFunc dismiss];
     }];
-    
-    
 }
 
 

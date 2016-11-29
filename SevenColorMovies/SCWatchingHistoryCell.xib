@@ -51,7 +51,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第16集" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45r-aP-Wkn">
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="Nmz-FC-O89"/>
-                            <constraint firstAttribute="width" constant="64" id="cc1-LQ-Yr5"/>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="64" id="cc1-LQ-Yr5"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
