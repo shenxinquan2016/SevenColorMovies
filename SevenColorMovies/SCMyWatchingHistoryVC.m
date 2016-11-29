@@ -31,24 +31,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
     
-    // 3.初始化
+    // 1.初始化
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
-    // 4.加载分视图
-    // 4.1 编辑按钮
+    
+    // 2. 编辑按钮
     [self addRightBBI];
     
-    
+    // 3. 获取数据 添加视图
     [self getMyWatchHistoryRecord];
-    
-    
-    
-    
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -149,7 +145,7 @@
 }
 
 - (void)setTableView{
-    _listView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    _listView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64) style:UITableViewStylePlain];
     _listView.delegate = self;
     _listView.dataSource = self;
     _listView.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
@@ -328,15 +324,12 @@
                                  @"page"     : page
                                  };
     
-    
-    //请求film详细信息
     //    self.hljRequest = [HLJRequest requestWithPlayVideoURL:GetWatchHistory];
     //    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
     //
     //    } failure:^(id  _Nullable errorObject) {
     //        [CommonFunc dismiss];
     //    }];
-    
     
     //请求播放地址
     [requestDataManager requestDataWithUrl:GetWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
@@ -364,8 +357,6 @@
             [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
         }
         
-        
-        DONG_Log(@"获取观看记录成功:%@", responseObject);
         [CommonFunc dismiss];
     }failure:^(id  _Nullable errorObject) {
         [CommonFunc dismiss];
@@ -373,8 +364,6 @@
     
     
 }
-
-
 
 
 
