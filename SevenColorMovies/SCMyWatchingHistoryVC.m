@@ -341,31 +341,29 @@
     //请求播放地址
     [requestDataManager requestDataWithUrl:GetWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
         
-        NSDictionary *dic = responseObject[@"contentlist"];
-        if (dic) {
-            if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSDictionary class]]) {
-                
-                SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:responseObject[@"contentlist"][@"content"]];
-                [_dataArray addObject:watchHistoryModel];
-                
-            } else if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSArray class]]) {
-                
-                NSArray *contentArray = responseObject[@"contentlist"][@"content"];
-                for (NSDictionary *dic in contentArray) {
-                    SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:dic];
-                    [_dataArray addObject:watchHistoryModel];
-                }
-            }
+        if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSDictionary class]]) {
             
-            if (_dataArray.count) {
-                [self setTableView];
-                // 4.3 全选/删除
-                [self setBottomBtnView];
-                
-            } else {
-                [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
+            SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:responseObject[@"contentlist"][@"content"]];
+            [_dataArray addObject:watchHistoryModel];
+            
+        } else if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSArray class]]) {
+            
+            NSArray *contentArray = responseObject[@"contentlist"][@"content"];
+            for (NSDictionary *dic in contentArray) {
+                SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:dic];
+                [_dataArray addObject:watchHistoryModel];
             }
         }
+        
+        if (_dataArray.count) {
+            [self setTableView];
+            // 4.3 全选/删除
+            [self setBottomBtnView];
+            
+        } else {
+            [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
+        }
+        
         
         DONG_Log(@"获取观看记录成功:%@", responseObject);
         [CommonFunc dismiss];
