@@ -1487,7 +1487,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            DONG_Log(@"====responseObject:::%@===",responseObject);
+//            DONG_Log(@"====responseObject:::%@===",responseObject);
             
             DONG_StrongSelf(self);
             //介绍页model

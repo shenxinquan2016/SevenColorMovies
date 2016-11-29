@@ -53,7 +53,7 @@
 }
 
 #pragma mark - Private Method
-//全选 || 删除 按钮视图
+//添加 全选 || 删除 按钮视图
 - (void)setBottomBtnView{
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, 60)];
     bottomView.backgroundColor = [UIColor whiteColor];
@@ -89,7 +89,7 @@
     UIButton *deleteAllBtn = [[UIButton alloc] init];
     [deleteAllBtn setTitle:@"删除" forState:UIControlStateNormal];
     deleteAllBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
-    [deleteAllBtn addTarget:self action:@selector(deleteAll) forControlEvents:UIControlEventTouchUpInside];
+    [deleteAllBtn addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
     [deleteAllBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [bottomView addSubview:deleteAllBtn];
     [deleteAllBtn mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -127,7 +127,7 @@
     [_listView reloadData];
 }
 
-- (void)deleteAll{
+- (void)deleteAction{
     //1.从数据库中删除数据
     NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
     [_tempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -135,24 +135,16 @@
         NSInteger index = [_dataArray indexOfObject:watchHistoryModel];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [indexPathArray addObject:indexPath];
+        //从服务器中删除数据
+        [self deleteWatchHistoryRecordWithModel:watchHistoryModel];
     }];
+    
     [_dataArray removeObjectsInArray:_tempArray];
     // 2.把view相应的cell删掉
     [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
     [_tempArray removeAllObjects];
     [indexPathArray removeAllObjects];
-    
-}
 
-- (void)setTableView{
-    _listView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64) style:UITableViewStylePlain];
-    _listView.delegate = self;
-    _listView.dataSource = self;
-    _listView.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
-    _listView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _listView.tableFooterView = [UIView new];
-    _listView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
-    [self.view addSubview:_listView];
 }
 
 - (void)addRightBBI {
@@ -210,7 +202,17 @@
         }];
         [_listView reloadData];
     }
-    
+}
+
+- (void)setTableView{
+    _listView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64) style:UITableViewStylePlain];
+    _listView.delegate = self;
+    _listView.dataSource = self;
+    _listView.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
+    _listView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _listView.tableFooterView = [UIView new];
+    _listView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+    [self.view addSubview:_listView];
 }
 
 #pragma mark - UITableView dataSource
@@ -390,8 +392,6 @@
         [CommonFunc dismiss];
         [MBProgressHUD showError:@"删除失败"];
     }];
-    
-    
 }
 
 // 禁止旋转屏幕
