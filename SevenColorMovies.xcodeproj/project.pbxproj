@@ -154,6 +154,7 @@
 		11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */; };
 		11C8CFBC1D45157B00C04F38 /* SCCollectionViewPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */; };
 		11C905DF1D6C3BB9004D3749 /* NSDate+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C905DE1D6C3BB9004D3749 /* NSDate+Addition.m */; };
+		11CAD9F41DED74AD009F3337 /* SCWatchHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CAD9F31DED74AD009F3337 /* SCWatchHistoryModel.m */; };
 		11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422531D49A1A400B4F9AE /* DONG_RefreshGifHeader.m */; };
 		11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422561D49A20800B4F9AE /* DONG_RefreshGifFooter.m */; };
 		11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422591D49A42800B4F9AE /* SCComonFunc.m */; };
@@ -459,6 +460,8 @@
 		11C905D91D6BE3FE004D3749 /* UtilityMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilityMacro.h; sourceTree = "<group>"; };
 		11C905DD1D6C3BB9004D3749 /* NSDate+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Addition.h"; sourceTree = "<group>"; };
 		11C905DE1D6C3BB9004D3749 /* NSDate+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Addition.m"; sourceTree = "<group>"; };
+		11CAD9F21DED74AD009F3337 /* SCWatchHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWatchHistoryModel.h; sourceTree = "<group>"; };
+		11CAD9F31DED74AD009F3337 /* SCWatchHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWatchHistoryModel.m; sourceTree = "<group>"; };
 		11D422521D49A1A400B4F9AE /* DONG_RefreshGifHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_RefreshGifHeader.h; sourceTree = "<group>"; };
 		11D422531D49A1A400B4F9AE /* DONG_RefreshGifHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_RefreshGifHeader.m; sourceTree = "<group>"; };
 		11D422551D49A20800B4F9AE /* DONG_RefreshGifFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_RefreshGifFooter.h; sourceTree = "<group>"; };
@@ -1087,6 +1090,7 @@
 			children = (
 				116E0F6E1DB0B92000E280C6 /* Controller */,
 				116E0F6D1DB0B91900E280C6 /* View */,
+				11CAD9F11DED747D009F3337 /* Model */,
 			);
 			name = WatchingHistory;
 			sourceTree = "<group>";
@@ -1657,6 +1661,15 @@
 			name = Mine;
 			sourceTree = "<group>";
 		};
+		11CAD9F11DED747D009F3337 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11CAD9F21DED74AD009F3337 /* SCWatchHistoryModel.h */,
+				11CAD9F31DED74AD009F3337 /* SCWatchHistoryModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		11D422511D499FF900B4F9AE /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -2149,6 +2162,7 @@
 				1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */,
 				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
 				115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */,
+				11CAD9F41DED74AD009F3337 /* SCWatchHistoryModel.m in Sources */,
 				11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */,
 				11B0722B1DD2BAD200DD3FED /* Dong_DownloadManager.m in Sources */,
 				11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */,

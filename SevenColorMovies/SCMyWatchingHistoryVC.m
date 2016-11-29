@@ -4,13 +4,14 @@
 //
 //  Created by yesdgq on 16/10/14.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  观看记录
 
 #import "SCMyWatchingHistoryVC.h"
 #import "SCWatchingHistoryCell.h"
-
 #import "SCProgramListCell.h"
 #import "SCFilmModel.h"
+#import "HLJRequest.h"
+#import "HLJUUID.h"
 
 @interface SCMyWatchingHistoryVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -22,7 +23,8 @@
 @property (nonatomic, assign) BOOL isEditing;/** 标记是否正在编辑 */
 @property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;/** 标记是否被全部选中 */
 @property (nonatomic, strong) NSMutableArray *tempArray;/** 保存临时选择的要删除的filmModel */
-
+@property (nonatomic, strong) HLJRequest *hljRequest;
+@property (nonatomic,assign) NSInteger page;/**< 分页的页码 */
 @end
 
 @implementation SCMyWatchingHistoryVC
@@ -32,12 +34,6 @@
     //self.automaticallyAdjustsScrollViewInsets = NO;
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
-    //假数据
-    for (int i = 0; i<5; i++) {
-        SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-        filmModel.FilmName = [NSString stringWithFormat:@"%d%d%d%d",i,i,i,i];
-        [_dataArray addObject:filmModel];
-    }
     
     // 3.初始化
     _isEditing = NO;
@@ -45,15 +41,13 @@
     // 4.加载分视图
     // 4.1 编辑按钮
     [self addRightBBI];
-    if (_dataArray.count == 0) {
-        [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
-    }else{
-        [CommonFunc hideTipsViews:_listView];
-        // 4.2 tableview
-        [self setTableView];
-    }
-    // 4.3 全选/删除
-    [self setBottomBtnView];
+    
+    
+    [self getMyWatchHistoryRecord];
+    
+    
+    
+    
 
 }
 
@@ -62,7 +56,6 @@
     
 }
 
-#pragma mark -Private Method
 #pragma mark - Private Method
 //全选 || 删除 按钮视图
 - (void)setBottomBtnView{
@@ -318,6 +311,60 @@
         
     }
 }
+
+#pragma mark - NetRequest
+- (void)getMyWatchHistoryRecord
+{
+    [CommonFunc showLoadingWithTips:@""];
+    
+
+    NSNumber *oemid     = [NSNumber numberWithInt:300126];
+    NSString *uuidStr   = [HLJUUID getUUID];
+    NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
+    NSNumber *page      = [NSNumber numberWithInteger:1];
+    NSDictionary *parameters = @{@"oemid"    : oemid,
+                                 @"hid"      : @"96BE56AA5BEB4AFBA97887CE4A8C00dd",
+                                 @"datetime" : timeStamp,
+                                 @"page"     : page
+                                 };
+    
+
+    //请求film详细信息
+//    self.hljRequest = [HLJRequest requestWithPlayVideoURL:GetWatchHistory];
+//    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//        
+//    } failure:^(id  _Nullable errorObject) {
+//        [CommonFunc dismiss];
+//    }];
+    
+    
+            //请求播放地址
+            [requestDataManager requestDataWithUrl:GetWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
+                
+                NSDictionary *dic = responseObject[@"contentlist"];
+                if (dic) {
+                    SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+                    filmModel.FilmName = responseObject[@"contentlist"][@"content"][@"title"];
+                    [_dataArray addObject:filmModel];
+                    [self setTableView];
+                    // 4.3 全选/删除
+                    [self setBottomBtnView];
+                } else {
+                   [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
+                }
+                
+                DONG_Log(@"获取观看记录成功:%@", responseObject);
+                [CommonFunc dismiss];
+            }failure:^(id  _Nullable errorObject) {
+               [CommonFunc dismiss];
+            }];
+   
+    
+}
+
+
+
+
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate {

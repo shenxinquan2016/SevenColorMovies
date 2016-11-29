@@ -17,6 +17,7 @@
 @property NSString *_Title;/** Live频道名称 */
 @property NSString *SourceUrl;/** 影片资源地址 */
 @property NSString *SourceURL;/** 影片资源地址 */
+@property NSString *_FilmID;
 @property NSString *_Year;/** 影片时间 */
 @property NSString *_Mtype;/** 影片类型 两个都用 */
 @property NSString *mtype;/** 影片类型 两个都用 */

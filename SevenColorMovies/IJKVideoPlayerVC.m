@@ -203,7 +203,12 @@
 /** 返回 */
 - (IBAction)onClickBack:(id)sender
 {
-    //如果是单独的播放器窗口(比如从我的下载、我的收藏等进入播放)，需要单独处理返回事物
+    //1.返回时添加观看记录
+    if (self.addWatchHistoryBlock) {
+        self.addWatchHistoryBlock();
+    }
+
+    //2.如果是单独的播放器窗口(比如从我的下载、我的收藏等进入播放)，需要单独处理返回事物
     if (self.isSinglePlayerView) {
         //先回调使父视图支持旋转才能旋转
         if (self.supportRotationBlock) {

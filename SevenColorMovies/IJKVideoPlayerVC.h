@@ -11,8 +11,9 @@
 
 @class IJKMediaControl;
 
-typedef void(^FullScreenLockBlock)(BOOL lock);
-typedef void(^WhetherToSupportRotationBlock)(BOOL lock);
+typedef void(^FullScreenLockBlock)(BOOL lock);//全部锁定btn点击回调
+typedef void(^WhetherToSupportRotationBlock)(BOOL lock);//改变父视图是否支持旋转回调
+typedef void(^AddWatchHistoryBlock)(void);//添加观看记录回调
 
 @interface IJKVideoPlayerVC : UIViewController
 
@@ -21,6 +22,7 @@ typedef void(^WhetherToSupportRotationBlock)(BOOL lock);
 @property (nonatomic, assign) BOOL isFullScreen;//是否正处于全屏状态
 @property (nonatomic, copy) FullScreenLockBlock fullScreenLockBlock;//全屏锁定的回调
 @property (nonatomic, copy) WhetherToSupportRotationBlock supportRotationBlock;//改变父视图是否支持旋转的回调
+@property (nonatomic, copy) AddWatchHistoryBlock addWatchHistoryBlock;//返回时添加观看记录
 @property (nonatomic, assign) BOOL isSinglePlayerView;
 @property (strong, nonatomic) IBOutlet IJKMediaControl *mediaControl;
 
@@ -40,10 +42,6 @@ typedef void(^WhetherToSupportRotationBlock)(BOOL lock);
 - (IBAction)didSliderTouchUpOutside:(id)sender;
 - (IBAction)didSliderTouchUpInside:(id)sender;
 - (IBAction)didSliderValueChanged:(id)sender;
-
-
-
-
 
 
 @end
