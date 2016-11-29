@@ -11,5 +11,12 @@
 @interface SCWatchHistoryModel : NSObject
 
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *mid;
+@property (nonatomic, copy) NSString *playtime;
+@property (nonatomic, copy) NSString *sid;
+@property (nonatomic, copy) NSString *fid;
+@property (nonatomic, copy) NSString *mtype;
+@property (nonatomic, assign, getter = isSelecting) BOOL selected;/** 是否正被点击 */
+@property (nonatomic, assign, getter = isShowDeleteBtn) BOOL showDeleteBtn;
 
 @end

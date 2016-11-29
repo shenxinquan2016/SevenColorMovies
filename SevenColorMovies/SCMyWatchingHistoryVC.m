@@ -9,7 +9,7 @@
 #import "SCMyWatchingHistoryVC.h"
 #import "SCWatchingHistoryCell.h"
 #import "SCProgramListCell.h"
-#import "SCFilmModel.h"
+#import "SCWatchHistoryModel.h"
 #import "HLJRequest.h"
 #import "HLJUUID.h"
 
@@ -22,7 +22,7 @@
 @property (nonatomic, strong) UIButton *selectAllBtn;/** 全选按钮 */
 @property (nonatomic, assign) BOOL isEditing;/** 标记是否正在编辑 */
 @property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;/** 标记是否被全部选中 */
-@property (nonatomic, strong) NSMutableArray *tempArray;/** 保存临时选择的要删除的filmModel */
+@property (nonatomic, strong) NSMutableArray *tempArray;/** 保存临时选择的要删除的watchHistoryModel */
 @property (nonatomic, strong) HLJRequest *hljRequest;
 @property (nonatomic,assign) NSInteger page;/**< 分页的页码 */
 @end
@@ -48,7 +48,7 @@
     
     
     
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -115,17 +115,17 @@
         //遍历model以更改cell视图
         [_tempArray removeAllObjects];
         [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            SCFilmModel *filmModel = obj;
-            filmModel.selected = YES;
-            [_tempArray addObject:filmModel];
+            SCWatchHistoryModel *watchHistoryModel = obj;
+            watchHistoryModel.selected = YES;
+            [_tempArray addObject:watchHistoryModel];
         }];
     }else{
         _selectAll = NO;
         [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
         [_tempArray removeAllObjects];
         [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            SCFilmModel *filmModel = obj;
-            filmModel.selected = NO;
+            SCWatchHistoryModel *watchHistoryModel = obj;
+            watchHistoryModel.selected = NO;
         }];
     }
     [_listView reloadData];
@@ -135,8 +135,8 @@
     //1.从数据库中删除数据
     NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
     [_tempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        SCFilmModel *filmModel = obj;
-        NSInteger index = [_dataArray indexOfObject:filmModel];
+        SCWatchHistoryModel *watchHistoryModel = obj;
+        NSInteger index = [_dataArray indexOfObject:watchHistoryModel];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [indexPathArray addObject:indexPath];
     }];
@@ -145,7 +145,7 @@
     [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
     [_tempArray removeAllObjects];
     [indexPathArray removeAllObjects];
-
+    
 }
 
 - (void)setTableView{
@@ -193,8 +193,8 @@
         }];
         
         [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            SCFilmModel *filmModel = obj;
-            filmModel.showDeleteBtn = YES;
+            SCWatchHistoryModel *watchHistoryModel = obj;
+            watchHistoryModel.showDeleteBtn = YES;
         }];
         [_listView reloadData];
         
@@ -209,8 +209,8 @@
         }];
         
         [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            SCFilmModel *filmModel = obj;
-            filmModel.showDeleteBtn = NO;
+            SCWatchHistoryModel *watchHistoryModel = obj;
+            watchHistoryModel.showDeleteBtn = NO;
         }];
         [_listView reloadData];
     }
@@ -231,7 +231,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCWatchingHistoryCell *cell = [SCWatchingHistoryCell cellWithTableView:tableView];
-    cell.filmModel = _dataArray[indexPath.row];
+    cell.watchHistoryModel = _dataArray[indexPath.row];
     return cell;
 }
 
@@ -248,13 +248,13 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        SCFilmModel *filmModel = _dataArray[indexPath.row];
+        SCWatchHistoryModel *watchHistoryModel = _dataArray[indexPath.row];
         // 1.把model相应的数据删掉
-        [self.dataArray removeObject:filmModel];
+        [self.dataArray removeObject:watchHistoryModel];
         
         // 2.把view相应的cell删掉
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [_tempArray removeObject:filmModel];
+        [_tempArray removeObject:watchHistoryModel];
         
         
     }
@@ -286,23 +286,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     
     if (_isEditing) {//处在编辑状态
-        SCFilmModel *filmModel = _dataArray[indexPath.row];
+        SCWatchHistoryModel *watchHistoryModel = _dataArray[indexPath.row];
         SCWatchingHistoryCell *cell = (SCWatchingHistoryCell *)[tableView cellForRowAtIndexPath:indexPath];
         
-        if (filmModel.isSelecting) {
-            filmModel.selected = NO;
+        if (watchHistoryModel.isSelecting) {
+            watchHistoryModel.selected = NO;
             //从临时数据中删除
-            [_tempArray removeObject:filmModel];
+            [_tempArray removeObject:watchHistoryModel];
             
             
         }else{
-            filmModel.selected = YES;
+            watchHistoryModel.selected = YES;
             //添加到临时数组中 待确定后从数据库中删除
-            [_tempArray addObject:filmModel];
+            [_tempArray addObject:watchHistoryModel];
             
             
         }
-        cell.filmModel = filmModel;
+        cell.watchHistoryModel = watchHistoryModel;
         
         
     }else{//非编辑状态，点击cell播放film
@@ -317,7 +317,7 @@
 {
     [CommonFunc showLoadingWithTips:@""];
     
-
+    
     NSNumber *oemid     = [NSNumber numberWithInt:300126];
     NSString *uuidStr   = [HLJUUID getUUID];
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
@@ -328,37 +328,51 @@
                                  @"page"     : page
                                  };
     
-
+    
     //请求film详细信息
-//    self.hljRequest = [HLJRequest requestWithPlayVideoURL:GetWatchHistory];
-//    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-//        
-//    } failure:^(id  _Nullable errorObject) {
-//        [CommonFunc dismiss];
-//    }];
+    //    self.hljRequest = [HLJRequest requestWithPlayVideoURL:GetWatchHistory];
+    //    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+    //
+    //    } failure:^(id  _Nullable errorObject) {
+    //        [CommonFunc dismiss];
+    //    }];
     
     
-            //请求播放地址
-            [requestDataManager requestDataWithUrl:GetWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
+    //请求播放地址
+    [requestDataManager requestDataWithUrl:GetWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        NSDictionary *dic = responseObject[@"contentlist"];
+        if (dic) {
+            if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSDictionary class]]) {
                 
-                NSDictionary *dic = responseObject[@"contentlist"];
-                if (dic) {
-                    SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-                    filmModel.FilmName = responseObject[@"contentlist"][@"content"][@"title"];
-                    [_dataArray addObject:filmModel];
-                    [self setTableView];
-                    // 4.3 全选/删除
-                    [self setBottomBtnView];
-                } else {
-                   [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
+                SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:responseObject[@"contentlist"][@"content"]];
+                [_dataArray addObject:watchHistoryModel];
+                
+            } else if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSArray class]]) {
+                
+                NSArray *contentArray = responseObject[@"contentlist"][@"content"];
+                for (NSDictionary *dic in contentArray) {
+                    SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:dic];
+                    [_dataArray addObject:watchHistoryModel];
                 }
+            }
+            
+            if (_dataArray.count) {
+                [self setTableView];
+                // 4.3 全选/删除
+                [self setBottomBtnView];
                 
-                DONG_Log(@"获取观看记录成功:%@", responseObject);
-                [CommonFunc dismiss];
-            }failure:^(id  _Nullable errorObject) {
-               [CommonFunc dismiss];
-            }];
-   
+            } else {
+                [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
+            }
+        }
+        
+        DONG_Log(@"获取观看记录成功:%@", responseObject);
+        [CommonFunc dismiss];
+    }failure:^(id  _Nullable errorObject) {
+        [CommonFunc dismiss];
+    }];
+    
     
 }
 

@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "SCFilmModel.h"
+#import "SCWatchHistoryModel.h"
 
 @interface SCWatchingHistoryCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *deleteBtn;
-@property (nonatomic, strong) SCFilmModel *filmModel;
+@property (nonatomic, strong) SCWatchHistoryModel *watchHistoryModel;
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end

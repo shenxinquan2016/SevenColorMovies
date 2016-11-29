@@ -48,19 +48,19 @@
     return self;
 }
 
-- (void)setFilmModel:(SCFilmModel *)filmModel{
+- (void)setWatchHistoryModel:(SCWatchHistoryModel *)watchHistoryModel{
     
     // 名称
-    _filmNameLabel.text = filmModel.FilmName;
+    _filmNameLabel.text = watchHistoryModel.title;
     // 第几集
-    if (filmModel.filmSetModel) {
-        _filmEpisodeLabel.text = filmModel.filmSetModel._ContentIndex;
-    }
+//    if (filmModel.filmSetModel) {
+//        _filmEpisodeLabel.text = filmModel.filmSetModel._ContentIndex;
+//    }
     
-    if (filmModel.isShowDeleteBtn) {
+    if (watchHistoryModel.isShowDeleteBtn) {
         _deleteBtn.hidden = NO;
         
-        if (filmModel.isSelecting) {
+        if (watchHistoryModel.isSelecting) {
             [_deleteBtn setImage:[UIImage imageNamed:@"Select"]];
         }else{
             [_deleteBtn setImage:[UIImage imageNamed:@"Unselected"]];
