@@ -251,8 +251,8 @@
         // 2.把view相应的cell删掉
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [_tempArray removeObject:watchHistoryModel];
-        
-        
+        // 3.删除服务器中数据
+        [self deleteWatchHistoryRecordWithModel:watchHistoryModel];
     }
     
 }
@@ -309,6 +309,7 @@
 }
 
 #pragma mark - NetRequest
+//查看观看记录
 - (void)getMyWatchHistoryRecord
 {
     [CommonFunc showLoadingWithTips:@""];
@@ -353,7 +354,7 @@
             // 4.3 全选/删除
             [self setBottomBtnView];
         } else {
-            [CommonFunc noDataOrNoNetTipsString:@"还没有收藏任何节目哦" addView:self.view];
+            [CommonFunc noDataOrNoNetTipsString:@"还没有观看任何节目哦" addView:self.view];
         }
         
         [CommonFunc dismiss];
@@ -362,7 +363,36 @@
     }];
 }
 
+// 删除一条观看记录
+- (void)deleteWatchHistoryRecordWithModel:(SCWatchHistoryModel *)watchHistoryModel {
+    [CommonFunc showLoadingWithTips:@""];
+    
+    
+    NSNumber *oemid     = [NSNumber numberWithInt:300126];
+    NSString *uuidStr   = [HLJUUID getUUID];
+    NSString *mid       = watchHistoryModel.mid;
+    NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
+    NSString *sid       = watchHistoryModel.sid;
+    NSString *fid       = watchHistoryModel.fid;
+    
+    NSDictionary *parameters = @{@"oemid"    : oemid,
+                                 @"hid"      : @"96BE56AA5BEB4AFBA97887CE4A8C00dd",
+                                 @"mid"      : mid,
+                                 @"datetime" : timeStamp,
+                                 @"sid"      : sid,
+                                 @"fid"      : fid
+                                 };
+    //请求播放地址
+    [requestDataManager requestDataWithUrl:DeleteWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
 
+        [CommonFunc dismiss];
+    }failure:^(id  _Nullable errorObject) {
+        [CommonFunc dismiss];
+        [MBProgressHUD showError:@"删除失败"];
+    }];
+    
+    
+}
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate {
