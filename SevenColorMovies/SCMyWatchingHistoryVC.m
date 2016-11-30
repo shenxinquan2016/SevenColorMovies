@@ -303,11 +303,12 @@
     } else {//非编辑状态，点击cell播放film
         
         SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-        filmModel.FilmName = watchHistoryModel.title;
-        filmModel.mid = watchHistoryModel.mid;
-        filmModel.mtype = watchHistoryModel.mtype;
-        filmModel.jiIndex = [watchHistoryModel.sid integerValue];
-        filmModel._FilmID = watchHistoryModel.fid;
+        filmModel.FilmName     = watchHistoryModel.title;
+        filmModel.mid          = watchHistoryModel.mid;
+        filmModel.mtype        = watchHistoryModel.mtype;
+        filmModel.jiIndex      = [watchHistoryModel.sid integerValue];
+        filmModel._FilmID      = watchHistoryModel.fid;
+        filmModel.playtime     = watchHistoryModel.playtime;
         
         SCPlayerViewController *playerVC = [[SCPlayerViewController alloc] init];
         playerVC.filmModel = filmModel;

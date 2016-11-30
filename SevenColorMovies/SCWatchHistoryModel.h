@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *mid;
-@property (nonatomic, assign) NSInteger playtime;
+@property (nonatomic, assign) NSInteger playtime;/** 已经播放的时间 */
 @property (nonatomic, copy) NSString *sid;
 @property (nonatomic, copy) NSString *fid;
 @property (nonatomic, copy) NSString *mtype;

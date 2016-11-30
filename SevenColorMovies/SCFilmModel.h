@@ -50,6 +50,7 @@
 
 @property NSInteger jiIndex;/** 伪属性 记录第几集 */
 @property SCFilmSetModel *filmSetModel;
+@property (nonatomic, assign) NSInteger playtime;/** 已经播放的时间 */
 
 @end
 

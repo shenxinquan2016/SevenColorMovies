@@ -458,7 +458,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
         } else {
             [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoadIMG"] forState:UIControlStateNormal];
         }
-        
     }
 }
 
@@ -603,7 +602,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                                  @"title"     : titleStr,
                                  @"detailurl" : filmModel._ImgUrlO? filmModel._ImgUrlO : @""
                                  };
-    
     
     [requestDataManager requestDataWithUrl:AddWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
         
@@ -1541,13 +1539,15 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
             //请求播放地址
             [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-                //                //            NSLog(@"====responseObject:::%@===",responseObject);
+                //NSLog(@"====responseObject:::%@===",responseObject);
                 NSString *play_url = responseObject[@"play_url"];
                 DONG_Log(@"responseObject:%@",play_url);
                 //请求将播放地址域名转换  并拼接最终的播放地址
                 NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
                 
-                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                
+                
+                
                 //1.拼接新地址
                 NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                 strongself.url = [NSURL URLWithString:playUrl];
@@ -1556,6 +1556,13 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                
+                //3.如果已经播放过，则从已播放时间开始播放
+                if (_filmModel.playtime) {
+                    DONG_Log(@"playtime:%ld", _filmModel.playtime);
+                    strongself.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.playtime;
+                    [strongself.IJKPlayerViewController.mediaControl refreshMediaControl];
+                }
                 
                 NSString *filmName;
                 if (strongself.filmModel.FilmName) {
