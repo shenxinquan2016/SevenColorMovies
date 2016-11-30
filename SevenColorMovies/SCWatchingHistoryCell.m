@@ -52,10 +52,23 @@
 {
     // 名称
     _filmNameLabel.text = watchHistoryModel.title;
+    
     // 第几集
-    if ([watchHistoryModel.sid isEqualToString:@"-1"]) {
+    // 私人影院 电影 海外片场
+    if ([watchHistoryModel.mtype isEqualToString:@"0"] ||
+        [watchHistoryModel.mtype isEqualToString:@"2"] ||
+        [watchHistoryModel.mtype isEqualToString:@"13"])
+    {
         _filmEpisodeLabel.text = @"";
-    } else {
+        
+    }else if // 综艺 生活
+        ([watchHistoryModel.mtype isEqualToString:@"7"] ||
+         [watchHistoryModel.mtype isEqualToString:@"9"])
+    {
+        _filmEpisodeLabel.text = @"";
+        
+    }else{
+        //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         _filmEpisodeLabel.text = [NSString stringWithFormat:@"第%@集", watchHistoryModel.sid];
     }
     // 已播放时间
