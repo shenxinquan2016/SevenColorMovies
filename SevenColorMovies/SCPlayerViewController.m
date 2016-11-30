@@ -580,14 +580,15 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }else {
         mTypeStr = @"";
     }
-    
+
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
     const NSString *uuidStr = [HLJUUID getUUID];
+    filmModel.jiIndex = filmModel.jiIndex == 0 ? -1 : filmModel.jiIndex;
     
     NSNumber *oemid    = [NSNumber numberWithInt:300126];
     NSNumber *mid      = [NSNumber numberWithInteger:[midStr integerValue]];
     NSNumber *mType    = [NSNumber numberWithInteger:[mTypeStr integerValue]];
-    NSNumber *sid      = [NSNumber numberWithInt:-1];
+    NSNumber *sid      = [NSNumber numberWithInteger:filmModel.jiIndex];//第几集
     NSNumber *fid      = [NSNumber numberWithInteger:[filmModel._FilmID integerValue]];
     NSNumber *playtime = [NSNumber numberWithInteger:self.IJKPlayerViewController.player.currentPlaybackTime];
     
@@ -605,8 +606,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     
     [requestDataManager requestDataWithUrl:AddWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
-        DONG_Log(@"名称：%@ \n%@",filmModel.FilmName, fid);
-        DONG_Log(@"添加观看记录成功:%@ \n%@",timeStamp, responseObject);
+        
+        DONG_Log(@"添加观看记录成功 parameters:%@ \nresponseObject:%@",parameters, responseObject);
         
     }failure:^(id  _Nullable errorObject) {
         

@@ -48,19 +48,18 @@
     return self;
 }
 
-- (void)setWatchHistoryModel:(SCWatchHistoryModel *)watchHistoryModel{
-    
+- (void)setWatchHistoryModel:(SCWatchHistoryModel *)watchHistoryModel
+{
     // 名称
     _filmNameLabel.text = watchHistoryModel.title;
     // 第几集
     if ([watchHistoryModel.sid isEqualToString:@"-1"]) {
         _filmEpisodeLabel.text = @"";
-    } else if ([watchHistoryModel.sid isEqualToString:@"1"]) {
-        _filmEpisodeLabel.text = @"第几集";
+    } else {
+        _filmEpisodeLabel.text = [NSString stringWithFormat:@"第%@集", watchHistoryModel.sid];
     }
-    // 已播放
+    // 已播放时间
     _watchTimeLabel.text = [NSString stringWithFormat:@"已播放%02ld:%02ld:%02ld", watchHistoryModel.playtime / 3600, (watchHistoryModel.playtime % 3600) / 60, watchHistoryModel.playtime % 60];
-    
     
     if (watchHistoryModel.isShowDeleteBtn) {
         _deleteBtn.hidden = NO;
