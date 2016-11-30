@@ -1,11 +1,12 @@
 
 播放地址获取步骤：
-1. 电影
+1.电影
     filmModel.mid --> downloadUrl --> base64编码downloadUrl --> 获取fid | 拼接出请求视频播放流URL的URL地址:VODStreamingUrl --> play_url --> ip转换 --> 拼接出视频流URL地址playUrl --> 播放
 
 2.综艺
     filmModel.mid --> 获取filmModel数组 -->  filmModel.SourceURL --> downLoadUrl --> 获取fid | base64编码downloadUrl --> 拼接出请求视频播放流URL的URL地址:VODStreamingUrl --> play_url --> ip转换 --> 拼接出视频流URL地址playUrl --> 播放
 
-3. 电视剧
+3.电视剧
     filmModel.mid --> filmSetModel数组 | (downloadUrl --> 获取fid | base64编码downloadUrl --> 拼接出请求视频播放流URL的URL地址:VODStreamingUrl --> filmSetModel与VODStreamingUrl关联) --> filmSetModel.VODStreamingUrl --> play_url --> ip转换 --> 拼接出视频流URL地址playUrl --> 播放
 
+4.直播

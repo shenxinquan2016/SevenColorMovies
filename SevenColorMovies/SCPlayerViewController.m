@@ -907,6 +907,13 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }
 }
 
+#pragma mark - 播放指定集 指定已播放时间
+- (void)playSpecificFilmWithFilmModel:(SCFilmModel *)filmModel
+{
+    
+    
+}
+
 #pragma mark - 播放下一个节目
 - (void)playNextFilm
 {
@@ -927,12 +934,14 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             
             //0.获取下一个节目的model
             SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD];
-            _filmModel.jiIndex = VODIndex+timesIndexOfVOD;
+            _filmModel.jiIndex = VODIndex + timesIndexOfVOD + 1;
+            
             //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
             _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
             //查询数据库以更新功能区按钮视图
             [self refreshButtonStateFromQueryDatabase];
-            //1.获取下一个节目的model
+            
+            //1.获取上一个节目的model
             SCFilmSetModel *lastFilmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD-1];
             
             message = @{@"mextFilmSetModel" : filmSetModel,
@@ -984,6 +993,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             SCFilmModel *atrsFilmModel = self.filmsArr[VODIndex+timesIndexOfVOD];
             //更改属性值为指定单元节目的filmModel 方便存取
             _filmModel = atrsFilmModel;
+            _filmModel.jiIndex = VODIndex + timesIndexOfVOD + 1;
             //查询数据库以更新功能区按钮视图
             [self refreshButtonStateFromQueryDatabase];
             //请求播放地址
@@ -1016,9 +1026,10 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     //1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                     self.url = [NSURL URLWithString:playUrl];
-                    //                    self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+                    //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
                     //1.移除播放器
                     [self.IJKPlayerViewController closePlayer];
+                    
                     //2.调用播放器播放
                     self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
                     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
@@ -1037,7 +1048,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                         [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                     };
 
-                    
                     [CommonFunc dismiss];
                     
                 } failure:^(id  _Nullable errorObject) {
@@ -1067,7 +1077,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     _filmSetModel = filmSetModel;
     VODIndex = [self.filmSetsArr indexOfObject:filmSetModel];
     // 对jiIndex赋值
-    _filmModel.jiIndex = VODIndex+1;
+    _filmModel.jiIndex = VODIndex + 1;
     //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
     _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
     // 查询数据库以更新功能区按钮视图
@@ -1136,6 +1146,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         
         //请求播放地址
         [CommonFunc showLoadingWithTips:@""];
+        DONG_WeakSelf(self);
         [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject){
             NSString *downLoadUrl = nil;
             if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]) {
@@ -1157,6 +1168,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             
             VODIndex = [self.filmsArr indexOfObject:filmModel];
             timesIndexOfVOD = 0;//每次点击后将index复位为0
+            // 对jiIndex赋值
+            weakself.filmModel.jiIndex = VODIndex + 1;
             DONG_Log(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
             
             //1.移除当前的播放器
@@ -1205,7 +1218,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 
 #pragma mark - 网络请求
 //电视剧请求数据
-- (void)getTeleplayData{
+- (void)getTeleplayData {
     
     NSString *mid;
     if (_filmModel._Mid) {
@@ -1411,6 +1424,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             //请求播放地址
             SCFilmModel *atrsFilmModel = [strongself.filmsArr firstObject];
             _filmModel = atrsFilmModel;
+            _filmModel.jiIndex = 1;
             NSString *urlStr = [atrsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             //获取downLoadUrl
             [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
@@ -1587,6 +1601,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     }];
 }
 
+#pragma mark - setter
 - (void)setFullScreenLock:(BOOL)fullScreenLock {
     _fullScreenLock = fullScreenLock;
     [self shouldAutorotate];
