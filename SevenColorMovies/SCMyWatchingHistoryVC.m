@@ -292,17 +292,12 @@
             //从临时数据中删除
             [_tempArray removeObject:watchHistoryModel];
             
-            
         }else{
             watchHistoryModel.selected = YES;
             //添加到临时数组中 待确定后从数据库中删除
             [_tempArray addObject:watchHistoryModel];
-            
-            
         }
         cell.watchHistoryModel = watchHistoryModel;
-        
-        
     }else{//非编辑状态，点击cell播放film
         
         
@@ -315,7 +310,6 @@
 - (void)getMyWatchHistoryRecord
 {
     [CommonFunc showLoadingWithTips:@""];
-    
     NSNumber *oemid     = [NSNumber numberWithInt:300126];
     NSString *uuidStr   = [HLJUUID getUUID];
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
@@ -368,7 +362,6 @@
 - (void)deleteWatchHistoryRecordWithModel:(SCWatchHistoryModel *)watchHistoryModel
 {
     [CommonFunc showLoadingWithTips:@""];
-
     NSNumber *oemid     = [NSNumber numberWithInt:300126];
     NSString *uuidStr   = [HLJUUID getUUID];
     NSString *mid       = watchHistoryModel.mid;
@@ -397,10 +390,8 @@
 - (void)deleteAllWatchHistoryRecord
 {
     [CommonFunc showLoadingWithTips:@""];
-    
     NSNumber *oemid     = [NSNumber numberWithInt:300126];
     NSString *uuidStr   = [HLJUUID getUUID];
-    
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
 
     NSDictionary *parameters = @{@"oemid"    : oemid,
