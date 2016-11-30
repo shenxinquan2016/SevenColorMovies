@@ -12,6 +12,8 @@
 #import "SCWatchHistoryModel.h"
 #import "HLJRequest.h"
 #import "HLJUUID.h"
+#import "SCPlayerViewController.h"
+#import "SCFilmModel.h"
 
 @interface SCMyWatchingHistoryVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -282,8 +284,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
+    SCWatchHistoryModel *watchHistoryModel = _dataArray[indexPath.row];
     if (_isEditing) {//处在编辑状态
-        SCWatchHistoryModel *watchHistoryModel = _dataArray[indexPath.row];
         SCWatchingHistoryCell *cell = (SCWatchingHistoryCell *)[tableView cellForRowAtIndexPath:indexPath];
         
         if (watchHistoryModel.isSelecting) {
@@ -291,16 +293,25 @@
             //从临时数据中删除
             [_tempArray removeObject:watchHistoryModel];
             
-        }else{
+        } else {
             watchHistoryModel.selected = YES;
             //添加到临时数组中 待确定后从数据库中删除
             [_tempArray addObject:watchHistoryModel];
         }
         cell.watchHistoryModel = watchHistoryModel;
-    }else{//非编辑状态，点击cell播放film
         
+    } else {//非编辑状态，点击cell播放film
         
+        SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+        filmModel.FilmName = watchHistoryModel.title;
+        filmModel.mid = watchHistoryModel.mid;
+        filmModel.mtype = watchHistoryModel.mtype;
+        filmModel.jiIndex = [watchHistoryModel.sid integerValue];
+        filmModel._FilmID = watchHistoryModel.fid;
         
+        SCPlayerViewController *playerVC = [[SCPlayerViewController alloc] init];
+        playerVC.filmModel = filmModel;
+        [self.navigationController pushViewController:playerVC animated:YES];
     }
 }
 
@@ -318,13 +329,6 @@
                                  @"datetime" : timeStamp,
                                  @"page"     : page
                                  };
-    
-    //    self.hljRequest = [HLJRequest requestWithPlayVideoURL:GetWatchHistory];
-    //    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-    //
-    //    } failure:^(id  _Nullable errorObject) {
-    //        [CommonFunc dismiss];
-    //    }];
     
     //请求播放地址
     [requestDataManager requestDataWithUrl:GetWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {

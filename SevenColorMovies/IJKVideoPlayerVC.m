@@ -18,7 +18,8 @@
 #import "SCLiveViewController.h"
 #import "SCMyCollectionVC.h"
 #import "SCMyDownloadManagerVC.h"
-#import "AppDelegate.h"
+#import "SCMyWatchingHistoryVC.h"
+
 
 @interface IJKVideoPlayerVC ()
 
@@ -295,7 +296,12 @@
                     [navController popToViewController:controller animated:YES];
                     return;
                     
-                }else if ([controller isKindOfClass:[SCLiveViewController class]]) {//直播频道列表页
+                } else if ([controller isKindOfClass:[SCMyWatchingHistoryVC class]]) {//直播频道列表页
+                    
+                    [navController popToViewController:controller animated:YES];
+                    return;
+                    
+                } else if ([controller isKindOfClass:[SCLiveViewController class]]) {//直播频道列表页
                     
                     [navController popToViewController:controller animated:YES];
                     return;
