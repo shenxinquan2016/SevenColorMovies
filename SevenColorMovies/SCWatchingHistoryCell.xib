@@ -60,7 +60,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="0oa-sF-PrT" secondAttribute="trailing" id="6Bs-wz-S4H"/>
-                    <constraint firstAttribute="bottom" secondItem="Rjw-Uz-GR8" secondAttribute="bottom" constant="5" id="7hv-oF-EJI"/>
+                    <constraint firstAttribute="bottom" secondItem="Rjw-Uz-GR8" secondAttribute="bottom" constant="8" id="7hv-oF-EJI"/>
                     <constraint firstItem="45r-aP-Wkn" firstAttribute="centerY" secondItem="tP8-IW-6dd" secondAttribute="centerY" id="8x4-TV-aRy"/>
                     <constraint firstItem="0oa-sF-PrT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Cxy-pt-9BM"/>
                     <constraint firstItem="0oa-sF-PrT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="DY8-K1-8br"/>

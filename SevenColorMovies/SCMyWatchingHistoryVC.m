@@ -353,6 +353,7 @@
         
         [CommonFunc dismiss];
     }failure:^(id  _Nullable errorObject) {
+        [CommonFunc noDataOrNoNetTipsString:@"网络异常请稍后再试" addView:self.view];
         [CommonFunc dismiss];
     }];
 }
