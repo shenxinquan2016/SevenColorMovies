@@ -281,8 +281,8 @@
     return @"删除";
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
     if (_isEditing) {//处在编辑状态
         SCWatchHistoryModel *watchHistoryModel = _dataArray[indexPath.row];
         SCWatchingHistoryCell *cell = (SCWatchingHistoryCell *)[tableView cellForRowAtIndexPath:indexPath];
@@ -315,7 +315,6 @@
 - (void)getMyWatchHistoryRecord
 {
     [CommonFunc showLoadingWithTips:@""];
-    
     
     NSNumber *oemid     = [NSNumber numberWithInt:300126];
     NSString *uuidStr   = [HLJUUID getUUID];
@@ -366,10 +365,10 @@
 }
 
 // 删除一条观看记录
-- (void)deleteWatchHistoryRecordWithModel:(SCWatchHistoryModel *)watchHistoryModel {
+- (void)deleteWatchHistoryRecordWithModel:(SCWatchHistoryModel *)watchHistoryModel
+{
     [CommonFunc showLoadingWithTips:@""];
-    
-    
+
     NSNumber *oemid     = [NSNumber numberWithInt:300126];
     NSString *uuidStr   = [HLJUUID getUUID];
     NSString *mid       = watchHistoryModel.mid;
@@ -387,6 +386,30 @@
     //请求播放地址
     [requestDataManager requestDataWithUrl:DeleteWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
 
+        [CommonFunc dismiss];
+    }failure:^(id  _Nullable errorObject) {
+        [CommonFunc dismiss];
+        [MBProgressHUD showError:@"删除失败"];
+    }];
+}
+
+// 删除全部记录
+- (void)deleteAllWatchHistoryRecord
+{
+    [CommonFunc showLoadingWithTips:@""];
+    
+    NSNumber *oemid     = [NSNumber numberWithInt:300126];
+    NSString *uuidStr   = [HLJUUID getUUID];
+    
+    NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
+
+    NSDictionary *parameters = @{@"oemid"    : oemid,
+                                 @"hid"      : @"96BE56AA5BEB4AFBA97887CE4A8C00dd",
+                                 @"datetime" : timeStamp
+                                 };
+    //请求播放地址
+    [requestDataManager requestDataWithUrl:DeleteWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
+        
         [CommonFunc dismiss];
     }failure:^(id  _Nullable errorObject) {
         [CommonFunc dismiss];

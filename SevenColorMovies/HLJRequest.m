@@ -95,13 +95,16 @@ NSString *const DomainNameXMLURL = @"http://10.177.1.198:8095/b2b/search/domainI
     }
 }
 
+#warning      if (self.model.domainName && self.model.ip)
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
     
     if ([elementName isEqualToString:@"rel"]) {
-        NSDictionary *dic = @{
-                              self.model.domainName:self.model.ip
-                              };
-        [self.domainNamesDic setValuesForKeysWithDictionary:dic];
+        if (self.model.domainName && self.model.ip) {
+            NSDictionary *dic = @{
+                                  self.model.domainName:self.model.ip
+                                  };
+            [self.domainNamesDic setValuesForKeysWithDictionary:dic];
+        }
     }
     
     self.currentElementName = nil;
