@@ -71,6 +71,7 @@
         //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         _filmEpisodeLabel.text = [NSString stringWithFormat:@"第%@集", watchHistoryModel.sid];
     }
+    
     // 已播放时间
     _watchTimeLabel.text = [NSString stringWithFormat:@"已播放%02ld:%02ld:%02ld", watchHistoryModel.playtime / 3600, (watchHistoryModel.playtime % 3600) / 60, watchHistoryModel.playtime % 60];
     

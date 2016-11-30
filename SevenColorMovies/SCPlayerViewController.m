@@ -1146,7 +1146,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         
         //请求播放地址
         [CommonFunc showLoadingWithTips:@""];
-        DONG_WeakSelf(self);
         [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject){
             NSString *downLoadUrl = nil;
             if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]) {
