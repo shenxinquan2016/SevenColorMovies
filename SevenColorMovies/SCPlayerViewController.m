@@ -552,9 +552,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 }
 
 //添加观看记录
-- (void)addWatchHistoryWithFilmModel:(SCFilmModel *)filmModel {
-    [CommonFunc showLoadingWithTips:@""];
-    
+- (void)addWatchHistoryWithFilmModel:(SCFilmModel *)filmModel
+{
     NSString *midStr;
     if (filmModel._Mid) {
         midStr = filmModel._Mid;
@@ -606,21 +605,12 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
     
     [requestDataManager requestDataWithUrl:AddWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
-        
-        
-        
-        
         DONG_Log(@"名称：%@ \n%@",filmModel.FilmName, fid);
         DONG_Log(@"添加观看记录成功:%@ \n%@",timeStamp, responseObject);
-        [CommonFunc dismiss];
+        
     }failure:^(id  _Nullable errorObject) {
-        [CommonFunc dismiss];
+        
     }];
-    
-    
-    
-    
-    
 }
 
 #pragma mark - Event reponse
@@ -971,7 +961,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                     DONG_StrongSelf(self);
                     strongself.fullScreenLock = isFullScreenLock;
-                    [strongself shouldAutorotate];
                 };
                 
                 [self.view addSubview:_IJKPlayerViewController.view];
@@ -1033,7 +1022,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                         DONG_StrongSelf(self);
                         strongself.fullScreenLock = isFullScreenLock;
-                        [strongself shouldAutorotate];
                     };
                     
                     
@@ -1103,7 +1091,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
             DONG_StrongSelf(self);
             strongself.fullScreenLock = isFullScreenLock;
-            [strongself shouldAutorotate];
         };
         
         [self.view addSubview:_IJKPlayerViewController.view];
@@ -1177,7 +1164,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 weakself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                     DONG_StrongSelf(self);
                     strongself.fullScreenLock = isFullScreenLock;
-                    [strongself shouldAutorotate];
                 };
                 
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
@@ -1322,7 +1308,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                             DONG_StrongSelf(self);
                             strongself.fullScreenLock = isFullScreenLock;
-                            [strongself shouldAutorotate];
                         };
                         
                         [self.view addSubview:_IJKPlayerViewController.view];
@@ -1432,17 +1417,20 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     //2.调用播放器播放
                     strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                     strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
+                    [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                     
-                    //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
-                    // DONG_WeakSelf(self);
+                    //1.全屏锁定回调
                     strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                         DONG_StrongSelf(self);
                         strongself.fullScreenLock = isFullScreenLock;
-                        [strongself shouldAutorotate];
+                    };
+                    //2.添加播放记录的回调
+                    strongself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
+                        DONG_StrongSelf(self);
+                        [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                     };
                     
-                    [strongself.view addSubview:strongself.IJKPlayerViewController.view];
-                    strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
                     [CommonFunc dismiss];
                     
                 } failure:^(id  _Nullable errorObject) {
@@ -1533,19 +1521,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 
-                //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
-                DONG_WeakSelf(self);
-                strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
-                    DONG_StrongSelf(self);
-                    strongself.fullScreenLock = isFullScreenLock;
-                    [strongself shouldAutorotate];
-                };
-                
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
-                
-                strongself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
-                    [self addWatchHistoryWithFilmModel:_filmModel];
-                };
                 
                 NSString *filmName;
                 if (strongself.filmModel.FilmName) {
@@ -1555,10 +1531,15 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 }
                 strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
                 
-                //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+                //1.全屏锁定回调
                 strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
-                    self.fullScreenLock = isFullScreenLock;
-                    [self shouldAutorotate];
+                    DONG_StrongSelf(self);
+                    strongself.fullScreenLock = isFullScreenLock;
+                };
+                //2.添加播放记录的回调
+                strongself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
+                    DONG_StrongSelf(self);
+                    [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                 };
                 
                 [CommonFunc dismiss];
@@ -1583,6 +1564,11 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         [CommonFunc dismiss];
         
     }];
+}
+
+- (void)setFullScreenLock:(BOOL)fullScreenLock {
+    _fullScreenLock = fullScreenLock;
+    [self shouldAutorotate];
 }
 
 // 禁止旋转屏幕
