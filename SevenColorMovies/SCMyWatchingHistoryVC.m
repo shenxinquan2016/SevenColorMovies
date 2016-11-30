@@ -255,8 +255,7 @@
         [_tempArray removeObject:watchHistoryModel];
         // 3.删除服务器中数据
         [self deleteWatchHistoryRecordWithModel:watchHistoryModel];
-    }
-    
+    } 
 }
 
 #pragma mark - UITableView Delegate

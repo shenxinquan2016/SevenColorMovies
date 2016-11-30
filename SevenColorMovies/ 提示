@@ -1,0 +1,6 @@
+
+播放地址获取步骤：
+1. 电影
+filmModel.mid --> downloadUrl --> base64编码downloadUrl --> 获取fid --> 拼接出请求视频播放流URL的URL地址:VODStreamingUrl --> 请求获取play_url --> ip转换 --> 拼接出视频流URL地址playUrl --> 播放
+
+2. 电视剧

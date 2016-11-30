@@ -120,6 +120,7 @@
 		118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 118D19B61D59B2D000A6968D /* SCFilmIntroduceModel.m */; };
 		1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */; };
 		1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC781D4A00D9004AAF23 /* SCFilmClassModel.m */; };
+		1190EA361DEE7155002CA166 /*  提示 in Resources */ = {isa = PBXBuildFile; fileRef = 1190EA351DEE7155002CA166 /*  提示 */; };
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
 		1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
@@ -397,6 +398,7 @@
 		1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmListModel.m; sourceTree = "<group>"; };
 		1190AC771D4A00D9004AAF23 /* SCFilmClassModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmClassModel.h; sourceTree = "<group>"; };
 		1190AC781D4A00D9004AAF23 /* SCFilmClassModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmClassModel.m; sourceTree = "<group>"; };
+		1190EA351DEE7155002CA166 /*  提示 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = " 提示"; path = "SevenColorMovies/ 提示"; sourceTree = "<group>"; };
 		1196A0701D42650A00B3C5EF /* SCMovieEpisodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMovieEpisodeCell.h; sourceTree = "<group>"; };
 		1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMovieEpisodeCell.m; sourceTree = "<group>"; };
 		1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMovieEpisodeCell.xib; sourceTree = "<group>"; };
@@ -1337,6 +1339,7 @@
 		11BB376B1D38B9A00002D487 = {
 			isa = PBXGroup;
 			children = (
+				1190EA351DEE7155002CA166 /*  提示 */,
 				11BB37761D38B9A00002D487 /* SevenColorMovies */,
 				11BB37901D38B9A00002D487 /* SevenColorMoviesTests */,
 				11BB379B1D38B9A00002D487 /* SevenColorMoviesUITests */,
@@ -1964,6 +1967,7 @@
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
 				11588F741D6B079900C91E3A /* SCLivePageCell.xib in Resources */,
 				11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */,
+				1190EA361DEE7155002CA166 /*  提示 in Resources */,
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */,
 				11323E0B1DB5C4B80089A207 /* SCMyCollectionCell.xib in Resources */,
