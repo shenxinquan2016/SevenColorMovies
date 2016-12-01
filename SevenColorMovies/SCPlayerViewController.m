@@ -1423,10 +1423,33 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             [strongself constructSlideHeaderView];
             [strongself constructContentView];
             
-            //请求播放地址
             SCFilmModel *atrsFilmModel = [strongself.filmsArr firstObject];
-            _filmModel = atrsFilmModel;
-//            _filmModel.jiIndex = 3;
+            
+            /* 
+             * 如 jiIndex > 1 则为由观看记录进入
+             * 需要定位播放焦点
+             * 通过发送通知定位 _filmModel不用改变
+             */
+            if (_filmModel.jiIndex > 1) {
+                if (_filmModel.jiIndex - 1 < self.filmsArr.count) {
+                    
+                    SCFilmModel *atrsFilmModel = self.filmsArr[_filmModel.jiIndex - 1];
+                    NSString *VODIndex = [NSString stringWithFormat:@"%lu",_filmModel.jiIndex - 1];
+                    
+                    NSDictionary *message = @{@"filmModel" : atrsFilmModel,
+                                              @"VODIndex" : VODIndex};
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
+                }
+                
+            } else {
+                
+                _filmModel = atrsFilmModel;
+                _filmModel.jiIndex = 1;
+                
+            }
+            
+            //请求播放地址
             NSString *urlStr = [atrsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             //获取downLoadUrl
             [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
@@ -1457,6 +1480,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
                     [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                     
+                   
+                    
                     //1.全屏锁定回调
                     strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                         DONG_StrongSelf(self);
@@ -1469,22 +1494,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     };
                     
                     
-                    
-                    if (_filmModel.jiIndex > 1) {
-                        //如从观看记录进入，需发送通知
-                        if (_filmModel.jiIndex-1 < self.filmsArr.count) {
-                            SCFilmModel *atrsFilmModel = self.filmsArr[_filmModel.jiIndex-1];
-                            NSString *VODIndex = [NSString stringWithFormat:@"%lu",_filmModel.jiIndex-1];
-                            
-                            NSDictionary *message = @{@"filmModel" : atrsFilmModel,
-                                                      @"VODIndex" : VODIndex};
-                            
-                            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
-                        }
-                    }
-                    
-                    
-                    DONG_Log(@"_filmModel.jiIndex:%ld",(long)_filmModel.jiIndex);
+
                     
                     
                     [CommonFunc dismiss];

@@ -142,6 +142,19 @@ static NSString *const cellId = @"cellId";
     NSUInteger VODIndex = [dic[@"VODIndex"] integerValue];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:VODIndex inSection:0];
     
+    /* 
+     * 观看记录进入 如焦点不是前两个cell，需要额外将第一个cell置为非选择状态
+     * 当VODIndex = 0|1时 为前两个cell
+     */
+    if (VODIndex > 1) {
+        NSInteger firstCellIndex = 0;
+        NSIndexPath *firstCellIndexPath = [NSIndexPath indexPathForRow:firstCellIndex inSection:0];
+        SCFilmModel *fisrstCellFilmMoedel = self.dataArray[firstCellIndex];
+        fisrstCellFilmMoedel.onLive = NO;
+        SCArtsFilmCell *firstCell = (SCArtsFilmCell *)[self.collectionView cellForItemAtIndexPath:firstCellIndexPath];
+        firstCell.model = fisrstCellFilmMoedel;
+    }
+    
     SCFilmModel *filmModel = dic[@"filmModel"];
     filmModel.onLive = YES;
     SCArtsFilmCell *cell = (SCArtsFilmCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
