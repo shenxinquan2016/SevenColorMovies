@@ -490,6 +490,11 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 - (void)registerNotification {
     //1.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    //第一次加载成功准备播放
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaIsPreparedToPlayDidChange:)
+                                                 name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification
+                                               object:nil];
     //2.注册播放结束通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackDidFinish:)
@@ -906,6 +911,20 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             
             break;
     }
+}
+
+#pragma mark - IJK完成加载即将播放的通知
+- (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification
+{
+    NSLog(@"mediaIsPreparedToPlayDidChange\n");
+    
+        //3.如果已经播放过，则从已播放时间开始播放
+        if (48.000000) {
+            DONG_Log(@"playtime:%f", _filmModel.playtime);
+            DONG_Log(@"thread:%@",[NSThread currentThread]);
+            self.IJKPlayerViewController.player.currentPlaybackTime = 648.000000;
+        }
+    
 }
 
 #pragma mark - 播放指定集 指定已播放时间
@@ -1557,14 +1576,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                 
-                DONG_AFTER_DELAY(6, ^{
-                    //3.如果已经播放过，则从已播放时间开始播放
-                    if (48.000000) {
-                        DONG_Log(@"playtime:%f", _filmModel.playtime);
-                        DONG_Log(@"thread:%@",[NSThread currentThread]);
-                        strongself.IJKPlayerViewController.player.currentPlaybackTime = 648.000000;
-                    }
-                });
+              
                 
                 
                 

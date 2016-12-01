@@ -539,7 +539,7 @@
                                              selector:@selector(moviePlayBackDidFinish:)
                                                  name:IJKMPMoviePlayerPlaybackDidFinishNotification
                                                object:nil];
-    //
+    //第一次加载成功准备播放
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mediaIsPreparedToPlayDidChange:)
                                                  name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification
