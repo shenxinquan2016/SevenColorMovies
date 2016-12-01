@@ -62,6 +62,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     BOOL _isFullScreen;
     SCDSJDownloadView *_dsjdownloadView;
     SCArtsDownloadView *_artsDownloadView;
+    NSString *_mid;
 }
 
 #pragma mark - Initialize
@@ -558,15 +559,6 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 //添加观看记录
 - (void)addWatchHistoryWithFilmModel:(SCFilmModel *)filmModel
 {
-    NSString *midStr;
-    if (filmModel._Mid) {
-        midStr = filmModel._Mid;
-    } else if (filmModel.mid) {
-        midStr = filmModel.mid;
-    } else {
-        midStr = @"";
-    }
-    
     NSString *titleStr;
     if (filmModel.FilmName) {
         titleStr = filmModel.FilmName;
@@ -590,15 +582,12 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     filmModel.jiIndex = filmModel.jiIndex == 0 ? -1 : filmModel.jiIndex;
     
     NSNumber *oemid    = [NSNumber numberWithInt:300126];
-    NSNumber *mid      = [NSNumber numberWithInteger:[midStr integerValue]];
+    NSNumber *mid      = [NSNumber numberWithInteger:[_mid integerValue]];
     NSNumber *mType    = [NSNumber numberWithInteger:[mTypeStr integerValue]];
     NSNumber *sid      = [NSNumber numberWithInteger:filmModel.jiIndex];//第几集
     NSNumber *fid      = [NSNumber numberWithInteger:[filmModel._FilmID integerValue]];
     NSNumber *playtime = [NSNumber numberWithInteger:self.IJKPlayerViewController.player.currentPlaybackTime];
-    
-    DONG_Log(@"playtime:%@",playtime);
-    DONG_Log(@"currentPlaybackTime:%f",self.IJKPlayerViewController.player.currentPlaybackTime);
-    
+
     NSDictionary *parameters = @{@"oemid"     : oemid,
                                  @"hid"       : @"96BE56AA5BEB4AFBA97887CE4A8C00dd",
                                  @"mid"       : mid,
@@ -1380,19 +1369,20 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 }
 
 //综艺请求数据
-- (void)getArtsAndLifeData {
-    
-    NSString *mid;
+- (void)getArtsAndLifeData
+{
     if (_filmModel._Mid) {
-        mid = _filmModel._Mid;
+        _mid = _filmModel._Mid;
     }else if (_filmModel.mid){
-        mid = _filmModel.mid;
+        _mid = _filmModel.mid;
     }
     
-    NSString *filmmidStr = mid ? mid : @"";
+    NSString *filmMidStr = _mid ? _mid : @"";
+    
+    DONG_Log(@"filmMidStr:%@",filmMidStr);
     
     NSDictionary *parameters = @{@"pagesize" : @"1000",
-                                 @"filmmid" : filmmidStr};
+                                 @"filmmid" : filmMidStr};
     
     [CommonFunc showLoadingWithTips:@""];
     DONG_WeakSelf(self);
@@ -1504,14 +1494,13 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     
     [CommonFunc showLoadingWithTips:@""];
     
-    NSString *mid;
     if (_filmModel._Mid) {
-        mid = _filmModel._Mid;
+        _mid = _filmModel._Mid;
     }else if (_filmModel.mid){
-        mid = _filmModel.mid;
+        _mid = _filmModel.mid;
     }
     
-    NSString *filmmidStr = mid ? mid : @"";
+    NSString *filmmidStr = _mid ? _mid : @"";
     
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"filmmid" : filmmidStr};
@@ -1548,7 +1537,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             
             //这只是个请求视频播放流的url地址
             NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
-            NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+            NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmmidStr] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
             
             //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
             //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);

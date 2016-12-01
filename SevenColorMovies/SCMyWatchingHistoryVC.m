@@ -310,8 +310,8 @@
         filmModel._FilmID      = watchHistoryModel.fid;
         filmModel.playtime     = watchHistoryModel.playtime;
         
-        DONG_Log(@"watchHistoryModel.playtime:%f",watchHistoryModel.playtime);
-        DONG_Log(@"filmModel.playtime:%f",filmModel.playtime);
+        //DONG_Log(@"watchHistoryModel.superFilmModelMid:%@",watchHistoryModel.superFilmModelMid);
+        
         
         
         SCPlayerViewController *playerVC = [[SCPlayerViewController alloc] init];
@@ -337,7 +337,7 @@
     
     //请求播放地址
     [requestDataManager requestDataWithUrl:GetWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
-        
+        DONG_Log(@"responseObject:%@",responseObject);
         if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSDictionary class]]) {
             
             SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:responseObject[@"contentlist"][@"content"]];
