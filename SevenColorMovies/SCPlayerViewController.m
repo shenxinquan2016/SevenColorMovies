@@ -1426,7 +1426,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             //请求播放地址
             SCFilmModel *atrsFilmModel = [strongself.filmsArr firstObject];
             _filmModel = atrsFilmModel;
-            _filmModel.jiIndex = 1;
+//            _filmModel.jiIndex = 3;
             NSString *urlStr = [atrsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             //获取downLoadUrl
             [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
@@ -1467,6 +1467,25 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         DONG_StrongSelf(self);
                         [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                     };
+                    
+                    
+                    
+                    if (_filmModel.jiIndex > 1) {
+                        //如从观看记录进入，需发送通知
+                        if (_filmModel.jiIndex-1 < self.filmsArr.count) {
+                            SCFilmModel *atrsFilmModel = self.filmsArr[_filmModel.jiIndex-1];
+                            NSString *VODIndex = [NSString stringWithFormat:@"%lu",_filmModel.jiIndex-1];
+                            
+                            NSDictionary *message = @{@"filmModel" : atrsFilmModel,
+                                                      @"VODIndex" : VODIndex};
+                            
+                            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
+                        }
+                    }
+                    
+                    
+                    DONG_Log(@"_filmModel.jiIndex:%ld",(long)_filmModel.jiIndex);
+                    
                     
                     [CommonFunc dismiss];
                     
