@@ -310,6 +310,10 @@
         filmModel._FilmID      = watchHistoryModel.fid;
         filmModel.playtime     = watchHistoryModel.playtime;
         
+        DONG_Log(@"watchHistoryModel.playtime:%f",watchHistoryModel.playtime);
+        DONG_Log(@"filmModel.playtime:%f",filmModel.playtime);
+        
+        
         SCPlayerViewController *playerVC = [[SCPlayerViewController alloc] init];
         playerVC.filmModel = filmModel;
         [self.navigationController pushViewController:playerVC animated:YES];

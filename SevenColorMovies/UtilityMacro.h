@@ -114,7 +114,7 @@ dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)),
 
 #define DONG_MAIN(block) dispatch_async(dispatch_get_main_queue(),block)
 
-#define DONG_MAIN_DELAY(s,block) \
+#define DONG_AFTER_DELAY(s,block) \
 double delayInSeconds = s;   \
 dispatch_time_t delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC); \
 dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);\

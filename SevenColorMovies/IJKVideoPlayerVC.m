@@ -189,6 +189,14 @@
 }
 
 #pragma mark - IBAction
+- (IBAction)texthaha:(id)sender {
+  
+     //3.如果已经播放过，则从已播放时间开始播放
+        self.player.currentPlaybackTime = 48.000000;
+        [self.mediaControl refreshMediaControl];
+    
+}
+
 /** 控制面板底层 */
 - (IBAction)onClickMediaControl:(id)sender
 {

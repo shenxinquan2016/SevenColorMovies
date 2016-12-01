@@ -591,6 +591,9 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     NSNumber *fid      = [NSNumber numberWithInteger:[filmModel._FilmID integerValue]];
     NSNumber *playtime = [NSNumber numberWithInteger:self.IJKPlayerViewController.player.currentPlaybackTime];
     
+    DONG_Log(@"playtime:%@",playtime);
+    DONG_Log(@"currentPlaybackTime:%f",self.IJKPlayerViewController.player.currentPlaybackTime);
+    
     NSDictionary *parameters = @{@"oemid"     : oemid,
                                  @"hid"       : @"96BE56AA5BEB4AFBA97887CE4A8C00dd",
                                  @"mid"       : mid,
@@ -1544,10 +1547,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 DONG_Log(@"responseObject:%@",play_url);
                 //请求将播放地址域名转换  并拼接最终的播放地址
                 NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                
-                
-                
-                
+ 
                 //1.拼接新地址
                 NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                 strongself.url = [NSURL URLWithString:playUrl];
@@ -1557,12 +1557,17 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                 
-                //3.如果已经播放过，则从已播放时间开始播放
-                if (_filmModel.playtime) {
-                    DONG_Log(@"playtime:%ld", _filmModel.playtime);
-                    strongself.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.playtime;
-                    [strongself.IJKPlayerViewController.mediaControl refreshMediaControl];
-                }
+                DONG_AFTER_DELAY(6, ^{
+                    //3.如果已经播放过，则从已播放时间开始播放
+                    if (48.000000) {
+                        DONG_Log(@"playtime:%f", _filmModel.playtime);
+                        DONG_Log(@"thread:%@",[NSThread currentThread]);
+                        strongself.IJKPlayerViewController.player.currentPlaybackTime = 648.000000;
+                    }
+                });
+                
+                
+                
                 
                 NSString *filmName;
                 if (strongself.filmModel.FilmName) {
