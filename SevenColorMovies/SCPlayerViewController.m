@@ -1423,7 +1423,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             [strongself constructSlideHeaderView];
             [strongself constructContentView];
             
-            SCFilmModel *atrsFilmModel = [strongself.filmsArr firstObject];
+            SCFilmModel *artsFilmModel = nil;
             
             /* 
              * 如 jiIndex > 1 则为由观看记录进入
@@ -1433,10 +1433,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             if (_filmModel.jiIndex > 1) {
                 if (_filmModel.jiIndex - 1 < self.filmsArr.count) {
                     
-                    SCFilmModel *atrsFilmModel = self.filmsArr[_filmModel.jiIndex - 1];
+                    artsFilmModel = self.filmsArr[_filmModel.jiIndex - 1];
                     NSString *VODIndex = [NSString stringWithFormat:@"%lu",_filmModel.jiIndex - 1];
                     
-                    NSDictionary *message = @{@"filmModel" : atrsFilmModel,
+                    NSDictionary *message = @{@"filmModel" : artsFilmModel,
                                               @"VODIndex" : VODIndex};
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
@@ -1444,13 +1444,14 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 
             } else {
                 
-                _filmModel = atrsFilmModel;
+                artsFilmModel = [strongself.filmsArr firstObject];
+                _filmModel = artsFilmModel;
                 _filmModel.jiIndex = 1;
                 
             }
             
             //请求播放地址
-            NSString *urlStr = [atrsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSString *urlStr = [artsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             //获取downLoadUrl
             [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
                 
@@ -1462,7 +1463,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
                 //视频播放url
                 NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
-                NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:atrsFilmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:artsFilmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 //获取play_url
                 [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                     //            NSLog(@"====responseObject:::%@===",responseObject);
