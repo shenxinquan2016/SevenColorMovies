@@ -73,7 +73,7 @@
     }
     
     // 已播放时间
-    NSInteger palyTime = watchHistoryModel.playtime + 0.5;
+    NSInteger palyTime = watchHistoryModel.playtime;
     _watchTimeLabel.text = [NSString stringWithFormat:@"已播放%02ld:%02ld:%02ld", palyTime / 3600, (palyTime % 3600) / 60, palyTime % 60];
     
     if (watchHistoryModel.isShowDeleteBtn) {

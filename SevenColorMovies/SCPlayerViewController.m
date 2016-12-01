@@ -917,21 +917,14 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 - (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification
 {
     NSLog(@"mediaIsPreparedToPlayDidChange\n");
-    
-        //3.如果已经播放过，则从已播放时间开始播放
-        if (48.000000) {
+    //在此通知里设置加载IJK时的起始播放时间
+    //如果已经播放过，则从已播放时间开始播放
+        if (_filmModel.playtime) {
             DONG_Log(@"playtime:%f", _filmModel.playtime);
             DONG_Log(@"thread:%@",[NSThread currentThread]);
-            self.IJKPlayerViewController.player.currentPlaybackTime = 648.000000;
+            self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.playtime;
         }
-    
-}
-
-#pragma mark - 播放指定集 指定已播放时间
-- (void)playSpecificFilmWithFilmModel:(SCFilmModel *)filmModel
-{
-    
-    
+    _filmModel.playtime = 0.0f;
 }
 
 #pragma mark - 播放下一个节目
@@ -1575,12 +1568,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
-                
-              
-                
-                
-                
-                
+ 
                 NSString *filmName;
                 if (strongself.filmModel.FilmName) {
                     filmName = strongself.filmModel.FilmName;
