@@ -257,7 +257,6 @@
                 [navController popToViewController:controller animated:YES];
                 return;
             }
-
         }
         
     } else {

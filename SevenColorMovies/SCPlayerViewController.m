@@ -1434,10 +1434,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 if (_filmModel.jiIndex - 1 < self.filmsArr.count) {
                     
                     artsFilmModel = self.filmsArr[_filmModel.jiIndex - 1];
-                    NSString *VODIndex = [NSString stringWithFormat:@"%lu",_filmModel.jiIndex - 1];
+                    NSString *VODIndex2 = [NSString stringWithFormat:@"%lu",_filmModel.jiIndex - 1];
                     
                     NSDictionary *message = @{@"filmModel" : artsFilmModel,
-                                              @"VODIndex" : VODIndex};
+                                              @"VODIndex" : VODIndex2};
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
                     
@@ -1446,9 +1446,13 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                      *
                      * 当从观看记录播放时，filmModel是没有SourceURL的，如果此时添加到收藏或者节目单 再从收藏或节目单播放时，
                      * filmModel.SourceURL为空则无法播放，所以这里要给filmModel.SourceURL赋值
+                     * 
+                     * VODIndex也要赋值 因为自动播放下一个节目时需要标注当前的焦点位置
+                     *
                      */
                     
                     _filmModel.SourceURL = artsFilmModel.SourceURL;
+                    VODIndex = _filmModel.jiIndex - 1;
                     
                 }
                 
