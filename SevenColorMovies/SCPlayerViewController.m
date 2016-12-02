@@ -138,8 +138,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     //});
     
     // 使用 NSPredicate 查询
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
-                         _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ AND jiIndex = %ld",
+                         _filmModel.FilmName, _filmModel.jiIndex];
     RLMResults *results = [SCFilmModel objectsWithPredicate:pred];
     
     DONG_Log(@"tempArray.count:%ld",results.count);
@@ -196,8 +196,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
     
     // 使用 NSPredicate 查询
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
-                         _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ AND jiIndex = %ld",
+                         _filmModel.FilmName, _filmModel.jiIndex];
     RLMResults *results = [SCFilmModel objectsInRealm:realm withPredicate:pred];
     
     if (results.count) {//已经添加则取消收藏 从数据库删除
@@ -406,8 +406,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 -(void)refreshButtonStateFromQueryDatabase{
     //1.查询是否已经添加到节目单
     //使用 NSPredicate 查询
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
-                         _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ And jiIndex = %ld",
+                         _filmModel.FilmName, _filmModel.jiIndex];
     RLMResults *results = [SCFilmModel objectsWithPredicate:pred];
     if (results.count) {
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
@@ -996,6 +996,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             //更改属性值为指定单元节目的filmModel 方便存取
             _filmModel = atrsFilmModel;
             _filmModel.jiIndex = VODIndex + timesIndexOfVOD + 1;
+           
             //查询数据库以更新功能区按钮视图
             [self refreshButtonStateFromQueryDatabase];
             //请求播放地址
@@ -1171,6 +1172,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             timesIndexOfVOD = 0;//每次点击后将index复位为0
             // 对jiIndex赋值
             weakself.filmModel.jiIndex = VODIndex + 1;
+            
             DONG_Log(@">>>>>>>>>>%lu<<<<<<<<<<<",VODIndex);
             
             //1.移除当前的播放器
@@ -1494,8 +1496,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 artsFilmModel = [strongself.filmsArr firstObject];
                 artsFilmModel.onLive = YES;
                 _filmModel = artsFilmModel;
-                _filmModel.jiIndex = 1;
-                
+                _filmModel.jiIndex = 1; 
             }
             
             //请求播放地址
