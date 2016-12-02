@@ -419,7 +419,15 @@
 }
 
 // 播放综艺
-- (void)playArtAndLifeFilmWithFilmModel:(SCFilmModel *)filmModel{
+- (void)playArtAndLifeFilmWithFilmModel:(SCFilmModel *)filmModel
+{
+    NSString *filmMidStr = nil;
+    if (filmModel._Mid) {
+        filmMidStr = filmModel._Mid;
+    }else if (filmModel.mid){
+        filmMidStr = filmModel.mid;
+    }
+    
     //请求播放地址
     [CommonFunc showLoadingWithTips:@""];
     DONG_WeakSelf(self);
@@ -432,7 +440,7 @@
         //base64编码downloadUrl
         NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
         //视频播放url
-        NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+        NSString *VODStreamingUrl = [[[[[[VODUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmMidStr] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
         
         //2.请求播放地址
         [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {

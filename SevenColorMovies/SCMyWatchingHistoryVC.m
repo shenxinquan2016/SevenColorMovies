@@ -304,7 +304,7 @@
         
         SCFilmModel *filmModel = [[SCFilmModel alloc] init];
         filmModel.FilmName     = watchHistoryModel.title;
-        filmModel.mid          = watchHistoryModel.mid;
+        filmModel._Mid          = watchHistoryModel.mid;
         filmModel.mtype        = watchHistoryModel.mtype;
         filmModel.jiIndex      = [watchHistoryModel.sid integerValue];
         filmModel._FilmID      = watchHistoryModel.fid;
@@ -314,7 +314,7 @@
         
         
         
-        SCPlayerViewController *playerVC = [[SCPlayerViewController alloc] init];
+        SCPlayerViewController *playerVC = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
         playerVC.filmModel = filmModel;
         [self.navigationController pushViewController:playerVC animated:YES];
     }
