@@ -310,7 +310,7 @@
         filmModel._FilmID      = watchHistoryModel.fid;
         filmModel.playtime     = watchHistoryModel.playtime;
         
-        //DONG_Log(@"watchHistoryModel.superFilmModelMid:%@",watchHistoryModel.superFilmModelMid);
+        DONG_Log(@"sid:%@",watchHistoryModel.sid);
         
         
         

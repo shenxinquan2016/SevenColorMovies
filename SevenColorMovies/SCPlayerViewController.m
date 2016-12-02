@@ -1572,6 +1572,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         _mid = _filmModel.mid;
     }
     
+    _filmModel.jiIndex = -1;
     NSString *filmmidStr = _mid ? _mid : @"";
     
     NSDictionary *parameters = @{@"pagesize" : @"1000",
