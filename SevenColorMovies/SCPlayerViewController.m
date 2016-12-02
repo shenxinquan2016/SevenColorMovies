@@ -1314,7 +1314,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 [self constructContentView];
                 
                 /*
-                 * 如 jiIndex > 1 则为由观看记录进入
+                 * 如 _filmModel.jiIndex > 1 则为由观看记录进入(_filmModel.jiIndex初始值为0)
                  * 需要定位播放焦点
                  * 通过发送通知定位 _filmModel不用改变
                  */
@@ -1460,7 +1460,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             SCFilmModel *artsFilmModel = nil;
             
             /*
-             * 如 jiIndex > 1 则为由观看记录进入
+             * 如 jiIndex > 1 则为由观看记录进入(_filmModel.jiIndex初始值为0)
              * 需要定位播放焦点
              * 通过发送通知定位 _filmModel不用改变
              */
