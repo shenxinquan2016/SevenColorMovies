@@ -576,7 +576,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     }else {
         mTypeStr = @"";
     }
-
+    
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
     const NSString *uuidStr = [HLJUUID getUUID];
     filmModel.jiIndex = filmModel.jiIndex == 0 ? -1 : filmModel.jiIndex;
@@ -587,7 +587,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     NSNumber *sid      = [NSNumber numberWithInteger:filmModel.jiIndex];//第几集
     NSNumber *fid      = [NSNumber numberWithInteger:[filmModel._FilmID integerValue]];
     NSNumber *playtime = [NSNumber numberWithInteger:self.IJKPlayerViewController.player.currentPlaybackTime];
-
+    
     NSDictionary *parameters = @{@"oemid"     : oemid,
                                  @"hid"       : @"96BE56AA5BEB4AFBA97887CE4A8C00dd",
                                  @"mid"       : mid,
@@ -908,11 +908,11 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     NSLog(@"mediaIsPreparedToPlayDidChange\n");
     //在此通知里设置加载IJK时的起始播放时间
     //如果已经播放过，则从已播放时间开始播放
-        if (_filmModel.playtime) {
-            DONG_Log(@"playtime:%f", _filmModel.playtime);
-            DONG_Log(@"thread:%@",[NSThread currentThread]);
-            self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.playtime;
-        }
+    if (_filmModel.playtime) {
+        DONG_Log(@"playtime:%f", _filmModel.playtime);
+        DONG_Log(@"thread:%@",[NSThread currentThread]);
+        self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.playtime;
+    }
     _filmModel.playtime = 0.0f;
 }
 
@@ -946,7 +946,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             //1.获取上一个节目的model
             SCFilmSetModel *lastFilmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD-1];
             
-            message = @{@"mextFilmSetModel" : filmSetModel,
+            message = @{@"nextFilmSetModel" : filmSetModel,
                         @"lastFilmSetModel" : lastFilmSetModel};
             [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
             
@@ -969,7 +969,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
                 [self.view addSubview:_IJKPlayerViewController.view];
-               
+                
                 DONG_WeakSelf(self);
                 //1.全屏锁定回调
                 weakself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
@@ -1049,7 +1049,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                         DONG_StrongSelf(self);
                         [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                     };
-
+                    
                     [CommonFunc dismiss];
                     
                 } failure:^(id  _Nullable errorObject) {
@@ -1122,7 +1122,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             DONG_StrongSelf(self);
             [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
         };
-
+        
         [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
@@ -1202,7 +1202,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     DONG_StrongSelf(self);
                     [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                 };
-
+                
                 [CommonFunc dismiss];
                 
             } failure:^(id  _Nullable errorObject) {
@@ -1219,16 +1219,15 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 
 #pragma mark - 网络请求
 //电视剧请求数据
-- (void)getTeleplayData {
-    
-    NSString *mid;
+- (void)getTeleplayData
+{
     if (_filmModel._Mid) {
-        mid = _filmModel._Mid;
+        _mid = _filmModel._Mid;
     }else if (_filmModel.mid){
-        mid = _filmModel.mid;
+        _mid = _filmModel.mid;
     }
     
-    NSString *filmmidStr = mid ? mid : @"";
+    NSString *filmmidStr = _mid ? _mid : @"";
     //请求播放资源
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"pagesize" : @"1000",
@@ -1242,7 +1241,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             if (responseObject) {
                 
                 NSString *mid = responseObject[@"Film"][@"_Mid"];
-                
+                DONG_Log(@"_mid:%@",mid);
                 //介绍页model
                 self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
                 
@@ -1297,12 +1296,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         
                     }
                 }
-                SCFilmSetModel *filmSetModel = [_filmSetsArr firstObject];
-                _filmSetModel = filmSetModel;
-                filmSetModel.onLive = YES;
-                _filmModel.jiIndex = 1;
-                //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
-                _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
+                
                 if (_filmSetsArr.count == 1) {
                     
                     self.titleArr = @[@"详情", @"精彩推荐"];
@@ -1318,6 +1312,46 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 [self constructSlideHeaderView];
                 //2.添加contentScrllowView
                 [self constructContentView];
+                
+                /*
+                 * 如 jiIndex > 1 则为由观看记录进入
+                 * 需要定位播放焦点
+                 * 通过发送通知定位 _filmModel不用改变
+                 */
+                SCFilmSetModel *filmSetModel = nil;
+                if (_filmModel.jiIndex > 1) {
+                    if (_filmModel.jiIndex - 1 < self.filmSetsArr.count) {
+                        
+                        filmSetModel = self.filmSetsArr[_filmModel.jiIndex - 1];
+                        SCFilmSetModel *lastFilmSetModel = self.filmSetsArr[_filmModel.jiIndex - 2];;
+                        
+                        
+                        NSDictionary *message = @{@"nextFilmSetModel" : filmSetModel,
+                                                  @"lastFilmSetModel" : lastFilmSetModel};
+                        [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
+                        
+                        /*
+                         * 比较乱
+                         *
+                         * VODIndex需要矫正 不矫正时VODIndex=0 自动播放下一个节目时焦点位置会出错
+                         * 此时_filmModel.filmSetModel为空 需要赋值
+                         */
+                        VODIndex = _filmModel.jiIndex - 1;
+                        //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
+                        _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
+                        
+                    }
+                    
+                } else {
+                    
+                    filmSetModel = [_filmSetsArr firstObject];
+                    filmSetModel.onLive = YES;
+                    _filmSetModel = filmSetModel;
+                    _filmModel.jiIndex = 1;
+                    //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
+                    _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
+                    
+                }
                 
                 //请求第一集的播放地址
                 [requestDataManager requestDataWithUrl:filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
@@ -1338,7 +1372,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                     _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
                     [self.view addSubview:_IJKPlayerViewController.view];
-                   
+                    
                     DONG_WeakSelf(self);
                     //1.全屏锁定回调
                     weakself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
@@ -1409,9 +1443,9 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         
                         NSDictionary *dic = obj;
                         SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:dic];
-                        if (idx == 0) {
-                            model.onLive = YES;
-                        }
+                        //                        if (idx == 0) {
+                        //                            model.onLive = YES;
+                        //                        }
                         [strongself.filmsArr addObject:model];
                     }];
                 }
@@ -1425,7 +1459,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             
             SCFilmModel *artsFilmModel = nil;
             
-            /* 
+            /*
              * 如 jiIndex > 1 则为由观看记录进入
              * 需要定位播放焦点
              * 通过发送通知定位 _filmModel不用改变
@@ -1446,7 +1480,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                      *
                      * 当从观看记录播放时，filmModel是没有SourceURL的，如果此时添加到收藏或者节目单 再从收藏或节目单播放时，
                      * filmModel.SourceURL为空则无法播放，所以这里要给filmModel.SourceURL赋值
-                     * 
+                     *
                      * VODIndex需要矫正 不矫正时VODIndex=0 自动播放下一个节目时焦点位置会出错
                      *
                      */
@@ -1458,6 +1492,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             } else {
                 
                 artsFilmModel = [strongself.filmsArr firstObject];
+                artsFilmModel.onLive = YES;
                 _filmModel = artsFilmModel;
                 _filmModel.jiIndex = 1;
                 
@@ -1494,8 +1529,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
                     [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                     
-                   
-                    
                     //1.全屏锁定回调
                     strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                         DONG_StrongSelf(self);
@@ -1506,10 +1539,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         DONG_StrongSelf(self);
                         [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                     };
-                    
-                    
-
-                    
                     
                     [CommonFunc dismiss];
                     
@@ -1591,7 +1620,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 DONG_Log(@"responseObject:%@",play_url);
                 //请求将播放地址域名转换  并拼接最终的播放地址
                 NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
- 
+                
                 //1.拼接新地址
                 NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                 strongself.url = [NSURL URLWithString:playUrl];
@@ -1600,7 +1629,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
- 
+                
                 NSString *filmName;
                 if (strongself.filmModel.FilmName) {
                     filmName = strongself.filmModel.FilmName;

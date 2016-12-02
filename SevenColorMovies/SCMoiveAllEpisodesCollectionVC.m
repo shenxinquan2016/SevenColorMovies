@@ -186,7 +186,7 @@ static NSString *const cellId = @"cellId";
 - (void)changeCellStateWhenPlayNextVODFilm:(NSNotification *)notification{
     
     NSDictionary *dic = notification.object;
-    SCFilmSetModel *filmSetModel = dic[@"mextFilmSetModel"];
+    SCFilmSetModel *filmSetModel = dic[@"nextFilmSetModel"];
     SCFilmSetModel *lastFilmSetModel = dic[@"lastFilmSetModel"];
     
     //当发生跳转页播放时 要将前一页最后一个cell置为非播放状态
