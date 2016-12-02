@@ -83,6 +83,10 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     
     //0.更新功能区的上约束值
     _toTopConstraint.constant = kMainScreenWidth * 9 / 16;
+    _addMyCollectionBtn.enlargedEdge = 5.f;
+    _addProgramListBtn.enlargedEdge = 15.f;
+    _downLoadBtn.enlargedEdge = 5.f;
+    
     //1.初始化数组
     self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];
     self.filmsArr = [NSMutableArray arrayWithCapacity:0];
@@ -589,7 +593,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     NSNumber *playtime = [NSNumber numberWithInteger:self.IJKPlayerViewController.player.currentPlaybackTime];
     
     NSDictionary *parameters = @{@"oemid"     : oemid,
-                                 @"hid"       : @"96BE56AA5BEB4AFBA97887CE4A8C00dd",
+                                 @"hid"       : uuidStr,
                                  @"mid"       : mid,
                                  @"mtype"     : mType,
                                  @"sid"       : sid,

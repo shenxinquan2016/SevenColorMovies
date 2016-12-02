@@ -330,7 +330,7 @@
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
     NSNumber *page      = [NSNumber numberWithInteger:1];
     NSDictionary *parameters = @{@"oemid"    : oemid,
-                                 @"hid"      : @"96BE56AA5BEB4AFBA97887CE4A8C00dd",
+                                 @"hid"      : uuidStr,
                                  @"datetime" : timeStamp,
                                  @"page"     : page
                                  };
@@ -379,7 +379,7 @@
     NSString *fid       = watchHistoryModel.fid;
     
     NSDictionary *parameters = @{@"oemid"    : oemid,
-                                 @"hid"      : @"96BE56AA5BEB4AFBA97887CE4A8C00dd",
+                                 @"hid"      : uuidStr,
                                  @"mid"      : mid,
                                  @"datetime" : timeStamp,
                                  @"sid"      : sid,
@@ -404,7 +404,7 @@
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
 
     NSDictionary *parameters = @{@"oemid"    : oemid,
-                                 @"hid"      : @"96BE56AA5BEB4AFBA97887CE4A8C00dd",
+                                 @"hid"      : uuidStr,
                                  @"datetime" : timeStamp
                                  };
     //请求播放地址
