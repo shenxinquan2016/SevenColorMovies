@@ -1447,13 +1447,12 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                      * 当从观看记录播放时，filmModel是没有SourceURL的，如果此时添加到收藏或者节目单 再从收藏或节目单播放时，
                      * filmModel.SourceURL为空则无法播放，所以这里要给filmModel.SourceURL赋值
                      * 
-                     * VODIndex也要赋值 因为自动播放下一个节目时需要标注当前的焦点位置
+                     * VODIndex需要矫正 不矫正时VODIndex=0 自动播放下一个节目时焦点位置会出错
                      *
                      */
                     
                     _filmModel.SourceURL = artsFilmModel.SourceURL;
                     VODIndex = _filmModel.jiIndex - 1;
-                    
                 }
                 
             } else {
