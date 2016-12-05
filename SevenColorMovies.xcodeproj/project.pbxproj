@@ -41,7 +41,6 @@
 		1131C0DF1D6705CD00BA151A /* IJKMediaControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0DB1D6705CD00BA151A /* IJKMediaControl.m */; };
 		1131C0E01D6705CD00BA151A /* IJKVideoPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0DD1D6705CD00BA151A /* IJKVideoPlayerVC.m */; };
 		1131C0E11D6705CD00BA151A /* IJKVideoPlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */; };
-		1131C0E51D6707F400BA151A /* SCRotatoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0E41D6707F400BA151A /* SCRotatoUtil.m */; };
 		1131C0E81D67081E00BA151A /* SCPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0E71D67081E00BA151A /* SCPlayerViewController.m */; };
 		11323E0A1DB5C4B80089A207 /* SCMyCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11323E081DB5C4B80089A207 /* SCMyCollectionCell.m */; };
 		11323E0B1DB5C4B80089A207 /* SCMyCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11323E091DB5C4B80089A207 /* SCMyCollectionCell.xib */; };
@@ -56,6 +55,7 @@
 		113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 113F8D9A1D3C77E000B12D39 /* HomePage.storyboard */; };
 		113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */; };
 		113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */; };
+		11412D181DF5130300AD9B0F /* DONG_BrightnessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11412D171DF5130300AD9B0F /* DONG_BrightnessView.m */; };
 		11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458E8D1D45D7E000EBD16D /* SCHomePageFlowLayout.m */; };
 		11458E921D45D86800EBD16D /* SCHomePageSectionBGReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11458E901D45D86800EBD16D /* SCHomePageSectionBGReusableView.m */; };
 		11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11458E911D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib */; };
@@ -268,8 +268,6 @@
 		1131C0DC1D6705CD00BA151A /* IJKVideoPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKVideoPlayerVC.h; sourceTree = "<group>"; };
 		1131C0DD1D6705CD00BA151A /* IJKVideoPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKVideoPlayerVC.m; sourceTree = "<group>"; };
 		1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IJKVideoPlayerVC.xib; sourceTree = "<group>"; };
-		1131C0E31D6707F400BA151A /* SCRotatoUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRotatoUtil.h; sourceTree = "<group>"; };
-		1131C0E41D6707F400BA151A /* SCRotatoUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRotatoUtil.m; sourceTree = "<group>"; };
 		1131C0E61D67081E00BA151A /* SCPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPlayerViewController.h; sourceTree = "<group>"; };
 		1131C0E71D67081E00BA151A /* SCPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPlayerViewController.m; sourceTree = "<group>"; };
 		1131C0E91D670B7000BA151A /* NotificationMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationMacro.h; sourceTree = "<group>"; };
@@ -295,6 +293,8 @@
 		113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addition.m"; sourceTree = "<group>"; };
 		113F8D9F1D3CAAC200B12D39 /* UIColor+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Addition.h"; sourceTree = "<group>"; };
 		113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Addition.m"; sourceTree = "<group>"; };
+		11412D161DF5130300AD9B0F /* DONG_BrightnessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_BrightnessView.h; sourceTree = "<group>"; };
+		11412D171DF5130300AD9B0F /* DONG_BrightnessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_BrightnessView.m; sourceTree = "<group>"; };
 		11458E8C1D45D7E000EBD16D /* SCHomePageFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHomePageFlowLayout.h; sourceTree = "<group>"; };
 		11458E8D1D45D7E000EBD16D /* SCHomePageFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHomePageFlowLayout.m; sourceTree = "<group>"; };
 		11458E8F1D45D86800EBD16D /* SCHomePageSectionBGReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHomePageSectionBGReusableView.h; sourceTree = "<group>"; };
@@ -710,24 +710,24 @@
 			name = "Log(unicode编码)";
 			sourceTree = "<group>";
 		};
-		1131C0D31D67053100BA151A /* 亮度声音调节 */ = {
+		1131C0D31D67053100BA151A /* FastForward | Brightness | Volume */ = {
 			isa = PBXGroup;
 			children = (
 				1131C0D71D67057600BA151A /* SCChangeBrightnessAndVolumeTool.h */,
 				1131C0D81D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m */,
+				11412D161DF5130300AD9B0F /* DONG_BrightnessView.h */,
+				11412D171DF5130300AD9B0F /* DONG_BrightnessView.m */,
 			);
-			name = "亮度声音调节";
+			name = "FastForward | Brightness | Volume";
 			sourceTree = "<group>";
 		};
-		1131C0E21D6707B700BA151A /* 旋转全屏 */ = {
+		1131C0E21D6707B700BA151A /* Rotation */ = {
 			isa = PBXGroup;
 			children = (
 				11E97A031D6320CA00512D10 /* PlayerViewRotate.h */,
 				11E97A041D6320CA00512D10 /* PlayerViewRotate.m */,
-				1131C0E31D6707F400BA151A /* SCRotatoUtil.h */,
-				1131C0E41D6707F400BA151A /* SCRotatoUtil.m */,
 			);
-			name = "旋转全屏";
+			name = Rotation;
 			sourceTree = "<group>";
 		};
 		113E62E51D49F5FE00FB8F3A /* FilmModel */ = {
@@ -820,6 +820,21 @@
 				11B072271DD2B7C800DD3FED /* Dong_DownloadModel.m */,
 			);
 			name = DownLoadManager;
+			sourceTree = "<group>";
+		};
+		11412D191DF5191D00AD9B0F /* MainBody */ = {
+			isa = PBXGroup;
+			children = (
+				1131C0DC1D6705CD00BA151A /* IJKVideoPlayerVC.h */,
+				1131C0DD1D6705CD00BA151A /* IJKVideoPlayerVC.m */,
+				1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */,
+				1131C0DA1D6705CD00BA151A /* IJKMediaControl.h */,
+				1131C0DB1D6705CD00BA151A /* IJKMediaControl.m */,
+				118702791D740A3F005B3895 /* SCVideoLoadingView.h */,
+				1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */,
+				1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */,
+			);
+			name = MainBody;
 			sourceTree = "<group>";
 		};
 		11458E991D45EE4C00EBD16D /* Model */ = {
@@ -951,16 +966,9 @@
 		115A21101D41F02F0097DE57 /* IJKPlayer播放器 */ = {
 			isa = PBXGroup;
 			children = (
-				1131C0DC1D6705CD00BA151A /* IJKVideoPlayerVC.h */,
-				1131C0DD1D6705CD00BA151A /* IJKVideoPlayerVC.m */,
-				1131C0DE1D6705CD00BA151A /* IJKVideoPlayerVC.xib */,
-				1131C0DA1D6705CD00BA151A /* IJKMediaControl.h */,
-				1131C0DB1D6705CD00BA151A /* IJKMediaControl.m */,
-				118702791D740A3F005B3895 /* SCVideoLoadingView.h */,
-				1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */,
-				1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */,
-				1131C0E21D6707B700BA151A /* 旋转全屏 */,
-				1131C0D31D67053100BA151A /* 亮度声音调节 */,
+				11412D191DF5191D00AD9B0F /* MainBody */,
+				1131C0E21D6707B700BA151A /* Rotation */,
+				1131C0D31D67053100BA151A /* FastForward | Brightness | Volume */,
 			);
 			name = "IJKPlayer播放器";
 			sourceTree = "<group>";
@@ -2111,6 +2119,7 @@
 				1147FBB11DDE9B6300126F2E /* SCArtsDownloadView.m in Sources */,
 				116E0F581DB0888C00E280C6 /* SCMyWatchingHistoryVC.m in Sources */,
 				11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */,
+				11412D181DF5130300AD9B0F /* DONG_BrightnessView.m in Sources */,
 				11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */,
 				11E97A051D6320CA00512D10 /* PlayerViewRotate.m in Sources */,
 				1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */,
@@ -2179,7 +2188,6 @@
 				11323E0F1DB5CB650089A207 /* SCMyDownLoadManagerCell.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
-				1131C0E51D6707F400BA151A /* SCRotatoUtil.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
 				115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */,
 				11DDB87E1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m in Sources */,

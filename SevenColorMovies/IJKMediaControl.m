@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
     _changeBrightnessAndVolumeToolView.panView = self;
     [_changeBrightnessAndVolumeToolView setVolumeView:self];
     
-    // 添加平移手势，用来控制音量和快进快退
+    // 添加平移手势，用来控制音量亮度和快进快退
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panViewChange:)];
     [self addGestureRecognizer:pan];
     

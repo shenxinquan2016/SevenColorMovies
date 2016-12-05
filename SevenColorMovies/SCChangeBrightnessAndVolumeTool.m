@@ -8,6 +8,8 @@
 
 #import "SCChangeBrightnessAndVolumeTool.h"
 #import "IJKVideoPlayerVC.h"
+#import "DONG_BrightnessView.h"
+
 
 @interface SCChangeBrightnessAndVolumeTool ()
 
@@ -134,21 +136,21 @@
             break;
     }
 }
-#pragma mark - pan垂直移动的方法 音控
+#pragma mark - pan垂直移动的方法 控制音量和亮度
 - (void)verticalMoved:(CGFloat)value
 {
-    
     if (satrtPoint.x <= self.panView.bounds.size.width/2.0)
     {   //调节亮度
         [[UIScreen mainScreen] setBrightness:[UIScreen mainScreen].brightness - (value / 10000)];
+        // 亮度view加到window最上层
+        DONG_BrightnessView *brightnessView = [DONG_BrightnessView sharedBrightnessView];
+        [[UIApplication sharedApplication].keyWindow addSubview:brightnessView];
         
-    }else
+    } else
     {   //调节音量
         volumeViewSlider.value -= value /10000;
         systemVolume = volumeViewSlider.value;
-        
     }
-    
 }
 
 #pragma mark - pan水平移动的方法 快进
