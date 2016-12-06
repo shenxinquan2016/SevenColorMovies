@@ -37,21 +37,21 @@ typedef void (^netWorkChangeToWifiOrWWAN)();
 /**
  *  检测2G/3G网络状态
  *
- *  @return 2G/3G是否联通
+ *  @return 2G/3G是否连通
  */
 + (BOOL) checkGPRSNet;
 
 /**
  *  检测WiFi网络状态
  *
- *  @return WiFi是否联通
+ *  @return WiFi是否连通
  */
 + (BOOL) checkWifiNet;
 
 /**
  *  检测网络连接状态
  *
- *  @return 网络是否联通
+ *  @return 网络是否连通
  */
 + (BOOL)isNetConnect;
 
@@ -63,7 +63,7 @@ typedef void (^netWorkChangeToWifiOrWWAN)();
 +(NSString *)getNetWorkStates;
 
 /**
- *  检测网络运营商
+ *  检测网络运营商类别
  *
  *  @return 移动联通电信铁通
  */

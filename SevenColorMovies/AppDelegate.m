@@ -41,6 +41,7 @@
     
     //-1.启动播放代理包
     [self setLibagent];
+    
     //0.初始化键盘控制
     [self initKeyboardManager];
     
@@ -52,20 +53,6 @@
     
     return YES;
 }
-
-////禁用横屏
-//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
-//{
-//    if (self.lanscape == YES) {
-////                return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskPortrait;
-//        return UIInterfaceOrientationMaskLandscapeRight;
-//        
-//    }
-//    else
-//    {
-//        return UIInterfaceOrientationMaskPortrait;
-//    }
-//}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     
@@ -87,29 +74,31 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    
-    // 当应用被关闭终止时，可以判断当前如果存在下载任务，可以取消任务并保存resumeData
-//    if(!self.downTask){
-//        return;
-//    }
-//    [self.downTask cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
-//        if(resumeData){
-//            self.resumeData = resumeData;
-//            //可以进一步存储到NSUserDefault或持久化文件中,等下次应用启动后决定是否需要断点续传重新下载
-//        }
-//    }];
-    
-    
+
    //    libagent_close();
 }
 
+////禁用横屏
+//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+//{
+//    if (self.lanscape == YES) {
+////                return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskPortrait;
+//        return UIInterfaceOrientationMaskLandscapeRight;
+//
+//    }
+//    else
+//    {
+//        return UIInterfaceOrientationMaskPortrait;
+//    }
+//}
+
 - (void)setSelectedInitialIndex {
+    
     //点播播放列表点击标识置为0
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedViewIndex];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedCellIndex];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-
 
 //设置网络环境
 - (void)setNetworkEnvironment {
