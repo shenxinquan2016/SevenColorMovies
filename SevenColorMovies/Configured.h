@@ -35,6 +35,7 @@
 #import "libagent_start.h"
 #import "HLJRequest.h"
 #import "FileManageCommon.h"
+#import "SCNetHelper.h"
 
 
 //@import MJRefresh;

@@ -22,7 +22,7 @@ static NSString *const kReachabilityChangedNotification = @"kReachabilityChanged
     static QINetReachabilityManager *instance = nil;
     static dispatch_once_t once ;
     dispatch_once(&once, ^{
-        instance = [[self alloc]init];
+        instance = [[self alloc] init];
     });
     return instance;
 }

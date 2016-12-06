@@ -23,6 +23,21 @@
     
     //    [self setAppearance];
     
+    [SCNetHelper noNetWork:^{
+        DONG_NSLog(没有网);
+    }];
+    
+    [SCNetHelper WWANNetwork:^{
+        DONG_NSLog(4G网络);
+        
+    }];
+    
+    [SCNetHelper wifiNetwork:^{
+        DONG_NSLog(WiFi网络);
+    }];
+
+   DONG_Log(@"%@",[SCNetHelper getNetWorkStates]);
+    
     
     //-1.启动播放代理包
     [self setLibagent];
@@ -32,10 +47,8 @@
     //2.设置网络环境
     [self setNetworkEnvironment];
     
-    //3.点播播放列表点击标识置为0
-    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedViewIndex];
-    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedCellIndex];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    //3.设置点播播放列表点击标识置为0
+    [self setSelectedInitialIndex];
     
     return YES;
 }
@@ -90,6 +103,12 @@
    //    libagent_close();
 }
 
+- (void)setSelectedInitialIndex {
+    //点播播放列表点击标识置为0
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedViewIndex];
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedCellIndex];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 
 //设置网络环境

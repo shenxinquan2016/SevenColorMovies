@@ -55,9 +55,18 @@ typedef void (^netWorkChangeToWifiOrWWAN)();
  */
 + (BOOL)isNetConnect;
 
+/**
+ *  检测网络连接状态
+ *
+ *  @return 无网络 2G/3G/4G/WIFI
+ */
 +(NSString *)getNetWorkStates;
 
-
+/**
+ *  检测网络运营商
+ *
+ *  @return 移动联通电信铁通
+ */
 + (NSString*)getCarrier;
 
 

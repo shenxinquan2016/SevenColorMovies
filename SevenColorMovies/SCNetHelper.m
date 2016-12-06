@@ -52,7 +52,7 @@
         netStatusString = WWANSTATUS;
     }
     
-    //    [manager currentNetReachabilityStatus];
+//       [manager currentNetReachabilityStatus];
     
     return netStatusString;
     
@@ -154,7 +154,7 @@
 +(NSString *)getNetWorkStates{
     UIApplication *app = [UIApplication sharedApplication];
     NSArray *children = [[[app valueForKeyPath:@"statusBar"]valueForKeyPath:@"foregroundView"]subviews];
-    NSString *state = [[NSString alloc]init];
+    NSString *state = [[NSString alloc] init];
     int netType = 0;
     //获取到网络返回码
     for (id child in children) {

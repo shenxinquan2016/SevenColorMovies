@@ -23,7 +23,7 @@ typedef enum : NSInteger {
 
 @interface QIReachability : NSObject
 
-/*!
+/*
  * Use to check the reachability of a given host name.
  */
 + (instancetype)reachabilityWithHostName:(NSString *)hostName;
