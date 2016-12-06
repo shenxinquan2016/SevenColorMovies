@@ -242,6 +242,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"------%@》》》》》》", error);
         if (faild) {
+            
             faild(error);
         }
     }];
@@ -272,7 +273,13 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"------%@》》》》》》", error);
         if (faild) {
-            faild(error);
+            //数据请求失败
+            if (![SCNetHelper isNetConnect]) {
+                faild(@"网络异常，请检查网络设置!");
+                [MBProgressHUD showError:@"网络异常，请检查网络设置!"];
+            } else {
+                faild(error);
+            }
         }
     }];
 }
