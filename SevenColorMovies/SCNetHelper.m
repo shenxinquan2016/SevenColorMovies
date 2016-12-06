@@ -13,7 +13,7 @@
 
 @implementation SCNetHelper
 
-// 检测2G/3G网络状态
+// 检测2G/3G/4G网络状态
 + (BOOL)checkGPRSNet{
     NetworkStatus status = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
     return (status == ReachableViaWWAN);

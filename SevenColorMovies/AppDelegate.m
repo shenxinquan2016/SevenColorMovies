@@ -23,21 +23,8 @@
     
     //    [self setAppearance];
     
-    [SCNetHelper noNetWork:^{
-        DONG_NSLog(没有网);
-    }];
     
-    [SCNetHelper WWANNetwork:^{
-        DONG_NSLog(4G网络);
-        
-    }];
-    
-    [SCNetHelper wifiNetwork:^{
-        DONG_NSLog(WiFi网络);
-    }];
-
-   DONG_Log(@"%@",[SCNetHelper getNetWorkStates]);
-    
+    [self checkNetworkEnvironment];
     
     //-1.启动播放代理包
     [self setLibagent];
@@ -141,6 +128,43 @@
     manager.shouldToolbarUsesTextFieldTintColor = YES;//控制键盘上的工具条文字颜色是否用户自定义
     manager.enableAutoToolbar = NO;//控制是否显示键盘上的工具条。
 }
+
+- (void)checkNetworkEnvironment {
+    //    [SCNetHelper noNetWork:^{
+    //        DONG_NSLog(没有网);
+    //    }];
+    //
+    //    [SCNetHelper WWANNetwork:^{
+    //        DONG_NSLog(4G网络);
+    //
+    //    }];
+    //
+    //    [SCNetHelper wifiNetwork:^{
+    //        DONG_NSLog(WiFi网络);
+    //    }];
+    //
+       DONG_Log(@"%@",[SCNetHelper getNetWorkStates]);
+    
+    
+    
+    [SCNetHelper changeToWifi:^{
+        DONG_Log(@"wifi");
+       
+
+    } netWorkChangeToWWAN:^{
+        DONG_Log(@"4G");
+        UIAlertView *alertview =[[UIAlertView alloc] initWithTitle:@"提示" message:@"切换到移动网络,继续使用将会消耗您的流量" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [alertview show];
+
+
+    } changeToNoNetWork:^{
+        DONG_Log(@"没有网络");
+        [MBProgressHUD showError:@"网络断开"];
+    }];
+
+    
+}
+
 
 //启动播放代理
 - (void)setLibagent{

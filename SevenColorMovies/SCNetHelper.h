@@ -31,13 +31,24 @@ typedef void (^netWorkChangeToWifiOrWWAN)();
 + (void)wifiNetwork:(WifiNetwork)WifiNetwork;
 
 
-
-+ (void)changeToWifiOrWWAN:(netWorkChangeToWifiOrWWAN)netWorkChangeToWifi changeToNoNetWork:(noNetWork)noNetWork;
-+ (void)changeToWifi:(netWorkChangeToWifi)netWorkChangeToWifi netWorkChangeToWWAN:(netWorkChangeToWWAN)netWorkChangeToWWAN changeToNoNetWork:(noNetWork)noNetWork;
 /**
- *  检测2G/3G网络状态
+ *  网络模式发生改变时调用
  *
- *  @return 2G/3G是否连通
+ *  @return
+ */
++ (void)changeToWifiOrWWAN:(netWorkChangeToWifiOrWWAN)netWorkChangeToWifi changeToNoNetWork:(noNetWork)noNetWork;
+
+/**
+ *  网络模式发生改变时调用
+ *
+ *  @return
+ */
++ (void)changeToWifi:(netWorkChangeToWifi)netWorkChangeToWifi netWorkChangeToWWAN:(netWorkChangeToWWAN)netWorkChangeToWWAN changeToNoNetWork:(noNetWork)noNetWork;
+
+/**
+ *  检测2G/3G/4G网络状态
+ *
+ *  @return 2G/3G/4G网络状态是否连通
  */
 + (BOOL) checkGPRSNet;
 
@@ -65,7 +76,7 @@ typedef void (^netWorkChangeToWifiOrWWAN)();
 /**
  *  检测网络运营商类别
  *
- *  @return 移动联通电信铁通
+ *  @return 移动/联通/电信/铁通
  */
 + (NSString*)getCarrier;
 
