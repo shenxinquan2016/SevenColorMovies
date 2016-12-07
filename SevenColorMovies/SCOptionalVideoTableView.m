@@ -90,7 +90,6 @@ NSString *identifier;
     teleplayPlayer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:teleplayPlayer animated:YES];
     
-    
 }
 
 #pragma mark- 网络请求

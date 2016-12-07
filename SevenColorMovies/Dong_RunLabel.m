@@ -8,7 +8,7 @@
 
 #import "Dong_RunLabel.h"
 
-CGFloat const labelMargin = 100;
+CGFloat const labelMargin = 50;
 CGFloat const padding = 1;
 
 @interface Dong_RunLabel () {
@@ -58,12 +58,12 @@ CGFloat const padding = 1;
     _scrollView = scrollView;
     
     UILabel * labelFirst = [[UILabel alloc]init];
-    labelFirst.textAlignment = (NSTextAlignment)self.textAlignment;
+    labelFirst.textAlignment = _textAlignment;
     _firstLabel = labelFirst;
     [scrollView addSubview:labelFirst];
     
     UILabel * labelSecond = [[UILabel alloc]init];
-    labelSecond.textAlignment = (NSTextAlignment)self.textAlignment;
+    labelSecond.textAlignment = _textAlignment;
     _secondLabel = labelSecond;
     [scrollView addSubview:labelSecond];
 }
@@ -72,11 +72,7 @@ CGFloat const padding = 1;
     
     [super layoutSubviews];
     
-    NSAssert(_titleName.length, @"");
-    
-    _firstLabel.textAlignment = _textAlignment;
-    _secondLabel.textAlignment = _textAlignment;
-    
+//    NSAssert(_titleName.length, @"titleName为空");
     
     if (_titleColor == nil) {
         _titleColor = [UIColor colorWithRed:80/255.0 green:80/255.0 blue:80/255.0 alpha:1];
@@ -105,6 +101,12 @@ CGFloat const padding = 1;
         _scrollView.contentSize = self.frame.size;
         _firstLabel.frame = self.bounds;
         [_secondLabel removeFromSuperview];
+        
+        // 当旋转时会调用layoutSubViews方法，会重新计算用不用移动，如不需要移动当timer已经存在时要移除
+        if (_myTimer) {
+            [self removeTimer];
+        }
+
     } else {
         _scrollView.contentSize = CGSizeMake(rect.size.width * 2 + labelMargin, self.frame.size.height);
         _firstLabel.frame = CGRectMake(0, 0, rect.size.width, self.frame.size.height);
