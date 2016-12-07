@@ -46,6 +46,8 @@ typedef NS_ENUM(NSUInteger, Direction) {
     [self setupProgressSlider];//自定义UISlider
     [self refreshMediaControl];
     [self showNoFade];
+    self.programNameLabel.hidden = YES;
+    self.programNameRunLabel.textAlignment = NSTextAlignmentLeft;
     self.goFastView.hidden = YES;
     self.playButton.hidden = YES;//第一次加载时隐藏
     self.fullScreenLockButton.hidden = YES;

@@ -688,6 +688,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
+        self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
         
         //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
         DONG_WeakSelf(self);

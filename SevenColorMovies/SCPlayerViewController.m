@@ -1643,6 +1643,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     filmName = strongself.filmModel.cnname;
                 }
                 strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;
                 
                 //1.全屏锁定回调
                 strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){

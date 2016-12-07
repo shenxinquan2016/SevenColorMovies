@@ -24,6 +24,14 @@ CGFloat const padding = 1;
 
 @implementation Dong_RunLabel
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.titleColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor clearColor];
+    [self setupUI];
+    self.userInteractionEnabled = NO;
+}
+
 - (instancetype)initWithTitle:(NSString *)titleName
 {
     self = [super init];
@@ -50,12 +58,12 @@ CGFloat const padding = 1;
     _scrollView = scrollView;
     
     UILabel * labelFirst = [[UILabel alloc]init];
-    labelFirst.textAlignment = NSTextAlignmentCenter;
+    labelFirst.textAlignment = (NSTextAlignment)self.textAlignment;
     _firstLabel = labelFirst;
     [scrollView addSubview:labelFirst];
     
     UILabel * labelSecond = [[UILabel alloc]init];
-    labelSecond.textAlignment = NSTextAlignmentCenter;
+    labelSecond.textAlignment = (NSTextAlignment)self.textAlignment;
     _secondLabel = labelSecond;
     [scrollView addSubview:labelSecond];
 }
@@ -66,12 +74,16 @@ CGFloat const padding = 1;
     
     NSAssert(_titleName.length, @"");
     
+    _firstLabel.textAlignment = _textAlignment;
+    _secondLabel.textAlignment = _textAlignment;
+    
+    
     if (_titleColor == nil) {
         _titleColor = [UIColor colorWithRed:80/255.0 green:80/255.0 blue:80/255.0 alpha:1];
     }
     
     if (_titleFont == nil) {
-        _titleFont = [UIFont systemFontOfSize:17];
+        _titleFont = [UIFont systemFontOfSize:15];
     }
     
     _firstLabel.textColor = _titleColor;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Dong_RunLabel.h"
 @protocol IJKMediaPlayback;
 
 @interface IJKMediaControl : UIControl
@@ -31,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalDurationLabel;//进度条总时间
 @property (weak, nonatomic) IBOutlet UISlider *progressSlider;//进度条
 @property (weak, nonatomic) IBOutlet UIButton *fullScreenLockButton;
+@property (weak, nonatomic) IBOutlet Dong_RunLabel *programNameRunLabel;
 
 - (void)showNoFade;
 - (void)showAndFade;

@@ -136,15 +136,24 @@
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oan-lS-V2J" customClass="Dong_RunLabel">
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="vE1-DR-EOw"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
+                                <constraint firstAttribute="trailing" secondItem="oan-lS-V2J" secondAttribute="trailing" constant="7" id="296-rA-MZg"/>
                                 <constraint firstItem="GKE-nQ-f0w" firstAttribute="leading" secondItem="L4f-8A-J5v" secondAttribute="leading" constant="4" id="FCh-kq-z4i"/>
                                 <constraint firstAttribute="trailing" secondItem="6Xc-iC-Vl7" secondAttribute="trailing" constant="7" id="VRX-8b-cC0"/>
                                 <constraint firstAttribute="height" constant="38" id="Xbq-bh-2zv"/>
+                                <constraint firstItem="oan-lS-V2J" firstAttribute="leading" secondItem="GKE-nQ-f0w" secondAttribute="trailing" id="aV6-jy-hsj"/>
                                 <constraint firstItem="6Xc-iC-Vl7" firstAttribute="centerY" secondItem="L4f-8A-J5v" secondAttribute="centerY" id="awt-0l-bxa"/>
                                 <constraint firstItem="GKE-nQ-f0w" firstAttribute="centerY" secondItem="L4f-8A-J5v" secondAttribute="centerY" id="coK-cx-cqN"/>
                                 <constraint firstItem="6Xc-iC-Vl7" firstAttribute="leading" secondItem="GKE-nQ-f0w" secondAttribute="trailing" id="eKm-dJ-TjS"/>
+                                <constraint firstItem="oan-lS-V2J" firstAttribute="centerY" secondItem="L4f-8A-J5v" secondAttribute="centerY" id="gI9-Rq-027"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -232,11 +241,12 @@
                 <outlet property="overlayPanel" destination="GYR-8Q-AzF" id="aBv-34-Yjq"/>
                 <outlet property="playButton" destination="yF2-q6-6iG" id="TFr-pC-oLS"/>
                 <outlet property="programNameLabel" destination="6Xc-iC-Vl7" id="MHx-Ir-pjx"/>
+                <outlet property="programNameRunLabel" destination="oan-lS-V2J" id="B14-cF-rqb"/>
                 <outlet property="progressSlider" destination="0SY-TZ-qnQ" id="sSR-fa-X8R"/>
                 <outlet property="topPanel" destination="L4f-8A-J5v" id="S4p-gq-fYk"/>
                 <outlet property="totalDurationLabel" destination="EiK-FX-EcO" id="GWz-hv-7Fx"/>
             </connections>
-            <point key="canvasLocation" x="240" y="317"/>
+            <point key="canvasLocation" x="239.5" y="316.5"/>
         </view>
     </objects>
     <resources>
