@@ -279,6 +279,7 @@
                 [MBProgressHUD showError:@"网络异常，请检查网络设置!"];
             } else {
                 faild(error);
+                [MBProgressHUD showError:@"获取数据失败!"];
             }
         }
     }];

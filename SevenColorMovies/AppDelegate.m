@@ -170,7 +170,7 @@
 - (void)setLibagent{
     const NSString *uuidStr = [HLJUUID getUUID];
     const char *uuid = [uuidStr UTF8String];
-//    libagent_start(0, NULL, uuid, 5656);
+    libagent_start(0, NULL, uuid, 5656);
     
     
 }
