@@ -84,7 +84,8 @@
         weakplayer.isProhibitRotate = isProhibitRotate;
     };
     
-    player.IJKPlayerViewController.mediaControl.programNameLabel.text = name;//节目名称
+    //player.IJKPlayerViewController.mediaControl.programNameLabel.text = name;//节目名称
+    player.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = name;//节目名称
     [player.view addSubview:player.IJKPlayerViewController.view];
     
     //进入全屏模式
@@ -293,7 +294,8 @@
                     filmName = [NSString stringWithFormat:@"%@ 第%@集",filmModel.cnname,filmModel.filmSetModel._ContentIndex];
                 }
                 
-                strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
                 
                 [CommonFunc dismiss];
                 
@@ -398,7 +400,8 @@
                         filmName = filmModel.cnname;
                     }
                     
-                    strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                    //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                    strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
                     
                     [CommonFunc dismiss];
                     
@@ -483,7 +486,8 @@
                     filmName = filmModel.cnname;
                 }
                 
-                strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
                 
                 [CommonFunc dismiss];
                 

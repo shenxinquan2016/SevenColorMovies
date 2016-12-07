@@ -971,7 +971,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 //2.调用播放器播放
                 self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
                 _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
                 [self.view addSubview:_IJKPlayerViewController.view];
                 
                 DONG_WeakSelf(self);
@@ -1040,7 +1041,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     //2.调用播放器播放
                     self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
                     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                    _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                    //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                    _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
                     [self.view addSubview:_IJKPlayerViewController.view];
                     
                     DONG_WeakSelf(self);
@@ -1113,7 +1115,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         //2.调用播放器播放
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+        //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+        _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
         [self.view addSubview:_IJKPlayerViewController.view];
         
         DONG_WeakSelf(self);
@@ -1194,8 +1197,9 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 //2.调用播放器播放
                 strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
-                strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
+                //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
+                strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = strongself.filmModel.FilmName;//节目名称
+                
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                 
                 //1.全屏锁定回调
@@ -1376,7 +1380,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     //2.调用播放器播放
                     self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
                     _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                    _IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                    //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                    _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
                     [self.view addSubview:_IJKPlayerViewController.view];
                     
                     DONG_WeakSelf(self);
@@ -1531,7 +1536,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     //2.调用播放器播放
                     strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                     strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                    strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
+                    //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
+                    strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = strongself.filmModel.FilmName;//节目名称
                     [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                     
                     //1.全屏锁定回调
@@ -1642,7 +1648,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 }else if (strongself.filmModel.cnname){
                     filmName = strongself.filmModel.cnname;
                 }
-                strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
                 strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;
                 
                 //1.全屏锁定回调
