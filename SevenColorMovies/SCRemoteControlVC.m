@@ -39,8 +39,6 @@
     //1.标题
     self.leftBBI.text = @"遥控器";
     
-//    [UPDScoketManager connectUDPSocketWithDelegate:self];
-
     [self setUDPSocket];
     
 }
@@ -67,7 +65,6 @@
 
 - (IBAction)doOKAction:(id)sender {
     NSLog(@"确定");
-//    [UPDScoketManager sendMessage:nil];
     [self searchEquipment];
 
 }
@@ -138,7 +135,8 @@
     
 }
 
-- (void)setBtnImage {
+- (void)setBtnImage
+{
     [_volumeDownBtn setImage:[UIImage imageNamed:@"VolumeDown_Click"] forState:UIControlStateHighlighted];
     [_pullScreenBtn setImage:[UIImage imageNamed:@"PullScreen_Click"] forState:UIControlStateHighlighted];
     [_volumeUpBtn setImage:[UIImage imageNamed:@"VolumeUp_Click"] forState:UIControlStateHighlighted];
