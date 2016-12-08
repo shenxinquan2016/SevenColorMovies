@@ -116,6 +116,7 @@
 		116E1D5E1D4B4E0200B488EC /* SCFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D5D1D4B4E0200B488EC /* SCFilterViewController.m */; };
 		116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */; };
 		1177A0F91DF7A0B6004C216B /* Dong_RunLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1177A0F81DF7A0B6004C216B /* Dong_RunLabel.m */; };
+		11796BEA1DF8FB0C00F5923C /* SCUDPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BE91DF8FB0C00F5923C /* SCUDPSocketManager.m */; };
 		1187027B1D740A3F005B3895 /* SCVideoLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */; };
 		1187027D1D740A57005B3895 /* SCVideoLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */; };
 		118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 118D19B61D59B2D000A6968D /* SCFilmIntroduceModel.m */; };
@@ -391,6 +392,8 @@
 		116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRemoteControlVC.m; sourceTree = "<group>"; };
 		1177A0F71DF7A0B6004C216B /* Dong_RunLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dong_RunLabel.h; sourceTree = "<group>"; };
 		1177A0F81DF7A0B6004C216B /* Dong_RunLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dong_RunLabel.m; sourceTree = "<group>"; };
+		11796BE81DF8FB0C00F5923C /* SCUDPSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUDPSocketManager.h; sourceTree = "<group>"; };
+		11796BE91DF8FB0C00F5923C /* SCUDPSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUDPSocketManager.m; sourceTree = "<group>"; };
 		118702791D740A3F005B3895 /* SCVideoLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoLoadingView.h; sourceTree = "<group>"; };
 		1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoLoadingView.m; sourceTree = "<group>"; };
 		1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCVideoLoadingView.xib; sourceTree = "<group>"; };
@@ -1273,6 +1276,15 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		11796BE41DF8F9C300F5923C /* UDPSocketManager */ = {
+			isa = PBXGroup;
+			children = (
+				11796BE81DF8FB0C00F5923C /* SCUDPSocketManager.h */,
+				11796BE91DF8FB0C00F5923C /* SCUDPSocketManager.m */,
+			);
+			name = UDPSocketManager;
+			sourceTree = "<group>";
+		};
 		118D19B41D59B29B00A6968D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1557,6 +1569,7 @@
 				11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */,
 				11D422581D49A42800B4F9AE /* SCComonFunc.h */,
 				11D422591D49A42800B4F9AE /* SCComonFunc.m */,
+				11796BE41DF8F9C300F5923C /* UDPSocketManager */,
 				11BB37DC1D38F0580002D487 /* NetHelper */,
 				1111A4071D488BE500C17B92 /* DNIPhoneInfo */,
 				11DC2BC91D3DD76700012480 /* DownImageManger */,
@@ -2177,6 +2190,7 @@
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
 				11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */,
 				1111A4191D48A71300C17B92 /* QINetReachabilityManager.m in Sources */,
+				11796BEA1DF8FB0C00F5923C /* SCUDPSocketManager.m in Sources */,
 				1147FBB51DDE9D6000126F2E /* SCArtsDownloadCell.m in Sources */,
 				116E0F5E1DB0891D00E280C6 /* SCMyDownloadManagerVC.m in Sources */,
 				11458E9C1D45EECE00EBD16D /* SCDiscoveryCellModel.m in Sources */,
