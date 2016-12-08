@@ -260,7 +260,7 @@
     // 1.3返回XMLData
     //manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     //2.请求超时时间设置
-    manager.requestSerializer.timeoutInterval = 10;
+    manager.requestSerializer.timeoutInterval = 1;
     
     [manager GET:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
