@@ -22,7 +22,9 @@ typedef NS_ENUM(NSUInteger, SocketOfflineType){
 
 
 /** udpSocket实例 */
-@property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
+@property (nonatomic, strong) GCDAsyncUdpSocket *udpServerSoket;
+/** udpSocket实例 */
+@property (nonatomic, strong) GCDAsyncUdpSocket *udpClientSocket;
 /** 心跳计时器 */
 @property (nonatomic, retain) NSTimer *heartTimeInterval;
 

@@ -68,8 +68,42 @@
     
 }
 
+- (IBAction)doOKAction:(id)sender {
+    NSLog(@"确定");
+    [UPDScoketManager sendMessage:@"OK"];
+}
 
+- (IBAction)doBackAction:(id)sender {
+    NSLog(@"返回");
+}
 
+- (IBAction)doVolumeDown:(id)sender {
+    NSLog(@"音量减");
+}
+
+- (IBAction)doVolumeUp:(id)sender {
+    NSLog(@"音量加");
+}
+
+- (IBAction)toHomePage:(id)sender {
+    NSLog(@"主页");
+}
+
+- (IBAction)toMenuPage:(id)sender {
+    NSLog(@"目录");
+}
+
+- (IBAction)doVODAction:(id)sender {
+    NSLog(@"点播");
+}
+
+- (IBAction)doTimeShiftAction:(id)sender {
+    NSLog(@"时移");
+}
+
+- (IBAction)doPullScreen:(id)sender {
+    NSLog(@"拉屏");
+}
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{
