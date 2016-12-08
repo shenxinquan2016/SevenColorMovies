@@ -31,11 +31,6 @@
  */
 + (instancetype)sharedUDPSocketManager;
 
-/** 开始连接 */
-- (void)startConnectSocket;
-
-/** 断开连接 */
--(void)cutOffSocket;
 
 /** 发送消息 */
 - (void)sendMessage:(id)message;

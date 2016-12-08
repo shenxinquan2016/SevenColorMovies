@@ -11,7 +11,7 @@
 
 #define PORT 9816
 
-@interface SCUDPSocketManager ()<GCDAsyncUdpSocketDelegate>
+@interface SCUDPSocketManager () <GCDAsyncUdpSocketDelegate>
 
 @end
 
@@ -19,7 +19,7 @@
 @implementation SCUDPSocketManager
 
 
-/** 下载管理器单例 */
+/** udpSocket单例 */
 + (instancetype)sharedUDPSocketManager {
     static dispatch_once_t onceToken;
     static SCUDPSocketManager *socketManager = nil;
@@ -39,7 +39,6 @@
         // udpServerSocket需要用来接收数据
         self.udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dQueue socketQueue:nil];
       
-        
         //2.服务器端来监听端口9814(等待端口9814的数据)
         [self.udpSocket bindToPort:PORT error:nil];
         
@@ -49,7 +48,6 @@
         //4.接收一次消息(启动一个等待接收,且只接收一次)
         [self.udpSocket receiveOnce:nil];
 
-        
         NSError *error = nil;
         if (![self.udpSocket bindToPort:PORT error:&error]) {
             NSLog(@"Error starting server (bind): %@", error);
@@ -66,16 +64,6 @@
     }
     
     return self;
-}
-
-/** 开始连接 */
-- (void)startConnectSocket {
-    
-}
-
-/** 断开连接 */
--(void)cutOffSocket {
-    [self.udpSocket close];
 }
 
 /** 发送消息 */
@@ -114,7 +102,8 @@
     
     NSLog(@"[%@:%u]%@",ip, port,s);
     
-    [self sendBackToHost: ip port:port withMessage:s];
+    //[self sendBackToHost: ip port:port withMessage:s];
+    
     //再次启动一个等待
     [self.udpSocket receiveOnce:nil];
     
@@ -127,8 +116,6 @@
     [self.udpSocket sendData:data toHost:ip port:port withTimeout:60 tag:200];
 }
 
-
-
 -(void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag{
     if (tag == 100) {
         NSLog(@"tag:100 数据发送成功");
@@ -139,11 +126,9 @@
 
 -(void)udpSocket:(GCDAsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error{
     NSLog(@"标记为tag %ld的发送失败 失败原因 %@",tag, error);
-    
 }
 
 - (void)udpSocketDidClose:(GCDAsyncUdpSocket *)sock withError:(NSError *)error {
     NSLog(@"UDP链接关闭 原因 %@", error);
 }
-
 @end
