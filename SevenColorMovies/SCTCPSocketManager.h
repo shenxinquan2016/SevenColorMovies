@@ -18,7 +18,6 @@ typedef NS_ENUM(NSUInteger, SocketOfflineType){
     SocketOfflineByWifiCut,     //wifi 断开
 };
 
-
 @interface SCTCPSocketManager : NSObject
 
 /**

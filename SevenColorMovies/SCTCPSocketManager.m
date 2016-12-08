@@ -17,7 +17,7 @@
 #define READ_TIME_OUT -1
 #define MAX_BUFFER 1024
 
-static const NSInteger kBeatLimit = 3;
+static const NSInteger kBeatLimit = 10;
 
 @interface SCTCPSocketManager () <GCDAsyncSocketDelegate>
 
@@ -104,7 +104,7 @@ static const NSInteger kBeatLimit = 3;
 {
     NSData *requestData = [data dataUsingEncoding:NSUTF8StringEncoding];
     [self.socket writeData:requestData withTimeout:-1 tag:0];
-    [self socketBeginReadData];
+    //[self socketBeginReadData];
 }
 
 /** socket 读取数据 */
@@ -159,10 +159,12 @@ static const NSInteger kBeatLimit = 3;
 
 
 
-
-
-
 #pragma mark - GCDAsyncSocketDelegate
+- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
+{
+    
+    
+}
 /** 连接成功 */
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
@@ -170,7 +172,6 @@ static const NSInteger kBeatLimit = 3;
     
     //通过定时器不断发送消息，来检测长连接
     [self socketDidConnectBeginSendBeat:nil];
-    
     
 }
 
