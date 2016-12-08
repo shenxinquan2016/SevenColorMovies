@@ -10,6 +10,8 @@
 
 @class GCDAsyncUdpSocket;
 
+#define UPDScoketManager [SCUDPSocketManager sharedUDPSocketManager]
+
 typedef NS_ENUM(NSUInteger, SocketOfflineType){
       SocketOfflineByServer,      //服务器掉线
       SocketOfflineByUser,        //用户断开
@@ -19,7 +21,7 @@ typedef NS_ENUM(NSUInteger, SocketOfflineType){
 @interface SCUDPSocketManager : NSObject
 
 
-/** 心跳计时器 */
+/** udpSocket实例 */
 @property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
 /** 心跳计时器 */
 @property (nonatomic, retain) NSTimer *heartTimeInterval;
@@ -30,7 +32,7 @@ typedef NS_ENUM(NSUInteger, SocketOfflineType){
 
 
 /**
- *  下载管理器单例
+ *  udpSocket单例
  *
  *  @return 返回唯一的实例
  */

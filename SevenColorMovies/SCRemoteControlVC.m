@@ -7,6 +7,7 @@
 //
 
 #import "SCRemoteControlVC.h"
+#import "SCUDPSocketManager.h"
 
 @interface SCRemoteControlVC ()
 // PullScreen TimeShifted VolumeDown_Click VolumeUp_Click
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;
 @property (weak, nonatomic) IBOutlet UIButton *homePageBtn;
 @property (weak, nonatomic) IBOutlet UIButton *menuBtn;
+
 @end
 
 @implementation SCRemoteControlVC
@@ -31,6 +33,8 @@
     self.leftBBI.text = @"遥控器";
     
     
+    
+    [UPDScoketManager startConnectSocket];
     
     
 }
@@ -63,6 +67,9 @@
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
     
 }
+
+
+
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{

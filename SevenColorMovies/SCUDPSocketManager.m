@@ -44,8 +44,8 @@
         // udpServerSocket需要用来接收数据
         self.udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dQueue socketQueue:nil];
         
-        //2.服务器端来监听端口12345(等待端口12345的数据)
-        [self.udpSocket bindToPort:12345 error:nil];
+        //2.服务器端来监听端口9814(等待端口9814的数据)
+        [self.udpSocket bindToPort:9814 error:nil];
         
         //3.接收一次消息(启动一个等待接收,且只接收一次)
         [self.udpSocket receiveOnce:nil];
@@ -54,21 +54,14 @@
         NSError *error = nil;
         if (![self.udpSocket bindToPort:PORT error:&error]) {
             NSLog(@"Error starting server (bind): %@", error);
-            
         }
         // send boardcast
         if(![self.udpSocket enableBroadcast:YES error:&error]){
             NSLog(@"Error enableBroadcast (bind): %@", error);
-            
         }
-//        if (![self.udpSocket joinMulticastGroup:groupHost error:&error]) {
-//            NSLog(@"Error enableBroadcast (bind): %@", error);
-//            
-//        }
         if (![self.udpSocket beginReceiving:&error]) {
             [self.udpSocket close];
             NSLog(@"Error starting server (recv): %@", error);
-            
         }
         NSLog(@"udp servers success starting %hu", [_udpSocket localPort]);
     }
