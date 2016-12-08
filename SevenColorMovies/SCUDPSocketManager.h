@@ -31,6 +31,8 @@
  */
 + (instancetype)sharedUDPSocketManager;
 
+/** UDP连接 */
+- (void)connectUDPSocketWithDelegate:(id)delegate;
 
 /** 发送消息 */
 - (void)sendMessage:(id)message;

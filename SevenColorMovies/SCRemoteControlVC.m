@@ -39,7 +39,8 @@
     //1.标题
     self.leftBBI.text = @"遥控器";
     
-    [self setUDPSocket];
+    [UPDScoketManager connectUDPSocketWithDelegate:self];
+
     
 }
 
@@ -65,8 +66,8 @@
 
 - (IBAction)doOKAction:(id)sender {
     NSLog(@"确定");
-    
-    [self searchEquipment];
+    [UPDScoketManager sendMessage:nil];
+
 }
 
 - (IBAction)doBackAction:(id)sender {
@@ -113,39 +114,6 @@
     [_menuBtn setImage:[UIImage imageNamed:@"Menu_Click"] forState:UIControlStateHighlighted];
 }
 
-- (void)setUDPSocket {
-    //创建一个后台队列 等待接收数据
-    dispatch_queue_t dQueue = dispatch_queue_create("My socket queue", NULL); //第一个参数是该队列的名字
-    
-    //1.实例化一个udp socket套接字对象
-    // udpServerSocket需要用来接收数据
-    self.udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dQueue socketQueue:nil];
-    
-    //2.服务器端来监听端口PORT(等待端口PORT的数据)
-    [self.udpSocket bindToPort:PORT error:nil];
-    
-    //3.开启广播模式
-    [self.udpSocket enableBroadcast:YES error:nil];
-    
-    //4.接收一次消息(启动一个等待接收,且只接收一次)
-    [self.udpSocket receiveOnce:nil];
-    
-}
-
-- (void)searchEquipment {
-    NSString *message = @"谁在线";
-    NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
-    // 给网段内所有的人发送消息 四个255表示广播地址
-    NSString *host = @"255.255.255.255";
-    uint16_t port = PORT;
-    
-    //开始发送
-    //该函数只是启动一次发送 它本身不进行数据的发送, 而是让后台的线程慢慢的发送 也就是说这个函数调用完成后,数据并没有立刻发送,异步发送
-    [self.udpSocket sendData:data toHost:host port:port withTimeout:-1 tag:100];
-    
-}
-
-
 #pragma mark - GCDAsyncUdpSocketDelegate
 
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didConnectToAddress:(NSData *)address {
@@ -170,7 +138,7 @@
     //[self sendBackToHost: ip port:port withMessage:s];
     
     //再次启动一个等待
-    [self.udpSocket receiveOnce:nil];
+    [UPDScoketManager.udpSocket receiveOnce:nil];
     
 }
 
@@ -178,7 +146,7 @@
     NSString *msg = @"我已接收到消息";
     NSData *data = [msg dataUsingEncoding:NSUTF8StringEncoding];
     
-    [self.udpSocket sendData:data toHost:ip port:port withTimeout:60 tag:200];
+    [UPDScoketManager.udpSocket sendData:data toHost:ip port:port withTimeout:60 tag:200];
 }
 
 -(void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag{
