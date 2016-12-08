@@ -12,21 +12,12 @@
 
 #define UPDScoketManager [SCUDPSocketManager sharedUDPSocketManager]
 
-typedef NS_ENUM(NSUInteger, SocketOfflineType){
-      SocketOfflineByServer,      //服务器掉线
-      SocketOfflineByUser,        //用户断开
-      SocketOfflineByWifiCut,     //wifi 断开
-     };
 
 @interface SCUDPSocketManager : NSObject
 
+/** udpSocket实例 */
+@property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
 
-/** udpSocket实例 */
-@property (nonatomic, strong) GCDAsyncUdpSocket *udpServerSoket;
-/** udpSocket实例 */
-@property (nonatomic, strong) GCDAsyncUdpSocket *udpClientSocket;
-/** 心跳计时器 */
-@property (nonatomic, retain) NSTimer *heartTimeInterval;
 
 
 
