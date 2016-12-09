@@ -8,12 +8,14 @@
 
 #import "SCRemoteControlVC.h"
 #import "GCDAsyncUdpSocket.h"
+#import "GCDAsyncSocket.h"
 #import "SCUDPSocketManager.h"
+#import "SCTCPSocketManager.h"
 
 #define PORT 9816
 
 
-@interface SCRemoteControlVC () <GCDAsyncUdpSocketDelegate>
+@interface SCRemoteControlVC () <GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *volumeDownBtn;
 @property (weak, nonatomic) IBOutlet UIButton *pullScreenBtn;
@@ -41,7 +43,13 @@
     
     [self setUDPSocket];
     
+    
+    NSString *host = @"192.168.31.109";
+    UInt16 port = 9814;
+    
+    [UPDScoketManager connectToHost:host port:port delegate:self];
 }
+
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
@@ -71,6 +79,8 @@
 
 - (IBAction)doBackAction:(id)sender {
     NSLog(@"返回");
+    
+    [UPDScoketManager disconnectSocket];
 }
 
 - (IBAction)doVolumeDown:(id)sender {
@@ -83,6 +93,7 @@
 
 - (IBAction)toHomePage:(id)sender {
     NSLog(@"主页");
+    
 }
 
 - (IBAction)toMenuPage:(id)sender {
@@ -148,7 +159,7 @@
     [_menuBtn setImage:[UIImage imageNamed:@"Menu_Click"] forState:UIControlStateHighlighted];
 }
 
-#pragma mark - GCDAsyncUdpSocketDelegate
+#pragma mark - UDPSocketDelegate
 
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didConnectToAddress:(NSData *)address {
     
@@ -168,6 +179,14 @@
     NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
     NSLog(@"[%@:%u]%@",ip, port,s);
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithXMLData:data];
+    NSLog(@"%@",dic);
+    
+    if (dic) {
+        NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
+        NSLog(@"%@",dic2);
+    }
     
     //[self sendBackToHost: ip port:port withMessage:s];
     
@@ -198,6 +217,60 @@
 - (void)udpSocketDidClose:(GCDAsyncUdpSocket *)sock withError:(NSError *)error {
     NSLog(@"UDP链接关闭 原因 %@", error);
 }
+
+
+
+
+
+#pragma mark - TCPSocketDelegate
+
+- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
+{
+    
+    
+}
+/** 连接成功 */
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
+{
+    NSLog(@"GCDAsyncSocketDelegate链接服务器成功");
+    //通过定时器不断发送消息，来检测长连接
+    [UPDScoketManager socketDidConnectBeginSendBeat:@"心跳测试连接"];
+    
+}
+
+/** 连接失败 */
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+{
+    NSLog(@"GCDAsyncSocket服务器连接失败");
+    [UPDScoketManager socketDidDisconectBeginSendReconnect:@"重新连接"];
+}
+
+/** 接收消息成功 */
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    //服务端返回消息数据量比较大时，可能分多次返回。所以在读取消息的时候，设置MAX_BUFFER表示每次最多读取多少，当data.length < MAX_BUFFER我们认为有可能是接受完一个完整的消息，然后才解析
+    if( data.length < 1024 )
+    {
+        //收到结果解析...
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"%@",dic);
+        //解析出来的消息，可以通过通知、代理、block等传出去
+    }
+    
+    [UPDScoketManager.socket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:1024 tag:0];
+    
+    
+}
+
+/** 发送消息成功 */
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    NSLog(@"数据成功发送到服务器");
+    //数据发送成功后，自己调用一下读取数据的方法，接着socket才会调用读取数据的代理方法
+    [UPDScoketManager.socket readDataWithTimeout:-1 tag:tag];
+}
+
+
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{

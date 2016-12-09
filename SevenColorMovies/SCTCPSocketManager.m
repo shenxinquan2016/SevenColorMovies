@@ -25,6 +25,10 @@ static const NSInteger kBeatLimit = 10;
 /** 心跳计时器 */
 @property (nonatomic, retain) NSTimer *heartBeatTimer;
 @property (nonatomic, strong) NSTimer *reconnectTimer;  // 重连定时器
+/** ip */
+@property (nonatomic, copy) NSString *host;
+/** 端口 */
+@property (nonatomic, assign) UInt16 port;
 
 @end
 
@@ -59,7 +63,8 @@ static const NSInteger kBeatLimit = 10;
     NSError *error;
     [self.socket connectToHost:host onPort:port error:&error];
     NSLog(@"connect error: --- %@", error);
-    
+    self.host = host;
+    self.port = port;
 }
 
 /** socket 连接成功后发送心跳的操作 */
@@ -141,7 +146,7 @@ static const NSInteger kBeatLimit = 10;
 
 - (void)reconnection:(NSTimer *)timer {
     NSError *error = nil;
-    if (![self.socket connectToHost:HOST onPort:PORT withTimeout:30 error:&error]) {
+    if (![self.socket connectToHost:self.host onPort:self.port withTimeout:30 error:&error]) {
         self.connectStatus = -1;
     }
 }
