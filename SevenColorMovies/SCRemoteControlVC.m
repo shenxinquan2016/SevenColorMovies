@@ -108,7 +108,7 @@
 
 - (IBAction)doVolumeDown:(id)sender {
     NSLog(@"音量减");
-    NSString *xmlString = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"com.vurc.system\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Rc_VolumeControl\" value=\"-1\"></Message>]]></Body></Message>";
+    NSString *xmlString = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"com.vurc.system\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Rc_VolumeControl\" value=\"-1\"></Message>]]></Body></Message>\n";
 
     DONG_Log(@"xmlString:%@",xmlString);
     
@@ -121,12 +121,12 @@
 - (IBAction)doVolumeUp:(id)sender {
     NSLog(@"音量加");
     
-    NSString *xmlString = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"com.vurc.system\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Rc_Move\" value=\"MoveRight\"></Message>]]></Body></Message>";
+    NSString *xmlString = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"com.vurc.system\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Rc_Move\" value=\"MoveRight\"></Message>]]></Body></Message>\n";
 
 
     DONG_Log(@"xmlString:%@",xmlString);
     
-        [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString];
 //    NSData *requestData = [xmlString dataUsingEncoding:NSUTF8StringEncoding];
 //    [self.socket writeData:requestData withTimeout:-1 tag:0];
 //    [self.clientSocket writeData:requestData withTimeout:-1 tag:0];
@@ -272,7 +272,6 @@
 /** 连接成功 */
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
-    
     NSLog(@"GCDAsyncSocketDelegate链接服务器成功 ip:%@ port:%d", host, port);
     //通过定时器不断发送消息，来检测长连接
 //    [TCPScoketManager socketDidConnectBeginSendBeat:@"心跳测试连接"];
