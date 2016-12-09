@@ -153,6 +153,38 @@
                                     <action selector="doVolumeUp:" destination="11b-d0-noV" eventType="touchUpInside" id="oIJ-EB-tko"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jed-dE-ORE">
+                                <frame key="frameInset" minX="68" minY="235" width="48" height="126"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="doMoveLeft:" destination="11b-d0-noV" eventType="touchUpInside" id="QBB-Yr-SYo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qme-tc-YsT">
+                                <frame key="frameInset" minX="254" minY="235" width="54" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="doMoveRignt:" destination="11b-d0-noV" eventType="touchUpInside" id="iaQ-DW-XTF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-W4-Tul">
+                                <frame key="frameInset" minX="112" minY="361" width="150" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="doMoveDown:" destination="11b-d0-noV" eventType="touchUpInside" id="Zxe-Pn-LWv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0P4-bd-IHQ">
+                                <frame key="frameInset" minX="124" minY="182" width="131" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="doMoveUp:" destination="11b-d0-noV" eventType="touchUpInside" id="tCx-fm-SvR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -165,6 +197,10 @@
                         <outlet property="backBtn" destination="6Gx-eY-6fo" id="z5K-c1-9m5"/>
                         <outlet property="homePageBtn" destination="2eu-DS-26C" id="LTJ-qN-yS1"/>
                         <outlet property="menuBtn" destination="Xp4-b9-2Rf" id="7gI-QD-Brp"/>
+                        <outlet property="moveDownBtn" destination="8Ul-W4-Tul" id="QZc-7Y-gX0"/>
+                        <outlet property="moveLeftBtn" destination="jed-dE-ORE" id="gfY-FS-mH6"/>
+                        <outlet property="moveRightBtn" destination="Qme-tc-YsT" id="tjp-kw-tJG"/>
+                        <outlet property="moveUpBtn" destination="0P4-bd-IHQ" id="VO7-OY-qQk"/>
                         <outlet property="pullScreenBtn" destination="ACY-ZX-bc8" id="MI0-Ff-dcP"/>
                         <outlet property="timeShiftBtn" destination="JTh-I1-NuO" id="lQA-vj-Noq"/>
                         <outlet property="volumeDownBtn" destination="7oB-Z1-88C" id="dPq-1W-wuW"/>
@@ -173,7 +209,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fsd-p3-VQ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="521.5" y="-0.5"/>
+            <point key="canvasLocation" x="520.79999999999995" y="-1.3493253373313345"/>
         </scene>
     </scenes>
     <resources>

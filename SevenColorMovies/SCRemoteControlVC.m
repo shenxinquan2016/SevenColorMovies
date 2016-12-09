@@ -33,6 +33,10 @@
 @property (nonatomic, strong)AsyncSocket *serverSocket;
 @property (nonatomic, strong)AsyncSocket *clientSocket;
 @property (nonatomic, strong)AsyncSocket *myNewSocket;
+@property (weak, nonatomic) IBOutlet UIButton *moveUpBtn;
+@property (weak, nonatomic) IBOutlet UIButton *moveDownBtn;
+@property (weak, nonatomic) IBOutlet UIButton *moveLeftBtn;
+@property (weak, nonatomic) IBOutlet UIButton *moveRightBtn;
 
 /** udpSocket实例 */
 @property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
@@ -94,17 +98,6 @@
     
 }
 
-- (IBAction)doOKAction:(id)sender {
-    NSLog(@"确定");
-    [self searchEquipment];
-
-}
-
-- (IBAction)doBackAction:(id)sender {
-    NSLog(@"返回");
-    
-    [TCPScoketManager disconnectSocket];
-}
 
 - (IBAction)doVolumeDown:(id)sender
 {
@@ -120,32 +113,104 @@
 - (IBAction)doVolumeUp:(id)sender
 {
     NSLog(@"音量加");
+    NSString *type = @"Rc_VolumeControl";
+    NSString *value = @"1";
+    NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
+    [TCPScoketManager socketWriteData:xmlString];
+}
+
+
+- (IBAction)doMoveUp:(id)sender
+{
+    NSString *type = @"Rc_Move";
+    NSString *value = @"MoveUp";
+    NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
+    
+    [TCPScoketManager socketWriteData:xmlString];
+}
+
+- (IBAction)doMoveDown:(id)sender
+{
+    NSString *type = @"Rc_Move";
+    NSString *value = @"MoveDown";
+    NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
+    
+    [TCPScoketManager socketWriteData:xmlString];
+}
+
+- (IBAction)doMoveLeft:(id)sender
+{
+    NSString *type = @"Rc_Move";
+    NSString *value = @"MoveLeft";
+    NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
+    
+    [TCPScoketManager socketWriteData:xmlString];
+}
+
+- (IBAction)doMoveRignt:(id)sender
+{
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveRight";
     NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
-
+    
     [TCPScoketManager socketWriteData:xmlString];
+}
+
+- (IBAction)doOKAction:(id)sender {
+    NSLog(@"确定");
+    NSString *type = @"Rc_Navigation";
+    NSString *value = @"Enter";
+    NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
+    
+    [TCPScoketManager socketWriteData:xmlString];
+    
+}
+
+- (IBAction)doBackAction:(id)sender {
+    NSLog(@"返回");
+    NSString *type = @"Rc_Navigation";
+    NSString *value = @"Back";
+    NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
+    
+    [TCPScoketManager socketWriteData:xmlString];
+    
+    
 }
 
 - (IBAction)toHomePage:(id)sender {
     NSLog(@"主页");
+    NSString *type = @"Rc_SendKeyCode";
+    NSString *value = @"HOME";
+    NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
+    
+    [TCPScoketManager socketWriteData:xmlString];
     
 }
 
 - (IBAction)toMenuPage:(id)sender {
     NSLog(@"目录");
+    NSString *type = @"Rc_SendKeyCode";
+    NSString *value = @"82";
+    NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
+    
+    [TCPScoketManager socketWriteData:xmlString];
 }
 
 - (IBAction)doVODAction:(id)sender {
     NSLog(@"点播");
+
 }
 
 - (IBAction)doTimeShiftAction:(id)sender {
     NSLog(@"时移");
+  
+    
 }
 
 - (IBAction)doPullScreen:(id)sender {
     NSLog(@"拉屏");
+   
+    
 }
 
 - (void)setUDPSocket
