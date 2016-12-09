@@ -127,6 +127,7 @@
 		1190EA361DEE7155002CA166 /*  提示 in Resources */ = {isa = PBXBuildFile; fileRef = 1190EA351DEE7155002CA166 /*  提示 */; };
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
 		1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */; };
+		11A0AF5C1DFAF1E90047A46E /* SCSearchEquipmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0AF5B1DFAF1E90047A46E /* SCSearchEquipmentVC.m */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
 		11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */; };
 		11A39D9F1D9269EE00C9FEA8 /* libagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A39D9E1D9269EE00C9FEA8 /* libagent.a */; };
@@ -414,6 +415,8 @@
 		1196A0701D42650A00B3C5EF /* SCMovieEpisodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMovieEpisodeCell.h; sourceTree = "<group>"; };
 		1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMovieEpisodeCell.m; sourceTree = "<group>"; };
 		1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMovieEpisodeCell.xib; sourceTree = "<group>"; };
+		11A0AF5A1DFAF1E90047A46E /* SCSearchEquipmentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchEquipmentVC.h; sourceTree = "<group>"; };
+		11A0AF5B1DFAF1E90047A46E /* SCSearchEquipmentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchEquipmentVC.m; sourceTree = "<group>"; };
 		11A1D0661D3F433900E2BA0D /* UIView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addition.h"; sourceTree = "<group>"; };
 		11A1D0671D3F433900E2BA0D /* UIView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Addition.m"; sourceTree = "<group>"; };
 		11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchViewController.h; sourceTree = "<group>"; };
@@ -779,6 +782,8 @@
 		113F8D911D3C704E00B12D39 /* RemoteControl */ = {
 			isa = PBXGroup;
 			children = (
+				11A0AF5A1DFAF1E90047A46E /* SCSearchEquipmentVC.h */,
+				11A0AF5B1DFAF1E90047A46E /* SCSearchEquipmentVC.m */,
 				116E1D5F1D4B5A9E00B488EC /* SCRemoteControlVC.h */,
 				116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */,
 				112681E61DFA7B3100EB73B9 /* AsyncSocket.h */,
@@ -2152,6 +2157,7 @@
 			files = (
 				1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */,
 				1101750A1D549B3C00E43773 /* SCFilmSetModel.m in Sources */,
+				11A0AF5C1DFAF1E90047A46E /* SCSearchEquipmentVC.m in Sources */,
 				1147FBB11DDE9B6300126F2E /* SCArtsDownloadView.m in Sources */,
 				116E0F581DB0888C00E280C6 /* SCMyWatchingHistoryVC.m in Sources */,
 				11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */,
