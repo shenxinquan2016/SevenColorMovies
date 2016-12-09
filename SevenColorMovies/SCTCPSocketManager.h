@@ -10,7 +10,7 @@
 
 @class GCDAsyncSocket;
 
-#define UPDScoketManager [SCTCPSocketManager sharedSocketManager]
+#define TCPScoketManager [SCTCPSocketManager sharedSocketManager]
 
 typedef NS_ENUM(NSUInteger, SocketOfflineType){
     SocketOfflineByServer,      //服务器掉线
