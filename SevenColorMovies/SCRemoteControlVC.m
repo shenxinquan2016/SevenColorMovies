@@ -77,7 +77,7 @@
 
 -(void)dealloc{
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
-    
+    [TCPScoketManager disConnectSocket];
 }
 
 #pragma mark - IBAction
@@ -308,7 +308,6 @@
 
 
 
-
 #pragma mark - TCPSocketDelegate
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
@@ -320,8 +319,9 @@
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
     NSLog(@"GCDAsyncSocketDelegate链接服务器成功 ip:%@ port:%d", host, port);
-    //通过定时器不断发送消息，来检测长连接
-//    [TCPScoketManager socketDidConnectBeginSendBeat:@"心跳测试连接"];
+    TCPScoketManager.connectStatus = 1;
+    //发送心跳，来检测长连接
+//    [TCPScoketManager socketDidConnectBeginSendBeat:@"connect is here"];
     
 }
 
@@ -329,14 +329,12 @@
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
     NSLog(@"GCDAsyncSocket服务器连接失败");
-//    [TCPScoketManager socketDidDisconectBeginSendReconnect:@"重新连接"];
+    [TCPScoketManager reConnectSocket];
 }
 
 /** 接收消息成功 */
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    
-    
     [TCPScoketManager.socket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:1024 tag:0];
     
     
@@ -349,9 +347,6 @@
     //数据发送成功后，自己调用一下读取数据的方法，接着socket才会调用读取数据的代理方法
     [TCPScoketManager.socket readDataWithTimeout:-1 tag:tag];
 }
-
-
-
 
 
 // 禁止旋转屏幕

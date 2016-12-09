@@ -17,7 +17,6 @@
 #define READ_TIME_OUT -1
 #define MAX_BUFFER 1024
 
-static const NSInteger kBeatLimit = 10;
 
 @interface SCTCPSocketManager () <GCDAsyncSocketDelegate>
 
@@ -68,40 +67,36 @@ static const NSInteger kBeatLimit = 10;
 }
 
 /** socket 连接成功后发送心跳的操作 */
-- (void)socketDidConnectBeginSendBeat:(NSString *)beatBody {
+- (void)socketDidConnectBeginSendBeat:(NSString *)beatBody
+{
     self.connectStatus = 1;
-    self.reconnectionCount = 0;
     if (!self.heartBeatTimer) {
-        self.heartBeatTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
-                                                          target:self
-                                                        selector:@selector(sendBeat:)
-                                                        userInfo:beatBody
-                                                         repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:self.heartBeatTimer forMode:NSRunLoopCommonModes];
+        DONG_MainThread(
+                        self.heartBeatTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
+                                                                               target:self
+                                                                             selector:@selector(sendBeat:)
+                                                                             userInfo:beatBody
+                                                                              repeats:YES];
+                        [[NSRunLoop currentRunLoop] addTimer:self.heartBeatTimer forMode:NSRunLoopCommonModes];
+        );
     }
+    
 }
 
+#pragma mark - 心跳
+- (void)sendBeat:(NSTimer *)timer
+{
+    DONG_Log(@"heartBeating...");
+    [self socketWriteData:timer.userInfo];
+    
+}
 
 /** socket 连接失败后重新链接 */
-- (void)socketDidDisconectBeginSendReconnect:(NSString *)reconnectBody {
-    self.connectStatus = -1;
-    
-    if (self.reconnectionCount >= 0 && self.reconnectionCount <= kBeatLimit) {
-        NSTimeInterval time = pow(2, self.reconnectionCount);
-        if (!self.reconnectTimer) {
-            self.reconnectTimer = [NSTimer scheduledTimerWithTimeInterval:time
-                                                                   target:self
-                                                                 selector:@selector(reconnection:)
-                                                                 userInfo:reconnectBody
-                                                                  repeats:NO];
-            [[NSRunLoop mainRunLoop] addTimer:self.reconnectTimer forMode:NSRunLoopCommonModes];
-        }
-        self.reconnectionCount++;
-    } else {
-        [self.reconnectTimer invalidate];
-        self.reconnectTimer = nil;
-        self.reconnectionCount = 0;
-    }
+- (void)reConnectSocket
+{
+    DONG_Log(@"GCDAsyncSocket重新连接中...");
+    NSError *error;
+    [self.socket connectToHost:self.host onPort:self.port withTimeout:30 error:&error];
 }
 
 /** 向服务器发送数据 */
@@ -109,7 +104,7 @@ static const NSInteger kBeatLimit = 10;
 {
     NSData *requestData = [data dataUsingEncoding:NSUTF8StringEncoding];
     [self.socket writeData:requestData withTimeout:-1 tag:0];
-    //[self socketBeginReadData];
+    [self socketBeginReadData];
 }
 
 /** socket 读取数据 */
@@ -118,38 +113,18 @@ static const NSInteger kBeatLimit = 10;
 }
 
 /** socket 主动断开连接 */
-- (void)disconnectSocket {
-    self.reconnectionCount = -1;
+- (void)disConnectSocket
+{
+    self.connectStatus = -1;
     [self.socket disconnect];
     
     [self.heartBeatTimer invalidate];
     self.heartBeatTimer = nil;
+    
 }
 
-/** 重设心跳次数 */
-- (void)resetBeatCount {
-    self.beatCount = 0;
-}
 
-#pragma mark - 心跳连接
-- (void)sendBeat:(NSTimer *)timer {
-    if (self.beatCount >= kBeatLimit) {
-        [self disconnectSocket];
-        return;
-    } else {
-        self.beatCount++;
-    }
-    if (timer != nil) {
-        [self socketWriteData:timer.userInfo];
-    }
-}
 
-- (void)reconnection:(NSTimer *)timer {
-    NSError *error = nil;
-    if (![self.socket connectToHost:self.host onPort:self.port withTimeout:30 error:&error]) {
-        self.connectStatus = -1;
-    }
-}
 
 
 -(void)checkLongConnectByServe{
@@ -158,6 +133,11 @@ static const NSInteger kBeatLimit = 10;
     NSData   *data  = [longConnect dataUsingEncoding:NSUTF8StringEncoding];
     [self.socket writeData:data withTimeout:1 tag:1];
 }
+
+
+
+
+
 
 
 
@@ -184,7 +164,7 @@ static const NSInteger kBeatLimit = 10;
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
     NSLog(@"GCDAsyncSocket服务器连接失败");
-    [self socketDidDisconectBeginSendReconnect:@"重新连接"];
+    [self reConnectSocket];
 }
 
 /** 接收消息成功 */

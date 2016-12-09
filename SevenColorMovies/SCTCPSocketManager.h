@@ -57,7 +57,7 @@ typedef NS_ENUM(NSUInteger, SocketOfflineType){
 /**
  *  socket 连接失败后重接的操作
  */
-- (void)socketDidDisconectBeginSendReconnect:(NSString *)reconnectBody;
+- (void)reConnectSocket;
 
 /**
  *  向服务器发送数据
@@ -74,12 +74,10 @@ typedef NS_ENUM(NSUInteger, SocketOfflineType){
 /**
  *  socket 主动断开连接
  */
-- (void)disconnectSocket;
+- (void)disConnectSocket;
 
-/**
- *  重设心跳次数
- */
-- (void)resetBeatCount;
+
+
 
 
 
