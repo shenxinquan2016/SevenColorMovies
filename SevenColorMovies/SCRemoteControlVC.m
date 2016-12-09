@@ -18,6 +18,9 @@
 
 @interface SCRemoteControlVC () <GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate, AsyncSocketDelegate>
 
+/** tcpSocket */
+@property (nonatomic, strong) GCDAsyncSocket *socket;
+/** 遥控器btn */
 @property (weak, nonatomic) IBOutlet UIButton *volumeDownBtn;
 @property (weak, nonatomic) IBOutlet UIButton *pullScreenBtn;
 @property (weak, nonatomic) IBOutlet UIButton *volumeUpBtn;
@@ -27,12 +30,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;
 @property (weak, nonatomic) IBOutlet UIButton *homePageBtn;
 @property (weak, nonatomic) IBOutlet UIButton *menuBtn;
-
-@property (nonatomic, strong) GCDAsyncSocket *socket;
-
-@property (nonatomic, strong)AsyncSocket *serverSocket;
-@property (nonatomic, strong)AsyncSocket *clientSocket;
-@property (nonatomic, strong)AsyncSocket *myNewSocket;
 @property (weak, nonatomic) IBOutlet UIButton *moveUpBtn;
 @property (weak, nonatomic) IBOutlet UIButton *moveDownBtn;
 @property (weak, nonatomic) IBOutlet UIButton *moveLeftBtn;
@@ -60,21 +57,6 @@
     
     [TCPScoketManager connectToHost:host port:port delegate:self];
     
-    //创建一个后台队列 等待接收数据
-//    dispatch_queue_t dQueue = dispatch_queue_create("My socket queue", NULL); //第一个参数是该队列的名字
-//    
-//    self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dQueue];
-//    NSError *error;
-//    [self.socket connectToHost:host onPort:port error:&error];
-
-    
-//    self.serverSocket = [[AsyncSocket alloc]initWithDelegate:self];
-//    [self.serverSocket acceptOnPort:port error:nil];
-//    
-//    self.clientSocket = [[AsyncSocket alloc]initWithDelegate:self];
-//    
-//    [self.clientSocket connectToHost:host onPort:port error:nil];
-    
 }
 
 
@@ -86,8 +68,8 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
     
-    
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -98,12 +80,10 @@
     
 }
 
+#pragma mark - IBAction
 
 - (IBAction)doVolumeDown:(id)sender
 {
-    NSLog(@"音量减");
-    //NSString *xmlString = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"com.vurc.system\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Rc_VolumeControl\" value=\"-1\"></Message>]]></Body></Message>\n";
-    
     NSString *type = @"Rc_VolumeControl";
     NSString *value = @"-1";
     NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
@@ -112,13 +92,11 @@
 
 - (IBAction)doVolumeUp:(id)sender
 {
-    NSLog(@"音量加");
     NSString *type = @"Rc_VolumeControl";
     NSString *value = @"1";
     NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
     [TCPScoketManager socketWriteData:xmlString];
 }
-
 
 - (IBAction)doMoveUp:(id)sender
 {
@@ -212,6 +190,8 @@
    
     
 }
+
+#pragma mark - priva method
 
 - (void)setUDPSocket
 {
@@ -373,38 +353,6 @@
 
 
 
-
-
-
-#pragma mark - 测试SocketDelegate
-
-
--(void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket{
-    self.myNewSocket = newSocket;
-}
--(void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port{
-    //self.host = host;  // 对方的IP
-    NSLog(@"socket连接成功");
-    [self.myNewSocket readDataWithTimeout:-1 tag:0];
-}
-
--(void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
-    
-    NSString *info = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    
-     NSLog(@"接收到数据：%@",info);
-    
-    
-    
-    
-    //    持续接收数据 保证后面的数据能够接收到
-    [sock readDataWithTimeout:-1 tag:0];
-    
-}
-
-- (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag{
-     NSLog(@"发送信息成功");
-}
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate{
