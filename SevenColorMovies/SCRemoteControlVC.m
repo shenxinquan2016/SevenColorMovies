@@ -106,30 +106,25 @@
     [TCPScoketManager disconnectSocket];
 }
 
-- (IBAction)doVolumeDown:(id)sender {
+- (IBAction)doVolumeDown:(id)sender
+{
     NSLog(@"音量减");
-    NSString *xmlString = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"com.vurc.system\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Rc_VolumeControl\" value=\"-1\"></Message>]]></Body></Message>\n";
-
-    DONG_Log(@"xmlString:%@",xmlString);
+    //NSString *xmlString = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"com.vurc.system\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Rc_VolumeControl\" value=\"-1\"></Message>]]></Body></Message>\n";
     
+    NSString *type = @"Rc_VolumeControl";
+    NSString *value = @"-1";
+    NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
     [TCPScoketManager socketWriteData:xmlString];
-//    NSData *requestData = [xmlString dataUsingEncoding:NSUTF8StringEncoding];
-//    [self.socket writeData:requestData withTimeout:-1 tag:0];
-//    [self.clientSocket writeData:requestData withTimeout:-1 tag:0];
 }
 
-- (IBAction)doVolumeUp:(id)sender {
+- (IBAction)doVolumeUp:(id)sender
+{
     NSLog(@"音量加");
-    
-    NSString *xmlString = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"com.vurc.system\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Rc_Move\" value=\"MoveRight\"></Message>]]></Body></Message>\n";
+    NSString *type = @"Rc_Move";
+    NSString *value = @"MoveRight";
+    NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
 
-
-    DONG_Log(@"xmlString:%@",xmlString);
-    
     [TCPScoketManager socketWriteData:xmlString];
-//    NSData *requestData = [xmlString dataUsingEncoding:NSUTF8StringEncoding];
-//    [self.socket writeData:requestData withTimeout:-1 tag:0];
-//    [self.clientSocket writeData:requestData withTimeout:-1 tag:0];
 }
 
 - (IBAction)toHomePage:(id)sender {
@@ -185,6 +180,13 @@
     //该函数只是启动一次发送 它本身不进行数据的发送, 而是让后台的线程慢慢的发送 也就是说这个函数调用完成后,数据并没有立刻发送,异步发送
     [self.udpSocket sendData:data toHost:host port:port withTimeout:-1 tag:100];
     
+}
+
+- (NSString *)getCommandXMLStringWithType:(NSString *)type value:(NSString *)value;
+{
+    NSString *xmlString = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"com.vurc.system\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"%@\" value=\"%@\"></Message>]]></Body></Message>\n", type, value];
+   
+    return xmlString;
 }
 
 - (void)setBtnImage
