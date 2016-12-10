@@ -76,7 +76,7 @@
     [_devicesListView setFrame:self.view.bounds];
     
     [self.view addSubview:_searchingView];
-//    [self.view addSubview:_noDeviceView];
+    [self.view addSubview:_noDeviceView];
 //    [self.view addSubview:_devicesListView];
 
 }
