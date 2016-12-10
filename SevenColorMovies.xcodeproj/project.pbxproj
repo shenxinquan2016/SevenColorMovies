@@ -126,7 +126,7 @@
 		1190EA361DEE7155002CA166 /*  提示 in Resources */ = {isa = PBXBuildFile; fileRef = 1190EA351DEE7155002CA166 /*  提示 */; };
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
 		1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */; };
-		11A0AF5C1DFAF1E90047A46E /* SCSearchEquipmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0AF5B1DFAF1E90047A46E /* SCSearchEquipmentVC.m */; };
+		11A0AF5C1DFAF1E90047A46E /* SCSearchDeviceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0AF5B1DFAF1E90047A46E /* SCSearchDeviceVC.m */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
 		11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */; };
 		11A39D9F1D9269EE00C9FEA8 /* libagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A39D9E1D9269EE00C9FEA8 /* libagent.a */; };
@@ -138,6 +138,12 @@
 		11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */; };
 		11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */; };
 		11BA52DF1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BA52DE1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m */; };
+		11BA52E41DFC449A0036CF25 /* SCSearchingDeviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BA52E31DFC449A0036CF25 /* SCSearchingDeviceView.m */; };
+		11BA52E71DFC45F00036CF25 /* SCNoDeviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BA52E61DFC45F00036CF25 /* SCNoDeviceView.m */; };
+		11BA52EA1DFC460C0036CF25 /* SCDevicesListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BA52E91DFC460C0036CF25 /* SCDevicesListView.m */; };
+		11BA52EC1DFC465F0036CF25 /* SCSearchingDeviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11BA52EB1DFC465F0036CF25 /* SCSearchingDeviceView.xib */; };
+		11BA52EE1DFC46B50036CF25 /* SCNoDeviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11BA52ED1DFC46B50036CF25 /* SCNoDeviceView.xib */; };
+		11BA52F01DFC46D20036CF25 /* SCDevicesListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11BA52EF1DFC46D20036CF25 /* SCDevicesListView.xib */; };
 		11BB37791D38B9A00002D487 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37781D38B9A00002D487 /* main.m */; };
 		11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB377B1D38B9A00002D487 /* AppDelegate.m */; };
 		11BB37821D38B9A00002D487 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37801D38B9A00002D487 /* Main.storyboard */; };
@@ -413,8 +419,8 @@
 		1196A0701D42650A00B3C5EF /* SCMovieEpisodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMovieEpisodeCell.h; sourceTree = "<group>"; };
 		1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMovieEpisodeCell.m; sourceTree = "<group>"; };
 		1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMovieEpisodeCell.xib; sourceTree = "<group>"; };
-		11A0AF5A1DFAF1E90047A46E /* SCSearchEquipmentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchEquipmentVC.h; sourceTree = "<group>"; };
-		11A0AF5B1DFAF1E90047A46E /* SCSearchEquipmentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchEquipmentVC.m; sourceTree = "<group>"; };
+		11A0AF5A1DFAF1E90047A46E /* SCSearchDeviceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchDeviceVC.h; sourceTree = "<group>"; };
+		11A0AF5B1DFAF1E90047A46E /* SCSearchDeviceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchDeviceVC.m; sourceTree = "<group>"; };
 		11A1D0661D3F433900E2BA0D /* UIView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addition.h"; sourceTree = "<group>"; };
 		11A1D0671D3F433900E2BA0D /* UIView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Addition.m"; sourceTree = "<group>"; };
 		11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchViewController.h; sourceTree = "<group>"; };
@@ -436,6 +442,15 @@
 		11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveAllEpisodesCollectionVC.m; sourceTree = "<group>"; };
 		11BA52DD1DFC41FD0036CF25 /* SCRemoteHelpPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRemoteHelpPageVC.h; sourceTree = "<group>"; };
 		11BA52DE1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRemoteHelpPageVC.m; sourceTree = "<group>"; };
+		11BA52E21DFC449A0036CF25 /* SCSearchingDeviceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchingDeviceView.h; sourceTree = "<group>"; };
+		11BA52E31DFC449A0036CF25 /* SCSearchingDeviceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchingDeviceView.m; sourceTree = "<group>"; };
+		11BA52E51DFC45F00036CF25 /* SCNoDeviceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNoDeviceView.h; sourceTree = "<group>"; };
+		11BA52E61DFC45F00036CF25 /* SCNoDeviceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNoDeviceView.m; sourceTree = "<group>"; };
+		11BA52E81DFC460C0036CF25 /* SCDevicesListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDevicesListView.h; sourceTree = "<group>"; };
+		11BA52E91DFC460C0036CF25 /* SCDevicesListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDevicesListView.m; sourceTree = "<group>"; };
+		11BA52EB1DFC465F0036CF25 /* SCSearchingDeviceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCSearchingDeviceView.xib; sourceTree = "<group>"; };
+		11BA52ED1DFC46B50036CF25 /* SCNoDeviceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCNoDeviceView.xib; sourceTree = "<group>"; };
+		11BA52EF1DFC46D20036CF25 /* SCDevicesListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCDevicesListView.xib; sourceTree = "<group>"; };
 		11BB37741D38B9A00002D487 /* SevenColorMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SevenColorMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BB37781D38B9A00002D487 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11BB377A1D38B9A00002D487 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1365,8 +1380,8 @@
 		11A0AF5E1DFAF6070047A46E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				11A0AF5A1DFAF1E90047A46E /* SCSearchEquipmentVC.h */,
-				11A0AF5B1DFAF1E90047A46E /* SCSearchEquipmentVC.m */,
+				11A0AF5A1DFAF1E90047A46E /* SCSearchDeviceVC.h */,
+				11A0AF5B1DFAF1E90047A46E /* SCSearchDeviceVC.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1401,6 +1416,15 @@
 		11BA52DC1DFC39EC0036CF25 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				11BA52E21DFC449A0036CF25 /* SCSearchingDeviceView.h */,
+				11BA52E31DFC449A0036CF25 /* SCSearchingDeviceView.m */,
+				11BA52EB1DFC465F0036CF25 /* SCSearchingDeviceView.xib */,
+				11BA52E51DFC45F00036CF25 /* SCNoDeviceView.h */,
+				11BA52E61DFC45F00036CF25 /* SCNoDeviceView.m */,
+				11BA52ED1DFC46B50036CF25 /* SCNoDeviceView.xib */,
+				11BA52E81DFC460C0036CF25 /* SCDevicesListView.h */,
+				11BA52E91DFC460C0036CF25 /* SCDevicesListView.m */,
+				11BA52EF1DFC46D20036CF25 /* SCDevicesListView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2054,11 +2078,14 @@
 				116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */,
 				11EB4A681DB4D5EB0032F2C4 /* SCWatchingHistoryCell.xib in Resources */,
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
+				11BA52EC1DFC465F0036CF25 /* SCSearchingDeviceView.xib in Resources */,
+				11BA52F01DFC46D20036CF25 /* SCDevicesListView.xib in Resources */,
 				11588F741D6B079900C91E3A /* SCLivePageCell.xib in Resources */,
 				11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */,
 				1190EA361DEE7155002CA166 /*  提示 in Resources */,
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */,
+				11BA52EE1DFC46B50036CF25 /* SCNoDeviceView.xib in Resources */,
 				11323E0B1DB5C4B80089A207 /* SCMyCollectionCell.xib in Resources */,
 				11B496281DD967A400C51B8A /* SCDownloadedCell.xib in Resources */,
 				11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */,
@@ -2197,7 +2224,7 @@
 			files = (
 				1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */,
 				1101750A1D549B3C00E43773 /* SCFilmSetModel.m in Sources */,
-				11A0AF5C1DFAF1E90047A46E /* SCSearchEquipmentVC.m in Sources */,
+				11A0AF5C1DFAF1E90047A46E /* SCSearchDeviceVC.m in Sources */,
 				1147FBB11DDE9B6300126F2E /* SCArtsDownloadView.m in Sources */,
 				116E0F581DB0888C00E280C6 /* SCMyWatchingHistoryVC.m in Sources */,
 				11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */,
@@ -2215,6 +2242,7 @@
 				116475F91D4098EF00A3BC1C /* SCPastVideoTableViewCell.m in Sources */,
 				1111A41F1D48A8D100C17B92 /* MBProgressHUD+Addidtion.m in Sources */,
 				11051ED91D6D9FED00E920C1 /* SCLiveProgramModel.m in Sources */,
+				11BA52E71DFC45F00036CF25 /* SCNoDeviceView.m in Sources */,
 				116E0F781DB0C03F00E280C6 /* SCProgramListCell.m in Sources */,
 				11F9E2891D6D7503006326F3 /* SCLivePlayerVC.m in Sources */,
 				11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */,
@@ -2266,6 +2294,7 @@
 				11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,
 				1187027B1D740A3F005B3895 /* SCVideoLoadingView.m in Sources */,
+				11BA52EA1DFC460C0036CF25 /* SCDevicesListView.m in Sources */,
 				11DC2BCF1D3DD8FE00012480 /* IMB_DownImageHelper.m in Sources */,
 				116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */,
 				115CCDF41D796E8D0045ED5F /* UILabel+Addition.m in Sources */,
@@ -2293,6 +2322,7 @@
 				113F8D8D1D3C6FFB00B12D39 /* SCMineViewController.m in Sources */,
 				1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				113F8D9E1D3C86EF00B12D39 /* UIImage+Addition.m in Sources */,
+				11BA52E41DFC449A0036CF25 /* SCSearchingDeviceView.m in Sources */,
 				116E0F5B1DB088BF00E280C6 /* SCMyCollectionVC.m in Sources */,
 				115A212A1D42290C0097DE57 /* SCMoiveIntroduceVC.m in Sources */,
 				113F8DA11D3CAAC200B12D39 /* UIColor+Addition.m in Sources */,

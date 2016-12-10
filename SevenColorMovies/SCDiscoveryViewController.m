@@ -10,7 +10,7 @@
 #import "SCDiscoveryTableViewCell.h"
 #import "SCDiscoveryCellModel.h"
 #import "SCRemoteControlVC.h"
-#import "SCSearchEquipmentVC.h"
+#import "SCSearchDeviceVC.h"
 
 
 @interface SCDiscoveryViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -84,11 +84,11 @@
     if (indexPath.section == 1 && indexPath.row == 0){
         SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
         
-        SCSearchEquipmentVC *searchEquipmentVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchEquipmentVC");
+        SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
 
         remoteVC.hidesBottomBarWhenPushed = YES;
-        searchEquipmentVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:searchEquipmentVC animated:YES];
+        searchDeviceVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:searchDeviceVC animated:YES];
     }
     
     

@@ -1,19 +1,22 @@
 //
-//  SCSearchEquipmentVC.m
+//  SCSearchDeviceVC.m
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/12/9.
 //  Copyright © 2016年 yesdgq. All rights reserved.
 //
 
-#import "SCSearchEquipmentVC.h"
+#import "SCSearchDeviceVC.h"
 #import "SCRemoteHelpPageVC.h"
+#import "SCSearchingDeviceView.h"
+#import "SCNoDeviceView.h"
+#import "SCDevicesListView.h"
 
-@interface SCSearchEquipmentVC ()
+@interface SCSearchDeviceVC ()
 
 @end
 
-@implementation SCSearchEquipmentVC
+@implementation SCSearchDeviceVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];

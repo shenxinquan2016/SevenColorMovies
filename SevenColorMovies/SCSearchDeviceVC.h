@@ -1,5 +1,5 @@
 //
-//  SCSearchEquipmentVC.h
+//  SCSearchDeviceVC.h
 //  SevenColorMovies
 //
 //  Created by yesdgq on 16/12/9.
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SCOtherBaseViewController.h"
 
-@interface SCSearchEquipmentVC : SCOtherBaseViewController
+@interface SCSearchDeviceVC : SCOtherBaseViewController
 
 @end
