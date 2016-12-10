@@ -82,11 +82,11 @@
     NSLog(@"======indexPath.section:%ld",indexPath.section);
     //遥控器
     if (indexPath.section == 1 && indexPath.row == 0){
-        //SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+        SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
         
         SCSearchEquipmentVC *searchEquipmentVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchEquipmentVC");
 
-        //remoteVC.hidesBottomBarWhenPushed = YES;
+        remoteVC.hidesBottomBarWhenPushed = YES;
         searchEquipmentVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:searchEquipmentVC animated:YES];
     }

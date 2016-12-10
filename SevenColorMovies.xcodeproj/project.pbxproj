@@ -137,6 +137,7 @@
 		11B496281DD967A400C51B8A /* SCDownloadedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11B496261DD967A400C51B8A /* SCDownloadedCell.xib */; };
 		11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */; };
 		11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */; };
+		11BA52DF1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BA52DE1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m */; };
 		11BB37791D38B9A00002D487 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB37781D38B9A00002D487 /* main.m */; };
 		11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB377B1D38B9A00002D487 /* AppDelegate.m */; };
 		11BB37821D38B9A00002D487 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BB37801D38B9A00002D487 /* Main.storyboard */; };
@@ -433,6 +434,8 @@
 		11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveRecommendationCollectionVC.m; sourceTree = "<group>"; };
 		11B9837F1D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveAllEpisodesCollectionVC.h; sourceTree = "<group>"; };
 		11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveAllEpisodesCollectionVC.m; sourceTree = "<group>"; };
+		11BA52DD1DFC41FD0036CF25 /* SCRemoteHelpPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRemoteHelpPageVC.h; sourceTree = "<group>"; };
+		11BA52DE1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRemoteHelpPageVC.m; sourceTree = "<group>"; };
 		11BB37741D38B9A00002D487 /* SevenColorMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SevenColorMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BB37781D38B9A00002D487 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11BB377A1D38B9A00002D487 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1354,6 +1357,7 @@
 			isa = PBXGroup;
 			children = (
 				11A0AF5E1DFAF6070047A46E /* Controller */,
+				11BA52DC1DFC39EC0036CF25 /* View */,
 			);
 			name = SearchEquipment;
 			sourceTree = "<group>";
@@ -1392,6 +1396,32 @@
 				115A21261D4228750097DE57 /* SCMoiveAllEpisodesVC.m */,
 			);
 			name = MainBody;
+			sourceTree = "<group>";
+		};
+		11BA52DC1DFC39EC0036CF25 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		11BA52E01DFC42400036CF25 /* RemoteControl */ = {
+			isa = PBXGroup;
+			children = (
+				11A0AF5D1DFAF5DA0047A46E /* SearchEquipment */,
+				11BA52E11DFC42870036CF25 /* RemoteHelpPage */,
+				113F8D911D3C704E00B12D39 /* RemoteControl */,
+			);
+			name = RemoteControl;
+			sourceTree = "<group>";
+		};
+		11BA52E11DFC42870036CF25 /* RemoteHelpPage */ = {
+			isa = PBXGroup;
+			children = (
+				11BA52DD1DFC41FD0036CF25 /* SCRemoteHelpPageVC.h */,
+				11BA52DE1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m */,
+			);
+			name = RemoteHelpPage;
 			sourceTree = "<group>";
 		};
 		11BB376B1D38B9A00002D487 = {
@@ -1477,8 +1507,7 @@
 			isa = PBXGroup;
 			children = (
 				113F8D921D3C705200B12D39 /* MainBody */,
-				11A0AF5D1DFAF5DA0047A46E /* SearchEquipment */,
-				113F8D911D3C704E00B12D39 /* RemoteControl */,
+				11BA52E01DFC42400036CF25 /* RemoteControl */,
 			);
 			name = Discovery;
 			sourceTree = "<group>";
@@ -2178,6 +2207,7 @@
 				1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */,
 				11458E971D45E0D500EBD16D /* SCDiscoveryTableViewCell.m in Sources */,
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
+				11BA52DF1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m in Sources */,
 				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
 				11B496271DD967A400C51B8A /* SCDownloadedCell.m in Sources */,
 				11796BF01DF93EE300F5923C /* SCTCPSocketManager.m in Sources */,

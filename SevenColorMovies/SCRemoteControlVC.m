@@ -48,6 +48,7 @@
     self.view.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
     //1.标题
     self.leftBBI.text = @"遥控器";
+    [self addRightBBI];
     
     [self setUDPSocket];
     
@@ -192,6 +193,29 @@
 }
 
 #pragma mark - priva method
+
+- (void)addRightBBI
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 20, 20);
+    
+    [btn setImage:[UIImage imageNamed:@"Cut_Off_Connect"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"Cut_Off_Connect_Click"] forState:UIControlStateHighlighted];
+    btn.enlargedEdge = 5.f;
+    [btn addTarget:self action:@selector(cutOffConnect) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    UIBarButtonItem *rightNegativeSpacer = [[UIBarButtonItem alloc]
+                                            initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                            target:nil action:nil];
+    rightNegativeSpacer.width = -4;
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
+}
+
+- (void)cutOffConnect
+{
+    
+}
 
 - (void)setUDPSocket
 {
