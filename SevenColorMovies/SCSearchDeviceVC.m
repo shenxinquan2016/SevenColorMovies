@@ -14,6 +14,10 @@
 
 @interface SCSearchDeviceVC ()
 
+@property (nonatomic, strong) SCSearchingDeviceView *searchingView;
+@property (nonatomic, strong) SCNoDeviceView *noDeviceView;
+@property (nonatomic, strong) SCDevicesListView *devicesListView;
+
 @end
 
 @implementation SCSearchDeviceVC
@@ -26,12 +30,16 @@
     self.leftBBI.text = @"遥控器";
     
     [self addRightBBI];
+    
+    [self loadSubViewsFromXib];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - priva method
 
 - (void)addRightBBI
 {
@@ -56,4 +64,22 @@
     SCRemoteHelpPageVC *helpPage = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteHelpPageVC");
     [self.navigationController pushViewController:helpPage animated:YES];
 }
+
+- (void)loadSubViewsFromXib
+{
+    _searchingView = [[NSBundle mainBundle] loadNibNamed:@"SCSearchingDeviceView" owner:nil options:nil][0];
+    _noDeviceView = [[NSBundle mainBundle] loadNibNamed:@"SCNoDeviceView" owner:nil options:nil][0];
+    _devicesListView = [[NSBundle mainBundle] loadNibNamed:@"SCDevicesListView" owner:nil options:nil][0];
+    
+    [_searchingView setFrame:self.view.bounds];
+    [_noDeviceView setFrame:self.view.bounds];
+    [_devicesListView setFrame:self.view.bounds];
+    
+    [self.view addSubview:_searchingView];
+//    [self.view addSubview:_noDeviceView];
+//    [self.view addSubview:_devicesListView];
+
+}
+
+
 @end

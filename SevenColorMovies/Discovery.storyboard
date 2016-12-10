@@ -61,10 +61,10 @@
             </objects>
             <point key="canvasLocation" x="100" y="9"/>
         </scene>
-        <!--Search EquipmentVC-->
+        <!--Search DeviceVC-->
         <scene sceneID="od3-gG-Jy8">
             <objects>
-                <viewController storyboardIdentifier="SCSearchEquipmentVC" id="Z9k-is-h88" customClass="SCSearchEquipmentVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SCSearchDeviceVC" id="Z9k-is-h88" customClass="SCSearchDeviceVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Wp-oM-2lx"/>
                         <viewControllerLayoutGuide type="bottom" id="t10-mm-bwk"/>
