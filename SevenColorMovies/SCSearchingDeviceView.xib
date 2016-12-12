@@ -12,34 +12,52 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TV" translatesAutoresizingMaskIntoConstraints="NO" id="JVl-hE-skR">
-                    <frame key="frameInset" minX="140" minY="150" width="94" height="63"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TV" translatesAutoresizingMaskIntoConstraints="NO" id="JVl-hE-skR">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="94" id="4qW-Bx-mpZ"/>
+                        <constraint firstAttribute="height" constant="63" id="k9n-Uc-Kkz"/>
+                    </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MobilePhone" translatesAutoresizingMaskIntoConstraints="NO" id="OII-Ns-H5C">
-                    <frame key="frameInset" minX="174" minY="377" width="26" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MobilePhone" translatesAutoresizingMaskIntoConstraints="NO" id="OII-Ns-H5C">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="GN2-Rg-GC3"/>
+                        <constraint firstAttribute="width" constant="26" id="GWD-iX-xbh"/>
+                    </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="正在搜索设备..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htc-0G-vdf">
-                    <frame key="frameInset" minX="138" minY="100" width="98" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在搜索设备..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htc-0G-vdf">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="98" id="PfG-Of-OfZ"/>
+                        <constraint firstAttribute="height" constant="21" id="gmB-rI-lBO"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Diandiandian" translatesAutoresizingMaskIntoConstraints="NO" id="gk4-84-kv4">
-                    <frame key="frameInset" minX="146" minY="258" width="78" height="74"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Diandiandian" translatesAutoresizingMaskIntoConstraints="NO" id="gk4-84-kv4">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="10" id="2mW-qq-ZKx"/>
+                        <constraint firstAttribute="height" constant="116" id="tnD-gv-6ce"/>
+                    </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="JVl-hE-skR" firstAttribute="top" secondItem="htc-0G-vdf" secondAttribute="bottom" constant="30" id="2TR-Wc-HCV"/>
+                <constraint firstItem="gk4-84-kv4" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="RGy-0L-0mm"/>
+                <constraint firstItem="JVl-hE-skR" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="VJE-qO-npg"/>
+                <constraint firstItem="htc-0G-vdf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="113" id="VsN-gt-lKN"/>
+                <constraint firstItem="OII-Ns-H5C" firstAttribute="top" secondItem="gk4-84-kv4" secondAttribute="bottom" constant="45" id="YFQ-1b-oo3"/>
+                <constraint firstItem="OII-Ns-H5C" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fkj-mX-C44"/>
+                <constraint firstItem="htc-0G-vdf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fug-MK-xaE"/>
+                <constraint firstItem="gk4-84-kv4" firstAttribute="top" secondItem="JVl-hE-skR" secondAttribute="bottom" constant="45" id="y2Z-y3-2Lx"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-83.5" y="101.5"/>
         </view>
     </objects>
     <resources>
-        <image name="Diandiandian" width="100" height="100"/>
+        <image name="Diandiandian" width="12" height="156"/>
         <image name="MobilePhone" width="36" height="60"/>
         <image name="TV" width="92" height="61"/>
     </resources>
