@@ -16,7 +16,6 @@
 
 #define PORT 9814
 
-
 @interface SCRemoteControlVC () <GCDAsyncSocketDelegate>
 
 /** tcpSocket */
