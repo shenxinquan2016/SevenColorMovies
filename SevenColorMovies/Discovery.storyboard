@@ -190,28 +190,28 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jed-dE-ORE">
-                                <frame key="frameInset" minX="69" minY="216" width="50" height="170"/>
+                                <frame key="frameInset" minX="68" minY="207" width="46" height="189"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="doMoveLeft:" destination="11b-d0-noV" eventType="touchUpInside" id="QBB-Yr-SYo"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qme-tc-YsT">
-                                <frame key="frameInset" minX="257" minY="217" width="50" height="170"/>
+                                <frame key="frameInset" minX="263" minY="207" width="46" height="189"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="doMoveRignt:" destination="11b-d0-noV" eventType="touchUpInside" id="iaQ-DW-XTF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-W4-Tul">
-                                <frame key="frameInset" minX="103" minY="371" width="170" height="50"/>
+                                <frame key="frameInset" minX="94" minY="376" width="189" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="doMoveDown:" destination="11b-d0-noV" eventType="touchUpInside" id="Zxe-Pn-LWv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0P4-bd-IHQ">
-                                <frame key="frameInset" minX="103" minY="183" width="170" height="50"/>
+                                <frame key="frameInset" minX="94" minY="180" width="189" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="doMoveUp:" destination="11b-d0-noV" eventType="touchUpInside" id="tCx-fm-SvR"/>

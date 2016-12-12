@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "点击反馈.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "右副本.png",
+      "filename" : "点击反馈@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "点击反馈@3x.png",
       "scale" : "3x"
     }
   ],

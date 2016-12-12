@@ -88,7 +88,7 @@
 
         remoteVC.hidesBottomBarWhenPushed = YES;
         searchDeviceVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:searchDeviceVC animated:YES];
+        [self.navigationController pushViewController:remoteVC animated:YES];
     }
     
     
