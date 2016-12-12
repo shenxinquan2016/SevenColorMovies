@@ -16,7 +16,7 @@
 #define PORT 9816
 
 
-@interface SCRemoteControlVC () <GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate, AsyncSocketDelegate>
+@interface SCRemoteControlVC () <GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate>
 
 /** tcpSocket */
 @property (nonatomic, strong) GCDAsyncSocket *socket;
