@@ -25,25 +25,26 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-}
-
-+ (instancetype)cellWithTableView:(UITableView *)tableView {
     
-    static NSString *ID = @"SCDeviceCell";
-    SCDeviceCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
-    return cell;
-}
-
-- (void)setDeviceModel:(SCDeviceModel *)deviceModel {
-    if (self.selected) {
+    if (selected) {
         [self.selectedImageView setImage:[UIImage imageNamed:@"Select_Device"]];
     } else {
         [self.selectedImageView setImage:[UIImage imageNamed:@"Unselected"]];
     }
+}
+
++ (instancetype)cellWithTableView:(UITableView *)tableView
+{
+    static NSString *ID = @"SCDeviceCell";
+    SCDeviceCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [UIColor whiteColor];
+    return cell;
+}
+
+- (void)setDeviceModel:(SCDeviceModel *)deviceModel {
+
     
 }
 

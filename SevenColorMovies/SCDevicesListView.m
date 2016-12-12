@@ -28,11 +28,10 @@
 - (void)setupTableView
 {
     if (!self.tableView) {
-        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight) style:UITableViewStylePlain];
+        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight - 64) style:UITableViewStylePlain];
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
-        
         tableView.tableFooterView = [UIView new];
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
         [self addSubview:tableView];
@@ -102,6 +101,49 @@
     
 }
 
+//section header
+- (UIView *)addSectionHeaderView
+{
+    UIView *view = [[UIImageView alloc] init];
+    view.frame = CGRectMake(0, 10, kMainScreenWidth, 40.f);
+    view.backgroundColor = [UIColor whiteColor];
+    //图标
+    UIImageView *iv = [[UIImageView alloc] init];
+    [iv setImage:[UIImage imageNamed:@"SectionLeftImage"]];
+    [view addSubview:iv];
+    [iv mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(view);
+        make.centerY.equalTo(view.mas_centerY);
+        make.size.mas_equalTo(iv.image.size);
+    }];
+    //标题label
+    UILabel *label = [[UILabel alloc] init];
+    label.text = @"选择可连接设备";
+    [label setFont :[UIFont fontWithName :@"Helvetica-Bold" size :20]];//加粗
+    label.font = [UIFont systemFontOfSize:13.f];
+    label.textAlignment = NSTextAlignmentLeft;
+    [view addSubview:label];
+    [label mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view);
+        make.left.equalTo(view).and.offset(12);
+        make.size.mas_equalTo(CGSizeMake(100, 21));
+        
+    }];
+    
+    //分割线
+    UILabel *separateLinelabel = [[UILabel alloc] init];
+    separateLinelabel.backgroundColor = [UIColor colorWithHex:@"#f1f1f2"];
+    [view addSubview:separateLinelabel];
+    [separateLinelabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(view);
+        make.left.equalTo(view).and.offset(12);
+        make.size.mas_equalTo(CGSizeMake(kMainScreenWidth-12, 1));
+        
+    }];
+    
+    return view;
+}
+
 
 #pragma mark - UITableView dataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -120,6 +162,11 @@
     SCDeviceCell *cell = [SCDeviceCell cellWithTableView:tableView];
     cell.deviceModel = _dataArray[indexPath.row];
     return cell;
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return [self addSectionHeaderView];
 }
 
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -142,7 +189,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0;
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -153,7 +200,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     SCDeviceCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     SCDeviceModel *model = [[SCDeviceModel alloc] init];
-    cell.deviceModel = model;
+//    cell.deviceModel = model;
     DONG_Log(@"cell选中.selected:%d",cell.selected);
     
     
@@ -163,7 +210,7 @@
     
     SCDeviceCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     SCDeviceModel *model = [[SCDeviceModel alloc] init];
-    cell.deviceModel = model;
+//    cell.deviceModel = model;
     
     DONG_Log(@"cell取消选中.selected:%d",cell.selected);
 }
