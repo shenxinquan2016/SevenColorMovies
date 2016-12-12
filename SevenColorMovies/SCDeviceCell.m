@@ -38,4 +38,14 @@
     return cell;
 }
 
+- (void)setDeviceModel:(SCDeviceModel *)deviceModel {
+    if (self.selected) {
+        [self.selectedImageView setImage:[UIImage imageNamed:@"Select_Device"]];
+    } else {
+        [self.selectedImageView setImage:[UIImage imageNamed:@"Unselected"]];
+    }
+    
+}
+
+
 @end

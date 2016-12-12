@@ -150,15 +150,22 @@
     return 0;
 }
 
-//将delete改为删除
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return @"删除";
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
+    SCDeviceCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    SCDeviceModel *model = [[SCDeviceModel alloc] init];
+    cell.deviceModel = model;
+    DONG_Log(@"cell选中.selected:%d",cell.selected);
+    
     
 }
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
+    
+    SCDeviceCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    SCDeviceModel *model = [[SCDeviceModel alloc] init];
+    cell.deviceModel = model;
+    
+    DONG_Log(@"cell取消选中.selected:%d",cell.selected);
+}
 
 @end
