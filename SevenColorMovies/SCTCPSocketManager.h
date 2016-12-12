@@ -20,16 +20,10 @@ typedef NS_ENUM(NSUInteger, SocketOfflineType){
 
 @interface SCTCPSocketManager : NSObject
 
-/**
- *  连接状态：1已连接，-1未连接，0连接中
- */
-@property (nonatomic, assign) NSInteger connectStatus;
-@property (nonatomic, assign) NSInteger reconnectionCount;  // 建连失败重连次数
-
-
 @property (nonatomic, strong) GCDAsyncSocket *socket;
-@property (nonatomic, strong) GCDAsyncSocket *severSocket;
-@property (nonatomic, strong) GCDAsyncSocket *clientSocket;
+@property (nonatomic, assign) NSInteger reConnectionCount;  // 建连失败重连次数
+@property (nonatomic, assign, readonly) BOOL isConnected;
+
 
 
 /**

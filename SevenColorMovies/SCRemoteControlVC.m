@@ -210,7 +210,7 @@
 
 - (void)cutOffConnect
 {
-    
+    [TCPScoketManager disConnectSocket];
 }
 
 - (NSString *)getCommandXMLStringWithType:(NSString *)type value:(NSString *)value;
@@ -235,6 +235,12 @@
     [_moveDownBtn setImage:[UIImage imageNamed:@"Down_Click"] forState:UIControlStateHighlighted];
     [_moveLeftBtn setImage:[UIImage imageNamed:@"Left_Click"] forState:UIControlStateHighlighted];
     [_moveRightBtn setImage:[UIImage imageNamed:@"Right_Click"] forState:UIControlStateHighlighted];
+    
+    _moveUpBtn.enlargedEdge = 15;
+    _moveDownBtn.enlargedEdge = 15;
+    _moveLeftBtn.enlargedEdge = 15;
+    _moveRightBtn.enlargedEdge = 15;
+    
 }
 
 #pragma mark - TCPSocketDelegate
@@ -248,7 +254,7 @@
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
     NSLog(@"GCDAsyncSocketDelegate链接服务器成功 ip:%@ port:%d", host, port);
-    TCPScoketManager.connectStatus = 1;
+    TCPScoketManager.reConnectionCount = 1;
     //发送心跳，来检测长连接
 //    [TCPScoketManager socketDidConnectBeginSendBeat:@"connect is here"];
     

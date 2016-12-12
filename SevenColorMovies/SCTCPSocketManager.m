@@ -47,7 +47,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.connectStatus = -1;
+        
     }
     return self;
 }
@@ -69,7 +69,6 @@
 /** socket 连接成功后发送心跳的操作 */
 - (void)socketDidConnectBeginSendBeat:(NSString *)beatBody
 {
-    self.connectStatus = 1;
     if (!self.heartBeatTimer) {
         DONG_MainThread(
                         self.heartBeatTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
@@ -115,7 +114,6 @@
 /** socket 主动断开连接 */
 - (void)disConnectSocket
 {
-    self.connectStatus = -1;
     [self.socket disconnect];
     
     [self.heartBeatTimer invalidate];
@@ -123,8 +121,11 @@
     
 }
 
-
-
+/** 连接状态 */
+- (BOOL)isConnected
+{
+    return [self.socket isConnected];
+}
 
 
 -(void)checkLongConnectByServe{
