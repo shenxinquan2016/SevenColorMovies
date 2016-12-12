@@ -325,7 +325,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         
         [self setFilterOptionTitleView];
-        DONG_AFTER(0.5f, [CommonFunc dismiss]);
+        DONG_MAIN_AFTER(0.5f, [CommonFunc dismiss]);
         
     });
     

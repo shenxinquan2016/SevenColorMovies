@@ -13,6 +13,7 @@
 #import "SCDevicesListView.h"
 #import "GCDAsyncUdpSocket.h"
 #import "GCDAsyncSocket.h"
+#import "SCDeviceModel.h"
 
 #define PORT 9816
 
@@ -24,6 +25,7 @@
 /** udpSocket实例 */
 @property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
 @property (nonatomic, strong) NSMutableArray *deviceArray;
+@property (nonatomic, strong) NSTimer *scaningTimer;
 
 @end
 
@@ -45,6 +47,10 @@
     
     [self setUDPSocket];
     [self  searchDevice];
+}
+
+- (void)dealloc {
+    DONG_Log(@"dealloc");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -108,7 +114,7 @@
     [self.view addSubview:_searchingView];
     [self.view addSubview:_noDeviceView];
     [self.view addSubview:_devicesListView];
-
+    
 }
 
 - (void)setUDPSocket
@@ -143,10 +149,39 @@
     //该函数只是启动一次发送 它本身不进行数据的发送, 而是让后台的线程慢慢的发送 也就是说这个函数调用完成后,数据并没有立刻发送,异步发送
     [self.udpSocket sendData:data toHost:host port:port withTimeout:-1 tag:100];
     
+    //搜索时清空数组 进入搜索中页面
+    [_deviceArray removeAllObjects];
     _noDeviceView.hidden = YES;
     _devicesListView.hidden = YES;
+    
+    //搜索页面停留4S
+    self.scaningTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
+                                                         target:self
+                                                       selector:@selector(updateUIWithDeviceArray)
+                                                       userInfo:nil
+                                                        repeats:NO];
+    
 }
 
+- (void)updateUIWithDeviceArray
+{
+    _devicesListView.hidden = NO;
+    
+    if (_deviceArray.count) {
+        _noDeviceView.hidden = YES;
+        _devicesListView.hidden = NO;
+        
+    } else {
+        
+        _noDeviceView.hidden = NO;
+        _devicesListView.hidden = YES;
+    }
+    _devicesListView.dataArray = _deviceArray;
+    [_devicesListView.tableView reloadData];
+    
+    [_scaningTimer invalidate];
+    _scaningTimer = nil;
+}
 
 #pragma mark - UDPSocketDelegate
 
@@ -169,6 +204,8 @@
     
     NSLog(@"[%@:%u]%@",ip, port,message);
     
+    SCDeviceModel *deviceModel = [[SCDeviceModel alloc] init];
+    
     NSDictionary *dic = [NSDictionary dictionaryWithXMLData:data];
     NSLog(@"dic:%@",dic);
     
@@ -177,14 +214,13 @@
         NSLog(@"dic2:%@",dic2);
         
         
-        _devicesListView.hidden = NO;
-        [_devicesListView.tableView reloadData];
+        
         
     } else {
-        _noDeviceView.hidden = NO;
+        
     }
     
-    //[self sendBackToHost: ip port:port withMessage:s];
+    //[self sendBackToHost: ip port:port withMessage:message];
     
     //再次启动一个等待
     [self.udpSocket receiveOnce:nil];

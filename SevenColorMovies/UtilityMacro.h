@@ -97,7 +97,7 @@
 [UIView animateWithDuration:time animations:^{expresiion} completion:^(BOOL finished){COMPLETION}];
 
 //延迟执行
-#define DONG_AFTER(time,expression)\
+#define DONG_MAIN_AFTER(time,expression)\
 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{expression;});
 #define DONG_RAC_AFTER(time,expression)\
 [[RACScheduler mainThreadScheduler] afterDelay:time schedule:^{expression;}];

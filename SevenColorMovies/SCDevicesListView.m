@@ -11,7 +11,6 @@
 
 @interface SCDevicesListView ()<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, copy) NSArray *dataArray;
 /** 回调回传model */
 @property (nonatomic, strong) SCDeviceModel *deviceModel;
 
@@ -158,8 +157,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return _dataArray.count;
-    return 15;
+    return _dataArray.count;
+//    return 15;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
