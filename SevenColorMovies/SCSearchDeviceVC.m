@@ -84,12 +84,20 @@
     [_noDeviceView setFrame:self.view.bounds];
     [_devicesListView setFrame:self.view.bounds];
     
+    // view回调
     DONG_WeakSelf(self);
     _noDeviceView.scanDevice = ^{
         [weakself searchDevice];
     };
     _noDeviceView.gotoHelpPage = ^{
         [weakself toHelpPage];
+    };
+    
+    _devicesListView.scanDeviceBlock = ^{
+        [weakself searchDevice];
+    };
+    _devicesListView.connectTCPBlock = ^(SCDeviceModel *model){
+        //TCP连接
     };
     
     [self.view addSubview:_searchingView];

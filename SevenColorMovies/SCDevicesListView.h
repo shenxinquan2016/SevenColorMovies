@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class SCDeviceModel;
+
+typedef void(^ReScanDeviceBlock)(void);
+typedef void(^ConnectTCPBlock)(SCDeviceModel *deviceModel);
+
 @interface SCDevicesListView : UIView
+
+@property (nonatomic, copy) ReScanDeviceBlock scanDeviceBlock;
+@property (nonatomic, copy) ConnectTCPBlock connectTCPBlock;
 
 @end

@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, copy) NSArray *dataArray;
+/** 回调回传model */
+@property (nonatomic, strong) SCDeviceModel *deviceModel;
 
 @end
 
@@ -93,12 +95,16 @@
 
 - (void)reScanDevice
 {
-    
+    if (self.scanDeviceBlock) {
+        self.scanDeviceBlock();
+    }
 }
 
 - (void)connectToDevice
 {
-    
+    if (self.connectTCPBlock) {
+        self.connectTCPBlock(_deviceModel);
+    }
 }
 
 //section header
