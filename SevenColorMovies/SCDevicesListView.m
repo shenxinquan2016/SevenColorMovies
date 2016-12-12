@@ -100,8 +100,13 @@
 
 - (void)connectToDevice
 {
-    if (self.connectTCPBlock) {
-        self.connectTCPBlock(_deviceModel);
+    if (_deviceModel) {
+        if (self.connectTCPBlock) {
+            self.connectTCPBlock(_deviceModel);
+        }
+
+    } else {
+        [MBProgressHUD showError:@"请选择设备"];
     }
 }
 

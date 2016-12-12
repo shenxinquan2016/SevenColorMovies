@@ -11,6 +11,7 @@
 #import "SCDiscoveryCellModel.h"
 #import "SCRemoteControlVC.h"
 #import "SCSearchDeviceVC.h"
+#import "SCTCPSocketManager.h"
 
 
 @interface SCDiscoveryViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -82,13 +83,19 @@
     NSLog(@"======indexPath.section:%ld",indexPath.section);
     //遥控器
     if (indexPath.section == 1 && indexPath.row == 0){
-        SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
         
-        SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
-
-        remoteVC.hidesBottomBarWhenPushed = YES;
-        searchDeviceVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:searchDeviceVC animated:YES];
+        //TCP已经连接 进遥控器页  没有连接进遥控器搜索页
+        if (TCPScoketManager.isConnected) {
+            SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+            remoteVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:remoteVC animated:YES];
+            
+        } else {
+            
+            SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
+            searchDeviceVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:searchDeviceVC animated:YES];
+        }
     }
     
 }

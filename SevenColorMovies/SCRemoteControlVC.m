@@ -53,7 +53,10 @@
     [self addRightBBI];
     
     //3.建立tcp连接
-    [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT delegate:self];
+    if (!TCPScoketManager.isConnected) {
+        
+        [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT delegate:self];
+    }
     
 }
 
