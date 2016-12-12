@@ -11,8 +11,6 @@
 
 @interface SCDevicesListView ()<UITableViewDelegate, UITableViewDataSource>
 
-/** 回调回传model */
-@property (nonatomic, strong) SCDeviceModel *deviceModel;
 
 @end
 

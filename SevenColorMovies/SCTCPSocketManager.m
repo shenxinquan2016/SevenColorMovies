@@ -115,7 +115,7 @@
 - (void)disConnectSocket
 {
     [self.socket disconnect];
-    
+    self.offlineType = SocketOfflineByUser;
     [self.heartBeatTimer invalidate];
     self.heartBeatTimer = nil;
     

@@ -12,7 +12,7 @@
 
 #define TCPScoketManager [SCTCPSocketManager sharedSocketManager]
 
-typedef NS_ENUM(NSUInteger, SocketOfflineType){
+typedef NS_ENUM(NSUInteger, TCPSocketOfflineType){
     SocketOfflineByServer,      //服务器掉线
     SocketOfflineByUser,        //用户断开
     SocketOfflineByWifiCut,     //wifi 断开
@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, SocketOfflineType){
 @property (nonatomic, strong) GCDAsyncSocket *socket;
 @property (nonatomic, assign) NSInteger reConnectionCount;  // 建连失败重连次数
 @property (nonatomic, assign, readonly) BOOL isConnected;
-
+@property (nonatomic, assign) TCPSocketOfflineType offlineType;
 
 
 /**

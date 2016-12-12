@@ -30,6 +30,20 @@
     [self setTableView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [DONG_NotificationCenter addObserver:self selector:@selector(toSearchingDevicePage) name:CutOffTcpConnectByUser object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+}
+
+- (void)dealloc {
+    [DONG_NotificationCenter removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -40,7 +54,14 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor colorWithHex:@"#F0F1F2"];
     _tableView.scrollEnabled = NO;
+    
+}
 
+- (void)toSearchingDevicePage
+{
+    SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
+    searchDeviceVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:searchDeviceVC animated:YES];
 }
 
 #pragma mark- UITableViewDataSource
@@ -114,9 +135,9 @@
 - (NSArray *)dataSource{
     if (!_dataSource) {
         NSArray *array = @[@[@{@"leftImg":@"Scan",@"title":@"扫一扫",@"isShowBottmLine":@"YES"}],
-                         @[@{@"leftImg":@"RemoteControl",@"title":@"遥控器",@"isShowBottmLine":@"NO"},                          @{@"leftImg":@"DLNA",@"title":@"DLNA",@"isShowBottmLine":@"YES"}],
-                         @[@{@"leftImg":@"Activity",@"title":@"活动专区",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Game_1",@"title":@"游戏中心",@"isShowBottmLine":@"YES"}],
-                         @[@{@"leftImg":@"Application",@"title":@"应用中心",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Live_1",@"title":@"直播伴侣",@"isShowBottmLine":@"YES"}]];
+                           @[@{@"leftImg":@"RemoteControl",@"title":@"遥控器",@"isShowBottmLine":@"NO"},                          @{@"leftImg":@"DLNA",@"title":@"DLNA",@"isShowBottmLine":@"YES"}],
+                           @[@{@"leftImg":@"Activity",@"title":@"活动专区",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Game_1",@"title":@"游戏中心",@"isShowBottmLine":@"YES"}],
+                           @[@{@"leftImg":@"Application",@"title":@"应用中心",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Live_1",@"title":@"直播伴侣",@"isShowBottmLine":@"YES"}]];
         _dataSource = array;
     }
     return _dataSource;

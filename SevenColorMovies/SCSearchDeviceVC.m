@@ -41,11 +41,12 @@
     
     //1.标题
     self.leftBBI.text = @"遥控器";
-    
     [self addRightBBI];
     
+    //2.读取xib
     [self loadSubViewsFromXib];
     
+    //3.建立UDP发广播
     [self setUDPSocket];
     [self  searchDevice];
 }
@@ -158,6 +159,7 @@
     [_deviceArray removeAllObjects];
     _noDeviceView.hidden = YES;
     _devicesListView.hidden = YES;
+    _devicesListView.deviceModel = nil;
     
     //搜索页面停留4S
     self.scaningTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
@@ -252,6 +254,9 @@
     NSLog(@"UDP链接关闭 原因 %@", error);
 }
 
-
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate{
+    return NO;
+}
 
 @end

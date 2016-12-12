@@ -19,5 +19,7 @@ typedef void(^ConnectTCPBlock)(SCDeviceModel *deviceModel);
 @property (nonatomic, copy) NSArray *dataArray;
 @property (nonatomic, copy) ReScanDeviceBlock scanDeviceBlock;
 @property (nonatomic, copy) ConnectTCPBlock connectTCPBlock;
+/** 回调回传model */
+@property (nonatomic, strong) SCDeviceModel *deviceModel;
 
 @end
