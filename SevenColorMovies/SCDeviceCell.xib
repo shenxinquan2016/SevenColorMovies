@@ -3,36 +3,55 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="KGk-i7-Jjw" customClass="SCDeviceCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="365" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="49.5"/>
+                <frame key="frameInset" width="365" height="49"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9MF-eI-5Wc">
-                        <frame key="frameInset" minX="58" minY="14" width="215" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9MF-eI-5Wc">
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="EwB-7u-Dt9"/>
+                            <constraint firstAttribute="height" constant="21" id="g38-m8-3JU"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Unselected" translatesAutoresizingMaskIntoConstraints="NO" id="40X-aE-4gm">
-                        <frame key="frameInset" minX="283" minY="14" width="22" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Device" translatesAutoresizingMaskIntoConstraints="NO" id="Hgz-ox-etO">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="HYH-Nn-xLi"/>
+                            <constraint firstAttribute="width" constant="20" id="uR5-4H-56S"/>
+                        </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Device" translatesAutoresizingMaskIntoConstraints="NO" id="Hgz-ox-etO">
-                        <frame key="frameInset" minX="16" minY="15" width="20" height="19"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Unselected" translatesAutoresizingMaskIntoConstraints="NO" id="40X-aE-4gm">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="b7t-8g-PqU"/>
+                            <constraint firstAttribute="height" constant="22" id="tY5-gz-WG3"/>
+                        </constraints>
                     </imageView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="Hgz-ox-etO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="2J6-r7-yrl"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="40X-aE-4gm" secondAttribute="trailing" constant="10" id="bCs-Yb-cUQ"/>
+                    <constraint firstItem="Hgz-ox-etO" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dga-Hc-BIQ"/>
+                    <constraint firstItem="9MF-eI-5Wc" firstAttribute="leading" secondItem="Hgz-ox-etO" secondAttribute="trailing" constant="18" id="gOy-oc-unI"/>
+                    <constraint firstItem="40X-aE-4gm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="he1-aU-0CO"/>
+                    <constraint firstItem="9MF-eI-5Wc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="igW-pg-U7R"/>
+                </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="-85" y="104"/>
+            <connections>
+                <outlet property="deviceNameLabel" destination="9MF-eI-5Wc" id="4yf-lo-n5P"/>
+                <outlet property="selectedImageView" destination="40X-aE-4gm" id="hkI-6n-K2p"/>
+            </connections>
+            <point key="canvasLocation" x="-71" y="104"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -7,8 +7,12 @@
 //
 
 #import "SCDevicesListView.h"
+#import "SCDeviceCell.h"
 
-@interface SCDevicesListView ()
+@interface SCDevicesListView ()<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, copy) NSArray *dataArray;
 
 @end
 
@@ -16,8 +20,27 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    [self setupTableView];
     [self setBottomBtnView];
 }
+
+- (void)setupTableView
+{
+    if (!self.tableView) {
+        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight) style:UITableViewStylePlain];
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        tableView.backgroundColor = [UIColor colorWithHex:@"f3f3f3"];
+        
+        tableView.tableFooterView = [UIView new];
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+        [self addSubview:tableView];
+        _tableView = tableView;
+    }
+    
+}
+
 
 //全选 || 删除 按钮视图
 - (void)setBottomBtnView
@@ -76,6 +99,64 @@
 
 - (void)connectToDevice
 {
+    
+}
+
+
+#pragma mark - UITableView dataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+//    return _dataArray.count;
+    return 15;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SCDeviceCell *cell = [SCDeviceCell cellWithTableView:tableView];
+    cell.deviceModel = _dataArray[indexPath.row];
+    return cell;
+}
+
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return NULL;
+}
+
+- (nullable NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    return NULL;
+}
+
+
+
+#pragma mark - UITableView Delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0;
+}
+
+//将delete改为删除
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     
 }
 

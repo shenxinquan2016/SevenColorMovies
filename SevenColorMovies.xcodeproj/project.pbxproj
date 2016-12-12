@@ -128,6 +128,7 @@
 		1190EA361DEE7155002CA166 /*  提示 in Resources */ = {isa = PBXBuildFile; fileRef = 1190EA351DEE7155002CA166 /*  提示 */; };
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
 		1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */; };
+		119A677C1DFE4FC9000A147C /* SCDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 119A677B1DFE4FC9000A147C /* SCDeviceModel.m */; };
 		11A0AF5C1DFAF1E90047A46E /* SCSearchDeviceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0AF5B1DFAF1E90047A46E /* SCSearchDeviceVC.m */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
 		11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */; };
@@ -424,6 +425,8 @@
 		1196A0701D42650A00B3C5EF /* SCMovieEpisodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMovieEpisodeCell.h; sourceTree = "<group>"; };
 		1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMovieEpisodeCell.m; sourceTree = "<group>"; };
 		1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMovieEpisodeCell.xib; sourceTree = "<group>"; };
+		119A677A1DFE4FC9000A147C /* SCDeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDeviceModel.h; sourceTree = "<group>"; };
+		119A677B1DFE4FC9000A147C /* SCDeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDeviceModel.m; sourceTree = "<group>"; };
 		11A0AF5A1DFAF1E90047A46E /* SCSearchDeviceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchDeviceVC.h; sourceTree = "<group>"; };
 		11A0AF5B1DFAF1E90047A46E /* SCSearchDeviceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchDeviceVC.m; sourceTree = "<group>"; };
 		11A1D0661D3F433900E2BA0D /* UIView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addition.h"; sourceTree = "<group>"; };
@@ -1373,11 +1376,21 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		119A67791DFE4F9C000A147C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				119A677A1DFE4FC9000A147C /* SCDeviceModel.h */,
+				119A677B1DFE4FC9000A147C /* SCDeviceModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		11A0AF5D1DFAF5DA0047A46E /* SearchEquipment */ = {
 			isa = PBXGroup;
 			children = (
 				11A0AF5E1DFAF6070047A46E /* Controller */,
 				11BA52DC1DFC39EC0036CF25 /* View */,
+				119A67791DFE4F9C000A147C /* Model */,
 			);
 			name = SearchEquipment;
 			sourceTree = "<group>";
@@ -2232,6 +2245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */,
+				119A677C1DFE4FC9000A147C /* SCDeviceModel.m in Sources */,
 				1101750A1D549B3C00E43773 /* SCFilmSetModel.m in Sources */,
 				11A0AF5C1DFAF1E90047A46E /* SCSearchDeviceVC.m in Sources */,
 				1147FBB11DDE9B6300126F2E /* SCArtsDownloadView.m in Sources */,

@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCDeviceModel.h"
 
 @interface SCDeviceCell : UITableViewCell
+
+@property (nonatomic, strong) SCDeviceModel *deviceModel;
+
++ (instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end
