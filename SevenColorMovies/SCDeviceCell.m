@@ -43,9 +43,9 @@
     return cell;
 }
 
-- (void)setDeviceModel:(SCDeviceModel *)deviceModel {
-
-    
+- (void)setDeviceModel:(SCDeviceModel *)deviceModel
+{
+    self.deviceNameLabel.text = deviceModel.name;
 }
 
 

@@ -10,4 +10,7 @@
 
 @interface SCDeviceModel : NSObject
 
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *_ip;
+
 @end
