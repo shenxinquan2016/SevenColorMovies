@@ -84,9 +84,17 @@
     [_noDeviceView setFrame:self.view.bounds];
     [_devicesListView setFrame:self.view.bounds];
     
+    DONG_WeakSelf(self);
+    _noDeviceView.scanDevice = ^{
+        [weakself searchDevice];
+    };
+    _noDeviceView.gotoHelpPage = ^{
+        [weakself toHelpPage];
+    };
+    
     [self.view addSubview:_searchingView];
     [self.view addSubview:_noDeviceView];
-//    [self.view addSubview:_devicesListView];
+    [self.view addSubview:_devicesListView];
 
 }
 

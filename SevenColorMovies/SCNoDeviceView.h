@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^ReScanDeviceBlock)(void);
+typedef void(^GotoHelpPageBlock)(void);
+
 @interface SCNoDeviceView : UIView
+
+@property (nonatomic, copy) ReScanDeviceBlock scanDevice;
+@property (nonatomic, copy) GotoHelpPageBlock gotoHelpPage;
 
 @end

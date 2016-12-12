@@ -10,12 +10,18 @@
 
 @implementation SCNoDeviceView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+//扫描设备
+- (IBAction)ReScanDevicr:(id)sender {
+    if (self.scanDevice) {
+        self.scanDevice();
+    }
 }
-*/
+
+//帮助
+- (IBAction)gotoHelpPage:(id)sender {
+    if (self.gotoHelpPage) {
+        self.gotoHelpPage();
+    }
+}
 
 @end
