@@ -15,6 +15,7 @@ typedef void(^ConnectTCPBlock)(SCDeviceModel *deviceModel);
 
 @interface SCDevicesListView : UIView
 
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, copy) ReScanDeviceBlock scanDeviceBlock;
 @property (nonatomic, copy) ConnectTCPBlock connectTCPBlock;
 

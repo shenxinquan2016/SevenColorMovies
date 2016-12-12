@@ -10,6 +10,11 @@
 
 @implementation SCNoDeviceView
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.hidden = YES;
+}
+
 //扫描设备
 - (IBAction)ReScanDevicr:(id)sender {
     if (self.scanDevice) {

@@ -11,7 +11,6 @@
 
 @interface SCDevicesListView ()<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, copy) NSArray *dataArray;
 /** 回调回传model */
 @property (nonatomic, strong) SCDeviceModel *deviceModel;
@@ -25,6 +24,7 @@
     
     [self setupTableView];
     [self setBottomBtnView];
+    self.hidden = YES;
 }
 
 - (void)setupTableView
@@ -39,7 +39,6 @@
         [self addSubview:tableView];
         _tableView = tableView;
     }
-    
 }
 
 

@@ -23,6 +23,7 @@
 @property (nonatomic, strong) SCDevicesListView *devicesListView;
 /** udpSocket实例 */
 @property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
+@property (nonatomic, strong) NSMutableArray *deviceArray;
 
 @end
 
@@ -32,6 +33,9 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
+    
+    self.deviceArray = [NSMutableArray arrayWithCapacity:0];
+    
     //1.标题
     self.leftBBI.text = @"遥控器";
     
@@ -88,6 +92,7 @@
     DONG_WeakSelf(self);
     _noDeviceView.scanDevice = ^{
         [weakself searchDevice];
+        
     };
     _noDeviceView.gotoHelpPage = ^{
         [weakself toHelpPage];
@@ -128,8 +133,8 @@
 
 - (void)searchDevice
 {
-    NSString *s = @"谁在线";
-    NSData *data = [s dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *message = @"搜索设备中...";
+    NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
     // 给网段内所有的人发送消息 四个255表示广播地址
     NSString *host = @"255.255.255.255";
     uint16_t port = PORT;
@@ -138,6 +143,8 @@
     //该函数只是启动一次发送 它本身不进行数据的发送, 而是让后台的线程慢慢的发送 也就是说这个函数调用完成后,数据并没有立刻发送,异步发送
     [self.udpSocket sendData:data toHost:host port:port withTimeout:-1 tag:100];
     
+    _noDeviceView.hidden = YES;
+    _devicesListView.hidden = YES;
 }
 
 
@@ -158,16 +165,23 @@
     uint16_t port = [GCDAsyncUdpSocket portFromAddress:address];
     
     //data就是接收的数据
-    NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-    NSLog(@"[%@:%u]%@",ip, port,s);
+    NSLog(@"[%@:%u]%@",ip, port,message);
     
     NSDictionary *dic = [NSDictionary dictionaryWithXMLData:data];
-    NSLog(@"%@",dic);
+    NSLog(@"dic:%@",dic);
     
     if (dic) {
         NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
-        NSLog(@"%@",dic2);
+        NSLog(@"dic2:%@",dic2);
+        
+        
+        _devicesListView.hidden = NO;
+        [_devicesListView.tableView reloadData];
+        
+    } else {
+        _noDeviceView.hidden = NO;
     }
     
     //[self sendBackToHost: ip port:port withMessage:s];
