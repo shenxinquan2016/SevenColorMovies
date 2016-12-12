@@ -12,8 +12,9 @@
 #import "SCNoDeviceView.h"
 #import "SCDevicesListView.h"
 #import "GCDAsyncUdpSocket.h"
-#import "GCDAsyncSocket.h"
 #import "SCDeviceModel.h"
+#import "SCRemoteControlVC.h"
+
 
 #define PORT 9816
 
@@ -94,27 +95,31 @@
     [_noDeviceView setFrame:self.view.bounds];
     [_devicesListView setFrame:self.view.bounds];
     
-    // view回调
+    //重新扫描
     DONG_WeakSelf(self);
     _noDeviceView.scanDevice = ^{
         [weakself searchDevice];
         
     };
+    //帮助
     _noDeviceView.gotoHelpPage = ^{
         [weakself toHelpPage];
     };
-    
+    //重新扫描
     _devicesListView.scanDeviceBlock = ^{
         [weakself searchDevice];
     };
-    _devicesListView.connectTCPBlock = ^(SCDeviceModel *model){
-        //TCP连接
+    //TCP连接
+    _devicesListView.connectTCPBlock = ^(SCDeviceModel *deviceModel){
+        SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+        remoteVC.deviceModel = deviceModel;
+        [weakself.navigationController pushViewController:remoteVC animated:YES];
     };
     
     [self.view addSubview:_searchingView];
     [self.view addSubview:_noDeviceView];
     [self.view addSubview:_devicesListView];
-    
+
 }
 
 - (void)setUDPSocket

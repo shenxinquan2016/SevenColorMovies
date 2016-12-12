@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "SCOtherBaseViewController.h"
 
+@class SCDeviceModel;
+
 @interface SCRemoteControlVC : SCOtherBaseViewController
+
+@property (nonatomic, strong) SCDeviceModel *deviceModel;
 
 @end

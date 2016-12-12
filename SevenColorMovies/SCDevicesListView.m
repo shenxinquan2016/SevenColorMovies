@@ -201,22 +201,10 @@
     return 0;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    SCDeviceCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    SCDeviceModel *model = [[SCDeviceModel alloc] init];
-//    cell.deviceModel = model;
-    DONG_Log(@"cell选中.selected:%d",cell.selected);
-    
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    self.deviceModel = _dataArray[indexPath.row];
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    
-    SCDeviceCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    SCDeviceModel *model = [[SCDeviceModel alloc] init];
-//    cell.deviceModel = model;
-    
-    DONG_Log(@"cell取消选中.selected:%d",cell.selected);
-}
 
 @end
