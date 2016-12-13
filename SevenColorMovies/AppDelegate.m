@@ -62,7 +62,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 
-   //    libagent_close();
+       libagent_close();
 }
 
 ////禁用横屏
@@ -170,7 +170,7 @@
 - (void)setLibagent{
     const NSString *uuidStr = [HLJUUID getUUID];
     const char *uuid = [uuidStr UTF8String];
-//    libagent_start(0, NULL, uuid, 5656);
+    libagent_start(0, NULL, uuid, 5656);
     
     
 }
