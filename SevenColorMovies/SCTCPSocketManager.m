@@ -62,7 +62,7 @@
     //创建一个后台队列 等待接收数据
     dispatch_queue_t dQueue = dispatch_queue_create("My socket queue", NULL); //第一个参数是该队列的名字
     
-    self.socket = [[GCDAsyncSocket alloc] initWithDelegate:delegate delegateQueue:dQueue];
+    self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dQueue];
     NSError *error;
     [self.socket connectToHost:host onPort:port error:&error];
     NSLog(@"connect error: --- %@", error);
@@ -157,21 +157,17 @@
 
 
 
-
-
-
-
 #pragma mark - GCDAsyncSocketDelegate
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
 {
     
-    
 }
+
 /** 连接成功 */
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
-    NSLog(@"连接成功:%@, %d", host, port);
+    DONG_Log(@"GCDAsyncSocketDelegate链接服务器成功 ip:%@ port:%d", host, port);
     dispatch_async(self.receiveQueue, ^{
         if (self.delegate && [self.delegate respondsToSelector:@selector(socket:didConnect:port:)]) {
             [self.delegate socket:sock didConnect:host port:port];
@@ -184,21 +180,20 @@
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
     if (err) {
-        NSLog(@"GCDAsyncSocket服务器连接失败");
+        DONG_Log(@"GCDAsyncSocket服务器连接失败");
+        // 重新连接
         [self reConnectSocket];
+        
         dispatch_async(self.receiveQueue, ^{
             if (self.delegate && [self.delegate respondsToSelector:@selector(socketDidDisconnect:)]) {
                 [self.delegate socketDidDisconnect:sock];
             }
-            self.socket = nil;
-            self.socketQueue = nil;
         });
 
     } else  {
         DONG_Log(@"GCDAsyncSocket连接已被断开");
     }
-
-
+    
 }
 
 /** 接收消息成功 */
@@ -221,7 +216,6 @@
     [self.socket readDataWithTimeout:-1 tag:tag];
     
 }
-
 
 
 

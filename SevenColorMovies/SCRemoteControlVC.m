@@ -54,9 +54,11 @@
     [self addRightBBI];
     
     //3.建立tcp连接
+    TCPScoketManager.delegate = self;
+    
     if (!TCPScoketManager.isConnected) {
         
-        [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT delegate:self];
+        [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT delegate:nil];
     }
     
 }
@@ -321,18 +323,18 @@
 
 - (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data
 {
-    DONG_Log(@"读取数据成功");
+    DONG_Log(@"2222222读取数据成功");
 }
 
 - (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
 {
-    DONG_Log(@"连接成功");
+    DONG_Log(@"22222222连接成功");
     
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket{
     
-    DONG_Log(@"断开了");
+    DONG_Log(@"2222222断开了");
 }
 
 
