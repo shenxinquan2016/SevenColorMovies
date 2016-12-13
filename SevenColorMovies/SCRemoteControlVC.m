@@ -102,7 +102,6 @@
 
 - (IBAction)doMoveUp:(id)sender
 {
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveUp";
@@ -113,7 +112,6 @@
 
 - (IBAction)doMoveDown:(id)sender
 {
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveDown";
@@ -124,7 +122,6 @@
 
 - (IBAction)doMoveLeft:(id)sender
 {
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveLeft";
@@ -135,7 +132,6 @@
 
 - (IBAction)doMoveRignt:(id)sender
 {
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveRight";
@@ -163,8 +159,6 @@
     NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
     
     [TCPScoketManager socketWriteData:xmlString];
-    
-    
 }
 
 - (IBAction)toHomePage:(id)sender
