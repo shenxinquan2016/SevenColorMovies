@@ -90,12 +90,27 @@
                     <view key="view" contentMode="scaleToFill" id="ZXi-d2-ZrE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJC-ER-N1G">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="50" maxX="0.0" maxY="0.0"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GJC-ER-N1G" firstAttribute="top" secondItem="YHH-NY-tZ4" secondAttribute="bottom" id="2WN-o4-m2e"/>
+                            <constraint firstItem="IKR-7p-twA" firstAttribute="top" secondItem="GJC-ER-N1G" secondAttribute="bottom" id="C35-Jt-Ihz"/>
+                            <constraint firstItem="GJC-ER-N1G" firstAttribute="leading" secondItem="ZXi-d2-ZrE" secondAttribute="leading" id="St5-DS-tU3"/>
+                            <constraint firstAttribute="trailing" secondItem="GJC-ER-N1G" secondAttribute="trailing" id="eaC-wx-8Lz"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="scrollView" destination="GJC-ER-N1G" id="Wbs-ZX-XDr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7XX-3U-zQ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="889" y="1069"/>
+            <point key="canvasLocation" x="888.79999999999995" y="1067.3163418290856"/>
         </scene>
         <!--Remote ControlVC-->
         <scene sceneID="RR6-m9-EpJ">
