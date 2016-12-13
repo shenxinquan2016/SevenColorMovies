@@ -176,18 +176,18 @@
 
 - (IBAction)doVODAction:(id)sender {
     NSLog(@"点播");
-
+    
 }
 
 - (IBAction)doTimeShiftAction:(id)sender {
     NSLog(@"时移");
-  
+    
     
 }
 
 - (IBAction)doPullScreen:(id)sender {
     NSLog(@"拉屏");
-   
+    
     
 }
 
@@ -215,31 +215,16 @@
 {
     //1.断开连接
     [TCPScoketManager disConnectSocket];
-    //2.pop页面
-    // 取出当前的导航控制器
-    UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    // 当前选择的导航控制器
-    UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
-    // pop到指定页面
-    // 因为是出栈，所以要倒叙遍历navController.viewControllers 从栈顶到栈底遍历
-    for (int i = 0; i < navController.viewControllers.count ; i++) {
-        unsigned long index = navController.viewControllers.count - i;
-        UIViewController* controller = navController.viewControllers[index-1];
-        
-        if ([controller isKindOfClass:[SCDiscoveryViewController class]]) {//发现
-            
-            [navController popToViewController:controller animated:YES];
-        }
-    }
-    //3.发送通知
-//    [DONG_NotificationCenter postNotificationName:CutOffTcpConnectByUser object:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    //2.发送通知
+    //[DONG_NotificationCenter postNotificationName:CutOffTcpConnectByUser object:nil];
 }
 
 /** xml命令构造器 */
 - (NSString *)getCommandXMLStringWithType:(NSString *)type value:(NSString *)value;
 {
     NSString *xmlString = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"com.vurc.system\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"%@\" value=\"%@\"></Message>]]></Body></Message>\n", type, value];
-   
+    
     return xmlString;
 }
 
@@ -269,22 +254,7 @@
 /** 重写返回事件 */
 - (void)goBack
 {
-    // 取出当前的导航控制器
-    UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    // 当前选择的导航控制器
-    UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
-    // pop到指定页面
-    // 因为是出栈，所以要倒叙遍历navController.viewControllers 从栈顶到栈底遍历
-    for (int i = 0; i < navController.viewControllers.count ; i++) {
-        unsigned long index = navController.viewControllers.count - i;
-        UIViewController* controller = navController.viewControllers[index-1];
-        
-        if ([controller isKindOfClass:[SCDiscoveryViewController class]]) {//发现
-            
-            [navController popToViewController:controller animated:YES];
-            return;
-        }
-    }
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - TCPSocketDelegate
@@ -300,14 +270,14 @@
     NSLog(@"GCDAsyncSocketDelegate链接服务器成功 ip:%@ port:%d", host, port);
     TCPScoketManager.reConnectionCount = 1;
     //发送心跳，来检测长连接
-//    [TCPScoketManager socketDidConnectBeginSendBeat:@"connect is here"];
+    //    [TCPScoketManager socketDidConnectBeginSendBeat:@"connect is here"];
     
 }
 
-/** 
-  * 断开连接
-  * 如果error有值，连接失败，如果没值，正常断开
-  */
+/**
+ * 断开连接
+ * 如果error有值，连接失败，如果没值，正常断开
+ */
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
     if (err) {
