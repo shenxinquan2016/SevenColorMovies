@@ -28,6 +28,10 @@
 @property (nonatomic, copy) NSString *host;
 /** 端口 */
 @property (nonatomic, assign) UInt16 port;
+/** 发数据处理的串行队列 */
+@property (strong, nonatomic) dispatch_queue_t socketQueue;
+/** 收数据处理的串行队列 */
+@property (strong, nonatomic) dispatch_queue_t receiveQueue;
 
 @end
 
@@ -137,7 +141,19 @@
 
 
 
+- (dispatch_queue_t)socketQueue {
+    if (_socketQueue == nil) {
+        _socketQueue = dispatch_queue_create("com.sendSocket", DISPATCH_QUEUE_SERIAL);
+    }
+    return _socketQueue;
+}
 
+- (dispatch_queue_t)receiveQueue {
+    if (_receiveQueue == nil) {
+        _receiveQueue = dispatch_queue_create("com.receiveSocket", DISPATCH_QUEUE_SERIAL);
+    }
+    return _receiveQueue;
+}
 
 
 
@@ -146,6 +162,7 @@
 
 
 #pragma mark - GCDAsyncSocketDelegate
+
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
 {
     
@@ -154,34 +171,38 @@
 /** 连接成功 */
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
-    NSLog(@"GCDAsyncSocketDelegate链接服务器成功");
-    
-    //通过定时器不断发送消息，来检测长连接
-    [self socketDidConnectBeginSendBeat:nil];
+    NSLog(@"连接成功:%@, %d", host, port);
+    dispatch_async(self.receiveQueue, ^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(socket:didConnect:port:)]) {
+            [self.delegate socket:sock didConnect:host port:port];
+        }
+    });
     
 }
 
 /** 连接失败 */
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
-    NSLog(@"GCDAsyncSocket服务器连接失败");
-    [self reConnectSocket];
+    NSLog(@"断开连接socketDidDisconnect");
+    dispatch_async(self.receiveQueue, ^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(socketDidDisconnect:)]) {
+            [self.delegate socketDidDisconnect:sock];
+        }
+        self.socket = nil;
+        self.socketQueue = nil;
+    });
 }
 
 /** 接收消息成功 */
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    //服务端返回消息数据量比较大时，可能分多次返回。所以在读取消息的时候，设置MAX_BUFFER表示每次最多读取多少，当data.length < MAX_BUFFER我们认为有可能是接受完一个完整的消息，然后才解析
-    if( data.length < MAX_BUFFER )
-    {
-        //收到结果解析...
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-        NSLog(@"%@",dic);
-        //解析出来的消息，可以通过通知、代理、block等传出去
-    }
-    
-    [self.socket readDataWithTimeout:READ_TIME_OUT buffer:nil bufferOffset:0 maxLength:MAX_BUFFER tag:0];
-    
+    dispatch_async(self.receiveQueue, ^{
+        // 防止 didReadData 被阻塞，用个其他队列里的线程去回调 block
+        if (self.delegate && [self.delegate respondsToSelector:@selector(socket:didReadData:)]) {
+            [self.delegate socket:sock didReadData:data];
+        }
+    });
+    [self.socket readDataWithTimeout:-1 tag:100];
 }
 
 /** 发送消息成功 */

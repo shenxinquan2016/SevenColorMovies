@@ -18,9 +18,18 @@ typedef NS_ENUM(NSUInteger, TCPSocketOfflineType){
     SocketOfflineByWifiCut,     //wifi 断开
 };
 
+@protocol SocketManagerDelegate <NSObject>
+
+- (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data;
+- (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port;
+- (void)socketDidDisconnect:(GCDAsyncSocket *)socket;
+
+@end
+
 @interface SCTCPSocketManager : NSObject
 
 @property (nonatomic, strong) GCDAsyncSocket *socket;
+@property (nonatomic, weak) id<SocketManagerDelegate> delegate;
 @property (nonatomic, assign) NSInteger reConnectionCount;  // 建连失败重连次数
 @property (nonatomic, assign, readonly) BOOL isConnected;
 @property (nonatomic, assign) TCPSocketOfflineType offlineType;

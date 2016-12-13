@@ -17,7 +17,7 @@
 
 #define PORT 9814
 
-@interface SCRemoteControlVC () <GCDAsyncSocketDelegate>
+@interface SCRemoteControlVC () <GCDAsyncSocketDelegate, SocketManagerDelegate>
 
 /** tcpSocket */
 @property (nonatomic, strong) GCDAsyncSocket *socket;
@@ -311,6 +311,34 @@
     //数据发送成功后，自己调用一下读取数据的方法，接着socket才会调用读取数据的代理方法
     [TCPScoketManager.socket readDataWithTimeout:-1 tag:tag];
 }
+
+
+
+
+
+
+#pragma mark - SocketManagerDelegate
+
+- (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data
+{
+    
+}
+
+- (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
+{
+    
+    
+}
+
+- (void)socketDidDisconnect:(GCDAsyncSocket *)socket{
+    
+    
+}
+
+
+
+
+
 
 
 // 禁止旋转屏幕
