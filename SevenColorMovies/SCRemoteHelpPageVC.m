@@ -22,7 +22,7 @@
     //1.标题
     self.leftBBI.text = @"帮助";
     
-    
+    //1.设置scrollview的contentView
     [self setUpScrollViewContent];
 }
 
@@ -211,7 +211,6 @@
         make.size.mas_equalTo((CGSize){113, 141});
     }];
 
-    
 
 }
 

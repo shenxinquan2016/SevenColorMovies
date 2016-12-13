@@ -13,6 +13,7 @@
 #import "AsyncSocket.h"
 #import "SCDeviceModel.h"
 #import "SCDiscoveryViewController.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 #define PORT 9814
 
@@ -92,14 +93,17 @@
 
 - (IBAction)doVolumeUp:(id)sender
 {
+    
     NSString *type = @"Rc_VolumeControl";
     NSString *value = @"1";
     NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
+    
     [TCPScoketManager socketWriteData:xmlString];
 }
 
 - (IBAction)doMoveUp:(id)sender
 {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveUp";
     NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
@@ -109,6 +113,7 @@
 
 - (IBAction)doMoveDown:(id)sender
 {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveDown";
     NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
@@ -118,6 +123,7 @@
 
 - (IBAction)doMoveLeft:(id)sender
 {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveLeft";
     NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
@@ -127,6 +133,7 @@
 
 - (IBAction)doMoveRignt:(id)sender
 {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveRight";
     NSString *xmlString = [self getCommandXMLStringWithType:type value:value];
