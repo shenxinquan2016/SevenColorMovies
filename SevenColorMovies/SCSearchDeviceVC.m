@@ -212,11 +212,11 @@
     NSLog(@"[%@:%u]%@",ip, port,message);
     
     NSDictionary *dic = [NSDictionary dictionaryWithXMLData:data];
-    NSLog(@"dic:%@",dic);
+    //NSLog(@"dic:%@",dic);
     
     if (dic) {
         NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
-        NSLog(@"dic2:%@",dic2);
+        //NSLog(@"dic2:%@",dic2);
         SCDeviceModel *deviceModel = [[SCDeviceModel alloc] init];
         deviceModel.name = dic2[@"name"];
         deviceModel._ip = dic2[@"_ip"];

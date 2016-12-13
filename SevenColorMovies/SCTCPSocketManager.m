@@ -57,7 +57,7 @@
 }
 
 /** 连接 socket */
-- (void)connectToHost:(NSString *)host port:(UInt16)port delegate:(id)delegate
+- (void)connectToHost:(NSString *)host port:(UInt16)port
 {
     //创建一个后台队列 等待接收数据
     dispatch_queue_t dQueue = dispatch_queue_create("My socket queue", NULL); //第一个参数是该队列的名字
@@ -176,7 +176,10 @@
     
 }
 
-/** 连接失败 */
+/**
+ * 断开连接
+ * 如果error有值，连接失败，如果没值，正常断开
+ */
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
     if (err) {

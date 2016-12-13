@@ -17,7 +17,7 @@
 
 #define PORT 9814
 
-@interface SCRemoteControlVC () <GCDAsyncSocketDelegate, SocketManagerDelegate>
+@interface SCRemoteControlVC () <SocketManagerDelegate>
 
 /** tcpSocket */
 @property (nonatomic, strong) GCDAsyncSocket *socket;
@@ -58,7 +58,7 @@
     
     if (!TCPScoketManager.isConnected) {
         
-        [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT delegate:nil];
+        [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT];
     }
     
 }
@@ -266,75 +266,22 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-#pragma mark - TCPSocketDelegate
-
-- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
-{
-    NSLog(@"GCDAsyncSocketDelegate接受新的连接");
-    
-}
-/** 连接成功 */
-- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
-{
-    NSLog(@"GCDAsyncSocketDelegate链接服务器成功 ip:%@ port:%d", host, port);
-    TCPScoketManager.reConnectionCount = 1;
-    //发送心跳，来检测长连接
-    //    [TCPScoketManager socketDidConnectBeginSendBeat:@"connect is here"];
-    
-}
-
-/**
- * 断开连接
- * 如果error有值，连接失败，如果没值，正常断开
- */
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
-{
-    if (err) {
-        NSLog(@"GCDAsyncSocket服务器连接失败");
-        [TCPScoketManager reConnectSocket];
-        
-    } else  {
-        DONG_Log(@"GCDAsyncSocket连接已被断开");
-    }
-}
-
-/** 接收消息成功 */
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
-{
-    [TCPScoketManager.socket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:1024 tag:0];
-    
-    
-}
-
-/** 发送消息成功 */
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
-{
-    NSLog(@"数据成功发送到服务器");
-    //数据发送成功后，自己调用一下读取数据的方法，接着socket才会调用读取数据的代理方法
-    [TCPScoketManager.socket readDataWithTimeout:-1 tag:tag];
-}
-
-
-
-
-
-
 #pragma mark - SocketManagerDelegate
 
 - (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data
 {
-    DONG_Log(@"2222222读取数据成功");
+    DONG_Log(@"SocketManagerDelegate读取数据成功");
 }
 
 - (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
 {
-    DONG_Log(@"22222222连接成功");
+    DONG_Log(@"SocketManagerDelegate连接成功");
     
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket{
     
-    DONG_Log(@"2222222断开了");
+    DONG_Log(@"SocketManagerDelegate断开了");
 }
 
 

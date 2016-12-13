@@ -49,7 +49,7 @@ typedef NS_ENUM(NSUInteger, TCPSocketOfflineType){
  *  @param port 端口
  *  @param delegate      delegate
  */
-- (void)connectToHost:(NSString *)host port:(UInt16)port delegate:(id)delegate;
+- (void)connectToHost:(NSString *)host port:(UInt16)port;
 
 
 /**
