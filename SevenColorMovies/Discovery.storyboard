@@ -109,10 +109,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RemoteControl_BG" translatesAutoresizingMaskIntoConstraints="NO" id="aKR-Ry-6ME">
-                                <frame key="frameInset" minY="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RemoteControl_BG" translatesAutoresizingMaskIntoConstraints="NO" id="aKR-Ry-6ME"/>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oB-Z1-88C">
                                 <frame key="frameInset" minX="37" minY="97" width="57" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -121,61 +118,77 @@
                                     <action selector="doVolumeDown:" destination="11b-d0-noV" eventType="touchUpInside" id="fjW-aK-CXW"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTh-I1-NuO">
-                                <frame key="frameInset" minX="269" minY="432" width="57" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTh-I1-NuO">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="Hog-7H-DXH"/>
+                                    <constraint firstAttribute="width" constant="57" id="yke-by-PKt"/>
+                                </constraints>
                                 <state key="normal" title="Button" image="TimeShifted"/>
                                 <connections>
                                     <action selector="doTimeShiftAction:" destination="11b-d0-noV" eventType="touchUpInside" id="GXE-Hb-For"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Gx-eY-6fo">
-                                <frame key="frameInset" minX="130" minY="467" width="115" height="115"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Gx-eY-6fo">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="115" id="aOc-ZR-zm8"/>
+                                    <constraint firstAttribute="height" constant="115" id="bSG-rb-Eyn"/>
+                                </constraints>
                                 <state key="normal" title="Button" image="Back"/>
                                 <connections>
                                     <action selector="doBackAction:" destination="11b-d0-noV" eventType="touchUpInside" id="hbW-TJ-k5E"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xp4-b9-2Rf">
-                                <frame key="frameInset" minX="269" minY="543" width="57" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xp4-b9-2Rf">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="57" id="P3a-Vb-bzC"/>
+                                    <constraint firstAttribute="height" constant="57" id="aUO-lK-b8J"/>
+                                </constraints>
                                 <state key="normal" title="Button" image="Menu"/>
                                 <connections>
                                     <action selector="toMenuPage:" destination="11b-d0-noV" eventType="touchUpInside" id="6tp-Bj-1ur"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6f-hi-u29">
-                                <frame key="frameInset" minX="49" minY="433" width="57" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6f-hi-u29">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="CqF-eF-oJi"/>
+                                    <constraint firstAttribute="width" constant="57" id="pTu-Ha-xP2"/>
+                                </constraints>
                                 <state key="normal" title="Button" image="VOD"/>
                                 <connections>
                                     <action selector="doVODAction:" destination="11b-d0-noV" eventType="touchUpInside" id="RhU-ea-4aX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2eu-DS-26C">
-                                <frame key="frameInset" minX="49" minY="543" width="57" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2eu-DS-26C">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="24y-Qm-Sor"/>
+                                    <constraint firstAttribute="width" constant="57" id="jMJ-jR-pHI"/>
+                                </constraints>
                                 <state key="normal" title="Button" image="HomePage"/>
                                 <connections>
                                     <action selector="toHomePage:" destination="11b-d0-noV" eventType="touchUpInside" id="afW-zL-IOC"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Direction" translatesAutoresizingMaskIntoConstraints="NO" id="Kto-pV-2Sr">
-                                <frame key="frameInset" minX="68" minY="182" width="240" height="240"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Direction" translatesAutoresizingMaskIntoConstraints="NO" id="Kto-pV-2Sr">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="Y5w-HY-8mW"/>
+                                    <constraint firstAttribute="height" constant="240" id="Z3I-1u-tec"/>
+                                </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACY-ZX-bc8">
-                                <frame key="frameInset" minX="159" minY="97" width="57" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACY-ZX-bc8">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="57" id="Ch8-xd-NbV"/>
+                                    <constraint firstAttribute="height" constant="57" id="Ecc-Qe-117"/>
+                                </constraints>
                                 <state key="normal" title="Button" image="PullScreen"/>
                                 <connections>
                                     <action selector="doPullScreen:" destination="11b-d0-noV" eventType="touchUpInside" id="fQR-Rv-WDB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ksf-0R-OgV">
-                                <frame key="frameInset" minX="144" minY="258" width="88" height="88"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ksf-0R-OgV">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="6vO-8u-rsb"/>
+                                    <constraint firstAttribute="width" constant="88" id="a72-SK-ZC0"/>
+                                </constraints>
                                 <state key="normal" title="Button" image="OK"/>
                                 <connections>
                                     <action selector="doOKAction:" destination="11b-d0-noV" eventType="touchUpInside" id="njS-eY-ws5"/>
@@ -189,36 +202,74 @@
                                     <action selector="doVolumeUp:" destination="11b-d0-noV" eventType="touchUpInside" id="oIJ-EB-tko"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jed-dE-ORE">
-                                <frame key="frameInset" minX="68" minY="207" width="46" height="189"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jed-dE-ORE">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="JVU-Cd-B4T"/>
+                                    <constraint firstAttribute="height" constant="189" id="Shm-F0-pPS"/>
+                                </constraints>
                                 <connections>
                                     <action selector="doMoveLeft:" destination="11b-d0-noV" eventType="touchUpInside" id="QBB-Yr-SYo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qme-tc-YsT">
-                                <frame key="frameInset" minX="263" minY="207" width="46" height="189"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qme-tc-YsT">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="189" id="8Ah-3h-vux"/>
+                                    <constraint firstAttribute="width" constant="46" id="f75-oU-THX"/>
+                                </constraints>
                                 <connections>
                                     <action selector="doMoveRignt:" destination="11b-d0-noV" eventType="touchUpInside" id="iaQ-DW-XTF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-W4-Tul">
-                                <frame key="frameInset" minX="94" minY="376" width="189" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-W4-Tul">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="0Tt-mE-U4N"/>
+                                    <constraint firstAttribute="width" constant="189" id="wsV-iW-nrg"/>
+                                </constraints>
                                 <connections>
                                     <action selector="doMoveDown:" destination="11b-d0-noV" eventType="touchUpInside" id="Zxe-Pn-LWv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0P4-bd-IHQ">
-                                <frame key="frameInset" minX="94" minY="180" width="189" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0P4-bd-IHQ">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="189" id="FGJ-Fm-303"/>
+                                    <constraint firstAttribute="height" constant="46" id="MMl-p6-Kgf"/>
+                                </constraints>
                                 <connections>
                                     <action selector="doMoveUp:" destination="11b-d0-noV" eventType="touchUpInside" id="tCx-fm-SvR"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="jed-dE-ORE" firstAttribute="centerY" secondItem="Kto-pV-2Sr" secondAttribute="centerY" id="1h3-93-wfM"/>
+                            <constraint firstItem="8Ul-W4-Tul" firstAttribute="bottom" secondItem="Kto-pV-2Sr" secondAttribute="bottom" id="3Be-58-H0V"/>
+                            <constraint firstItem="0P4-bd-IHQ" firstAttribute="top" secondItem="Kto-pV-2Sr" secondAttribute="top" constant="-2" id="3JY-Dt-QiS"/>
+                            <constraint firstItem="Qme-tc-YsT" firstAttribute="trailing" secondItem="Kto-pV-2Sr" secondAttribute="trailing" constant="1" id="5ul-oq-5I7"/>
+                            <constraint firstItem="aKR-Ry-6ME" firstAttribute="leading" secondItem="uU7-V1-OWx" secondAttribute="leading" id="7Qb-zJ-aLu"/>
+                            <constraint firstAttribute="bottom" secondItem="W6f-hi-u29" secondAttribute="bottom" constant="177" id="7Sn-pV-YPm"/>
+                            <constraint firstItem="ACY-ZX-bc8" firstAttribute="top" secondItem="uU7-V1-OWx" secondAttribute="top" constant="97" id="AP9-j6-dxL"/>
+                            <constraint firstItem="URc-uk-Joe" firstAttribute="top" secondItem="aKR-Ry-6ME" secondAttribute="bottom" id="BhW-zf-oiZ"/>
+                            <constraint firstItem="jed-dE-ORE" firstAttribute="leading" secondItem="Kto-pV-2Sr" secondAttribute="leading" id="E8s-i4-YZr"/>
+                            <constraint firstAttribute="bottom" secondItem="Xp4-b9-2Rf" secondAttribute="bottom" constant="67" id="G5c-HI-jnc"/>
+                            <constraint firstItem="ACY-ZX-bc8" firstAttribute="centerX" secondItem="uU7-V1-OWx" secondAttribute="centerX" id="HBs-w5-tU9"/>
+                            <constraint firstAttribute="trailing" secondItem="Xp4-b9-2Rf" secondAttribute="trailing" constant="49" id="ILx-xs-ABK"/>
+                            <constraint firstAttribute="trailing" secondItem="aKR-Ry-6ME" secondAttribute="trailing" id="J4Y-f6-ySO"/>
+                            <constraint firstItem="2eu-DS-26C" firstAttribute="leading" secondItem="uU7-V1-OWx" secondAttribute="leading" constant="49" id="LBu-UR-HgQ"/>
+                            <constraint firstItem="Kto-pV-2Sr" firstAttribute="top" secondItem="uU7-V1-OWx" secondAttribute="top" constant="182" id="OtM-Lf-fqz"/>
+                            <constraint firstItem="W6f-hi-u29" firstAttribute="leading" secondItem="uU7-V1-OWx" secondAttribute="leading" constant="49" id="Tgt-vp-TF3"/>
+                            <constraint firstItem="Qme-tc-YsT" firstAttribute="centerY" secondItem="Kto-pV-2Sr" secondAttribute="centerY" id="Udy-yF-sbJ"/>
+                            <constraint firstAttribute="trailing" secondItem="JTh-I1-NuO" secondAttribute="trailing" constant="49" id="ZN2-wG-S62"/>
+                            <constraint firstItem="Ksf-0R-OgV" firstAttribute="centerX" secondItem="Kto-pV-2Sr" secondAttribute="centerX" id="cjd-mO-qoc"/>
+                            <constraint firstAttribute="bottom" secondItem="2eu-DS-26C" secondAttribute="bottom" constant="67" id="eCa-UT-42v"/>
+                            <constraint firstItem="0P4-bd-IHQ" firstAttribute="centerX" secondItem="Kto-pV-2Sr" secondAttribute="centerX" id="kci-w7-QL0"/>
+                            <constraint firstAttribute="bottom" secondItem="6Gx-eY-6fo" secondAttribute="bottom" constant="85" id="kf2-B1-xi5"/>
+                            <constraint firstItem="6Gx-eY-6fo" firstAttribute="centerX" secondItem="aKR-Ry-6ME" secondAttribute="centerX" id="qsV-Th-bd2"/>
+                            <constraint firstItem="Ksf-0R-OgV" firstAttribute="centerY" secondItem="Kto-pV-2Sr" secondAttribute="centerY" id="s3O-R3-fGC"/>
+                            <constraint firstItem="Kto-pV-2Sr" firstAttribute="centerX" secondItem="uU7-V1-OWx" secondAttribute="centerX" id="utk-JD-pCu"/>
+                            <constraint firstItem="8Ul-W4-Tul" firstAttribute="centerX" secondItem="Kto-pV-2Sr" secondAttribute="centerX" id="v8u-E8-4bV"/>
+                            <constraint firstAttribute="bottom" secondItem="JTh-I1-NuO" secondAttribute="bottom" constant="178" id="vF5-O1-bW9"/>
+                            <constraint firstItem="aKR-Ry-6ME" firstAttribute="top" secondItem="uU7-V1-OWx" secondAttribute="top" constant="64" id="vnn-GN-eg2"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="OKBtn" destination="Ksf-0R-OgV" id="FWW-T0-cne"/>
