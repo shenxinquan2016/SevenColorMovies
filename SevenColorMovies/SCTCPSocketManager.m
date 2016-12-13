@@ -183,14 +183,22 @@
 /** 连接失败 */
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
-    NSLog(@"断开连接socketDidDisconnect");
-    dispatch_async(self.receiveQueue, ^{
-        if (self.delegate && [self.delegate respondsToSelector:@selector(socketDidDisconnect:)]) {
-            [self.delegate socketDidDisconnect:sock];
-        }
-        self.socket = nil;
-        self.socketQueue = nil;
-    });
+    if (err) {
+        NSLog(@"GCDAsyncSocket服务器连接失败");
+        [self reConnectSocket];
+        dispatch_async(self.receiveQueue, ^{
+            if (self.delegate && [self.delegate respondsToSelector:@selector(socketDidDisconnect:)]) {
+                [self.delegate socketDidDisconnect:sock];
+            }
+            self.socket = nil;
+            self.socketQueue = nil;
+        });
+
+    } else  {
+        DONG_Log(@"GCDAsyncSocket连接已被断开");
+    }
+
+
 }
 
 /** 接收消息成功 */
@@ -211,6 +219,7 @@
     NSLog(@"数据成功发送到服务器");
     //数据发送成功后，自己调用一下读取数据的方法，接着socket才会调用读取数据的代理方法
     [self.socket readDataWithTimeout:-1 tag:tag];
+    
 }
 
 

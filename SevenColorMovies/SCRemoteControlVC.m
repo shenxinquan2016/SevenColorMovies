@@ -321,23 +321,19 @@
 
 - (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data
 {
-    
+    DONG_Log(@"读取数据成功");
 }
 
 - (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
 {
-    
+    DONG_Log(@"连接成功");
     
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket{
     
-    
+    DONG_Log(@"断开了");
 }
-
-
-
-
 
 
 
