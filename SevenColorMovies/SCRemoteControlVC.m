@@ -46,7 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
+    self.view.backgroundColor = [UIColor colorWithHex:@"#1E2026"];
     //1.标题
     self.leftBBI.text = @"遥控器";
     
