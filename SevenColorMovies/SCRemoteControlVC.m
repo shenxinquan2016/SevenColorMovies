@@ -57,12 +57,9 @@
     TCPScoketManager.delegate = self;
     
     if (!TCPScoketManager.isConnected) {
-        
         [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT];
     }
-    
 }
-
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
@@ -265,6 +262,7 @@
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
 
 #pragma mark - SocketManagerDelegate
 
