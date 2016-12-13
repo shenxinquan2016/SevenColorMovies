@@ -166,45 +166,57 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OfG-4k-EPN" userLabel="View2">
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Direction" translatesAutoresizingMaskIntoConstraints="NO" id="Kto-pV-2Sr">
-                                        <frame key="frameInset" minX="33" minY="21" width="240" height="240"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Direction" translatesAutoresizingMaskIntoConstraints="NO" id="Kto-pV-2Sr">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="240" id="36T-of-SPr"/>
+                                            <constraint firstAttribute="width" constant="240" id="j5o-xD-Q1d"/>
+                                        </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ksf-0R-OgV">
-                                        <frame key="frameInset" minX="109" minY="97" width="88" height="88"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ksf-0R-OgV">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="88" id="DzT-bO-ZJp"/>
+                                            <constraint firstAttribute="width" constant="88" id="ZCj-ay-Chn"/>
+                                        </constraints>
                                         <state key="normal" title="Button" image="OK"/>
                                         <connections>
                                             <action selector="doOKAction:" destination="11b-d0-noV" eventType="touchUpInside" id="njS-eY-ws5"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jed-dE-ORE">
-                                        <frame key="frameInset" minX="33" minY="47" width="46" height="189"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jed-dE-ORE">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="9g4-5H-Uqm"/>
+                                            <constraint firstAttribute="height" constant="189" id="qoe-bl-DXg"/>
+                                        </constraints>
                                         <state key="normal" image="Left_Click"/>
                                         <connections>
                                             <action selector="doMoveLeft:" destination="11b-d0-noV" eventType="touchUpInside" id="QBB-Yr-SYo"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qme-tc-YsT">
-                                        <frame key="frameInset" minX="228" minY="47" width="46" height="189"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qme-tc-YsT">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="eh5-he-xt5"/>
+                                            <constraint firstAttribute="height" constant="189" id="oSX-GS-SrS"/>
+                                        </constraints>
                                         <state key="normal" image="Right_Click"/>
                                         <connections>
                                             <action selector="doMoveRignt:" destination="11b-d0-noV" eventType="touchUpInside" id="iaQ-DW-XTF"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-W4-Tul">
-                                        <frame key="frameInset" minX="59" minY="215" width="189" height="46"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-W4-Tul">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="Aon-uQ-inS"/>
+                                            <constraint firstAttribute="width" constant="189" id="q4c-8Q-mad"/>
+                                        </constraints>
                                         <state key="normal" image="Down_Click"/>
                                         <connections>
                                             <action selector="doMoveDown:" destination="11b-d0-noV" eventType="touchUpInside" id="Zxe-Pn-LWv"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0P4-bd-IHQ">
-                                        <frame key="frameInset" minX="59" minY="19" width="189" height="46"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0P4-bd-IHQ">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="d8t-wB-lcA"/>
+                                            <constraint firstAttribute="width" constant="189" id="yRV-SK-9wG"/>
+                                        </constraints>
                                         <state key="normal" image="Up_Click"/>
                                         <connections>
                                             <action selector="doMoveUp:" destination="11b-d0-noV" eventType="touchUpInside" id="tCx-fm-SvR"/>
@@ -213,7 +225,19 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="8Ul-W4-Tul" firstAttribute="centerX" secondItem="OfG-4k-EPN" secondAttribute="centerX" id="188-QP-NJ2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qme-tc-YsT" secondAttribute="trailing" constant="33" id="1W0-iS-G7Q"/>
+                                    <constraint firstItem="0P4-bd-IHQ" firstAttribute="top" secondItem="OfG-4k-EPN" secondAttribute="top" constant="18" id="FM8-lp-XRr"/>
+                                    <constraint firstItem="Ksf-0R-OgV" firstAttribute="centerY" secondItem="OfG-4k-EPN" secondAttribute="centerY" id="KxD-uL-1mI"/>
+                                    <constraint firstItem="Ksf-0R-OgV" firstAttribute="centerX" secondItem="OfG-4k-EPN" secondAttribute="centerX" id="MhQ-08-bil"/>
+                                    <constraint firstItem="Qme-tc-YsT" firstAttribute="centerY" secondItem="OfG-4k-EPN" secondAttribute="centerY" id="X1R-PB-vwq"/>
+                                    <constraint firstItem="jed-dE-ORE" firstAttribute="centerY" secondItem="OfG-4k-EPN" secondAttribute="centerY" id="cGW-aW-h71"/>
                                     <constraint firstAttribute="width" constant="310" id="fI4-Fm-5Dd"/>
+                                    <constraint firstItem="Kto-pV-2Sr" firstAttribute="centerY" secondItem="OfG-4k-EPN" secondAttribute="centerY" id="fza-mU-BRv"/>
+                                    <constraint firstItem="Kto-pV-2Sr" firstAttribute="centerX" secondItem="OfG-4k-EPN" secondAttribute="centerX" id="iC8-jD-MMC"/>
+                                    <constraint firstItem="jed-dE-ORE" firstAttribute="leading" secondItem="OfG-4k-EPN" secondAttribute="leading" constant="33" id="kuF-bC-6fT"/>
+                                    <constraint firstItem="0P4-bd-IHQ" firstAttribute="centerX" secondItem="OfG-4k-EPN" secondAttribute="centerX" id="m7e-ds-YVi"/>
+                                    <constraint firstAttribute="bottom" secondItem="8Ul-W4-Tul" secondAttribute="bottom" constant="18" id="onL-Fq-9xR"/>
                                     <constraint firstAttribute="height" constant="280" id="xFa-BA-pFa"/>
                                 </constraints>
                             </view>
