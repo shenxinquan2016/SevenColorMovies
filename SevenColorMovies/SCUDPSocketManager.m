@@ -71,6 +71,7 @@
     }
     NSLog(@"udp servers success starting %hu", [self.udpSocket localPort]);
 }
+
 /** 发送消息 */
 - (void)sendMessage:(id)message {
     
@@ -85,5 +86,87 @@
     [self.udpSocket sendData:data toHost:host port:port withTimeout:-1 tag:100];
     
 }
+
+-(void)sendBackToHost:(NSString *)ip port:(uint16_t)port withMessage:(NSString *)s
+{
+    NSString *msg = @"我已接收到消息";
+    NSData *data = [msg dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [self.udpSocket sendData:data toHost:ip port:port withTimeout:60 tag:200];
+}
+
+
+
+#pragma mark - UDPSocketDelegate
+
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didConnectToAddress:(NSData *)address
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(udpSocket:didConnectToAddress:)]) {
+        [self.delegate udpSocket:sock didConnectToAddress:address];
+    }
+   
+    
+    DONG_Log(@"GCDAsyncUdpSocket连接成功");
+}
+
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotConnect:(NSError *)error
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(udpSocket:didNotConnect:)]) {
+        [self.delegate udpSocket:sock didNotConnect:error];
+    }
+    
+    
+    if (error) {
+        DONG_Log(@"GCDAsyncUdpSocket连接被断开");
+    } else {
+        DONG_Log(@"GCDAsyncUdpSocket连接失败");
+    }
+    
+}
+
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address withFilterContext:(id)filterContex
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(udpSocket:didReceiveData:fromAddress:withFilterContext:)]) {
+        [self.delegate udpSocket:sock didReceiveData:data fromAddress:address withFilterContext:filterContex];
+    }
+    
+    
+    //取得发送发的ip和端口
+    NSString *ip = [GCDAsyncUdpSocket hostFromAddress:address];
+    uint16_t port = [GCDAsyncUdpSocket portFromAddress:address];
+    
+    //data就是接收的数据
+    NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    DONG_Log(@"GCDAsyncUdpSocket接收到消息 ip:%@ port:%u data:%@",ip, port,message);
+ 
+    
+    //[self sendBackToHost: ip port:port withMessage:message];
+    
+    //再次启动一个等待
+    [self.udpSocket receiveOnce:nil];
+    
+}
+
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(udpSocket:didSendDataWithTag:)]) {
+        [self.delegate udpSocket:sock didSendDataWithTag:tag];
+    }
+    
+    DONG_Log(@"GCDAsyncUdpSocket数据发送成功");
+}
+
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error
+{
+    NSLog(@"标记为tag %ld的发送失败 失败原因 %@",tag, error);
+}
+
+- (void)udpSocketDidClose:(GCDAsyncUdpSocket *)sock withError:(NSError *)error
+{
+    NSLog(@"UDP链接关闭 原因 %@", error);
+}
+
+
 
 @end

@@ -121,7 +121,8 @@
     
 }
 
-- (void)initKeyboardManager {
+- (void)initKeyboardManager
+{
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
     manager.enable = YES;//enable控制整个功能是否启用。
     manager.shouldResignOnTouchOutside = YES;//控制点击背景是否收起键盘。
@@ -155,7 +156,6 @@
         DONG_Log(@"4G");
         UIAlertView *alertview =[[UIAlertView alloc] initWithTitle:@"提示" message:@"切换到移动网络,继续使用将会消耗您的流量" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alertview show];
-
 
     } changeToNoNetWork:^{
         DONG_Log(@"没有网络");
