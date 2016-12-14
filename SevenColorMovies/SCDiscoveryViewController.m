@@ -14,7 +14,7 @@
 #import "SCTCPSocketManager.h"
 
 
-@interface SCDiscoveryViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface SCDiscoveryViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSArray *dataSource;
@@ -50,7 +50,8 @@
 }
 
 #pragma mark- private methods
-- (void)setTableView{
+- (void)setTableView
+{
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor colorWithHex:@"#F0F1F2"];
     _tableView.scrollEnabled = NO;

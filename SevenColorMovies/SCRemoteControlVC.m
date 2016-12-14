@@ -89,7 +89,7 @@
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_VolumeControl";
     NSString *value = @"-1";
-    NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     [TCPScoketManager socketWriteData:xmlString];
 }
 
@@ -98,7 +98,7 @@
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_VolumeControl";
     NSString *value = @"1";
-    NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     [TCPScoketManager socketWriteData:xmlString];
 }
 
@@ -107,7 +107,7 @@
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveUp";
-    NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     [TCPScoketManager socketWriteData:xmlString];
 }
@@ -117,7 +117,7 @@
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveDown";
-    NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     [TCPScoketManager socketWriteData:xmlString];
 }
@@ -127,7 +127,7 @@
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveLeft";
-    NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     [TCPScoketManager socketWriteData:xmlString];
 }
@@ -137,7 +137,7 @@
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_Move";
     NSString *value = @"MoveRight";
-    NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     [TCPScoketManager socketWriteData:xmlString];
 }
@@ -147,7 +147,7 @@
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_Navigation";
     NSString *value = @"Enter";
-    NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     [TCPScoketManager socketWriteData:xmlString];
     
@@ -158,7 +158,7 @@
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_Navigation";
     NSString *value = @"Back";
-    NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     [TCPScoketManager socketWriteData:xmlString];
 }
@@ -168,7 +168,7 @@
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_SendKeyCode";
     NSString *value = @"HOME";
-    NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     [TCPScoketManager socketWriteData:xmlString];
     
@@ -179,7 +179,7 @@
     NSString *identifier = @"com.vurc.system";
     NSString *type = @"Rc_SendKeyCode";
     NSString *value = @"82";
-    NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     [TCPScoketManager socketWriteData:xmlString];
 }
@@ -189,7 +189,7 @@
     NSString *identifier = @"epg.vurc.action";
     NSString *type = @"Rc_RequestStartUpApp";
     NSString *value = @"";
-    NSString *xmlString = [self getCommandXMLStringWithIdentifier:identifier type:type value:value];
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     [TCPScoketManager socketWriteData:xmlString];
 }
@@ -235,7 +235,7 @@
 }
 
 /** xml命令构造器 */
-- (NSString *)getCommandXMLStringWithIdentifier:(NSString *)identifier type:(NSString *)type value:(NSString *)value;
+- (NSString *)getXMLStringCommandWithIdentifier:(NSString *)identifier type:(NSString *)type value:(NSString *)value;
 {
     NSString *xmlString = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"%@\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"%@\" value=\"%@\"></Message>]]></Body></Message>\n",identifier,  type, value];
     
