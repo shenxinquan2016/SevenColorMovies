@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/10/12.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//  搜索-->回看 简介播放器
+//  搜索-->回看 简洁播放器
 
 #import "SCHuikanPlayerViewController.h"
 #import "IJKVideoPlayerVC.h"
@@ -46,7 +46,9 @@
         SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
         [player playArtAndLifeFilmWithFilmModel:filmModel];
         return player;
+        
     }else {
+        
         //电影 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
         [player playFilmWithFilmModel:filmModel];

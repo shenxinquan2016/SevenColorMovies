@@ -13,7 +13,9 @@
 #import "AsyncSocket.h"
 #import "SCDeviceModel.h"
 #import "SCDiscoveryViewController.h"
-#import <AudioToolbox/AudioToolbox.h>
+//#import <AudioToolbox/AudioToolbox.h>
+#import "SCHuikanPlayerViewController.h"
+#import "SCFilmModel.h"
 
 #define PORT 9819
 
@@ -277,13 +279,30 @@
     DONG_Log(@"SocketManagerDelegate读取数据成功");
     
     NSDictionary *dic = [NSDictionary dictionaryWithXMLData:data];
+    DONG_Log(@"dic:%@",dic);
+    
     if (dic) {
-        NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
-        NSLog(@"dic2:%@",dic2);
+        if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
+            [dic[@"_type"] isEqualToString:@"TV_Response"]) {
+            
+            NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
+            NSLog(@"dic2:%@",dic2);
+            SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+            filmModel.FilmName = dic2[@"filmName"];
+            filmModel._Mid = dic2[@"_mid"];
+           
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //调用播放器
+                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
+                
+                [self.navigationController pushViewController:player animated:YES];
+            
+            });
+            
+        }
         
     }
 
-//    DONG_Log(@"dic:%@",dic);
     
 }
 

@@ -19,6 +19,7 @@
 #import "SCMyCollectionVC.h"
 #import "SCMyDownloadManagerVC.h"
 #import "SCMyWatchingHistoryVC.h"
+#import "SCRemoteControlVC.h"
 
 
 @interface IJKVideoPlayerVC ()
@@ -242,21 +243,26 @@
                 [navController popToViewController:controller animated:YES];
                 return;
                 
-            }else if ([controller isKindOfClass:[SCMyCollectionVC class]]) {//我的收藏
+            } else if ([controller isKindOfClass:[SCMyCollectionVC class]]) {//我的收藏
                 
                 [navController popToViewController:controller animated:YES];
                 return;
                 
-            }else if ([controller isKindOfClass:[SCMyDownloadManagerVC class]]) {//我的下载
+            } else if ([controller isKindOfClass:[SCMyDownloadManagerVC class]]) {//我的下载
                 
                 [navController popToViewController:controller animated:YES];
                 return;
                 
-            }else if ([controller isKindOfClass:[SCSearchViewController class]]){//搜索控制器
+            } else if ([controller isKindOfClass:[SCSearchViewController class]]){//搜索控制器
+                
+                [navController popToViewController:controller animated:YES];
+                return;
+            } else if ([controller isKindOfClass:[SCRemoteControlVC class]]){//遥控器
                 
                 [navController popToViewController:controller animated:YES];
                 return;
             }
+            
         }
         
     } else {
