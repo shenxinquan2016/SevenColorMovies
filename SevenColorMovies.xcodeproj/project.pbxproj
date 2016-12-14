@@ -875,6 +875,18 @@
 			name = MainBody;
 			sourceTree = "<group>";
 		};
+		114552C91E014C3500BA6367 /* ComonFunc */ = {
+			isa = PBXGroup;
+			children = (
+				1111A4261D48C51A00C17B92 /* SCLoadingView.h */,
+				1111A4271D48C51A00C17B92 /* SCLoadingView.m */,
+				11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */,
+				11D422581D49A42800B4F9AE /* SCComonFunc.h */,
+				11D422591D49A42800B4F9AE /* SCComonFunc.m */,
+			);
+			name = ComonFunc;
+			sourceTree = "<group>";
+		};
 		11458E991D45EE4C00EBD16D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1664,11 +1676,7 @@
 			children = (
 				1111A40D1D488D8A00C17B92 /* SCUserInfoManger.h */,
 				1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */,
-				1111A4261D48C51A00C17B92 /* SCLoadingView.h */,
-				1111A4271D48C51A00C17B92 /* SCLoadingView.m */,
-				11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */,
-				11D422581D49A42800B4F9AE /* SCComonFunc.h */,
-				11D422591D49A42800B4F9AE /* SCComonFunc.m */,
+				114552C91E014C3500BA6367 /* ComonFunc */,
 				11796BE41DF8F9C300F5923C /* SocketManager */,
 				11BB37DC1D38F0580002D487 /* NetHelper */,
 				1111A4071D488BE500C17B92 /* DNIPhoneInfo */,
