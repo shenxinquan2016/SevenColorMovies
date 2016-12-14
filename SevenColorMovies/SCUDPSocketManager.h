@@ -28,9 +28,6 @@
 @property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
 @property (nonatomic, weak) id<UdpSocketManagerDelegate> delegate;
 
-
-
-
 /**
  *  udpSocket单例
  *
@@ -38,10 +35,20 @@
  */
 + (instancetype)sharedUDPSocketManager;
 
-/** UDP连接 */
-- (void)connectUDPSocketWithDelegate:(id)delegate;
+/** 
+ * 向指定IP发送消息 
+ *
+ * @param message  消息体
+ * @param host     IP
+ * @param port     端口
+ * @param timeout  超时时长
+ * @param tag      标记
+ * @return void
+ */
+- (void)sendMessage:(id)message toHost:(NSString *)host port:(uint16_t)port withTimeOut:(NSTimeInterval)timeout tag:(long)tag;
 
-/** 发送消息 */
-- (void)sendMessage:(id)message;
+/** 发送广播 */
+- (void)sendBroadcast;
+
 
 @end

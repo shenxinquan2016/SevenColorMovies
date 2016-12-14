@@ -14,11 +14,11 @@
 #import "GCDAsyncUdpSocket.h"
 #import "SCDeviceModel.h"
 #import "SCRemoteControlVC.h"
-
+#import "SCUDPSocketManager.h"
 
 #define PORT 9816
 
-@interface SCSearchDeviceVC ()<GCDAsyncUdpSocketDelegate>
+@interface SCSearchDeviceVC ()<GCDAsyncUdpSocketDelegate, UdpSocketManagerDelegate>
 
 @property (nonatomic, strong) SCSearchingDeviceView *searchingView;
 @property (nonatomic, strong) SCNoDeviceView *noDeviceView;
@@ -47,8 +47,15 @@
     [self loadSubViewsFromXib];
     
     //3.建立UDP发广播
-    [self setUDPSocket];
-    [self  searchDevice];
+//    [self setUDPSocket];
+//    [self  searchDevice];
+    
+    //搜索页面停留4S
+    self.scaningTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
+                                                         target:self
+                                                       selector:@selector(updateUIWithDeviceArray)
+                                                       userInfo:nil
+                                                        repeats:NO];
 }
 
 - (void)dealloc {
