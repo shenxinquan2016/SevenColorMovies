@@ -10,7 +10,7 @@
 
 @class GCDAsyncUdpSocket;
 
-#define UPDScoketManager [SCUDPSocketManager sharedUDPSocketManager]
+#define UdpScoketManager [SCUDPSocketManager sharedUDPSocketManager]
 
 
 @protocol UdpSocketManagerDelegate <NSObject>

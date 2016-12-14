@@ -298,12 +298,8 @@
                 [self.navigationController pushViewController:player animated:YES];
             
             });
-            
         }
-        
     }
-
-    
 }
 
 - (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port

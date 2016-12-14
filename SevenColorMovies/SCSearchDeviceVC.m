@@ -18,7 +18,7 @@
 
 #define PORT 9816
 
-@interface SCSearchDeviceVC ()<GCDAsyncUdpSocketDelegate, UdpSocketManagerDelegate>
+@interface SCSearchDeviceVC () <UdpSocketManagerDelegate>
 
 @property (nonatomic, strong) SCSearchingDeviceView *searchingView;
 @property (nonatomic, strong) SCNoDeviceView *noDeviceView;
@@ -46,16 +46,8 @@
     //2.读取xib
     [self loadSubViewsFromXib];
     
-    //3.建立UDP发广播
-//    [self setUDPSocket];
-//    [self  searchDevice];
-    
-    //搜索页面停留4S
-    self.scaningTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
-                                                         target:self
-                                                       selector:@selector(updateUIWithDeviceArray)
-                                                       userInfo:nil
-                                                        repeats:NO];
+    //3.发广播搜索设备
+    [self searchDevice];
 }
 
 - (void)dealloc {
@@ -127,40 +119,13 @@
     [self.view addSubview:_searchingView];
     [self.view addSubview:_noDeviceView];
     [self.view addSubview:_devicesListView];
-
-}
-
-- (void)setUDPSocket
-{
-    //创建一个后台队列 等待接收数据
-    dispatch_queue_t dQueue = dispatch_queue_create("My socket queue", NULL); //第一个参数是该队列的名字
-    
-    //1.实例化一个udp socket套接字对象
-    // udpServerSocket需要用来接收数据
-    self.udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dQueue socketQueue:nil];
-    
-    //2.服务器端来监听端口9814(等待端口9814的数据)
-    [self.udpSocket bindToPort:PORT error:nil];
-    
-    //3.开启广播模式
-    [self.udpSocket enableBroadcast:YES error:nil];
-    
-    //4.接收一次消息(启动一个等待接收,且只接收一次)
-    [self.udpSocket receiveOnce:nil];
     
 }
 
 - (void)searchDevice
 {
-    NSString *message = @"搜索设备中...";
-    NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
-    // 给网段内所有的人发送消息 四个255表示广播地址
-    NSString *host = @"255.255.255.255";
-    uint16_t port = PORT;
-    
-    //开始发送
-    //该函数只是启动一次发送 它本身不进行数据的发送, 而是让后台的线程慢慢的发送 也就是说这个函数调用完成后,数据并没有立刻发送,异步发送
-    [self.udpSocket sendData:data toHost:host port:port withTimeout:-1 tag:100];
+    UdpScoketManager.delegate = self;
+    [UdpScoketManager sendBroadcast];
     
     //搜索时清空数组 进入搜索中页面
     [_deviceArray removeAllObjects];
@@ -197,13 +162,15 @@
     _scaningTimer = nil;
 }
 
-#pragma mark - UDPSocketDelegate
+#pragma mark - UdpSocketManagerDelegate
 
-- (void)udpSocket:(GCDAsyncUdpSocket *)sock didConnectToAddress:(NSData *)address {
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didConnectToAddress:(NSData *)address
+{
     
 }
 
-- (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotConnect:(NSError *)error {
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotConnect:(NSError *)error
+{
     
 }
 
@@ -238,14 +205,8 @@
     
 }
 
--(void)sendBackToHost:(NSString *)ip port:(uint16_t)port withMessage:(NSString *)s{
-    NSString *msg = @"我已接收到消息";
-    NSData *data = [msg dataUsingEncoding:NSUTF8StringEncoding];
-    
-    [self.udpSocket sendData:data toHost:ip port:port withTimeout:60 tag:200];
-}
-
--(void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag{
+-(void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag
+{
     if (tag == 100) {
         NSLog(@"tag:100 数据发送成功");
     } else if (tag == 200) {
@@ -253,16 +214,9 @@
     }
 }
 
--(void)udpSocket:(GCDAsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error{
-    NSLog(@"标记为tag %ld的发送失败 失败原因 %@",tag, error);
-}
-
-- (void)udpSocketDidClose:(GCDAsyncUdpSocket *)sock withError:(NSError *)error {
-    NSLog(@"UDP链接关闭 原因 %@", error);
-}
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
+- (BOOL)shouldAutorotate {
     return NO;
 }
 
