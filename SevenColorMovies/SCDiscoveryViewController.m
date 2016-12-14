@@ -65,12 +65,13 @@
 }
 
 #pragma mark- UITableViewDataSource
--(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tableView{
+-(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tableView
+{
     return self.dataSource.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (self.dataSource.count > section) {
         NSArray *array = self.dataSource[section];
         return array.count;
@@ -78,7 +79,8 @@
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     SCDiscoveryTableViewCell *cell = [SCDiscoveryTableViewCell cellWithTableView:tableView];
     if (indexPath.section < self.dataSource.count) {
@@ -95,15 +97,15 @@
 }
 
 #pragma mark -  UITableViewDataDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 54.f;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSLog(@"======indexPath.section:%ld",indexPath.section);
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     //遥控器
-    if (indexPath.section == 1 && indexPath.row == 0){
+    if (indexPath.section == 0 && indexPath.row == 0){
         
         //TCP已经连接 进遥控器页  没有连接进遥控器搜索页
         if (TCPScoketManager.isConnected) {
@@ -117,27 +119,32 @@
             searchDeviceVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:searchDeviceVC animated:YES];
         }
+        
+    } else if (indexPath.section == 0 && indexPath.row == 0) {
+        
+        
+        
     }
     
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return 10.f;
 }
 
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     return nil;
 }
 
 #pragma mark- Getters and Setters
-- (NSArray *)dataSource{
+- (NSArray *)dataSource {
     if (!_dataSource) {
-        NSArray *array = @[@[@{@"leftImg":@"Scan",@"title":@"扫一扫",@"isShowBottmLine":@"YES"}],
+        NSArray *array = @[/*@[@{@"leftImg":@"Scan",@"title":@"扫一扫",@"isShowBottmLine":@"YES"}],*/
                            @[@{@"leftImg":@"RemoteControl",@"title":@"遥控器",@"isShowBottmLine":@"NO"},                          @{@"leftImg":@"DLNA",@"title":@"DLNA",@"isShowBottmLine":@"YES"}],
-                           @[@{@"leftImg":@"Activity",@"title":@"活动专区",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Game_1",@"title":@"游戏中心",@"isShowBottmLine":@"YES"}],
-                           @[@{@"leftImg":@"Application",@"title":@"应用中心",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Live_1",@"title":@"直播伴侣",@"isShowBottmLine":@"YES"}]];
+                           /*@[@{@"leftImg":@"Activity",@"title":@"活动专区",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Game_1",@"title":@"游戏中心",@"isShowBottmLine":@"YES"}],
+                           @[@{@"leftImg":@"Application",@"title":@"应用中心",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Live_1",@"title":@"直播伴侣",@"isShowBottmLine":@"YES"}]*/];
         _dataSource = array;
     }
     return _dataSource;
