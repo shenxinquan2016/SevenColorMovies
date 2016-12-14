@@ -68,7 +68,7 @@
     [self setBtnImage];
 }
 
-- (void)awakeFromNib{
+- (void)awakeFromNib {
     [super awakeFromNib];
     
 }
@@ -194,13 +194,15 @@
     [TCPScoketManager socketWriteData:xmlString];
 }
 
-- (IBAction)doTimeShiftAction:(id)sender {
+- (IBAction)doTimeShiftAction:(id)sender
+{
     NSLog(@"时移");
     
     
 }
 
-- (IBAction)doPullScreen:(id)sender {
+- (IBAction)doPullScreen:(id)sender
+{
     NSLog(@"拉屏");
     
 }
@@ -315,7 +317,7 @@
 
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
+- (BOOL)shouldAutorotate {
     return NO;
 }
 
