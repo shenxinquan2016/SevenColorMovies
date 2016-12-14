@@ -209,7 +209,7 @@
     //data就是接收的数据
     NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-    NSLog(@"[%@:%u]%@",ip, port,message);
+    DONG_Log(@"GCDAsyncUdpSocket接收到消息 ip:%@ port:%u data:%@",ip, port,message);
     
     NSDictionary *dic = [NSDictionary dictionaryWithXMLData:data];
     //NSLog(@"dic:%@",dic);

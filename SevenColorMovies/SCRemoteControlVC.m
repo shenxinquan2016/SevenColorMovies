@@ -275,6 +275,7 @@
 - (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data
 {
     DONG_Log(@"SocketManagerDelegate读取数据成功");
+    DONG_Log(@"SocketManagerDelegate接收到的data：%@", data);
 }
 
 - (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
