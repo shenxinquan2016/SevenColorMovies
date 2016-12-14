@@ -202,7 +202,6 @@
 /** 接收消息成功 */
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    DONG_Log(@"接收到的data：%@", data);
     dispatch_async(self.receiveQueue, ^{
         // 防止 didReadData 被阻塞，用个其他队列里的线程去回调 block
         if (self.delegate && [self.delegate respondsToSelector:@selector(socket:didReadData:)]) {

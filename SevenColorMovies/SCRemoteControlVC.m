@@ -15,7 +15,7 @@
 #import "SCDiscoveryViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
 
-#define PORT 9814
+#define PORT 9819
 
 @interface SCRemoteControlVC () <SocketManagerDelegate>
 
@@ -275,17 +275,25 @@
 - (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data
 {
     DONG_Log(@"SocketManagerDelegate读取数据成功");
-    DONG_Log(@"SocketManagerDelegate接收到的data：%@", data);
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithXMLData:data];
+    if (dic) {
+        NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
+        NSLog(@"dic2:%@",dic2);
+        
+    }
+
+//    DONG_Log(@"dic:%@",dic);
+    
 }
 
 - (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
 {
     DONG_Log(@"SocketManagerDelegate连接成功");
-    
 }
 
-- (void)socketDidDisconnect:(GCDAsyncSocket *)socket{
-    
+- (void)socketDidDisconnect:(GCDAsyncSocket *)socket
+{
     DONG_Log(@"SocketManagerDelegate断开了");
 }
 
