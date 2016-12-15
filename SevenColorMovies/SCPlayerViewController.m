@@ -25,6 +25,9 @@
 #import "SCDSJDownloadView.h"
 #import "SCArtsDownloadView.h"
 #import "HLJUUID.h"
+#import "SCTCPSocketManager.h"
+#import "SCSearchDeviceVC.h"
+
 
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
@@ -32,7 +35,7 @@ static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
 static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
-@interface SCPlayerViewController ()<UIScrollViewDelegate>
+@interface SCPlayerViewController ()<UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
@@ -94,6 +97,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [self setView];
     //3.注册通知
     [self registerNotification];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -986,6 +990,20 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     DONG_StrongSelf(self);
                     [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                 };
+                //3.推屏的回调
+                weakself.IJKPlayerViewController.pushScreenBlock = ^{
+                    if (TCPScoketManager.isConnected) {
+                        //推屏
+                        DONG_Log(@"推屏");
+                        
+                    } else {
+                        
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        [alertView show];
+                        alertView.delegate = weakself;
+                        
+                    }
+                };
                 
                 [CommonFunc dismiss];
                 
@@ -1001,7 +1019,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
             //更改属性值为指定单元节目的filmModel 方便存取
             _filmModel = atrsFilmModel;
             _filmModel.jiIndex = VODIndex + timesIndexOfVOD + 1;
-           
+            
             //查询数据库以更新功能区按钮视图
             [self refreshButtonStateFromQueryDatabase];
             //请求播放地址
@@ -1055,6 +1073,20 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     weakself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
                         DONG_StrongSelf(self);
                         [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
+                    };
+                    //3.推屏的回调
+                    weakself.IJKPlayerViewController.pushScreenBlock = ^{
+                        if (TCPScoketManager.isConnected) {
+                            //推屏
+                            DONG_Log(@"推屏");
+                            
+                        } else {
+                            
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                            [alertView show];
+                            alertView.delegate = weakself;
+                            
+                        }
                     };
                     
                     [CommonFunc dismiss];
@@ -1129,6 +1161,20 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         weakself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
             DONG_StrongSelf(self);
             [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
+        };
+        //3.推屏的回调
+        weakself.IJKPlayerViewController.pushScreenBlock = ^{
+            if (TCPScoketManager.isConnected) {
+                //推屏
+                DONG_Log(@"推屏");
+                
+            } else {
+                
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                [alertView show];
+                alertView.delegate = weakself;
+                
+            }
         };
         
         [CommonFunc dismiss];
@@ -1211,6 +1257,20 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 weakself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
                     DONG_StrongSelf(self);
                     [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
+                };
+                //3.推屏的回调
+                strongself.IJKPlayerViewController.pushScreenBlock = ^{
+                    if (TCPScoketManager.isConnected) {
+                        //推屏
+                        DONG_Log(@"推屏");
+                        
+                    } else {
+                        
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        [alertView show];
+                        alertView.delegate = weakself;
+                        
+                    }
                 };
                 
                 [CommonFunc dismiss];
@@ -1395,6 +1455,20 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         DONG_StrongSelf(self);
                         [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                     };
+                    //3.推屏的回调
+                    weakself.IJKPlayerViewController.pushScreenBlock = ^{
+                        if (TCPScoketManager.isConnected) {
+                            //推屏
+                            DONG_Log(@"推屏");
+                            
+                        } else {
+                            
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                            [alertView show];
+                            alertView.delegate = weakself;
+                            
+                        }
+                    };
                     
                     [CommonFunc dismiss];
                 } failure:^(id  _Nullable errorObject) {
@@ -1505,7 +1579,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 artsFilmModel = [strongself.filmsArr firstObject];
                 artsFilmModel.onLive = YES;
                 _filmModel = artsFilmModel;
-                _filmModel.jiIndex = 1; 
+                _filmModel.jiIndex = 1;
             }
             
             //请求播放地址
@@ -1549,6 +1623,20 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     strongself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
                         DONG_StrongSelf(self);
                         [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
+                    };
+                    //3.推屏的回调
+                    strongself.IJKPlayerViewController.pushScreenBlock = ^{
+                        if (TCPScoketManager.isConnected) {
+                            //推屏
+                            DONG_Log(@"推屏");
+                            
+                        } else {
+                            
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                            [alertView show];
+                            alertView.delegate = weakself;
+                            
+                        }
                     };
                     
                     [CommonFunc dismiss];
@@ -1661,6 +1749,20 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     DONG_StrongSelf(self);
                     [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                 };
+                //3.推屏的回调
+                strongself.IJKPlayerViewController.pushScreenBlock = ^{
+                    if (TCPScoketManager.isConnected) {
+                        //推屏
+                        DONG_Log(@"推屏");
+                        
+                    } else {
+                        
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        [alertView show];
+                        alertView.delegate = weakself;
+                        
+                    }
+                };
                 
                 [CommonFunc dismiss];
                 
@@ -1684,6 +1786,19 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         [CommonFunc dismiss];
         
     }];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        //扫描连接设备
+        SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
+        searchDeviceVC.entrance = @"player";
+        searchDeviceVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:searchDeviceVC animated:YES];
+    }
 }
 
 #pragma mark - setter

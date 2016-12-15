@@ -15,10 +15,11 @@
 #import "SCDeviceModel.h"
 #import "SCRemoteControlVC.h"
 #import "SCUDPSocketManager.h"
+#import "SCTCPSocketManager.h"
 
 #define PORT 9816
 
-@interface SCSearchDeviceVC () <UdpSocketManagerDelegate>
+@interface SCSearchDeviceVC () <UdpSocketManagerDelegate, SocketManagerDelegate>
 
 @property (nonatomic, strong) SCSearchingDeviceView *searchingView;
 @property (nonatomic, strong) SCNoDeviceView *noDeviceView;
@@ -110,10 +111,20 @@
         [weakself searchDevice];
     };
     //TCP连接
-    _devicesListView.connectTCPBlock = ^(SCDeviceModel *deviceModel){
-        SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
-        remoteVC.deviceModel = deviceModel;
-        [weakself.navigationController pushViewController:remoteVC animated:YES];
+    _devicesListView.connectTCPBlock = ^(SCDeviceModel *deviceModel) {
+        
+        if ([weakself.entrance isEqualToString:@"player"]) {
+            TCPScoketManager.delegate = weakself;
+            [TCPScoketManager connectToHost:deviceModel._ip port:9819];
+            [weakself.navigationController popViewControllerAnimated:YES];
+            
+        } else {
+          
+            SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+            remoteVC.deviceModel = deviceModel;
+            [weakself.navigationController pushViewController:remoteVC animated:YES];
+        }
+        
     };
     
     [self.view addSubview:_searchingView];
@@ -212,6 +223,13 @@
     } else if (tag == 200) {
         NSLog(@"tag:200 数据发送成功");
     }
+}
+
+#pragma mark - SocketManagerDelegate
+
+- (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
+{
+    DONG_MAIN_AFTER(0.2, [MBProgressHUD showSuccess:@"设备连接成功"];);
 }
 
 

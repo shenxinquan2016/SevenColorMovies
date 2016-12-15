@@ -203,7 +203,7 @@ static NSString *const cellId = @"cellId";
                 DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                 //1.拼接新地址
                 NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-                NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
+               // NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
                 // 利用ZFDownloadManager下载
                 [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmModel.FilmName fileimage:nil];
                 // 设置最多同时下载个数（默认是3）

@@ -14,6 +14,7 @@
 typedef void(^FullScreenLockBlock)(BOOL lock);//全部锁定btn点击回调
 typedef void(^WhetherToSupportRotationBlock)(BOOL lock);//改变父视图是否支持旋转回调
 typedef void(^AddWatchHistoryBlock)(void);//添加观看记录回调
+typedef void(^PushScreenBlock)(void);//推屏
 
 @interface IJKVideoPlayerVC : UIViewController
 
@@ -23,6 +24,7 @@ typedef void(^AddWatchHistoryBlock)(void);//添加观看记录回调
 @property (nonatomic, copy) FullScreenLockBlock fullScreenLockBlock;//全屏锁定的回调
 @property (nonatomic, copy) WhetherToSupportRotationBlock supportRotationBlock;//改变父视图是否支持旋转的回调
 @property (nonatomic, copy) AddWatchHistoryBlock addWatchHistoryBlock;//返回时添加观看记录
+@property (nonatomic, copy) PushScreenBlock pushScreenBlock;//推屏
 @property (nonatomic, assign) BOOL isSinglePlayerView;
 @property (strong, nonatomic) IBOutlet IJKMediaControl *mediaControl;
 

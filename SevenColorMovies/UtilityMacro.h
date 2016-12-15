@@ -30,6 +30,12 @@
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640.0f, 1136.0f), [[UIScreen mainScreen] currentMode].size) : NO)
 #define iPhone4 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640.0f, 960.0f), [[UIScreen mainScreen] currentMode].size) : NO)
 
+//获取rect中某值
+#define RectX(rect)                            rect.origin.x
+#define RectY(rect)                            rect.origin.y
+#define RectWidth(rect)                        rect.size.width
+#define RectHeight(rect)                       rect.size.height
+
 //iOS7系统
 #define iOS7 ([UIDevice currentDevice].systemVersion.doubleValue >= 7.0  && [UIDevice currentDevice].systemVersion.doubleValue < 8.0)
 //iOS8系统
@@ -120,7 +126,6 @@ dispatch_time_t delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW, delayInSec
 dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);\
 dispatch_after(delayInNanoSeconds, concurrentQueue, block);
 
-
 #define DONG_SubThread(expression) \
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ expression; })
 
@@ -137,9 +142,61 @@ dispatch_async(dispatch_get_main_queue(), ^{expression});
 #define LOCAL_DEBUG_VER_STR [[NSBundle mainBundle]infoDictionary][@"CFBundleVersion"]
 #define LOCAL_RELEASE_VER_STR [[NSBundle mainBundle]infoDictionary][@"CFBundleShortVersionString"]
 
+#define Bundle                          [NSBundle mainBundle]
+#define BundleToObj(nibName)            [Bundle loadNibNamed:nibName owner:nil options:nil][0]
+#define BundlePath(name,type)           [Bundle pathForResource:name ofType:type]
 
 
+//弹出信息
+#define ALERT(msg) [[[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
 
+// 带占字符弹出信息(format, ## __VA_ARGS__)
+#define ALERT_FORMAT(format, ...) [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:format, ## __VA_ARGS__] delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
+
+#define ALERT_TITLE(title, msg) [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
+
+//打开URL
+#define DONG_OpenURL(URLString) ([[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLString]])
+
+//添加点击手势1
+#define DONG_TapGesture(view,funcName)\
+[view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(funcName)]]
+
+//添加点击手势2:这种方法要先创建一个tap -> UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init]; 让后把tap传到 Gesture
+#define DONG_Gesture(view,Gesture,funcName) \
+[[Gesture  rac_gestureSignal] subscribeNext:^(UITapGestureRecognizer *tap) { funcName; }];\
+[view addGestureRecognizer:Gesture];
+
+#define DONG_PanGesture(view,funcName)\
+[view addGestureRecognizer:[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(funcName)]]
+
+// 按钮点击事件1
+#define TL_RAC_BUTTON(button,expression) [[button rac_signalForControlEvents:UIControlEventTouchUpInside]\
+subscribeNext:^(UIButton *btn) { expression ;}];
+
+// 按钮点击事件2
+#define TL_RAC_COMMAND(expression) [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {\
+expression; \
+return [RACSignal empty];\
+}]
+
+//textField
+#define DONG_PLACEHOLDER_COLOR(textField,color) [textField setValue:[UIColor color] forKeyPath:@"_placeholderLabel.textColor"];
+#define DONG_PLACEHOLDER_COLOR_Hex(textField,color_Hex) [textField setValue:[UIColor colorWithHex:color_Hex] forKeyPath:@"_placeholderLabel.textColor"];
+
+#define DONG_PLACEHOLDER_FONT(textField,TL_FONT)    [textField setValue:TL_FONT forKeyPath:@"_placeholderLabel.font"];
+
+//根据textfield的长度决定某个按钮颜色
+#define DONG_BUTTON_ENABLE_FROM_TEXTFIELD(TEXTFIELD,NUM,BUTTON) [[TEXTFIELD.rac_textSignal map:^id(NSString *text) {\
+return @((text.length > NUM));\
+}]\
+subscribeNext:^(NSNumber *value) {\
+if ([value boolValue]) {\
+BUTTON.selected = YES;\
+}else {\
+BUTTON.selected = NO;\
+}\
+}];\
 
 
 #endif /* UtilityMacro_h */

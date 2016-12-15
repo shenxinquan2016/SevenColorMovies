@@ -87,7 +87,7 @@
                                     </constraints>
                                     <state key="normal" image="InteractScreen"/>
                                     <connections>
-                                        <action selector="texthaha:" destination="-1" eventType="touchUpInside" id="xe3-sb-Qr3"/>
+                                        <action selector="pushScreen:" destination="-1" eventType="touchUpInside" id="iD1-Gc-VOA"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiK-FX-EcO">

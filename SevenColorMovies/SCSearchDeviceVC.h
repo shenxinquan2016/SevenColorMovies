@@ -11,4 +11,7 @@
 
 @interface SCSearchDeviceVC : SCOtherBaseViewController
 
+/** 进入通道 */
+@property (nonatomic, copy) NSString *entrance;
+
 @end

@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, TCPSocketOfflineType){
 
 @protocol SocketManagerDelegate <NSObject>
 
+@optional
 - (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data;
 - (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port;
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket;
