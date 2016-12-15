@@ -300,9 +300,11 @@
                 strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
                 
                 [CommonFunc dismiss];
+                [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
                 
             } failure:^(id  _Nullable errorObject) {
                 [CommonFunc dismiss];
+                [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
             }];
             
         }else{// 电影
@@ -409,16 +411,18 @@
                     
                 } failure:^(id  _Nullable errorObject) {
                     [CommonFunc dismiss];
+                    [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
                 }];
             } failure:^(id  _Nullable errorObject) {
                 [CommonFunc dismiss];
+                [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
             }];
             
         }
         
     } failure:^(NSError *error) {
         [CommonFunc dismiss];
-        
+        [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
     }];
     
 }
@@ -492,17 +496,21 @@
                 strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
                 
                 [CommonFunc dismiss];
+                [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
                 
             } failure:^(NSError *error) {
                 [CommonFunc dismiss];
+                [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
             }];
             
         } failure:^(id  _Nullable errorObject) {
             [CommonFunc dismiss];
+            [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
         }];
         
     } failure:^(id  _Nullable errorObject) {
         [CommonFunc dismiss];
+        [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
     }];
     
 }

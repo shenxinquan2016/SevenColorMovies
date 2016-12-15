@@ -132,7 +132,8 @@
 }
 
 
--(void)checkLongConnectByServe{
+-(void)checkLongConnectByServe
+{
     // 向服务器发送固定可是的消息，来检测长连接
     NSString *longConnect = @"connect is here";
     NSData   *data  = [longConnect dataUsingEncoding:NSUTF8StringEncoding];

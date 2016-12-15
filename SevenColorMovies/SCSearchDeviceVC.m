@@ -133,7 +133,7 @@
     _devicesListView.hidden = YES;
     _devicesListView.deviceModel = nil;
     
-    //搜索页面停留4S
+    //搜索页面停留2S
     self.scaningTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
                                                          target:self
                                                        selector:@selector(updateUIWithDeviceArray)
