@@ -1753,8 +1753,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 strongself.IJKPlayerViewController.pushScreenBlock = ^{
                     if (TCPScoketManager.isConnected) {
                         //推屏
-                        DONG_Log(@"推屏");
-                        
                         NSString *sid       = @"";//集
                         NSString *tvId      = @"";
                         NSString *startTime = @"";
@@ -1762,8 +1760,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", weakself.IJKPlayerViewController.player.currentPlaybackTime];
                         
                       NSString *xmlString = [self getXMLStringCommandWithFilmName:filmName mid:self.filmModel._Mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime];
-                        
-                        DONG_Log(@"xmlString:%@",xmlString);
                         
                         [TCPScoketManager socketWriteData:xmlString];
                         
@@ -1800,6 +1796,26 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 }
 
 /** xml命令构造器 */
+- (NSString *)getXMLCommandWithFilmModel
+{
+    NSString *filmName;
+    if (self.filmModel.FilmName) {
+        filmName = self.filmModel.FilmName;
+    }else if (self.filmModel.cnname){
+        filmName = self.filmModel.cnname;
+    }
+    
+    NSString *sid       = @"";//集
+    NSString *tvId      = @"";
+    NSString *startTime = @"";
+    NSString *endTime   = @"";
+    NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime];
+    
+    NSString *xmlString = [self getXMLStringCommandWithFilmName:filmName mid:self.filmModel._Mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime];
+    
+    return xmlString;
+}
+
 - (NSString *) getXMLStringCommandWithFilmName:(NSString *)filmName mid:(NSString *)mid sid:(NSString *)sid tvId:(NSString *)tvId currentPlayTime:(NSString *)currentPlayTime startTime:(NSString *)startTime endTime:(NSString *)endTime
 {
     NSString *targetName   = @"epg.vurc.action";
