@@ -1755,6 +1755,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         //推屏
                         DONG_Log(@"推屏");
                         
+                        
+                        [TCPScoketManager socketWriteData:nil];
                     } else {
                         
                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
@@ -1786,6 +1788,29 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         [CommonFunc dismiss];
         
     }];
+}
+
+/** xml命令构造器 */
+- (void) getXMLStringCommandWithFilmName:(NSString *)filmName mid:(NSString *)mid sid:(NSString *)sid tvId:(NSString *)tvId currentPlayTime:(NSString *)currentPlayTime startTime:(NSString *)startTime endTime:(NSString *)endTime
+{
+    NSString *targetName = @"epg.vurc.action";
+    NSString *messageType = @"sendContent2TV";
+    NSString *deviceType = @"TV";
+    NSString *playingType = @"dianbo";
+    NSString *currentIndex = @"";
+    NSString *fromWhere = @"mobile";
+    NSString *clientType = @"VideoGuide";
+    NSString *cyclePlay = @"0";
+    
+    [self getXMLStringBodyWithTargetName:targetName messageType:messageType deviceType:deviceType mid:mid sid:sid tvId:tvId playingType:playingType currentIndex:currentIndex fromWhere:fromWhere clientType:clientType currentPlayTime:currentPlayTime startTime:startTime endTime:endTime cyclePlay:cyclePlay filmName:filmName];
+}
+
+- (NSString *)getXMLStringBodyWithTargetName:(NSString *)targetName messageType:(NSString *)messageType deviceType:(NSString *)deviceType mid:(NSString *)mid sid:(NSString *)sid tvId:(NSString *)tvId playingType:(NSString *)playingType currentIndex:(NSString *)currentIndex fromWhere:(NSString *)fromWhere clientType:(NSString *)clientType currentPlayTime:(NSString *)currentPlayTime startTime:(NSString *)startTime endTime:(NSString *)endTime cyclePlay:(NSString *)cyclePlay filmName:(NSString *)filmName
+{
+    NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"%@\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"%@\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Device type=\"%@\" mid=\"%@\" sid=\"%@\" tvId=\"%@\" playingType=\"%@\" currentIndex=\"%@\" fromWhere=\"%@\" clientType=\"%@\" currentPlayTime=\"%@\" startTime=\"%@\"  endTime=\"%@\" cyclePlay=\"%@\"><filmName><![CDATA[%@]]]]]]><![CDATA[><![CDATA[></filmName><columnCode><![CDATA[]]]]]]><![CDATA[><![CDATA[></columnCode><dataUrl><![CDATA[]]]]]]><![CDATA[><![CDATA[></dataUrl><info><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><ContentList />]]]]]]><![CDATA[><![CDATA[></info></Device>]]]]><![CDATA[></Body></Message>]]></Body></Message>", targetName, messageType, deviceType, mid, sid, tvId, playingType, currentIndex, fromWhere, clientType, currentPlayTime, startTime, endTime, cyclePlay, filmName];
+    
+    
+    return xmlString;
 }
 
 #pragma mark - UIAlertViewDelegate
