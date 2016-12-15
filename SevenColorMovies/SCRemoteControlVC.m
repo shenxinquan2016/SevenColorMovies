@@ -196,15 +196,19 @@
 
 - (IBAction)doTimeShiftAction:(id)sender
 {
-    NSLog(@"时移");
+    NSString *identifier = @"com.vurc.system";
+    NSString *type = @"Rc_SendKeyCode";
+    NSString *value = @"201";
+    NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    
+    [TCPScoketManager socketWriteData:xmlString];
 }
 
 - (IBAction)doPullScreen:(id)sender
 {
-    NSLog(@"拉屏");
+    NSString *xmlString = @"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"epg.vurc.action,com.hlj.live.action,epg.vurc.goback.action\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Rc_RequestDragTvVdieoToMobile\"></Message>]]></Body></Message>\n";
     
+    [TCPScoketManager socketWriteData:xmlString];
 }
 
 #pragma mark - priva method
