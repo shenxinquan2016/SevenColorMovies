@@ -49,7 +49,7 @@
         
     }else {
         
-        //电影 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
+        //电影 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题  拉屏时因为没有mType信息，也会走此通道
         SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
         [player playFilmWithFilmModel:filmModel];
         return player;
@@ -120,6 +120,137 @@
 }
 
 
++ (instancetype)initPlayerWithPullInFilmModel:(SCFilmModel *)filmModel
+{
+    
+    SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
+    [player playWithFilmModel:filmModel];
+    return player;
+    
+    
+    
+}
+
+- (void)playWithFilmModel:(SCFilmModel *)filmModel {
+    
+    [CommonFunc showLoadingWithTips:@""];
+    _filmModel = filmModel;
+    
+    NSString *mid;
+    if (filmModel._Mid) {
+        mid = filmModel._Mid;
+    }else if (filmModel.mid){
+        mid = filmModel.mid;
+    }
+    
+    NSString *filmmidStr = mid ? mid : @"";
+    
+    NSDictionary *parameters = @{@"pagesize" : @"1000",
+                                 @"filmmid" : filmmidStr};
+    
+    DONG_WeakSelf(self);
+    //请求film详细信息
+    self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
+    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        
+        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+            //        DONG_Log(@"====responseObject:::%@===",responseObject);
+            
+            //睡一会以解决屏幕旋转时的bug
+            [NSThread sleepForTimeInterval:.1f];
+            
+            DONG_StrongSelf(self);
+            // 坑：：单片不同film竟然数据结构不同 服了！
+            //downloadUrl
+            NSString *downloadUrl;
+            if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
+                
+                downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+                
+            }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
+                
+                downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
+            }
+            
+            //base64编码downloadUrl
+            NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
+            
+            //获取fid
+            NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+            
+            //这只是个请求视频播放流的url地址
+            NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
+            NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+            
+            //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
+            //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+            //请求播放地址
+            [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+                //                //            NSLog(@"====responseObject:::%@===",responseObject);
+                NSString *play_url = responseObject[@"play_url"];
+                DONG_Log(@"responseObject:%@",play_url);
+                //请求将播放地址域名转换  并拼接最终的播放地址
+                NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+                
+                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                //1.拼接新地址
+                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                strongself.url = [NSURL URLWithString:playUrl];
+                
+                //2.调用播放器播放
+                strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                strongself.IJKPlayerViewController.isSinglePlayerView = YES;
+                strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+                [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                
+                //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+                strongself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
+                    DONG_StrongSelf(self);
+                    strongself.isProhibitRotate = isProhibitRotate;
+                };
+                
+                //4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
+                strongself.IJKPlayerViewController.isFullScreen = YES;
+                [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+                strongself.isProhibitRotate = YES;
+                
+                
+                
+                
+                // 名称
+                NSString *filmName;
+                if (filmModel.FilmName) {
+                    filmName = filmModel.FilmName;
+                }else if (filmModel.cnname){
+                    filmName = filmModel.cnname;
+                }
+                
+                strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
+                
+                [CommonFunc dismiss];
+                
+            } failure:^(id  _Nullable errorObject) {
+                [CommonFunc dismiss];
+                [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
+            }];
+            
+        } failure:^(id  _Nullable errorObject) {
+            [CommonFunc dismiss];
+            [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        
+        [CommonFunc dismiss];
+    }];
+    
+    
+    
+    
+}
 
 
 #pragma mark -  ViewLife Cycle
@@ -232,6 +363,7 @@
 // 播放电影 电视剧
 - (void)playFilmWithFilmModel:(SCFilmModel *)filmModel{
     [CommonFunc showLoadingWithTips:@""];
+    _filmModel = filmModel;
     
     NSString *mid;
     if (filmModel._Mid) {
@@ -258,7 +390,7 @@
             //请求播放地址
             [requestDataManager requestDataWithUrl:filmModel.filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                 DONG_StrongSelf(self);
-                //NSLog(@"====responseObject:::%@===",responseObject);
+                //                NSLog(@"====responseObject:::%@===",responseObject);
                 NSString *play_url = responseObject[@"play_url"];
                 DONG_Log(@"responseObject:%@",play_url);
                 //请求将播放地址域名转换  并拼接最终的播放地址
@@ -309,110 +441,137 @@
             
         }else{// 电影
             
+            //拉屏时即使是电视剧，因为filmModel.filmSetModel为空，所以也会走此通道 可以根据filmModel.jiIndex做判断，若filmModel.jiIndex>1则按电视剧处理  综艺的jiIndex=1,又有自己的mid，都按单个影片处理
+            
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-                //        DONG_Log(@"====responseObject:::%@===",responseObject);
+                //DONG_Log(@"====responseObject:::%@===",responseObject);
+                DONG_StrongSelf(self);
                 
                 //睡一会以解决屏幕旋转时的bug
                 [NSThread sleepForTimeInterval:.1f];
                 
-                DONG_StrongSelf(self);
-                // 坑：：单片不同film竟然数据结构不同 服了！
-                //downloadUrl
-                NSString *downloadUrl;
-                if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
-                    
-                    downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
-                    
-                }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
-                    
-                    downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
-                }
                 
-                //base64编码downloadUrl
-                NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
-                
-                //获取fid
-                NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
-                
-                //这只是个请求视频播放流的url地址
-                NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
-                NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
-                
-                //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
-                //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
-                //请求播放地址
-                [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-                    //                //            NSLog(@"====responseObject:::%@===",responseObject);
-                    NSString *play_url = responseObject[@"play_url"];
-                    DONG_Log(@"responseObject:%@",play_url);
-                    //请求将播放地址域名转换  并拼接最终的播放地址
-                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                    
-                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-                    //1.拼接新地址
-                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-                    strongself.url = [NSURL URLWithString:playUrl];
-                    
-                    //2.调用播放器播放
-                    strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
-                    [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-                    strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                    strongself.IJKPlayerViewController.isSinglePlayerView = YES;
-                    strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
-                    [strongself.view addSubview:strongself.IJKPlayerViewController.view];
-                    
-                    //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
-                    strongself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
-                        DONG_StrongSelf(self);
-                        strongself.isProhibitRotate = isProhibitRotate;
-                    };
-                    
-                    //4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
-                    strongself.IJKPlayerViewController.isFullScreen = YES;
-                    [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
-                    strongself.isProhibitRotate = YES;
-                    
-                    //同时旋转statusBar和navigation才能旋转彻底(使系统视图(音量图标)一起旋转) 但是返回时有问题😅😅😅😅转不回来了
-                    //                    UIInterfaceOrientation orientation = UIInterfaceOrientationLandscapeRight;
-                    //                    [[UIApplication sharedApplication] setStatusBarOrientation:orientation];
-                    //                    //计算旋转角度
-                    //                    float arch;
-                    //                    if (orientation == UIInterfaceOrientationLandscapeLeft)  {
-                    //                        arch = -M_PI_2;
-                    //                    }  else if (orientation == UIInterfaceOrientationLandscapeRight) {
-                    //                        arch = M_PI_2;
-                    //                    } else {
-                    //                        arch = 0;
-                    //                    }
-                    //
-                    //                    [UIView animateWithDuration:0.2 animations:^{
-                    //
-                    //                    //对navigationController.view 进行强制旋转
-                    //                    strongself.navigationController.view.transform = CGAffineTransformMakeRotation(arch);
-                    //                    strongself.navigationController.view.bounds = UIInterfaceOrientationIsLandscape(orientation) ? CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight) : CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
-                    //                    strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-                    //                    strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
-                    //
-                    //                    }];
-                    
-                    
-                    // 名称
-                    NSString *filmName;
-                    if (filmModel.FilmName) {
-                        filmName = filmModel.FilmName;
-                    }else if (filmModel.cnname){
-                        filmName = filmModel.cnname;
+                    // 坑：：单片不同film竟然数据结构不同 服了！
+                    //downloadUrl
+                    NSString *downloadUrl;
+                    if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
+                        
+                        downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+                        
+                    } else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
+                        
+                        NSArray *filmsArray = responseObject[@"ContentSet"][@"Content"];
+                                                  
+                        if (filmModel.jiIndex <= 1)
+                        {//电影 综艺 电视剧第一集
+                           downloadUrl = [filmsArray firstObject][@"_DownUrl"];
+                        }
+                        else
+                        {//电视剧第二集以后
+                            
+                            if (filmModel.jiIndex-1 < filmsArray.count) {
+                                
+                                downloadUrl = [filmsArray objectAtIndex:(filmModel.jiIndex -1)][@"_DownUrl"];
+            
+                            }
+                        }
                     }
                     
-                    //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
-                    strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
+                    //base64编码downloadUrl
+                    NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
                     
-                    [CommonFunc dismiss];
+                    //获取fid
+                    NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
                     
-                } failure:^(id  _Nullable errorObject) {
-                    [CommonFunc dismiss];
-                    [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
-                }];
+                    //这只是个请求视频播放流的url地址
+                    NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
+                    NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                    
+                    //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
+                    //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+                    //请求播放地址
+                    [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+                        //                //            NSLog(@"====responseObject:::%@===",responseObject);
+                        NSString *play_url = responseObject[@"play_url"];
+                        DONG_Log(@"responseObject:%@",play_url);
+                        //请求将播放地址域名转换  并拼接最终的播放地址
+                        NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+                        
+                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                        //1.拼接新地址
+                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                        strongself.url = [NSURL URLWithString:playUrl];
+                        
+                        //2.调用播放器播放
+                        strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                        [strongself.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                        strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                        strongself.IJKPlayerViewController.isSinglePlayerView = YES;
+                        strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+                        [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                        
+                        //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+                        strongself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
+                            DONG_StrongSelf(self);
+                            strongself.isProhibitRotate = isProhibitRotate;
+                        };
+                        
+                        //4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
+                        strongself.IJKPlayerViewController.isFullScreen = YES;
+                        [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+                        strongself.isProhibitRotate = YES;
+                        
+                        //同时旋转statusBar和navigation才能旋转彻底(使系统视图(音量图标)一起旋转) 但是返回时有问题😅😅😅😅转不回来了
+                        //                    UIInterfaceOrientation orientation = UIInterfaceOrientationLandscapeRight;
+                        //                    [[UIApplication sharedApplication] setStatusBarOrientation:orientation];
+                        //                    //计算旋转角度
+                        //                    float arch;
+                        //                    if (orientation == UIInterfaceOrientationLandscapeLeft)  {
+                        //                        arch = -M_PI_2;
+                        //                    }  else if (orientation == UIInterfaceOrientationLandscapeRight) {
+                        //                        arch = M_PI_2;
+                        //                    } else {
+                        //                        arch = 0;
+                        //                    }
+                        //
+                        //                    [UIView animateWithDuration:0.2 animations:^{
+                        //
+                        //                    //对navigationController.view 进行强制旋转
+                        //                    strongself.navigationController.view.transform = CGAffineTransformMakeRotation(arch);
+                        //                    strongself.navigationController.view.bounds = UIInterfaceOrientationIsLandscape(orientation) ? CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight) : CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
+                        //                    strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+                        //                    strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
+                        //
+                        //                    }];
+                        
+                        
+                        // 名称
+                        NSString *filmName;
+                        if (filmModel.FilmName) {
+                            if (filmModel.jiIndex > 1) {
+                                filmName = [NSString stringWithFormat:@"%@ 第%ld集",filmModel.FilmName, (long)filmModel.jiIndex];
+                            } else {
+                                filmName = filmModel.FilmName;
+                            }
+                            
+                        }else if (filmModel.cnname){
+                            if (filmModel.jiIndex > 1) {
+                                filmName = [NSString stringWithFormat:@"%@ 第%ld集",filmModel.cnname, (long)filmModel.jiIndex];
+                            } else {
+                                filmName = filmModel.cnname;
+                            }
+                        }
+                        
+                        strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
+                        
+                        [CommonFunc dismiss];
+                        
+                    } failure:^(id  _Nullable errorObject) {
+                        [CommonFunc dismiss];
+                        [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
+                    }];
+                    
+                
             } failure:^(id  _Nullable errorObject) {
                 [CommonFunc dismiss];
                 [CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
@@ -599,10 +758,10 @@
     NSLog(@"mediaIsPreparedToPlayDidChange\n");
     //在此通知里设置加载IJK时的起始播放时间
     //如果已经播放过，则从已播放时间开始播放
-    if (_filmModel.currentPlayTime) {
-        DONG_Log(@"currentPlayTime:%f", _filmModel.currentPlayTime);
-        self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.currentPlayTime;
-    }
+    //    if (_filmModel.currentPlayTime) {
+    //        DONG_Log(@"currentPlayTime:%f", _filmModel.currentPlayTime);
+    //        self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.currentPlayTime;
+    //    }
     _filmModel.currentPlayTime = 0.0f;
 }
 
