@@ -919,12 +919,11 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     NSLog(@"mediaIsPreparedToPlayDidChange\n");
     //在此通知里设置加载IJK时的起始播放时间
     //如果已经播放过，则从已播放时间开始播放
-    if (_filmModel.playtime) {
-        DONG_Log(@"playtime:%f", _filmModel.playtime);
-        DONG_Log(@"thread:%@",[NSThread currentThread]);
-        self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.playtime;
+    if (_filmModel.currentPlayTime) {
+        DONG_Log(@"currentPlayTime:%f", _filmModel.currentPlayTime);
+        self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.currentPlayTime;
     }
-    _filmModel.playtime = 0.0f;
+    _filmModel.currentPlayTime = 0.0f;
 }
 
 #pragma mark - 播放下一个节目
@@ -1005,7 +1004,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                         
                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                         [alertView show];
-                        alertView.delegate = weakself; 
+                        alertView.delegate = weakself;
                     }
                 };
                 

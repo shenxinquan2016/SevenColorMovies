@@ -297,7 +297,7 @@
             filmModel.FilmName = dic2[@"filmName"];
             filmModel._Mid = dic2[@"_mid"];
             filmModel.jiIndex = [dic2[@"_sid"] integerValue];
-            filmModel.playtime = [dic2[@"_currentPlayTime"] integerValue];
+            filmModel.currentPlayTime = [dic2[@"_currentPlayTime"] integerValue];
            
             dispatch_async(dispatch_get_main_queue(), ^{
                 //调用播放器

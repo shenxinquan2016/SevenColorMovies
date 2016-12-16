@@ -308,7 +308,7 @@
         filmModel.mtype        = watchHistoryModel.mtype;
         filmModel.jiIndex      = [watchHistoryModel.sid integerValue];
         filmModel._FilmID      = watchHistoryModel.fid;
-        filmModel.playtime     = watchHistoryModel.playtime;
+        filmModel.currentPlayTime     = watchHistoryModel.playtime;
         
         DONG_Log(@"sid:%@",watchHistoryModel.sid);
         
