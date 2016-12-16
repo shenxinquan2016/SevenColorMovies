@@ -19,7 +19,7 @@
 
 #define PORT 9816
 
-@interface SCSearchDeviceVC () <UdpSocketManagerDelegate, SocketManagerDelegate>
+@interface SCSearchDeviceVC () <UdpSocketManagerDelegate>
 
 @property (nonatomic, strong) SCSearchingDeviceView *searchingView;
 @property (nonatomic, strong) SCNoDeviceView *noDeviceView;
@@ -114,7 +114,6 @@
     _devicesListView.connectTCPBlock = ^(SCDeviceModel *deviceModel) {
         
         if ([weakself.entrance isEqualToString:@"player"]) {
-            TCPScoketManager.delegate = weakself;
             [TCPScoketManager connectToHost:deviceModel._ip port:9819];
             [weakself.navigationController popViewControllerAnimated:YES];
             
@@ -225,12 +224,6 @@
     }
 }
 
-#pragma mark - SocketManagerDelegate
-
-- (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
-{
-    DONG_MAIN_AFTER(0.2, [MBProgressHUD showSuccess:@"设备连接成功"];);
-}
 
 
 // 禁止旋转屏幕

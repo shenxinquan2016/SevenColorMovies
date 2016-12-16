@@ -90,7 +90,7 @@
     NSString *type = @"Rc_VolumeControl";
     NSString *value = @"-1";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
 }
 
 - (IBAction)doVolumeUp:(id)sender
@@ -99,7 +99,7 @@
     NSString *type = @"Rc_VolumeControl";
     NSString *value = @"1";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
 }
 
 - (IBAction)doMoveUp:(id)sender
@@ -109,7 +109,7 @@
     NSString *value = @"MoveUp";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
 }
 
 - (IBAction)doMoveDown:(id)sender
@@ -119,7 +119,7 @@
     NSString *value = @"MoveDown";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
 }
 
 - (IBAction)doMoveLeft:(id)sender
@@ -129,7 +129,7 @@
     NSString *value = @"MoveLeft";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
 }
 
 - (IBAction)doMoveRignt:(id)sender
@@ -139,7 +139,7 @@
     NSString *value = @"MoveRight";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
 }
 
 - (IBAction)doOKAction:(id)sender
@@ -149,7 +149,7 @@
     NSString *value = @"Enter";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
     
 }
 
@@ -160,7 +160,7 @@
     NSString *value = @"Back";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
 }
 
 - (IBAction)toHomePage:(id)sender
@@ -170,7 +170,7 @@
     NSString *value = @"HOME";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
     
 }
 
@@ -181,7 +181,7 @@
     NSString *value = @"82";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
 }
 
 - (IBAction)doVODAction:(id)sender
@@ -191,7 +191,7 @@
     NSString *value = @"";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
 }
 
 - (IBAction)doTimeShiftAction:(id)sender
@@ -201,14 +201,14 @@
     NSString *value = @"201";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
 }
 
 - (IBAction)doPullScreen:(id)sender
 {
     NSString *xmlString = @"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"epg.vurc.action,com.hlj.live.action,epg.vurc.goback.action\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Rc_RequestDragTvVdieoToMobile\"></Message>]]></Body></Message>\n";
     
-    [TCPScoketManager socketWriteData:xmlString];
+    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
 }
 
 #pragma mark - priva method

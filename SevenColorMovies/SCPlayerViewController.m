@@ -35,7 +35,7 @@ static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
 static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 
-@interface SCPlayerViewController ()<UIScrollViewDelegate, UIAlertViewDelegate>
+@interface SCPlayerViewController ()<UIScrollViewDelegate, SocketManagerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
@@ -97,6 +97,8 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
     [self setView];
     //3.注册通知
     [self registerNotification];
+    
+    TCPScoketManager.delegate = self;
     
 }
 
@@ -1751,21 +1753,13 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 };
                 //3.推屏的回调
                 strongself.IJKPlayerViewController.pushScreenBlock = ^{
+                    // 未连接设备时要先扫描设备
                     if (TCPScoketManager.isConnected) {
-                        //推屏
-                        NSString *sid       = @"";//集
-                        NSString *tvId      = @"";
-                        NSString *startTime = @"";
-                        NSString *endTime   = @"";
-                        NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", weakself.IJKPlayerViewController.player.currentPlaybackTime];
-                        
-                      NSString *xmlString = [self getXMLStringCommandWithFilmName:filmName mid:self.filmModel._Mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime];
-                        
-                        [TCPScoketManager socketWriteData:xmlString];
+                        NSString *xmlString = [self getXMLCommandWithFilmModel:_filmModel];
+                        [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                         
                     } else {
-                        
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                         [alertView show];
                         alertView.delegate = weakself;
                     }
@@ -1795,14 +1789,54 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     }];
 }
 
-/** xml命令构造器 */
-- (NSString *)getXMLCommandWithFilmModel
+
+#pragma mark - SocketManagerDelegate
+
+/** 连接成功 */
+- (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
+{
+    DONG_MAIN_AFTER(0.2, [MBProgressHUD showSuccess:@"设备连接成功"];);
+}
+
+/** 发送消息成功 */
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    if (tag == 1001) {
+        DONG_MAIN(^{
+           [MBProgressHUD showSuccess:@"推屏成功"];
+        });
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        //扫描连接设备
+        SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
+        searchDeviceVC.entrance = @"player";
+        searchDeviceVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:searchDeviceVC animated:YES];
+    }
+}
+
+#pragma mark - XMLCommandConstruction
+
+- (NSString *)getXMLCommandWithFilmModel:(SCFilmModel *)filmModel
 {
     NSString *filmName;
-    if (self.filmModel.FilmName) {
-        filmName = self.filmModel.FilmName;
-    }else if (self.filmModel.cnname){
-        filmName = self.filmModel.cnname;
+    if (filmModel.FilmName) {
+        filmName = filmModel.FilmName;
+    }else if (filmModel.cnname){
+        filmName = filmModel.cnname;
+    }
+    
+    NSString *mid;
+    if (filmModel._Mid) {
+        mid = filmModel._Mid;
+    }else if (filmModel.mid){
+        mid = filmModel.mid;
     }
     
     NSString *sid       = @"";//集
@@ -1811,7 +1845,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     NSString *endTime   = @"";
     NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime];
     
-    NSString *xmlString = [self getXMLStringCommandWithFilmName:filmName mid:self.filmModel._Mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime];
+    NSString *xmlString = [self getXMLStringCommandWithFilmName:filmName mid:mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime];
     
     return xmlString;
 }
@@ -1837,18 +1871,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     return xmlString;
 }
 
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        //扫描连接设备
-        SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
-        searchDeviceVC.entrance = @"player";
-        searchDeviceVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:searchDeviceVC animated:YES];
-    }
-}
 
 #pragma mark - setter
 - (void)setFullScreenLock:(BOOL)fullScreenLock {

@@ -90,8 +90,8 @@
 - (void)sendBeat:(NSTimer *)timer
 {
     DONG_Log(@"heartBeating...");
-    [self socketWriteData:timer.userInfo];
-    
+    [self socketWriteData:timer.userInfo withTimeout:-1 tag:000];
+
 }
 
 /** socket 连接失败后重新链接 */
@@ -103,10 +103,10 @@
 }
 
 /** 向服务器发送数据 */
-- (void)socketWriteData:(NSString *)data
+- (void)socketWriteData:(NSString *)data withTimeout:(NSTimeInterval)timeout tag:(long)tag
 {
     NSData *requestData = [data dataUsingEncoding:NSUTF8StringEncoding];
-    [self.socket writeData:requestData withTimeout:-1 tag:0];
+    [self.socket writeData:requestData withTimeout:timeout tag:tag];
     [self socketBeginReadData];
 }
 
@@ -215,6 +215,11 @@
 /** 发送消息成功 */
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(socket:didWriteDataWithTag:)]) {
+        [self.delegate socket:sock didWriteDataWithTag:tag];
+    }
+
+    
     NSLog(@"数据成功发送到服务器");
     //数据发送成功后，自己调用一下读取数据的方法，接着socket才会调用读取数据的代理方法
     [self.socket readDataWithTimeout:-1 tag:tag];

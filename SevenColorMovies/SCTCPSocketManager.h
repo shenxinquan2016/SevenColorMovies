@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, TCPSocketOfflineType){
 - (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data;
 - (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port;
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket;
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag;
 
 @end
 
@@ -66,9 +67,11 @@ typedef NS_ENUM(NSUInteger, TCPSocketOfflineType){
 /**
  *  向服务器发送数据
  *
- *  @param body 数据
+ *  @param data      消息体
+ *  @param timeout   超时时间
+ *  @param tag       tag
  */
-- (void)socketWriteData:(NSString *)data;
+- (void)socketWriteData:(NSString *)data withTimeout:(NSTimeInterval)timeout tag:(long)tag;
 
 /**
  *  socket 读取数据
