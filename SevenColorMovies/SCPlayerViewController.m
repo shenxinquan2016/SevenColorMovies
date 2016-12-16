@@ -105,6 +105,7 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    TCPScoketManager.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -994,9 +995,11 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                 };
                 //3.推屏的回调
                 weakself.IJKPlayerViewController.pushScreenBlock = ^{
+                    // 未连接设备时要先扫描设备
                     if (TCPScoketManager.isConnected) {
-                        //推屏
-                        DONG_Log(@"推屏");
+                        
+                        NSString *xmlString = [self getXMLCommandWithFilmModel:weakself.filmModel];
+                        [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                         
                     } else {
                         
@@ -1166,9 +1169,11 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         };
         //3.推屏的回调
         weakself.IJKPlayerViewController.pushScreenBlock = ^{
+            // 未连接设备时要先扫描设备
             if (TCPScoketManager.isConnected) {
-                //推屏
-                DONG_Log(@"推屏");
+                
+                NSString *xmlString = [self getXMLCommandWithFilmModel:weakself.filmModel];
+                [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                 
             } else {
                 
@@ -1459,9 +1464,11 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     };
                     //3.推屏的回调
                     weakself.IJKPlayerViewController.pushScreenBlock = ^{
+                        // 未连接设备时要先扫描设备
                         if (TCPScoketManager.isConnected) {
-                            //推屏
-                            DONG_Log(@"推屏");
+                            
+                            NSString *xmlString = [self getXMLCommandWithFilmModel:weakself.filmModel];
+                            [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                             
                         } else {
                             
@@ -1755,7 +1762,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 strongself.IJKPlayerViewController.pushScreenBlock = ^{
                     // 未连接设备时要先扫描设备
                     if (TCPScoketManager.isConnected) {
-                        NSString *xmlString = [self getXMLCommandWithFilmModel:_filmModel];
+                        
+                        NSString *xmlString = [self getXMLCommandWithFilmModel:weakself.filmModel];
                         [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                         
                     } else {
@@ -1795,7 +1803,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 /** 连接成功 */
 - (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
 {
-    DONG_MAIN_AFTER(0.2, [MBProgressHUD showSuccess:@"设备连接成功"];);
+    //吐司提醒不能发在此，因为socket自己断开后自动连接时不需要弹出吐司，提醒应放在SCSearchDeviceVC页
+    //DONG_MAIN_AFTER(0.2, [MBProgressHUD showSuccess:@"设备连接成功"];);
 }
 
 /** 发送消息成功 */
@@ -1803,7 +1812,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 {
     if (tag == 1001) {
         DONG_MAIN(^{
-           [MBProgressHUD showSuccess:@"推屏成功"];
+            [MBProgressHUD showSuccess:@"推屏成功"];
         });
     }
 }
@@ -1821,7 +1830,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     }
 }
 
-#pragma mark - XMLCommandConstruction
+#pragma mark - XMLCommandConstruction 推屏
 
 - (NSString *)getXMLCommandWithFilmModel:(SCFilmModel *)filmModel
 {
@@ -1839,8 +1848,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         mid = filmModel.mid;
     }
     
-    NSString *sid       = @"";//集
-    NSString *tvId      = @"";
+    NSString *sid       = [NSString stringWithFormat:@"%ld", filmModel.jiIndex];
+    NSString *tvId      = filmModel._TvId;
     NSString *startTime = @"";
     NSString *endTime   = @"";
     NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime];

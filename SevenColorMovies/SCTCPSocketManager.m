@@ -220,7 +220,7 @@
     }
 
     
-    NSLog(@"数据成功发送到服务器");
+    NSLog(@"数据成功发送到服务器 tag:%ld", tag);
     //数据发送成功后，自己调用一下读取数据的方法，接着socket才会调用读取数据的代理方法
     [self.socket readDataWithTimeout:-1 tag:tag];
     
