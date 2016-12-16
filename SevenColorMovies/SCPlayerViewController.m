@@ -998,15 +998,14 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     // 未连接设备时要先扫描设备
                     if (TCPScoketManager.isConnected) {
                         
-                        NSString *xmlString = [self getXMLCommandWithFilmModel:weakself.filmModel];
+                        NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
                         [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                         
                     } else {
                         
                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                         [alertView show];
-                        alertView.delegate = weakself;
-                        
+                        alertView.delegate = weakself; 
                     }
                 };
                 
@@ -1081,10 +1080,12 @@ static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
                     };
                     //3.推屏的回调
                     weakself.IJKPlayerViewController.pushScreenBlock = ^{
+                        // 未连接设备时要先扫描设备
                         if (TCPScoketManager.isConnected) {
-                            //推屏
-                            DONG_Log(@"推屏");
                             
+                            NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
+                            [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+
                         } else {
                             
                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
@@ -1172,7 +1173,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             // 未连接设备时要先扫描设备
             if (TCPScoketManager.isConnected) {
                 
-                NSString *xmlString = [self getXMLCommandWithFilmModel:weakself.filmModel];
+                NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
                 [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                 
             } else {
@@ -1267,9 +1268,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 };
                 //3.推屏的回调
                 strongself.IJKPlayerViewController.pushScreenBlock = ^{
+                    // 未连接设备时要先扫描设备
                     if (TCPScoketManager.isConnected) {
-                        //推屏
-                        DONG_Log(@"推屏");
+                        NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
+                        [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                         
                     } else {
                         
@@ -1467,7 +1469,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         // 未连接设备时要先扫描设备
                         if (TCPScoketManager.isConnected) {
                             
-                            NSString *xmlString = [self getXMLCommandWithFilmModel:weakself.filmModel];
+                            NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
                             [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                             
                         } else {
@@ -1635,9 +1637,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     };
                     //3.推屏的回调
                     strongself.IJKPlayerViewController.pushScreenBlock = ^{
+                        // 未连接设备时要先扫描设备
                         if (TCPScoketManager.isConnected) {
-                            //推屏
-                            DONG_Log(@"推屏");
+                            NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
+                            [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                             
                         } else {
                             
@@ -1745,7 +1748,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 }else if (strongself.filmModel.cnname){
                     filmName = strongself.filmModel.cnname;
                 }
-                //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
+                
                 strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;
                 
                 //1.全屏锁定回调
@@ -1763,7 +1766,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     // 未连接设备时要先扫描设备
                     if (TCPScoketManager.isConnected) {
                         
-                        NSString *xmlString = [self getXMLCommandWithFilmModel:weakself.filmModel];
+                        NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
                         [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                         
                     } else {

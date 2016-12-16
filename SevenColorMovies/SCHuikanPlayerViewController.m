@@ -131,8 +131,8 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    //1.监听屏幕旋转
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    [self registerNotification];
     
 }
 
@@ -578,6 +578,33 @@
         
         [CommonFunc dismiss];
     }];
+}
+
+- (void)registerNotification
+{
+    //1.监听屏幕旋转
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    //2.第一次加载成功准备播放
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaIsPreparedToPlayDidChange:)
+                                                 name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification
+                                               object:nil];
+}
+
+#pragma mark - IJK完成加载即将播放的通知
+
+- (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification
+{
+    NSLog(@"mediaIsPreparedToPlayDidChange\n");
+    //在此通知里设置加载IJK时的起始播放时间
+    //如果已经播放过，则从已播放时间开始播放
+    if (_filmModel.playtime) {
+        DONG_Log(@"playtime:%f", _filmModel.playtime);
+        DONG_Log(@"thread:%@",[NSThread currentThread]);
+        self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.playtime;
+    }
+    _filmModel.playtime = 0.0f;
 }
 
 // 禁止旋转屏幕
