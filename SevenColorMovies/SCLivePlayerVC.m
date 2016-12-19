@@ -11,28 +11,44 @@
 #import "SCSlideHeaderLabel.h"
 #import "SCLiveProgramModel.h"
 #import "SCLiveProgramListCollectionVC.h"
+#import "SCTCPSocketManager.h"
+#import "SCSearchDeviceVC.h"
 
 //static const CGFloat StatusBarHeight = 20.0f;
 static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
 static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
 
-@interface SCLivePlayerVC ()<UIScrollViewDelegate>
+@interface SCLivePlayerVC ()<UIScrollViewDelegate, UIAlertViewDelegate, SocketManagerDelegate>
 
-@property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
-@property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
-@property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
-@property (nonatomic, strong) NSMutableArray *titleArr;/** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *programModelArr;/** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *dataSourceArr;/** 标题数组 */
-@property (nonatomic, strong) SCLiveProgramListCollectionVC *needScrollToTopPage;/** 在当前页设置点击顶部滚动复位 */
+/** 标题栏scrollView */
+@property (nonatomic, strong) UIScrollView *titleScroll;
+/** 内容栏scrollView */
+@property (nonatomic, strong) UIScrollView *contentScroll;
+/** 滑动短线 */
+@property (nonatomic, strong) CALayer *bottomLine;
+/** 标题数组 */
+@property (nonatomic, strong) NSMutableArray *titleArr;
+/** 标题数组 */
+@property (nonatomic, strong) NSMutableArray *programModelArr;
+/** 标题数组 */
+@property (nonatomic, strong) NSMutableArray *dataSourceArr;
+/** 在当前页设置点击顶部滚动复位 */
+@property (nonatomic, strong) SCLiveProgramListCollectionVC *needScrollToTopPage;
 @property (nonatomic, strong) NSURL *url;
-@property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
-@property (nonatomic, assign) NSInteger index;/** 正在播出节目的index */
-@property (nonatomic, assign) NSUInteger indexOfArrInArr;/** 当前列表的arr在dataSourceArr的位置 */
-@property (nonatomic, copy) NSArray *liveProgramModelArray;/** 选中行所在页的数组 接收回调传值 */
-@property (nonatomic, strong) SCLiveProgramModel *liveModel;/** 接收所选中行的model 接收回调传值 */
-@property (nonatomic, strong) HLJRequest *hljRequest;/** 域名替换工具 */
-@property (nonatomic, assign) BOOL fullScreenLock;/** 是否全屏锁定 */
+/** 播放器控制器 */
+@property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;
+/** 正在播出节目的index */
+@property (nonatomic, assign) NSInteger index;
+/** 当前列表的arr在dataSourceArr的位置 */
+@property (nonatomic, assign) NSUInteger indexOfArrInArr;
+/** 选中行所在页的数组 接收回调传值 */
+@property (nonatomic, copy) NSArray *liveProgramModelArray;
+/** 接收所选中行的model 接收回调传值 */
+@property (nonatomic, strong) SCLiveProgramModel *liveModel;
+/** 域名替换工具 */
+@property (nonatomic, strong) HLJRequest *hljRequest;
+/** 是否全屏锁定 */
+@property (nonatomic, assign) BOOL fullScreenLock;
 
 @end
 
@@ -623,9 +639,26 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             //_IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
             _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+            
+            //3.推屏的回调
+            DONG_WeakSelf(self);
+            self.IJKPlayerViewController.pushScreenBlock = ^{
+                // 未连接设备时要先扫描设备
+                if (TCPScoketManager.isConnected) {
+                    
+                    NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
+                    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                    
+                } else {
+                    
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                    [alertView show];
+                    alertView.delegate = weakself;
+                    
+                }
+            };
           
             //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
-            DONG_WeakSelf(self);
             self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                 DONG_StrongSelf(self);
                 strongself.fullScreenLock = isFullScreenLock;
@@ -691,8 +724,27 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
         self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
         
-        //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+        
+        //3.推屏的回调
         DONG_WeakSelf(self);
+        self.IJKPlayerViewController.pushScreenBlock = ^{
+            // 未连接设备时要先扫描设备
+            if (TCPScoketManager.isConnected) {
+                
+                NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
+                [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                
+            } else {
+                
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                [alertView show];
+                alertView.delegate = weakself;
+                
+            }
+        };
+
+        
+        //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
         self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
             DONG_StrongSelf(self);
             strongself.fullScreenLock = isFullScreenLock;
@@ -707,6 +759,88 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         
     }];
     
+}
+
+#pragma mark - SocketManagerDelegate
+
+/** 连接成功 */
+- (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
+{
+    //吐司提醒不能发在此，因为socket自己断开后自动连接时不需要弹出吐司，提醒应放在SCSearchDeviceVC页
+    //DONG_MAIN_AFTER(0.2, [MBProgressHUD showSuccess:@"设备连接成功"];);
+}
+
+/** 发送消息成功 */
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    if (tag == 1001) {
+        DONG_MAIN(^{
+            [MBProgressHUD showSuccess:@"推屏成功"];
+        });
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        //扫描连接设备
+        SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
+        searchDeviceVC.entrance = @"player";
+        searchDeviceVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:searchDeviceVC animated:YES];
+    }
+}
+
+#pragma mark - XMLCommandConstruction 推屏
+
+- (NSString *)getXMLCommandWithFilmModel:(SCFilmModel *)filmModel
+{
+    NSString *filmName;
+    if (filmModel.FilmName) {
+        filmName = filmModel.FilmName;
+    }else if (filmModel.cnname){
+        filmName = filmModel.cnname;
+    }
+    
+    NSString *mid;
+    if (filmModel._Mid) {
+        mid = filmModel._Mid;
+    }else if (filmModel.mid){
+        mid = filmModel.mid;
+    }
+    
+    NSString *sid       = [NSString stringWithFormat:@"%ld", filmModel.jiIndex];
+    NSString *tvId      = filmModel._TvId;
+    NSString *startTime = @"";
+    NSString *endTime   = @"";
+    NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
+    
+    NSString *xmlString = [self getXMLStringCommandWithFilmName:filmName mid:mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime];
+    DONG_Log(@"currentPlayTime:%@",currentPlayTime);
+    return xmlString;
+}
+
+- (NSString *) getXMLStringCommandWithFilmName:(NSString *)filmName mid:(NSString *)mid sid:(NSString *)sid tvId:(NSString *)tvId currentPlayTime:(NSString *)currentPlayTime startTime:(NSString *)startTime endTime:(NSString *)endTime
+{
+    NSString *targetName   = @"epg.vurc.action";
+    NSString *messageType  = @"sendContent2TV";
+    NSString *deviceType   = @"TV";
+    NSString *playingType  = @"dianbo";
+    NSString *currentIndex = @"";
+    NSString *fromWhere    = @"mobile";
+    NSString *clientType   = @"VideoGuide";
+    NSString *cyclePlay    = @"0";
+    
+    return [self getXMLStringBodyWithTargetName:targetName messageType:messageType deviceType:deviceType mid:mid sid:sid tvId:tvId playingType:playingType currentIndex:currentIndex fromWhere:fromWhere clientType:clientType currentPlayTime:currentPlayTime startTime:startTime endTime:endTime cyclePlay:cyclePlay filmName:filmName];
+}
+
+- (NSString *)getXMLStringBodyWithTargetName:(NSString *)targetName messageType:(NSString *)messageType deviceType:(NSString *)deviceType mid:(NSString *)mid sid:(NSString *)sid tvId:(NSString *)tvId playingType:(NSString *)playingType currentIndex:(NSString *)currentIndex fromWhere:(NSString *)fromWhere clientType:(NSString *)clientType currentPlayTime:(NSString *)currentPlayTime startTime:(NSString *)startTime endTime:(NSString *)endTime cyclePlay:(NSString *)cyclePlay filmName:(NSString *)filmName
+{
+    NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"%@\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"%@\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Device type=\"%@\" mid=\"%@\" sid=\"%@\" tvId=\"%@\" playingType=\"%@\" currentIndex=\"%@\" fromWhere=\"%@\" clientType=\"%@\" currentPlayTime=\"%@\" startTime=\"%@\"  endTime=\"%@\" cyclePlay=\"%@\"><filmName><![CDATA[%@]]]]]]><![CDATA[><![CDATA[></filmName><columnCode><![CDATA[]]]]]]><![CDATA[><![CDATA[></columnCode><dataUrl><![CDATA[]]]]]]><![CDATA[><![CDATA[></dataUrl><info><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><ContentList />]]]]]]><![CDATA[><![CDATA[></info></Device>]]]]><![CDATA[></Body></Message>]]></Body></Message>\n", targetName, messageType, deviceType, mid, sid, tvId, playingType, currentIndex, fromWhere, clientType, currentPlayTime, startTime, endTime, cyclePlay, filmName];
+    
+    return xmlString;
 }
 
 // 禁止旋转屏幕
