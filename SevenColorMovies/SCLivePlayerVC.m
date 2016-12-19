@@ -699,6 +699,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model1.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
     NSString *endTime =  [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model2.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
     
+    model1.startTime = startTime;
+    model1.endTime = endTime;
+    
+    DONG_Log(@"%@   %@",model1.startTime, model1.endTime);
+    
     NSString *extStr = [NSString stringWithFormat:@"stime=%@&etime=%@&port=5656&ext=oid:30050",startTime,endTime];
     NSString *ext = [extStr stringByBase64Encoding];
     NSString *fid = [NSString stringWithFormat:@"%@_%@",_filmModel._TvId,_filmModel._TvId];
@@ -733,8 +738,10 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             // 未连接设备时要先扫描设备
             if (TCPScoketManager.isConnected) {
                 
-//                NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil];
-//                [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                [weakself getXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:model1 success:^(id  _Nullable responseObject) {
+                    
+                    [TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
+                }];
                 
             } else {
                 
@@ -859,11 +866,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                     NSString *playingType  = @"goback";
                     NSString *sid       = @"1";
                     NSString *tvId      = filmModel._TvId;
-                    NSString *startTime = @"";
-                    NSString *endTime   = @"";
+                    NSString *startTime = liveProgramModel.startTime;
+                    NSString *endTime   = liveProgramModel.endTime;
                     NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
                     
-                    xmlString = [self getXMLStringCommandWithFilmName:programOnLiveName_ mid:nil sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime targetName:targetName playingType:playingType];
+                    xmlString = [self getXMLStringCommandWithFilmName:liveProgramModel.programName mid:nil sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime targetName:targetName playingType:playingType];
                     
                     backStr(xmlString);
                 }
