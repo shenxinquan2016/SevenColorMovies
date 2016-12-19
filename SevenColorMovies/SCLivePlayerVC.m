@@ -797,12 +797,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 
 #pragma mark - XMLCommandConstruction 推屏
 
-- (void)getLivePushScreenXMLCommandWithFilmModel:(SCFilmModel *)filmModel liveProgramModel:(SCLiveProgramModel *)liveProgramModel success:(nullable void(^)(id _Nullable responseObject))backStr;
+- (void)getLivePushScreenXMLCommandWithFilmModel:(SCFilmModel *)filmModel liveProgramModel:(SCLiveProgramModel *)liveProgramModel success:(nullable void(^)(id _Nullable responseObject))backStr
 {
     //当前tvId不好使，要重新请求获取Sequence
-    
     __block NSString *sequence = nil;
-    __block NSString *str= nil;
+    __block NSString *xmlString= nil;
     [requestDataManager POSRrequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
         //DONG_Log(@"====responseObject:::%@===",responseObject);
         
@@ -816,15 +815,17 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 if ([tvId isEqualToString:self.filmModel._TvId]) {
                     sequence = dic2[@"_Sequence"];
                     
+                    NSString *targetName   = @"com.hlj.live.action";
+                    NSString *playingType  = @"live";
                     NSString *mid       = @"";
                     NSString *sid       = @"1";
                     NSString *tvId      = sequence;
                     NSString *startTime = @"";
                     NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
                     
-                    str = [self getXMLStringCommandWithFilmName:programOnLiveName_ mid:mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:nil];
+                    xmlString = [self getXMLStringCommandWithFilmName:programOnLiveName_ mid:mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:nil targetName:targetName playingType:playingType];
                     
-                    backStr(str);
+                    backStr(xmlString);
                 }
             }
         }
@@ -836,36 +837,50 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 
 }
 
-- (NSString *)getXMLCommandWithFilmModel:(SCFilmModel *)filmModel liveProgramModel:(SCLiveProgramModel *)liveProgramModel
+- (void)getXMLCommandWithFilmModel:(SCFilmModel *)filmModel liveProgramModel:(SCLiveProgramModel *)liveProgramModel success:(nullable void(^)(id _Nullable responseObject))backStr
 {
+    //当前tvId不好使，要重新请求获取Sequence
+    __block NSString *sequence = nil;
+    __block NSString *xmlString= nil;
+    [requestDataManager POSRrequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
+        //DONG_Log(@"====responseObject:::%@===",responseObject);
+        
+        NSArray *array = responseObject[@"LiveTvSort"];
+        
+        for (NSDictionary *dic in array) {
+            
+            for (NSDictionary *dic2 in dic[@"LiveTv"]) {
+                
+                NSString *tvId = dic2[@"_TvId"];
+                if ([tvId isEqualToString:self.filmModel._TvId]) {
+                    sequence = dic2[@"_Sequence"];
+                    
+                    NSString *targetName   = @"epg.vurc.goback.action";
+                    NSString *playingType  = @"goback";
+                    NSString *sid       = @"1";
+                    NSString *tvId      = filmModel._TvId;
+                    NSString *startTime = @"";
+                    NSString *endTime   = @"";
+                    NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
+                    
+                    xmlString = [self getXMLStringCommandWithFilmName:programOnLiveName_ mid:nil sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime targetName:targetName playingType:playingType];
+                    
+                    backStr(xmlString);
+                }
+            }
+        }
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
     
-  
-    
-    NSString *mid;
-    if (filmModel._Mid) {
-        mid = filmModel._Mid;
-    }else if (filmModel.mid){
-        mid = filmModel.mid;
-    }
-    
-    NSString *sid       = [NSString stringWithFormat:@"%ld", filmModel.jiIndex];
-    NSString *tvId      = filmModel._TvId;
-    NSString *startTime = @"";
-    NSString *endTime   = @"";
-    NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
-    
-    NSString *xmlString = [self getXMLStringCommandWithFilmName:nil mid:mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime];
-    DONG_Log(@"currentPlayTime:%@",currentPlayTime);
-    return xmlString;
-
 }
 
-- (NSString *) getXMLStringCommandWithFilmName:(NSString *)filmName mid:(NSString *)mid sid:(NSString *)sid tvId:(NSString *)tvId currentPlayTime:(NSString *)currentPlayTime startTime:(NSString *)startTime endTime:(NSString *)endTime
+- (NSString *) getXMLStringCommandWithFilmName:(NSString *)filmName mid:(NSString *)mid sid:(NSString *)sid tvId:(NSString *)tvId currentPlayTime:(NSString *)currentPlayTime startTime:(NSString *)startTime endTime:(NSString *)endTime targetName:(NSString *)targetName playingType:(NSString *)playingType
 {
-    NSString *targetName   = @"epg.vurc.action";
     NSString *messageType  = @"sendContent2TV";
     NSString *deviceType   = @"TV";
-    NSString *playingType  = @"live";
     NSString *currentIndex = @"0";
     NSString *fromWhere    = @"mobile";
     NSString *clientType   = @"VideoGuide";
