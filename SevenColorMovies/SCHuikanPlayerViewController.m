@@ -758,10 +758,10 @@
     NSLog(@"mediaIsPreparedToPlayDidChange\n");
     //在此通知里设置加载IJK时的起始播放时间
     //如果已经播放过，则从已播放时间开始播放
-    //    if (_filmModel.currentPlayTime) {
-    //        DONG_Log(@"currentPlayTime:%f", _filmModel.currentPlayTime);
-    //        self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.currentPlayTime;
-    //    }
+        if (_filmModel.currentPlayTime) {
+            DONG_Log(@"currentPlayTime:%f", _filmModel.currentPlayTime);
+            self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.currentPlayTime /1000;
+        }
     _filmModel.currentPlayTime = 0.0f;
 }
 
