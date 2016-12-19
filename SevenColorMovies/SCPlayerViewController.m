@@ -1854,10 +1854,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     NSString *tvId      = filmModel._TvId;
     NSString *startTime = @"";
     NSString *endTime   = @"";
-    NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime];
+    NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
     
     NSString *xmlString = [self getXMLStringCommandWithFilmName:filmName mid:mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime];
-    
+    DONG_Log(@"currentPlayTime:%@",currentPlayTime);
     return xmlString;
 }
 
