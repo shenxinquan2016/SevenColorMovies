@@ -88,6 +88,7 @@ static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
                                              selector:@selector(moviePlayBackDidFinish:)
                                                  name:IJKMPMoviePlayerPlaybackDidFinishNotification
                                                object:_IJKPlayerViewController.player];
+    TCPScoketManager.delegate = self;
     
 }
 
@@ -646,15 +647,18 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 // 未连接设备时要先扫描设备
                 if (TCPScoketManager.isConnected) {
                     
-                    NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil];
-                    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                    [weakself getLivePushScreenXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
+                        
+                        DONG_Log(@"str:%@",responseObject);
+                        [TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
+                        
+                    }];
                     
                 } else {
-                    
+
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                     [alertView show];
                     alertView.delegate = weakself;
-                    
                 }
             };
           
@@ -729,8 +733,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             // 未连接设备时要先扫描设备
             if (TCPScoketManager.isConnected) {
                 
-                NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil];
-                [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+//                NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil];
+//                [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                 
             } else {
                 
@@ -793,14 +797,49 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 
 #pragma mark - XMLCommandConstruction 推屏
 
-- (NSString *)getXMLCommandWithFilmModel:(SCFilmModel *)filmModel liveProgramModel:(SCLiveProgramModel *)model
+- (void)getLivePushScreenXMLCommandWithFilmModel:(SCFilmModel *)filmModel liveProgramModel:(SCLiveProgramModel *)liveProgramModel success:(nullable void(^)(id _Nullable responseObject))backStr;
 {
-    NSString *filmName;
-    if (filmModel.FilmName) {
-        filmName = filmModel.FilmName;
-    }else if (filmModel.cnname){
-        filmName = filmModel.cnname;
-    }
+    //当前tvId不好使，要重新请求获取Sequence
+    
+    __block NSString *sequence = nil;
+    __block NSString *str= nil;
+    [requestDataManager POSRrequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
+        //DONG_Log(@"====responseObject:::%@===",responseObject);
+        
+        NSArray *array = responseObject[@"LiveTvSort"];
+        
+        for (NSDictionary *dic in array) {
+            
+            for (NSDictionary *dic2 in dic[@"LiveTv"]) {
+                
+                NSString *tvId = dic2[@"_TvId"];
+                if ([tvId isEqualToString:self.filmModel._TvId]) {
+                    sequence = dic2[@"_Sequence"];
+                    
+                    NSString *mid       = @"";
+                    NSString *sid       = @"1";
+                    NSString *tvId      = sequence;
+                    NSString *startTime = @"";
+                    NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
+                    
+                    str = [self getXMLStringCommandWithFilmName:programOnLiveName_ mid:mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:nil];
+                    
+                    backStr(str);
+                }
+            }
+        }
+
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+
+}
+
+- (NSString *)getXMLCommandWithFilmModel:(SCFilmModel *)filmModel liveProgramModel:(SCLiveProgramModel *)liveProgramModel
+{
+    
+  
     
     NSString *mid;
     if (filmModel._Mid) {
@@ -809,20 +848,16 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         mid = filmModel.mid;
     }
     
-    SCLiveProgramModel *liveProgramModel = nil;
-    if (model) {
-        liveProgramModel = model;
-    }
-    
     NSString *sid       = [NSString stringWithFormat:@"%ld", filmModel.jiIndex];
     NSString *tvId      = filmModel._TvId;
     NSString *startTime = @"";
     NSString *endTime   = @"";
     NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
     
-    NSString *xmlString = [self getXMLStringCommandWithFilmName:filmName mid:mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime];
+    NSString *xmlString = [self getXMLStringCommandWithFilmName:nil mid:mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime];
     DONG_Log(@"currentPlayTime:%@",currentPlayTime);
     return xmlString;
+
 }
 
 - (NSString *) getXMLStringCommandWithFilmName:(NSString *)filmName mid:(NSString *)mid sid:(NSString *)sid tvId:(NSString *)tvId currentPlayTime:(NSString *)currentPlayTime startTime:(NSString *)startTime endTime:(NSString *)endTime
@@ -830,8 +865,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     NSString *targetName   = @"epg.vurc.action";
     NSString *messageType  = @"sendContent2TV";
     NSString *deviceType   = @"TV";
-    NSString *playingType  = @"dianbo";
-    NSString *currentIndex = @"";
+    NSString *playingType  = @"live";
+    NSString *currentIndex = @"0";
     NSString *fromWhere    = @"mobile";
     NSString *clientType   = @"VideoGuide";
     NSString *cyclePlay    = @"0";

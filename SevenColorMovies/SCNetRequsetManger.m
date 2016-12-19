@@ -129,8 +129,32 @@
     
 }
 
+/** post通用请求方法 */
+- (void)POSRrequestDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild
+{
+    [self POSTRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject){
+        
+        success(responseObject);
+        
+        
+    } faild:^(id _Nullable errorObject) {
+        //数据请求失败
+        if (![SCNetHelper isNetConnect]) {
+            faild(@"网络异常，请检查网络设置!");
+            [MBProgressHUD showError:@"网络异常，请检查网络设置!"];
+        } else {
+            faild(errorObject);
+            [MBProgressHUD showError:@"获取数据失败!"];
+        }
+    }];
+    
+    
+}
+
+
 /** get通用请求方法 */
-- (void)requestDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild{
+- (void)requestDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild
+{
     [self GETRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject) {
         
         success(responseObject);
@@ -195,55 +219,44 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     //此处设置后返回的默认是NSData的数据
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",@"multipart/form-data",nil];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    // 1.2返回XMLParser
+//    manager.responseSerializer = [AFXMLParserResponseSerializer new];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",@"multipart/form-data",nil];
     
-    //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/plain",nil];
+//        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/plain",nil];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     //    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.requestSerializer.timeoutInterval = 10;//请求超时时间设置
     //设置请求格式
     //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
-    NSMutableDictionary *newParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    //    NSMutableDictionary *newParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
     // 手机串号
     //    NSArray *deviceIds = [DEVICE_ID componentsSeparatedByString:@"-"];
     //    NSString *uid = [deviceIds componentsJoinedByString:@""];
     
     
     
-    [newParameters setObject:@"iOS" forKey:@"system"];//客户端操作系统
-    [newParameters setObject:[DNIPhoneInfo deviceType] forKey:@"device"];// 客户端机型
-    [newParameters setObject:[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"] forKey:@"version"];//客户端版本
-    [newParameters setObject:[[UIDevice currentDevice] systemVersion] forKey:@"sysModel"];
+    //    [newParameters setObject:@"iOS" forKey:@"system"];//客户端操作系统
+    //    [newParameters setObject:[DNIPhoneInfo deviceType] forKey:@"device"];// 客户端机型
+    //    [newParameters setObject:[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"] forKey:@"version"];//客户端版本
+    //    [newParameters setObject:[[UIDevice currentDevice] systemVersion] forKey:@"sysModel"];
     //    NSLog(@"---- %@",newParameters);
     
-    [manager POST:urlString parameters:newParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
-            //            NSLog(@"==============%@===============",operation);
-            NSError *myError;
-            id dic = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:&myError];
-            
-            if ([dic[@"msg"] isEqualToString:@"无效Token"] || [[dic[@"code"] description] isEqualToString:@"110"]) {//token无效的code是 110
-                //                if (_loginVC == nil) {
-                //                    _loginVC = TL_INSTANT_VC_WITH_ID(@"Main", @"CPLoginViewController");
-                //                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_loginVC];
-                //                    [TL_KEYWINDOW.rootViewController presentViewController:nav animated:YES completion:nil];
-                //                }
-                UserInfoManager.isLogin = NO;
-                [dic setObject:@"用户身份已过期，请重新登录！" forKey:@"msg"];
-                return ;
-                //success(dic);
-            } else {
-                success(dic);
-            }
-            
+            //利用XMLDictionary工具，将返回的XML直接转换为字典
+//            NSDictionary *dic = [NSDictionary dictionaryWithXMLParser:responseObject];
+            NSDictionary *dic = [NSDictionary dictionaryWithXMLData:responseObject];
+//                        DONG_Log(@"======successdic:%@",dic);
+            success(dic);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"------%@》》》》》》", error);
         if (faild) {
-            
-            faild(error);
+
         }
     }];
 }
