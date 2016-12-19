@@ -501,8 +501,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 
 #pragma mark - 网络请求
 //请求直播节目列表数据
-- (void)getLiveChannelData{
-    
+- (void)getLiveChannelData
+{
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"tvid" : self.filmModel._TvId ? self.filmModel._TvId : @""};
     [requestDataManager requestDataWithUrl:LiveProgramList parameters:parameters success:^(id  _Nullable responseObject) {
