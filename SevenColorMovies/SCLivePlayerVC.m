@@ -15,8 +15,10 @@
 #import "SCSearchDeviceVC.h"
 
 //static const CGFloat StatusBarHeight = 20.0f;
-static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
-static const CGFloat LabelWidth = 55.f;/** 滑动标题栏宽度 */
+/** 滑动标题栏高度 */
+static const CGFloat TitleHeight = 50.0f;
+/** 滑动标题栏宽度 */
+static const CGFloat LabelWidth = 55.f;
 
 @interface SCLivePlayerVC ()<UIScrollViewDelegate, UIAlertViewDelegate, SocketManagerDelegate>
 
