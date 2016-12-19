@@ -646,7 +646,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 // 未连接设备时要先扫描设备
                 if (TCPScoketManager.isConnected) {
                     
-                    NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
+                    NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil];
                     [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                     
                 } else {
@@ -686,7 +686,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         [self.IJKPlayerViewController.player pause];
     }
     
-    //    void libagent_finish();
     //2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
     //3.请求播放地址url
@@ -724,14 +723,13 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
         self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
         
-        
         //3.推屏的回调
         DONG_WeakSelf(self);
         self.IJKPlayerViewController.pushScreenBlock = ^{
             // 未连接设备时要先扫描设备
             if (TCPScoketManager.isConnected) {
                 
-                NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
+                NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil];
                 [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
                 
             } else {
@@ -795,7 +793,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 
 #pragma mark - XMLCommandConstruction 推屏
 
-- (NSString *)getXMLCommandWithFilmModel:(SCFilmModel *)filmModel
+- (NSString *)getXMLCommandWithFilmModel:(SCFilmModel *)filmModel liveProgramModel:(SCLiveProgramModel *)model
 {
     NSString *filmName;
     if (filmModel.FilmName) {
@@ -809,6 +807,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         mid = filmModel._Mid;
     }else if (filmModel.mid){
         mid = filmModel.mid;
+    }
+    
+    SCLiveProgramModel *liveProgramModel = nil;
+    if (model) {
+        liveProgramModel = model;
     }
     
     NSString *sid       = [NSString stringWithFormat:@"%ld", filmModel.jiIndex];
