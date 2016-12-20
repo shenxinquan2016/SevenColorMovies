@@ -120,6 +120,7 @@
 		1177A0F91DF7A0B6004C216B /* Dong_RunLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1177A0F81DF7A0B6004C216B /* Dong_RunLabel.m */; };
 		11796BEA1DF8FB0C00F5923C /* SCUDPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BE91DF8FB0C00F5923C /* SCUDPSocketManager.m */; };
 		11796BF01DF93EE300F5923C /* SCTCPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BEF1DF93EE300F5923C /* SCTCPSocketManager.m */; };
+		117D1E201E08C466001195F2 /* SCSoundRecordingTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.m */; };
 		1187027B1D740A3F005B3895 /* SCVideoLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */; };
 		1187027D1D740A57005B3895 /* SCVideoLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */; };
 		118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 118D19B61D59B2D000A6968D /* SCFilmIntroduceModel.m */; };
@@ -411,6 +412,8 @@
 		11796BE91DF8FB0C00F5923C /* SCUDPSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUDPSocketManager.m; sourceTree = "<group>"; };
 		11796BEE1DF93EE300F5923C /* SCTCPSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTCPSocketManager.h; sourceTree = "<group>"; };
 		11796BEF1DF93EE300F5923C /* SCTCPSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTCPSocketManager.m; sourceTree = "<group>"; };
+		117D1E1E1E08C466001195F2 /* SCSoundRecordingTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSoundRecordingTool.h; sourceTree = "<group>"; };
+		117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSoundRecordingTool.m; sourceTree = "<group>"; };
 		118702791D740A3F005B3895 /* SCVideoLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoLoadingView.h; sourceTree = "<group>"; };
 		1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoLoadingView.m; sourceTree = "<group>"; };
 		1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCVideoLoadingView.xib; sourceTree = "<group>"; };
@@ -1331,6 +1334,15 @@
 			name = SocketManager;
 			sourceTree = "<group>";
 		};
+		117D1E1D1E08C358001195F2 /* SoundRecording */ = {
+			isa = PBXGroup;
+			children = (
+				117D1E1E1E08C466001195F2 /* SCSoundRecordingTool.h */,
+				117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.m */,
+			);
+			name = SoundRecording;
+			sourceTree = "<group>";
+		};
 		118D19B41D59B29B00A6968D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1468,6 +1480,7 @@
 				11A0AF5D1DFAF5DA0047A46E /* SearchEquipment */,
 				11BA52E11DFC42870036CF25 /* RemoteHelpPage */,
 				113F8D911D3C704E00B12D39 /* RemoteControl */,
+				117D1E1D1E08C358001195F2 /* SoundRecording */,
 			);
 			name = RemoteControl;
 			sourceTree = "<group>";
@@ -2372,6 +2385,7 @@
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
 				1118278E1D800C92005921D6 /* SCFliterOptionView.m in Sources */,
 				11FEEF1A1D93846E00518029 /* HLJRequest.m in Sources */,
+				117D1E201E08C466001195F2 /* SCSoundRecordingTool.m in Sources */,
 				115F024D1DDAFEC400DF911F /* SCDSJDownloadCell.m in Sources */,
 				11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */,
 				11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */,
