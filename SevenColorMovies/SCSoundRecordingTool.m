@@ -14,18 +14,20 @@
 /** session */
 @property (nonatomic, strong) AVAudioSession *session;
 /** 录音器 */
-@property (nonatomic, strong) AVAudioRecorder *recorder;
+@property (nonatomic, strong) AVAudioRecorder *audioRecorder;
 /** 播放器 */
-@property (nonatomic, strong) AVAudioPlayer *player;
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 /** 存放路径 */
 @property (nonatomic, copy) NSString *filePath;
 @property (nonatomic, strong) NSURL *recordFileUrl;
+/** 录音声波监控（注意这里暂时不对播放进行监控） */
+@property (nonatomic,strong) NSTimer *timer;
 
 @end
 
 @implementation SCSoundRecordingTool
 
-
+/** 开始录音 */
 - (void)startRecord
 {
     AVAudioSession *session =[AVAudioSession sharedInstance];
@@ -42,31 +44,31 @@
     
     //1.获取沙盒地址
     NSString *documentPath = [FileManageCommon GetTmpPath];
-    self.filePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
+    self.filePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.caf"];
     //2.获取文件路径url
     self.recordFileUrl = [NSURL URLWithString:_filePath];
     
     //3.设置参数
     NSDictionary *recordSetting = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                   //采样率  8000/11025/22050/44100/96000（影响音频的质量）
+                                   // 采样率  8000/11025/22050/44100/96000（影响音频的质量）
                                    [NSNumber numberWithFloat: 8000.0],AVSampleRateKey,
                                    // 音频格式
                                    [NSNumber numberWithInt: kAudioFormatLinearPCM],AVFormatIDKey,
-                                   //采样位数  8、16、24、32 默认为16
+                                   // 采样位数  8、16、24、32 默认为16
                                    [NSNumber numberWithInt:16],AVLinearPCMBitDepthKey,
                                    // 音频通道数 1 或 2
                                    [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,
-                                   //录音质量
+                                   // 录音质量
                                    [NSNumber numberWithInt:AVAudioQualityHigh],AVEncoderAudioQualityKey,
                                    nil];
     
-    _recorder = [[AVAudioRecorder alloc] initWithURL:self.recordFileUrl settings:recordSetting error:nil];
+    _audioRecorder = [[AVAudioRecorder alloc] initWithURL:self.recordFileUrl settings:recordSetting error:nil];
     
-    if (_recorder) {
+    if (_audioRecorder) {
         
-        _recorder.meteringEnabled = YES;
-        [_recorder prepareToRecord];
-        [_recorder record];
+        _audioRecorder.meteringEnabled = YES;
+        [_audioRecorder prepareToRecord];
+        [_audioRecorder record];
         
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            
@@ -81,28 +83,41 @@
     }
 }
 
+/** 暂停录音 */
+- (void)pauseRecord
+{
+    
+}
+
+/** 恢复录音 */
+- (void)resumeRecord
+{
+    
+}
+
+/** 停止录音 */
 - (void)stopRecord
 {
-    if ([self.recorder isRecording]) {
-        [self.recorder stop];
+    if ([self.audioRecorder isRecording]) {
+        [self.audioRecorder stop];
     }
 }
 
+/** 播放录音 */
 - (void)playRecord
 {
     NSLog(@"播放录音");
-    [self.recorder stop];
+    [self.audioRecorder stop];
     
-    if ([self.player isPlaying])return;
+    if ([self.audioPlayer isPlaying]) return;
     
-    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recordFileUrl error:nil];
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recordFileUrl error:nil];
     
     
-    NSLog(@"%li",self.player.data.length/1024);
-    
+    NSLog(@"%li",self.audioPlayer.data.length/1024);
     
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    [self.player play];
+    [self.audioPlayer play];
 }
 
 

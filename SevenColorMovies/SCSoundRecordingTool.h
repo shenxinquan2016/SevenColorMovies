@@ -10,8 +10,15 @@
 
 @interface SCSoundRecordingTool : NSObject
 
+/** 开始录音 */
 - (void)startRecord;
+/** 暂停录音 */
+- (void)pauseRecord;
+/** 恢复录音 */
+- (void)resumeRecord;
+/** 停止录音 */
 - (void)stopRecord;
+/** 播放录音 */
 - (void)playRecord;
 
 @end
