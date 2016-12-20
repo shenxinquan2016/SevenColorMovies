@@ -10,6 +10,8 @@
 
 @interface SCSoundRecordingTool : NSObject
 
+- (instancetype)initWithrecordFilePath:(NSString *)filePath;
+
 /** 开始录音 */
 - (void)startRecord;
 /** 暂停录音 */

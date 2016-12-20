@@ -16,6 +16,7 @@
 //#import <AudioToolbox/AudioToolbox.h>
 #import "SCHuikanPlayerViewController.h"
 #import "SCFilmModel.h"
+#import "SCSoundRecordingTool.h"//录音
 
 #define PORT 9819
 
@@ -61,6 +62,8 @@
     if (!TCPScoketManager.isConnected) {
         [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT];
     }
+    
+    
 }
 
 - (void)viewWillLayoutSubviews{

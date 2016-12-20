@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface Dong_RunLabel : UIView
 /** 文字内容 */
 @property (nonatomic, copy) NSString *titleName;
