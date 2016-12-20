@@ -121,18 +121,25 @@
 /** 播放录音 */
 - (void)playRecord
 {
-    //This app has crashed because it attempted to access privacy-sensitive data without a usage description.  The app's Info.plist must contain an NSMicrophoneUsageDescription key with a string value explaining to the user how the app uses this data.
-    
     [self.audioRecorder stop];
     
     if ([self.audioPlayer isPlaying]) return;
     
-    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recordFileUrl error:nil];
+    NSError *error = nil;
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recordFileUrl error:&error];
     
-    DONG_Log(@"audioPlayer.data:%liMB",self.audioPlayer.data.length/1024);
-    
-    [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    [self.audioPlayer play];
+    if (error) {
+        NSLog(@"创建播放器过程中发生错误：%@",error.localizedDescription);
+        
+    } else {
+        [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
+        //设置为0不循环
+        self.audioPlayer.numberOfLoops=0;
+        [self.audioPlayer prepareToPlay];
+        [self.audioPlayer play];
+        
+        //[FileManageCommon DeleteFile:self.filePath];
+    }
     
 }
 
