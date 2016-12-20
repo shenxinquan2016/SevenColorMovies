@@ -183,11 +183,18 @@
                                         <frame key="frameInset" minX="248" minY="8" width="31" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="录音"/>
+                                        <connections>
+                                            <action selector="startRecord:" destination="11b-d0-noV" eventType="touchDown" id="ZAp-ht-k6Y"/>
+                                            <action selector="stopRecord:" destination="11b-d0-noV" eventType="touchUpInside" id="UFO-7p-bhK"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OX1-6c-ZS1">
                                         <frame key="frameInset" minX="248" minY="232" width="31" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="播放"/>
+                                        <connections>
+                                            <action selector="play:" destination="11b-d0-noV" eventType="touchUpInside" id="Lzb-CE-Zay"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

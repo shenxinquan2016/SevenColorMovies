@@ -39,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *moveLeftBtn;
 @property (weak, nonatomic) IBOutlet UIButton *moveRightBtn;
 
+@property (nonatomic, strong) SCSoundRecordingTool *audioRecorder;
+
 /** udpSocket实例 */
 @property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
 
@@ -64,6 +66,10 @@
     }
     
     
+    //1.获取沙盒地址
+    NSString *documentPath = [FileManageCommon GetTmpPath];
+    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.caf"];
+    self.audioRecorder = [[SCSoundRecordingTool alloc] initWithrecordFilePath:filePath];
 }
 
 - (void)viewWillLayoutSubviews{
@@ -86,6 +92,27 @@
 }
 
 #pragma mark - IBAction
+
+
+- (IBAction)startRecord:(id)sender {
+    [_audioRecorder startRecord];
+    DONG_Log(@"开始录音");
+    
+}
+
+- (IBAction)stopRecord:(id)sender {
+    [_audioRecorder stopRecord];
+    DONG_Log(@"停止录音");
+}
+
+
+- (IBAction)play:(id)sender {
+    [_audioRecorder playRecord];
+    DONG_Log(@"播放录音");
+}
+
+
+
 
 - (IBAction)doVolumeDown:(id)sender
 {

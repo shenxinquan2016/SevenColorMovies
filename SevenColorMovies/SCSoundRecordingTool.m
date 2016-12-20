@@ -49,9 +49,7 @@
         
         self.session = session;
         
-        //1.获取沙盒地址
-        NSString *documentPath = [FileManageCommon GetTmpPath];
-        self.filePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.caf"];
+        
         
         self.filePath = filePath;
         //2.获取文件路径url
@@ -72,7 +70,7 @@
                                        nil];
         
         _audioRecorder = [[AVAudioRecorder alloc] initWithURL:_recordFileUrl settings:recordSetting error:nil];
-
+        
     }
     
     return self;
@@ -87,10 +85,7 @@
         [_audioRecorder prepareToRecord];
         [_audioRecorder record];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [self stopRecord];
-        });
+        [self performSelector:@selector(stopRecord) withObject:nil afterDelay:5.f];
         
     }else{
         DONG_Log(@"音频格式和文件存储格式不匹配,无法初始化Recorder");
@@ -118,23 +113,27 @@
 {
     if ([self.audioRecorder isRecording]) {
         [self.audioRecorder stop];
+        DONG_Log(@"停止录音了");
     }
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopRecord) object:nil];
 }
 
 /** 播放录音 */
 - (void)playRecord
 {
-    NSLog(@"播放录音");
+    //This app has crashed because it attempted to access privacy-sensitive data without a usage description.  The app's Info.plist must contain an NSMicrophoneUsageDescription key with a string value explaining to the user how the app uses this data.
+    
     [self.audioRecorder stop];
     
     if ([self.audioPlayer isPlaying]) return;
     
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recordFileUrl error:nil];
     
-    DONG_Log(@"%li",self.audioPlayer.data.length/1024);
+    DONG_Log(@"audioPlayer.data:%liMB",self.audioPlayer.data.length/1024);
     
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
     [self.audioPlayer play];
+    
 }
 
 /** 添加定时器 */
