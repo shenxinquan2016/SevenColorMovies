@@ -22,7 +22,7 @@
 #import "SCFilmModel.h"
 #import "SCSpecialTopicDetailVC.h"
 
-@interface SCHomePageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate,NSXMLParserDelegate>
+@interface SCHomePageViewController ()<UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, SDCycleScrollViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collView;
 
