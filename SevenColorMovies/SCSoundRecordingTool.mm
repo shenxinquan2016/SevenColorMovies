@@ -8,7 +8,7 @@
 
 #import "SCSoundRecordingTool.h"
 #import <AVFoundation/AVFoundation.h>
-//#import "amrFileCodec.h"
+#import "amrFileCodec.h"
 
 @interface SCSoundRecordingTool ()
 
@@ -182,5 +182,14 @@
     [self.audioPower setProgress:progress];
 }
 
+
+/** 转换wav到amr */
++ (int)ConvertWavToAmr:(NSString *)aWavPath amrSavePath:(NSString *)aSavePath{
+    
+    if (! EncodeWAVEFileToAMRFile([aWavPath cStringUsingEncoding:NSASCIIStringEncoding], [aSavePath cStringUsingEncoding:NSASCIIStringEncoding], 1, 16))
+        return 0;
+    
+    return 1;
+}
 
 @end

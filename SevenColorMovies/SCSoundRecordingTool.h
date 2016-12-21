@@ -23,6 +23,15 @@
 /** 播放录音 */
 - (void)playRecord;
 
+/**
+ *  转换wav到amr
+ *
+ *  @param aWavPath  wav文件路径
+ *  @param aSavePath amr保存路径
+ *
+ *  @return 0失败 1成功
+ */
++ (int)ConvertWavToAmr:(NSString *)aWavPath amrSavePath:(NSString *)aSavePath;
 
 
 @end

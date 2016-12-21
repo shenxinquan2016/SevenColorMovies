@@ -109,7 +109,7 @@
     NSString *wavFilePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
     NSString *marFilePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.mar"];
     
-//    [_audioRecordingTool ConvertWavToAmr:wavFilePath amrSavePath:marFilePath];
+    [SCSoundRecordingTool ConvertWavToAmr:wavFilePath amrSavePath:marFilePath];
 }
 
 
