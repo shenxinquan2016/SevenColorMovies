@@ -764,7 +764,7 @@
 			name = "Log(unicode编码)";
 			sourceTree = "<group>";
 		};
-		112BF95A1E0A5C3900A9C33D /* AudioConvert */ = {
+		112BF95A1E0A5C3900A9C33D /* AudioConvert音频转码 */ = {
 			isa = PBXGroup;
 			children = (
 				11759F561E0A5F04000B9440 /* amrwapper */,
@@ -772,7 +772,7 @@
 				11759F5C1E0A5F05000B9440 /* opencore-amrnb */,
 				11759F5F1E0A5F05000B9440 /* opencore-amrwb */,
 			);
-			name = AudioConvert;
+			name = "AudioConvert音频转码";
 			sourceTree = "<group>";
 		};
 		1131C0D31D67053100BA151A /* FastForward | Brightness | Volume */ = {
@@ -1624,7 +1624,7 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				112BF95A1E0A5C3900A9C33D /* AudioConvert */,
+				112BF95A1E0A5C3900A9C33D /* AudioConvert音频转码 */,
 				1114481C1D87D15700CB8FA9 /* 优朋工具包 */,
 				1187027E1D7436B7005B3895 /* Reveal.framework */,
 				1122FF671D4A260E00E6E8A2 /* Log(unicode编码) */,
