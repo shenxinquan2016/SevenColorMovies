@@ -182,6 +182,7 @@
     [self.audioPower setProgress:progress];
 }
 
+#pragma mark - 音频转码
 
 /** 转换wav到amr */
 + (int)ConvertWavToAmr:(NSString *)aWavPath amrSavePath:(NSString *)aSavePath{
