@@ -15,4 +15,7 @@
 
 @property (nonatomic, strong) SCDeviceModel *deviceModel;
 
+
+
+
 @end

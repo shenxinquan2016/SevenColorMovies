@@ -18,6 +18,8 @@
 #import "SCFilmModel.h"
 #import "SCSoundRecordingTool.h"//录音
 
+
+
 #define PORT 9819
 
 @interface SCRemoteControlVC () <SocketManagerDelegate>
@@ -39,7 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *moveLeftBtn;
 @property (weak, nonatomic) IBOutlet UIButton *moveRightBtn;
 
-@property (nonatomic, strong) SCSoundRecordingTool *audioRecorder;
+@property (nonatomic, strong) SCSoundRecordingTool *audioRecordingTool;
 
 /** udpSocket实例 */
 @property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
@@ -69,7 +71,7 @@
     //1.获取沙盒地址
     NSString *documentPath = [FileManageCommon GetTmpPath];
     NSString *filePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
-    self.audioRecorder = [[SCSoundRecordingTool alloc] initWithrecordFilePath:filePath];
+    self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithrecordFilePath:filePath];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -95,19 +97,24 @@
 
 
 - (IBAction)startRecord:(id)sender {
-    [_audioRecorder startRecord];
+    [_audioRecordingTool startRecord];
     DONG_Log(@"开始录音");
     
 }
 
 - (IBAction)stopRecord:(id)sender {
-    [_audioRecorder stopRecord];
-    DONG_Log(@"停止录音");
+    [_audioRecordingTool stopRecord];
+    
+    NSString *documentPath = [FileManageCommon GetTmpPath];
+    NSString *wavFilePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
+    NSString *marFilePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.mar"];
+    
+//    [_audioRecordingTool ConvertWavToAmr:wavFilePath amrSavePath:marFilePath];
 }
 
 
 - (IBAction)play:(id)sender {
-    [_audioRecorder playRecord];
+    [_audioRecordingTool playRecord];
     DONG_Log(@"播放录音");
 }
 

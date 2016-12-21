@@ -2564,6 +2564,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SevenColorMovies",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SevenColorMovies/lib",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2641,6 +2642,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SevenColorMovies",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SevenColorMovies/lib",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
