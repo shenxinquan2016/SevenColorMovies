@@ -68,11 +68,11 @@
     
     //1.获取沙盒地址
     NSString *documentPath = [FileManageCommon GetTmpPath];
-    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.caf"];
+    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
     self.audioRecorder = [[SCSoundRecordingTool alloc] initWithrecordFilePath:filePath];
 }
 
-- (void)viewWillLayoutSubviews{
+- (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     [self setBtnImage];
 }

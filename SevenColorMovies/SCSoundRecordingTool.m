@@ -65,8 +65,6 @@
                                        [NSNumber numberWithInt:16],AVLinearPCMBitDepthKey,
                                        // 音频通道数 1 或 2
                                        [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,
-                                       // 录音质量
-                                       [NSNumber numberWithInt:AVAudioQualityHigh],AVEncoderAudioQualityKey,
                                        nil];
         
         _audioRecorder = [[AVAudioRecorder alloc] initWithURL:_recordFileUrl settings:recordSetting error:nil];
@@ -133,6 +131,7 @@
         
     } else {
         [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
+        [self.session setActive:YES error:nil];
         //设置为0不循环
         self.audioPlayer.numberOfLoops=0;
         [self.audioPlayer prepareToPlay];
