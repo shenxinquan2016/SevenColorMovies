@@ -117,10 +117,12 @@
 		116E1D571D4AFAF800B488EC /* SCBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D561D4AFAF800B488EC /* SCBannerModel.m */; };
 		116E1D5E1D4B4E0200B488EC /* SCFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D5D1D4B4E0200B488EC /* SCFilterViewController.m */; };
 		116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */; };
+		11759F531E0A5E3E000B9440 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11759F521E0A5E3E000B9440 /* libopencore-amrnb.a */; };
+		11759F551E0A5E49000B9440 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11759F541E0A5E49000B9440 /* libopencore-amrwb.a */; };
 		1177A0F91DF7A0B6004C216B /* Dong_RunLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1177A0F81DF7A0B6004C216B /* Dong_RunLabel.m */; };
 		11796BEA1DF8FB0C00F5923C /* SCUDPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BE91DF8FB0C00F5923C /* SCUDPSocketManager.m */; };
 		11796BF01DF93EE300F5923C /* SCTCPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BEF1DF93EE300F5923C /* SCTCPSocketManager.m */; };
-		117D1E201E08C466001195F2 /* SCSoundRecordingTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.m */; };
+		117D1E201E08C466001195F2 /* SCSoundRecordingTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.mm */; };
 		1187027B1D740A3F005B3895 /* SCVideoLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */; };
 		1187027D1D740A57005B3895 /* SCVideoLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */; };
 		118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 118D19B61D59B2D000A6968D /* SCFilmIntroduceModel.m */; };
@@ -406,6 +408,8 @@
 		116E1D5D1D4B4E0200B488EC /* SCFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilterViewController.m; sourceTree = "<group>"; };
 		116E1D5F1D4B5A9E00B488EC /* SCRemoteControlVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRemoteControlVC.h; sourceTree = "<group>"; };
 		116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRemoteControlVC.m; sourceTree = "<group>"; };
+		11759F521E0A5E3E000B9440 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		11759F541E0A5E49000B9440 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
 		1177A0F71DF7A0B6004C216B /* Dong_RunLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dong_RunLabel.h; sourceTree = "<group>"; };
 		1177A0F81DF7A0B6004C216B /* Dong_RunLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dong_RunLabel.m; sourceTree = "<group>"; };
 		11796BE81DF8FB0C00F5923C /* SCUDPSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUDPSocketManager.h; sourceTree = "<group>"; };
@@ -413,7 +417,7 @@
 		11796BEE1DF93EE300F5923C /* SCTCPSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTCPSocketManager.h; sourceTree = "<group>"; };
 		11796BEF1DF93EE300F5923C /* SCTCPSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTCPSocketManager.m; sourceTree = "<group>"; };
 		117D1E1E1E08C466001195F2 /* SCSoundRecordingTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSoundRecordingTool.h; sourceTree = "<group>"; };
-		117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSoundRecordingTool.m; sourceTree = "<group>"; };
+		117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SCSoundRecordingTool.mm; sourceTree = "<group>"; };
 		118702791D740A3F005B3895 /* SCVideoLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoLoadingView.h; sourceTree = "<group>"; };
 		1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoLoadingView.m; sourceTree = "<group>"; };
 		1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCVideoLoadingView.xib; sourceTree = "<group>"; };
@@ -564,9 +568,11 @@
 				116B1F6C1D53280600E9637A /* UIKit.framework in Frameworks */,
 				116B1F6A1D5327FA00E9637A /* QuartzCore.framework in Frameworks */,
 				116B1F681D5327E200E9637A /* OpenGLES.framework in Frameworks */,
+				11759F551E0A5E49000B9440 /* libopencore-amrwb.a in Frameworks */,
 				116B1F661D5323FD00E9637A /* MobileCoreServices.framework in Frameworks */,
 				116B1F641D5323E700E9637A /* MediaPlayer.framework in Frameworks */,
 				116B1F621D5323D800E9637A /* CoreVideo.framework in Frameworks */,
+				11759F531E0A5E3E000B9440 /* libopencore-amrnb.a in Frameworks */,
 				116B1F601D5323BE00E9637A /* CoreMedia.framework in Frameworks */,
 				116B1F5E1D5323A600E9637A /* CoreGraphics.framework in Frameworks */,
 				116B1F5C1D53238B00E9637A /* AVFoundation.framework in Frameworks */,
@@ -749,6 +755,15 @@
 				1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */,
 			);
 			name = "Log(unicode编码)";
+			sourceTree = "<group>";
+		};
+		112BF95A1E0A5C3900A9C33D /* AudioConvert */ = {
+			isa = PBXGroup;
+			children = (
+				11759F521E0A5E3E000B9440 /* libopencore-amrnb.a */,
+				11759F541E0A5E49000B9440 /* libopencore-amrwb.a */,
+			);
+			name = AudioConvert;
 			sourceTree = "<group>";
 		};
 		1131C0D31D67053100BA151A /* FastForward | Brightness | Volume */ = {
@@ -1338,7 +1353,7 @@
 			isa = PBXGroup;
 			children = (
 				117D1E1E1E08C466001195F2 /* SCSoundRecordingTool.h */,
-				117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.m */,
+				117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.mm */,
 			);
 			name = SoundRecording;
 			sourceTree = "<group>";
@@ -1564,6 +1579,7 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				112BF95A1E0A5C3900A9C33D /* AudioConvert */,
 				1114481C1D87D15700CB8FA9 /* 优朋工具包 */,
 				1187027E1D7436B7005B3895 /* Reveal.framework */,
 				1122FF671D4A260E00E6E8A2 /* Log(unicode编码) */,
@@ -2385,7 +2401,7 @@
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
 				1118278E1D800C92005921D6 /* SCFliterOptionView.m in Sources */,
 				11FEEF1A1D93846E00518029 /* HLJRequest.m in Sources */,
-				117D1E201E08C466001195F2 /* SCSoundRecordingTool.m in Sources */,
+				117D1E201E08C466001195F2 /* SCSoundRecordingTool.mm in Sources */,
 				115F024D1DDAFEC400DF911F /* SCDSJDownloadCell.m in Sources */,
 				11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */,
 				11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */,
