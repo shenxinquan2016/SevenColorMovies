@@ -19,7 +19,10 @@ static NSTimeInterval kTimeoutInterval = 10.0;
 static const void *s_Dong_downloadModelKey = "s_Dong_downloadModelKey";
 
 /*
- *  扩展NSURLSessionTask的属性
+ *  为分类添加属性
+ *
+ *  分类中用@property定义变量，只会生成变量的getter，setter方法的声明，不能生成方法实现和带下划线
+ *  的成员变量。需要通过运行时建立关联引用。
  */
 @implementation NSURLSessionTask (DownloadModel)
 

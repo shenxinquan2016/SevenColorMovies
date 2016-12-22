@@ -8,7 +8,10 @@
 
 #import "SCNetRequsetManger.h"
 
+
 @interface SCNetRequsetManger (Home)
+
+@property (nonatomic, copy) NSString *myString;
 
 
 

@@ -17,7 +17,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [CommonFunc noDataOrNoNetTipsString:@"功能建设中..." addView:self.view];
-
 }
 
 - (void)didReceiveMemoryWarning {

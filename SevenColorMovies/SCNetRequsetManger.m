@@ -107,7 +107,6 @@
         
     }];
     
-    
 }
 
 /** 请求filmClass */
@@ -130,7 +129,7 @@
 }
 
 /** post通用请求方法 */
-- (void)POSRrequestDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild
+- (void)postRequestDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild
 {
     [self POSTRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject){
         
@@ -283,6 +282,7 @@
             //            NSLog(@"======dic:%@",dic);
             success(dic);
         }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"------%@》》》》》》", error);
         if (faild) {

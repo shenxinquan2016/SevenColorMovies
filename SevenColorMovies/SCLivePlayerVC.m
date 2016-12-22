@@ -811,7 +811,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     //当前tvId不好使，要重新请求获取Sequence
     __block NSString *sequence = nil;
     __block NSString *xmlString= nil;
-    [requestDataManager POSRrequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
+    [requestDataManager postRequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
         //DONG_Log(@"====responseObject:::%@===",responseObject);
         
         NSArray *array = responseObject[@"LiveTvSort"];
@@ -851,7 +851,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     //当前tvId不好使，要重新请求获取Sequence
     __block NSString *sequence = nil;
     __block NSString *xmlString= nil;
-    [requestDataManager POSRrequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
+    [requestDataManager postRequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
         //DONG_Log(@"====responseObject:::%@===",responseObject);
         
         NSArray *array = responseObject[@"LiveTvSort"];

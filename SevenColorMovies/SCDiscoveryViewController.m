@@ -109,18 +109,18 @@
     if (indexPath.section == 0 && indexPath.row == 0){
         
         //TCP已经连接 进遥控器页  没有连接进遥控器搜索页
-//        if (TCPScoketManager.isConnected) {
+        if (TCPScoketManager.isConnected) {
             SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
             remoteVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:remoteVC animated:YES];
             
-//        } else {
-//            
-//            SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
-//            searchDeviceVC.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:searchDeviceVC animated:YES];
-//        }
-        
+        } else {
+            
+            SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
+            searchDeviceVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:searchDeviceVC animated:YES];
+        }
+    
     } else if (indexPath.section == 0 && indexPath.row == 0) {
         
         
