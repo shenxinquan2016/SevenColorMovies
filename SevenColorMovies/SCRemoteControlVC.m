@@ -17,7 +17,7 @@
 #import "SCHuikanPlayerViewController.h"
 #import "SCFilmModel.h"
 #import "SCSoundRecordingTool.h"//录音
-
+#import "SCNetRequsetManger+iCloudRemoteControl.h"
 
 
 #define PORT 9819
@@ -96,13 +96,26 @@
 #pragma mark - IBAction
 
 
-- (IBAction)startRecord:(id)sender {
-    [_audioRecordingTool startRecord];
+- (IBAction)startRecord:(id)sender
+{
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 8000.0], @"111", nil];
+    
+    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:CloudRemoteControl parameters:nil success:^(id  _Nullable responseObject) {
+        
+        DONG_Log(@"responseObject:%@", responseObject);
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+    
+//    [_audioRecordingTool startRecord];
     DONG_Log(@"开始录音");
     
 }
 
-- (IBAction)stopRecord:(id)sender {
+- (IBAction)stopRecord:(id)sender
+{
     [_audioRecordingTool stopRecord];
     
     NSString *documentPath = [FileManageCommon GetTmpPath];
@@ -113,7 +126,8 @@
 }
 
 
-- (IBAction)play:(id)sender {
+- (IBAction)play:(id)sender
+{
     [_audioRecordingTool playRecord];
     DONG_Log(@"播放录音");
 }

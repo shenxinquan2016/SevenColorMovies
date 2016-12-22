@@ -192,6 +192,7 @@
 		11EB4A671DB4D5EB0032F2C4 /* SCWatchingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EB4A651DB4D5EB0032F2C4 /* SCWatchingHistoryCell.m */; };
 		11EB4A681DB4D5EB0032F2C4 /* SCWatchingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11EB4A661DB4D5EB0032F2C4 /* SCWatchingHistoryCell.xib */; };
 		11EBC3F51D5C69F600C1A338 /* SCSpecialTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EBC3F41D5C69F600C1A338 /* SCSpecialTopicDetailVC.m */; };
+		11F42E3B1E0BD9090073A6BC /* SCNetRequsetManger+iCloudRemoteControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F42E3A1E0BD9090073A6BC /* SCNetRequsetManger+iCloudRemoteControl.m */; };
 		11F9E2891D6D7503006326F3 /* SCLivePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F9E2881D6D7503006326F3 /* SCLivePlayerVC.m */; };
 		11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB481D3F16E100AAC216 /* SCBaseViewController.m */; };
 		11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */; };
@@ -548,6 +549,8 @@
 		11EB4A661DB4D5EB0032F2C4 /* SCWatchingHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCWatchingHistoryCell.xib; sourceTree = "<group>"; };
 		11EBC3F31D5C69F600C1A338 /* SCSpecialTopicDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSpecialTopicDetailVC.h; sourceTree = "<group>"; };
 		11EBC3F41D5C69F600C1A338 /* SCSpecialTopicDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSpecialTopicDetailVC.m; sourceTree = "<group>"; };
+		11F42E391E0BD9090073A6BC /* SCNetRequsetManger+iCloudRemoteControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCNetRequsetManger+iCloudRemoteControl.h"; sourceTree = "<group>"; };
+		11F42E3A1E0BD9090073A6BC /* SCNetRequsetManger+iCloudRemoteControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCNetRequsetManger+iCloudRemoteControl.m"; sourceTree = "<group>"; };
 		11F9E2871D6D7503006326F3 /* SCLivePlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLivePlayerVC.h; sourceTree = "<group>"; };
 		11F9E2881D6D7503006326F3 /* SCLivePlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLivePlayerVC.m; sourceTree = "<group>"; };
 		11FACB471D3F16E100AAC216 /* SCBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBaseViewController.h; sourceTree = "<group>"; };
@@ -1780,10 +1783,10 @@
 			children = (
 				1111A4041D4886B300C17B92 /* SCNetRequsetManger.h */,
 				1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */,
-				11BE83211D3CD33C00886CF6 /* Home */,
-				11BE83221D3CD34700886CF6 /* Discovery */,
-				11BE83231D3CD35200886CF6 /* News */,
-				11BE83241D3CD35900886CF6 /* Mine */,
+				1111A4201D48B2E000C17B92 /* SCNetRequsetManger+Home.h */,
+				1111A4211D48B2E000C17B92 /* SCNetRequsetManger+Home.m */,
+				11F42E391E0BD9090073A6BC /* SCNetRequsetManger+iCloudRemoteControl.h */,
+				11F42E3A1E0BD9090073A6BC /* SCNetRequsetManger+iCloudRemoteControl.m */,
 			);
 			name = NetRequestTool;
 			sourceTree = "<group>";
@@ -1848,36 +1851,6 @@
 				11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */,
 			);
 			name = Animator;
-			sourceTree = "<group>";
-		};
-		11BE83211D3CD33C00886CF6 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				1111A4201D48B2E000C17B92 /* SCNetRequsetManger+Home.h */,
-				1111A4211D48B2E000C17B92 /* SCNetRequsetManger+Home.m */,
-			);
-			name = Home;
-			sourceTree = "<group>";
-		};
-		11BE83221D3CD34700886CF6 /* Discovery */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Discovery;
-			sourceTree = "<group>";
-		};
-		11BE83231D3CD35200886CF6 /* News */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = News;
-			sourceTree = "<group>";
-		};
-		11BE83241D3CD35900886CF6 /* Mine */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Mine;
 			sourceTree = "<group>";
 		};
 		11CAD9F11DED747D009F3337 /* Model */ = {
@@ -2366,6 +2339,7 @@
 				116E1D5E1D4B4E0200B488EC /* SCFilterViewController.m in Sources */,
 				116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */,
 				1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */,
+				11F42E3B1E0BD9090073A6BC /* SCNetRequsetManger+iCloudRemoteControl.m in Sources */,
 				11051ECC1D6D944500E920C1 /* SCLiveProgramListCollectionVC.m in Sources */,
 				114AE1A11D81100F00BED623 /* SCFilterOptionTabModel.m in Sources */,
 				11EB4A671DB4D5EB0032F2C4 /* SCWatchingHistoryCell.m in Sources */,
