@@ -50,8 +50,6 @@
         
         self.session = session;
         
-        
-        
         self.filePath = filePath;
         //2.获取文件路径url
         self.recordFileUrl = [NSURL URLWithString:filePath];

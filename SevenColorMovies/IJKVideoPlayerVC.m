@@ -132,6 +132,10 @@
     //  设置日志级别为信息
     [IJKFFMoviePlayerController setLogLevel:k_IJK_LOG_INFO];
 #endif
+    
+    // 后加，还不知道有什么作用
+    [IJKMediaModule sharedModule].appIdleTimerDisabled = YES;
+
     // 2. 检查版本是否匹配
     [IJKFFMoviePlayerController checkIfFFmpegVersionMatch:YES];
     // [IJKFFMoviePlayerController checkIfPlayerVersionMatch:YES major:1 minor:0 micro:0];
