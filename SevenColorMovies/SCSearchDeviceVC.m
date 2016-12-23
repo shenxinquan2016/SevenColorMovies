@@ -197,7 +197,7 @@
     DONG_Log(@"GCDAsyncUdpSocket接收到消息 ip:%@ port:%u data:%@",ip, port,message);
     
     NSDictionary *dic = [NSDictionary dictionaryWithXMLData:data];
-    //NSLog(@"dic:%@",dic);
+    NSLog(@"dic:%@",dic);
     
     if (dic) {
         NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];

@@ -40,11 +40,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *moveDownBtn;
 @property (weak, nonatomic) IBOutlet UIButton *moveLeftBtn;
 @property (weak, nonatomic) IBOutlet UIButton *moveRightBtn;
-
+/** 录音工具类 */
 @property (nonatomic, strong) SCSoundRecordingTool *audioRecordingTool;
-
 /** udpSocket实例 */
 @property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
+@property (nonatomic, copy) NSString *host;
+
 
 @end
 
@@ -98,11 +99,19 @@
 
 - (IBAction)startRecord:(id)sender
 {
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 8000.0], @"111", nil];
+    NSString *cloudRemoteControlUrlStr = nil;
+    if (_host) {
+        cloudRemoteControlUrlStr = [_host stringByAppendingString:[NSString stringWithFormat:@":9099"]];
+    } else {
+        [MBProgressHUD showError:@"设备已断开，请重新连接"];
+        return;
+    }
     
-    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:CloudRemoteControl parameters:nil success:^(id  _Nullable responseObject) {
+    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
         
         DONG_Log(@"responseObject:%@", responseObject);
+        
+        //    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 8000.0], @"111", nil];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -364,6 +373,7 @@
 - (void)socket:(GCDAsyncSocket *)socket didConnect:(NSString *)host port:(uint16_t)port
 {
     DONG_Log(@"SocketManagerDelegate连接成功");
+    self.host = host;
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket
