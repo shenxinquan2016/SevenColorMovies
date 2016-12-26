@@ -7,6 +7,8 @@
 //
 
 #import "SCNewsViewController.h"
+#import "Dong_NullDataView.h"
+
 
 @interface SCNewsViewController ()
 
@@ -17,12 +19,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [CommonFunc noDataOrNoNetTipsString:@"功能建设中..." addView:self.view];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation

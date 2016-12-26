@@ -34,8 +34,8 @@ static const NSInteger kViewTag = 523100;
         }
         [noDataImage mas_updateConstraints:^(MASConstraintMaker *make) {
             make.centerX.centerY.equalTo(view);
-            make.centerY.equalTo(view).offset(-100);
-            make.size.mas_equalTo(CGSizeMake(70, 60));
+            make.centerY.equalTo(view).offset(-20);
+            make.size.mas_equalTo(CGSizeMake(60, 60));
         }];
         
     }
@@ -52,7 +52,7 @@ static const NSInteger kViewTag = 523100;
     }
 }
 
-+(void)removeViewFromView:(UIView*)view{
++ (void)removeViewFromView:(UIView*)view {
     if (!view) {
         return;
     }
@@ -69,18 +69,22 @@ static const NSInteger kViewTag = 523100;
     }
 }
 
-
-
-+ (void)addTapAction:(id)target action:(SEL)selector view:(UIView*)view{
++ (void)addTapAction:(id)target action:(SEL)selector view:(UIView*)view {
     if (!view) {
         return;
     }
     UIImageView* imageView = (UIImageView*)[view viewWithTag:kViewTag];
     UILabel* label = (UILabel*)[view viewWithTag:kViewTag+1];
+    
+    imageView.userInteractionEnabled = YES;
+    label.userInteractionEnabled = YES;
+    
     if (imageView && label) {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:target action:selector];
+        UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:target action:selector];
+
         [imageView addGestureRecognizer:tap];
-        [label addGestureRecognizer:tap];
+        [label addGestureRecognizer:tap2];
     }
 }
 
