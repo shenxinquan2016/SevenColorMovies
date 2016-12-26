@@ -29,7 +29,7 @@
 
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
+- (BOOL)shouldAutorotate {
     return NO;
 }
 
