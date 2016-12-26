@@ -14,6 +14,7 @@
 		11051ED41D6D950100E920C1 /* SCLiveProgramListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11051ED21D6D950100E920C1 /* SCLiveProgramListCell.m */; };
 		11051ED51D6D950100E920C1 /* SCLiveProgramListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11051ED31D6D950100E920C1 /* SCLiveProgramListCell.xib */; };
 		11051ED91D6D9FED00E920C1 /* SCLiveProgramModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11051ED81D6D9FED00E920C1 /* SCLiveProgramModel.m */; };
+		11052AC21E10BFF300BF795B /* Dong_NullDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052AC11E10BFF300BF795B /* Dong_NullDataView.m */; };
 		110591701D5046B20043C833 /* SCCollectionViewPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */; };
 		1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */; };
 		1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */; };
@@ -236,6 +237,8 @@
 		11051ED31D6D950100E920C1 /* SCLiveProgramListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCLiveProgramListCell.xib; sourceTree = "<group>"; };
 		11051ED71D6D9FED00E920C1 /* SCLiveProgramModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLiveProgramModel.h; sourceTree = "<group>"; };
 		11051ED81D6D9FED00E920C1 /* SCLiveProgramModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLiveProgramModel.m; sourceTree = "<group>"; };
+		11052AC01E10BFF300BF795B /* Dong_NullDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dong_NullDataView.h; sourceTree = "<group>"; };
+		11052AC11E10BFF300BF795B /* Dong_NullDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dong_NullDataView.m; sourceTree = "<group>"; };
 		1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageVC.h; sourceTree = "<group>"; };
 		1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageVC.m; sourceTree = "<group>"; };
 		1111A4011D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
@@ -642,6 +645,15 @@
 				11051ED81D6D9FED00E920C1 /* SCLiveProgramModel.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		11052ABC1E10BF5000BF795B /* NullDataView */ = {
+			isa = PBXGroup;
+			children = (
+				11052AC01E10BFF300BF795B /* Dong_NullDataView.h */,
+				11052AC11E10BFF300BF795B /* Dong_NullDataView.m */,
+			);
+			name = NullDataView;
 			sourceTree = "<group>";
 		};
 		110CF6681DE2D1CB00D365CE /* Controller */ = {
@@ -1627,6 +1639,7 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				11052ABC1E10BF5000BF795B /* NullDataView */,
 				112BF95A1E0A5C3900A9C33D /* AudioConvert音频转码 */,
 				1114481C1D87D15700CB8FA9 /* 优朋工具包 */,
 				1187027E1D7436B7005B3895 /* Reveal.framework */,
@@ -2380,6 +2393,7 @@
 				115CCDF41D796E8D0045ED5F /* UILabel+Addition.m in Sources */,
 				11B072281DD2B7C800DD3FED /* Dong_DownloadModel.m in Sources */,
 				11323E0F1DB5CB650089A207 /* SCMyDownLoadManagerCell.m in Sources */,
+				11052AC21E10BFF300BF795B /* Dong_NullDataView.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,

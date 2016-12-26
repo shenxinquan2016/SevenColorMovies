@@ -155,11 +155,16 @@
     
         // .wav --> .mar
         [SCSoundRecordingTool ConvertWavToAmr:wavFilePath amrSavePath:marFilePath];
-        
+    
 //    } failure:^(id  _Nullable errorObject) {
 //        
 //        
 //    }];
+    
+    
+    
+    NSString *dkf;
+    [dkf stringByBase64Decoding];
 }
 
 
