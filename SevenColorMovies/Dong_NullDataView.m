@@ -35,7 +35,8 @@ static const NSInteger kViewTag = 523100;
         [noDataImage mas_updateConstraints:^(MASConstraintMaker *make) {
             make.centerX.centerY.equalTo(view);
             make.centerY.equalTo(view).offset(-20);
-            make.size.mas_equalTo(CGSizeMake(60, 60));
+//            make.size.mas_equalTo(CGSizeMake(60, 60));
+            make.size.mas_equalTo(noDataImage.image.size);
         }];
         
     }
