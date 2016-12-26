@@ -68,11 +68,6 @@
         [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT];
     }
     
-    
-    //1.获取沙盒地址
-    NSString *documentPath = [FileManageCommon GetTmpPath];
-    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
-    self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithrecordFilePath:filePath];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -96,29 +91,42 @@
 
 #pragma mark - IBAction
 
-
 - (IBAction)startRecord:(id)sender
 {
-    NSString *cloudRemoteControlUrlStr = nil;
-    if (_host) {
-        cloudRemoteControlUrlStr = [_host stringByAppendingString:[NSString stringWithFormat:@":9099"]];
-    } else {
-        [MBProgressHUD showError:@"设备已断开，请重新连接"];
-        return;
-    }
+//    NSString *cloudRemoteControlUrlStr = nil;
+//    if (_host) {
+//        cloudRemoteControlUrlStr = [_host stringByAppendingString:[NSString stringWithFormat:@":9099/prepare"]];
+//    } else {
+//        [MBProgressHUD showError:@"设备已断开，请重新连接"];
+//        return;
+//    }
+//    
+//    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
+//        
+//        DONG_Log(@"responseObject:%@", responseObject);
+//        
+//        // 语音在线识别：采样率为8000 离线识别：采样率为16000
+        BOOL online;
+        float sampleRate = 0.f;
+        if (online) {
+            sampleRate = 8000.f;
+        } else {
+            sampleRate = 16000.f;
+        }
     
-    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
+        //1.获取沙盒地址
+        NSString *tmpPath = [FileManageCommon GetTmpPath];
+        NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
         
-        DONG_Log(@"responseObject:%@", responseObject);
+        self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
         
-        //    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 8000.0], @"111", nil];
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        
-    }];
+        [_audioRecordingTool startRecord];
+//
+//    } failure:^(id  _Nullable errorObject) {
+//        
+//        
+//    }];
     
-//    [_audioRecordingTool startRecord];
     DONG_Log(@"开始录音");
     
 }
@@ -127,11 +135,31 @@
 {
     [_audioRecordingTool stopRecord];
     
-    NSString *documentPath = [FileManageCommon GetTmpPath];
-    NSString *wavFilePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
-    NSString *marFilePath = [documentPath stringByAppendingPathComponent:@"/SoundRecord.mar"];
+//    NSString *cloudRemoteControlUrlStr = nil;
+//    if (_host) {
+//        cloudRemoteControlUrlStr = [_host stringByAppendingString:[NSString stringWithFormat:@":9099/recognition"]];
+//    } else {
+//        [MBProgressHUD showError:@"设备已断开，请重新连接"];
+//        return;
+//    }
     
-    [SCSoundRecordingTool ConvertWavToAmr:wavFilePath amrSavePath:marFilePath];
+    NSString *tmpPath = [FileManageCommon GetTmpPath];
+    NSString *wavFilePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
+    NSString *marFilePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.mar"];
+    
+    //    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 8000.0], @"111", nil];
+    
+//    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
+//        
+//        DONG_Log(@"responseObject:%@", responseObject);
+    
+        // .wav --> .mar
+        [SCSoundRecordingTool ConvertWavToAmr:wavFilePath amrSavePath:marFilePath];
+        
+//    } failure:^(id  _Nullable errorObject) {
+//        
+//        
+//    }];
 }
 
 

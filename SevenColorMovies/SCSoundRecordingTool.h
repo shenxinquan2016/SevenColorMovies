@@ -10,7 +10,15 @@
 
 @interface SCSoundRecordingTool : NSObject
 
-- (instancetype)initWithrecordFilePath:(NSString *)filePath;
+/**
+ *  初始化方法
+ *
+ *  @param filePath   录音文件保存路径
+ *  @param sampleRate 录音采样率
+ *
+ *  @return 实例
+ */
+- (instancetype)initWithRecordFilePath:(NSString *)filePath sampleRate:(float)sampleRate;
 
 /** 开始录音 */
 - (void)startRecord;

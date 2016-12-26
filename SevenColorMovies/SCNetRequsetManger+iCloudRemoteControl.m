@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/12/22.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+//  语音识别服务器网络通信工具类
 
 #import "SCNetRequsetManger+iCloudRemoteControl.h"
 

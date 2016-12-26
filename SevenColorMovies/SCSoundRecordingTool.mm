@@ -34,7 +34,7 @@
     NSInteger countDown;  //倒计时
 }
 
-- (instancetype)initWithrecordFilePath:(NSString *)filePath
+- (instancetype)initWithRecordFilePath:(NSString *)filePath sampleRate:(float)sampleRate
 {
     if (self = [super init]) {
         // 设置音频会话 设置为播放和录音状态，以便可以在录制完之后播放录音
@@ -57,7 +57,7 @@
         //3.设置参数
         NSDictionary *recordSetting = [[NSDictionary alloc] initWithObjectsAndKeys:
                                        // 采样率  8000/11025/22050/44100/96000（影响音频的质量）
-                                       [NSNumber numberWithFloat: 8000.0], AVSampleRateKey,
+                                       [NSNumber numberWithFloat: sampleRate], AVSampleRateKey,
                                        // 音频格式
                                        [NSNumber numberWithInt: kAudioFormatLinearPCM],AVFormatIDKey,
                                        // 采样位数  8、16、24、32 默认为16
@@ -118,7 +118,7 @@
 /** 播放录音 */
 - (void)playRecord
 {
-    [self.audioRecorder stop];
+//    [self.audioRecorder stop];
     
     if ([self.audioPlayer isPlaying]) return;
     
