@@ -8,13 +8,13 @@
 
 #import "SCHTMLViewController.h"
 #import <JavaScriptCore/JavaScriptCore.h>
-#import "Dialog.h"
+
 
 #define WebViewNav_TintColor [UIColor colorWithHex:@"#16a7d1"]
 
 @interface SCHTMLViewController () <UIWebViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) UIWebView *webView;
 
 @property (strong, nonatomic) UIWebView *webView2;
 //添加上面的进度条
@@ -32,38 +32,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [super viewDidLoad];
+
     [CommonFunc setNavigationBarBackgroundColor:self.navigationController.navigationBar];
-    // Do any additional setup after loading the view.
     
+    self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.delegate = self;
+    [self.view addSubview:self.webView];
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 22, 22);
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    [btn addTarget:self action:@selector(clickBackBBI:) forControlEvents:UIControlEventTouchUpInside];
-    [btn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
-    
-    
-    _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _closeButton.frame = CGRectMake(0, 0, 30, 22);
-    UIBarButtonItem *closeItem = [[UIBarButtonItem alloc]initWithCustomView:_closeButton];
-    [_closeButton addTarget:self action:@selector(closeController:) forControlEvents:UIControlEventTouchUpInside];
-    [_closeButton setTitle:@"关闭" forState:UIControlStateNormal];
-    _closeButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    [_closeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    UIBarButtonItem *leftNegativeSpacer = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                           target:nil action:nil];
-    leftNegativeSpacer.width = -6;
-    
-    _threeArray = [NSArray arrayWithObjects:leftNegativeSpacer,item,closeItem, nil];
-    _twoArray = [NSArray arrayWithObjects:leftNegativeSpacer,item, nil];
-    
-    self.navigationItem.leftBarButtonItems = _twoArray;
-    
+    [self setNavigationBarItem];
     
     //    _webView2 = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, WScreen, HScreen)];
     //    _webView2.delegate = self;
@@ -72,9 +48,9 @@
     
     
     
-    [self goToLogin];
+//    [self goToLogin];
     
-    if (_url) {
+    if (_urlString) {
         [self webViewReload];
     }
 
@@ -93,7 +69,36 @@
     
 }
 
-//webView如果有多层页面，点击返回到上一页面。返回到首页再点击关闭当前控制器
+- (void)setNavigationBarItem
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 22, 22);
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    [btn addTarget:self action:@selector(clickBackBBI:) forControlEvents:UIControlEventTouchUpInside];
+    [btn setBackgroundImage:[UIImage imageNamed:@"Back_Arrow"] forState:UIControlStateNormal];
+    
+    
+    _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _closeButton.frame = CGRectMake(0, 0, 35, 22);
+    UIBarButtonItem *closeItem = [[UIBarButtonItem alloc]initWithCustomView:_closeButton];
+    [_closeButton addTarget:self action:@selector(closeController:) forControlEvents:UIControlEventTouchUpInside];
+    [_closeButton setTitle:@"关闭" forState:UIControlStateNormal];
+    _closeButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    [_closeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *leftNegativeSpacer = [[UIBarButtonItem alloc]
+                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                           target:nil action:nil];
+    leftNegativeSpacer.width = -6;
+    
+    _threeArray = [NSArray arrayWithObjects:leftNegativeSpacer,item,closeItem, nil];
+    _twoArray = [NSArray arrayWithObjects:leftNegativeSpacer,item, nil];
+    
+    self.navigationItem.leftBarButtonItems = _twoArray;
+ 
+}
+
+//webView如果有多层页面，点击返回回到上一页面。返回到首页再点击关闭当前控制器
 - (void)clickBackBBI:(UIButton *)sender {
     if (self.notificationPresentH5) {
         if (_webView2.canGoBack) {
@@ -135,12 +140,11 @@
     progressView.trackTintColor = [UIColor whiteColor];
     self.progressView = progressView;
     
-    NSURL *url = [NSURL URLWithString:_url];
+    NSURL *url = [NSURL URLWithString:_urlString];
     [_webView2 loadRequest:[NSURLRequest requestWithURL:url]];
     
 }
 
-#pragma mark - webView delegate
 // 计算webView进度条
 - (void)setLoadCount:(NSUInteger)loadCount {
     _loadCount = loadCount;
@@ -157,6 +161,9 @@
         [self.progressView setProgress:newP animated:YES];
     }
 }
+
+
+#pragma mark - webView delegate
 
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     NSLog(@"webViewDidStartLoad");
@@ -176,11 +183,11 @@
     self.loadCount --;
     self.progressView.hidden = YES;
     NSLog(@"webViewDidFinishLoad");
-    [Dialog dismissSVHUD];
+    //[Dialog dismissSVHUD];
 }
 
 -(void)webView:(UIWebView*)webView  DidFailLoadWithError:(NSError*)error{
-    [Dialog dismissSVHUD];
+    //[Dialog dismissSVHUD];
     self.loadCount --;
     self.progressView.hidden = YES;
     //    NSLog(@"DidFailLoadWithError");
@@ -217,13 +224,13 @@
                                  @"token":UserInfoManager.token.length > 0 ? UserInfoManager.token : @"",
                                  @"serviceCode":_H5Type
                                  };
-    [requestDataManager postRequestDataWithUrl:@"" parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager postRequestDataWithUrl:@"www.baidu.com" parameters:parameters success:^(id  _Nullable responseObject) {
         [CommonFunc dismiss];
         if (responseObject) {
             NSDictionary *dic = responseObject;
             NSDictionary *data = [dic objectForKey:@"data"];
             
-            _url = data[@"serviceUrl"];
+            _urlString = data[@"serviceUrl"];
             [self webViewReload];
         }
         

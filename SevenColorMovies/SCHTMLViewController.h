@@ -10,8 +10,10 @@
 
 @interface SCHTMLViewController : UIViewController
 
-@property (nonatomic,copy) NSString *url;
-@property (nonatomic,assign) BOOL notificationPresentH5;/**< 通知情况下跳转到H5页面 */
-@property (nonatomic,copy) NSString *H5Type;/**< H5进入请求的类型 */
+@property (nonatomic, copy) NSString *urlString;
+/** 通知情况下跳转到H5页面 */
+@property (nonatomic, assign) BOOL notificationPresentH5;
+/** H5进入请求的类型 */
+@property (nonatomic, copy) NSString *H5Type;
 
 @end
