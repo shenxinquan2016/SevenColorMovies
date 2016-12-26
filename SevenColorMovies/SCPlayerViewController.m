@@ -32,30 +32,47 @@
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
 static const CGFloat StatusBarHeight = 20.0f;
-static const CGFloat TitleHeight = 50.0f;/** 滑动标题栏高度 */
-static const CGFloat LabelWidth = 100.f;/** 滑动标题栏宽度 */
+/** 滑动标题栏高度 */
+static const CGFloat TitleHeight = 50.0f;
+/** 滑动标题栏宽度 */
+static const CGFloat LabelWidth = 100.f;
 
 @interface SCPlayerViewController ()<UIScrollViewDelegate, SocketManagerDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
-@property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
-@property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
-@property (nonatomic, copy) NSString *identifier;/** 滑动标题标识 */
-@property (nonatomic, copy) NSArray *titleArr;/** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *filmSetsArr;/** 存放所有film集 */
-@property (nonatomic, strong) NSMutableArray *filmsArr;/** 综艺生活存放film */
-@property (nonatomic, strong) SCFilmIntroduceModel *filmIntroduceModel;/** 影片介绍model */
+/** 标题栏scrollView */
+@property (nonatomic, strong) UIScrollView *titleScroll;
+/** 内容栏scrollView */
+@property (nonatomic, strong) UIScrollView *contentScroll;
+/** 滑动短线 */
+@property (nonatomic, strong) CALayer *bottomLine;
+/** 滑动标题标识 */
+@property (nonatomic, copy) NSString *identifier;
+/** 标题数组 */
+@property (nonatomic, copy) NSArray *titleArr;
+/** 存放所有film集 */
+@property (nonatomic, strong) NSMutableArray *filmSetsArr;
+/** 综艺生活存放film */
+@property (nonatomic, strong) NSMutableArray *filmsArr;
+/** 影片介绍model */
+@property (nonatomic, strong) SCFilmIntroduceModel *filmIntroduceModel;
 @property (nonatomic, strong) NSURL *url;
-@property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
+/** 播放器控制器 */
+@property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;
 @property (nonatomic, strong) SCArtsFilmsCollectionVC *needScrollToTopPage;
 @property (nonatomic, copy) NSString *movieType;
 @property (nonatomic, strong) HLJRequest *hljRequest;
-@property (nonatomic, strong) SCFilmSetModel *filmSetModel;/** 存储正在播放的剧集 */
-@property (nonatomic, assign) BOOL fullScreenLock;/** 是否全屏锁定 */
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;/** 功能区距顶部约束 */
-@property (weak, nonatomic) IBOutlet UIButton *addProgramListBtn;/** 添加节目单button */
-@property (weak, nonatomic) IBOutlet UIButton *addMyCollectionBtn;/** 添加收藏button */
-@property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;/** 下载button */
+/** 存储正在播放的剧集 */
+@property (nonatomic, strong) SCFilmSetModel *filmSetModel;
+/** 是否全屏锁定 */
+@property (nonatomic, assign) BOOL fullScreenLock;
+/** 功能区距顶部约束 */
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;
+/** 添加节目单button */
+@property (weak, nonatomic) IBOutlet UIButton *addProgramListBtn;
+/** 添加收藏button */
+@property (weak, nonatomic) IBOutlet UIButton *addMyCollectionBtn;
+/** 下载button */
+@property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;
 
 @end
 

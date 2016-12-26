@@ -26,15 +26,23 @@
 
 @property (nonatomic, strong) UICollectionView *collView;
 
-@property (nonatomic, copy) NSArray *dataSource;/** tableView数据源 */
-@property (nonatomic, strong) NSMutableArray *sectionArr;/** tableView数据源 */
-@property (nonatomic, strong) NSMutableArray *allItemsArr;/** 点播栏所有item */
+/** tableView数据源 */
+@property (nonatomic, copy) NSArray *dataSource;
+/** tableView数据源 */
+@property (nonatomic, strong) NSMutableArray *sectionArr;
+/** 点播栏所有item */
+@property (nonatomic, strong) NSMutableArray *allItemsArr;
 @property (nonatomic, strong) SCSycleBanner *bannerView;
-@property (nonatomic, strong) NSMutableArray *bannerImageUrlArr;/** banner页图片地址数组 */
-@property (nonatomic, strong) NSMutableArray *bannerFilmModelArr;/** banner filmModel数组 */
-@property (nonatomic, strong) NSMutableArray *filmClassArray;/** 存储filmList中的filmClass模型（第二层数据）*/
-@property (nonatomic, strong) NSMutableArray *titleArray;/** section标题 */
-@property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary;/** 将filmClassModel放入字典 */
+/** banner页图片地址数组 */
+@property (nonatomic, strong) NSMutableArray *bannerImageUrlArr;
+/** banner filmModel数组 */
+@property (nonatomic, strong) NSMutableArray *bannerFilmModelArr;
+/** 存储filmList中的filmClass模型（第二层数据）*/
+@property (nonatomic, strong) NSMutableArray *filmClassArray;
+/** section标题 */
+@property (nonatomic, strong) NSMutableArray *titleArray;
+/** 将filmClassModel放入字典 */
+@property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary;
 @property (nonatomic, copy) NSArray *filmClassTitleArray;
 
 @end
