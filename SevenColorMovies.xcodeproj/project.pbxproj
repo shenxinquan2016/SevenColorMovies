@@ -15,6 +15,18 @@
 		11051ED51D6D950100E920C1 /* SCLiveProgramListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11051ED31D6D950100E920C1 /* SCLiveProgramListCell.xib */; };
 		11051ED91D6D9FED00E920C1 /* SCLiveProgramModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11051ED81D6D9FED00E920C1 /* SCLiveProgramModel.m */; };
 		11052AC21E10BFF300BF795B /* Dong_NullDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052AC11E10BFF300BF795B /* Dong_NullDataView.m */; };
+		11052AC51E10FEA800BF795B /* SCHTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052AC41E10FEA800BF795B /* SCHTMLViewController.m */; };
+		11052ADC1E11027300BF795B /* Dialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052AC81E11027300BF795B /* Dialog.m */; };
+		11052ADD1E11027300BF795B /* DNIPhoneInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052ACC1E11027300BF795B /* DNIPhoneInfo.m */; };
+		11052ADE1E11027300BF795B /* IMB_ASIProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052ACE1E11027300BF795B /* IMB_ASIProgressView.m */; };
+		11052ADF1E11027300BF795B /* MONActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052AD11E11027300BF795B /* MONActivityIndicatorView.m */; };
+		11052AE01E11027300BF795B /* icon-error.png in Resources */ = {isa = PBXBuildFile; fileRef = 11052AD41E11027300BF795B /* icon-error.png */; };
+		11052AE11E11027300BF795B /* icon-error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11052AD51E11027300BF795B /* icon-error@2x.png */; };
+		11052AE21E11027300BF795B /* icon-info.png in Resources */ = {isa = PBXBuildFile; fileRef = 11052AD61E11027300BF795B /* icon-info.png */; };
+		11052AE31E11027300BF795B /* icon-info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11052AD71E11027300BF795B /* icon-info@2x.png */; };
+		11052AE41E11027300BF795B /* icon-success.png in Resources */ = {isa = PBXBuildFile; fileRef = 11052AD81E11027300BF795B /* icon-success.png */; };
+		11052AE51E11027300BF795B /* icon-success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11052AD91E11027300BF795B /* icon-success@2x.png */; };
+		11052AE61E11027300BF795B /* TWMessageBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052ADB1E11027300BF795B /* TWMessageBarManager.m */; };
 		110591701D5046B20043C833 /* SCCollectionViewPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */; };
 		1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */; };
 		1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */; };
@@ -239,6 +251,25 @@
 		11051ED81D6D9FED00E920C1 /* SCLiveProgramModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLiveProgramModel.m; sourceTree = "<group>"; };
 		11052AC01E10BFF300BF795B /* Dong_NullDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dong_NullDataView.h; sourceTree = "<group>"; };
 		11052AC11E10BFF300BF795B /* Dong_NullDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dong_NullDataView.m; sourceTree = "<group>"; };
+		11052AC31E10FEA800BF795B /* SCHTMLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHTMLViewController.h; sourceTree = "<group>"; };
+		11052AC41E10FEA800BF795B /* SCHTMLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHTMLViewController.m; sourceTree = "<group>"; };
+		11052AC71E11027300BF795B /* Dialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dialog.h; sourceTree = "<group>"; };
+		11052AC81E11027300BF795B /* Dialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dialog.m; sourceTree = "<group>"; };
+		11052ACA1E11027300BF795B /* DNIPhoneInfo-Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DNIPhoneInfo-Utility.h"; sourceTree = "<group>"; };
+		11052ACB1E11027300BF795B /* DNIPhoneInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNIPhoneInfo.h; sourceTree = "<group>"; };
+		11052ACC1E11027300BF795B /* DNIPhoneInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNIPhoneInfo.m; sourceTree = "<group>"; };
+		11052ACD1E11027300BF795B /* IMB_ASIProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMB_ASIProgressView.h; sourceTree = "<group>"; };
+		11052ACE1E11027300BF795B /* IMB_ASIProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMB_ASIProgressView.m; sourceTree = "<group>"; };
+		11052AD01E11027300BF795B /* MONActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MONActivityIndicatorView.h; sourceTree = "<group>"; };
+		11052AD11E11027300BF795B /* MONActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MONActivityIndicatorView.m; sourceTree = "<group>"; };
+		11052AD41E11027300BF795B /* icon-error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-error.png"; sourceTree = "<group>"; };
+		11052AD51E11027300BF795B /* icon-error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-error@2x.png"; sourceTree = "<group>"; };
+		11052AD61E11027300BF795B /* icon-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info.png"; sourceTree = "<group>"; };
+		11052AD71E11027300BF795B /* icon-info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info@2x.png"; sourceTree = "<group>"; };
+		11052AD81E11027300BF795B /* icon-success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success.png"; sourceTree = "<group>"; };
+		11052AD91E11027300BF795B /* icon-success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success@2x.png"; sourceTree = "<group>"; };
+		11052ADA1E11027300BF795B /* TWMessageBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWMessageBarManager.h; sourceTree = "<group>"; };
+		11052ADB1E11027300BF795B /* TWMessageBarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWMessageBarManager.m; sourceTree = "<group>"; };
 		1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageVC.h; sourceTree = "<group>"; };
 		1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageVC.m; sourceTree = "<group>"; };
 		1111A4011D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
@@ -656,6 +687,62 @@
 			name = NullDataView;
 			sourceTree = "<group>";
 		};
+		11052AC61E11027300BF795B /* IMB_HUD */ = {
+			isa = PBXGroup;
+			children = (
+				11052AC71E11027300BF795B /* Dialog.h */,
+				11052AC81E11027300BF795B /* Dialog.m */,
+				11052AC91E11027300BF795B /* DNIPhoneInfo-Utility */,
+				11052ACD1E11027300BF795B /* IMB_ASIProgressView.h */,
+				11052ACE1E11027300BF795B /* IMB_ASIProgressView.m */,
+				11052ACF1E11027300BF795B /* MONActivityIndicatorView */,
+				11052AD21E11027300BF795B /* TWMessageBar */,
+			);
+			path = IMB_HUD;
+			sourceTree = "<group>";
+		};
+		11052AC91E11027300BF795B /* DNIPhoneInfo-Utility */ = {
+			isa = PBXGroup;
+			children = (
+				11052ACA1E11027300BF795B /* DNIPhoneInfo-Utility.h */,
+				11052ACB1E11027300BF795B /* DNIPhoneInfo.h */,
+				11052ACC1E11027300BF795B /* DNIPhoneInfo.m */,
+			);
+			path = "DNIPhoneInfo-Utility";
+			sourceTree = "<group>";
+		};
+		11052ACF1E11027300BF795B /* MONActivityIndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				11052AD01E11027300BF795B /* MONActivityIndicatorView.h */,
+				11052AD11E11027300BF795B /* MONActivityIndicatorView.m */,
+			);
+			path = MONActivityIndicatorView;
+			sourceTree = "<group>";
+		};
+		11052AD21E11027300BF795B /* TWMessageBar */ = {
+			isa = PBXGroup;
+			children = (
+				11052AD31E11027300BF795B /* icons */,
+				11052ADA1E11027300BF795B /* TWMessageBarManager.h */,
+				11052ADB1E11027300BF795B /* TWMessageBarManager.m */,
+			);
+			path = TWMessageBar;
+			sourceTree = "<group>";
+		};
+		11052AD31E11027300BF795B /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				11052AD41E11027300BF795B /* icon-error.png */,
+				11052AD51E11027300BF795B /* icon-error@2x.png */,
+				11052AD61E11027300BF795B /* icon-info.png */,
+				11052AD71E11027300BF795B /* icon-info@2x.png */,
+				11052AD81E11027300BF795B /* icon-success.png */,
+				11052AD91E11027300BF795B /* icon-success@2x.png */,
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
 		110CF6681DE2D1CB00D365CE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -867,6 +954,8 @@
 		113F8D931D3C705600B12D39 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				11052AC31E10FEA800BF795B /* SCHTMLViewController.h */,
+				11052AC41E10FEA800BF795B /* SCHTMLViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1639,6 +1728,7 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				11052AC61E11027300BF795B /* IMB_HUD */,
 				11052ABC1E10BF5000BF795B /* NullDataView */,
 				112BF95A1E0A5C3900A9C33D /* AudioConvert音频转码 */,
 				1114481C1D87D15700CB8FA9 /* 优朋工具包 */,
@@ -2156,9 +2246,11 @@
 			files = (
 				11C1C1C21D8020A300CEE71C /* SCFliterOptionCell.xib in Resources */,
 				11458EA31D45FEE200EBD16D /* SCMineTopCell.xib in Resources */,
+				11052AE41E11027300BF795B /* icon-success.png in Resources */,
 				11458E981D45E0D500EBD16D /* SCDiscoveryTableViewCell.xib in Resources */,
 				1147FBB61DDE9D6000126F2E /* SCArtsDownloadCell.xib in Resources */,
 				115F024E1DDAFEC400DF911F /* SCDSJDownloadCell.xib in Resources */,
+				11052AE51E11027300BF795B /* icon-success@2x.png in Resources */,
 				113F8D9B1D3C77E000B12D39 /* HomePage.storyboard in Resources */,
 				111448271D87D1CE00CB8FA9 /* UUID使用说明.pdf in Resources */,
 				113F6C801D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib in Resources */,
@@ -2168,6 +2260,7 @@
 				11EB4A681DB4D5EB0032F2C4 /* SCWatchingHistoryCell.xib in Resources */,
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
 				11BA52EC1DFC465F0036CF25 /* SCSearchingDeviceView.xib in Resources */,
+				11052AE21E11027300BF795B /* icon-info.png in Resources */,
 				11BA52F01DFC46D20036CF25 /* SCDevicesListView.xib in Resources */,
 				11588F741D6B079900C91E3A /* SCLivePageCell.xib in Resources */,
 				11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */,
@@ -2175,10 +2268,12 @@
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */,
 				11BA52EE1DFC46B50036CF25 /* SCNoDeviceView.xib in Resources */,
+				11052AE01E11027300BF795B /* icon-error.png in Resources */,
 				11323E0B1DB5C4B80089A207 /* SCMyCollectionCell.xib in Resources */,
 				11B496281DD967A400C51B8A /* SCDownloadedCell.xib in Resources */,
 				113334C21DFC52EE00BB025D /* SCDeviceCell.xib in Resources */,
 				11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */,
+				11052AE11E11027300BF795B /* icon-error@2x.png in Resources */,
 				11D4225C1D49A8EC00B4F9AE /* SCLoadingView.xib in Resources */,
 				11C8CFBC1D45157B00C04F38 /* SCCollectionViewPageCell.xib in Resources */,
 				11BB37D01D38E5C00002D487 /* Discovery.storyboard in Resources */,
@@ -2190,6 +2285,7 @@
 				11BB37D21D38E5C90002D487 /* News.storyboard in Resources */,
 				11BB37C81D38E3A00002D487 /* devEnvironment.plist in Resources */,
 				116E0F791DB0C03F00E280C6 /* SCProgramListCell.xib in Resources */,
+				11052AE31E11027300BF795B /* icon-info@2x.png in Resources */,
 				1187027D1D740A57005B3895 /* SCVideoLoadingView.xib in Resources */,
 				1131C0E11D6705CD00BA151A /* IJKVideoPlayerVC.xib in Resources */,
 				1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */,
@@ -2325,7 +2421,9 @@
 				1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */,
 				11458E971D45E0D500EBD16D /* SCDiscoveryTableViewCell.m in Sources */,
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
+				11052ADF1E11027300BF795B /* MONActivityIndicatorView.m in Sources */,
 				11BA52DF1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m in Sources */,
+				11052AC51E10FEA800BF795B /* SCHTMLViewController.m in Sources */,
 				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
 				11B496271DD967A400C51B8A /* SCDownloadedCell.m in Sources */,
 				11796BF01DF93EE300F5923C /* SCTCPSocketManager.m in Sources */,
@@ -2354,13 +2452,16 @@
 				1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */,
 				11F42E3B1E0BD9090073A6BC /* SCNetRequsetManger+iCloudRemoteControl.m in Sources */,
 				11051ECC1D6D944500E920C1 /* SCLiveProgramListCollectionVC.m in Sources */,
+				11052ADC1E11027300BF795B /* Dialog.m in Sources */,
 				114AE1A11D81100F00BED623 /* SCFilterOptionTabModel.m in Sources */,
 				11EB4A671DB4D5EB0032F2C4 /* SCWatchingHistoryCell.m in Sources */,
 				11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */,
 				11323E0A1DB5C4B80089A207 /* SCMyCollectionCell.m in Sources */,
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
 				114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */,
+				11052ADD1E11027300BF795B /* DNIPhoneInfo.m in Sources */,
 				1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */,
+				11052ADE1E11027300BF795B /* IMB_ASIProgressView.m in Sources */,
 				11DDB8821D5B15760074DFAB /* SCArtsFilmCell.m in Sources */,
 				113F8D871D3C6FC800B12D39 /* SCDiscoveryViewController.m in Sources */,
 				11051ED41D6D950100E920C1 /* SCLiveProgramListCell.m in Sources */,
@@ -2403,6 +2504,7 @@
 				11FEEF1E1D93848300518029 /* HLJDomainNameModel.m in Sources */,
 				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
 				110175071D54402D00E43773 /* FileManageCommon.m in Sources */,
+				11052AE61E11027300BF795B /* TWMessageBarManager.m in Sources */,
 				11C1C1C11D8020A300CEE71C /* SCFliterOptionCell.m in Sources */,
 				118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */,
 				11BE83151D3CB56B00886CF6 /* SCSycleBanner.m in Sources */,
