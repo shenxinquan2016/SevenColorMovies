@@ -213,31 +213,31 @@
 
 #pragma mark - 网络请求
 - (void)requestData {
-//    NSDictionary *parameters = @{
-//                                 @"token":UserInfoManager.token.length > 0 ? UserInfoManager.token : @"",
-//                                 @"serviceCode":_H5Type
-//                                 };
-    
-//    [requestDataManager requestStaticHtml5ViewDataWithParameters:parameters success:^(id _Nullable responseObject) {
-//        [CommonFunc dismiss];
-//        if (responseObject) {
-//            NSDictionary *dic = responseObject;
-//            NSDictionary *data = [dic objectForKey:@"data"];
-//            
-//            _url = data[@"serviceUrl"];
-//            [self webViewReload];
-//        }
-//        
-//    } failure:^(id _Nullable errorObject) {
-//        [CommonFunc dismiss];
-//        [MBProgressHUD showError:@"获取数据失败!"];
-//    }];
+    NSDictionary *parameters = @{
+                                 @"token":UserInfoManager.token.length > 0 ? UserInfoManager.token : @"",
+                                 @"serviceCode":_H5Type
+                                 };
+    [requestDataManager postRequestDataWithUrl:@"" parameters:parameters success:^(id  _Nullable responseObject) {
+        [CommonFunc dismiss];
+        if (responseObject) {
+            NSDictionary *dic = responseObject;
+            NSDictionary *data = [dic objectForKey:@"data"];
+            
+            _url = data[@"serviceUrl"];
+            [self webViewReload];
+        }
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+        [MBProgressHUD showError:@"获取数据失败!"];
+
+    }];
     
 }
 
 #pragma mark - js 调用 oc方法
 - (void)goToLogin {
-    
     
     JSContext *context = [_webView2 valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     
