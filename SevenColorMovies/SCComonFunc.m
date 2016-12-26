@@ -269,6 +269,16 @@ static int textFieldMoveHight = 0;
     [_loadingView dismiss];
 }
 
+- (void)showLoadingWithTips:(nullable NSString *)tipsString inView:(nullable UIView *)view
+{
+    if (tipsString.length == 0 || tipsString == nil) {
+        tipsString = @"正在加载中~";
+    }
+    
+    _loadingView = [SCLoadingView shareManager];
+    [_loadingView showLoadingTitle:tipsString inView:view];
+    
+}
 #pragma mark -
 
 // 当textField被弹出的键盘视图挡住时把整个视图上移（适用于4寸屏幕）

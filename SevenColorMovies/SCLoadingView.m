@@ -49,6 +49,24 @@
     [_imageView startAnimating];
 }
 
+- (void)showLoadingTitle:(NSString *)title inView:(UIView *)view
+{
+    _titleLabel.text = title;
+    //self.hidden = NO;
+    BOOL _show = YES;
+    for (UIView *view in [UIApplication sharedApplication].keyWindow.subviews) {
+        if ([view isKindOfClass:[SCLoadingView class]]) {
+            _show = NO;
+        }
+    }
+    
+    if (_show) {
+        [view addSubview:self];
+    }
+    
+    [_imageView startAnimating];
+}
+
 - (void)dismiss {
     //self.hidden = YES;
     [self removeFromSuperview];

@@ -77,6 +77,7 @@ typedef void(^ReloadBlk)();
  */
 - (void)showLoadingWithTips:(nullable NSString *)tipsString;
 
+- (void)showLoadingWithTips:(nullable NSString *)tipsString inView:(nullable UIView *)view;
 /**
  *  隐藏加载gif动画
  */

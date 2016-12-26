@@ -15,6 +15,8 @@
 
 - (void)showLoadingTitle:(NSString *)title;
 
+- (void)showLoadingTitle:(NSString *)title inView:(UIView *)view;
+
 - (void)dismiss;
 
 @end
