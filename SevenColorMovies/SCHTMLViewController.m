@@ -16,7 +16,6 @@
 
 @property (strong, nonatomic) UIWebView *webView;
 
-@property (strong, nonatomic) UIWebView *webView2;
 //添加上面的进度条
 @property (assign, nonatomic) NSUInteger loadCount;/**< 进度条进度 */
 @property (strong, nonatomic) UIProgressView *progressView;/**< 进度条 */
@@ -32,20 +31,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.automaticallyAdjustsScrollViewInsets = NO;
+   
+    [self setNavigationBarItem];
     [CommonFunc setNavigationBarBackgroundColor:self.navigationController.navigationBar];
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
     
-    [self setNavigationBarItem];
     
-    //    _webView2 = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, WScreen, HScreen)];
-    //    _webView2.delegate = self;
-    
-    
-    
+
     
     
 //    [self goToLogin];
@@ -83,7 +79,7 @@
     UIBarButtonItem *closeItem = [[UIBarButtonItem alloc]initWithCustomView:_closeButton];
     [_closeButton addTarget:self action:@selector(closeController:) forControlEvents:UIControlEventTouchUpInside];
     [_closeButton setTitle:@"关闭" forState:UIControlStateNormal];
-    _closeButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    _closeButton.titleLabel.font = [UIFont systemFontOfSize:17];
     [_closeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     UIBarButtonItem *leftNegativeSpacer = [[UIBarButtonItem alloc]
@@ -101,14 +97,14 @@
 //webView如果有多层页面，点击返回回到上一页面。返回到首页再点击关闭当前控制器
 - (void)clickBackBBI:(UIButton *)sender {
     if (self.notificationPresentH5) {
-        if (_webView2.canGoBack) {
-            [_webView2 goBack];
+        if (_webView.canGoBack) {
+            [_webView goBack];
         } else {
             [self dismissViewControllerAnimated:YES completion:NULL];
         }
     } else {
-        if (_webView2.canGoBack) {
-            [_webView2 goBack];
+        if (_webView.canGoBack) {
+            [_webView goBack];
         } else {
             [self.navigationController popViewControllerAnimated:YES];
         }
@@ -128,20 +124,20 @@
 
 - (void)webViewReload {
     
-    [_webView2 removeFromSuperview];
-    _webView2 = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
-    _webView2.delegate = self;
-    [self.view addSubview:_webView2];
+    [_webView removeFromSuperview];
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
+    _webView.delegate = self;
+    [self.view addSubview:_webView];
     
     //-1.进度条
     UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 0)];
-    [_webView2 addSubview:progressView];
+    [_webView addSubview:progressView];
     progressView.tintColor = WebViewNav_TintColor;
     progressView.trackTintColor = [UIColor whiteColor];
     self.progressView = progressView;
     
     NSURL *url = [NSURL URLWithString:_urlString];
-    [_webView2 loadRequest:[NSURLRequest requestWithURL:url]];
+    [_webView loadRequest:[NSURLRequest requestWithURL:url]];
     
 }
 
@@ -174,7 +170,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     //获取当前页面的title
     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    if (_webView2.canGoBack) {
+    if (_webView.canGoBack) {
         self.navigationItem.leftBarButtonItems = _threeArray;
     }
     //获取当前网页的html
@@ -203,7 +199,7 @@
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
     
-    if (_webView2.canGoBack) {
+    if (_webView.canGoBack) {
         self.navigationItem.leftBarButtonItems = _threeArray;
     } else {
         self.navigationItem.leftBarButtonItems = _twoArray;
@@ -246,7 +242,7 @@
 #pragma mark - js 调用 oc方法
 - (void)goToLogin {
     
-    JSContext *context = [_webView2 valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    JSContext *context = [_webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     
     context[@"goToLogin"] = ^() {//这使用block的方式来实现的
         //        NSArray *argsContent = [JSContext currentArguments];//获取JS给OC传的值
