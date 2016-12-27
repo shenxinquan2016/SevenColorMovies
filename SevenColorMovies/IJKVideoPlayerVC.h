@@ -11,20 +11,33 @@
 
 @class IJKMediaControl;
 
-typedef void(^FullScreenLockBlock)(BOOL lock);//全部锁定btn点击回调
-typedef void(^WhetherToSupportRotationBlock)(BOOL lock);//改变父视图是否支持旋转回调
-typedef void(^AddWatchHistoryBlock)(void);//添加观看记录回调
-typedef void(^PushScreenBlock)(void);//推屏
+/** 全屏锁定btn点击回调 */
+typedef void(^FullScreenLockBlock)(BOOL lock);
+/** 改变父视图是否支持旋转回调 */
+typedef void(^WhetherToSupportRotationBlock)(BOOL lock);
+/** 添加观看记录回调 */
+typedef void(^AddWatchHistoryBlock)(void);
+/** 推屏回调 */
+typedef void(^PushScreenBlock)(void);
+/** 拖动进度条回调 */
+typedef void(^SeekToTimeBlock)(float seekToTime);
 
 @interface IJKVideoPlayerVC : UIViewController
 
 @property (atomic,strong) NSURL *url;
 @property (atomic, retain) id<IJKMediaPlayback> player;
-@property (nonatomic, assign) BOOL isFullScreen;//是否正处于全屏状态
-@property (nonatomic, copy) FullScreenLockBlock fullScreenLockBlock;//全屏锁定的回调
-@property (nonatomic, copy) WhetherToSupportRotationBlock supportRotationBlock;//改变父视图是否支持旋转的回调
-@property (nonatomic, copy) AddWatchHistoryBlock addWatchHistoryBlock;//返回时添加观看记录
-@property (nonatomic, copy) PushScreenBlock pushScreenBlock;//推屏
+/** 是否正处于全屏状态 */
+@property (nonatomic, assign) BOOL isFullScreen;
+/** 全屏锁定的回调 */
+@property (nonatomic, copy) FullScreenLockBlock fullScreenLockBlock;
+/** 改变父视图是否支持旋转的回调 */
+@property (nonatomic, copy) WhetherToSupportRotationBlock supportRotationBlock;
+/** 返回时添加观看记录回调 */
+@property (nonatomic, copy) AddWatchHistoryBlock addWatchHistoryBlock;
+/** 推屏回调 */
+@property (nonatomic, copy) PushScreenBlock pushScreenBlock;
+@property (nonatomic, copy) SeekToTimeBlock seekToTimeBlock;
+/** 标记是否是单独播放器页面 */
 @property (nonatomic, assign) BOOL isSinglePlayerView;
 @property (strong, nonatomic) IBOutlet IJKMediaControl *mediaControl;
 
