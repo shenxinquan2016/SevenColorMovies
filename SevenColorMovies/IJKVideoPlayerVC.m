@@ -382,7 +382,7 @@
 /** 进度条 */
 - (IBAction)didSliderTouchDown:(id)sender
 {
-    //2
+    // 2
     [self.mediaControl beginDragMediaSlider];
 }
 
@@ -399,10 +399,11 @@
 
 - (IBAction)didSliderTouchUpInside:(id)sender
 {
-    //4
+    // 4
     self.player.currentPlaybackTime = self.mediaControl.progressSlider.value;
     [self.mediaControl endDragMediaSlider];
     DONG_Log(@"progressSlider.value:%f",self.mediaControl.progressSlider.value);
+    
     if (self.seekToTimeBlock) {
         self.seekToTimeBlock(self.mediaControl.progressSlider.value);
     }
@@ -410,8 +411,8 @@
 
 - (IBAction)didSliderValueChanged:(id)sender
 {
-    //1
-    //3
+    // 1
+    // 3
     [self.mediaControl continueDragMediaSlider];
     DONG_Log(@"progressSlider.value:%f",self.mediaControl.progressSlider.value);
 }

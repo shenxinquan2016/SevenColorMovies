@@ -262,7 +262,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AU6-pC-Xoa">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AU6-pC-Xoa" userLabel="View1">
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NcL-zt-Smf">
                                         <constraints>
@@ -309,12 +309,32 @@
                                     <constraint firstAttribute="trailing" secondItem="Gsb-sb-XSX" secondAttribute="trailing" constant="12" id="sDp-ay-81I"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yZZ-Ok-tX2" userLabel="View2">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7L-zZ-366" userLabel="GoBackButton">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="23" id="JcU-iI-uAz"/>
+                                            <constraint firstAttribute="height" constant="27" id="JjT-eT-tj3"/>
+                                        </constraints>
+                                        <state key="normal" image="Back_WhiteArrow"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="x7L-zZ-366" firstAttribute="leading" secondItem="yZZ-Ok-tX2" secondAttribute="leading" constant="4" id="OXJ-cR-vUy"/>
+                                    <constraint firstItem="x7L-zZ-366" firstAttribute="top" secondItem="yZZ-Ok-tX2" secondAttribute="top" constant="6" id="zqH-9t-dCb"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yZZ-Ok-tX2" secondAttribute="trailing" id="4Mr-tH-yU0"/>
+                            <constraint firstItem="AU6-pC-Xoa" firstAttribute="top" secondItem="yZZ-Ok-tX2" secondAttribute="bottom" constant="2" id="5fW-to-vmc"/>
+                            <constraint firstItem="yZZ-Ok-tX2" firstAttribute="leading" secondItem="u2a-fi-bCN" secondAttribute="leading" id="gIG-ZI-OqU"/>
                             <constraint firstItem="AU6-pC-Xoa" firstAttribute="leading" secondItem="u2a-fi-bCN" secondAttribute="leading" id="pZc-fa-Nzq"/>
                             <constraint firstItem="AU6-pC-Xoa" firstAttribute="top" secondItem="Hbp-ZZ-Ntj" secondAttribute="bottom" constant="220" id="tMT-Lj-HkR"/>
                             <constraint firstAttribute="trailing" secondItem="AU6-pC-Xoa" secondAttribute="trailing" id="u6H-Zl-4xI"/>
+                            <constraint firstItem="yZZ-Ok-tX2" firstAttribute="top" secondItem="Hbp-ZZ-Ntj" secondAttribute="bottom" id="uvB-Yd-q7x"/>
                         </constraints>
                     </view>
                     <connections>
@@ -326,11 +346,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Icg-Qr-bfU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2401" y="215"/>
+            <point key="canvasLocation" x="2400.8000000000002" y="214.54272863568218"/>
         </scene>
     </scenes>
     <resources>
         <image name="AddToPlayList" width="22" height="22"/>
+        <image name="Back_WhiteArrow" width="16" height="16"/>
         <image name="Collection" width="26" height="26"/>
         <image name="DownLoadIMG" width="22" height="22"/>
         <image name="Home" width="24" height="22"/>
