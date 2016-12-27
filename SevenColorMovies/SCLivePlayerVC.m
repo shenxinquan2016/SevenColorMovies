@@ -532,6 +532,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             // 进入时移
             if (self.isTimeShiftPlaying) {
                 DONG_Log(@"进入时移");
+                
+                
             }
             
             break;

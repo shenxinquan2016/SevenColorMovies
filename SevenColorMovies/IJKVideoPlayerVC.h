@@ -44,15 +44,22 @@ typedef void(^SeekToTimeBlock)(float seekToTime);
 - (id)initWithURL:(NSURL *)url;
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void(^)())completion;
 + (instancetype)initIJKPlayerWithURL:(NSURL *)url;
--(void)closePlayer;/** 关闭播放器 */
+/** 关闭播放器 */
+-(void)closePlayer;
 
-- (IBAction)onClickBack:(id)sender;/** 返回 */
-- (IBAction)onClickMediaControl:(id)sender;/** 控制面板底层 */
-- (IBAction)onClickOverlay:(id)sender;/** 控制面板 */
-- (IBAction)onClickPlay:(id)sender;/** 播放&暂停 */
-- (IBAction)onClickFullScreenButton:(id)sender;/** 全屏 */
+/** 返回 */
+- (IBAction)onClickBack:(id)sender;
+/** 控制面板底层 */
+- (IBAction)onClickMediaControl:(id)sender;
+/** 控制面板 */
+- (IBAction)onClickOverlay:(id)sender;
+/** 播放&暂停 */
+- (IBAction)onClickPlay:(id)sender;
+/** 全屏 */
+- (IBAction)onClickFullScreenButton:(id)sender;
 
-- (IBAction)didSliderTouchDown:(id)sender;/** 进度条 */
+/** 进度条 */
+- (IBAction)didSliderTouchDown:(id)sender;
 - (IBAction)didSliderTouchCancel:(id)sender;
 - (IBAction)didSliderTouchUpOutside:(id)sender;
 - (IBAction)didSliderTouchUpInside:(id)sender;
