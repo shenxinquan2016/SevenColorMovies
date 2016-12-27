@@ -9,7 +9,6 @@
 #import "IJKMediaControl.h"
 #import <IJKMediaFramework/IJKMediaFramework.h>
 
-
 typedef NS_ENUM(NSUInteger, Direction) {
     DirectionLeftOrRight,
     DirectionUpOrDown,

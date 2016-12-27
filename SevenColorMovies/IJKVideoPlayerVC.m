@@ -33,7 +33,6 @@
 {
     UIInterfaceOrientation _lastOrientaion;
     SCVideoLoadingView *_loadView;
-    
 }
 
 #pragma mark- Initialize
@@ -74,6 +73,7 @@
     
     //2.本应写在viewWillAppear中，但viewWillAppear不被执行
     [self installMovieNotificationObservers];
+    
     [self.player prepareToPlay];
     
 }
@@ -146,7 +146,7 @@
     // 3.2 创建播放控制器
     self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:options];
     
-    //4. 屏幕适配
+    // 4. 屏幕适配
     // 4.1 设置播放视频视图的frame与控制器的View的bounds一致
     self.player.view.frame = self.view.bounds;
     // 4.2 设置适配横竖屏(设置四边固定,长宽灵活)
@@ -254,6 +254,7 @@
                 
                 [navController popToViewController:controller animated:YES];
                 return;
+                
             } else if ([controller isKindOfClass:[SCRemoteControlVC class]]){//遥控器
                 
                 [navController popToViewController:controller animated:YES];
