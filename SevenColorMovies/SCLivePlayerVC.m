@@ -72,8 +72,9 @@ static const CGFloat LabelWidth = 55.f;
     NSString *programOnLiveName_;/* 临时保存直播节目的名称 */
 }
 
-#pragma mark- Initialize
-- (void)viewDidLoad{
+
+
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor colorWithHex:@"#f3f3f3"];
@@ -94,7 +95,7 @@ static const CGFloat LabelWidth = 55.f;
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
@@ -109,7 +110,7 @@ static const CGFloat LabelWidth = 55.f;
     
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -117,12 +118,12 @@ static const CGFloat LabelWidth = 55.f;
     timesIndexOfHuikan = 0;
 }
 
-- (void)viewDidDisappear:(BOOL)animated{
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
 }
 
--(void)dealloc{
+-(void)dealloc {
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
 }
 
@@ -195,8 +196,8 @@ static const CGFloat LabelWidth = 55.f;
 }
 
 /** 添加滚动标题栏*/
-- (void)constructSlideHeaderView{
-    
+- (void)constructSlideHeaderView
+{
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 280, kMainScreenWidth, TitleHeight)];
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
@@ -227,7 +228,8 @@ static const CGFloat LabelWidth = 55.f;
 }
 
 /** 添加标题栏label */
-- (void)addLabel{
+- (void)addLabel
+{
     for (int i = 0; i < _titleArr.count; i++) {
         CGFloat lbW = LabelWidth;        //宽
         CGFloat lbH = TitleHeight;       //高
@@ -253,7 +255,8 @@ static const CGFloat LabelWidth = 55.f;
 }
 
 #pragma mark- Event reponse
-- (void)labelClick:(UITapGestureRecognizer *)recognizer{
+- (void)labelClick:(UITapGestureRecognizer *)recognizer
+{
     SCSlideHeaderLabel *label = (SCSlideHeaderLabel *)recognizer.view;
     CGFloat offsetX = label.tag * _contentScroll.frame.size.width;
     
@@ -264,7 +267,8 @@ static const CGFloat LabelWidth = 55.f;
 }
 
 /** 添加正文内容页 */
-- (void)constructContentView{
+- (void)constructContentView
+{
     _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 330, kMainScreenWidth, kMainScreenHeight-330)];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
@@ -330,7 +334,8 @@ static const CGFloat LabelWidth = 55.f;
 
 #pragma mark - UIScrollViewDelegate
 /** 滚动结束后调用（代码导致的滚动停止） */
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
     // 获得索引
     NSUInteger index = scrollView.contentOffset.x / _contentScroll.frame.size.width;
     // 滚动标题栏
@@ -384,12 +389,14 @@ static const CGFloat LabelWidth = 55.f;
 }
 
 /** 滚动结束（手势导致的滚动停止） */
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 
 /** 正在滚动 */
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     // 取出绝对值 避免最左边往右拉时形变超过1
     CGFloat value = ABS(scrollView.contentOffset.x / scrollView.frame.size.width);
     NSUInteger leftIndex = (int)value;
@@ -411,7 +418,8 @@ static const CGFloat LabelWidth = 55.f;
 }
 
 #pragma mark - IJK播放控制器的回调
-- (void)doIJKPlayerBlock{
+- (void)doIJKPlayerBlock
+{
     DONG_WeakSelf(self);
     //点击节目list切换节目
     _needScrollToTopPage.clickToPlayBlock = ^(SCLiveProgramModel *model, SCLiveProgramModel *nextProgramModel, NSArray *liveProgramModelArray){
@@ -441,8 +449,8 @@ static NSUInteger huikanIndex; //首页播放回看的url在_huikanPlayerUrlArra
 static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的次数
 
 #pragma mark - 播放下一个节目
-- (void)playNextProgram{
-    
+- (void)playNextProgram
+{
     huikanIndex = [self.liveProgramModelArray indexOfObject:self.liveModel];
     //NSLog(@">>>>>>>>>>>index::::%lu",huikanIndex);
     //NSLog(@"这个节目播放结束了,播放下一个节目");
