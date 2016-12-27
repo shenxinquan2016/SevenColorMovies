@@ -82,9 +82,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uuo-yE-Wvr">
-                                <frame key="frameInset" minY="240" width="375" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uuo-yE-Wvr">
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CCTV" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4V-oX-dGt">
                                         <frame key="frameInset" minX="13" minY="8" width="118" height="21"/>
@@ -95,12 +93,45 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="yQV-b3-wr9"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPY-U3-a1s" userLabel="View2">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAa-sX-5xp" userLabel="GoBackButton">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="48O-pt-LMW"/>
+                                            <constraint firstAttribute="width" constant="23" id="tM6-P5-RwC"/>
+                                        </constraints>
+                                        <state key="normal" image="Back_WhiteArrow"/>
+                                        <connections>
+                                            <action selector="goBack:" destination="frI-ri-kJM" eventType="touchUpInside" id="BdS-hl-J1F"/>
+                                            <action selector="goBack:" destination="ybu-9T-PAh" eventType="touchUpInside" id="khi-R6-gK9"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="tAa-sX-5xp" firstAttribute="top" secondItem="XPY-U3-a1s" secondAttribute="top" constant="6" id="Ou2-W8-vx0"/>
+                                    <constraint firstItem="tAa-sX-5xp" firstAttribute="leading" secondItem="XPY-U3-a1s" secondAttribute="leading" constant="4" id="Wj1-2I-N43"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XPY-U3-a1s" firstAttribute="leading" secondItem="YpN-qc-pfk" secondAttribute="leading" id="Beh-Gi-yQ6"/>
+                            <constraint firstAttribute="trailing" secondItem="XPY-U3-a1s" secondAttribute="trailing" id="ElV-9g-Pui"/>
+                            <constraint firstAttribute="trailing" secondItem="Uuo-yE-Wvr" secondAttribute="trailing" id="GbB-Cj-jk1"/>
+                            <constraint firstItem="XPY-U3-a1s" firstAttribute="top" secondItem="YpN-qc-pfk" secondAttribute="top" constant="20" id="O3c-ty-zIB"/>
+                            <constraint firstItem="Uuo-yE-Wvr" firstAttribute="top" secondItem="XPY-U3-a1s" secondAttribute="bottom" constant="2" id="O7m-iq-P6k"/>
+                            <constraint firstItem="Uuo-yE-Wvr" firstAttribute="top" secondItem="O9O-XA-gKc" secondAttribute="bottom" constant="220" id="n1B-GT-h01"/>
+                            <constraint firstItem="Uuo-yE-Wvr" firstAttribute="leading" secondItem="YpN-qc-pfk" secondAttribute="leading" id="qst-em-xfO"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="channelNameLabel" destination="h4V-oX-dGt" id="rSH-Hg-V5g"/>
+                        <outlet property="toTopConstraint" destination="n1B-GT-h01" id="zaF-DR-CI0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="emi-Hd-x64" userLabel="First Responder" sceneMemberID="firstResponder"/>

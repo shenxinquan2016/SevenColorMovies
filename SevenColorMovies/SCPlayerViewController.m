@@ -168,6 +168,7 @@ static const CGFloat LabelWidth = 100.f;
 
 #pragma mark - IBAction
 
+// 底层返回按钮
 - (IBAction)goBack:(id)sender {
     // 取出当前的导航控制器
     UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
