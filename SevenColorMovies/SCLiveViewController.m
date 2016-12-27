@@ -17,20 +17,27 @@ static const CGFloat LabelWidth = 95.f;
 
 @interface SCLiveViewController ()<UIScrollViewDelegate>
 
-@property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
-@property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
-@property (nonatomic, strong) NSMutableArray *titleArr;/** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *filmModelArr;/** filmModel */
-@property (nonatomic, strong) NSMutableArray *dataSourceArr;/** livePage数据源 */
-
-@property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
-@property (nonatomic, strong) SCLivePageCollectionVC *needScrollToTopPage;/** 在当前页设置点击顶部滚动复位 */
+/** 标题栏scrollView */
+@property (nonatomic, strong) UIScrollView *titleScroll;
+/** 内容栏scrollView */
+@property (nonatomic, strong) UIScrollView *contentScroll;
+/** 标题数组 */
+@property (nonatomic, strong) NSMutableArray *titleArr;
+/** filmModel */
+@property (nonatomic, strong) NSMutableArray *filmModelArr;
+/** livePage数据源 */
+@property (nonatomic, strong) NSMutableArray *dataSourceArr;
+/** 滑动短线 */
+@property (nonatomic, strong) CALayer *bottomLine;
+/** 在当前页设置点击顶部滚动复位 */
+@property (nonatomic, strong) SCLivePageCollectionVC *needScrollToTopPage;
 
 @end
 
 @implementation SCLiveViewController
 
 #pragma mark-  ViewLife Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -48,14 +55,14 @@ static const CGFloat LabelWidth = 95.f;
     
 }
 
--(void)dealloc{
+-(void)dealloc {
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
 }
 
 #pragma mark- private methods
 /** 添加滚动标题栏*/
-- (void)constructSlideHeaderView{
-    
+- (void)constructSlideHeaderView
+{
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 20+44+8, kMainScreenWidth, TitleHeight)];
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
@@ -86,7 +93,8 @@ static const CGFloat LabelWidth = 95.f;
 }
 
 /** 添加标题栏label */
-- (void)addLabel{
+- (void)addLabel
+{
     for (int i = 0; i < _titleArr.count; i++) {
         CGFloat lbW = LabelWidth;                //宽
         CGFloat lbH = TitleHeight;       //高
@@ -112,7 +120,8 @@ static const CGFloat LabelWidth = 95.f;
 }
 
 /** 添加正文内容页 */
-- (void)constructContentView{
+- (void)constructContentView
+{
     _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, StatusBarHeight+TitleHeight+44+8+8, kMainScreenWidth, kMainScreenHeight-StatusBarHeight-TitleHeight-44-8-8)];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
@@ -143,7 +152,8 @@ static const CGFloat LabelWidth = 95.f;
 
 #pragma mark- Event reponse
 // 点击标题label
-- (void)labelClick:(UITapGestureRecognizer *)recognizer{
+- (void)labelClick:(UITapGestureRecognizer *)recognizer
+{
     SCSlideHeaderLabel *label = (SCSlideHeaderLabel *)recognizer.view;
     CGFloat offsetX = label.tag * _contentScroll.frame.size.width;
     CGFloat offsetY = _contentScroll.contentOffset.y;
@@ -162,7 +172,8 @@ static const CGFloat LabelWidth = 95.f;
 
 #pragma mark - UIScrollViewDelegate
 /** 滚动结束后调用（代码导致的滚动停止） */
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
     // 获得索引
     NSUInteger index = scrollView.contentOffset.x / _contentScroll.frame.size.width;
     // 滚动标题栏
@@ -203,12 +214,14 @@ static const CGFloat LabelWidth = 95.f;
 }
 
 /** 滚动结束（手势导致的滚动停止） */
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 
 /** 正在滚动 */
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     // 取出绝对值 避免最左边往右拉时形变超过1
     CGFloat value = ABS(scrollView.contentOffset.x / scrollView.frame.size.width);
     NSUInteger leftIndex = (int)value;
@@ -230,7 +243,8 @@ static const CGFloat LabelWidth = 95.f;
 }
 
 #pragma mark- 网络请求
-- (void)getLiveClassListData{
+- (void)getLiveClassListData
+{
     
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:LivePageUrl parameters:nil success:^(id  _Nullable responseObject) {
@@ -311,7 +325,7 @@ static const CGFloat LabelWidth = 95.f;
 }
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
+- (BOOL)shouldAutorotate {
     return NO;
 }
 
