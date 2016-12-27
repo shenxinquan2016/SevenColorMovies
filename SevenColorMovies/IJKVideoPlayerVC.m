@@ -296,12 +296,12 @@
                     [navController popToViewController:controller animated:YES];
                     return;
                     
-                }else if ([controller isKindOfClass:[SCMyCollectionVC class]]) {//我的收藏
+                } else if ([controller isKindOfClass:[SCMyCollectionVC class]]) {//我的收藏
                     
                     [navController popToViewController:controller animated:YES];
                     return;
                     
-                }else if ([controller isKindOfClass:[SCMyDownloadManagerVC class]]) {//我的下载
+                } else if ([controller isKindOfClass:[SCMyDownloadManagerVC class]]) {//我的下载
                     
                     [navController popToViewController:controller animated:YES];
                     return;
@@ -316,17 +316,17 @@
                     [navController popToViewController:controller animated:YES];
                     return;
                     
-                }else if ([controller isKindOfClass:[SCFilterViewController class]]) {//筛选
+                } else if ([controller isKindOfClass:[SCFilterViewController class]]) {//筛选
                     
                     [navController popToViewController:controller animated:YES];
                     return;
                     
-                }else if ([controller isKindOfClass:[SCChannelCategoryVC class]]){//点播节目频道分类
+                } else if ([controller isKindOfClass:[SCChannelCategoryVC class]]){//点播节目频道分类
                     
                     [navController popToViewController:controller animated:YES];
                     return;
                     
-                }else if ([controller isKindOfClass:[SCSearchViewController class]]){//搜索控制器
+                } else if ([controller isKindOfClass:[SCSearchViewController class]]){//搜索控制器
                     
                     [navController popToViewController:controller animated:YES];
                     return;
