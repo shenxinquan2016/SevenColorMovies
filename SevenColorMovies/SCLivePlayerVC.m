@@ -62,7 +62,8 @@ static const CGFloat LabelWidth = 55.f;
 @property (nonatomic, assign) BOOL fullScreenLock;
 /** 功能区距顶部约束 */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;
-
+/** 是否正在时移播放 */
+@property (nonatomic, assign, getter = isTimeShiftPlaying) BOOL timeShiftPlaying;
 
 @end
 
@@ -98,14 +99,7 @@ static const CGFloat LabelWidth = 55.f;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-
-    //3.监听屏幕旋转
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    //注册播放结束通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayBackDidFinish:)
-                                                 name:IJKMPMoviePlayerPlaybackDidFinishNotification
-                                               object:_IJKPlayerViewController.player];
+    [self registerNotificationObservers];
     TCPScoketManager.delegate = self;
     
 }
@@ -189,7 +183,25 @@ static const CGFloat LabelWidth = 55.f;
 
 
 #pragma mark- private methods
-- (void)setView{
+
+- (void)registerNotificationObservers
+{
+    //3.监听屏幕旋转
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    //播放状态改变通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackStateDidChange:)
+                                                 name:IJKMPMoviePlayerPlaybackStateDidChangeNotification
+                                               object:nil];
+    //注册播放结束通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackDidFinish:)
+                                                 name:IJKMPMoviePlayerPlaybackDidFinishNotification
+                                               object:_IJKPlayerViewController.player];
+}
+
+- (void)setView
+{
     //请求直播节目列表数据后组装页面
     [self getLiveChannelData];
     
@@ -449,6 +461,7 @@ static NSUInteger huikanIndex; //首页播放回看的url在_huikanPlayerUrlArra
 static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的次数
 
 #pragma mark - 播放下一个节目
+
 - (void)playNextProgram
 {
     huikanIndex = [self.liveProgramModelArray indexOfObject:self.liveModel];
@@ -482,7 +495,56 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     }
 }
 
+#pragma mark - IJK播放状态改变通知
+
+- (void)moviePlayBackStateDidChange:(NSNotification*)notification
+{
+    //    MPMoviePlaybackStateStopped,
+    //    MPMoviePlaybackStatePlaying,
+    //    MPMoviePlaybackStatePaused,
+    //    MPMoviePlaybackStateInterrupted,
+    //    MPMoviePlaybackStateSeekingForward,
+    //    MPMoviePlaybackStateSeekingBackward
+    
+    switch (_IJKPlayerViewController.player.playbackState)
+    {
+        case IJKMPMoviePlaybackStateStopped: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: stoped", (int)_IJKPlayerViewController.player.playbackState);
+            break;
+        }
+        case IJKMPMoviePlaybackStatePlaying: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: playing", (int)_IJKPlayerViewController.player.playbackState);
+            break;
+        }
+        case IJKMPMoviePlaybackStatePaused: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: paused", (int)_IJKPlayerViewController.player.playbackState);
+            break;
+        }
+        case IJKMPMoviePlaybackStateInterrupted: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: interrupted", (int)_IJKPlayerViewController.player.playbackState);
+            break;
+        }
+        case IJKMPMoviePlaybackStateSeekingForward:
+            
+        case IJKMPMoviePlaybackStateSeekingBackward: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: seeking", (int)_IJKPlayerViewController.player.playbackState);
+            
+            // 进入时移
+            if (self.isTimeShiftPlaying) {
+                DONG_Log(@"进入时移");
+            }
+            
+            break;
+        }
+        default: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: unknown", (int)_IJKPlayerViewController.player.playbackState);
+            break;
+        }
+    }
+}
+
 #pragma mark - IJK播放结束通知响应时间
+
 - (void)moviePlayBackDidFinish:(NSNotification*)notification
 {
     //    MPMovieFinishReasonPlaybackEnded,
@@ -694,6 +756,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 //请求直播流url
 - (void)getLiveVideoSignalFlowUrl
 {
+    //0.时移等于YES
+    _timeShiftPlaying = YES;
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
@@ -771,6 +835,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 //请求回看节目视频流url
 - (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2
 {
+    //0.时移等于NO
+    _timeShiftPlaying = NO;
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
@@ -838,7 +904,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             }
         };
 
-        
         //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
         self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
             DONG_StrongSelf(self);
