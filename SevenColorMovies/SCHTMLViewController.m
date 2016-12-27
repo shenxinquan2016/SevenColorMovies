@@ -15,15 +15,14 @@
 @interface SCHTMLViewController () <UIWebViewDelegate>
 
 @property (strong, nonatomic) UIWebView *webView;
-
-//添加上面的进度条
-@property (assign, nonatomic) NSUInteger loadCount;/**< 进度条进度 */
-@property (strong, nonatomic) UIProgressView *progressView;/**< 进度条 */
+/** 进度条进度 */
+@property (assign, nonatomic) NSUInteger loadCount;
+/** 进度条 */
+@property (strong, nonatomic) UIProgressView *progressView;
+/** 导航栏关闭按钮 */
 @property (strong, nonatomic) UIButton *closeButton;
-
-
-@property (nonatomic,strong) NSArray *threeArray;
-@property (nonatomic,strong) NSArray *twoArray;
+@property (nonatomic,strong) NSArray *threeItemsArray;
+@property (nonatomic,strong) NSArray *twoItemsArray;
 
 @end
 
@@ -36,28 +35,19 @@
     [self setNavigationBarItem];
     [CommonFunc setNavigationBarBackgroundColor:self.navigationController.navigationBar];
     
-    self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    self.webView.delegate = self;
-    [self.view addSubview:self.webView];
-    
-    
-
-    
-    
 //    [self goToLogin];
     
     if (_urlString) {
-        [self webViewReload];
+        [self webViewLoadUrlData];
     }
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (_H5Type) {//&& UserInfoManager.isLogin
-        [self requestData];
-    }
+//    if (_H5Type) {//&& UserInfoManager.isLogin
+//        [self requestData];
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,10 +77,10 @@
                                            target:nil action:nil];
     leftNegativeSpacer.width = -6;
     
-    _threeArray = [NSArray arrayWithObjects:leftNegativeSpacer,item,closeItem, nil];
-    _twoArray = [NSArray arrayWithObjects:leftNegativeSpacer,item, nil];
+    _threeItemsArray = [NSArray arrayWithObjects:leftNegativeSpacer,item,closeItem, nil];
+    _twoItemsArray = [NSArray arrayWithObjects:leftNegativeSpacer,item, nil];
     
-    self.navigationItem.leftBarButtonItems = _twoArray;
+    self.navigationItem.leftBarButtonItems = _twoItemsArray;
  
 }
 
@@ -121,13 +111,12 @@
     }
 }
 
-
-- (void)webViewReload {
-    
-    [_webView removeFromSuperview];
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
-    _webView.delegate = self;
-    [self.view addSubview:_webView];
+/** 加载webView */
+- (void)webViewLoadUrlData
+{
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
+    self.webView.delegate = self;
+    [self.view addSubview:self.webView];
     
     //-1.进度条
     UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 0)];
@@ -171,7 +160,7 @@
     //获取当前页面的title
     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     if (_webView.canGoBack) {
-        self.navigationItem.leftBarButtonItems = _threeArray;
+        self.navigationItem.leftBarButtonItems = _threeItemsArray;
     }
     //获取当前网页的html
     //NSString *indexHtml = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
@@ -200,9 +189,9 @@
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
     
     if (_webView.canGoBack) {
-        self.navigationItem.leftBarButtonItems = _threeArray;
+        self.navigationItem.leftBarButtonItems = _threeItemsArray;
     } else {
-        self.navigationItem.leftBarButtonItems = _twoArray;
+        self.navigationItem.leftBarButtonItems = _twoItemsArray;
     }
     
     if (![SCNetHelper isNetConnect]) {//判断有无网络
@@ -215,6 +204,7 @@
 
 
 #pragma mark - 网络请求
+
 - (void)requestData {
     NSDictionary *parameters = @{
                                  @"token":UserInfoManager.token.length > 0 ? UserInfoManager.token : @"",
@@ -227,7 +217,7 @@
             NSDictionary *data = [dic objectForKey:@"data"];
             
             _urlString = data[@"serviceUrl"];
-            [self webViewReload];
+            [self webViewLoadUrlData];
         }
         
     } failure:^(id  _Nullable errorObject) {
