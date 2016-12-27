@@ -154,6 +154,7 @@
     NSLog(@"webViewDidStartLoad");
     self.progressView.hidden = NO;
     self.loadCount ++;
+    
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
