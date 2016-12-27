@@ -394,7 +394,6 @@
 - (IBAction)didSliderTouchUpOutside:(id)sender
 {
     [self.mediaControl endDragMediaSlider];
-    
 }
 
 - (IBAction)didSliderTouchUpInside:(id)sender
