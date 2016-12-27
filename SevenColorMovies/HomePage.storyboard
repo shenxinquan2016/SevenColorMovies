@@ -317,6 +317,9 @@
                                             <constraint firstAttribute="height" constant="27" id="JjT-eT-tj3"/>
                                         </constraints>
                                         <state key="normal" image="Back_WhiteArrow"/>
+                                        <connections>
+                                            <action selector="goBack:" destination="frI-ri-kJM" eventType="touchUpInside" id="V1W-qT-lfb"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>

@@ -28,6 +28,15 @@
 #import "SCTCPSocketManager.h"
 #import "SCSearchDeviceVC.h"
 
+#import "SCMyProgramListVC.h"
+#import "SCMyCollectionVC.h"
+#import "SCMyDownloadManagerVC.h"
+#import "SCMyWatchingHistoryVC.h"
+#import "SCFilterViewController.h"
+#import "SCChannelCategoryVC.h"
+#import "SCSearchViewController.h"
+
+
 
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
@@ -158,6 +167,61 @@ static const CGFloat LabelWidth = 100.f;
 }
 
 #pragma mark - IBAction
+
+- (IBAction)goBack:(id)sender {
+    // 取出当前的导航控制器
+    UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    // 当前选择的导航控制器
+    UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+    
+    //DONG_Log(@"%@",navController.viewControllers);
+    
+    // pop到指定页面
+    // 因为是出栈，所以要倒叙遍历navController.viewControllers 从栈顶到栈底遍历
+    for (int i = 0; i < navController.viewControllers.count ; i++) {
+        unsigned long index = navController.viewControllers.count - i;
+        UIViewController* controller = navController.viewControllers[index-1];
+        
+        if ([controller isKindOfClass:[SCMyProgramListVC class]]) {//我的节目单
+            
+            [navController popToViewController:controller animated:YES];
+            return;
+            
+        }else if ([controller isKindOfClass:[SCMyCollectionVC class]]) {//我的收藏
+            
+            [navController popToViewController:controller animated:YES];
+            return;
+            
+        }else if ([controller isKindOfClass:[SCMyDownloadManagerVC class]]) {//我的下载
+            
+            [navController popToViewController:controller animated:YES];
+            return;
+            
+        } else if ([controller isKindOfClass:[SCMyWatchingHistoryVC class]]) {//直播频道列表页
+            
+            [navController popToViewController:controller animated:YES];
+            return;
+            
+        } else if ([controller isKindOfClass:[SCFilterViewController class]]) {//筛选
+            
+            [navController popToViewController:controller animated:YES];
+            return;
+            
+        }else if ([controller isKindOfClass:[SCChannelCategoryVC class]]){//点播节目频道分类
+            
+            [navController popToViewController:controller animated:YES];
+            return;
+            
+        }else if ([controller isKindOfClass:[SCSearchViewController class]]){//搜索控制器
+            
+            [navController popToViewController:controller animated:YES];
+            return;
+        }
+    }
+    
+    [navController popToRootViewControllerAnimated:YES];
+}
+
 // 添加节目单
 - (IBAction)addFilmToProgramList:(UIButton *)sender {
     DONG_Log(@"添加到节目单");
