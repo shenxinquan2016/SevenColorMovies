@@ -43,6 +43,7 @@
 @property (nonatomic, strong) NSMutableArray *titleArray;
 /** 将filmClassModel放入字典 */
 @property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary;
+/** 将filmClass的标题存到本地 */
 @property (nonatomic, copy) NSArray *filmClassTitleArray;
 
 @end
@@ -541,7 +542,7 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Getters and Setters
 - (NSMutableArray *)allItemsArr {
     if (!_allItemsArr) {
-        NSArray *array =@[@"私人影院", @"少儿剧场", @"院线热映", @"电影", @"电视剧",  @"少儿", @"更多", @"二人转", @"动漫", @"综艺", @"生活", @"纪录片", @"游戏", @"音乐", @"专题"];
+        NSArray *array =@[@"电影", @"电视剧",  @"少儿", @"更多", @"二人转", @"动漫", @"综艺", @"生活", @"纪录片", @"游戏", @"音乐", @"专题"];
         
         _allItemsArr = [NSMutableArray arrayWithCapacity:0];
         [_allItemsArr addObjectsFromArray:array];
