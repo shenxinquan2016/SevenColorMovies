@@ -31,28 +31,54 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-   
-    [self setNavigationBarItem];
-    [CommonFunc setNavigationBarBackgroundColor:self.navigationController.navigationBar];
+    self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     
-//    [self goToLogin];
+//    [self setNavigationBarItem];
+    
+    
     
     if (_urlString) {
         [self webViewLoadUrlData];
     }
+    [self addGoBackButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-//    if (_H5Type) {//&& UserInfoManager.isLogin
-//        [self requestData];
-//    }
+    //    if (_H5Type) {//&& UserInfoManager.isLogin
+    //        [self requestData];
+    //    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+
+- (void)addGoBackButton {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(50, 29, 50, 30);
+    [btn setTitle:@"关闭" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor colorWithHex:@"#4c4c4c"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:btn];
+
+}
+
+- (void)popView
+{
+        UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        tabBarVC.selectedIndex = 0;
+        [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)setNavigationBarItem
@@ -81,7 +107,7 @@
     _twoItemsArray = [NSArray arrayWithObjects:leftNegativeSpacer,item, nil];
     
     self.navigationItem.leftBarButtonItems = _twoItemsArray;
- 
+    
 }
 
 //webView如果有多层页面，点击返回回到上一页面。返回到首页再点击关闭当前控制器
@@ -114,17 +140,17 @@
 /** 加载webView */
 - (void)webViewLoadUrlData
 {
-//    NSString *path = [[NSBundle mainBundle] bundlePath];
-//    NSURL *baseURL = [NSURL fileURLWithPath:path];
-//    NSString * htmlPath = [[NSBundle mainBundle] pathForResource:@"index1"
-//                                                          ofType:@"html"];
-//    NSString * htmlCont = [NSString stringWithContentsOfFile:htmlPath
-//                                                    encoding:NSUTF8StringEncoding
-//                                                       error:nil];
-   
+    //    NSString *path = [[NSBundle mainBundle] bundlePath];
+    //    NSURL *baseURL = [NSURL fileURLWithPath:path];
+    //    NSString * htmlPath = [[NSBundle mainBundle] pathForResource:@"index1"
+    //                                                          ofType:@"html"];
+    //    NSString * htmlCont = [NSString stringWithContentsOfFile:htmlPath
+    //                                                    encoding:NSUTF8StringEncoding
+    //                                                       error:nil];
     
     
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
+    
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, kMainScreenWidth, kMainScreenHeight -20)];
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
     
@@ -138,7 +164,7 @@
     NSURL *url = [NSURL URLWithString:_urlString];
     [_webView loadRequest:[NSURLRequest requestWithURL:url]];
     
-//    [self.webView loadHTMLString:htmlCont baseURL:baseURL];
+    //    [self.webView loadHTMLString:htmlCont baseURL:baseURL];
     
 }
 
@@ -244,7 +270,7 @@
         
         [CommonFunc dismiss];
         [MBProgressHUD showError:@"获取数据失败!"];
-
+        
     }];
     
 }
@@ -281,9 +307,9 @@
         
         //打开以下注释
         /*
-        CPLoginViewController *login = TL_INSTANT_VC_WITH_ID(@"Main", @"CPLoginViewController");
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
-        [self presentViewController:nav animated:YES completion:nil];
+         CPLoginViewController *login = TL_INSTANT_VC_WITH_ID(@"Main", @"CPLoginViewController");
+         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+         [self presentViewController:nav animated:YES completion:nil];
          */
     };
 }

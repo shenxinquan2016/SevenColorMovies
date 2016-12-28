@@ -21,6 +21,7 @@
 //    [CommonFunc noDataOrNoNetTipsString:@"功能建设中..." addView:self.view];
 //    [Dong_NullDataView addImage:[UIImage imageNamed:@"NoBanner"] text:@"HTML" view:self.view];
 //    [Dong_NullDataView addTapAction:self action:@selector(jkdljlj) view:self.view];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -30,12 +31,13 @@
     DONG_MAIN_AFTER(0.5, UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
                     tabBarVC.selectedIndex = 0;);
     
+//    [self loadHtml5View];
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-   
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,13 +45,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)jkdljlj {
-    DONG_Log(@"测试");
-//    SCHTMLViewController *htmlVC = [[SCHTMLViewController alloc] init];
-//    htmlVC.hidesBottomBarWhenPushed = YES;
-//    htmlVC.urlString = @"http://10.177.4.25/mobile/";
-//    [self.navigationController pushViewController:htmlVC animated:YES];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://10.177.4.25/mobile/"]];
+- (void)loadHtml5View
+{
+    SCHTMLViewController *htmlVC = [[SCHTMLViewController alloc] init];
+    htmlVC.hidesBottomBarWhenPushed = YES;
+    htmlVC.urlString = @"http://10.177.4.25/mobile/";
+    [self.navigationController pushViewController:htmlVC animated:YES];
+    
 }
 
 // 禁止旋转屏幕
