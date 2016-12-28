@@ -114,6 +114,16 @@
 /** 加载webView */
 - (void)webViewLoadUrlData
 {
+//    NSString *path = [[NSBundle mainBundle] bundlePath];
+//    NSURL *baseURL = [NSURL fileURLWithPath:path];
+//    NSString * htmlPath = [[NSBundle mainBundle] pathForResource:@"index1"
+//                                                          ofType:@"html"];
+//    NSString * htmlCont = [NSString stringWithContentsOfFile:htmlPath
+//                                                    encoding:NSUTF8StringEncoding
+//                                                       error:nil];
+   
+    
+    
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
@@ -127,6 +137,8 @@
     
     NSURL *url = [NSURL URLWithString:_urlString];
     [_webView loadRequest:[NSURLRequest requestWithURL:url]];
+    
+//    [self.webView loadHTMLString:htmlCont baseURL:baseURL];
     
 }
 
@@ -172,7 +184,8 @@
     //[Dialog dismissSVHUD];
 }
 
--(void)webView:(UIWebView*)webView  DidFailLoadWithError:(NSError*)error{
+-(void)webView:(UIWebView*)webView  DidFailLoadWithError:(NSError*)error
+{
     //[Dialog dismissSVHUD];
     self.loadCount --;
     self.progressView.hidden = YES;
@@ -187,7 +200,12 @@
 }
 
 
-- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
+- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSURL* url = [request URL];
+    NSString* urlstring = [NSString stringWithFormat:@"%@",url];
+    DONG_Log(@"url = %@",urlstring);
+    
     
     if (_webView.canGoBack) {
         self.navigationItem.leftBarButtonItems = _threeItemsArray;

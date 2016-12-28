@@ -33,7 +33,7 @@
     DONG_Log(@"测试");
     SCHTMLViewController *htmlVC = [[SCHTMLViewController alloc] init];
     htmlVC.hidesBottomBarWhenPushed = YES;
-    htmlVC.urlString = @"https://www.baidu.com";
+    htmlVC.urlString = @"http://10.177.4.25/mobile/";
     [self.navigationController pushViewController:htmlVC animated:YES];
 }
 

@@ -126,6 +126,9 @@
 		11796BEA1DF8FB0C00F5923C /* SCUDPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BE91DF8FB0C00F5923C /* SCUDPSocketManager.m */; };
 		11796BF01DF93EE300F5923C /* SCTCPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BEF1DF93EE300F5923C /* SCTCPSocketManager.m */; };
 		117D1E201E08C466001195F2 /* SCSoundRecordingTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.mm */; };
+		11853B431E1267B60008E58E /* index1.html in Resources */ = {isa = PBXBuildFile; fileRef = 11853B421E1267B60008E58E /* index1.html */; };
+		11853B451E1267C80008E58E /* index1.css in Resources */ = {isa = PBXBuildFile; fileRef = 11853B441E1267C80008E58E /* index1.css */; };
+		11853B471E1267DD0008E58E /* index1.js in Resources */ = {isa = PBXBuildFile; fileRef = 11853B461E1267DD0008E58E /* index1.js */; };
 		1187027B1D740A3F005B3895 /* SCVideoLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */; };
 		1187027D1D740A57005B3895 /* SCVideoLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */; };
 		118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 118D19B61D59B2D000A6968D /* SCFilmIntroduceModel.m */; };
@@ -432,6 +435,9 @@
 		11796BEF1DF93EE300F5923C /* SCTCPSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTCPSocketManager.m; sourceTree = "<group>"; };
 		117D1E1E1E08C466001195F2 /* SCSoundRecordingTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSoundRecordingTool.h; sourceTree = "<group>"; };
 		117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SCSoundRecordingTool.mm; sourceTree = "<group>"; };
+		11853B421E1267B60008E58E /* index1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index1.html; sourceTree = "<group>"; };
+		11853B441E1267C80008E58E /* index1.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = index1.css; sourceTree = "<group>"; };
+		11853B461E1267DD0008E58E /* index1.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = index1.js; sourceTree = "<group>"; };
 		118702791D740A3F005B3895 /* SCVideoLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoLoadingView.h; sourceTree = "<group>"; };
 		1187027A1D740A3F005B3895 /* SCVideoLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoLoadingView.m; sourceTree = "<group>"; };
 		1187027C1D740A57005B3895 /* SCVideoLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCVideoLoadingView.xib; sourceTree = "<group>"; };
@@ -872,6 +878,9 @@
 			children = (
 				11052AC31E10FEA800BF795B /* SCHTMLViewController.h */,
 				11052AC41E10FEA800BF795B /* SCHTMLViewController.m */,
+				11853B421E1267B60008E58E /* index1.html */,
+				11853B441E1267C80008E58E /* index1.css */,
+				11853B461E1267DD0008E58E /* index1.js */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2161,6 +2170,7 @@
 			files = (
 				11C1C1C21D8020A300CEE71C /* SCFliterOptionCell.xib in Resources */,
 				11458EA31D45FEE200EBD16D /* SCMineTopCell.xib in Resources */,
+				11853B471E1267DD0008E58E /* index1.js in Resources */,
 				11458E981D45E0D500EBD16D /* SCDiscoveryTableViewCell.xib in Resources */,
 				1147FBB61DDE9D6000126F2E /* SCArtsDownloadCell.xib in Resources */,
 				115F024E1DDAFEC400DF911F /* SCDSJDownloadCell.xib in Resources */,
@@ -2169,6 +2179,7 @@
 				113F6C801D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib in Resources */,
 				1114482C1D87D31700CB8FA9 /* 域名替换IP说明.pdf in Resources */,
 				11051ED51D6D950100E920C1 /* SCLiveProgramListCell.xib in Resources */,
+				11853B431E1267B60008E58E /* index1.html in Resources */,
 				116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */,
 				11EB4A681DB4D5EB0032F2C4 /* SCWatchingHistoryCell.xib in Resources */,
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
@@ -2189,6 +2200,7 @@
 				11BB37D01D38E5C00002D487 /* Discovery.storyboard in Resources */,
 				111827901D800CD3005921D6 /* SCFliterOptionView.xib in Resources */,
 				11BB37841D38B9A00002D487 /* Assets.xcassets in Resources */,
+				11853B451E1267C80008E58E /* index1.css in Resources */,
 				1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */,
 				11323E101DB5CB650089A207 /* SCMyDownLoadManagerCell.xib in Resources */,
 				11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */,
