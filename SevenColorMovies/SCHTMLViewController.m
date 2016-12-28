@@ -175,6 +175,7 @@
     if (_webView.canGoBack) {
         self.navigationItem.leftBarButtonItems = _threeItemsArray;
     }
+    
     //获取当前网页的html
     //NSString *indexHtml = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
     

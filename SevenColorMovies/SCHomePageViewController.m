@@ -156,13 +156,13 @@ static NSString *const footerId = @"footerId";
     [_bannerFilmModelArr removeAllObjects];
     
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
-        //NSLog(@"==========dic:::%@========",responseObject);
+//        DONG_Log(@"==========dic:::%@========",responseObject);
         //1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         
         for (SCFilmClassModel *classModel in filmListModel.filmClassArray) {
             
-            if (![classModel._FilmClassName hasSuffix:@"今日推荐"]) {
+            if (![classModel._FilmClassName hasSuffix:@"今日推荐"] && ![classModel._FilmClassName isEqualToString:@"院线热映"] && ![classModel._FilmClassName isEqualToString:@"少儿剧场"] && ![classModel._FilmClassName isEqualToString:@"私人影院"]) {
                 
                 [_titleArray addObject:classModel._FilmClassName];
                 [_filmClassArray addObject:classModel];
@@ -170,7 +170,7 @@ static NSString *const footerId = @"footerId";
                 //                NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
                 //                NSLog(@"====FilmClassUrl::::%@",classModel.FilmClassUrl);
                 
-            }else{
+            } else if ([classModel._FilmClassName hasSuffix:@"今日推荐"]) {
                 //添加banner
                 NSArray *dataArr = responseObject[@"FilmClass"];
                 NSDictionary *dic = [dataArr firstObject];
