@@ -67,7 +67,7 @@
 }
 
 // TabBarViewController中要写该方法，否则会拦截子视图shouldAutorotate方法的调用
-- (BOOL)shouldAutorotate{
+- (BOOL)shouldAutorotate {
     return self.selectedViewController.shouldAutorotate;
 }
 
