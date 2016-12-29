@@ -179,23 +179,6 @@
                                             <action selector="doMoveUp:" destination="11b-d0-noV" eventType="touchUpInside" id="tCx-fm-SvR"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcQ-1l-riY">
-                                        <frame key="frameInset" minX="248" minY="8" width="31" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="录音"/>
-                                        <connections>
-                                            <action selector="startRecord:" destination="11b-d0-noV" eventType="touchDown" id="ZAp-ht-k6Y"/>
-                                            <action selector="stopRecord:" destination="11b-d0-noV" eventType="touchUpInside" id="UFO-7p-bhK"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OX1-6c-ZS1">
-                                        <frame key="frameInset" minX="248" minY="232" width="31" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="播放"/>
-                                        <connections>
-                                            <action selector="play:" destination="11b-d0-noV" eventType="touchUpInside" id="Lzb-CE-Zay"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -329,6 +312,24 @@
                                     <constraint firstAttribute="bottom" secondItem="Xp4-b9-2Rf" secondAttribute="bottom" constant="9" id="ovf-7a-hB2"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcQ-1l-riY">
+                                <frame key="frameInset" minX="129" minY="607" width="118" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="语音遥控器"/>
+                                <connections>
+                                    <action selector="startRecord:" destination="11b-d0-noV" eventType="touchDown" id="ZAp-ht-k6Y"/>
+                                    <action selector="stopRecord:" destination="11b-d0-noV" eventType="touchUpInside" id="UFO-7p-bhK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OX1-6c-ZS1">
+                                <frame key="frameInset" minX="313" minY="385" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="播放"/>
+                                <connections>
+                                    <action selector="play:" destination="11b-d0-noV" eventType="touchUpInside" id="Lzb-CE-Zay"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.11764705882352941" green="0.12549019607843137" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
