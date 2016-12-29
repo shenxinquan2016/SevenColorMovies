@@ -243,8 +243,10 @@
                 <outlet property="programNameLabel" destination="6Xc-iC-Vl7" id="MHx-Ir-pjx"/>
                 <outlet property="programNameRunLabel" destination="oan-lS-V2J" id="B14-cF-rqb"/>
                 <outlet property="progressSlider" destination="0SY-TZ-qnQ" id="sSR-fa-X8R"/>
+                <outlet property="pushScreenButton" destination="EAa-WC-RXm" id="WfS-WB-LXu"/>
                 <outlet property="topPanel" destination="L4f-8A-J5v" id="S4p-gq-fYk"/>
                 <outlet property="totalDurationLabel" destination="EiK-FX-EcO" id="GWz-hv-7Fx"/>
+                <outlet property="totalDurationLabelTrailingSpaceConstraint" destination="VUu-8K-zAZ" id="PoR-ft-Jt5"/>
             </connections>
             <point key="canvasLocation" x="239.5" y="316.5"/>
         </view>

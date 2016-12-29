@@ -34,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentLabel;
 /** 快进视图总时间 */
 @property (weak, nonatomic) IBOutlet UILabel *durationTimeLabel;
+/** 推屏按钮 */
+@property (weak, nonatomic) IBOutlet UIButton *pushScreenButton;
 /** 全屏按钮 */
 @property (weak, nonatomic) IBOutlet UIButton *fullScreenButton;
 /** 进度条当前时间 */
@@ -46,6 +48,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *fullScreenLockButton;
 /** 播放的节目名称-跑马灯 */
 @property (weak, nonatomic) IBOutlet Dong_RunLabel *programNameRunLabel;
+/** 播控条总时间label右约束 */
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalDurationLabelTrailingSpaceConstraint;
 
 - (void)showNoFade;
 - (void)showAndFade;

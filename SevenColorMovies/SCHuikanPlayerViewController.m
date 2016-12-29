@@ -203,6 +203,8 @@
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 strongself.IJKPlayerViewController.isSinglePlayerView = YES;
                 strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+                strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
+                strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                 
                 //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
@@ -407,6 +409,8 @@
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 strongself.IJKPlayerViewController.isSinglePlayerView = YES;
                 strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+                strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
+                strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                 
                 //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
@@ -508,6 +512,8 @@
                         strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                         strongself.IJKPlayerViewController.isSinglePlayerView = YES;
                         strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+                        strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
+                        strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                         [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                         
                         //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
@@ -630,6 +636,8 @@
                 strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 strongself.IJKPlayerViewController.isSinglePlayerView = YES;
                 strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+                strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
+                strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                 
                 //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
@@ -714,6 +722,8 @@
             strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             strongself.IJKPlayerViewController.isSinglePlayerView = YES;
             strongself.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+            strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
+            strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
             [strongself.view addSubview:strongself.IJKPlayerViewController.view];
             
             //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
