@@ -62,9 +62,12 @@ typedef NS_ENUM(NSUInteger, Direction) {
     
 }
 
+
 - (void)panViewChange:(UIPanGestureRecognizer *)pan
 {
     [_changeBrightnessAndVolumeToolView panDirection:pan];
+    
+    [self showAndFade];
 }
 
 // 自定义UISlider的样式和滑块
@@ -159,7 +162,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
     self.currentTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)(intPosition / 3600), (int)(intPosition % 3660) / 60, (int)(intPosition % 60)];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControl) object:nil];
-    if (!self.overlayPanel.hidden) {
+    if (self.overlayPanel.alpha != 0) {
         [self performSelector:@selector(refreshMediaControl) withObject:nil afterDelay:0.5];
     }
 }
