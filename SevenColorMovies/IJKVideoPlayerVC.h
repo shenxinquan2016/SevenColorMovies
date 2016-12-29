@@ -25,6 +25,7 @@ typedef void(^SeekToTimeBlock)(float seekToTime);
 @interface IJKVideoPlayerVC : UIViewController
 
 @property (atomic,strong) NSURL *url;
+/** 播放器实体 */
 @property (atomic, retain) id<IJKMediaPlayback> player;
 /** 是否正处于全屏状态 */
 @property (nonatomic, assign) BOOL isFullScreen;
@@ -36,6 +37,7 @@ typedef void(^SeekToTimeBlock)(float seekToTime);
 @property (nonatomic, copy) AddWatchHistoryBlock addWatchHistoryBlock;
 /** 推屏回调 */
 @property (nonatomic, copy) PushScreenBlock pushScreenBlock;
+/** 拖动进度条回调 */
 @property (nonatomic, copy) SeekToTimeBlock seekToTimeBlock;
 /** 标记是否是单独播放器页面 */
 @property (nonatomic, assign) BOOL isSinglePlayerView;
@@ -58,7 +60,7 @@ typedef void(^SeekToTimeBlock)(float seekToTime);
 /** 全屏 */
 - (IBAction)onClickFullScreenButton:(id)sender;
 
-/** 进度条 */
+/** 播控进度条 */
 - (IBAction)didSliderTouchDown:(id)sender;
 - (IBAction)didSliderTouchCancel:(id)sender;
 - (IBAction)didSliderTouchUpOutside:(id)sender;
