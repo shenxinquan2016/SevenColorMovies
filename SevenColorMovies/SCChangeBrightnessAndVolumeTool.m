@@ -24,11 +24,10 @@
     float systemVolume;//系统音量值
     PanDirection panDirection; //定义一个实例变量，保存枚举值
     CGPoint satrtPoint;//起始点
-    
 }
 
 #pragma mark- Initialize
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
     if (self) {
         
@@ -37,8 +36,8 @@
     return self;
 }
 
-- (void)setVolumeView:(IJKMediaControl *)vc{
-    
+- (void)setVolumeView:(IJKMediaControl *)vc
+{
     _mediaControlView = vc;
     MPVolumeView *volumeView = [[MPVolumeView alloc] init];
     volumeView.backgroundColor = [UIColor redColor];
@@ -140,14 +139,14 @@
 - (void)verticalMoved:(CGFloat)value
 {
     if (satrtPoint.x <= self.panView.bounds.size.width/2.0)
-    {   //调节亮度
+    {   // 调节亮度
         [[UIScreen mainScreen] setBrightness:[UIScreen mainScreen].brightness - (value / 10000)];
         // 亮度view加到window最上层
         DONG_BrightnessView *brightnessView = [DONG_BrightnessView sharedBrightnessView];
         [[UIApplication sharedApplication].keyWindow addSubview:brightnessView];
         
     } else
-    {   //调节音量
+    {   // 调节音量
         volumeViewSlider.value -= value /10000;
         systemVolume = volumeViewSlider.value;
     }
@@ -192,7 +191,7 @@
 #pragma mark - 根据时长求出字符串
 - (NSString *)durationStringWithTime:(int)time
 {
-    //获取小时
+    // 获取小时
     NSString *hour = [NSString stringWithFormat:@"%02d",time / 3600];
     // 获取分钟
     NSString *min = [NSString stringWithFormat:@"%02d",time % 3600 / 60];

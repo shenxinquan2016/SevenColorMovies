@@ -211,7 +211,9 @@
         } completion:^(BOOL finished) {
             self.orientationDidChange = NO;
         }];
+        
     } else {
+        
         if ([UIDevice currentDevice].orientation == UIDeviceOrientationPortrait) {
             self.center = CGPointMake(kMainScreenWidth * 0.5, (kMainScreenHeight - 10) * 0.5);
         } else {
