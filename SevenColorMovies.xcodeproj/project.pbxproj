@@ -138,6 +138,8 @@
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
 		1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */; };
 		119A677C1DFE4FC9000A147C /* SCDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 119A677B1DFE4FC9000A147C /* SCDeviceModel.m */; };
+		119CFC941E15282000CA09C3 /* SoundRecord.mar in Resources */ = {isa = PBXBuildFile; fileRef = 119CFC921E15282000CA09C3 /* SoundRecord.mar */; };
+		119CFC951E15282000CA09C3 /* SoundRecord.wav in Resources */ = {isa = PBXBuildFile; fileRef = 119CFC931E15282000CA09C3 /* SoundRecord.wav */; };
 		11A0AF5C1DFAF1E90047A46E /* SCSearchDeviceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0AF5B1DFAF1E90047A46E /* SCSearchDeviceVC.m */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
 		11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */; };
@@ -454,6 +456,8 @@
 		1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMovieEpisodeCell.xib; sourceTree = "<group>"; };
 		119A677A1DFE4FC9000A147C /* SCDeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDeviceModel.h; sourceTree = "<group>"; };
 		119A677B1DFE4FC9000A147C /* SCDeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDeviceModel.m; sourceTree = "<group>"; };
+		119CFC921E15282000CA09C3 /* SoundRecord.mar */ = {isa = PBXFileReference; lastKnownFileType = file; path = SoundRecord.mar; sourceTree = "<group>"; };
+		119CFC931E15282000CA09C3 /* SoundRecord.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = SoundRecord.wav; sourceTree = "<group>"; };
 		11A0AF5A1DFAF1E90047A46E /* SCSearchDeviceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchDeviceVC.h; sourceTree = "<group>"; };
 		11A0AF5B1DFAF1E90047A46E /* SCSearchDeviceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchDeviceVC.m; sourceTree = "<group>"; };
 		11A1D0661D3F433900E2BA0D /* UIView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addition.h"; sourceTree = "<group>"; };
@@ -858,6 +862,8 @@
 			children = (
 				116E1D5F1D4B5A9E00B488EC /* SCRemoteControlVC.h */,
 				116E1D601D4B5A9E00B488EC /* SCRemoteControlVC.m */,
+				119CFC921E15282000CA09C3 /* SoundRecord.mar */,
+				119CFC931E15282000CA09C3 /* SoundRecord.wav */,
 			);
 			name = RemoteControl;
 			sourceTree = "<group>";
@@ -2179,6 +2185,7 @@
 				113F6C801D5D9998009EB123 /* SCCollectionViewPageArtsCell.xib in Resources */,
 				1114482C1D87D31700CB8FA9 /* 域名替换IP说明.pdf in Resources */,
 				11051ED51D6D950100E920C1 /* SCLiveProgramListCell.xib in Resources */,
+				119CFC951E15282000CA09C3 /* SoundRecord.wav in Resources */,
 				11853B431E1267B60008E58E /* index1.html in Resources */,
 				116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */,
 				11EB4A681DB4D5EB0032F2C4 /* SCWatchingHistoryCell.xib in Resources */,
@@ -2209,6 +2216,7 @@
 				116E0F791DB0C03F00E280C6 /* SCProgramListCell.xib in Resources */,
 				1187027D1D740A57005B3895 /* SCVideoLoadingView.xib in Resources */,
 				1131C0E11D6705CD00BA151A /* IJKVideoPlayerVC.xib in Resources */,
+				119CFC941E15282000CA09C3 /* SoundRecord.mar in Resources */,
 				1164760A1D40CA8900A3BC1C /* SCChannelCatalogueCell.xib in Resources */,
 				11BB37CA1D38E3C20002D487 /* switchNetworkEnvironment.plist in Resources */,
 				11BB37821D38B9A00002D487 /* Main.storyboard in Resources */,

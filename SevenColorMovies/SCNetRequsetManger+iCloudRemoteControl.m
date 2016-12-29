@@ -49,9 +49,11 @@
     //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",@"multipart/form-data",nil];
     
     //        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/plain",nil];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
-    //    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    
     manager.requestSerializer.timeoutInterval = 10;//请求超时时间设置
     //设置请求格式
     //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -71,12 +73,15 @@
     
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
-            //利用XMLDictionary工具，将返回的XML直接转换为字典
-            //            NSDictionary *dic = [NSDictionary dictionaryWithXMLParser:responseObject];
-            NSDictionary *dic = [NSDictionary dictionaryWithXMLData:responseObject];
-            //                        DONG_Log(@"======successdic:%@",dic);
+            
+            NSError *myError;
+//            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:&myError];
+            
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&myError];
+            
             success(dic);
         }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"------%@》》》》》》", error);
         if (faild) {

@@ -46,6 +46,8 @@
 @property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
 @property (nonatomic, copy) NSString *host;
 
+@property (nonatomic, copy) NSString *isOnline;
+
 
 @end
 
@@ -95,38 +97,53 @@
 {
 //    NSString *cloudRemoteControlUrlStr = nil;
 //    if (_host) {
-//        cloudRemoteControlUrlStr = [_host stringByAppendingString:[NSString stringWithFormat:@":9099/prepare"]];
+//        cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/prepare", _host];
 //    } else {
 //        [MBProgressHUD showError:@"设备已断开，请重新连接"];
 //        return;
 //    }
 //    
+//    DONG_Log(@"cloudRemoteControlUrlStr:%@",cloudRemoteControlUrlStr);
+    
 //    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
 //        
 //        DONG_Log(@"responseObject:%@", responseObject);
 //        
-//        // 语音在线识别：采样率为8000 离线识别：采样率为16000
-        BOOL online;
-        float sampleRate = 0.f;
-        if (online) {
-            sampleRate = 8000.f;
-        } else {
-            sampleRate = 16000.f;
-        }
+//        NSDictionary *dic = responseObject;
+//        
+//        if ([dic[@"result"] isEqualToString:@"ok"]) {
+//           
+//            _isOnline = dic[@"type"];
     
-        //1.获取沙盒地址
-        NSString *tmpPath = [FileManageCommon GetTmpPath];
-        NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
-        
-        self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
-        
-        [_audioRecordingTool startRecord];
+            // 语音在线识别：采样率为8000 离线识别：采样率为16000
+            float sampleRate = 0.f;
+
+//            if ([_isOnline isEqualToString:@"online"]) {
+    
+                sampleRate = 8000.f;
+//                
+//            } else if ([_isOnline isEqualToString:@"offline"]) {
+//    
+//                sampleRate = 16000.f;
+//            }
+
+                //1.获取沙盒地址
+                NSString *tmpPath = [FileManageCommon GetTmpPath];
+                NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
+                
+                self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
+                
+                [_audioRecordingTool startRecord];
+            
+//        }
+//
+//    
 //
 //    } failure:^(id  _Nullable errorObject) {
 //        
 //        
 //    }];
-    
+//
     DONG_Log(@"开始录音");
     
 }
@@ -135,36 +152,57 @@
 {
     [_audioRecordingTool stopRecord];
     
+    NSString *tmpPath = [FileManageCommon GetTmpPath];
+    NSString *wavFilePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
+    NSString *marFilePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.mar"];
+    
+    //格式转换 .wav --> .mar
+    [SCSoundRecordingTool ConvertWavToAmr:wavFilePath amrSavePath:marFilePath];
+
+    
 //    NSString *cloudRemoteControlUrlStr = nil;
 //    if (_host) {
-//        cloudRemoteControlUrlStr = [_host stringByAppendingString:[NSString stringWithFormat:@":9099/recognition"]];
+//        cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/recognition", _host];
 //    } else {
 //        [MBProgressHUD showError:@"设备已断开，请重新连接"];
 //        return;
 //    }
     
-    NSString *tmpPath = [FileManageCommon GetTmpPath];
-    NSString *wavFilePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
-    NSString *marFilePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.mar"];
+     DONG_Log(@"wavFilePath:%@", wavFilePath);
     
-    //    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 8000.0], @"111", nil];
     
-//    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
+//    NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:marFilePath]];
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:wavFilePath] options:NSDataReadingMappedIfSafe error:nil];
+    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    
+    NSString *warString = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:wavFilePath] encoding:NSUTF8StringEncoding error:nil];
+//    NSString *marInBase64 = [warString stringByBase64Encoding];
+    
+    DONG_Log(@"string:%@", string);
+    DONG_Log(@"warString:%@", warString);
+    
+//    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                @"type", _isOnline ? _isOnline : @"",
+//                                @"sound", marInBase64 ? marInBase64 : @"", nil];
+//    
+//    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:parameters success:^(id  _Nullable responseObject) {
 //        
 //        DONG_Log(@"responseObject:%@", responseObject);
-    
-        // .wav --> .mar
-        [SCSoundRecordingTool ConvertWavToAmr:wavFilePath amrSavePath:marFilePath];
-    
+//        
+//        NSDictionary *dic = responseObject;
+//        
+//        
+//        
+//        
 //    } failure:^(id  _Nullable errorObject) {
 //        
 //        
 //    }];
+
     
+
     
-    
-    NSString *dkf;
-    [dkf stringByBase64Decoding];
 }
 
 

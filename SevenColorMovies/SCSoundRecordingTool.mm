@@ -52,7 +52,7 @@
         
         self.filePath = filePath;
         //2.获取文件路径url
-        self.recordFileUrl = [NSURL URLWithString:filePath];
+        self.recordFileUrl = [NSURL fileURLWithPath:filePath];
         
         //3.设置参数
         NSDictionary *recordSetting = [[NSDictionary alloc] initWithObjectsAndKeys:
