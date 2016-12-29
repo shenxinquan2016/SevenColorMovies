@@ -63,7 +63,7 @@ static const CGFloat LabelWidth = 55.f;
 /** 功能区距顶部约束 */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;
 /** 是否正在时移播放 */
-@property (nonatomic, assign, getter = isTimeShiftPlaying) BOOL timeShiftPlaying;
+@property (nonatomic, assign, getter = isTimeShiftPlaying) BOOL isTimeShiftPlaying;
 
 @end
 
@@ -759,7 +759,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 - (void)getLiveVideoSignalFlowUrl
 {
     //0.时移等于YES
-    _timeShiftPlaying = YES;
+    _isTimeShiftPlaying = YES;
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
@@ -838,7 +838,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 - (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2
 {
     //0.时移等于NO
-    _timeShiftPlaying = NO;
+    _isTimeShiftPlaying = NO;
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];

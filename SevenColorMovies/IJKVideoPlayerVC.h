@@ -59,13 +59,11 @@ typedef void(^SeekToTimeBlock)(float seekToTime);
 - (IBAction)onClickPlay:(id)sender;
 /** 全屏 */
 - (IBAction)onClickFullScreenButton:(id)sender;
-
 /** 播控进度条 */
 - (IBAction)didSliderTouchDown:(id)sender;
 - (IBAction)didSliderTouchCancel:(id)sender;
 - (IBAction)didSliderTouchUpOutside:(id)sender;
 - (IBAction)didSliderTouchUpInside:(id)sender;
 - (IBAction)didSliderValueChanged:(id)sender;
-
 
 @end
