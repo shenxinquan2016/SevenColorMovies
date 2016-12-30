@@ -95,7 +95,7 @@
 
 - (IBAction)startRecord:(id)sender
 {
-    NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/recognition", TCPScoketManager.host];
+    NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/prepare", TCPScoketManager.host];
     
     DONG_Log(@"cloudRemoteControlUrlStr:%@",cloudRemoteControlUrlStr);
     
@@ -106,36 +106,36 @@
         NSDictionary *dic = responseObject;
         
         if ([dic[@"result"] isEqualToString:@"ok"]) {
-           
+            
             _isOnline = dic[@"type"];
-    
-             // 语音在线识别：采样率为8000 离线识别：采样率为16000
+            
+            // 语音在线识别：采样率为8000 离线识别：采样率为16000
             float sampleRate = 0.f;
             if ([_isOnline isEqualToString:@"online"]) {
-    
+                
                 sampleRate = 8000.f;
-
+                
             } else if ([_isOnline isEqualToString:@"offline"]) {
-    
+                
                 sampleRate = 16000.f;
             }
-
-                //1.获取沙盒地址
-                NSString *tmpPath = [FileManageCommon GetTmpPath];
-                NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
-                
-                self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
-                
-                [_audioRecordingTool startRecord];
+            
+            //1.获取沙盒地址
+            NSString *tmpPath = [FileManageCommon GetTmpPath];
+            NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
+            
+            self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
+            
+            [_audioRecordingTool startRecord];
             
         } else if ([dic[@"result"] isEqualToString:@"wait"] || [dic[@"result"] isEqualToString:@"error"] ) {
             
             [MBProgressHUD showError:@"语音模块初始化中，请稍后再试"];
         }
-
+        
     } failure:^(id  _Nullable errorObject) {
         
-        
+        [MBProgressHUD showError:@"网络故障，请稍后再试"];
     }];
     
 }
@@ -150,12 +150,12 @@
     
     //格式转换 .wav --> .mar
     [SCSoundRecordingTool ConvertWavToAmr:wavFilePath amrSavePath:marFilePath];
-
+    
     NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/recognition", TCPScoketManager.host];
     
     
-     DONG_Log(@"marFilePath:%@", marFilePath);
-     DONG_Log(@"cloudRemoteControlUrlStr:%@", cloudRemoteControlUrlStr);
+    DONG_Log(@"marFilePath:%@", marFilePath);
+    DONG_Log(@"cloudRemoteControlUrlStr:%@", cloudRemoteControlUrlStr);
     
     NSString *base64String = nil;
     if ([_isOnline isEqualToString:@"online"]) {
@@ -170,7 +170,7 @@
     }
     
     DONG_Log(@"base64String:%@", base64String);
-
+    
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
                                 @"type", _isOnline ? _isOnline : @"",
                                 @"sound", base64String ? base64String : @"", nil];
@@ -179,15 +179,12 @@
         
         DONG_Log(@"responseObject:%@", responseObject);
         
-        NSDictionary *dic = responseObject;
-        
-        
         
     } failure:^(id  _Nullable errorObject) {
         
-        
+        [MBProgressHUD showError:@"网络故障，请稍后再试"];
     }];
-
+    
 }
 
 
@@ -414,13 +411,13 @@
             filmModel._Mid = dic2[@"_mid"];
             filmModel.jiIndex = [dic2[@"_sid"] integerValue];
             filmModel.currentPlayTime = [dic2[@"_currentPlayTime"] integerValue];
-           
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 //调用播放器
                 SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
                 
                 [self.navigationController pushViewController:player animated:YES];
-            
+                
             });
         }
     }

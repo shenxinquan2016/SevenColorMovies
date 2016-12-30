@@ -54,7 +54,7 @@
 //        manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     
-    manager.requestSerializer.timeoutInterval = 10;//请求超时时间设置
+    manager.requestSerializer.timeoutInterval = 2;//请求超时时间设置
     //设置请求格式
     //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
