@@ -137,7 +137,7 @@
         [self.audioPlayer prepareToPlay];
         [self.audioPlayer play];
         
-        //[FileManageCommon DeleteFile:self.filePath];
+         DONG_Log(@"播放录音");
     }
     
 }

@@ -157,6 +157,7 @@
     DONG_Log(@"marFilePath:%@", marFilePath);
     DONG_Log(@"cloudRemoteControlUrlStr:%@", cloudRemoteControlUrlStr);
     
+    // 在线传.war 离线传.wav
     NSString *base64String = nil;
     if ([_isOnline isEqualToString:@"online"]) {
         
@@ -179,6 +180,9 @@
         
         DONG_Log(@"responseObject:%@", responseObject);
         
+        // 完成传递后将音频文件删除
+//        [FileManageCommon DeleteFile:wavFilePath];
+//        [FileManageCommon DeleteFile:marFilePath];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -187,11 +191,10 @@
     
 }
 
-
 - (IBAction)play:(id)sender
 {
     [_audioRecordingTool playRecord];
-    DONG_Log(@"播放录音");
+   
 }
 
 
