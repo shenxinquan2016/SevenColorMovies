@@ -160,6 +160,7 @@
     
     NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/recognition", TCPScoketManager.host];
     
+
     
     DONG_Log(@"marFilePath:%@", marFilePath);
     DONG_Log(@"cloudRemoteControlUrlStr:%@", cloudRemoteControlUrlStr);
@@ -188,8 +189,8 @@
         DONG_Log(@"responseObject:%@", responseObject);
         
         // 完成传递后将音频文件删除
-//        [FileManageCommon DeleteFile:wavFilePath];
-//        [FileManageCommon DeleteFile:marFilePath];
+        [FileManageCommon DeleteFile:wavFilePath];
+        [FileManageCommon DeleteFile:marFilePath];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -203,8 +204,6 @@
     [_audioRecordingTool playRecord];
    
 }
-
-
 
 
 - (IBAction)doVolumeDown:(id)sender
