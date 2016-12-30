@@ -198,13 +198,6 @@
     
 }
 
-- (IBAction)play:(id)sender
-{
-    [_audioRecordingTool playRecord];
-   
-}
-
-
 - (IBAction)doVolumeDown:(id)sender
 {
     NSString *identifier = @"com.vurc.system";

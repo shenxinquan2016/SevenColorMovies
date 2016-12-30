@@ -323,14 +323,6 @@
                                     <action selector="touchCancel:" destination="11b-d0-noV" eventType="touchCancel" id="bDo-rC-WZV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OX1-6c-ZS1">
-                                <frame key="frameInset" minX="313" minY="385" width="31" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="播放"/>
-                                <connections>
-                                    <action selector="play:" destination="11b-d0-noV" eventType="touchUpInside" id="Lzb-CE-Zay"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.11764705882352941" green="0.12549019607843137" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
