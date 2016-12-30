@@ -126,6 +126,7 @@
 		11796BEA1DF8FB0C00F5923C /* SCUDPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BE91DF8FB0C00F5923C /* SCUDPSocketManager.m */; };
 		11796BF01DF93EE300F5923C /* SCTCPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BEF1DF93EE300F5923C /* SCTCPSocketManager.m */; };
 		117D1E201E08C466001195F2 /* SCSoundRecordingTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.mm */; };
+		11807D981E1632E600F19B41 /* NSData+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11807D971E1632E600F19B41 /* NSData+Addition.m */; };
 		11853B431E1267B60008E58E /* index1.html in Resources */ = {isa = PBXBuildFile; fileRef = 11853B421E1267B60008E58E /* index1.html */; };
 		11853B451E1267C80008E58E /* index1.css in Resources */ = {isa = PBXBuildFile; fileRef = 11853B441E1267C80008E58E /* index1.css */; };
 		11853B471E1267DD0008E58E /* index1.js in Resources */ = {isa = PBXBuildFile; fileRef = 11853B461E1267DD0008E58E /* index1.js */; };
@@ -435,6 +436,8 @@
 		11796BEF1DF93EE300F5923C /* SCTCPSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTCPSocketManager.m; sourceTree = "<group>"; };
 		117D1E1E1E08C466001195F2 /* SCSoundRecordingTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSoundRecordingTool.h; sourceTree = "<group>"; };
 		117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SCSoundRecordingTool.mm; sourceTree = "<group>"; };
+		11807D961E1632E600F19B41 /* NSData+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Addition.h"; sourceTree = "<group>"; };
+		11807D971E1632E600F19B41 /* NSData+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Addition.m"; sourceTree = "<group>"; };
 		11853B421E1267B60008E58E /* index1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index1.html; sourceTree = "<group>"; };
 		11853B441E1267C80008E58E /* index1.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = index1.css; sourceTree = "<group>"; };
 		11853B461E1267DD0008E58E /* index1.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = index1.js; sourceTree = "<group>"; };
@@ -1839,6 +1842,8 @@
 				11C905DE1D6C3BB9004D3749 /* NSDate+Addition.m */,
 				115CCDF21D796E8D0045ED5F /* UILabel+Addition.h */,
 				115CCDF31D796E8D0045ED5F /* UILabel+Addition.m */,
+				11807D961E1632E600F19B41 /* NSData+Addition.h */,
+				11807D971E1632E600F19B41 /* NSData+Addition.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -2423,6 +2428,7 @@
 				110175071D54402D00E43773 /* FileManageCommon.m in Sources */,
 				11C1C1C11D8020A300CEE71C /* SCFliterOptionCell.m in Sources */,
 				118D19B71D59B2D000A6968D /* SCFilmIntroduceModel.m in Sources */,
+				11807D981E1632E600F19B41 /* NSData+Addition.m in Sources */,
 				11BE83151D3CB56B00886CF6 /* SCSycleBanner.m in Sources */,
 				11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */,
 				116475F41D40988700A3BC1C /* SCOptionalVideoTableViewCell.m in Sources */,

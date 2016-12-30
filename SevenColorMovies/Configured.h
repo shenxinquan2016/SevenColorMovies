@@ -36,6 +36,7 @@
 #import "HLJRequest.h"
 #import "FileManageCommon.h"
 #import "SCNetHelper.h"
+#import "NSData+Addition.h"
 
 
 //@import MJRefresh;

@@ -160,8 +160,6 @@
     
     NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/recognition", TCPScoketManager.host];
     
-
-    
     DONG_Log(@"marFilePath:%@", marFilePath);
     DONG_Log(@"cloudRemoteControlUrlStr:%@", cloudRemoteControlUrlStr);
     
@@ -172,6 +170,8 @@
         NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:marFilePath] options:NSDataReadingMappedIfSafe error:nil];
         base64String = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
         
+        DONG_Log(@"base64String.length: %lu",(unsigned long)base64String.length);
+        
     } else if ([_isOnline isEqualToString:@"offline"]) {
         
         NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:wavFilePath] options:NSDataReadingMappedIfSafe error:nil];
@@ -181,8 +181,7 @@
     DONG_Log(@"base64String:%@", base64String);
     
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"type", _isOnline ? _isOnline : @"",
-                                @"sound", base64String ? base64String : @"", nil];
+                                @"data", base64String ? base64String : @"", nil];
     
     [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:parameters success:^(id  _Nullable responseObject) {
         
