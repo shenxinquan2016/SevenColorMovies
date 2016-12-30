@@ -35,7 +35,8 @@ typedef NS_ENUM(NSUInteger, TCPSocketOfflineType){
 @property (nonatomic, assign) NSInteger reConnectionCount;  // 建连失败重连次数
 @property (nonatomic, assign, readonly) BOOL isConnected;
 @property (nonatomic, assign) TCPSocketOfflineType offlineType;
-
+/** 建立连接的ip */
+@property (nonatomic, copy) NSString *host;
 
 /**
  *  udpSocket单例

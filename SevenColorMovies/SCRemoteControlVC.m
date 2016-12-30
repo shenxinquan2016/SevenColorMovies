@@ -95,37 +95,30 @@
 
 - (IBAction)startRecord:(id)sender
 {
-//    NSString *cloudRemoteControlUrlStr = nil;
-//    if (_host) {
-//        cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/prepare", _host];
-//    } else {
-//        [MBProgressHUD showError:@"设备已断开，请重新连接"];
-//        return;
-//    }
-//    
-//    DONG_Log(@"cloudRemoteControlUrlStr:%@",cloudRemoteControlUrlStr);
+    NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/recognition", TCPScoketManager.host];
     
-//    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
-//        
-//        DONG_Log(@"responseObject:%@", responseObject);
-//        
-//        NSDictionary *dic = responseObject;
-//        
-//        if ([dic[@"result"] isEqualToString:@"ok"]) {
-//           
-//            _isOnline = dic[@"type"];
+    DONG_Log(@"cloudRemoteControlUrlStr:%@",cloudRemoteControlUrlStr);
     
-            // 语音在线识别：采样率为8000 离线识别：采样率为16000
+    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
+        
+        DONG_Log(@"responseObject:%@", responseObject);
+        
+        NSDictionary *dic = responseObject;
+        
+        if ([dic[@"result"] isEqualToString:@"ok"]) {
+           
+            _isOnline = dic[@"type"];
+    
+             // 语音在线识别：采样率为8000 离线识别：采样率为16000
             float sampleRate = 0.f;
-
-//            if ([_isOnline isEqualToString:@"online"]) {
+            if ([_isOnline isEqualToString:@"online"]) {
     
                 sampleRate = 8000.f;
-//                
-//            } else if ([_isOnline isEqualToString:@"offline"]) {
-//    
-//                sampleRate = 16000.f;
-//            }
+
+            } else if ([_isOnline isEqualToString:@"offline"]) {
+    
+                sampleRate = 16000.f;
+            }
 
                 //1.获取沙盒地址
                 NSString *tmpPath = [FileManageCommon GetTmpPath];
@@ -135,16 +128,15 @@
                 
                 [_audioRecordingTool startRecord];
             
-//        }
-//
-//    
-//
-//    } failure:^(id  _Nullable errorObject) {
-//        
-//        
-//    }];
-//
-    DONG_Log(@"开始录音");
+        } else if ([dic[@"result"] isEqualToString:@"wait"] || [dic[@"result"] isEqualToString:@"error"] ) {
+            
+            [MBProgressHUD showError:@"语音模块初始化中，请稍后再试"];
+        }
+
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
     
 }
 
@@ -159,50 +151,43 @@
     //格式转换 .wav --> .mar
     [SCSoundRecordingTool ConvertWavToAmr:wavFilePath amrSavePath:marFilePath];
 
-    
-//    NSString *cloudRemoteControlUrlStr = nil;
-//    if (_host) {
-//        cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/recognition", _host];
-//    } else {
-//        [MBProgressHUD showError:@"设备已断开，请重新连接"];
-//        return;
-//    }
-    
-     DONG_Log(@"wavFilePath:%@", wavFilePath);
+    NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/recognition", TCPScoketManager.host];
     
     
-//    NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:marFilePath]];
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:wavFilePath] options:NSDataReadingMappedIfSafe error:nil];
-    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+     DONG_Log(@"marFilePath:%@", marFilePath);
+     DONG_Log(@"cloudRemoteControlUrlStr:%@", cloudRemoteControlUrlStr);
     
+    NSString *base64String = nil;
+    if ([_isOnline isEqualToString:@"online"]) {
+        
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:marFilePath] options:NSDataReadingMappedIfSafe error:nil];
+        base64String = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        
+    } else if ([_isOnline isEqualToString:@"offline"]) {
+        
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:wavFilePath] options:NSDataReadingMappedIfSafe error:nil];
+        base64String = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    }
     
-    NSString *warString = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:wavFilePath] encoding:NSUTF8StringEncoding error:nil];
-//    NSString *marInBase64 = [warString stringByBase64Encoding];
-    
-    DONG_Log(@"string:%@", string);
-    DONG_Log(@"warString:%@", warString);
-    
-//    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                @"type", _isOnline ? _isOnline : @"",
-//                                @"sound", marInBase64 ? marInBase64 : @"", nil];
-//    
-//    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:parameters success:^(id  _Nullable responseObject) {
-//        
-//        DONG_Log(@"responseObject:%@", responseObject);
-//        
-//        NSDictionary *dic = responseObject;
-//        
-//        
-//        
-//        
-//    } failure:^(id  _Nullable errorObject) {
-//        
-//        
-//    }];
+    DONG_Log(@"base64String:%@", base64String);
 
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
+                                @"type", _isOnline ? _isOnline : @"",
+                                @"sound", base64String ? base64String : @"", nil];
     
+    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        DONG_Log(@"responseObject:%@", responseObject);
+        
+        NSDictionary *dic = responseObject;
+        
+        
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
 
-    
 }
 
 

@@ -83,6 +83,7 @@
         [_audioRecorder record];
         
         [self performSelector:@selector(stopRecord) withObject:nil afterDelay:5.f];
+         DONG_Log(@"开始录音");
         
     }else{
         DONG_Log(@"音频格式和文件存储格式不匹配,无法初始化Recorder");

@@ -24,8 +24,6 @@
 /** 心跳计时器 */
 @property (nonatomic, retain) NSTimer *heartBeatTimer;
 @property (nonatomic, strong) NSTimer *reconnectTimer;  // 重连定时器
-/** ip */
-@property (nonatomic, copy) NSString *host;
 /** 端口 */
 @property (nonatomic, assign) UInt16 port;
 /** 发数据处理的串行队列 */
