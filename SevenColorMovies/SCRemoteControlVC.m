@@ -93,6 +93,7 @@
 
 #pragma mark - IBAction
 
+// 开始录音
 - (IBAction)startRecord:(id)sender
 {
     NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/prepare", TCPScoketManager.host];
@@ -138,6 +139,12 @@
         [MBProgressHUD showError:@"网络故障，请稍后再试"];
     }];
     
+}
+
+// 结束录音
+- (IBAction)touchCancel:(id)sender
+{
+    [self stopRecord:sender];
 }
 
 - (IBAction)stopRecord:(id)sender

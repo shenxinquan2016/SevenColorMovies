@@ -320,6 +320,7 @@
                                 <connections>
                                     <action selector="startRecord:" destination="11b-d0-noV" eventType="touchDown" id="ZAp-ht-k6Y"/>
                                     <action selector="stopRecord:" destination="11b-d0-noV" eventType="touchUpInside" id="UFO-7p-bhK"/>
+                                    <action selector="touchCancel:" destination="11b-d0-noV" eventType="touchCancel" id="bDo-rC-WZV"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OX1-6c-ZS1">
