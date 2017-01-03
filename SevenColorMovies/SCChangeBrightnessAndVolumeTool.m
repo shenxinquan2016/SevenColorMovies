@@ -55,7 +55,7 @@
 {
     // 我们要响应水平移动和垂直移动
     // 根据上次和本次移动的位置，算出一个速率的point
-    CGPoint veloctyPoint = [pan velocityInView:self.panView];
+    CGPoint velocityPoint = [pan velocityInView:self.panView];
     //    locationInView
     // 判断是垂直移动还是水平移动
     switch (pan.state) {
@@ -64,8 +64,8 @@
             //获取起点
             satrtPoint = [pan locationInView:self.panView];
             // 使用绝对值来判断移动的方向
-            CGFloat x = fabs(veloctyPoint.x);
-            CGFloat y = fabs(veloctyPoint.y);
+            CGFloat x = fabs(velocityPoint.x);
+            CGFloat y = fabs(velocityPoint.y);
             
             if (x > y) { // 水平移动 控制快进
                 
@@ -93,11 +93,11 @@
             switch (panDirection) {
                 case PanDirectionHorizontalMoved:{
                     [self.mediaControlView showAndFade];//控件显示出来
-                    [self horizontalMoved:veloctyPoint.x]; // 水平移动的方法只要x方向的值
+                    [self horizontalMoved:velocityPoint.x]; // 水平移动的方法只要x方向的值
                     break;
                 }
                 case PanDirectionVerticalMoved:{
-                    [self verticalMoved:veloctyPoint.y]; // 垂直移动方法只要y方向的值
+                    [self verticalMoved:velocityPoint.y]; // 垂直移动方法只要y方向的值
                     break;
                 }
                 default:
@@ -115,7 +115,6 @@
                     // ⚠️在滑动结束后，视屏要跳转
                     self.mediaControlView.delegatePlayer.currentPlaybackTime = _sumTime;
                     // 把sumTime滞空，不然会越加越多
-                    _mediaControlView.delegatePlayer.currentPlaybackTime = _sumTime;
                     _sumTime = 0;
                     break;
                 }

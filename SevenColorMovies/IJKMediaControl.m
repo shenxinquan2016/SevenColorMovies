@@ -134,7 +134,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
 
 - (void)refreshMediaControl
 {
-    // duration
+    // duration 秒（S）
     NSTimeInterval duration = self.delegatePlayer.duration;
     NSInteger intDuration = duration + 0.5;
     if (intDuration > 0) {

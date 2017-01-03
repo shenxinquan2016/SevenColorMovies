@@ -400,6 +400,7 @@
 - (IBAction)didSliderTouchUpInside:(id)sender
 {
     // 4
+    // player.currentPlaybackTime 和 progressSlider.value 的值都为秒（S）
     self.player.currentPlaybackTime = self.mediaControl.progressSlider.value;
     [self.mediaControl endDragMediaSlider];
     DONG_Log(@"progressSlider.value:%f",self.mediaControl.progressSlider.value);
