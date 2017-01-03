@@ -54,6 +54,7 @@
 - (void)showNoFade;
 - (void)showAndFade;
 - (void)hide;
+- (void)cancelDelayedHide;
 - (void)refreshMediaControl;
 
 - (void)beginDragMediaSlider;

@@ -390,11 +390,13 @@
 - (IBAction)didSliderTouchCancel:(id)sender
 {
     [self.mediaControl endDragMediaSlider];
+    [self.mediaControl showAndFade];
 }
 
 - (IBAction)didSliderTouchUpOutside:(id)sender
 {
     [self.mediaControl endDragMediaSlider];
+    [self.mediaControl showAndFade];
 }
 
 - (IBAction)didSliderTouchUpInside:(id)sender
@@ -403,17 +405,17 @@
     // player.currentPlaybackTime 和 progressSlider.value 的值都为秒（S）
     self.player.currentPlaybackTime = self.mediaControl.progressSlider.value;
     [self.mediaControl endDragMediaSlider];
+    [self.mediaControl showAndFade];
     DONG_Log(@"progressSlider.value:%f",self.mediaControl.progressSlider.value);
     
-    if (self.seekToTimeBlock) {
-        self.seekToTimeBlock(self.mediaControl.progressSlider.value);
-    }
+    
 }
 
 - (IBAction)didSliderValueChanged:(id)sender
 {
     // 1
     // 3
+    [self.mediaControl cancelDelayedHide];
     [self.mediaControl continueDragMediaSlider];
     DONG_Log(@"progressSlider.value:%f",self.mediaControl.progressSlider.value);
 }
