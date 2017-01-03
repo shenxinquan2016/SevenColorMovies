@@ -17,7 +17,9 @@ typedef NS_ENUM(NSUInteger, Direction) {
 
 @interface IJKMediaControl ()
 
-@property (nonatomic,strong) SCChangeBrightnessAndVolumeTool *changeBrightnessAndVolumeToolView;
+@property (nonatomic, strong) SCChangeBrightnessAndVolumeTool *changeBrightnessAndVolumeToolView;
+/** 直播/时移状态 */
+@property (nonatomic, assign) SCLiveState liveState;
 
 @end
 
@@ -50,7 +52,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
     self.goFastView.hidden = YES;
     self.playButton.hidden = YES;//第一次加载时隐藏
     self.fullScreenLockButton.hidden = YES;
-    
+    self.isLiveProgram = NO;//默认设置为NO
     //根据手势获取系统音量
     _changeBrightnessAndVolumeToolView = [[SCChangeBrightnessAndVolumeTool alloc] init];
     _changeBrightnessAndVolumeToolView.panView = self;

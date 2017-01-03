@@ -23,6 +23,8 @@
 #import "SCSearchViewController.h"
 #import "SCLiveViewController.h"
 
+
+
 //static const CGFloat StatusBarHeight = 20.0f;
 /** 滑动标题栏高度 */
 static const CGFloat TitleHeight = 50.0f;
@@ -62,8 +64,8 @@ static const CGFloat LabelWidth = 55.f;
 @property (nonatomic, assign) BOOL fullScreenLock;
 /** 功能区距顶部约束 */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;
-/** 是否正在时移播放 */
-@property (nonatomic, assign, getter = isTimeShiftPlaying) BOOL isTimeShiftPlaying;
+/** 直播/时移状态 */
+@property (nonatomic, assign) SCLiveState liveState;
 
 @end
 
@@ -529,12 +531,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         case IJKMPMoviePlaybackStateSeekingBackward: {
             NSLog(@"IJKMPMoviePlayBackStateDidChange %d: seeking", (int)_IJKPlayerViewController.player.playbackState);
             
-            // 进入时移
-            if (self.isTimeShiftPlaying) {
-                DONG_Log(@"进入时移");
-                
-                
-            }
+           
             
             break;
         }
@@ -758,8 +755,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 //请求直播流url
 - (void)getLiveVideoSignalFlowUrl
 {
-    //0.时移等于YES
-    _isTimeShiftPlaying = YES;
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
@@ -837,8 +832,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 //请求回看节目视频流url
 - (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2
 {
-    //0.时移等于NO
-    _isTimeShiftPlaying = NO;
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];

@@ -413,8 +413,7 @@
 
 - (IBAction)didSliderValueChanged:(id)sender
 {
-    // 1
-    // 3
+    // 1  3
     [self.mediaControl cancelDelayedHide];
     [self.mediaControl continueDragMediaSlider];
     DONG_Log(@"progressSlider.value:%f",self.mediaControl.progressSlider.value);

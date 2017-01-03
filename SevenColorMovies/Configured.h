@@ -65,7 +65,10 @@ typedef NS_ENUM(NSUInteger, SCFilterOptionType) {
     FilmTime,//时间
 };
 
-
+typedef NS_ENUM(NSInteger, SCLiveState) {
+    Live = 0, //直播
+    TimeShift,//时移
+};
 
 #endif /* Configured_h */
 

@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "Dong_RunLabel.h"
+
+
 @protocol IJKMediaPlayback;
 
 @interface IJKMediaControl : UIControl
 
-@property(nonatomic,weak) id<IJKMediaPlayback> delegatePlayer;
-
+@property (nonatomic, weak) id<IJKMediaPlayback> delegatePlayer;
+/** 是否在直播频道 */
+@property (nonatomic, assign) BOOL isLiveProgram;
 /** 控制层 */
 @property (weak, nonatomic) IBOutlet UIView *overlayPanel;
 /** 底部视图 */
@@ -60,6 +63,7 @@
 - (void)beginDragMediaSlider;
 - (void)endDragMediaSlider;
 - (void)continueDragMediaSlider;
+
 
 
 @end
