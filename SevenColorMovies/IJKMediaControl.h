@@ -9,14 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "Dong_RunLabel.h"
 
+typedef NS_ENUM(NSInteger, SCLiveState) {
+    Live = 0, //直播
+    TimeShift,//时移
+};
 
 @protocol IJKMediaPlayback;
 
 @interface IJKMediaControl : UIControl
 
+/** 直播/时移状态 */
+@property (nonatomic, assign) SCLiveState liveState;
+
 @property (nonatomic, weak) id<IJKMediaPlayback> delegatePlayer;
 /** 是否在直播频道 */
-@property (nonatomic, assign) BOOL isLiveProgram;
+@property (nonatomic, assign) BOOL isLive;
 /** 控制层 */
 @property (weak, nonatomic) IBOutlet UIView *overlayPanel;
 /** 底部视图 */

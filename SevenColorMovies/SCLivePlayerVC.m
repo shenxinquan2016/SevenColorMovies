@@ -755,12 +755,17 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 //请求直播流url
 - (void)getLiveVideoSignalFlowUrl
 {
+    //0.直播状态
+    self.liveState = Live;
+    
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
     }
+    
     //2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
+    
     //3.请求播放地址url
     //fid = tvId + "_" + tvId
     NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
@@ -780,13 +785,14 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             
             //4.移除当前的播放器
             [self.IJKPlayerViewController closePlayer];
+           
             //5.开始播放直播
             self.url = [NSURL URLWithString:liveUrl];
             //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            //_IJKPlayerViewController.mediaControl.programNameLabel.text = programOnLiveName_;
             _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+            _IJKPlayerViewController.mediaControl.isLive = YES;
             
             //3.推屏的回调
             DONG_WeakSelf(self);
@@ -832,6 +838,9 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 //请求回看节目视频流url
 - (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2
 {
+    //0.直播状态
+    self.liveState = Live;
+
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
@@ -839,6 +848,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     //2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
+   
     //3.请求播放地址url
     DONG_Log(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
     DONG_Log(@"%@   %@",model1.startTime,model2.startTime);
@@ -873,11 +883,13 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         
         //4.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
+       
         //5.加载新的播放器开始播放
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
         self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
+        self.IJKPlayerViewController.mediaControl.isLive = NO;
         
         //3.推屏的回调
         DONG_WeakSelf(self);

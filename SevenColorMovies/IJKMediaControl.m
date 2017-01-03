@@ -9,7 +9,7 @@
 #import "IJKMediaControl.h"
 #import <IJKMediaFramework/IJKMediaFramework.h>
 
-typedef NS_ENUM(NSUInteger, Direction) {
+typedef NS_ENUM (NSUInteger, Direction) {
     DirectionLeftOrRight,
     DirectionUpOrDown,
     DirectionNone
@@ -18,8 +18,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
 @interface IJKMediaControl ()
 
 @property (nonatomic, strong) SCChangeBrightnessAndVolumeTool *changeBrightnessAndVolumeToolView;
-/** 直播/时移状态 */
-@property (nonatomic, assign) SCLiveState liveState;
+
 
 @end
 
@@ -52,7 +51,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
     self.goFastView.hidden = YES;
     self.playButton.hidden = YES;//第一次加载时隐藏
     self.fullScreenLockButton.hidden = YES;
-    self.isLiveProgram = NO;//默认设置为NO
+    self.isLive = NO;//默认设置为NO
     //根据手势获取系统音量
     _changeBrightnessAndVolumeToolView = [[SCChangeBrightnessAndVolumeTool alloc] init];
     _changeBrightnessAndVolumeToolView.panView = self;
@@ -139,6 +138,7 @@ typedef NS_ENUM(NSUInteger, Direction) {
     // duration 秒（S）
     NSTimeInterval duration = self.delegatePlayer.duration;
     NSInteger intDuration = duration + 0.5;
+    
     if (intDuration > 0) {
         self.progressSlider.maximumValue = duration;
         self.totalDurationLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d", (int)(intDuration / 3600), (int)((intDuration % 3600) / 60), (int)(intDuration % 60)];
@@ -168,6 +168,50 @@ typedef NS_ENUM(NSUInteger, Direction) {
         [self performSelector:@selector(refreshMediaControl) withObject:nil afterDelay:0.5];
     }
 }
+
+
+- (void)refreshMediaControlWhenLive
+{
+    // duration 秒（S）
+    NSTimeInterval duration = 6 * 3600;//支持6个小时内的时移
+    NSInteger intDuration = duration + 0.5;
+    
+    NSString *dateString = [NSDate dateStringFromDate:[NSDate date] withDateFormat:@"HH:mm:ss"];
+    
+    self.progressSlider.maximumValue = duration;
+    self.totalDurationLabel.text = dateString;
+    
+    
+    
+    // position
+    
+    
+    
+    NSTimeInterval position;
+    if (_isMediaSliderBeingDragged) {
+        position = self.progressSlider.value;
+    } else {
+        position = self.delegatePlayer.currentPlaybackTime;
+    }
+    NSInteger intPosition = position + 0.5;
+    if (intDuration > 0) {
+        self.progressSlider.value = position;
+    } else {
+        self.progressSlider.value = 0.0f;
+    }
+    
+    self.currentTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)(intPosition / 3600), (int)(intPosition % 3660) / 60, (int)(intPosition % 60)];
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControl) object:nil];
+    if (self.overlayPanel.alpha != 0) {
+        [self performSelector:@selector(refreshMediaControl) withObject:nil afterDelay:0.5];
+    }
+    
+}
+
+
+
+
 
 
 
