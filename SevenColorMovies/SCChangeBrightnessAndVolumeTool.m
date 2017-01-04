@@ -75,7 +75,7 @@
                 self.mediaControlView.goFastView.hidden = NO;
                 // 给sumTime初值
                 if (_mediaControlView.isLive) {
-                    _sumTime = 6 * 3600;
+                    _sumTime = 6 * 60 * 60;
                 } else {
                     _sumTime = _mediaControlView.delegatePlayer.currentPlaybackTime;
                 }
@@ -179,6 +179,9 @@
     [self.mediaControlView.goFastImageView setImage:[UIImage imageNamed:imageStyle]];
     self.mediaControlView.progressSlider.value = _sumTime;
     self.mediaControlView.delegatePlayer.currentPlaybackTime = self.mediaControlView.progressSlider.value;
+    
+    
+    
     
     // 当前快进的时间
     //NSString *nowTime = [self durationStringWithTime:(int)_sumTime];

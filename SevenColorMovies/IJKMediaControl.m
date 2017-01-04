@@ -144,6 +144,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
 
 }
 
+// 点播刷新
 - (void)refreshMediaControl
 {
     // duration 秒（S）
@@ -156,6 +157,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
         self.durationTimeLabel.text  = [NSString stringWithFormat:@"%02d:%02d:%02d", (int)(intDuration / 3600), (int)((intDuration % 3600) / 60), (int)(intDuration % 60)];
         
     } else {
+        
         self.totalDurationLabel.text = @"--:--:--";
         self.durationTimeLabel.text  = @"--:--:--";
         self.progressSlider.maximumValue = 1.0f;
@@ -184,6 +186,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
     }
 }
 
+// 直播和时移时刷新
 - (void)refreshMediaControlWhenLive
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControl) object:nil];
@@ -199,8 +202,10 @@ typedef NS_ENUM (NSUInteger, Direction) {
     NSDate *crrrentLabelDate = [date dateByAddingTimeInterval:seconds];//
     self.progressSlider.maximumValue = intDuration;
     self.totalDurationLabel.text = dateString;
+    self.durationTimeLabel.text  = dateString;
     NSString *currentLabelString = [NSDate dateStringFromDate:crrrentLabelDate withDateFormat:@"HH:mm:ss"];
-    self.currentTimeLabel.text = currentLabelString;
+    self.currentTimeLabel.text   = currentLabelString;
+    self.currentLabel.text  = currentLabelString;
     
     // position  区分直播和时移
     if (_liveState == Live) {
