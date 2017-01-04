@@ -751,7 +751,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     }];
 }
 
-//请求直播流url
+// 请求直播流url
 - (void)getLiveVideoSignalFlowUrl
 {
     //1.关闭正在播放的节目
@@ -789,6 +789,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
             _IJKPlayerViewController.mediaControl.isLive = YES;
+            _IJKPlayerViewController.mediaControl.liveState = Live;
             
             //3.推屏的回调
             DONG_WeakSelf(self);
@@ -831,7 +832,14 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     }];
 }
 
-//请求回看节目视频流url
+// 请求时移节目视屏流url
+- (void)requestTimeShiftVideoSignalFlowUrl
+{
+    
+    
+}
+
+// 请求回看节目视频流url
 - (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2
 {
     //1.关闭正在播放的节目
@@ -882,7 +890,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
         self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
-        self.IJKPlayerViewController.mediaControl.isLive = NO;
         
         //3.推屏的回调
         DONG_WeakSelf(self);
