@@ -45,6 +45,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
     self.goBackButton.enlargedEdge = 100.f;
     [self setupProgressSlider];//自定义UISlider
     [self refreshMediaControl];
+//    [self refreshMediaControlWhenLive];
     [self showNoFade];
     self.programNameLabel.hidden = YES;
     self.programNameRunLabel.textAlignment = NSTextAlignmentLeft;
@@ -173,38 +174,43 @@ typedef NS_ENUM (NSUInteger, Direction) {
 - (void)refreshMediaControlWhenLive
 {
     // duration 秒（S）
-    NSTimeInterval duration = 6 * 3600;//支持6个小时内的时移
+    NSTimeInterval duration = 6 * 3600;// 支持6个小时内的时移
     NSInteger intDuration = duration + 0.5;
     
-    NSString *dateString = [NSDate dateStringFromDate:[NSDate date] withDateFormat:@"HH:mm:ss"];
-    
-    self.progressSlider.maximumValue = duration;
+    // label
+    NSDate *date = [NSDate date];// 格林尼治时间
+//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+//    NSTimeInterval seconds = [zone secondsFromGMTForDate:date];// 时间差
+//    NSDate *nowDate = [date dateByAddingTimeInterval:seconds];// 当前系统时间
+    NSString *dateString = [NSDate dateStringFromDate:date withDateFormat:@"HH:mm:ss"];
+   
+    NSTimeInterval seconds = - 6*3600;
+    NSDate *crrrentLabelDate = [date dateByAddingTimeInterval:seconds];//
+    self.progressSlider.maximumValue = intDuration;
     self.totalDurationLabel.text = dateString;
+    NSString *currentLabelString = [NSDate dateStringFromDate:crrrentLabelDate withDateFormat:@"HH:mm:ss"];
+    self.currentTimeLabel.text = currentLabelString;
     
-    
-    
-    // position
-    
-    
-    
-    NSTimeInterval position;
-    if (_isMediaSliderBeingDragged) {
-        position = self.progressSlider.value;
-    } else {
-        position = self.delegatePlayer.currentPlaybackTime;
-    }
-    NSInteger intPosition = position + 0.5;
-    if (intDuration > 0) {
+    // position  区分直播和时移
+    if (_liveState == Live) {
+        
+      self.progressSlider.value = intDuration;
+        
+    } else if (_liveState == TimeShift) {
+        
+        NSTimeInterval position;
+        if (_isMediaSliderBeingDragged) {
+            position = self.progressSlider.value;
+        } else {
+            position = self.delegatePlayer.currentPlaybackTime;
+        }
+
         self.progressSlider.value = position;
-    } else {
-        self.progressSlider.value = 0.0f;
     }
     
-    self.currentTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)(intPosition / 3600), (int)(intPosition % 3660) / 60, (int)(intPosition % 60)];
-    
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControl) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControlWhenLive) object:nil];
     if (self.overlayPanel.alpha != 0) {
-        [self performSelector:@selector(refreshMediaControl) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(refreshMediaControlWhenLive) withObject:nil afterDelay:0.5];
     }
     
 }

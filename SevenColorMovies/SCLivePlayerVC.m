@@ -24,7 +24,6 @@
 #import "SCLiveViewController.h"
 
 
-
 //static const CGFloat StatusBarHeight = 20.0f;
 /** 滑动标题栏高度 */
 static const CGFloat TitleHeight = 50.0f;
