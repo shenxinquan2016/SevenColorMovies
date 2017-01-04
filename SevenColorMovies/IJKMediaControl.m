@@ -190,11 +190,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
     
     // label
     NSDate *date = [NSDate date];// 格林尼治时间
-//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-//    NSTimeInterval seconds = [zone secondsFromGMTForDate:date];// 时间差
-//    NSDate *nowDate = [date dateByAddingTimeInterval:seconds];// 当前系统时间
     NSString *dateString = [NSDate dateStringFromDate:date withDateFormat:@"HH:mm:ss"];
-   
     NSTimeInterval seconds = - 6*3600;
     NSDate *crrrentLabelDate = [date dateByAddingTimeInterval:seconds];//
     self.progressSlider.maximumValue = intDuration;
@@ -205,7 +201,14 @@ typedef NS_ENUM (NSUInteger, Direction) {
     // position  区分直播和时移
     if (_liveState == Live) {
         
-      self.progressSlider.value = intDuration;
+        NSTimeInterval position;
+        if (_isMediaSliderBeingDragged) {
+            position = self.progressSlider.value;
+        } else {
+            position = intDuration;
+        }
+        
+      self.progressSlider.value = position;
         
     } else if (_liveState == TimeShift) {
         
