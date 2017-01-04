@@ -210,7 +210,7 @@
     } else {
         
          nowTime = [self durationStringWithTime:(int)_sumTime];
-        durationTime = [self durationStringWithTime:(int)_mediaControlView.delegatePlayer.duration];
+        durationTime = [self durationStringWithTime:(int)(_mediaControlView.delegatePlayer.duration + 0.5)];
     }
     
     // 给label赋值
