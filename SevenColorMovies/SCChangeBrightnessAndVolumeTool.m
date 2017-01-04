@@ -97,6 +97,7 @@
                 case PanDirectionHorizontalMoved:{
                     [self.mediaControlView showAndFade];//控件显示出来
                     [self horizontalMoved:velocityPoint.x]; // 水平移动的方法只要x方向的值
+                    
                     break;
                 }
                 case PanDirectionVerticalMoved:{
@@ -170,16 +171,29 @@
     _sumTime += value / 10;
     
     // 需要限定sumTime的范围
-    if (_sumTime > _mediaControlView.delegatePlayer.duration) {
-        _sumTime = _mediaControlView.delegatePlayer.duration;
-    }else if (_sumTime < 0){
-        _sumTime = 0;
+    if (_mediaControlView.isLive) {
+        
+        if (_sumTime > 6 * 3600) {
+            _sumTime = 6 * 3600;
+        }else if (_sumTime < 0){
+            _sumTime = 0;
+        }
+
+    } else {
+        
+        if (_sumTime > _mediaControlView.delegatePlayer.duration) {
+            _sumTime = _mediaControlView.delegatePlayer.duration;
+        }else if (_sumTime < 0){
+            _sumTime = 0;
+        }
+
     }
+
+    DONG_Log(@"_sumTime: %f", _sumTime);
     
     [self.mediaControlView.goFastImageView setImage:[UIImage imageNamed:imageStyle]];
     self.mediaControlView.progressSlider.value = _sumTime;
     self.mediaControlView.delegatePlayer.currentPlaybackTime = self.mediaControlView.progressSlider.value;
-    
     
     
     
