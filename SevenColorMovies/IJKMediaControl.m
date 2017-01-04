@@ -53,6 +53,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
     self.playButton.hidden = YES;//第一次加载时隐藏
     self.fullScreenLockButton.hidden = YES;
     self.isLive = NO;//默认设置为NO
+    
     //根据手势获取系统音量
     _changeBrightnessAndVolumeToolView = [[SCChangeBrightnessAndVolumeTool alloc] init];
     _changeBrightnessAndVolumeToolView.panView = self;
@@ -69,7 +70,6 @@ typedef NS_ENUM (NSUInteger, Direction) {
 {
     [_changeBrightnessAndVolumeToolView panDirection:pan];
     
-    [self showAndFade];
 }
 
 // 自定义UISlider的样式和滑块
@@ -153,8 +153,11 @@ typedef NS_ENUM (NSUInteger, Direction) {
     if (intDuration > 0) {
         self.progressSlider.maximumValue = duration;
         self.totalDurationLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d", (int)(intDuration / 3600), (int)((intDuration % 3600) / 60), (int)(intDuration % 60)];
+        self.durationTimeLabel.text  = [NSString stringWithFormat:@"%02d:%02d:%02d", (int)(intDuration / 3600), (int)((intDuration % 3600) / 60), (int)(intDuration % 60)];
+        
     } else {
         self.totalDurationLabel.text = @"--:--:--";
+        self.durationTimeLabel.text  = @"--:--:--";
         self.progressSlider.maximumValue = 1.0f;
     }
     
@@ -173,6 +176,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
     }
     
     self.currentTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)(intPosition / 3600), (int)(intPosition % 3660) / 60, (int)(intPosition % 60)];
+    self.currentLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)(intPosition / 3600), (int)(intPosition % 3660) / 60, (int)(intPosition % 60)];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControl) object:nil];
     if (self.overlayPanel.alpha != 0) {

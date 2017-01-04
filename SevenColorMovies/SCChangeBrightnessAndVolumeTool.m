@@ -74,8 +74,11 @@
                 // 取消隐藏
                 self.mediaControlView.goFastView.hidden = NO;
                 // 给sumTime初值
-                _sumTime = _mediaControlView.delegatePlayer.currentPlaybackTime;
-                
+                if (_mediaControlView.isLive) {
+                    _sumTime = 6 * 3600;
+                } else {
+                    _sumTime = _mediaControlView.delegatePlayer.currentPlaybackTime;
+                }
             }
             else if (x < y){ // 垂直移动 控制音量
                 panDirection = PanDirectionVerticalMoved;
@@ -114,7 +117,7 @@
                     self.mediaControlView.goFastView.hidden = YES;
                     // ⚠️在滑动结束后，视屏要跳转
                     self.mediaControlView.delegatePlayer.currentPlaybackTime = _sumTime;
-                    // 把sumTime滞空，不然会越加越多
+                    // 把sumTime置空，不然会越加越多
                     _sumTime = 0;
                     break;
                 }
@@ -178,12 +181,12 @@
     self.mediaControlView.delegatePlayer.currentPlaybackTime = self.mediaControlView.progressSlider.value;
     
     // 当前快进的时间
-    NSString *nowTime = [self durationStringWithTime:(int)_sumTime];
+    //NSString *nowTime = [self durationStringWithTime:(int)_sumTime];
     // 总时间
-    NSString *durationTime = [self durationStringWithTime:(int)_mediaControlView.delegatePlayer.duration];
+    //NSString *durationTime = [self durationStringWithTime:(int)_mediaControlView.delegatePlayer.duration];
     // 给label赋值
-    self.mediaControlView.currentLabel.text = [NSString stringWithFormat:@"%@",nowTime];
-    self.mediaControlView.durationTimeLabel.text = [NSString stringWithFormat:@"/ %@",durationTime];
+    //self.mediaControlView.currentLabel.text = [NSString stringWithFormat:@"%@",nowTime];
+    //self.mediaControlView.durationTimeLabel.text = [NSString stringWithFormat:@"/ %@",durationTime];
     
 }
 
