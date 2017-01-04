@@ -754,9 +754,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 //请求直播流url
 - (void)getLiveVideoSignalFlowUrl
 {
-    //0.直播状态
-    self.liveState = Live;
-    
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
@@ -837,9 +834,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 //请求回看节目视频流url
 - (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2
 {
-    //0.直播状态
-    self.liveState = Live;
-
     //1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];

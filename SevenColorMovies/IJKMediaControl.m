@@ -44,7 +44,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
     
     self.goBackButton.enlargedEdge = 100.f;
     [self setupProgressSlider];//自定义UISlider
-    [self refreshMediaControl];
+//    [self refreshMediaControl];
 //    [self refreshMediaControlWhenLive];
     [self showNoFade];
     self.programNameLabel.hidden = YES;
@@ -94,7 +94,12 @@ typedef NS_ENUM (NSUInteger, Direction) {
     self.overlayPanel.alpha = 1;
     self.playButton.hidden = NO;
     [self cancelDelayedHide];
-    [self refreshMediaControl];
+    
+    if (_isLive) {
+        [self refreshMediaControlWhenLive];
+    } else {
+        [self refreshMediaControl];
+    }
 }
 
 - (void)showAndFade
@@ -131,7 +136,12 @@ typedef NS_ENUM (NSUInteger, Direction) {
 
 - (void)continueDragMediaSlider
 {
-    [self refreshMediaControl];
+    if (_isLive) {
+        [self refreshMediaControlWhenLive];
+    } else {
+        [self refreshMediaControl];
+    }
+
 }
 
 - (void)refreshMediaControl
@@ -169,7 +179,6 @@ typedef NS_ENUM (NSUInteger, Direction) {
         [self performSelector:@selector(refreshMediaControl) withObject:nil afterDelay:0.5];
     }
 }
-
 
 - (void)refreshMediaControlWhenLive
 {
@@ -216,8 +225,15 @@ typedef NS_ENUM (NSUInteger, Direction) {
 }
 
 
-
-
+- (void)setIsLive:(BOOL)isLive
+{
+    _isLive = isLive;
+    if (isLive) {
+        [self refreshMediaControlWhenLive];
+    } else {
+        [self refreshMediaControl];
+    }
+}
 
 
 

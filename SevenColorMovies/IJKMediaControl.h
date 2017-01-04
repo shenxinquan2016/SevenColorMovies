@@ -66,6 +66,7 @@ typedef NS_ENUM(NSInteger, SCLiveState) {
 - (void)hide;
 - (void)cancelDelayedHide;
 - (void)refreshMediaControl;
+- (void)refreshMediaControlWhenLive;
 
 - (void)beginDragMediaSlider;
 - (void)endDragMediaSlider;
