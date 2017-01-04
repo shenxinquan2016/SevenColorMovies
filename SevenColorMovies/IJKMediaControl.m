@@ -182,6 +182,8 @@ typedef NS_ENUM (NSUInteger, Direction) {
 
 - (void)refreshMediaControlWhenLive
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControl) object:nil];
+    
     // duration 秒（S）
     NSTimeInterval duration = 6 * 3600;// 支持6个小时内的时移
     NSInteger intDuration = duration + 0.5;
