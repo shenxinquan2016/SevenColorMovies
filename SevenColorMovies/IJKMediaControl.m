@@ -154,12 +154,10 @@ typedef NS_ENUM (NSUInteger, Direction) {
     if (intDuration > 0) {
         self.progressSlider.maximumValue = duration;
         self.totalDurationLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d", (int)(intDuration / 3600), (int)((intDuration % 3600) / 60), (int)(intDuration % 60)];
-        self.durationTimeLabel.text  = [NSString stringWithFormat:@"%02d:%02d:%02d", (int)(intDuration / 3600), (int)((intDuration % 3600) / 60), (int)(intDuration % 60)];
         
     } else {
         
         self.totalDurationLabel.text = @"--:--:--";
-        self.durationTimeLabel.text  = @"--:--:--";
         self.progressSlider.maximumValue = 1.0f;
     }
     
@@ -178,7 +176,6 @@ typedef NS_ENUM (NSUInteger, Direction) {
     }
     
     self.currentTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)(intPosition / 3600), (int)(intPosition % 3660) / 60, (int)(intPosition % 60)];
-    self.currentLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)(intPosition / 3600), (int)(intPosition % 3660) / 60, (int)(intPosition % 60)];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControl) object:nil];
     if (self.overlayPanel.alpha != 0) {
@@ -199,18 +196,21 @@ typedef NS_ENUM (NSUInteger, Direction) {
     NSDate *date = [NSDate date];// 格林尼治时间
     NSString *dateString = [NSDate dateStringFromDate:date withDateFormat:@"HH:mm:ss"];
     NSTimeInterval seconds = - 6*3600;
-    NSDate *crrrentLabelDate = [date dateByAddingTimeInterval:seconds];//
+    NSDate *crrrentLabelDate = [date dateByAddingTimeInterval:seconds];
     self.progressSlider.maximumValue = intDuration;
     self.totalDurationLabel.text = dateString;
-    self.durationTimeLabel.text  = dateString;
     NSString *currentLabelString = [NSDate dateStringFromDate:crrrentLabelDate withDateFormat:@"HH:mm:ss"];
     self.currentTimeLabel.text   = currentLabelString;
-    self.currentLabel.text  = currentLabelString;
+    
+    
+    
+    
+    
     
     // position  区分直播和时移
+    NSTimeInterval position;
     if (_liveState == Live) {
         
-        NSTimeInterval position;
         if (_isMediaSliderBeingDragged) {
             position = self.progressSlider.value;
         } else {
@@ -221,7 +221,6 @@ typedef NS_ENUM (NSUInteger, Direction) {
         
     } else if (_liveState == TimeShift) {
         
-        NSTimeInterval position;
         if (_isMediaSliderBeingDragged) {
             position = self.progressSlider.value;
         } else {
@@ -231,13 +230,18 @@ typedef NS_ENUM (NSUInteger, Direction) {
         self.progressSlider.value = position;
     }
     
+    NSDate *crrrentPositionDate = [date dateByAddingTimeInterval:position];
+    NSString *currentPositionString = [NSDate dateStringFromDate:crrrentPositionDate withDateFormat:@"HH:mm:ss"];
+    self.currentLabel.text  = currentPositionString;
+    
+    
+    
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControlWhenLive) object:nil];
     if (self.overlayPanel.alpha != 0) {
         [self performSelector:@selector(refreshMediaControlWhenLive) withObject:nil afterDelay:0.5];
     }
     
 }
-
 
 - (void)setIsLive:(BOOL)isLive
 {

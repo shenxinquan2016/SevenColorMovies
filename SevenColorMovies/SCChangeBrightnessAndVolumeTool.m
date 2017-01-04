@@ -69,7 +69,7 @@
             
             if (x > y) { // 水平移动 控制快进
                 
-                [self.mediaControlView showAndFade];//控件显示出来
+                [self.mediaControlView showAndFade];
                 panDirection = PanDirectionHorizontalMoved;
                 // 取消隐藏
                 self.mediaControlView.goFastView.hidden = NO;
@@ -95,7 +95,8 @@
             
             switch (panDirection) {
                 case PanDirectionHorizontalMoved:{
-                    [self.mediaControlView showAndFade];//控件显示出来
+                    
+                    [self.mediaControlView showAndFade];
                     [self horizontalMoved:velocityPoint.x]; // 水平移动的方法只要x方向的值
                     
                     break;
@@ -195,15 +196,26 @@
     self.mediaControlView.progressSlider.value = _sumTime;
     self.mediaControlView.delegatePlayer.currentPlaybackTime = self.mediaControlView.progressSlider.value;
     
+    // 此处设置手势快进时的快进View里的label值
+    NSString *nowTime;
+    NSString *durationTime;
+    if (self.mediaControlView.isLive) {
+        
+        NSDate *date = [NSDate date];// 格林尼治时间
+        durationTime = [NSDate dateStringFromDate:date withDateFormat:@"HH:mm:ss"];
+        NSTimeInterval seconds = - (6 * 3600 - _sumTime);
+        NSDate *crrrentLabelDate = [date dateByAddingTimeInterval:seconds];
+        nowTime = [NSDate dateStringFromDate:crrrentLabelDate withDateFormat:@"HH:mm:ss"];
+        
+    } else {
+        
+         nowTime = [self durationStringWithTime:(int)_sumTime];
+        durationTime = [self durationStringWithTime:(int)_mediaControlView.delegatePlayer.duration];
+    }
     
-    
-    // 当前快进的时间
-    //NSString *nowTime = [self durationStringWithTime:(int)_sumTime];
-    // 总时间
-    //NSString *durationTime = [self durationStringWithTime:(int)_mediaControlView.delegatePlayer.duration];
     // 给label赋值
-    //self.mediaControlView.currentLabel.text = [NSString stringWithFormat:@"%@",nowTime];
-    //self.mediaControlView.durationTimeLabel.text = [NSString stringWithFormat:@"/ %@",durationTime];
+    self.mediaControlView.currentLabel.text = nowTime;
+    self.mediaControlView.durationTimeLabel.text = durationTime;
     
 }
 
