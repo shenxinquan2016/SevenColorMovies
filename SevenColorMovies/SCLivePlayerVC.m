@@ -821,6 +821,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             // 8.时移的回调
             self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState) {
                 DONG_Log(@"liveState:%@", liveState);
+                if ([liveState isEqualToString:@"timeShift"]) {
+                    // 进入时移
+                    [weakself requestTimeShiftVideoSignalFlowUrl];
+                }
+                
             };
 
             [self.view addSubview:_IJKPlayerViewController.view];
@@ -839,6 +844,21 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 // 请求时移节目视屏流url
 - (void)requestTimeShiftVideoSignalFlowUrl
 {
+    // 1.关闭正在播放的节目
+    if ([self.IJKPlayerViewController.player isPlaying]) {
+        [self.IJKPlayerViewController.player pause];
+    }
+    
+    // 2.加载动画
+    [CommonFunc showLoadingWithTips:@"视频加载中..."];
+    
+    // 3.请求播放地址url
+    NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
+    //hid = 设备的mac地址
+    
+    NSDictionary *parameters = @{@"fid" : fidStr,
+                                 @"hid" : @""};
+    
     
     
 }

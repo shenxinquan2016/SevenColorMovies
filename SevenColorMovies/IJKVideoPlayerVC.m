@@ -429,21 +429,18 @@
         NSInteger duration = 6 * 3600;
         NSInteger minus = duration - _touchEndTime;
         if (minus > 5) {
-            if (_mediaControl.liveState == Live) {
                 // 进入时移
                 NSString *liveState = @"timeShift";
                 if (weakself.timeShiftBlock) {
                     weakself.timeShiftBlock(liveState);
                 }
-            }
+
         } else {
-            if (_mediaControl.liveState == TimeShift) {
                 // 进入直播
                 NSString *liveState = @"live";
                 if (weakself.timeShiftBlock) {
                     weakself.timeShiftBlock(liveState);
                 }
-            }
         }
         DONG_Log(@"minus:%ld",(long)minus);
     }

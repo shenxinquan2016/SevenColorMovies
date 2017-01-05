@@ -128,29 +128,21 @@
                     self.mediaControlView.delegatePlayer.currentPlaybackTime = _sumTime;
                     
                     if (self.mediaControlView.isLive) {
-                        /* 
-                         * 手势结束时判断进入直播还是时移
-                         * 当minus>5 如正在直播则进入时移  如正在时移则不变
-                         * 当minus<5 如正在时移则进入直播  如正在直播则不变
-                         */
+                        
                         NSInteger duration = 6 * 3600;
                         NSInteger minus = duration - _sumTime;
                         if (minus > 5) {
-                            if (_mediaControlView.liveState == Live) {
-                                // 进入时移
-                                NSString *liveState = @"timeShift";
-                                if (self.touchMovedTimeShiftBlock) {
-                                    self.touchMovedTimeShiftBlock(liveState);
-                                }
+                            // 进入时移
+                            NSString *liveState = @"timeShift";
+                            if (self.touchMovedTimeShiftBlock) {
+                                self.touchMovedTimeShiftBlock(liveState);
                             }
                             
                         } else {
-                            if (_mediaControlView.liveState == TimeShift) {
-                                // 进入直播
-                                NSString *liveState = @"live";
-                                if (self.touchMovedTimeShiftBlock) {
-                                    self.touchMovedTimeShiftBlock(liveState);
-                                }
+                            // 进入直播
+                            NSString *liveState = @"live";
+                            if (self.touchMovedTimeShiftBlock) {
+                                self.touchMovedTimeShiftBlock(liveState);
                             }
                         }
                     }
