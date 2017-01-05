@@ -859,7 +859,14 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     NSDictionary *parameters = @{@"fid" : fidStr,
                                  @"hid" : @""};
     
-    
+    NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:ToGetLiveTimeShiftVideoSignalFlowUrl];
+    [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
     
 }
 

@@ -194,6 +194,10 @@
     } failure:^(id  _Nullable errorObject) {
         
         [MBProgressHUD showError:@"网络故障，请稍后再试"];
+        // 失败时也将音频文件删除
+        [FileManageCommon DeleteFile:wavFilePath];
+        [FileManageCommon DeleteFile:marFilePath];
+
     }];
     
 }
