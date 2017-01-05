@@ -33,6 +33,8 @@
 {
     UIInterfaceOrientation _lastOrientaion;
     SCVideoLoadingView *_loadView;
+    NSTimeInterval _touchBeginTime;
+    NSTimeInterval _touchEndTime;
 }
 
 #pragma mark- Initialize
@@ -384,6 +386,8 @@
 - (IBAction)didSliderTouchDown:(id)sender
 {
     // 2
+    _touchBeginTime = self.mediaControl.progressSlider.value;
+    
     [self.mediaControl beginDragMediaSlider];
 }
 
@@ -406,17 +410,23 @@
     self.player.currentPlaybackTime = self.mediaControl.progressSlider.value;
     [self.mediaControl endDragMediaSlider];
     [self.mediaControl showAndFade];
-    DONG_Log(@"progressSlider.value:%f",self.mediaControl.progressSlider.value);
     
+    NSInteger subtractValue = _touchBeginTime - _touchEndTime;
     
+    if (subtractValue > 5) {
+        DONG_Log(@"subtractValue:%ld",(long)subtractValue);
+        
+    }
+     DONG_Log(@"subtractValue:%ld",(long)subtractValue);
 }
 
 - (IBAction)didSliderValueChanged:(id)sender
 {
     // 1  3
+     _touchEndTime = self.mediaControl.progressSlider.value;
     [self.mediaControl cancelDelayedHide];
     [self.mediaControl continueDragMediaSlider];
-    DONG_Log(@"progressSlider.value:%f",self.mediaControl.progressSlider.value);
+    
 }
 
 /** 全屏锁定 */

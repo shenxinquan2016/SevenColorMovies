@@ -215,7 +215,7 @@
     // 给label赋值
     self.mediaControlView.currentLabel.text = nowTime;
     self.mediaControlView.durationTimeLabel.text = durationTime;
-    
+    DONG_Log(@"nowTime:%@",nowTime);
 }
 
 #pragma mark - 根据时长求出字符串

@@ -229,9 +229,8 @@ typedef NS_ENUM (NSUInteger, Direction) {
         self.progressSlider.value = position;
     }
     
-    NSDate *crrrentPositionDate = [date dateByAddingTimeInterval:position];
-    NSString *currentPositionString = [NSDate dateStringFromDate:crrrentPositionDate withDateFormat:@"HH:mm:ss"];
-    self.currentLabel.text  = currentPositionString;
+   
+    
     
     
     
