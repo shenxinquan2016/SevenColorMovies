@@ -65,6 +65,8 @@ static const CGFloat LabelWidth = 55.f;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;
 /** 直播/时移状态 */
 @property (nonatomic, assign) SCLiveState liveState;
+/** 时移时间 */
+@property (nonatomic, assign) NSTimeInterval timeShiftPlayTime;
 
 @end
 
@@ -189,6 +191,11 @@ static const CGFloat LabelWidth = 55.f;
 {
     //3.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    //第一次加载成功准备播放
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaIsPreparedToPlayDidChange:)
+                                                 name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification
+                                               object:nil];
     //播放状态改变通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackStateDidChange:)
@@ -572,6 +579,18 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     }
 }
 
+#pragma mark - IJK完成加载即将播放的通知
+- (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification
+{
+    NSLog(@"mediaIsPreparedToPlayDidChange\n");
+    //在此通知里设置加载IJK时的起始播放时间
+    if (_timeShiftPlayTime) {
+        DONG_Log(@"timeShiftPlayTime:%f", _timeShiftPlayTime);
+//        self.IJKPlayerViewController.player.currentPlaybackTime = _timeShiftPlayTime;
+    }
+    _timeShiftPlayTime = 0.0f;
+}
+
 #pragma mark - 全屏/小屏切换
 // 监听屏幕旋转后，更改frame
 - (void)orientChange:(NSNotification *)noti
@@ -824,6 +843,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 if ([liveState isEqualToString:@"timeShift"]) {
                     // 进入时移
                     [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
+                    _timeShiftPlayTime = positionTime;
                 }
                 
             };
@@ -912,7 +932,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState, int positionTime) {
             DONG_Log(@"liveState:%@", liveState);
             if ([liveState isEqualToString:@"live"]) {
-                // 进入时移
+                // 进入直播
                 [weakself getLiveVideoSignalFlowUrl];
             }
             
@@ -932,15 +952,15 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 // 请求回看节目视频流url
 - (void)requestProgramHavePastVideoSignalFlowUrlWithModel:(SCLiveProgramModel *)model1 NextProgramModel:(SCLiveProgramModel *)model2
 {
-    //1.关闭正在播放的节目
+    // 1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
     }
     
-    //2.加载动画
+    // 2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
    
-    //3.请求播放地址url
+    // 3.请求播放地址url
     DONG_Log(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
     DONG_Log(@"%@   %@",model1.startTime,model2.startTime);
     //获取时间戳字符串
@@ -959,7 +979,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     NSDictionary *parameters = @{@"fid" : fid,
                                  @"ext"  : ext };
-    //IP替换
+    // 4.IP替换
     NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:ToGetProgramHavePastVideoSignalFlowUrl];
     DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
     [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
@@ -972,16 +992,16 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
         self.url= [NSURL URLWithString:playUrl];
         
-        //4.移除当前的播放器
+        // 5.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
        
-        //5.加载新的播放器开始播放
+        // 6.加载新的播放器开始播放
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
         self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
         
-        //3.推屏的回调
+        // 7.推屏的回调
         DONG_WeakSelf(self);
         self.IJKPlayerViewController.pushScreenBlock = ^{
             // 未连接设备时要先扫描设备
@@ -1001,7 +1021,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             }
         };
 
-        //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+        // 8.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
         self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
             DONG_StrongSelf(self);
             strongself.fullScreenLock = isFullScreenLock;
