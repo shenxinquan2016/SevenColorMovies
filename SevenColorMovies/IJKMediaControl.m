@@ -60,9 +60,9 @@ typedef NS_ENUM (NSUInteger, Direction) {
     [_changeBrightnessAndVolumeToolView setVolumeView:self];
     // 手势滑动时时移回调
     DONG_WeakSelf(self);
-    _changeBrightnessAndVolumeToolView.touchMovedTimeShiftBlock = ^(NSString *liveState) {
+    _changeBrightnessAndVolumeToolView.touchMovedTimeShiftBlock = ^(NSString *liveState, int positionTime) {
         if (weakself.timeShiftBlock) {
-            weakself.timeShiftBlock(liveState);
+            weakself.timeShiftBlock(liveState, positionTime);
         }
     };
     

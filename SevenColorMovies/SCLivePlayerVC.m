@@ -22,7 +22,7 @@
 #import "SCChannelCategoryVC.h"
 #import "SCSearchViewController.h"
 #import "SCLiveViewController.h"
-
+#import "HLJUUID.h" // 获取UDID
 
 //static const CGFloat StatusBarHeight = 20.0f;
 /** 滑动标题栏高度 */
@@ -819,11 +819,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             };
             
             // 8.时移的回调
-            self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState) {
+            self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState, int positionTime) {
                 DONG_Log(@"liveState:%@", liveState);
                 if ([liveState isEqualToString:@"timeShift"]) {
                     // 进入时移
-                    [weakself requestTimeShiftVideoSignalFlowUrl];
+                    [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
                 }
                 
             };
@@ -842,7 +842,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 }
 
 // 请求时移节目视屏流url
-- (void)requestTimeShiftVideoSignalFlowUrl
+- (void)requestTimeShiftVideoSignalFlowUrl:(int)positionTime
 {
     // 1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
@@ -854,17 +854,76 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     // 3.请求播放地址url
     NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
-    //hid = 设备的mac地址
+    // 4.hid = UUID
+    const NSString *uuidStr = [HLJUUID getUUID];
+    
+    NSString *ext = [NSString stringWithFormat:@"stime=%d&port=5656&ext=oid:30050", positionTime];
+    NSString *base64ext = [ext stringByBase64Encoding];
     
     NSDictionary *parameters = @{@"fid" : fidStr,
-                                 @"hid" : @""};
+                                 @"hid" : uuidStr,
+                                 @"ext" : base64ext};
     
     NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:ToGetLiveTimeShiftVideoSignalFlowUrl];
     [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject:%@",responseObject);
+        NSString *timeShiftUrl = responseObject[@"play_url"];
         
+        // 5.移除当前的播放器
+        [self.IJKPlayerViewController closePlayer];
         
+        // 6.开始播放直播
+        self.url = [NSURL URLWithString:timeShiftUrl];
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+        _IJKPlayerViewController.mediaControl.isLive = YES;
+        _IJKPlayerViewController.mediaControl.liveState = TimeShift;
+        
+        // 7.推屏的回调
+        DONG_WeakSelf(self);
+        self.IJKPlayerViewController.pushScreenBlock = ^{
+            // 未连接设备时要先扫描设备
+            if (TCPScoketManager.isConnected) {
+                
+                [weakself getLivePushScreenXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
+                    
+                    DONG_Log(@"str:%@",responseObject);
+                    [TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
+                    
+                }];
+                
+            } else {
+                
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                [alertView show];
+                alertView.delegate = weakself;
+            }
+        };
+        
+        // 8.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+        self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+            DONG_StrongSelf(self);
+            strongself.fullScreenLock = isFullScreenLock;
+            [strongself shouldAutorotate];
+        };
+        
+        // 9.时移的回调
+        self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState, int positionTime) {
+            DONG_Log(@"liveState:%@", liveState);
+            if ([liveState isEqualToString:@"live"]) {
+                // 进入时移
+                [weakself getLiveVideoSignalFlowUrl];
+            }
+            
+        };
+        
+        [self.view addSubview:_IJKPlayerViewController.view];
+
+        
+        [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
-        
+        [CommonFunc dismiss];
         
     }];
     

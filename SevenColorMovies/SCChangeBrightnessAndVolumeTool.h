@@ -10,7 +10,7 @@
 #import "IJKMediaControl.h"//播控面板
 
 /** 直播时移回调 */
-typedef void(^TouchMovedTimeShiftBlock)(NSString *liveState);
+typedef void(^TouchMovedTimeShiftBlock)(NSString *liveState, int positionTime);
 
 // 枚举值，包含水平移动方向和垂直移动方向
 typedef NS_ENUM(NSInteger, PanDirection){

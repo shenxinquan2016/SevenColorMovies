@@ -169,9 +169,9 @@
     self.mediaControl.delegatePlayer = self.player;
     // 5.2 手势滑动时进入时移的回调
     DONG_WeakSelf(self);
-    self.mediaControl.timeShiftBlock = ^(NSString *liveState) {
+    self.mediaControl.timeShiftBlock = ^(NSString *liveState, int positionTime) {
         if (weakself.timeShiftBlock) {
-            weakself.timeShiftBlock(liveState);
+            weakself.timeShiftBlock(liveState, positionTime);
         }
     };
     
@@ -418,12 +418,6 @@
     [self.mediaControl endDragMediaSlider];
     [self.mediaControl showAndFade];
     
-    /*
-     * 手势结束时判断进入直播还是时移
-     * 当minus>5 如正在直播则进入时移  如正在时移则不变
-     * 当minus<5 如正在时移则进入直播  如正在直播则不变
-     */
-    
     DONG_WeakSelf(self);
     if (_mediaControl.isLive) {
         NSInteger duration = 6 * 3600;
@@ -432,14 +426,14 @@
                 // 进入时移
                 NSString *liveState = @"timeShift";
                 if (weakself.timeShiftBlock) {
-                    weakself.timeShiftBlock(liveState);
+                    weakself.timeShiftBlock(liveState, _touchEndTime);
                 }
 
         } else {
                 // 进入直播
                 NSString *liveState = @"live";
                 if (weakself.timeShiftBlock) {
-                    weakself.timeShiftBlock(liveState);
+                    weakself.timeShiftBlock(liveState, _touchEndTime);
                 }
         }
         DONG_Log(@"minus:%ld",(long)minus);

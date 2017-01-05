@@ -20,7 +20,7 @@ typedef void(^AddWatchHistoryBlock)(void);
 /** 推屏回调 */
 typedef void(^PushScreenBlock)(void);
 /** 直播时移回调 */
-typedef void(^TimeShiftBlock)(NSString *liveState);
+typedef void(^TimeShiftBlock)(NSString *liveState, int positionTime);
 
 @interface IJKVideoPlayerVC : UIViewController
 

@@ -10,7 +10,7 @@
 #import "Dong_RunLabel.h"
 
 /** 直播时移回调 */
-typedef void(^MediaControlTimeShiftBlock)(NSString *liveState);
+typedef void(^MediaControlTimeShiftBlock)(NSString *liveState, int positionTime);
 
 typedef NS_ENUM(NSInteger, SCLiveState) {
     Live = 0, //直播

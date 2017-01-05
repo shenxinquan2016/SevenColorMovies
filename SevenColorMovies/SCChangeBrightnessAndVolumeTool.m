@@ -135,14 +135,14 @@
                             // 进入时移
                             NSString *liveState = @"timeShift";
                             if (self.touchMovedTimeShiftBlock) {
-                                self.touchMovedTimeShiftBlock(liveState);
+                                self.touchMovedTimeShiftBlock(liveState, _sumTime);
                             }
                             
                         } else {
                             // 进入直播
                             NSString *liveState = @"live";
                             if (self.touchMovedTimeShiftBlock) {
-                                self.touchMovedTimeShiftBlock(liveState);
+                                self.touchMovedTimeShiftBlock(liveState, _sumTime);
                             }
                         }
                     }
