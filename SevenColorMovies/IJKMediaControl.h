@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Dong_RunLabel.h"
 
+/** 直播时移回调 */
+typedef void(^MediaControlTimeShiftBlock)(NSString *liveState);
+
 typedef NS_ENUM(NSInteger, SCLiveState) {
     Live = 0, //直播
     TimeShift,//时移
@@ -20,7 +23,9 @@ typedef NS_ENUM(NSInteger, SCLiveState) {
 
 /** 直播/时移状态 */
 @property (nonatomic, assign) SCLiveState liveState;
-
+/** 手势滑动时时移回调 */
+@property (nonatomic, copy) MediaControlTimeShiftBlock timeShiftBlock;
+/** ijkplayer */
 @property (nonatomic, weak) id<IJKMediaPlayback> delegatePlayer;
 /** 是否在直播频道 */
 @property (nonatomic, assign) BOOL isLive;

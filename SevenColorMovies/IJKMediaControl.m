@@ -54,10 +54,17 @@ typedef NS_ENUM (NSUInteger, Direction) {
     self.fullScreenLockButton.hidden = YES;
     self.isLive = NO;//默认设置为NO
     
-    //根据手势获取系统音量
+    // 根据手势获取系统音量
     _changeBrightnessAndVolumeToolView = [[SCChangeBrightnessAndVolumeTool alloc] init];
     _changeBrightnessAndVolumeToolView.panView = self;
     [_changeBrightnessAndVolumeToolView setVolumeView:self];
+    // 手势滑动时时移回调
+    DONG_WeakSelf(self);
+    _changeBrightnessAndVolumeToolView.touchMovedTimeShiftBlock = ^(NSString *liveState) {
+        if (weakself.timeShiftBlock) {
+            weakself.timeShiftBlock(liveState);
+        }
+    };
     
     // 添加平移手势，用来控制音量亮度和快进快退
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panViewChange:)];

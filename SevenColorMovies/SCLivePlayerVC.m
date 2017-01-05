@@ -754,16 +754,15 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 // 请求直播流url
 - (void)getLiveVideoSignalFlowUrl
 {
-    //1.关闭正在播放的节目
+    // 1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
     }
     
-    //2.加载动画
+    // 2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
     
-    //3.请求播放地址url
-    //fid = tvId + "_" + tvId
+    // 3.请求播放地址url
     NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
     //hid = 设备的mac地址
     
@@ -779,10 +778,10 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             
             NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
             
-            //4.移除当前的播放器
+            // 4.移除当前的播放器
             [self.IJKPlayerViewController closePlayer];
            
-            //5.开始播放直播
+            // 5.开始播放直播
             self.url = [NSURL URLWithString:liveUrl];
             //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
@@ -791,7 +790,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             _IJKPlayerViewController.mediaControl.isLive = YES;
             _IJKPlayerViewController.mediaControl.liveState = Live;
             
-            //3.推屏的回调
+            // 6.推屏的回调
             DONG_WeakSelf(self);
             self.IJKPlayerViewController.pushScreenBlock = ^{
                 // 未连接设备时要先扫描设备
@@ -812,11 +811,16 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 }
             };
           
-            //根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+            // 7.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
             self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                 DONG_StrongSelf(self);
                 strongself.fullScreenLock = isFullScreenLock;
                 [strongself shouldAutorotate];
+            };
+            
+            // 8.时移的回调
+            self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState) {
+                DONG_Log(@"liveState:%@", liveState);
             };
 
             [self.view addSubview:_IJKPlayerViewController.view];

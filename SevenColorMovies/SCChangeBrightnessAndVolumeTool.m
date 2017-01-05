@@ -21,9 +21,11 @@
 
 {
     UISlider *volumeViewSlider;
-    float systemVolume;//系统音量值
-    PanDirection panDirection; //定义一个实例变量，保存枚举值
-    CGPoint satrtPoint;//起始点
+    float systemVolume;// 系统音量值
+    PanDirection panDirection; // 定义一个实例变量，保存枚举值
+    CGPoint satrtPoint;// 起始点
+    NSTimeInterval _touchBeginTime;
+    NSTimeInterval _touchEndTime;
 }
 
 #pragma mark- Initialize
@@ -74,7 +76,13 @@
                 self.mediaControlView.goFastView.hidden = NO;
                 // 给sumTime初值
                 if (_mediaControlView.isLive) {
-                    _sumTime = 6 * 60 * 60;
+                    // 区分直播和时移
+                    if (_mediaControlView.liveState == Live) {
+                        _sumTime = 6 * 60 * 60;
+                    } else if (_mediaControlView.liveState == TimeShift) {
+                        _sumTime = _mediaControlView.delegatePlayer.currentPlaybackTime;
+                    }
+                    
                 } else {
                     _sumTime = _mediaControlView.delegatePlayer.currentPlaybackTime;
                 }
@@ -90,7 +98,7 @@
         }
         case UIGestureRecognizerStateChanged: { // 正在移动
             
-//            NSLog(@"x:%f  y:%f",veloctyPoint.x, veloctyPoint.y);
+            //            NSLog(@"x:%f  y:%f",veloctyPoint.x, veloctyPoint.y);
             
             switch (panDirection) {
                 case PanDirectionHorizontalMoved:{
@@ -118,6 +126,35 @@
                     self.mediaControlView.goFastView.hidden = YES;
                     // ⚠️在滑动结束后，视屏要跳转
                     self.mediaControlView.delegatePlayer.currentPlaybackTime = _sumTime;
+                    
+                    if (self.mediaControlView.isLive) {
+                        /* 
+                         * 手势结束时判断进入直播还是时移
+                         * 当minus>5 如正在直播则进入时移  如正在时移则不变
+                         * 当minus<5 如正在时移则进入直播  如正在直播则不变
+                         */
+                        NSInteger duration = 6 * 3600;
+                        NSInteger minus = duration - _sumTime;
+                        if (minus > 5) {
+                            if (_mediaControlView.liveState == Live) {
+                                // 进入时移
+                                NSString *liveState = @"timeShift";
+                                if (self.touchMovedTimeShiftBlock) {
+                                    self.touchMovedTimeShiftBlock(liveState);
+                                }
+                            }
+                            
+                        } else {
+                            if (_mediaControlView.liveState == TimeShift) {
+                                // 进入直播
+                                NSString *liveState = @"live";
+                                if (self.touchMovedTimeShiftBlock) {
+                                    self.touchMovedTimeShiftBlock(liveState);
+                                }
+                            }
+                        }
+                    }
+                    
                     // 把sumTime置空，不然会越加越多
                     _sumTime = 0;
                     break;
@@ -178,7 +215,7 @@
         }else if (_sumTime < 0){
             _sumTime = 0;
         }
-
+        
     } else {
         
         if (_sumTime > _mediaControlView.delegatePlayer.duration) {
@@ -186,9 +223,9 @@
         }else if (_sumTime < 0){
             _sumTime = 0;
         }
-
+        
     }
-
+    
     DONG_Log(@"_sumTime: %f", _sumTime);
     
     [self.mediaControlView.goFastImageView setImage:[UIImage imageNamed:imageStyle]];
@@ -208,7 +245,7 @@
         
     } else {
         
-         nowTime = [self durationStringWithTime:(int)_sumTime];
+        nowTime = [self durationStringWithTime:(int)_sumTime];
         durationTime = [self durationStringWithTime:(int)(_mediaControlView.delegatePlayer.duration + 0.5)];
     }
     

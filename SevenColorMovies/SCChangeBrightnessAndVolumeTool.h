@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "IJKMediaControl.h"//播控面板
 
+/** 直播时移回调 */
+typedef void(^TouchMovedTimeShiftBlock)(NSString *liveState);
+
 // 枚举值，包含水平移动方向和垂直移动方向
 typedef NS_ENUM(NSInteger, PanDirection){
     PanDirectionHorizontalMoved,//水平移动
@@ -17,10 +20,11 @@ typedef NS_ENUM(NSInteger, PanDirection){
 
 @interface SCChangeBrightnessAndVolumeTool : NSObject
 
-@property (nonatomic,strong) UIView *panView;
-@property (nonatomic,assign) CGFloat sumTime; // 用来保存快进的总时长
-@property (nonatomic,strong) IJKMediaControl *mediaControlView;
-
+@property (nonatomic, strong) UIView *panView;
+/** 用来保存快进的总时长 */
+@property (nonatomic, assign) CGFloat sumTime;
+@property (nonatomic, strong) IJKMediaControl *mediaControlView;
+@property (nonatomic, copy) TouchMovedTimeShiftBlock touchMovedTimeShiftBlock;
 
 - (void)setVolumeView:(IJKMediaControl *)vc;
 - (void)panDirection:(UIPanGestureRecognizer *)pan;

@@ -19,8 +19,8 @@ typedef void(^WhetherToSupportRotationBlock)(BOOL lock);
 typedef void(^AddWatchHistoryBlock)(void);
 /** 推屏回调 */
 typedef void(^PushScreenBlock)(void);
-/** 拖动进度条回调 */
-typedef void(^SeekToTimeBlock)(float seekToTime);
+/** 直播时移回调 */
+typedef void(^TimeShiftBlock)(NSString *liveState);
 
 @interface IJKVideoPlayerVC : UIViewController
 
@@ -38,7 +38,7 @@ typedef void(^SeekToTimeBlock)(float seekToTime);
 /** 推屏回调 */
 @property (nonatomic, copy) PushScreenBlock pushScreenBlock;
 /** 拖动进度条回调 */
-@property (nonatomic, copy) SeekToTimeBlock seekToTimeBlock;
+@property (nonatomic, copy) TimeShiftBlock timeShiftBlock;
 /** 标记是否是单独播放器页面 */
 @property (nonatomic, assign) BOOL isSinglePlayerView;
 @property (strong, nonatomic) IBOutlet IJKMediaControl *mediaControl;

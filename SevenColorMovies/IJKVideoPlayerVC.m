@@ -137,7 +137,7 @@
     
     // 后加，还不知道有什么作用
     [IJKMediaModule sharedModule].appIdleTimerDisabled = YES;
-
+    
     // 2. 检查版本是否匹配
     [IJKFFMoviePlayerController checkIfFFmpegVersionMatch:YES];
     // [IJKFFMoviePlayerController checkIfPlayerVersionMatch:YES major:1 minor:0 micro:0];
@@ -162,11 +162,18 @@
     //  4.6 添加播放视图到控制器的View
     [self.view addSubview:self.player.view];
     
-    //5. 添加播放控件到控制器的View
+    // 5. 添加播放控件到控制器的View
     [self.player.view addSubview:self.mediaControl];
     self.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     // 5.1 代理设置
     self.mediaControl.delegatePlayer = self.player;
+    // 5.2 手势滑动时进入时移的回调
+    DONG_WeakSelf(self);
+    self.mediaControl.timeShiftBlock = ^(NSString *liveState) {
+        if (weakself.timeShiftBlock) {
+            weakself.timeShiftBlock(liveState);
+        }
+    };
     
     //6.添加加载视频时进度动画
     _loadView = [[NSBundle mainBundle] loadNibNamed:@"SCVideoLoadingView" owner:nil options:nil][0];
@@ -216,14 +223,14 @@
     if (self.addWatchHistoryBlock) {
         self.addWatchHistoryBlock();
     }
-
+    
     //2.如果是单独的播放器窗口(比如从我的下载、我的收藏等进入播放)，需要单独处理返回事物
     if (self.isSinglePlayerView) {
         //先回调使父视图支持旋转才能旋转
         if (self.supportRotationBlock) {
             self.supportRotationBlock(NO);
         }
-
+        
         self.isFullScreen = NO;
         [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
         
@@ -411,19 +418,42 @@
     [self.mediaControl endDragMediaSlider];
     [self.mediaControl showAndFade];
     
-    NSInteger subtractValue = _touchBeginTime - _touchEndTime;
+    /*
+     * 手势结束时判断进入直播还是时移
+     * 当minus>5 如正在直播则进入时移  如正在时移则不变
+     * 当minus<5 如正在时移则进入直播  如正在直播则不变
+     */
     
-    if (subtractValue > 5) {
-        DONG_Log(@"subtractValue:%ld",(long)subtractValue);
-        
+    DONG_WeakSelf(self);
+    if (_mediaControl.isLive) {
+        NSInteger duration = 6 * 3600;
+        NSInteger minus = duration - _touchEndTime;
+        if (minus > 5) {
+            if (_mediaControl.liveState == Live) {
+                // 进入时移
+                NSString *liveState = @"timeShift";
+                if (weakself.timeShiftBlock) {
+                    weakself.timeShiftBlock(liveState);
+                }
+            }
+        } else {
+            if (_mediaControl.liveState == TimeShift) {
+                // 进入直播
+                NSString *liveState = @"live";
+                if (weakself.timeShiftBlock) {
+                    weakself.timeShiftBlock(liveState);
+                }
+            }
+        }
+        DONG_Log(@"minus:%ld",(long)minus);
     }
-     DONG_Log(@"subtractValue:%ld",(long)subtractValue);
+    
 }
 
 - (IBAction)didSliderValueChanged:(id)sender
 {
     // 1  3
-     _touchEndTime = self.mediaControl.progressSlider.value;
+    _touchEndTime = self.mediaControl.progressSlider.value;
     [self.mediaControl cancelDelayedHide];
     [self.mediaControl continueDragMediaSlider];
     
