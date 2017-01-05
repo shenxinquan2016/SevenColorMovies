@@ -113,7 +113,6 @@ typedef NS_ENUM (NSUInteger, Direction) {
 {
     [UIView animateWithDuration:0.2 animations:^{
         self.overlayPanel.alpha = 0;
-        
     }];
     
     [self cancelDelayedHide];
@@ -144,7 +143,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
 
 }
 
-// 点播刷新
+// 点播刷新 除拖拽progressSlider时，数据源均来自self.delegatePlayer
 - (void)refreshMediaControl
 {
     // duration 秒（S）
@@ -183,7 +182,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
     }
 }
 
-// 直播和时移时刷新
+// 直播和时移时刷新 除拖拽progressSlider时，数据源均来自self.delegatePlayer
 - (void)refreshMediaControlWhenLive
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControl) object:nil];

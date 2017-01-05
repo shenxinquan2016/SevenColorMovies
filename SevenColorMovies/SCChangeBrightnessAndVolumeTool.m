@@ -59,8 +59,7 @@
     //    locationInView
     // 判断是垂直移动还是水平移动
     switch (pan.state) {
-        case UIGestureRecognizerStateBegan:{ // 开始移动
-            //                        NSLog(@"x:%f  y:%f",veloctyPoint.x, veloctyPoint.y);
+        case UIGestureRecognizerStateBegan: { // 开始移动
             //获取起点
             satrtPoint = [pan locationInView:self.panView];
             // 使用绝对值来判断移动的方向
@@ -89,7 +88,7 @@
             }
             break;
         }
-        case UIGestureRecognizerStateChanged:{ // 正在移动
+        case UIGestureRecognizerStateChanged: { // 正在移动
             
 //            NSLog(@"x:%f  y:%f",veloctyPoint.x, veloctyPoint.y);
             
@@ -110,7 +109,7 @@
             }
             break;
         }
-        case UIGestureRecognizerStateEnded:{ // 移动停止
+        case UIGestureRecognizerStateEnded: { // 移动停止
             // 移动结束也需要判断垂直或者平移
             // 比如水平移动结束时，要快进到指定位置，如果这里没有判断，当我们调节音量完之后，会出现屏幕跳动的bug
             switch (panDirection) {
@@ -123,7 +122,7 @@
                     _sumTime = 0;
                     break;
                 }
-                case PanDirectionVerticalMoved:{
+                case PanDirectionVerticalMoved: {
                     // 垂直移动结束后，隐藏音量控件
                     //                    self.volume.hidden = YES;
                     // 且，把状态改为不再控制音量
