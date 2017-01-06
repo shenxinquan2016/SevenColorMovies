@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		081D0D94DAAC6F0452543183 /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58208E58E73ED17FB50772D8 /* libPods-SevenColorMovies.a */; };
 		110175071D54402D00E43773 /* FileManageCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 110175061D54402D00E43773 /* FileManageCommon.m */; };
 		1101750A1D549B3C00E43773 /* SCFilmSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 110175091D549B3C00E43773 /* SCFilmSetModel.m */; };
 		1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1101750C1D54A40000E43773 /* NSString+Dong.m */; };
@@ -204,8 +205,7 @@
 		11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */; };
 		11FEEF1A1D93846E00518029 /* HLJRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FEEF191D93846E00518029 /* HLJRequest.m */; };
 		11FEEF1E1D93848300518029 /* HLJDomainNameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FEEF1D1D93848300518029 /* HLJDomainNameModel.m */; };
-		900B1AC20F9ADCDD217EBCF3 /* libPods-SevenColorMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12179939F3550D9A17265830 /* libPods-SevenColorMovies.a */; };
-		9F3928CA2DAA698F53355F15 /* libPods-SevenColorMoviesTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4129165E3D760E3812AA0561 /* libPods-SevenColorMoviesTests.a */; };
+		BFB660316D60BA9D33BF25DF /* libPods-SevenColorMoviesTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26657D5823A59132E6F7A07 /* libPods-SevenColorMoviesTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -576,12 +576,12 @@
 		11FEEF191D93846E00518029 /* HLJRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJRequest.m; sourceTree = "<group>"; };
 		11FEEF1C1D93848300518029 /* HLJDomainNameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJDomainNameModel.h; sourceTree = "<group>"; };
 		11FEEF1D1D93848300518029 /* HLJDomainNameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJDomainNameModel.m; sourceTree = "<group>"; };
-		12179939F3550D9A17265830 /* libPods-SevenColorMovies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMovies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2BEEAFA80EADAFB26B8CE26E /* Pods-SevenColorMoviesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMoviesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMoviesTests/Pods-SevenColorMoviesTests.debug.xcconfig"; sourceTree = "<group>"; };
-		4129165E3D760E3812AA0561 /* libPods-SevenColorMoviesTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMoviesTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.release.xcconfig"; sourceTree = "<group>"; };
-		61B706B1911AA751C12BF3F8 /* Pods-SevenColorMoviesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMoviesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMoviesTests/Pods-SevenColorMoviesTests.release.xcconfig"; sourceTree = "<group>"; };
-		BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.debug.xcconfig"; sourceTree = "<group>"; };
+		2A0CD6D8521DBCFFE4F9C959 /* Pods-SevenColorMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.debug.xcconfig"; sourceTree = "<group>"; };
+		2F47A494D6AFBF4F00F9858C /* Pods-SevenColorMoviesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMoviesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMoviesTests/Pods-SevenColorMoviesTests.release.xcconfig"; sourceTree = "<group>"; };
+		58208E58E73ED17FB50772D8 /* libPods-SevenColorMovies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMovies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A47ACC3EC282FAAF43932F19 /* Pods-SevenColorMoviesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMoviesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMoviesTests/Pods-SevenColorMoviesTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D26657D5823A59132E6F7A07 /* libPods-SevenColorMoviesTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMoviesTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF8FAC5BA3DC58EF0AA60D3A /* Pods-SevenColorMovies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -606,7 +606,7 @@
 				116B1F561D53235600E9637A /* libz.tbd in Frameworks */,
 				116B1F541D53211C00E9637A /* IJKMediaFramework.framework in Frameworks */,
 				11A39D9F1D9269EE00C9FEA8 /* libagent.a in Frameworks */,
-				900B1AC20F9ADCDD217EBCF3 /* libPods-SevenColorMovies.a in Frameworks */,
+				081D0D94DAAC6F0452543183 /* libPods-SevenColorMovies.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,7 +614,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F3928CA2DAA698F53355F15 /* libPods-SevenColorMoviesTests.a in Frameworks */,
+				BFB660316D60BA9D33BF25DF /* libPods-SevenColorMoviesTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1594,8 +1594,8 @@
 				11BB37901D38B9A00002D487 /* SevenColorMoviesTests */,
 				11BB379B1D38B9A00002D487 /* SevenColorMoviesUITests */,
 				11BB37751D38B9A00002D487 /* Products */,
-				56CA4D536ADE803AF87BD5DE /* Pods */,
 				EA43CF5B333599320E8DB727 /* Frameworks */,
+				A049E2EF68B0175BDBBE90A4 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2027,13 +2027,13 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		56CA4D536ADE803AF87BD5DE /* Pods */ = {
+		A049E2EF68B0175BDBBE90A4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */,
-				44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */,
-				2BEEAFA80EADAFB26B8CE26E /* Pods-SevenColorMoviesTests.debug.xcconfig */,
-				61B706B1911AA751C12BF3F8 /* Pods-SevenColorMoviesTests.release.xcconfig */,
+				2A0CD6D8521DBCFFE4F9C959 /* Pods-SevenColorMovies.debug.xcconfig */,
+				FF8FAC5BA3DC58EF0AA60D3A /* Pods-SevenColorMovies.release.xcconfig */,
+				A47ACC3EC282FAAF43932F19 /* Pods-SevenColorMoviesTests.debug.xcconfig */,
+				2F47A494D6AFBF4F00F9858C /* Pods-SevenColorMoviesTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2056,8 +2056,8 @@
 				116B1F571D53236B00E9637A /* libbz2.tbd */,
 				116B1F551D53235600E9637A /* libz.tbd */,
 				116B1F531D53211C00E9637A /* IJKMediaFramework.framework */,
-				12179939F3550D9A17265830 /* libPods-SevenColorMovies.a */,
-				4129165E3D760E3812AA0561 /* libPods-SevenColorMoviesTests.a */,
+				D26657D5823A59132E6F7A07 /* libPods-SevenColorMoviesTests.a */,
+				58208E58E73ED17FB50772D8 /* libPods-SevenColorMovies.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2069,12 +2069,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11BB37A11D38B9A00002D487 /* Build configuration list for PBXNativeTarget "SevenColorMovies" */;
 			buildPhases = (
-				7F9C35CE23A7A99887354ED1 /* Check Pods Manifest.lock */,
+				5CBF8E759A65ECA04438B274 /* [CP] Check Pods Manifest.lock */,
 				11BB37701D38B9A00002D487 /* Sources */,
 				11BB37711D38B9A00002D487 /* Frameworks */,
 				11BB37721D38B9A00002D487 /* Resources */,
-				76A379AB0C02107AB0C9423C /* Embed Pods Frameworks */,
-				C8A738FC5EA155D379B4AEA1 /* Copy Pods Resources */,
+				4A25385B5CCD56AB4BF449BD /* [CP] Embed Pods Frameworks */,
+				8D76CBEA5442CBACAA6824D1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2089,12 +2089,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11BB37A41D38B9A00002D487 /* Build configuration list for PBXNativeTarget "SevenColorMoviesTests" */;
 			buildPhases = (
-				F305CA892D5D9AA30D4CB76A /* Check Pods Manifest.lock */,
+				C3E1B7BCFD9836C446D20ECF /* [CP] Check Pods Manifest.lock */,
 				11BB37891D38B9A00002D487 /* Sources */,
 				11BB378A1D38B9A00002D487 /* Frameworks */,
 				11BB378B1D38B9A00002D487 /* Resources */,
-				F02120CE48C94AD446868202 /* Embed Pods Frameworks */,
-				B215F4CC987ACA8321C999F5 /* Copy Pods Resources */,
+				92ADBB246AF7A9E37E00A782 /* [CP] Embed Pods Frameworks */,
+				09CFF3CA1610A3E6580FBC1C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2237,44 +2237,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		76A379AB0C02107AB0C9423C /* Embed Pods Frameworks */ = {
+		09CFF3CA1610A3E6580FBC1C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7F9C35CE23A7A99887354ED1 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B215F4CC987ACA8321C999F5 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2282,14 +2252,44 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMoviesTests/Pods-SevenColorMoviesTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C8A738FC5EA155D379B4AEA1 /* Copy Pods Resources */ = {
+		4A25385B5CCD56AB4BF449BD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5CBF8E759A65ECA04438B274 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8D76CBEA5442CBACAA6824D1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2297,14 +2297,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F02120CE48C94AD446868202 /* Embed Pods Frameworks */ = {
+		92ADBB246AF7A9E37E00A782 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2312,19 +2312,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMoviesTests/Pods-SevenColorMoviesTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F305CA892D5D9AA30D4CB76A /* Check Pods Manifest.lock */ = {
+		C3E1B7BCFD9836C446D20ECF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2603,7 +2603,7 @@
 		};
 		11BB37A21D38B9A00002D487 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB7417922FA2A9215D327938 /* Pods-SevenColorMovies.debug.xcconfig */;
+			baseConfigurationReference = 2A0CD6D8521DBCFFE4F9C959 /* Pods-SevenColorMovies.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2639,6 +2639,7 @@
 					"$(PROJECT_DIR)/SevenColorMovies",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/SevenColorMovies/lib",
+					"$(PROJECT_DIR)/SevenColorMovies/xmpp/Vendor/libidn",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2681,7 +2682,7 @@
 		};
 		11BB37A31D38B9A00002D487 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44844E586861AA1504AA2D05 /* Pods-SevenColorMovies.release.xcconfig */;
+			baseConfigurationReference = FF8FAC5BA3DC58EF0AA60D3A /* Pods-SevenColorMovies.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2717,6 +2718,7 @@
 					"$(PROJECT_DIR)/SevenColorMovies",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/SevenColorMovies/lib",
+					"$(PROJECT_DIR)/SevenColorMovies/xmpp/Vendor/libidn",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2759,7 +2761,7 @@
 		};
 		11BB37A51D38B9A00002D487 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2BEEAFA80EADAFB26B8CE26E /* Pods-SevenColorMoviesTests.debug.xcconfig */;
+			baseConfigurationReference = A47ACC3EC282FAAF43932F19 /* Pods-SevenColorMoviesTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SevenColorMoviesTests/Info.plist;
@@ -2772,7 +2774,7 @@
 		};
 		11BB37A61D38B9A00002D487 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 61B706B1911AA751C12BF3F8 /* Pods-SevenColorMoviesTests.release.xcconfig */;
+			baseConfigurationReference = 2F47A494D6AFBF4F00F9858C /* Pods-SevenColorMoviesTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SevenColorMoviesTests/Info.plist;

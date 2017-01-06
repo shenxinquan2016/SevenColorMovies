@@ -109,16 +109,16 @@ static ZFDownloadManager *sharedDownloadManager = nil;
     _fileInfo.error = NO;
     _fileInfo.tempPath = TEMP_PATH(name);
     if ([ZFCommonHelper isExistFile:FILE_PATH(name)]) { // 已经下载过一次
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该文件已下载，是否重新下载？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"该文件已下载，是否重新下载？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             [alert show];
         });
         return;
     }
-    // 存在于临时文件夹里    正在下载
+    // 存在于临时文件夹里
     NSString *tempfilePath = [TEMP_PATH(name) stringByAppendingString:@".plist"];
     if ([ZFCommonHelper isExistFile:tempfilePath]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该文件已经在下载列表中了，是否重新下载？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"该文件已经在下载列表中了，是否重新下载？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             [alert show];
         });
@@ -133,11 +133,11 @@ static ZFDownloadManager *sharedDownloadManager = nil;
     if (self.VCdelegate && [self.VCdelegate respondsToSelector:@selector(allowNextRequest)]) {
         [self.VCdelegate allowNextRequest];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"成功添加到下载" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"该文件成功添加到下载队列" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             [alert show];
         });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)( 0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)( 0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [alert dismissWithClickedButtonIndex:0 animated:YES];
         });
     }
@@ -146,6 +146,7 @@ static ZFDownloadManager *sharedDownloadManager = nil;
 }
 
 #pragma mark - 下载开始
+
 - (void)beginRequest:(ZFFileModel *)fileInfo isBeginDown:(BOOL)isBeginDown
 {
     for(ZFHttpRequest *tempRequest in self.downinglist)
@@ -512,6 +513,7 @@ static ZFDownloadManager *sharedDownloadManager = nil;
             [_finishedlist addObject:file];
         }
     }
+    
 }
 
 - (void)saveFinishedFile
