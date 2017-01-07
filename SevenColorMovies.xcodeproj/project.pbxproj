@@ -151,6 +151,8 @@
 		11B496281DD967A400C51B8A /* SCDownloadedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11B496261DD967A400C51B8A /* SCDownloadedCell.xib */; };
 		11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */; };
 		11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */; };
+		11B9DBD41E214DF70086E51E /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11B9DBD31E214DF70086E51E /* Realm.framework */; };
+		11B9DBD51E214DF70086E51E /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11B9DBD31E214DF70086E51E /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11BA52DF1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BA52DE1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m */; };
 		11BA52E41DFC449A0036CF25 /* SCSearchingDeviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BA52E31DFC449A0036CF25 /* SCSearchingDeviceView.m */; };
 		11BA52E71DFC45F00036CF25 /* SCNoDeviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BA52E61DFC45F00036CF25 /* SCNoDeviceView.m */; };
@@ -224,6 +226,20 @@
 			remoteInfo = SevenColorMovies;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		11B9DBD61E214DF80086E51E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				11B9DBD51E214DF70086E51E /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		110174FC1D54245300E43773 /* SCMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCMacro.h; sourceTree = "<group>"; };
@@ -478,6 +494,7 @@
 		11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveRecommendationCollectionVC.m; sourceTree = "<group>"; };
 		11B9837F1D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveAllEpisodesCollectionVC.h; sourceTree = "<group>"; };
 		11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveAllEpisodesCollectionVC.m; sourceTree = "<group>"; };
+		11B9DBD31E214DF70086E51E /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		11BA52DD1DFC41FD0036CF25 /* SCRemoteHelpPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRemoteHelpPageVC.h; sourceTree = "<group>"; };
 		11BA52DE1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRemoteHelpPageVC.m; sourceTree = "<group>"; };
 		11BA52E21DFC449A0036CF25 /* SCSearchingDeviceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchingDeviceView.h; sourceTree = "<group>"; };
@@ -607,6 +624,7 @@
 				116B1F541D53211C00E9637A /* IJKMediaFramework.framework in Frameworks */,
 				11A39D9F1D9269EE00C9FEA8 /* libagent.a in Frameworks */,
 				081D0D94DAAC6F0452543183 /* libPods-SevenColorMovies.a in Frameworks */,
+				11B9DBD41E214DF70086E51E /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1589,6 +1607,7 @@
 		11BB376B1D38B9A00002D487 = {
 			isa = PBXGroup;
 			children = (
+				11B9DBD31E214DF70086E51E /* Realm.framework */,
 				1190EA351DEE7155002CA166 /*  提示 */,
 				11BB37761D38B9A00002D487 /* SevenColorMovies */,
 				11BB37901D38B9A00002D487 /* SevenColorMoviesTests */,
@@ -2075,6 +2094,8 @@
 				11BB37721D38B9A00002D487 /* Resources */,
 				4A25385B5CCD56AB4BF449BD /* [CP] Embed Pods Frameworks */,
 				8D76CBEA5442CBACAA6824D1 /* [CP] Copy Pods Resources */,
+				11B9DBD61E214DF80086E51E /* Embed Frameworks */,
+				11B9DBD71E214E020086E51E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2251,6 +2272,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMoviesTests/Pods-SevenColorMoviesTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		11B9DBD71E214E020086E51E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
 		};
 		4A25385B5CCD56AB4BF449BD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

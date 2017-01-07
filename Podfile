@@ -13,7 +13,7 @@ target 'SevenColorMovies' do
     pod 'SDCycleScrollView', '~> 1.61'
     pod 'MJRefresh',         '~> 3.1.10'
     pod 'IQKeyboardManager', '~> 4.0.7'
-    pod 'Realm',             '~> 2.0.2’
+    #pod 'Realm',             '~> 2.0.2’
     pod 'ZFDownload',        '~> 1.0.2'
     #pod 'CocoaAsyncSocket',  '~> 7.5.0'
     pod 'XMPPFramework', :git => "https://github.com/robbiehanson/XMPPFramework.git", :branch => 'master'
@@ -25,6 +25,6 @@ end
 
 target 'SevenColorMoviesTests' do
     
-    pod 'Realm/Headers'
+    #pod 'Realm/Headers'
     
 end
