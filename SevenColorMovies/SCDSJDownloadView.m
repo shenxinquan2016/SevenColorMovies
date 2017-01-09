@@ -195,7 +195,7 @@ static NSString *const cellId = @"cellId";
             }
             DONG_Log(@"%@",filmName);
             filmSetModel._ContentSetName = filmName;
-            NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
+            //NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
 //            // 利用ZFDownloadManager下载
             [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
             // 设置最多同时下载个数（默认是3）

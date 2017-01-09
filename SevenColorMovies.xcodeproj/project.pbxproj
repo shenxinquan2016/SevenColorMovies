@@ -494,7 +494,7 @@
 		11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveRecommendationCollectionVC.m; sourceTree = "<group>"; };
 		11B9837F1D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveAllEpisodesCollectionVC.h; sourceTree = "<group>"; };
 		11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveAllEpisodesCollectionVC.m; sourceTree = "<group>"; };
-		11B9DBD31E214DF70086E51E /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		11B9DBD31E214DF70086E51E /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = ../Realm.framework; sourceTree = "<group>"; };
 		11BA52DD1DFC41FD0036CF25 /* SCRemoteHelpPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRemoteHelpPageVC.h; sourceTree = "<group>"; };
 		11BA52DE1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRemoteHelpPageVC.m; sourceTree = "<group>"; };
 		11BA52E21DFC449A0036CF25 /* SCSearchingDeviceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchingDeviceView.h; sourceTree = "<group>"; };
@@ -1607,7 +1607,6 @@
 		11BB376B1D38B9A00002D487 = {
 			isa = PBXGroup;
 			children = (
-				11B9DBD31E214DF70086E51E /* Realm.framework */,
 				1190EA351DEE7155002CA166 /*  提示 */,
 				11BB37761D38B9A00002D487 /* SevenColorMovies */,
 				11BB37901D38B9A00002D487 /* SevenColorMoviesTests */,
@@ -1675,10 +1674,11 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				11B9DBD31E214DF70086E51E /* Realm.framework */,
+				1187027E1D7436B7005B3895 /* Reveal.framework */,
 				11052ABC1E10BF5000BF795B /* NullDataView */,
 				112BF95A1E0A5C3900A9C33D /* AudioConvert音频转码 */,
 				1114481C1D87D15700CB8FA9 /* 优朋工具包 */,
-				1187027E1D7436B7005B3895 /* Reveal.framework */,
 				1122FF671D4A260E00E6E8A2 /* Log(unicode编码) */,
 				11D422601D49F4E400B4F9AE /* XMLParser */,
 				11D422511D499FF900B4F9AE /* MJRefresh */,
