@@ -64,7 +64,7 @@
     return message;
 }
 
-- (void)disconnect
+- (void)disConnectXMPP
 {
     [self.xmppStream disconnect];
 }

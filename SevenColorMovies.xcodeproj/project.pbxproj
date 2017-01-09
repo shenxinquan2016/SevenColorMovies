@@ -1492,6 +1492,15 @@
 			name = ScanQRCodes;
 			sourceTree = "<group>";
 		};
+		1182416B1E2360C800B78E1A /* UserInfoManager */ = {
+			isa = PBXGroup;
+			children = (
+				1111A40D1D488D8A00C17B92 /* SCUserInfoManger.h */,
+				1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */,
+			);
+			name = UserInfoManager;
+			sourceTree = "<group>";
+		};
 		118D19B41D59B29B00A6968D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1841,8 +1850,7 @@
 		11BB37D81D38F0490002D487 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				1111A40D1D488D8A00C17B92 /* SCUserInfoManger.h */,
-				1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */,
+				1182416B1E2360C800B78E1A /* UserInfoManager */,
 				1182415A1E2321E500B78E1A /* XMPPManager */,
 				114552C91E014C3500BA6367 /* ComonFunc */,
 				11796BE41DF8F9C300F5923C /* SocketManager */,
