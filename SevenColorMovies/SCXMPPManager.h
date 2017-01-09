@@ -19,10 +19,9 @@
 @interface SCXMPPManager : NSObject
 
 @property (nonatomic, weak) id<SCXMPPManagerDelegate> delegate;
-@property (nonatomic, strong) XMPPStream *xmppStream;
-@property (nonatomic, strong) NSString *password;
 
 + (instancetype)shareManager;
+- (void)disconnect;
 - (void)initXMPPWithUserName:(NSString *)name andPassWord:(NSString *)passWord;
 - (XMPPMessage *)sendMessageWithBody:(NSString *)body andToName:(NSString *)toName andType:(NSString *)type;
 
