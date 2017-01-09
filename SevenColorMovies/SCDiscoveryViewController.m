@@ -12,7 +12,8 @@
 #import "SCRemoteControlVC.h"
 #import "SCSearchDeviceVC.h"
 #import "SCTCPSocketManager.h"
-
+#import "SCDLNAViewController.h"
+#import "SCScanQRCodesVC.h"
 
 @interface SCDiscoveryViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -105,10 +106,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //遥控器
-    if (indexPath.section == 0 && indexPath.row == 0){
+    if (indexPath.section == 0) { // 扫码
+    
+        SCScanQRCodesVC *scanQRCodesVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanQRCodesVC");
+        scanQRCodesVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:scanQRCodesVC animated:YES];
         
-        //TCP已经连接 进遥控器页  没有连接进遥控器搜索页
+    } else if (indexPath.section == 1 && indexPath.row == 0){ // 遥控器
+        
+        // TCP已经连接 进遥控器页  没有连接进遥控器搜索页
         if (TCPScoketManager.isConnected) {
             SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
             remoteVC.hidesBottomBarWhenPushed = YES;
@@ -121,9 +127,13 @@
             [self.navigationController pushViewController:searchDeviceVC animated:YES];
         }
     
-    } else if (indexPath.section == 0 && indexPath.row == 0) {
+    } else if (indexPath.section == 1 && indexPath.row == 1) { // DLNA
         
-        
+        SCDLNAViewController *dlnaVC = [[SCDLNAViewController alloc] initWithNibName:@"SCDLNAViewController" bundle:nil];;
+//        SCDLNAViewController *dlnaVC = [[NSBundle mainBundle] loadNibNamed:
+//         @"SCDLNAViewController" owner:nil options:nil ].lastObject;
+    
+        [self.navigationController pushViewController:dlnaVC animated:YES];
         
     }
     
@@ -142,7 +152,7 @@
 #pragma mark- Getters and Setters
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        NSArray *array = @[/*@[@{@"leftImg":@"Scan",@"title":@"扫一扫",@"isShowBottmLine":@"YES"}],*/
+        NSArray *array = @[@[@{@"leftImg":@"Scan",@"title":@"扫一扫",@"isShowBottmLine":@"YES"}],
                            @[@{@"leftImg":@"RemoteControl",@"title":@"遥控器",@"isShowBottmLine":@"NO"},                          @{@"leftImg":@"DLNA",@"title":@"DLNA",@"isShowBottmLine":@"YES"}],
                            /*@[@{@"leftImg":@"Activity",@"title":@"活动专区",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Game_1",@"title":@"游戏中心",@"isShowBottmLine":@"YES"}],
                            @[@{@"leftImg":@"Application",@"title":@"应用中心",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Live_1",@"title":@"直播伴侣",@"isShowBottmLine":@"YES"}]*/];

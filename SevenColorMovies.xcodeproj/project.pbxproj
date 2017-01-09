@@ -128,6 +128,10 @@
 		11796BF01DF93EE300F5923C /* SCTCPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BEF1DF93EE300F5923C /* SCTCPSocketManager.m */; };
 		117D1E201E08C466001195F2 /* SCSoundRecordingTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.mm */; };
 		11807D981E1632E600F19B41 /* NSData+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11807D971E1632E600F19B41 /* NSData+Addition.m */; };
+		1182415D1E23222200B78E1A /* SCXMPPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1182415C1E23222200B78E1A /* SCXMPPManager.m */; };
+		118241621E23282D00B78E1A /* SCDLNAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 118241601E23282D00B78E1A /* SCDLNAViewController.m */; };
+		118241631E23282D00B78E1A /* SCDLNAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 118241611E23282D00B78E1A /* SCDLNAViewController.xib */; };
+		1182416A1E23338500B78E1A /* SCScanQRCodesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 118241691E23338500B78E1A /* SCScanQRCodesVC.m */; };
 		11853B431E1267B60008E58E /* index1.html in Resources */ = {isa = PBXBuildFile; fileRef = 11853B421E1267B60008E58E /* index1.html */; };
 		11853B451E1267C80008E58E /* index1.css in Resources */ = {isa = PBXBuildFile; fileRef = 11853B441E1267C80008E58E /* index1.css */; };
 		11853B471E1267DD0008E58E /* index1.js in Resources */ = {isa = PBXBuildFile; fileRef = 11853B461E1267DD0008E58E /* index1.js */; };
@@ -454,6 +458,13 @@
 		117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SCSoundRecordingTool.mm; sourceTree = "<group>"; };
 		11807D961E1632E600F19B41 /* NSData+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Addition.h"; sourceTree = "<group>"; };
 		11807D971E1632E600F19B41 /* NSData+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Addition.m"; sourceTree = "<group>"; };
+		1182415B1E23222200B78E1A /* SCXMPPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCXMPPManager.h; sourceTree = "<group>"; };
+		1182415C1E23222200B78E1A /* SCXMPPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCXMPPManager.m; sourceTree = "<group>"; };
+		1182415F1E23282D00B78E1A /* SCDLNAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDLNAViewController.h; sourceTree = "<group>"; };
+		118241601E23282D00B78E1A /* SCDLNAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDLNAViewController.m; sourceTree = "<group>"; };
+		118241611E23282D00B78E1A /* SCDLNAViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCDLNAViewController.xib; sourceTree = "<group>"; };
+		118241681E23338500B78E1A /* SCScanQRCodesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCScanQRCodesVC.h; sourceTree = "<group>"; };
+		118241691E23338500B78E1A /* SCScanQRCodesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCScanQRCodesVC.m; sourceTree = "<group>"; };
 		11853B421E1267B60008E58E /* index1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index1.html; sourceTree = "<group>"; };
 		11853B441E1267C80008E58E /* index1.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = index1.css; sourceTree = "<group>"; };
 		11853B461E1267DD0008E58E /* index1.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = index1.js; sourceTree = "<group>"; };
@@ -1453,6 +1464,34 @@
 			name = SoundRecording;
 			sourceTree = "<group>";
 		};
+		1182415A1E2321E500B78E1A /* XMPPManager */ = {
+			isa = PBXGroup;
+			children = (
+				1182415B1E23222200B78E1A /* SCXMPPManager.h */,
+				1182415C1E23222200B78E1A /* SCXMPPManager.m */,
+			);
+			name = XMPPManager;
+			sourceTree = "<group>";
+		};
+		1182415E1E2327AF00B78E1A /* DLNA */ = {
+			isa = PBXGroup;
+			children = (
+				1182415F1E23282D00B78E1A /* SCDLNAViewController.h */,
+				118241601E23282D00B78E1A /* SCDLNAViewController.m */,
+				118241611E23282D00B78E1A /* SCDLNAViewController.xib */,
+			);
+			name = DLNA;
+			sourceTree = "<group>";
+		};
+		118241641E23307800B78E1A /* ScanQRCodes */ = {
+			isa = PBXGroup;
+			children = (
+				118241681E23338500B78E1A /* SCScanQRCodesVC.h */,
+				118241691E23338500B78E1A /* SCScanQRCodesVC.m */,
+			);
+			name = ScanQRCodes;
+			sourceTree = "<group>";
+		};
 		118D19B41D59B29B00A6968D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1690,7 +1729,9 @@
 			isa = PBXGroup;
 			children = (
 				113F8D921D3C705200B12D39 /* MainBody */,
+				118241641E23307800B78E1A /* ScanQRCodes */,
 				11BA52E01DFC42400036CF25 /* RemoteControl */,
+				1182415E1E2327AF00B78E1A /* DLNA */,
 			);
 			name = Discovery;
 			sourceTree = "<group>";
@@ -1802,6 +1843,7 @@
 			children = (
 				1111A40D1D488D8A00C17B92 /* SCUserInfoManger.h */,
 				1111A40E1D488D8A00C17B92 /* SCUserInfoManger.m */,
+				1182415A1E2321E500B78E1A /* XMPPManager */,
 				114552C91E014C3500BA6367 /* ComonFunc */,
 				11796BE41DF8F9C300F5923C /* SocketManager */,
 				11BB37DC1D38F0580002D487 /* NetHelper */,
@@ -2230,6 +2272,7 @@
 				1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */,
 				11323E101DB5CB650089A207 /* SCMyDownLoadManagerCell.xib in Resources */,
 				11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */,
+				118241631E23282D00B78E1A /* SCDLNAViewController.xib in Resources */,
 				11BB37D21D38E5C90002D487 /* News.storyboard in Resources */,
 				11BB37C81D38E3A00002D487 /* devEnvironment.plist in Resources */,
 				116E0F791DB0C03F00E280C6 /* SCProgramListCell.xib in Resources */,
@@ -2368,6 +2411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1182415D1E23222200B78E1A /* SCXMPPManager.m in Sources */,
 				1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */,
 				119A677C1DFE4FC9000A147C /* SCDeviceModel.m in Sources */,
 				1101750A1D549B3C00E43773 /* SCFilmSetModel.m in Sources */,
@@ -2436,6 +2480,7 @@
 				1131C0E81D67081E00BA151A /* SCPlayerViewController.m in Sources */,
 				1131C0E01D6705CD00BA151A /* IJKVideoPlayerVC.m in Sources */,
 				1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */,
+				118241621E23282D00B78E1A /* SCDLNAViewController.m in Sources */,
 				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
 				115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */,
 				11CAD9F41DED74AD009F3337 /* SCWatchHistoryModel.m in Sources */,
@@ -2502,6 +2547,7 @@
 				115F02491DDAF73D00DF911F /* SCDSJDownloadView.m in Sources */,
 				1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */,
 				1177A0F91DF7A0B6004C216B /* Dong_RunLabel.m in Sources */,
+				1182416A1E23338500B78E1A /* SCScanQRCodesVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -62,6 +62,34 @@
             </objects>
             <point key="canvasLocation" x="100" y="9"/>
         </scene>
+        <!--ScanQR CodesVC-->
+        <scene sceneID="235-Z0-j2o">
+            <objects>
+                <viewController storyboardIdentifier="SCScanQRCodesVC" id="k0x-fI-HiZ" customClass="SCScanQRCodesVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FjN-hP-Nf2"/>
+                        <viewControllerLayoutGuide type="bottom" id="G99-gT-wrz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CWy-RP-fKZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rra-VG-2FW">
+                                <frame key="frameInset" minX="142" minY="135" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="xmpp:" destination="k0x-fI-HiZ" eventType="touchUpInside" id="v2c-aC-0G0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n7s-Ja-SLl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-85" y="522"/>
+        </scene>
         <!--Search DeviceVC-->
         <scene sceneID="od3-gG-Jy8">
             <objects>
@@ -78,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jaq-fr-5Er" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="889" y="412"/>
+            <point key="canvasLocation" x="1543" y="-232"/>
         </scene>
         <!--Remote Help PageVC-->
         <scene sceneID="B07-3f-SUi">
@@ -111,7 +139,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7XX-3U-zQ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="888.79999999999995" y="1067.3163418290856"/>
+            <point key="canvasLocation" x="2182" y="-232"/>
         </scene>
         <!--Remote ControlVC-->
         <scene sceneID="RR6-m9-EpJ">
