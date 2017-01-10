@@ -8,14 +8,15 @@
 
 #import "SCScanQRCodesVC.h"
 #import "SCXMPPManager.h"
-#import <AVFoundation/AVFoundation.h>
+#import "LBXScanResult.h"
+#import "LBXScanWrapper.h"
+#import "LBXScanVideoZoomView.h"
 
-#define ScanViewWidthAndHeight kMainScreenHeight * 0.6
 
-@interface SCScanQRCodesVC () <SCXMPPManagerDelegate, AVCaptureMetadataOutputObjectsDelegate>
 
-@property(nonatomic,strong)AVCaptureSession * session;
-@property(nonatomic,weak)UIView * maskView;
+@interface SCScanQRCodesVC () <SCXMPPManagerDelegate, AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate>
+
+@property (nonatomic, strong) LBXScanVideoZoomView *zoomView;
 
 @end
 
@@ -25,19 +26,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
-    // 1.标题
-    self.leftBBI.text = @"扫一扫";
+   
    
     // 登录XMPP
     //[XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole"];
     //XMPPManager.delegate = self;
     
     
-    [self setUpMaskView];
-//    [self setUpBottomBar];
-//    [self setUpScanWindowView];
-//    [self beginScanning];
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    self.view.backgroundColor = [UIColor blackColor];
+    
+    //设置扫码后需要扫码图像
+    self.isNeedScanImage = YES;
+    
+    
+
 
 }
 
@@ -46,155 +52,245 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)xmpp:(id)sender {
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (_isQQSimulator) {
+        
+        //[self drawBottomItems];
+        [self drawTitle];
+        [self.view bringSubviewToFront:_topTitle];
+    }
+    else
+        _topTitle.hidden = YES;
+}
+
+// 绘制扫描区域
+- (void)drawTitle
+{
+    if (!_topTitle)
+    {
+        self.topTitle = [[UILabel alloc]init];
+        _topTitle.bounds = CGRectMake(0, 0, 145, 60);
+        _topTitle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2, 50);
+        
+        //3.5inch iphone
+        if ([UIScreen mainScreen].bounds.size.height <= 568 )
+        {
+            _topTitle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2, 38);
+            _topTitle.font = [UIFont systemFontOfSize:14];
+        }
+        
+        
+        _topTitle.textAlignment = NSTextAlignmentCenter;
+        _topTitle.numberOfLines = 0;
+        _topTitle.text = @"将取景框对准二维码即可自动扫描";
+        _topTitle.textColor = [UIColor whiteColor];
+        [self.view addSubview:_topTitle];
+    }
+}
+
+- (void)cameraInitOver
+{
+    if (self.isVideoZoom) {
+        [self zoomView];
+    }
+}
+
+- (LBXScanVideoZoomView*)zoomView
+{
+    if (!_zoomView)
+    {
+        
+        CGRect frame = self.view.frame;
+        
+        int XRetangleLeft = self.style.xScanRetangleOffset;
+        
+        CGSize sizeRetangle = CGSizeMake(frame.size.width - XRetangleLeft*2, frame.size.width - XRetangleLeft*2);
+        
+        if (self.style.whRatio != 1)
+        {
+            CGFloat w = sizeRetangle.width;
+            CGFloat h = w / self.style.whRatio;
+            
+            NSInteger hInt = (NSInteger)h;
+            h  = hInt;
+            
+            sizeRetangle = CGSizeMake(w, h);
+        }
+        
+        CGFloat videoMaxScale = [self.scanObj getVideoMaxScale];
+        
+        //扫码区域Y轴最小坐标
+        CGFloat YMinRetangle = frame.size.height / 2.0 - sizeRetangle.height/2.0 - self.style.centerUpOffset;
+        CGFloat YMaxRetangle = YMinRetangle + sizeRetangle.height;
+        
+        CGFloat zoomw = sizeRetangle.width + 40;
+        _zoomView = [[LBXScanVideoZoomView alloc]initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame)-zoomw)/2, YMaxRetangle + 40, zoomw, 18)];
+        
+        [_zoomView setMaximunValue:videoMaxScale/4];
+        
+        
+        __weak __typeof(self) weakSelf = self;
+        _zoomView.block= ^(float value)
+        {
+            [weakSelf.scanObj setVideoScale:value];
+        };
+        [self.view addSubview:_zoomView];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+        [self.view addGestureRecognizer:tap];
+    }
+    
+    return _zoomView;
     
 }
 
--(void)setUpMaskView
+- (void)tap
 {
-    UIView * mask = [[UIView alloc] init];
-    self.maskView = mask;
-    mask.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3].CGColor;
-    mask.layer.borderWidth = (kMainScreenHeight - ScanViewWidthAndHeight)/2;
-    
+    _zoomView.hidden = !_zoomView.hidden;
+}
 
-    mask.frame = self.view.bounds;
-    [self.view addSubview:mask];
-    [mask mas_updateConstraints:^(MASConstraintMaker *make) {
+- (void)drawBottomItems
+{
+    if (_bottomItemsView) {
         
-        
-    }];
+        return;
+    }
     
+    self.bottomItemsView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame)-164,
+                                                                   CGRectGetWidth(self.view.frame), 100)];
+    _bottomItemsView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     
-    mask.bounds.origin.x = self.view.bounds.origin.x;
-    mask.y = 0;
-    UIImageView * imageView =[[UIImageView alloc]init];
-    [imageView setImage:[UIImage imageNamed:@"scan_icon"]];
-    imageView.frame = CGRectMake(0, 0, 40, 40);
-    UILabel * label = [[UILabel alloc]init];
-    label.text = @"把二维码放到框框里就可以扫描了";
-    //    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor greenColor];
-    label.numberOfLines= 2;
-    label.font = [UIFont systemFontOfSize:14];
-    label.frame = CGRectMake(50, 0, 120, 40);
-    UIView * iconAndLabelView = [[UIView alloc]init];
-    iconAndLabelView.backgroundColor = [UIColor clearColor];
-//    iconAndLabelView.size = CGSizeMake(165, 40);
-//    iconAndLabelView.x = (self.view.width - iconAndLabelView.width)/2;
-//    iconAndLabelView.y = self.view.height * 0.2;
-    iconAndLabelView.frame = CGRectMake(50, 100, 120, 60);
-    [iconAndLabelView addSubview:imageView];
-    [iconAndLabelView addSubview:label];
-//    [self.view addSubview:iconAndLabelView];
+    [self.view addSubview:_bottomItemsView];
     
+    CGSize size = CGSizeMake(65, 87);
+    self.btnFlash = [[UIButton alloc]init];
+    _btnFlash.bounds = CGRectMake(0, 0, size.width, size.height);
+    _btnFlash.center = CGPointMake(CGRectGetWidth(_bottomItemsView.frame)/2, CGRectGetHeight(_bottomItemsView.frame)/2);
+    [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
+    [_btnFlash addTarget:self action:@selector(openOrCloseFlash) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.btnPhoto = [[UIButton alloc]init];
+    _btnPhoto.bounds = _btnFlash.bounds;
+    _btnPhoto.center = CGPointMake(CGRectGetWidth(_bottomItemsView.frame)/4, CGRectGetHeight(_bottomItemsView.frame)/2);
+    [_btnPhoto setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_photo_nor"] forState:UIControlStateNormal];
+    [_btnPhoto setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_photo_down"] forState:UIControlStateHighlighted];
+    [_btnPhoto addTarget:self action:@selector(openPhoto) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.btnMyQR = [[UIButton alloc]init];
+    _btnMyQR.bounds = _btnFlash.bounds;
+    _btnMyQR.center = CGPointMake(CGRectGetWidth(_bottomItemsView.frame) * 3/4, CGRectGetHeight(_bottomItemsView.frame)/2);
+    [_btnMyQR setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_myqrcode_nor"] forState:UIControlStateNormal];
+    [_btnMyQR setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_myqrcode_down"] forState:UIControlStateHighlighted];
+    [_btnMyQR addTarget:self action:@selector(myQRCode) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_bottomItemsView addSubview:_btnFlash];
+    [_bottomItemsView addSubview:_btnPhoto];
+    [_bottomItemsView addSubview:_btnMyQR];
     
 }
 
-- (void)setUpBottomBar
+// 扫描结果
+- (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array
 {
-    UIView *bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight * 0.9, kMainScreenWidth, kMainScreenHeight * 0.1)];
-    bottomBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
-    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setTitle:@"取消" forState:UIControlStateNormal];
-//    backButton.x = 5;
-//    backButton.width = 50;
-//    backButton.height = 30;
-//    backButton.y = (bottomBar.height - backButton.height)/2;
-    backButton.frame = CGRectMake(5, 10, 50, 30);
+    if (array.count < 1)
+    {
+        [self popAlertMsgWithScanResult:nil];
+        
+        return;
+    }
+    
+    //经测试，可以同时识别2个二维码，不能同时识别二维码和条形码
+    for (LBXScanResult *result in array) {
+        
+        DONG_Log(@"scanResult:%@",result.strScanned);
+    }
+    
+    LBXScanResult *scanResult = array[0];
+    
+    NSString*strResult = scanResult.strScanned;
+    
+    self.scanImage = scanResult.imgScanned;
+    
+    if (!strResult) {
+        
+        [self popAlertMsgWithScanResult:nil];
+        
+        return;
+    }
+    
+    //震动提醒
+     //[LBXScanWrapper systemVibrate];
+    //声音提醒
+    //[LBXScanWrapper systemSound];
     
     
-    [backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    [bottomBar addSubview:backButton];
-    [self.view addSubview:bottomBar];
+    [self showNextVCWithScanResult:scanResult];
     
 }
 
-- (void)setUpScanWindowView
+// 扫描失败
+- (void)popAlertMsgWithScanResult:(NSString*)strResult
 {
-    UIView *scanWindow = [[UIView alloc] init];
-//    scanWindow.width = ScanViewWidthAndHeight;
-//    scanWindow.height = ScanViewWidthAndHeight;
-//    scanWindow.y = (self.view.height - scanWindow.height) / 2;
-//    scanWindow.x =(self.view.width - scanWindow.width)/2;
-    scanWindow.clipsToBounds = YES;
-    [self.view addSubview:scanWindow];
-    [scanWindow mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(ScanViewWidthAndHeight, ScanViewWidthAndHeight));
+    if (!strResult) {
         
-    }];
+        strResult = @"识别失败";
+    }
     
-    CGFloat scanNetImageViewH = ScanViewWidthAndHeight;
-    CGFloat scanNetImageViewW = ScanViewWidthAndHeight;
-    UIImageView *scanNetImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scan_net"]];
-    scanNetImageView.frame = CGRectMake(0, -scanNetImageViewH, scanNetImageViewW, scanNetImageViewH);
-    CABasicAnimation *scanNetAnimation = [CABasicAnimation animation];
-    scanNetAnimation.keyPath = @"transform.translation.y";
-    scanNetAnimation.byValue = @(scanWindow.bounds.size.height);
-    scanNetAnimation.duration = 1.5;
-    scanNetAnimation.repeatCount = MAXFLOAT;
-    [scanNetImageView.layer addAnimation:scanNetAnimation forKey:nil];
-    [scanWindow addSubview:scanNetImageView];
-    //  设置4个边框
-    CGFloat buttonWH = 18;
-    
-    UIButton *topLeft = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWH, buttonWH)];
-    [topLeft setImage:[UIImage imageNamed:@"scan_1"] forState:UIControlStateNormal];
-    [scanWindow addSubview:topLeft];
-    
-//    UIButton *topRight = [[UIButton alloc] initWithFrame:CGRectMake(scanWindow.width - buttonWH, 0, buttonWH, buttonWH)];
-//    [topRight setImage:[UIImage imageNamed:@"scan_2"] forState:UIControlStateNormal];
-//    [scanWindow addSubview:topRight];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"扫码内容" message:strResult delegate:self cancelButtonTitle:nil otherButtonTitles:@"确认", nil];
+    [alertView show];
+    alertView.delegate = self;
+
+}
+
+- (void)showNextVCWithScanResult:(LBXScanResult*)strResult
+{
+//    ScanResultViewController *vc = [ScanResultViewController new];
+//    vc.imgScan = strResult.imgScanned;
 //    
-//    UIButton *bottomLeft = [[UIButton alloc] initWithFrame:CGRectMake(0, scanWindow.height - buttonWH, buttonWH, buttonWH)];
-//    [bottomLeft setImage:[UIImage imageNamed:@"scan_3"] forState:UIControlStateNormal];
-//    [scanWindow addSubview:bottomLeft];
+//    vc.strScan = strResult.strScanned;
 //    
-//    UIButton *bottomRight = [[UIButton alloc] initWithFrame:CGRectMake(topRight.x, bottomLeft.y, buttonWH, buttonWH)];
-//    [bottomRight setImage:[UIImage imageNamed:@"scan_4"] forState:UIControlStateNormal];
-//    [scanWindow addSubview:bottomRight];
-    
+//    vc.strCodeType = strResult.strBarCodeType;
+//    
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)beginScanning
+
+#pragma mark -底部功能项
+//打开相册
+- (void)openPhoto
 {
-    //获取摄像设备
-    AVCaptureDevice * device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    //创建输入流
-    AVCaptureDeviceInput * input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
-    if (!input) return;
-    //创建输出流
-    AVCaptureMetadataOutput * output = [[AVCaptureMetadataOutput alloc]init];
-    output.rectOfInterest = CGRectMake(((kMainScreenHeight-ScanViewWidthAndHeight)/2)/kMainScreenHeight,((kMainScreenWidth-ScanViewWidthAndHeight)/2)/kMainScreenWidth,ScanViewWidthAndHeight/kMainScreenHeight,ScanViewWidthAndHeight/kMainScreenWidth);
-    //设置代理 在主线程里刷新
-    [output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
-    
-    //初始化链接对象
-    _session = [[AVCaptureSession alloc]init];
-    //高质量采集率
-    [_session setSessionPreset:AVCaptureSessionPresetHigh];
-    
-    [_session addInput:input];
-    [_session addOutput:output];
-    //设置扫码支持的编码格式(如下设置条形码和二维码兼容)
-    output.metadataObjectTypes=@[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code];
-    
-    AVCaptureVideoPreviewLayer * layer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
-    layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
-    layer.frame= self.view.layer.bounds;
-    [self.view.layer insertSublayer:layer atIndex:0];
-    
-    
-    //开始捕获
-    [_session startRunning];
-    
+    if ([LBXScanWrapper isGetPhotoPermission])
+        [self openLocalPhoto];
+    else {
+        [MBProgressHUD showError:@"请到设置->隐私中开启本程序相册权限"];
+    }
 }
 
--(void)dismiss
+//开关闪光灯
+- (void)openOrCloseFlash
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [super openOrCloseFlash];
+    
+    if (self.isOpenFlash)
+    {
+        [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_down"] forState:UIControlStateNormal];
+    }
+    else
+        [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
 }
+
+
+#pragma mark -底部功能项
+
+- (void)myQRCode
+{
+//    MyQRViewController *vc = [MyQRViewController new];
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 #pragma mark - SCXMPPManagerDelegate
 
@@ -205,5 +301,13 @@
     DONG_Log(@"接收到%@说：%@",from, info);
 }
 
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 @end

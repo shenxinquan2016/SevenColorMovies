@@ -192,6 +192,7 @@
 		11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422591D49A42800B4F9AE /* SCComonFunc.m */; };
 		11D4225C1D49A8EC00B4F9AE /* SCLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */; };
 		11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D4225E1D49E83D00B4F9AE /* XMLDictionary.m */; };
+		11DA5EFB1E24742800B32E1B /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11DA5EFA1E24742800B32E1B /* CodeScan.bundle */; };
 		11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */; };
 		11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC31D3DCE6700012480 /* SCDemandChannelItemCell.m */; };
 		11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DC2BC51D3DD48400012480 /* SCDemandChannelItemCell.xib */; };
@@ -569,6 +570,7 @@
 		11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCLoadingView.xib; sourceTree = "<group>"; };
 		11D4225D1D49E83D00B4F9AE /* XMLDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDictionary.h; sourceTree = "<group>"; };
 		11D4225E1D49E83D00B4F9AE /* XMLDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLDictionary.m; sourceTree = "<group>"; };
+		11DA5EFA1E24742800B32E1B /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
 		11DC2BBF1D3DCDEA00012480 /* SCDemandChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelCell.h; sourceTree = "<group>"; };
 		11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDemandChannelCell.m; sourceTree = "<group>"; };
 		11DC2BC21D3DCE6700012480 /* SCDemandChannelItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDemandChannelItemCell.h; sourceTree = "<group>"; };
@@ -1722,6 +1724,7 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				11DA5EFA1E24742800B32E1B /* CodeScan.bundle */,
 				11B9DBD31E214DF70086E51E /* Realm.framework */,
 				1187027E1D7436B7005B3895 /* Reveal.framework */,
 				11052ABC1E10BF5000BF795B /* NullDataView */,
@@ -2247,6 +2250,7 @@
 				11C1C1C21D8020A300CEE71C /* SCFliterOptionCell.xib in Resources */,
 				11458EA31D45FEE200EBD16D /* SCMineTopCell.xib in Resources */,
 				11853B471E1267DD0008E58E /* index1.js in Resources */,
+				11DA5EFB1E24742800B32E1B /* CodeScan.bundle in Resources */,
 				11458E981D45E0D500EBD16D /* SCDiscoveryTableViewCell.xib in Resources */,
 				1147FBB61DDE9D6000126F2E /* SCArtsDownloadCell.xib in Resources */,
 				115F024E1DDAFEC400DF911F /* SCDSJDownloadCell.xib in Resources */,

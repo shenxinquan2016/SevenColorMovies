@@ -8,7 +8,7 @@
 
 #import "SCDLNAViewController.h"
 
-@interface SCDLNAViewController ()
+@interface SCDLNAViewController () <UIAlertViewDelegate>
 
 @end
 
@@ -17,11 +17,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"扫码内容" message:@"扫码失败" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确认", nil];
+    //[alertView show];
+    alertView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        
+    }
 }
 
 /*

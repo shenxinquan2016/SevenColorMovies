@@ -48,6 +48,8 @@ PODS:
   - KissXML (5.1.2):
     - KissXML/Core (= 5.1.2)
   - KissXML/Core (5.1.2)
+  - LBXScan (1.1.1):
+    - ZXingObjC (~> 3.0)
   - Masonry (1.0.2)
   - MBProgressHUD (0.9.2)
   - MJExtension (3.0.13)
@@ -222,10 +224,14 @@ PODS:
     - XMPPFramework/XEP-0203
   - ZFDownload (1.0.2):
     - ASIHTTPRequest
+  - ZXingObjC (3.1.0):
+    - ZXingObjC/All (= 3.1.0)
+  - ZXingObjC/All (3.1.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.4)
   - IQKeyboardManager (~> 4.0.7)
+  - LBXScan (from `https://github.com/MxABC/LBXScan.git`)
   - Masonry (~> 1.0.2)
   - MBProgressHUD (~> 0.9.1)
   - MJExtension
@@ -237,11 +243,16 @@ DEPENDENCIES:
   - ZFDownload (~> 1.0.2)
 
 EXTERNAL SOURCES:
+  LBXScan:
+    :git: https://github.com/MxABC/LBXScan.git
   XMPPFramework:
     :branch: master
     :git: https://github.com/robbiehanson/XMPPFramework.git
 
 CHECKOUT OPTIONS:
+  LBXScan:
+    :commit: 72f54ef6791f377e1879e63cbfb39895fe6ba304
+    :git: https://github.com/MxABC/LBXScan.git
   XMPPFramework:
     :commit: 917a5b40da013f3c9a6fe80662448d87d67f3341
     :git: https://github.com/robbiehanson/XMPPFramework.git
@@ -253,6 +264,7 @@ SPEC CHECKSUMS:
   CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
   IQKeyboardManager: 69002bb4fea60596b710e57d426abc00e5063630
   KissXML: 246c842586bb77110e04fb88e19376d96245c856
+  LBXScan: dfb4d8ae8e4cff2aa0c9e1771e43954dce1469a9
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
@@ -263,7 +275,8 @@ SPEC CHECKSUMS:
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   XMPPFramework: 977eef5d00c20fe9fb19c30d84a89c2d5564252d
   ZFDownload: a52f94ebb080833b8a8ceb19a409f2941343fe7f
+  ZXingObjC: bf15b3814f7a105b6d99f47da2333c93a063650a
 
-PODFILE CHECKSUM: 466c6c124a738a40c6f3acb78eca372919c71111
+PODFILE CHECKSUM: 1a5c1908832095ca3076212579e33dd03b4573e6
 
 COCOAPODS: 1.2.0.beta.1
