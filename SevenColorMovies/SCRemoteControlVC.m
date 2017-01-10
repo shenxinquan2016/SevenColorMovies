@@ -48,6 +48,8 @@
 @property (nonatomic, copy) NSString *host;
 
 @property (nonatomic, copy) NSString *isOnline;
+/** XMPP消息接收方 */
+@property (nonatomic, copy) NSString *toName;
 
 @end
 
@@ -75,8 +77,8 @@
         NSString *uuidStr = [HLJUUID getUUID];
         //[XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole" resource:uuidStr];
         [XMPPManager initXMPPWithUserName:self.uid andPassWord:@"voole" resource:uuidStr];
-        XMPPManager.delegate = self;
     }
+    XMPPManager.delegate = self;
 }
 
 - (void)viewWillLayoutSubviews {
@@ -215,7 +217,9 @@
     NSString *type = @"Rc_VolumeControl";
     NSString *value = @"-1";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+
 }
 
 - (IBAction)doVolumeUp:(id)sender
@@ -224,7 +228,8 @@
     NSString *type = @"Rc_VolumeControl";
     NSString *value = @"1";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
 - (IBAction)doMoveUp:(id)sender
@@ -234,7 +239,8 @@
     NSString *value = @"MoveUp";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
 - (IBAction)doMoveDown:(id)sender
@@ -244,7 +250,8 @@
     NSString *value = @"MoveDown";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
 - (IBAction)doMoveLeft:(id)sender
@@ -254,7 +261,8 @@
     NSString *value = @"MoveLeft";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
 - (IBAction)doMoveRignt:(id)sender
@@ -264,7 +272,8 @@
     NSString *value = @"MoveRight";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
 - (IBAction)doOKAction:(id)sender
@@ -274,7 +283,8 @@
     NSString *value = @"Enter";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
     
 }
 
@@ -285,7 +295,8 @@
     NSString *value = @"Back";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
 - (IBAction)toHomePage:(id)sender
@@ -295,7 +306,8 @@
     NSString *value = @"HOME";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
     
 }
 
@@ -306,7 +318,8 @@
     NSString *value = @"82";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
 - (IBAction)doVODAction:(id)sender
@@ -316,7 +329,8 @@
     NSString *value = @"";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
 - (IBAction)doTimeShiftAction:(id)sender
@@ -326,14 +340,16 @@
     NSString *value = @"201";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
 - (IBAction)doPullScreen:(id)sender
 {
     NSString *xmlString = @"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"epg.vurc.action,com.hlj.live.action,epg.vurc.goback.action\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Rc_RequestDragTvVdieoToMobile\"></Message>]]></Body></Message>\n";
     
-    [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
+    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
 #pragma mark - priva method
@@ -451,16 +467,16 @@
 
 - (void)didAuthenticate:(XMPPStream *)sender
 {
-    self.hid = @"766572792900";
-    self.uid = @"8451204087955261";
+//    self.hid = @"766572792900";
+//    self.uid = @"8451204087955261";
     
 //    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
     NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", self.uid, self.hid];
-    
+    self.toName = toName;
     // 绑定试试
     NSString *uuidStr = [HLJUUID getUUID];
-    
-    NSLog(@"uuidStr:%@",uuidStr);
+    DONG_Log(@"toName:%@",toName);
+    DONG_Log(@"uuidStr:%@",uuidStr);
     NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\"  type=\"Rc_bind\" value=\"BindTv\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[信息描述]]</info></Message>", uuidStr, self.hid, self.uid];
     
     [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
@@ -472,6 +488,32 @@
     NSString *from = message.fromStr;
     NSString *info = message.body;
     DONG_Log(@"接收到 %@ 说：%@",from, info);
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithXMLString:info];
+    DONG_Log(@"dic:%@",dic);
+    
+    if (dic) {
+        if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
+            [dic[@"_type"] isEqualToString:@"TV_Response"]) {
+            
+            NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
+            DONG_Log(@"dic2:%@",dic2);
+            SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+            filmModel.FilmName = dic2[@"filmName"];
+            filmModel._Mid = dic2[@"_mid"];
+            filmModel.jiIndex = [dic2[@"_sid"] integerValue];
+            filmModel.currentPlayTime = [dic2[@"_currentPlayTime"] integerValue];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //调用播放器
+                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
+                
+                [self.navigationController pushViewController:player animated:YES];
+                
+            });
+        }
+    }
+
 }
 
 #pragma mark - UIAlertViewDelegate
