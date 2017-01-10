@@ -39,7 +39,7 @@
 /**
  *  XMPP登录
  */
-- (void)initXMPPWithUserName:(NSString *)name andPassWord:(NSString *)passWord;
+- (void)initXMPPWithUserName:(NSString *)name andPassWord:(NSString *)passWord resource:(NSString *)resource;;
 
 /**
  *  发送消息

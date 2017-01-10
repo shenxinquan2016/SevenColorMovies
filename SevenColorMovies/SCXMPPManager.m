@@ -39,7 +39,7 @@
      return self;
 }
 
-- (void)initXMPPWithUserName:(NSString *)name andPassWord:(NSString *)passWord
+- (void)initXMPPWithUserName:(NSString *)name andPassWord:(NSString *)passWord resource:(NSString *)resource
 {
     self.password = passWord;
     self.xmppStream = [[XMPPStream alloc] init];
@@ -50,10 +50,8 @@
     // 设置服务器地址 172.60.5.100  124.207.192.18
     [self.xmppStream setHostName:@"10.177.1.44"];
     [self.xmppStream setHostPort:5222];
-    // 获取设备UUID
-    NSString *uuidStr = [HLJUUID getUUID];
     // 设置当前用户的信息
-    XMPPJID *myJID = [XMPPJID jidWithUser:name domain:@"hljvoole.com" resource:uuidStr];
+    XMPPJID *myJID = [XMPPJID jidWithUser:name domain:@"hljvoole.com" resource:resource];
     [self.xmppStream setMyJID:myJID];
     // 连接服务器
     NSError *error;
@@ -162,7 +160,6 @@
             DONG_Log(@"%@下线了",presenceFromUser);
         }
     }
-    
 }
 
 /** 消息发送成功 */

@@ -18,7 +18,7 @@
 #import "SCFilmModel.h"
 #import "SCSoundRecordingTool.h"//录音
 #import "SCNetRequsetManger+iCloudRemoteControl.h"
-
+#import "SCXMPPManager.h"
 
 #define PORT 9819
 
@@ -353,6 +353,7 @@
 {
     //1.断开连接
     [TCPScoketManager disConnectSocket];
+    [XMPPManager disConnect];
     [self.navigationController popToRootViewControllerAnimated:YES];
     //2.发送通知
     //[DONG_NotificationCenter postNotificationName:CutOffTcpConnectByUser object:nil];
@@ -410,7 +411,7 @@
             [dic[@"_type"] isEqualToString:@"TV_Response"]) {
             
             NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
-            NSLog(@"dic2:%@",dic2);
+            DONG_Log(@"dic2:%@",dic2);
             SCFilmModel *filmModel = [[SCFilmModel alloc] init];
             filmModel.FilmName = dic2[@"filmName"];
             filmModel._Mid = dic2[@"_mid"];

@@ -34,10 +34,10 @@
    
     // 登录XMPP
     if (!XMPPManager.isConnected) {
-        [XMPPManager initXMPPWithUserName:@"8451203773313017" andPassWord:@"voole"];
+        NSString *uuidStr = [HLJUUID getUUID];
+        [XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole" resource:uuidStr];
         XMPPManager.delegate = self;
     }
-    
     
     
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
@@ -304,9 +304,9 @@
     }
     
     DONG_Log(@"uid = %@, hid = %@", _uid, _hid);
-//    SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
-//    
-//    [self.navigationController pushViewController:remoteVC animated:YES];
+    SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+    
+    [self.navigationController pushViewController:remoteVC animated:YES];
 }
 
 
@@ -348,10 +348,10 @@
 
 - (void)didAuthenticate:(XMPPStream *)sender
 {
-    self.hid = @"00301bba02db";
-    self.uid = @"8451203773313017";
+    self.hid = @"766572792900";
+    self.uid = @"8451204087955261";
     
-    NSString *toName = @"8451203773313017@hljvoole.com/00301bba02db";
+    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
     // 绑定试试
     NSString *uuidStr = [HLJUUID getUUID];
     
@@ -360,6 +360,10 @@
     
     
     [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
+    
+    SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+    
+    [self.navigationController pushViewController:remoteVC animated:YES];
     
 }
 

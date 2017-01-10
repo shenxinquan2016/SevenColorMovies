@@ -63,9 +63,10 @@
     self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dQueue];
     NSError *error;
     [self.socket connectToHost:host onPort:port error:&error];
-    NSLog(@"connect error: --- %@", error);
+    DONG_Log(@"connect error: --- %@", error);
     self.host = host;
     self.port = port;
+    
 }
 
 /** socket 连接成功后发送心跳的操作 */
@@ -207,6 +208,7 @@
             [self.delegate socket:sock didReadData:data];
         }
     });
+    
     [self.socket readDataWithTimeout:-1 tag:100];
 }
 
@@ -217,8 +219,7 @@
         [self.delegate socket:sock didWriteDataWithTag:tag];
     }
 
-    
-    NSLog(@"数据成功发送到服务器 tag:%ld", tag);
+    DONG_Log(@"数据成功发送到服务器 tag:%ld", tag);
     //数据发送成功后，自己调用一下读取数据的方法，接着socket才会调用读取数据的代理方法
     [self.socket readDataWithTimeout:-1 tag:tag];
     

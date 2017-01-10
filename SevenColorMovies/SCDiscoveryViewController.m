@@ -14,11 +14,13 @@
 #import "SCTCPSocketManager.h"
 #import "SCDLNAViewController.h"
 #import "SCScanQRCodesVC.h"
+#import "SCXMPPManager.h"
 
 @interface SCDiscoveryViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSArray *dataSource;
+
 @end
 
 @implementation SCDiscoveryViewController
@@ -134,6 +136,46 @@
         
     } else if (indexPath.section == 1 && indexPath.row == 0){ // 遥控器
         
+        if (XMPPManager.isConnected) {
+            SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+            remoteVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:remoteVC animated:YES];
+            
+        } else {
+            
+            // 创建参数对象
+            LBXScanViewStyle *style = [[LBXScanViewStyle alloc]init];
+            // 矩形区域中心上移，默认中心点为屏幕中心点
+            style.centerUpOffset = 44;
+            // 扫码框周围4个角的类型,设置为外挂式
+            style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_Outer;
+            // 扫码框周围4个角绘制的线条宽度
+            style.photoframeLineW = 6;
+            // 扫码框周围4个角的宽度
+            style.photoframeAngleW = 24;
+            // 扫码框周围4个角的高度
+            style.photoframeAngleH = 24;
+            // 扫码框内 动画类型 --线条上下移动
+            style.anmiationStyle = LBXScanViewAnimationStyle_LineMove;
+            // 线条上下移动图片
+            style.animationImage = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_light_green"];
+            
+            SCScanQRCodesVC *scanQRCodesVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanQRCodesVC");
+            scanQRCodesVC.style = style;
+            scanQRCodesVC.isQQSimulator = YES;
+            scanQRCodesVC.isVideoZoom = YES;
+            scanQRCodesVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:scanQRCodesVC animated:YES];
+            
+        }
+        
+    } else if (indexPath.section == 1 && indexPath.row == 1) { // DLNA
+        
+//        SCDLNAViewController *dlnaVC = [[SCDLNAViewController alloc] initWithNibName:@"SCDLNAViewController" bundle:nil];;
+//        SCDLNAViewController *dlnaVC = [[NSBundle mainBundle] loadNibNamed:
+//         @"SCDLNAViewController" owner:nil options:nil ].lastObject;
+//        [self.navigationController pushViewController:dlnaVC animated:YES];
+        
         // TCP已经连接 进遥控器页  没有连接进遥控器搜索页
         if (TCPScoketManager.isConnected) {
             SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
@@ -146,14 +188,7 @@
             searchDeviceVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:searchDeviceVC animated:YES];
         }
-    
-    } else if (indexPath.section == 1 && indexPath.row == 1) { // DLNA
-        
-        SCDLNAViewController *dlnaVC = [[SCDLNAViewController alloc] initWithNibName:@"SCDLNAViewController" bundle:nil];;
-//        SCDLNAViewController *dlnaVC = [[NSBundle mainBundle] loadNibNamed:
-//         @"SCDLNAViewController" owner:nil options:nil ].lastObject;
-    
-        [self.navigationController pushViewController:dlnaVC animated:YES];
+
         
     }
     
