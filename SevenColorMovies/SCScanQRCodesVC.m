@@ -326,14 +326,13 @@
         
     } else {
         SCScanResultViewController *resultVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanResultViewController");
-        resultVC.title = @"扫码结果 ";
         resultVC.strScan = strResult.strScanned;
         resultVC.strCodeType = strResult.strBarCodeType;
         [self.navigationController pushViewController:resultVC animated:YES];
     }
 }
 
-#pragma mark -底部功能项
+#pragma mark - 底部功能项
 // 打开相册
 - (void)openPhoto
 {
@@ -357,7 +356,7 @@
     }
 }
 
-#pragma mark -底部功能项
+#pragma mark - 底部功能项
 
 - (void)myQRCode
 {

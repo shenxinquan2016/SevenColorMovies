@@ -9,6 +9,7 @@
 #import "SCOtherBaseViewController.h"
 
 @interface SCOtherBaseViewController ()
+
 /** 返回标题 */
 @property (nonatomic, copy) NSString *_title;
 

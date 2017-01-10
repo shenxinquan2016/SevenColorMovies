@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.leftBBI.text = @"扫码结果";
     self.codeTypeLabel.text = _strCodeType;
     self.codeContentTextView.text = _strScan;
     self.codeContentTextView.backgroundColor = [UIColor colorWithHex:@"dddddd"];
