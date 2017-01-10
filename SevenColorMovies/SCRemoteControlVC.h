@@ -15,7 +15,9 @@
 
 @property (nonatomic, strong) SCDeviceModel *deviceModel;
 
-
-
+/** 扫码得到的智能卡号 */
+@property (nonatomic, copy) NSString *uid;
+/** 扫码得到的mac地址 */
+@property (nonatomic, copy) NSString *hid;
 
 @end

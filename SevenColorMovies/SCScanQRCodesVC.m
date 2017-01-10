@@ -12,9 +12,9 @@
 #import "LBXScanWrapper.h"
 #import "LBXScanVideoZoomView.h"
 #import "SCRemoteControlVC.h"
-#import "HLJUUID.h" // uuid工具类
+#import "SCScanResultViewController.h"
 
-@interface SCScanQRCodesVC () <SCXMPPManagerDelegate, AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate>
+@interface SCScanQRCodesVC () <AVCaptureMetadataOutputObjectsDelegate>
 
 @property (nonatomic, strong) LBXScanVideoZoomView *zoomView;
 /** 扫码得到的智能卡号 */
@@ -32,30 +32,15 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self addLeftBBI];
    
-    // 登录XMPP
-    if (!XMPPManager.isConnected) {
-        NSString *uuidStr = [HLJUUID getUUID];
-        [XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole" resource:uuidStr];
-        XMPPManager.delegate = self;
-    }
-    
-    
+
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     self.view.backgroundColor = [UIColor blackColor];
     
-    //设置扫码后需要扫码图像
-    self.isNeedScanImage = YES;
-    
-    
-
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // 设置配置信息
+    [self setConfiguration];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -70,6 +55,37 @@
     }
     else
         _topTitle.hidden = YES;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)setConfiguration
+{
+    //设置扫码后需要扫码图像
+    self.isNeedScanImage = NO;
+    
+    // 创建参数对象
+    LBXScanViewStyle *style = [[LBXScanViewStyle alloc] init];
+    // 矩形区域中心上移，默认中心点为屏幕中心点
+    style.centerUpOffset = 44;
+    // 扫码框周围4个角的类型,设置为外挂式
+    style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_Outer;
+    // 扫码框周围4个角绘制的线条宽度
+    style.photoframeLineW = 6;
+    // 扫码框周围4个角的宽度
+    style.photoframeAngleW = 24;
+    // 扫码框周围4个角的高度
+    style.photoframeAngleH = 24;
+    // 扫码框内 动画类型 --线条上下移动
+    style.anmiationStyle = LBXScanViewAnimationStyle_LineMove;
+    // 线条上下移动图片
+    style.animationImage = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_light_green"];
+    
+    self.style = style;
+
 }
 
 - (void)addLeftBBI {
@@ -301,14 +317,21 @@
     if (strArray.count) {
         self.uid = [strArray firstObject];
         self.hid = [strArray lastObject];
+        DONG_Log(@"uid = %@, hid = %@", _uid, _hid);
+        
+        SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+        remoteVC.uid = _uid;
+        remoteVC.hid = _hid;
+        [self.navigationController pushViewController:remoteVC animated:YES];
+        
+    } else {
+        SCScanResultViewController *resultVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanResultViewController");
+        resultVC.title = @"扫码结果 ";
+        resultVC.strScan = strResult.strScanned;
+        resultVC.strCodeType = strResult.strBarCodeType;
+        [self.navigationController pushViewController:resultVC animated:YES];
     }
-    
-    DONG_Log(@"uid = %@, hid = %@", _uid, _hid);
-    SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
-    
-    [self.navigationController pushViewController:remoteVC animated:YES];
 }
-
 
 #pragma mark -底部功能项
 // 打开相册
@@ -329,11 +352,10 @@
     if (self.isOpenFlash)
     {
         [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_down"] forState:UIControlStateNormal];
-    }
-    else
+    } else {
         [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
+    }
 }
-
 
 #pragma mark -底部功能项
 
@@ -344,44 +366,6 @@
 }
 
 
-#pragma mark - SCXMPPManagerDelegate
-
-- (void)didAuthenticate:(XMPPStream *)sender
-{
-    self.hid = @"766572792900";
-    self.uid = @"8451204087955261";
-    
-    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
-    // 绑定试试
-    NSString *uuidStr = [HLJUUID getUUID];
-    
-    NSLog(@"uuidStr:%@",uuidStr);
-    NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\"  type=\"Rc_bind\" value=\"BindTv\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[信息描述]]</info></Message>", uuidStr, self.hid, self.uid];
-    
-    
-    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
-    
-    SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
-    
-    [self.navigationController pushViewController:remoteVC animated:YES];
-    
-}
-
-- (void)didReceiveMessage:(XMPPMessage*)message
-{
-    NSString *from = message.fromStr;
-    NSString *info = message.body;
-    DONG_Log(@"接收到 %@ 说：%@",from, info);
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
 
 
 @end

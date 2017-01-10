@@ -19,10 +19,11 @@
 #import "SCSoundRecordingTool.h"//录音
 #import "SCNetRequsetManger+iCloudRemoteControl.h"
 #import "SCXMPPManager.h"
+#import "HLJUUID.h" // uuid工具类
 
 #define PORT 9819
 
-@interface SCRemoteControlVC () <SocketManagerDelegate>
+@interface SCRemoteControlVC () <SocketManagerDelegate, SCXMPPManagerDelegate, UIAlertViewDelegate>
 
 /** tcpSocket */
 @property (nonatomic, strong) GCDAsyncSocket *socket;
@@ -48,7 +49,6 @@
 
 @property (nonatomic, copy) NSString *isOnline;
 
-
 @end
 
 @implementation SCRemoteControlVC
@@ -70,6 +70,13 @@
         [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT];
     }
     
+    // 登录XMPP
+    if (!XMPPManager.isConnected) {
+        NSString *uuidStr = [HLJUUID getUUID];
+        [XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole" resource:uuidStr];
+//        [XMPPManager initXMPPWithUserName:self.uid andPassWord:@"voole" resource:uuidStr];
+        XMPPManager.delegate = self;
+    }
 }
 
 - (void)viewWillLayoutSubviews {
@@ -88,7 +95,7 @@
 }
 
 -(void)dealloc{
-    NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
+    DONG_Log(@"🔴%s 第%d行 \n",__func__, __LINE__);
 }
 
 #pragma mark - IBAction
@@ -440,7 +447,39 @@
     DONG_Log(@"SocketManagerDelegate断开了");
 }
 
+#pragma mark - SCXMPPManagerDelegate
 
+- (void)didAuthenticate:(XMPPStream *)sender
+{
+    self.hid = @"766572792900";
+    self.uid = @"8451204087955261";
+    
+    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
+    // 绑定试试
+    NSString *uuidStr = [HLJUUID getUUID];
+    
+    NSLog(@"uuidStr:%@",uuidStr);
+    NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\"  type=\"Rc_bind\" value=\"BindTv\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[信息描述]]</info></Message>", uuidStr, self.hid, self.uid];
+    
+    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
+    
+}
+
+- (void)didReceiveMessage:(XMPPMessage*)message
+{
+    NSString *from = message.fromStr;
+    NSString *info = message.body;
+    DONG_Log(@"接收到 %@ 说：%@",from, info);
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate {
