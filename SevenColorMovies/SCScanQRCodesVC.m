@@ -11,7 +11,7 @@
 #import "LBXScanResult.h"
 #import "LBXScanWrapper.h"
 #import "LBXScanVideoZoomView.h"
-
+#import "SCRemoteControlVC.h"
 
 
 @interface SCScanQRCodesVC () <SCXMPPManagerDelegate, AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate>
@@ -26,11 +26,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-   
+    [self addLeftBBI];
    
     // 登录XMPP
-    //[XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole"];
-    //XMPPManager.delegate = self;
+    [XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole"];
+    XMPPManager.delegate = self;
     
     
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
@@ -64,6 +64,50 @@
     }
     else
         _topTitle.hidden = YES;
+}
+
+- (void)addLeftBBI {
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 32)];
+    //    view.backgroundColor = [UIColor redColor];
+    // 返回箭头
+    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Back_Arrow"]];
+    [view addSubview:imgView];
+    //    imgView.backgroundColor = [UIColor grayColor];
+    [imgView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(view);
+        make.centerY.equalTo(view);
+        make.size.mas_equalTo(imgView.image.size);
+        
+    }];
+    // 返回标题
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 125, 22)];
+    //    titleLabel.backgroundColor = [UIColor greenColor];
+    titleLabel.text = @"扫一扫";
+    titleLabel.textColor = [UIColor colorWithHex:@"#878889"];
+    titleLabel.font = [UIFont systemFontOfSize: 19.0];
+    titleLabel.textAlignment = NSTextAlignmentLeft;
+    [view addSubview:titleLabel];
+    [titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view);
+        make.left.equalTo(imgView.mas_right).offset(0);
+        make.size.mas_equalTo(CGSizeMake(125, 22));
+        
+    }];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goBack)];
+    [view addGestureRecognizer:tap];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:view];
+    UIBarButtonItem *leftNegativeSpacer = [[UIBarButtonItem alloc]
+                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                           target:nil action:nil];
+    leftNegativeSpacer.width = -6;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftNegativeSpacer,item, nil];
+    
+}
+
+- (void)goBack {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 // 绘制扫描区域
@@ -247,19 +291,14 @@
 
 - (void)showNextVCWithScanResult:(LBXScanResult*)strResult
 {
-//    ScanResultViewController *vc = [ScanResultViewController new];
-//    vc.imgScan = strResult.imgScanned;
-//    
-//    vc.strScan = strResult.strScanned;
-//    
-//    vc.strCodeType = strResult.strBarCodeType;
-//    
-//    [self.navigationController pushViewController:vc animated:YES];
+    SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+    
+    [self.navigationController pushViewController:remoteVC animated:YES];
 }
 
 
 #pragma mark -底部功能项
-//打开相册
+// 打开相册
 - (void)openPhoto
 {
     if ([LBXScanWrapper isGetPhotoPermission])
@@ -269,7 +308,7 @@
     }
 }
 
-//开关闪光灯
+// 开关闪光灯
 - (void)openOrCloseFlash
 {
     [super openOrCloseFlash];

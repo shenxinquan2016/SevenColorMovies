@@ -21,6 +21,7 @@
 @interface SCXMPPManager : NSObject
 
 @property (nonatomic, weak) id<SCXMPPManagerDelegate> delegate;
+@property (nonatomic, assign, readonly) BOOL isConnected;
 
 /**
  *  XMPP单例
@@ -30,21 +31,21 @@
 + (instancetype)shareManager;
 
 /**
- *  XMPP 断开连接
+ *  XMPP断开连接
  */
-- (void)disConnectXMPP;
+- (void)disConnect;
 
 /**
- *  XMPP 登录
+ *  XMPP登录
  */
 - (void)initXMPPWithUserName:(NSString *)name andPassWord:(NSString *)passWord;
 
 /**
  *  发送消息
  *
- *  @param   body
- *  @param   toName
- *  @param   type
+ *  @param   body    消息体
+ *  @param   toName  接受者
+ *  @param   type    消息类型
  *  @return  XMPPMessage
  */
 - (XMPPMessage *)sendMessageWithBody:(NSString *)body andToName:(NSString *)toName andType:(NSString *)type;

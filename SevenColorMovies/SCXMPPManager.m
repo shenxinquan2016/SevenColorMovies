@@ -7,6 +7,7 @@
 //
 
 #import "SCXMPPManager.h"
+#import "HLJUUID.h" // uuid工具类
 
 @interface SCXMPPManager ()
 
@@ -44,15 +45,23 @@
     self.xmppStream = [[XMPPStream alloc] init];
     // 设置delegate
     [self.xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    //允许后台模式(注意iOS模拟器上是不支持后台socket的)
+    self.xmppStream.enableBackgroundingOnSocket = YES;
     // 设置服务器地址 172.60.5.100  124.207.192.18
     [self.xmppStream setHostName:@"10.177.1.44"];
     [self.xmppStream setHostPort:5222];
-    //    设置当前用户的信息
-    NSString *jidName = [NSString stringWithFormat:@"%@@hljvoole.com",name];
-    XMPPJID *myJID = [XMPPJID jidWithString:jidName];
+    // 获取设备UUID
+    NSString *uuidStr = [HLJUUID getUUID];
+    // 设置当前用户的信息
+    XMPPJID *myJID = [XMPPJID jidWithUser:name domain:@"hljvoole.com" resource:uuidStr];
     [self.xmppStream setMyJID:myJID];
-    //    连接服务器
-    [self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:nil];
+    // 连接服务器
+    NSError *error;
+    [self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error];
+    if (error) {
+        DONG_Log(@"XMPPStreamConnectError:%@", error.description);
+    }
+ 
 }
 
 - (XMPPMessage *)sendMessageWithBody:(NSString *)body andToName:(NSString *)toName andType:(NSString *)type
@@ -64,9 +73,31 @@
     return message;
 }
 
-- (void)disConnectXMPP
+/** 连接状态 */
+- (BOOL)isConnected
+{
+    return [self.xmppStream isConnected];
+}
+
+/** 上线 */
+- (void)goOnline//上线
+{
+    XMPPPresence *presence = [XMPPPresence presence];
+    [self.xmppStream sendElement:presence];
+    
+}
+
+/** 下线 */
+- (void)goOffline
+{
+    XMPPPresence *presence =[XMPPPresence presenceWithType:@"unavailable"];
+    [[self xmppStream] sendElement:presence];
+}
+
+- (void)disConnect
 {
     [self.xmppStream disconnect];
+    [self goOffline];
 }
 
 #pragma mark - XMPP Delegate
@@ -86,21 +117,20 @@
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
 {
     DONG_Log(@"登陆成功");
-    
-    // 通知服务器登陆状态
-    [self.xmppStream sendElement:[XMPPPresence presence]];
+    // 通知服务器登陆状态 上线
+    [self goOnline];
 }
 
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error
 {
     DONG_Log(@"登陆失败");
-    //  注册
+    // 注册
     [self.xmppStream registerWithPassword:self.password error:nil];
 }
 
 - (void)xmppStreamDidRegister:(XMPPStream *)sender
 {
-    DONG_Log(@"注册成功！");
+    DONG_Log(@"注册成功");
     
     [self.xmppStream authenticateWithPassword:self.password error:nil];
 }
@@ -110,6 +140,13 @@
     DONG_Log(@"注册失败 ：%@",error);
 }
 
+/** 消息发送成功 */
+- (void)xmppStream:(XMPPStream*)sender didSendMessage:(XMPPMessage *)message
+{
+    DONG_Log(@"消息发送成功");
+}
+
+/** 收到消息 */
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
     if ([self.delegate respondsToSelector:@selector(didReceiveMessage:)]) {
