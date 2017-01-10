@@ -109,14 +109,18 @@
     [self.xmppStream authenticateWithPassword:self.password error:nil];
 }
 
-- (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
-{
-    DONG_Log(@"已经断开");
-}
+//- (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
+//{
+//    DONG_Log(@"已经断开");
+//}
 
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
 {
     DONG_Log(@"登陆成功");
+    if ([self.delegate respondsToSelector:@selector(didAuthenticate:)]) {
+        [self.delegate didAuthenticate:sender];
+    }
+
     // 通知服务器登陆状态 上线
     [self goOnline];
 }
@@ -140,10 +144,37 @@
     DONG_Log(@"注册失败 ：%@",error);
 }
 
+- (void)xmppStream:(XMPPStream*)sender didReceivePresence:(XMPPPresence *)presence
+{
+    NSString *presenceType = [presence type]; //online/offline
+    //当前用户
+    NSString *userId = [[self.xmppStream myJID] user] ;
+    //在线用户
+    NSString *presenceFromUser = [[presence from] user];
+    if (![presenceFromUser isEqualToString:userId]) {
+        //在线状态
+        if([presenceType isEqualToString:@"available"]) {
+            
+            DONG_Log(@"%@上线了",presenceFromUser);
+            
+        } else if ([presenceType isEqualToString:@"unavailable"]) {
+
+            DONG_Log(@"%@下线了",presenceFromUser);
+        }
+    }
+    
+}
+
 /** 消息发送成功 */
 - (void)xmppStream:(XMPPStream*)sender didSendMessage:(XMPPMessage *)message
 {
     DONG_Log(@"消息发送成功");
+}
+
+/** 消息发送失败 */
+- (void)xmppStream:(XMPPStream*)sender didFailToSendMessage:(XMPPMessage *)message error:(NSError *)error
+{
+    DONG_Log(@"didFailToSendMessage:%@",error.description);
 }
 
 /** 收到消息 */
@@ -154,5 +185,49 @@
     }
 }
 
+
+
+- (void)xmppStream:(XMPPStream*)sender didFailToSendPresence:(XMPPPresence *)presence error:(NSError *)error
+{
+    DONG_Log(@"didFailToSendPresence:%@",error.description);
+}
+
+//[xmppStream disconnect]时会执行；掉线、断网故障时不执行
+- (void)xmppStreamWasToldToDisconnect:(XMPPStream*)sender
+{
+    DONG_Log(@"xmppStreamWasToldToDisconnect");
+}
+
+//[xmppStream disconnect]、掉线、断网故障时执行
+- (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
+{
+    NSString *str = [NSString stringWithFormat:@"服务器连接失败%@",[error.userInfo objectForKey:@"NSLocalizedDescription"]];
+    DONG_Log(@"%s--=%@---\n error=%@",__func__,str,error);
+    DONG_Log(@"error.userInfo =%@",error.userInfo);
+    //登陆不到服务器
+    //    error.userInfo ={
+    //       NSLocalizedDescription = "nodename nor servnameprovided, or not known";
+    //    }
+    [self disConnect];
+    if ([error.userInfo objectForKey:@"NSLocalizedDescription"]) {
+        
+    } else {
+        // 好友服务器连接失败！
+    }
+}
+
+
+/** xml命令构造器 */
+- (NSString *)getXMLStringCommandWithIdentifier:(NSString *)identifier type:(NSString *)type value:(NSString *)value;
+{
+//    NSString *identifier = @"com.vurc.system";
+//    NSString *type = @"Rc_Move";
+//    NSString *value = @"MoveUp";
+
+    
+    NSString *xmlString = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"%@\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"%@\" value=\"%@\"></Message>]]></Body></Message>\n",identifier,  type, value];
+    
+    return xmlString;
+}
 
 @end

@@ -13,6 +13,7 @@
 
 @protocol SCXMPPManagerDelegate <NSObject>
 @required
+- (void)didAuthenticate:(XMPPStream *)sender;
 - (void)didReceiveMessage:(XMPPMessage*)message;
 
 @end

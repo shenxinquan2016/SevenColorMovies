@@ -12,11 +12,15 @@
 #import "LBXScanWrapper.h"
 #import "LBXScanVideoZoomView.h"
 #import "SCRemoteControlVC.h"
-
+#import "HLJUUID.h" // uuid工具类
 
 @interface SCScanQRCodesVC () <SCXMPPManagerDelegate, AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) LBXScanVideoZoomView *zoomView;
+/** 扫码得到的智能卡号 */
+@property (nonatomic, copy) NSString *uid;
+/** 扫码得到的mac地址 */
+@property (nonatomic, copy) NSString *hid;
 
 @end
 
@@ -29,8 +33,11 @@
     [self addLeftBBI];
    
     // 登录XMPP
-    [XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole"];
-    XMPPManager.delegate = self;
+    if (!XMPPManager.isConnected) {
+        [XMPPManager initXMPPWithUserName:@"8451203773313017" andPassWord:@"voole"];
+        XMPPManager.delegate = self;
+    }
+    
     
     
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
@@ -43,7 +50,6 @@
     self.isNeedScanImage = YES;
     
     
-
 
 }
 
@@ -291,9 +297,16 @@
 
 - (void)showNextVCWithScanResult:(LBXScanResult*)strResult
 {
-    SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+    NSArray *strArray = [strResult.strScanned componentsSeparatedByString:@","];
+    if (strArray.count) {
+        self.uid = [strArray firstObject];
+        self.hid = [strArray lastObject];
+    }
     
-    [self.navigationController pushViewController:remoteVC animated:YES];
+    DONG_Log(@"uid = %@, hid = %@", _uid, _hid);
+//    SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+//    
+//    [self.navigationController pushViewController:remoteVC animated:YES];
 }
 
 
@@ -333,11 +346,28 @@
 
 #pragma mark - SCXMPPManagerDelegate
 
+- (void)didAuthenticate:(XMPPStream *)sender
+{
+    self.hid = @"00301bba02db";
+    self.uid = @"8451203773313017";
+    
+    NSString *toName = @"8451203773313017@hljvoole.com/00301bba02db";
+    // 绑定试试
+    NSString *uuidStr = [HLJUUID getUUID];
+    
+    NSLog(@"uuidStr:%@",uuidStr);
+    NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\"  type=\"Rc_bind\" value=\"BindTv\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[信息描述]]</info></Message>", uuidStr, self.hid, self.uid];
+    
+    
+    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
+    
+}
+
 - (void)didReceiveMessage:(XMPPMessage*)message
 {
     NSString *from = message.fromStr;
     NSString *info = message.body;
-    DONG_Log(@"接收到%@说：%@",from, info);
+    DONG_Log(@"接收到 %@ 说：%@",from, info);
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -348,5 +378,6 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
 
 @end
