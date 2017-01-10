@@ -73,8 +73,8 @@
     // 登录XMPP
     if (!XMPPManager.isConnected) {
         NSString *uuidStr = [HLJUUID getUUID];
-        [XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole" resource:uuidStr];
-//        [XMPPManager initXMPPWithUserName:self.uid andPassWord:@"voole" resource:uuidStr];
+        //[XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole" resource:uuidStr];
+        [XMPPManager initXMPPWithUserName:self.uid andPassWord:@"voole" resource:uuidStr];
         XMPPManager.delegate = self;
     }
 }
@@ -454,7 +454,9 @@
     self.hid = @"766572792900";
     self.uid = @"8451204087955261";
     
-    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
+//    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
+    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", self.uid, self.hid];
+    
     // 绑定试试
     NSString *uuidStr = [HLJUUID getUUID];
     

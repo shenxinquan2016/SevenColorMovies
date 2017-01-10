@@ -30,7 +30,7 @@ static const CGFloat TitleHeight = 50.0f;
 /** 滑动标题栏宽度 */
 static const CGFloat LabelWidth = 55.f;
 
-@interface SCLivePlayerVC ()<UIScrollViewDelegate, UIAlertViewDelegate, SocketManagerDelegate>
+@interface SCLivePlayerVC () <UIScrollViewDelegate, UIAlertViewDelegate, SocketManagerDelegate>
 
 /** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *titleScroll;
@@ -210,12 +210,12 @@ static const CGFloat LabelWidth = 55.f;
 
 - (void)setView
 {
-    //请求直播节目列表数据后组装页面
+    // 请求直播节目列表数据后组装页面
     [self getLiveChannelData];
     
 }
 
-/** 添加滚动标题栏*/
+/** 添加滚动标题栏 */
 - (void)constructSlideHeaderView
 {
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 280, kMainScreenWidth, TitleHeight)];

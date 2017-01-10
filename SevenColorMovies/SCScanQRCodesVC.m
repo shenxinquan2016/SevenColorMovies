@@ -311,6 +311,7 @@
 
 }
 
+// 扫描成功后的处理
 - (void)showNextVCWithScanResult:(LBXScanResult*)strResult
 {
     NSArray *strArray = [strResult.strScanned componentsSeparatedByString:@","];
