@@ -326,26 +326,6 @@
                                             <action selector="doTimeShiftAction:" destination="11b-d0-noV" eventType="touchUpInside" id="GXE-Hb-For"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Gx-eY-6fo">
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="115" id="38K-G8-odp"/>
-                                            <constraint firstAttribute="height" constant="115" id="yA4-oG-2aO"/>
-                                        </constraints>
-                                        <state key="normal" title="Button" image="Back"/>
-                                        <connections>
-                                            <action selector="doBackAction:" destination="11b-d0-noV" eventType="touchUpInside" id="hbW-TJ-k5E"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xp4-b9-2Rf">
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="57" id="Ewb-Hd-jwl"/>
-                                            <constraint firstAttribute="height" constant="57" id="v2i-U6-TLf"/>
-                                        </constraints>
-                                        <state key="normal" title="Button" image="Menu"/>
-                                        <connections>
-                                            <action selector="toMenuPage:" destination="11b-d0-noV" eventType="touchUpInside" id="6tp-Bj-1ur"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6f-hi-u29">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="57" id="A4v-RF-Vm4"/>
@@ -366,39 +346,62 @@
                                             <action selector="toHomePage:" destination="11b-d0-noV" eventType="touchUpInside" id="afW-zL-IOC"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xp4-b9-2Rf">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="57" id="3S6-cK-dmV"/>
+                                            <constraint firstAttribute="height" constant="57" id="gP3-Ca-Zy6"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="Menu"/>
+                                        <connections>
+                                            <action selector="toMenuPage:" destination="11b-d0-noV" eventType="touchUpInside" id="6tp-Bj-1ur"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcQ-1l-riY">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="7Id-6c-fNi"/>
+                                            <constraint firstAttribute="width" constant="90" id="js2-WF-eQc"/>
+                                        </constraints>
+                                        <state key="normal" image="Microphone"/>
+                                        <connections>
+                                            <action selector="startRecord:" destination="11b-d0-noV" eventType="touchDown" id="ZAp-ht-k6Y"/>
+                                            <action selector="stopRecord:" destination="11b-d0-noV" eventType="touchUpInside" id="UFO-7p-bhK"/>
+                                            <action selector="touchCancel:" destination="11b-d0-noV" eventType="touchCancel" id="bDo-rC-WZV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Gx-eY-6fo">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="57" id="LBz-Ys-7NX"/>
+                                            <constraint firstAttribute="height" constant="57" id="NC4-r2-nOp"/>
+                                        </constraints>
+                                        <state key="normal" image="Back"/>
+                                        <connections>
+                                            <action selector="doBackAction:" destination="11b-d0-noV" eventType="touchUpInside" id="hbW-TJ-k5E"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="6Gx-eY-6fo" secondAttribute="bottom" constant="9" id="0L4-eB-dZ4"/>
                                     <constraint firstAttribute="width" constant="330" id="3zn-xc-rSh"/>
-                                    <constraint firstItem="W6f-hi-u29" firstAttribute="top" secondItem="DzA-ka-XrR" secondAttribute="top" constant="9" id="Dic-8c-WA2"/>
-                                    <constraint firstItem="6Gx-eY-6fo" firstAttribute="centerY" secondItem="DzA-ka-XrR" secondAttribute="centerY" id="EJm-Pt-af7"/>
-                                    <constraint firstItem="6Gx-eY-6fo" firstAttribute="centerX" secondItem="DzA-ka-XrR" secondAttribute="centerX" id="Laj-vp-LQt"/>
+                                    <constraint firstItem="W6f-hi-u29" firstAttribute="top" secondItem="DzA-ka-XrR" secondAttribute="top" constant="25" id="Dic-8c-WA2"/>
+                                    <constraint firstItem="tcQ-1l-riY" firstAttribute="centerX" secondItem="DzA-ka-XrR" secondAttribute="centerX" id="Ebl-jb-Xni"/>
+                                    <constraint firstAttribute="bottom" secondItem="tcQ-1l-riY" secondAttribute="bottom" constant="-5" id="Era-Xa-Bb8"/>
                                     <constraint firstAttribute="trailing" secondItem="JTh-I1-NuO" secondAttribute="trailing" constant="21" id="a7f-i1-u8W"/>
-                                    <constraint firstAttribute="trailing" secondItem="Xp4-b9-2Rf" secondAttribute="trailing" constant="21" id="gX7-1N-Mho"/>
+                                    <constraint firstAttribute="bottom" secondItem="Xp4-b9-2Rf" secondAttribute="bottom" constant="115" id="f2Y-uE-2u0"/>
+                                    <constraint firstItem="Xp4-b9-2Rf" firstAttribute="centerX" secondItem="DzA-ka-XrR" secondAttribute="centerX" id="gQp-MP-aXC"/>
                                     <constraint firstItem="2eu-DS-26C" firstAttribute="leading" secondItem="DzA-ka-XrR" secondAttribute="leading" constant="21" id="hoL-bB-IX3"/>
-                                    <constraint firstItem="JTh-I1-NuO" firstAttribute="top" secondItem="DzA-ka-XrR" secondAttribute="top" constant="9" id="iH3-aN-FGa"/>
+                                    <constraint firstItem="JTh-I1-NuO" firstAttribute="top" secondItem="DzA-ka-XrR" secondAttribute="top" constant="25" id="iH3-aN-FGa"/>
                                     <constraint firstAttribute="height" constant="190" id="k0j-nV-ONc"/>
                                     <constraint firstAttribute="bottom" secondItem="2eu-DS-26C" secondAttribute="bottom" constant="9" id="kia-z2-9AQ"/>
                                     <constraint firstItem="W6f-hi-u29" firstAttribute="leading" secondItem="DzA-ka-XrR" secondAttribute="leading" constant="21" id="mi4-u0-O18"/>
-                                    <constraint firstAttribute="bottom" secondItem="Xp4-b9-2Rf" secondAttribute="bottom" constant="9" id="ovf-7a-hB2"/>
+                                    <constraint firstAttribute="trailing" secondItem="6Gx-eY-6fo" secondAttribute="trailing" constant="21" id="n47-PW-lxn"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcQ-1l-riY">
-                                <frame key="frameInset" minX="129" minY="607" width="118" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="语音遥控器"/>
-                                <connections>
-                                    <action selector="startRecord:" destination="11b-d0-noV" eventType="touchDown" id="ZAp-ht-k6Y"/>
-                                    <action selector="stopRecord:" destination="11b-d0-noV" eventType="touchUpInside" id="UFO-7p-bhK"/>
-                                    <action selector="touchCancel:" destination="11b-d0-noV" eventType="touchCancel" id="bDo-rC-WZV"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.11764705882352941" green="0.12549019607843137" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="DzA-ka-XrR" firstAttribute="centerX" secondItem="uU7-V1-OWx" secondAttribute="centerX" id="JPo-SU-jBV"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="DzA-ka-XrR" secondAttribute="bottom" constant="30" id="Kor-Zp-OOA"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="DzA-ka-XrR" secondAttribute="bottom" constant="20" id="Kor-Zp-OOA"/>
                             <constraint firstItem="o5e-uR-fOP" firstAttribute="top" secondItem="6SY-bF-csd" secondAttribute="bottom" constant="20" id="aO3-IQ-uMP"/>
                             <constraint firstItem="o5e-uR-fOP" firstAttribute="centerX" secondItem="uU7-V1-OWx" secondAttribute="centerX" id="fsA-av-fCW"/>
                             <constraint firstItem="OfG-4k-EPN" firstAttribute="top" secondItem="o5e-uR-fOP" secondAttribute="bottom" constant="25" id="q9I-xt-UhG"/>
@@ -414,6 +417,7 @@
                         <outlet property="backBtn" destination="6Gx-eY-6fo" id="z5K-c1-9m5"/>
                         <outlet property="homePageBtn" destination="2eu-DS-26C" id="LTJ-qN-yS1"/>
                         <outlet property="menuBtn" destination="Xp4-b9-2Rf" id="7gI-QD-Brp"/>
+                        <outlet property="miroPhoneBtn" destination="tcQ-1l-riY" id="Brk-rv-2f1"/>
                         <outlet property="moveDownBtn" destination="8Ul-W4-Tul" id="QZc-7Y-gX0"/>
                         <outlet property="moveLeftBtn" destination="jed-dE-ORE" id="gfY-FS-mH6"/>
                         <outlet property="moveRightBtn" destination="Qme-tc-YsT" id="tjp-kw-tJG"/>
@@ -430,12 +434,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Back" width="126" height="127"/>
+        <image name="Back" width="63" height="63"/>
         <image name="Direction" width="256" height="257"/>
         <image name="Discovery" width="23" height="23"/>
         <image name="Discovery_sel" width="23" height="23"/>
         <image name="HomePage" width="62" height="63"/>
         <image name="Menu" width="62" height="63"/>
+        <image name="Microphone" width="82" height="82"/>
         <image name="OK" width="96" height="96"/>
         <image name="PullScreen" width="62" height="63"/>
         <image name="TimeShifted" width="62" height="63"/>

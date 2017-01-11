@@ -41,6 +41,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *moveDownBtn;
 @property (weak, nonatomic) IBOutlet UIButton *moveLeftBtn;
 @property (weak, nonatomic) IBOutlet UIButton *moveRightBtn;
+@property (weak, nonatomic) IBOutlet UIButton *miroPhoneBtn;
+
 /** 录音工具类 */
 @property (nonatomic, strong) SCSoundRecordingTool *audioRecordingTool;
 /** udpSocket实例 */
@@ -407,6 +409,7 @@
     [_moveDownBtn setImage:[UIImage imageNamed:@"Down_Click"] forState:UIControlStateHighlighted];
     [_moveLeftBtn setImage:[UIImage imageNamed:@"Left_Click"] forState:UIControlStateHighlighted];
     [_moveRightBtn setImage:[UIImage imageNamed:@"Right_Click"] forState:UIControlStateHighlighted];
+    [_miroPhoneBtn setImage:[UIImage imageNamed:@"Microphone_Click"] forState:UIControlStateHighlighted];
     
     _moveUpBtn.enlargedEdge = 15;
     _moveDownBtn.enlargedEdge = 15;

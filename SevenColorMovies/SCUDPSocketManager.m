@@ -84,7 +84,7 @@
 /** 发送广播 */
 - (void)sendBroadcast
 {
-    NSString *s = @"广播信号";
+    NSString *s = @"GET_UID";
     NSData *data = [s dataUsingEncoding:NSUTF8StringEncoding];
     // 给网段内所有的人发送消息 四个255表示广播地址
     NSString *host = @"255.255.255.255";
