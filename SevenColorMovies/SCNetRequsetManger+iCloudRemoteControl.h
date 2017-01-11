@@ -10,6 +10,9 @@
 
 @interface SCNetRequsetManger (iCloudRemoteControl)
 
-- (void)postRequestDataToCloudRemoteControlServerWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
+- (void)postRequestDataToCloudRemoteControlServerWithUrl:(nullable NSString *)urlString parameters:(nullable id)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
+
+
+- (void)postDataToCloudRemoteControlServerWithUrl:(nullable NSString *)urlString parameters:(nullable id)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
 
 @end

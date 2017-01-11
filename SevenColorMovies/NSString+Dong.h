@@ -43,6 +43,8 @@
 - (instancetype)stringByTrimmingHyphen;
 // 去除空格
 - (instancetype)stringByTrimmingBlank;
+// 去除冒号
+- (instancetype)stringByTrimmingColon;
 - (instancetype)absoluteDateString;
 // Base64
 - (instancetype)stringByBase64Encoding;

@@ -199,6 +199,10 @@
     NSDictionary *dic = [NSDictionary dictionaryWithXMLData:data];
     DONG_Log(@"dic:%@",dic);
     
+    NSError *myError;
+    NSDictionary *dic2 = [NSJSONSerialization JSONObjectWithData:data options:0 error:&myError];
+    DONG_Log(@"dic2:%@",dic2);
+    
     if (dic) {
         NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
         //NSLog(@"dic2:%@",dic2);

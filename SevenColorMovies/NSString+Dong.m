@@ -107,6 +107,11 @@
     return [self stringByTrimmingString:@" "];
 }
 
+// 去除冒号
+- (instancetype)stringByTrimmingColon {
+    return [self stringByTrimmingString:@":"];
+}
+
 - (instancetype)absoluteDateString {
     return [[[self stringByTrimmingString:@"-"] stringByTrimmingString:@":"] stringByTrimmingString:@" "];
 }

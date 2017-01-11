@@ -328,7 +328,7 @@
     
     if (strArray.count == 2) {
         self.uid = [strArray firstObject];
-        self.hid = [strArray lastObject];
+        self.hid = [[strArray lastObject] stringByTrimmingColon];// 删除冒号
         DONG_Log(@"uid = %@, hid = %@", _uid, _hid);
         // 由播放器进入的扫码 成功后要登录xmpp然后返回播放器 由发现进入的扫码 成功后进入遥控器
         if ([_entrance isEqualToString:@"player"]) {
@@ -340,11 +340,9 @@
             [self.navigationController popViewControllerAnimated:YES];
             
         } else {
-            NSString *uuidStr = [HLJUUID getUUID];
+        
             XMPPManager.uid = _uid;
             XMPPManager.hid = _hid;
-            XMPPManager.delegate = self;
-            [XMPPManager initXMPPWithUserName:self.uid andPassWord:@"voole" resource:uuidStr];
             SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
             remoteVC.uid = _uid;
             remoteVC.hid = _hid;

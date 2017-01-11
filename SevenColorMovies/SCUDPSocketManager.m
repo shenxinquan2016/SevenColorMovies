@@ -167,12 +167,12 @@
 
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error
 {
-    NSLog(@"标记为tag %ld的发送失败 失败原因 %@",tag, error);
+    DONG_Log(@"标记为tag %ld的发送失败 失败原因 %@",tag, error);
 }
 
 - (void)udpSocketDidClose:(GCDAsyncUdpSocket *)sock withError:(NSError *)error
 {
-    NSLog(@"UDP链接关闭 原因 %@", error);
+    DONG_Log(@"UDP链接关闭 原因 %@", error);
 }
 
 

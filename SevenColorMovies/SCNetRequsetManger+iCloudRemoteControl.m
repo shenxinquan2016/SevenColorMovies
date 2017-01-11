@@ -10,7 +10,7 @@
 
 @implementation SCNetRequsetManger (iCloudRemoteControl)
 
-- (void)postRequestDataToCloudRemoteControlServerWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild
+- (void)postRequestDataToCloudRemoteControlServerWithUrl:(nullable NSString *)urlString parameters:(nullable id)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild
 {
     
     [self POSTRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject){
@@ -34,7 +34,7 @@
 
 //******************☝️☝️☝️☝️☝️☝️☝️☝️下面为通用请求方法☝️☝️☝️☝️☝️☝️☝️☝️****************
 
-- (void)POSTRequestDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild {
+- (void)POSTRequestDataWithUrl:(NSString *)urlString parameters:(_Nullable id)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild {
     //        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
     //manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -50,8 +50,9 @@
     
     //        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/plain",nil];
 //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
+    // 声明请求的数据是json类型
 //        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+
     
     
     manager.requestSerializer.timeoutInterval = 2;//请求超时时间设置
@@ -87,6 +88,34 @@
         if (faild) {
             
         }
+    }];
+}
+
+
+
+
+- (void)postDataToCloudRemoteControlServerWithUrl:(nullable NSString *)urlString parameters:(nullable id)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild {
+    
+    // 1.URL
+    NSURL *url = [NSURL URLWithString:urlString];
+    // 2.请求
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    // 3.请求方法
+    request.HTTPMethod = @"POST";
+    NSData *json = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingPrettyPrinted error:nil];
+    request.HTTPBody = json;
+    // 5.设置请求头：这次请求体的数据不再是普通的参数，而是一个JSON数据
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    // 6.发送请求
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        if (data == nil || connectionError) return;
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+        success(dict);
+        
+    
     }];
 }
 

@@ -15,6 +15,8 @@
 
 @protocol UdpSocketManagerDelegate <NSObject>
 
+@optional
+
 - (void)udpSocket:(GCDAsyncUdpSocket *)socket didConnectToAddress:(NSData *)address;
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag;
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address withFilterContext:(id)filterContex;
