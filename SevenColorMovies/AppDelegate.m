@@ -79,7 +79,8 @@
 //    }
 //}
 
-- (void)setSelectedInitialIndex {
+- (void)setSelectedInitialIndex
+{
     
     //点播播放列表点击标识置为0
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedViewIndex];
@@ -88,7 +89,8 @@
 }
 
 //设置网络环境
-- (void)setNetworkEnvironment {
+- (void)setNetworkEnvironment
+{
     
     NSMutableDictionary *netDic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"switchNetworkEnvironment" ofType:@"plist"]];
     
@@ -109,7 +111,8 @@
     
 }
 
-- (void)setAppearance {
+- (void)setAppearance
+{
     
     UINavigationBar *navigationBar = [UINavigationBar appearance];
     navigationBar.barStyle = UIStatusBarStyleDefault;
@@ -130,7 +133,8 @@
     manager.enableAutoToolbar = NO;//控制是否显示键盘上的工具条。
 }
 
-- (void)checkNetworkEnvironment {
+- (void)checkNetworkEnvironment
+{
     //    [SCNetHelper noNetWork:^{
     //        DONG_NSLog(没有网);
     //    }];
@@ -165,7 +169,8 @@
 }
 
 //启动播放代理
-- (void)setLibagent{
+- (void)setLibagent
+{
     const NSString *uuidStr = [HLJUUID getUUID];
     const char *uuid = [uuidStr UTF8String];
     libagent_start(0, NULL, uuid, 5656);

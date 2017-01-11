@@ -24,5 +24,7 @@
 @property (nonatomic, strong) UIButton *btnFlash;
 //我的二维码
 @property (nonatomic, strong) UIButton *btnMyQR;
+/** 进入通道 */
+@property (nonatomic, copy) NSString *entrance;
 
 @end

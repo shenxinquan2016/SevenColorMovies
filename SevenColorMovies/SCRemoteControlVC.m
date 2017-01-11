@@ -75,6 +75,8 @@
     // 登录XMPP
     if (!XMPPManager.isConnected) {
         NSString *uuidStr = [HLJUUID getUUID];
+        XMPPManager.uid = _uid;
+        XMPPManager.hid = _hid;
         //[XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole" resource:uuidStr];
         [XMPPManager initXMPPWithUserName:self.uid andPassWord:@"voole" resource:uuidStr];
     }
@@ -465,7 +467,7 @@
 
 #pragma mark - SCXMPPManagerDelegate
 
-- (void)didAuthenticate:(XMPPStream *)sender
+- (void)xmppDidAuthenticate:(XMPPStream *)sender
 {
 //    self.hid = @"766572792900";
 //    self.uid = @"8451204087955261";
@@ -483,7 +485,7 @@
     
 }
 
-- (void)didReceiveMessage:(XMPPMessage*)message
+- (void)xmppDidReceiveMessage:(XMPPMessage*)message
 {
     NSString *from = message.fromStr;
     NSString *info = message.body;
@@ -493,7 +495,15 @@
     DONG_Log(@"dic:%@",dic);
     
     if (dic) {
-        if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
+        if ([dic[@"info"] isEqualToString:@"操作成功"]) {
+            // 绑定成功
+            
+            
+        } else if ([dic[@"info"] isEqualToString:@"操作成功"]) {
+            // 绑定失败
+            
+            
+        } else if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
             [dic[@"_type"] isEqualToString:@"TV_Response"]) {
             
             NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
@@ -505,7 +515,7 @@
             filmModel.currentPlayTime = [dic2[@"_currentPlayTime"] integerValue];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                //调用播放器
+                // 调用播放器
                 SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
                 
                 [self.navigationController pushViewController:player animated:YES];
@@ -513,7 +523,6 @@
             });
         }
     }
-
 }
 
 #pragma mark - UIAlertViewDelegate

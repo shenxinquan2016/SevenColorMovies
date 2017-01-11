@@ -12,9 +12,12 @@
 #define XMPPManager [SCXMPPManager shareManager]
 
 @protocol SCXMPPManagerDelegate <NSObject>
-@required
-- (void)didAuthenticate:(XMPPStream *)sender;
-- (void)didReceiveMessage:(XMPPMessage*)message;
+
+@optional
+
+- (void)xmppDidAuthenticate:(XMPPStream *)sender;
+- (void)xmppDidReceiveMessage:(XMPPMessage*)message;
+- (void)xmppDidSendMessage:(XMPPMessage *)message;
 
 @end
 
@@ -22,7 +25,12 @@
 @interface SCXMPPManager : NSObject
 
 @property (nonatomic, weak) id<SCXMPPManagerDelegate> delegate;
+/** 是否在线 */
 @property (nonatomic, assign, readonly) BOOL isConnected;
+/** 扫码得到的智能卡号 */
+@property (nonatomic, copy) NSString *uid;
+/** 扫码得到的mac地址 */
+@property (nonatomic, copy) NSString *hid;
 
 /**
  *  XMPP单例

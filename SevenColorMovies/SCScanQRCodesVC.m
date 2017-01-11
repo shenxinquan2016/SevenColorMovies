@@ -13,8 +13,10 @@
 #import "LBXScanVideoZoomView.h"
 #import "SCRemoteControlVC.h"
 #import "SCScanResultViewController.h"
+#import "SCXMPPManager.h"
+#import "HLJUUID.h"
 
-@interface SCScanQRCodesVC () <AVCaptureMetadataOutputObjectsDelegate>
+@interface SCScanQRCodesVC () <AVCaptureMetadataOutputObjectsDelegate, SCXMPPManagerDelegate>
 
 @property (nonatomic, strong) LBXScanVideoZoomView *zoomView;
 /** 扫码得到的智能卡号 */
@@ -314,22 +316,47 @@
 // 扫描成功后的处理
 - (void)showNextVCWithScanResult:(LBXScanResult*)strResult
 {
+    if (XMPPManager.isConnected) {
+        SCScanResultViewController *resultVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanResultViewController");
+        resultVC.strScan = strResult.strScanned;
+        resultVC.strCodeType = strResult.strBarCodeType;
+        [self.navigationController pushViewController:resultVC animated:YES];
+        return;
+    }
+    
     NSArray *strArray = [strResult.strScanned componentsSeparatedByString:@","];
-    if (strArray.count) {
+    
+    if (strArray.count == 2) {
         self.uid = [strArray firstObject];
         self.hid = [strArray lastObject];
         DONG_Log(@"uid = %@, hid = %@", _uid, _hid);
-        
-        SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
-        remoteVC.uid = _uid;
-        remoteVC.hid = _hid;
-        [self.navigationController pushViewController:remoteVC animated:YES];
+        // 由播放器进入的扫码 成功后要登录xmpp然后返回播放器 由发现进入的扫码 成功后进入遥控器
+        if ([_entrance isEqualToString:@"player"]) {
+            NSString *uuidStr = [HLJUUID getUUID];
+            XMPPManager.uid = _uid;
+            XMPPManager.hid = _hid;
+            XMPPManager.delegate = self;
+            [XMPPManager initXMPPWithUserName:self.uid andPassWord:@"voole" resource:uuidStr];
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        } else {
+            NSString *uuidStr = [HLJUUID getUUID];
+            XMPPManager.uid = _uid;
+            XMPPManager.hid = _hid;
+            XMPPManager.delegate = self;
+            [XMPPManager initXMPPWithUserName:self.uid andPassWord:@"voole" resource:uuidStr];
+            SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+            remoteVC.uid = _uid;
+            remoteVC.hid = _hid;
+            [self.navigationController pushViewController:remoteVC animated:YES];
+        }
         
     } else {
         SCScanResultViewController *resultVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanResultViewController");
         resultVC.strScan = strResult.strScanned;
         resultVC.strCodeType = strResult.strBarCodeType;
         [self.navigationController pushViewController:resultVC animated:YES];
+        return;
     }
 }
 
@@ -363,6 +390,15 @@
 {
 //    MyQRViewController *vc = [MyQRViewController new];
 //    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+#pragma mark - SCXMPPManagerDelegate
+
+/** 登录成功 */
+- (void)xmppDidAuthenticate:(XMPPStream *)sender
+{
+     DONG_MAIN_AFTER(0.2, [MBProgressHUD showSuccess:@"设备绑定成功"];);
 }
 
 

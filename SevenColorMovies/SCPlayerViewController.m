@@ -35,8 +35,8 @@
 #import "SCFilterViewController.h"
 #import "SCChannelCategoryVC.h"
 #import "SCSearchViewController.h"
-
-
+#import "SCXMPPManager.h"
+#import "SCScanQRCodesVC.h"
 
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
@@ -46,7 +46,7 @@ static const CGFloat TitleHeight = 50.0f;
 /** 滑动标题栏宽度 */
 static const CGFloat LabelWidth = 100.f;
 
-@interface SCPlayerViewController ()<UIScrollViewDelegate, SocketManagerDelegate, UIAlertViewDelegate>
+@interface SCPlayerViewController ()<UIScrollViewDelegate, SocketManagerDelegate, UIAlertViewDelegate, SCXMPPManagerDelegate>
 
 /** 标题栏scrollView */
 @property (nonatomic, strong) UIScrollView *titleScroll;
@@ -124,14 +124,16 @@ static const CGFloat LabelWidth = 100.f;
     //3.注册通知
     [self registerNotification];
     
-    TCPScoketManager.delegate = self;
+    //TCPScoketManager.delegate = self;
+    XMPPManager.delegate = self;
     
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    TCPScoketManager.delegate = self;
+    //TCPScoketManager.delegate = self;
+    XMPPManager.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -1077,14 +1079,14 @@ static const CGFloat LabelWidth = 100.f;
                 //3.推屏的回调
                 weakself.IJKPlayerViewController.pushScreenBlock = ^{
                     // 未连接设备时要先扫描设备
-                    if (TCPScoketManager.isConnected) {
-                        
+                    if (XMPPManager.isConnected) {
+                        NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
                         NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
-                        [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                        //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                        [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                         
                     } else {
-                        
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                         [alertView show];
                         alertView.delegate = weakself;
                     }
@@ -1162,17 +1164,16 @@ static const CGFloat LabelWidth = 100.f;
                     //3.推屏的回调
                     weakself.IJKPlayerViewController.pushScreenBlock = ^{
                         // 未连接设备时要先扫描设备
-                        if (TCPScoketManager.isConnected) {
-                            
+                        if (XMPPManager.isConnected) {
+                            NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
                             NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
-                            [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
-
-                        } else {
+                            //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                            [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                             
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        } else {
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                             [alertView show];
                             alertView.delegate = weakself;
-                            
                         }
                     };
                     
@@ -1252,17 +1253,16 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         //3.推屏的回调
         weakself.IJKPlayerViewController.pushScreenBlock = ^{
             // 未连接设备时要先扫描设备
-            if (TCPScoketManager.isConnected) {
-                
+            if (XMPPManager.isConnected) {
+                NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
                 NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
-                [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                 
             } else {
-                
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                 [alertView show];
                 alertView.delegate = weakself;
-                
             }
         };
         
@@ -1350,16 +1350,16 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 //3.推屏的回调
                 strongself.IJKPlayerViewController.pushScreenBlock = ^{
                     // 未连接设备时要先扫描设备
-                    if (TCPScoketManager.isConnected) {
+                    if (XMPPManager.isConnected) {
+                        NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
                         NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
-                        [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                        //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                        [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                         
                     } else {
-                        
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                         [alertView show];
                         alertView.delegate = weakself;
-                        
                     }
                 };
                 
@@ -1548,17 +1548,16 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     //3.推屏的回调
                     weakself.IJKPlayerViewController.pushScreenBlock = ^{
                         // 未连接设备时要先扫描设备
-                        if (TCPScoketManager.isConnected) {
-                            
+                        if (XMPPManager.isConnected) {
+                            NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
                             NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
-                            [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                            //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                            [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                             
                         } else {
-                            
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                             [alertView show];
                             alertView.delegate = weakself;
-                            
                         }
                     };
                     
@@ -1719,16 +1718,16 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     //3.推屏的回调
                     strongself.IJKPlayerViewController.pushScreenBlock = ^{
                         // 未连接设备时要先扫描设备
-                        if (TCPScoketManager.isConnected) {
+                        if (XMPPManager.isConnected) {
+                            NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
                             NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
-                            [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                            //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                            [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                             
                         } else {
-                            
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提 示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                             [alertView show];
                             alertView.delegate = weakself;
-                            
                         }
                     };
                     
@@ -1845,13 +1844,14 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 //3.推屏的回调
                 strongself.IJKPlayerViewController.pushScreenBlock = ^{
                     // 未连接设备时要先扫描设备
-                    if (TCPScoketManager.isConnected) {
-                        
+                    if (XMPPManager.isConnected) {
+                        NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
                         NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
-                        [TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                        //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                        [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                         
                     } else {
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未连接设备，请先连接设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                         [alertView show];
                         alertView.delegate = weakself;
                     }
@@ -1881,6 +1881,22 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     }];
 }
 
+#pragma mark - SCXMPPManagerDelegate
+
+/** 登录成功 */
+- (void)xmppDidAuthenticate:(XMPPStream *)sender
+{
+    DONG_MAIN_AFTER(0.2, [MBProgressHUD showSuccess:@"设备绑定成功"];);
+}
+
+
+/** 消息发送成功 */
+- (void)xmppDidSendMessage:(XMPPMessage *)message
+{
+    DONG_MAIN(^{
+        [MBProgressHUD showSuccess:@"推屏成功"];
+    });
+}
 
 #pragma mark - SocketManagerDelegate
 
@@ -1907,10 +1923,18 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 {
     if (buttonIndex == 1) {
         //扫描连接设备
-        SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
-        searchDeviceVC.entrance = @"player";
-        searchDeviceVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:searchDeviceVC animated:YES];
+//        SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
+//        searchDeviceVC.entrance = @"player";
+//        searchDeviceVC.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:searchDeviceVC animated:YES];
+        
+        SCScanQRCodesVC *scanQRCodesVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanQRCodesVC");
+        scanQRCodesVC.entrance = @"player";
+        scanQRCodesVC.isQQSimulator = YES;
+        scanQRCodesVC.isVideoZoom = YES;
+        scanQRCodesVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:scanQRCodesVC animated:YES];
+        
     }
 }
 

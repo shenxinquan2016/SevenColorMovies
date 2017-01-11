@@ -9,7 +9,7 @@
 #import "SCUDPSocketManager.h"
 #import "GCDAsyncUdpSocket.h"
 
-#define PORT 9816
+#define PORT 9098
 
 @interface SCUDPSocketManager () <GCDAsyncUdpSocketDelegate>
 

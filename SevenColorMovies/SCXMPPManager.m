@@ -115,8 +115,8 @@
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
 {
     DONG_Log(@"登陆成功");
-    if ([self.delegate respondsToSelector:@selector(didAuthenticate:)]) {
-        [self.delegate didAuthenticate:sender];
+    if ([self.delegate respondsToSelector:@selector(xmppDidAuthenticate:)]) {
+        [self.delegate xmppDidAuthenticate:sender];
     }
 
     // 通知服务器登陆状态 上线
@@ -166,6 +166,9 @@
 - (void)xmppStream:(XMPPStream*)sender didSendMessage:(XMPPMessage *)message
 {
     DONG_Log(@"消息发送成功");
+    if ([self.delegate respondsToSelector:@selector(xmppDidSendMessage:)]) {
+        [self.delegate xmppDidSendMessage:message];
+    }
 }
 
 /** 消息发送失败 */
@@ -177,8 +180,8 @@
 /** 收到消息 */
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
-    if ([self.delegate respondsToSelector:@selector(didReceiveMessage:)]) {
-        [self.delegate didReceiveMessage:message];
+    if ([self.delegate respondsToSelector:@selector(xmppDidReceiveMessage:)]) {
+        [self.delegate xmppDidReceiveMessage:message];
     }
 }
 

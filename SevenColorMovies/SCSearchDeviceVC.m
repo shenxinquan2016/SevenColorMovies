@@ -17,7 +17,7 @@
 #import "SCUDPSocketManager.h"
 #import "SCTCPSocketManager.h"
 
-#define PORT 9816
+#define PORT 9098
 
 @interface SCSearchDeviceVC () <UdpSocketManagerDelegate, SocketManagerDelegate>
 
@@ -197,7 +197,7 @@
     DONG_Log(@"GCDAsyncUdpSocket接收到消息 ip:%@ port:%u data:%@",ip, port,message);
     
     NSDictionary *dic = [NSDictionary dictionaryWithXMLData:data];
-    NSLog(@"dic:%@",dic);
+    DONG_Log(@"dic:%@",dic);
     
     if (dic) {
         NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
