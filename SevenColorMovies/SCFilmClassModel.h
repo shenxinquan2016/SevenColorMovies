@@ -10,24 +10,43 @@
 
 @interface SCFilmClassModel : NSObject
 
-@property (nonatomic, copy) NSString *_FilmClassName;/** FilmClassList */
-@property (nonatomic, copy) NSString *_Intro;/** film介绍 */
-@property (nonatomic, copy) NSString *_FilmCount;/** 包含影片个数 */
-@property (nonatomic, copy) NSString *_Count;/** 包含影片个数 */
-@property (nonatomic, copy) NSString *_PageCount;/** 分页数量 */
-@property (nonatomic, copy) NSString *_BigImgUrl;/** 封面图片 */
-@property (nonatomic, copy) NSString *_FilmClassID;/** ... */
-@property (nonatomic, copy) NSString *_Version;/** ... */
-@property (nonatomic, copy) NSString *_ChannelId;/** ... */
-@property (nonatomic, copy) NSString *_ChannelCode;/** ... */
-@property (nonatomic, copy) NSString *_FilmClassUrl;/** 老接口FilmClassUrl字段名 */
-@property (nonatomic, copy) NSString *FilmClassUrl;/** 新接口FilmClassUrl字段名 */
-@property (nonatomic, copy) NSString *_KeyValue;/** 每个类别的关键词 */
-@property (nonatomic, copy) NSString *_FilmClassRealName;/** ... */
-@property (nonatomic, copy) NSString *_Template;/** ... */
-@property (nonatomic, copy) NSString *_Time;/** ... */
-@property (nonatomic, copy) NSArray *filmClassArray;/** 包含的影片数组*/
-@property (nonatomic, copy) NSArray *filmArray;/** 包含的影片数组*/
-@property (nonatomic, strong) SCFilmClassModel *filmClassModel;/** FilmClass模型*/
+/** FilmClassList */
+@property (nonatomic, copy) NSString *_FilmClassName;
+/** film介绍 */
+@property (nonatomic, copy) NSString *_Intro;
+/** 包含影片个数 */
+@property (nonatomic, copy) NSString *_FilmCount;
+/** 包含影片个数 */
+@property (nonatomic, copy) NSString *_Count;
+/** 分页数量 */
+@property (nonatomic, copy) NSString *_PageCount;
+/** 封面图片 */
+@property (nonatomic, copy) NSString *_BigImgUrl;
+/** ... */
+@property (nonatomic, copy) NSString *_FilmClassID;
+/** ... */
+@property (nonatomic, copy) NSString *_Version;
+/** ... */
+@property (nonatomic, copy) NSString *_ChannelId;
+/** ... */
+@property (nonatomic, copy) NSString *_ChannelCode;
+/** 老接口FilmClassUrl字段名 */
+@property (nonatomic, copy) NSString *_FilmClassUrl;
+/** 新接口FilmClassUrl字段名 */
+@property (nonatomic, copy) NSString *FilmClassUrl;
+/** 每个类别的关键词 */
+@property (nonatomic, copy) NSString *_KeyValue;
+/** ... */
+@property (nonatomic, copy) NSString *_FilmClassRealName;
+/** ... */
+@property (nonatomic, copy) NSString *_Template;
+/** ... */
+@property (nonatomic, copy) NSString *_Time;
+/** 包含的影片数组*/
+@property (nonatomic, copy) NSArray *filmClassArray;
+/** 包含的影片数组*/
+@property (nonatomic, copy) NSArray *filmArray;
+/** FilmClass模型*/
+@property (nonatomic, strong) SCFilmClassModel *filmClassModel;
 
 @end

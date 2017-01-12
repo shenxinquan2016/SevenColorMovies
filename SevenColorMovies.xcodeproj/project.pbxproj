@@ -213,6 +213,8 @@
 		11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */; };
 		11FEEF1A1D93846E00518029 /* HLJRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FEEF191D93846E00518029 /* HLJRequest.m */; };
 		11FEEF1E1D93848300518029 /* HLJDomainNameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FEEF1D1D93848300518029 /* HLJDomainNameModel.m */; };
+		11FF648C1E276799007DC954 /* SCAdvertisemetPosModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FF648B1E276799007DC954 /* SCAdvertisemetPosModel.m */; };
+		11FF648F1E2767C4007DC954 /* SCAdMediaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FF648E1E2767C4007DC954 /* SCAdMediaInfo.m */; };
 		BFB660316D60BA9D33BF25DF /* libPods-SevenColorMoviesTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26657D5823A59132E6F7A07 /* libPods-SevenColorMoviesTests.a */; };
 /* End PBXBuildFile section */
 
@@ -609,6 +611,10 @@
 		11FEEF191D93846E00518029 /* HLJRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJRequest.m; sourceTree = "<group>"; };
 		11FEEF1C1D93848300518029 /* HLJDomainNameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJDomainNameModel.h; sourceTree = "<group>"; };
 		11FEEF1D1D93848300518029 /* HLJDomainNameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJDomainNameModel.m; sourceTree = "<group>"; };
+		11FF648A1E276799007DC954 /* SCAdvertisemetPosModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdvertisemetPosModel.h; sourceTree = "<group>"; };
+		11FF648B1E276799007DC954 /* SCAdvertisemetPosModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdvertisemetPosModel.m; sourceTree = "<group>"; };
+		11FF648D1E2767C4007DC954 /* SCAdMediaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdMediaInfo.h; sourceTree = "<group>"; };
+		11FF648E1E2767C4007DC954 /* SCAdMediaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdMediaInfo.m; sourceTree = "<group>"; };
 		2A0CD6D8521DBCFFE4F9C959 /* Pods-SevenColorMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMovies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMovies/Pods-SevenColorMovies.debug.xcconfig"; sourceTree = "<group>"; };
 		2F47A494D6AFBF4F00F9858C /* Pods-SevenColorMoviesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SevenColorMoviesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SevenColorMoviesTests/Pods-SevenColorMoviesTests.release.xcconfig"; sourceTree = "<group>"; };
 		58208E58E73ED17FB50772D8 /* libPods-SevenColorMovies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SevenColorMovies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1796,6 +1802,7 @@
 				11BB37BD1D38DB160002D487 /* Discovery */,
 				11BB37CC1D38E5480002D487 /* News */,
 				11BB37CB1D38E5440002D487 /* Mine */,
+				11FF64881E275EC5007DC954 /* Model */,
 				11BB37DA1D38F0510002D487 /* NetRequestTool */,
 				11BB37C01D38DB250002D487 /* Utility */,
 				11BB37D81D38F0490002D487 /* Helper */,
@@ -2102,6 +2109,25 @@
 				11FEEF1D1D93848300518029 /* HLJDomainNameModel.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		11FF64881E275EC5007DC954 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11FF64891E275F0F007DC954 /* Advertisement */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		11FF64891E275F0F007DC954 /* Advertisement */ = {
+			isa = PBXGroup;
+			children = (
+				11FF648A1E276799007DC954 /* SCAdvertisemetPosModel.h */,
+				11FF648B1E276799007DC954 /* SCAdvertisemetPosModel.m */,
+				11FF648D1E2767C4007DC954 /* SCAdMediaInfo.h */,
+				11FF648E1E2767C4007DC954 /* SCAdMediaInfo.m */,
+			);
+			name = Advertisement;
 			sourceTree = "<group>";
 		};
 		A049E2EF68B0175BDBBE90A4 /* Pods */ = {
@@ -2517,6 +2543,7 @@
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
+				11FF648F1E2767C4007DC954 /* SCAdMediaInfo.m in Sources */,
 				115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */,
 				11DDB87E1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m in Sources */,
 				116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */,
@@ -2548,6 +2575,7 @@
 				1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */,
 				113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */,
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
+				11FF648C1E276799007DC954 /* SCAdvertisemetPosModel.m in Sources */,
 				1122149D1DADDE6E00277BD6 /* SCHuikanPlayerViewController.m in Sources */,
 				11588F731D6B079900C91E3A /* SCLivePageCell.m in Sources */,
 				111448261D87D1CE00CB8FA9 /* HLJUUID.m in Sources */,

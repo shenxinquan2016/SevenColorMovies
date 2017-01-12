@@ -11,16 +11,26 @@
 
 @interface SCFilmSetModel : RLMObject
 
-@property NSString *_ContentSetName;/** 影片名称*/
-@property NSString *_ContentIndex;/** 第几集 */
-@property NSString *_ContentName;/** 第几集 */
-@property NSString *_FilmContentID;/** ID */
-@property NSString *_FilmSize;/** 片长 */
-@property NSString *_DownUrl;/** 影片下载地址 */
-@property NSString *Introduction;/** 影片介绍 */
-@property NSString *VODStreamingUrl;/** 视频流url */
-@property (getter = isOnLive) BOOL onLive;/* 节目是否正在播放 */
-@property (getter = isDownLoaded) BOOL downloaded;/* 节目是否被下载 */
+/** 影片名称 */
+@property NSString *_ContentSetName;
+/** 第几集 */
+@property NSString *_ContentIndex;
+/** 第几集 */
+@property NSString *_ContentName;
+/** ID */
+@property NSString *_FilmContentID;
+/** 片长 */
+@property NSString *_FilmSize;
+/** 影片下载地址 */
+@property NSString *_DownUrl;
+/** 影片介绍 */
+@property NSString *Introduction;
+/** 视频流url */
+@property NSString *VODStreamingUrl;
+/* 节目是否正在播放 */
+@property (getter = isOnLive) BOOL onLive;
+/* 节目是否被下载 */
+@property (getter = isDownLoaded) BOOL downloaded;
 
 @end
 

@@ -37,6 +37,8 @@
 #import "SCSearchViewController.h"
 #import "SCXMPPManager.h"
 #import "SCScanQRCodesVC.h"
+#import "SCAdvertisemetPosModel.h"
+#import "SCAdMediaInfo.h"
 
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
@@ -82,6 +84,8 @@ static const CGFloat LabelWidth = 100.f;
 @property (weak, nonatomic) IBOutlet UIButton *addMyCollectionBtn;
 /** 下载button */
 @property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;
+/** 广告modul组 */
+@property (nonatomic, strong) NSMutableArray *advertisementArray;
 
 @end
 
@@ -119,6 +123,7 @@ static const CGFloat LabelWidth = 100.f;
     //1.初始化数组
     self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];
     self.filmsArr = [NSMutableArray arrayWithCapacity:0];
+    self.advertisementArray = [NSMutableArray arrayWithCapacity:0];
     //2.组建页面
     [self setView];
     //3.注册通知
@@ -1807,7 +1812,31 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
             //请求播放地址
             [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-                //NSLog(@"====responseObject:::%@===",responseObject);
+                NSLog(@"====responseObject:::%@===",responseObject);
+                
+                // 处理广告信息
+                NSDictionary *adinfoDic = responseObject[@"adinfo"];
+                [_advertisementArray removeAllObjects];
+                if (adinfoDic) {
+                    NSArray *adposArray = adinfoDic[@"adpos"];
+                    if (adposArray.count) {
+                        for (NSDictionary *adUnitDic in adposArray) {
+                            
+                            SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adUnitDic];
+                            
+                            NSDictionary *mediainfoDic = adUnitDic[@"mediainfo"];
+                            
+                            adPosModel.adMediaInfo = [SCAdMediaInfo mj_objectWithKeyValues:mediainfoDic];
+                            
+                            [_advertisementArray addObject:adPosModel];
+                            
+                            //DONG_Log(@"adPosModel:%@", adPosModel.adMediaInfo.__text);
+                        }
+                    }
+                }
+
+                
+                
                 NSString *play_url = responseObject[@"play_url"];
                 DONG_Log(@"responseObject:%@",play_url);
                 //请求将播放地址域名转换  并拼接最终的播放地址

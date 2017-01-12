@@ -21,14 +21,14 @@ typedef NS_ENUM(NSInteger, SCLiveState) {
 
 @interface IJKMediaControl : UIControl
 
-/** 直播/时移状态 */
-@property (nonatomic, assign) SCLiveState liveState;
 /** 手势滑动时时移回调 */
 @property (nonatomic, copy) MediaControlTimeShiftBlock timeShiftBlock;
 /** ijkplayer */
 @property (nonatomic, weak) id<IJKMediaPlayback> delegatePlayer;
 /** 是否在直播频道 */
 @property (nonatomic, assign) BOOL isLive;
+/** 直播时状态：直播/时移 */
+@property (nonatomic, assign) SCLiveState liveState;
 /** 控制层 */
 @property (weak, nonatomic) IBOutlet UIView *overlayPanel;
 /** 底部视图 */
