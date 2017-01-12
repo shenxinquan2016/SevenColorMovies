@@ -122,7 +122,7 @@
           
             SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
             remoteVC.deviceModel = deviceModel;
-            [weakself.navigationController pushViewController:remoteVC animated:YES];
+           // [weakself.navigationController pushViewController:remoteVC animated:YES];
         }
         
     };

@@ -316,8 +316,6 @@ static const CGFloat LabelWidth = 95.f;
                     [_filmModelArr addObject:filmModel];
                 }
                 
-               
-                
                 [_dataSourceArr addObject:[_filmModelArr copy]];
             }
             //1.添加滑动headerView

@@ -99,6 +99,7 @@
     }
     
     XMPPManager.delegate = self;
+    _miroPhoneBtn.enabled = NO;
 }
 
 - (void)viewWillLayoutSubviews {
@@ -461,7 +462,7 @@
     [_moveLeftBtn setImage:[UIImage imageNamed:@"Left_Click"] forState:UIControlStateHighlighted];
     [_moveRightBtn setImage:[UIImage imageNamed:@"Right_Click"] forState:UIControlStateHighlighted];
     [_miroPhoneBtn setImage:[UIImage imageNamed:@"Microphone_Click"] forState:UIControlStateHighlighted];
-    //_miroPhoneBtn.enabled = NO;
+    
     _moveUpBtn.enlargedEdge = 15;
     _moveDownBtn.enlargedEdge = 15;
     _moveLeftBtn.enlargedEdge = 15;
