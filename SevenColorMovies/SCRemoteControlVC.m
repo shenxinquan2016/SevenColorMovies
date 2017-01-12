@@ -430,7 +430,7 @@
 - (void)cutOffConnect
 {
     //1.断开连接
-    [TCPScoketManager disConnectSocket];
+    //[TCPScoketManager disConnectSocket];
     [XMPPManager disConnect];
     [self.navigationController popToRootViewControllerAnimated:YES];
     //2.发送通知
@@ -600,9 +600,14 @@
             // 绑定失败
             
             
-        } else if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
-            [dic[@"_type"] isEqualToString:@"TV_Response"]) {
+        } else if ([dic[@"info"] isEqualToString:@"当前设备未绑定任何设备!"]) {
+            // 被踢掉线
             
+            
+        } else if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
+            [dic[@"_type"] isEqualToString:@"TV_Response"])
+        {
+            // 拉屏 飞屏
             NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
             DONG_Log(@"dic2:%@",dic2);
             SCFilmModel *filmModel = [[SCFilmModel alloc] init];
