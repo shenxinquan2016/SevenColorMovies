@@ -1105,7 +1105,6 @@ static const CGFloat LabelWidth = 100.f;
                         break;
                     }
                 }
-
                 
                 [CommonFunc dismiss];
                 
@@ -1869,7 +1868,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
             //请求播放地址
             [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-                NSLog(@"====responseObject:::%@===",responseObject);
+                //NSLog(@"====responseObject:::%@===",responseObject);
                 
                 // 处理广告信息
                 NSDictionary *adinfoDic = responseObject[@"adinfo"];
@@ -1891,7 +1890,6 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         }
                     }
                 }
-
                 
                 NSString *play_url = responseObject[@"play_url"];
                 DONG_Log(@"responseObject:%@",play_url);
