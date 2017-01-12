@@ -971,8 +971,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     DONG_Log(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
     DONG_Log(@"%@   %@",model1.startTime,model2.startTime);
     //获取时间戳字符串
-    NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model1.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
-    NSString *endTime =  [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:model2.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
+    NSString *startTime = [NSString stringWithFormat:@"%ld", (long)[NSDate timeStampFromString:model1.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
+    NSString *endTime =  [NSString stringWithFormat:@"%ld", (long)[NSDate timeStampFromString:model2.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
     
     model1.startTime = startTime;
     model1.endTime = endTime;
