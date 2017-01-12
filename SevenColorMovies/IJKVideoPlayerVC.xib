@@ -25,6 +25,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="215"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dnb-ZS-RJW" userLabel="Advertisement View"/>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GYR-8Q-AzF" userLabel="OverlayPanel" customClass="UIControl">
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfM-Tb-8eb">
@@ -218,6 +219,10 @@
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="dnb-ZS-RJW" firstAttribute="top" secondItem="zAJ-lD-Fna" secondAttribute="top" id="013-hL-BZb"/>
+                <constraint firstItem="dnb-ZS-RJW" firstAttribute="leading" secondItem="zAJ-lD-Fna" secondAttribute="leading" id="BvU-Rs-6F8"/>
+                <constraint firstAttribute="trailing" secondItem="dnb-ZS-RJW" secondAttribute="trailing" id="D45-Ed-Pj5"/>
+                <constraint firstAttribute="bottom" secondItem="dnb-ZS-RJW" secondAttribute="bottom" id="JCe-Cw-SEk"/>
                 <constraint firstItem="9mG-uu-5D5" firstAttribute="centerX" secondItem="GYR-8Q-AzF" secondAttribute="centerX" id="QLh-bB-a4I"/>
                 <constraint firstAttribute="trailing" secondItem="GYR-8Q-AzF" secondAttribute="trailing" id="SvR-G8-oCb"/>
                 <constraint firstItem="GYR-8Q-AzF" firstAttribute="top" secondItem="zAJ-lD-Fna" secondAttribute="top" id="VLl-zE-EqO"/>
@@ -229,6 +234,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <action selector="onClickMediaControl:" destination="-1" eventType="touchDown" id="C34-OE-xSE"/>
+                <outlet property="advertisementIV" destination="dnb-ZS-RJW" id="wYM-3n-kbg"/>
                 <outlet property="bottomPanel" destination="yBG-kq-hxh" id="JZK-Rg-Fwe"/>
                 <outlet property="currentLabel" destination="Wxu-iI-21U" id="vMV-cQ-IJa"/>
                 <outlet property="currentTimeLabel" destination="2KC-yb-4vl" id="SYk-6P-8Im"/>

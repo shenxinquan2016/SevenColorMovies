@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, SCLiveState) {
 @protocol IJKMediaPlayback;
 
 @interface IJKMediaControl : UIControl
+@property (weak, nonatomic) IBOutlet UIImageView *advertisementIV;
 
 /** 手势滑动时时移回调 */
 @property (nonatomic, copy) MediaControlTimeShiftBlock timeShiftBlock;

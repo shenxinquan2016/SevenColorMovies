@@ -355,11 +355,15 @@
 {
     if ([self.player isPlaying]) {
         [self.player pause];
+        // 暂停时显示广告层
+        self.mediaControl.advertisementIV.hidden = NO;
         [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Play"] forState:UIControlStateNormal];
         [self.mediaControl refreshMediaControl];
         
-    }else if (![self.player isPlaying]){
+    } else if (![self.player isPlaying]){
         [self.player play];
+        // 播放时隐藏广告层
+        self.mediaControl.advertisementIV.hidden = YES;
         [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
         [self.mediaControl refreshMediaControl];
         
