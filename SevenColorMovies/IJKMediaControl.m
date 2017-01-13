@@ -209,33 +209,20 @@ typedef NS_ENUM (NSUInteger, Direction) {
     self.currentTimeLabel.text   = currentLabelString;
     
     
-    // position  区分直播和时移
+    
     NSTimeInterval position;
-    if (_liveState == Live) {
+    
+    if (_isMediaSliderBeingDragged) {
+        position = self.progressSlider.value;
+        self.firmPosition = self.progressSlider.value;
         
-        if (_isMediaSliderBeingDragged) {
-            position = self.progressSlider.value;
-            self.initPosition = self.progressSlider.value;
-            
-        } else {
-            
-            position = self.initPosition;
-        }
+    } else {
         
-        self.progressSlider.value = position;
-        
-    } else if (_liveState == TimeShift) {
-        
-        if (_isMediaSliderBeingDragged) {
-            
-            position = self.progressSlider.value;
-        } else {
-            position = self.progressSlider.value;
-        }
-        
-        self.progressSlider.value = position;
+        position = self.firmPosition;
     }
-
+    
+    self.progressSlider.value = position;
+    
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControlWhenLive) object:nil];
     if (self.overlayPanel.alpha != 0) {
@@ -248,10 +235,14 @@ typedef NS_ENUM (NSUInteger, Direction) {
 {
     _isLive = isLive;
     if (isLive) {
-        // duration 秒（S）
-        NSTimeInterval duration = 6 * 3600;// 支持6个小时内的时移
-        NSInteger intDuration = duration + 0.5;
-        self.initPosition = intDuration;
+        // Live时，进度条初始位置放在最右侧
+        if (_liveState == Live) {
+            // duration 秒（S）
+            NSTimeInterval duration = 6 * 3600;// 支持6个小时内的时移
+            NSInteger intDuration = duration + 0.5;
+            self.firmPosition = intDuration;
+        }
+        
         // 直播刷新
         [self refreshMediaControlWhenLive];
         

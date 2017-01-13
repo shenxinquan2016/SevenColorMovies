@@ -802,8 +802,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
-            _IJKPlayerViewController.mediaControl.isLive = YES;
             _IJKPlayerViewController.mediaControl.liveState = Live;
+            _IJKPlayerViewController.mediaControl.isLive = YES;
             
             // 6.推屏的回调
             DONG_WeakSelf(self);
@@ -839,7 +839,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 DONG_Log(@"liveState:%@", liveState);
                 if ([liveState isEqualToString:@"timeShift"]) {
                     // 进入时移
-//                    [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
+                    [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
                 }
                 
             };
@@ -906,8 +906,9 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
-        _IJKPlayerViewController.mediaControl.isLive = YES;
         _IJKPlayerViewController.mediaControl.liveState = TimeShift;
+        _IJKPlayerViewController.mediaControl.firmPosition = positionTime;
+        _IJKPlayerViewController.mediaControl.isLive = YES;
         
         // 7.推屏的回调
         DONG_WeakSelf(self);

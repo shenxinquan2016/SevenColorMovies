@@ -13,7 +13,8 @@
 typedef void(^MediaControlTimeShiftBlock)(NSString *liveState, int positionTime);
 
 typedef NS_ENUM(NSInteger, SCLiveState) {
-    Live = 0, //直播
+    Original = 0,
+    Live, //直播
     TimeShift,//时移
 };
 
@@ -30,8 +31,8 @@ typedef NS_ENUM(NSInteger, SCLiveState) {
 @property (nonatomic, assign) BOOL isLive;
 /** 直播时状态：直播/时移 */
 @property (nonatomic, assign) SCLiveState liveState;
-/** 时移初始化时进度条位置 */
-@property (nonatomic, assign) NSTimeInterval initPosition;
+/** 直播/时移 初始化位置及手势移动时位置记录 */
+@property (nonatomic, assign) NSTimeInterval firmPosition;
 /** 控制层 */
 @property (weak, nonatomic) IBOutlet UIView *overlayPanel;
 /** 底部视图 */
