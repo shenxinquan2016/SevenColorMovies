@@ -1099,9 +1099,22 @@ static const CGFloat LabelWidth = 100.f;
                 // 4.暂停广告
                 self.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
                 for (SCAdvertisemetPosModel *adPosModel in self.advertisementArray) {
+                    // 选择暂停广告：706
                     if ([adPosModel._pos isEqualToString:@"706"]) {
-                        NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
-                        [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                        
+                        if (adPosModel.adMediaInfoArray.count) {
+                            // 暂停广告有多条
+                            SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
+                            NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
+                            [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                            
+                        } else {
+                            // 暂停广告只一条
+                            NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
+                            [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                            
+                        }
+                        
                         break;
                     }
                 }
@@ -1193,13 +1206,26 @@ static const CGFloat LabelWidth = 100.f;
                     // 4.暂停广告
                     self.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
                     for (SCAdvertisemetPosModel *adPosModel in self.advertisementArray) {
+                        // 选择暂停广告：706
                         if ([adPosModel._pos isEqualToString:@"706"]) {
-                            NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
-                            [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                            
+                            if (adPosModel.adMediaInfoArray.count) {
+                                // 暂停广告有多条
+                                SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
+                                NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
+                                [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                                
+                            } else {
+                                // 暂停广告只一条
+                                NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
+                                [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                                
+                            }
+                            
                             break;
                         }
                     }
-
+                    
                     
                     [CommonFunc dismiss];
                     
@@ -1292,13 +1318,26 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         // 4.暂停广告
         self.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
         for (SCAdvertisemetPosModel *adPosModel in self.advertisementArray) {
+            // 选择暂停广告：706
             if ([adPosModel._pos isEqualToString:@"706"]) {
-                NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
-                [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                
+                if (adPosModel.adMediaInfoArray.count) {
+                    // 暂停广告有多条
+                    SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
+                    NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
+                    [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                    
+                } else {
+                    // 暂停广告只一条
+                    NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
+                    [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                    
+                }
+                
                 break;
             }
         }
-
+        
         
         [CommonFunc dismiss];
         
@@ -1399,12 +1438,26 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 // 4.暂停广告
                 strongself.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
                 for (SCAdvertisemetPosModel *adPosModel in strongself.advertisementArray) {
+                    // 选择暂停广告：706
                     if ([adPosModel._pos isEqualToString:@"706"]) {
-                        NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
-                        [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                        
+                        if (adPosModel.adMediaInfoArray.count) {
+                            // 暂停广告有多条
+                            SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
+                            NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
+                            [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                            
+                        } else {
+                            // 暂停广告只一条
+                            NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
+                            [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                            
+                        }
+                        
                         break;
                     }
                 }
+
                 
                 [CommonFunc dismiss];
                 
@@ -1605,13 +1658,27 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     };
                     // 4.暂停广告
                     self.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
-                    for (SCAdvertisemetPosModel *adPosModel in _advertisementArray) {
+                    for (SCAdvertisemetPosModel *adPosModel in self.advertisementArray) {
+                        // 选择暂停广告：706
                         if ([adPosModel._pos isEqualToString:@"706"]) {
-                            NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
-                            [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                            
+                            if (adPosModel.adMediaInfoArray.count) {
+                                // 暂停广告有多条
+                                SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
+                                NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
+                                [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                                
+                            } else {
+                                // 暂停广告只一条
+                                NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
+                                [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                                
+                            }
+                            
                             break;
                         }
                     }
+
                     
                     [CommonFunc dismiss];
                 } failure:^(id  _Nullable errorObject) {
@@ -1784,13 +1851,27 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     };
                     // 4.暂停广告
                     strongself.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
-                    for (SCAdvertisemetPosModel *adPosModel in _advertisementArray) {
+                    for (SCAdvertisemetPosModel *adPosModel in strongself.advertisementArray) {
+                        // 选择暂停广告：706
                         if ([adPosModel._pos isEqualToString:@"706"]) {
-                            NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
-                            [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                            
+                            if (adPosModel.adMediaInfoArray.count) {
+                                // 暂停广告有多条
+                                SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
+                                NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
+                                [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                                
+                            } else {
+                                // 暂停广告只一条
+                                NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
+                                [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                                
+                            }
+                            
                             break;
                         }
                     }
+
                     
                     [CommonFunc dismiss];
                     
@@ -1868,26 +1949,33 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
             //请求播放地址
             [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-                //NSLog(@"====responseObject:::%@===",responseObject);
+                DONG_Log(@"====responseObject:::%@===",responseObject);
                 
                 // 处理广告信息
                 NSDictionary *adinfoDic = responseObject[@"adinfo"];
                 [_advertisementArray removeAllObjects];
+                
                 if (adinfoDic) {
-                    NSArray *adposArray = adinfoDic[@"adpos"];
-                    if (adposArray.count) {
-                        for (NSDictionary *adUnitDic in adposArray) {
-                            
-                            SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adUnitDic];
-                            
-                            NSDictionary *mediainfoDic = adUnitDic[@"mediainfo"];
-                            
-                            adPosModel.adMediaInfo = [SCAdMediaInfo mj_objectWithKeyValues:mediainfoDic];
-                            
-                            [_advertisementArray addObject:adPosModel];
-                            
-                            //DONG_Log(@"adPosModel:%@", adPosModel.adMediaInfo.__text);
+                    if ([adinfoDic[@"adpos"] isKindOfClass:[NSArray class]]) {
+                        
+                        NSArray *adposArray = adinfoDic[@"adpos"];
+                        if (adposArray.count) {
+                            for (NSDictionary *adUnitDic in adposArray) {
+                                
+                                SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adUnitDic];
+                                
+                                [_advertisementArray addObject:adPosModel];
+                                
+                                DONG_Log(@"adPosModel:%@", adPosModel.adMediaInfo.__text);
+                            }
                         }
+                        
+                    } else if ([adinfoDic[@"adpos"] isKindOfClass:[NSDictionary class]]) {
+                        
+                        SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adinfoDic[@"adpos"]];
+                        
+                        [_advertisementArray addObject:adPosModel];
+                        
                     }
                 }
                 
@@ -1941,10 +2029,23 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 };
                 // 4.暂停广告
                 strongself.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
-                for (SCAdvertisemetPosModel *adPosModel in _advertisementArray) {
+                for (SCAdvertisemetPosModel *adPosModel in strongself.advertisementArray) {
+                    // 选择暂停广告：706
                     if ([adPosModel._pos isEqualToString:@"706"]) {
-                        NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
-                        [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                        
+                        if (adPosModel.adMediaInfoArray.count) {
+                            // 暂停广告有多条
+                            SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
+                            NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
+                            [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                            
+                        } else {
+                            // 暂停广告只一条
+                            NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
+                            [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                            
+                        }
+                        
                         break;
                     }
                 }
@@ -2014,10 +2115,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 {
     if (buttonIndex == 1) {
         //扫描连接设备
-//        SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
-//        searchDeviceVC.entrance = @"player";
-//        searchDeviceVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:searchDeviceVC animated:YES];
+        //        SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
+        //        searchDeviceVC.entrance = @"player";
+        //        searchDeviceVC.hidesBottomBarWhenPushed = YES;
+        //        [self.navigationController pushViewController:searchDeviceVC animated:YES];
         
         SCScanQRCodesVC *scanQRCodesVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanQRCodesVC");
         scanQRCodesVC.entrance = @"player";

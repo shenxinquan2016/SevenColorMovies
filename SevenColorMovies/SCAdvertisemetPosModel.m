@@ -11,16 +11,17 @@
 
 @implementation SCAdvertisemetPosModel
 
-//+ (NSDictionary *)mj_replacedKeyFromPropertyName {
-//    
-//    return @{@"mediainfo":@"adMediaInfo"};
-//    
-//}
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    
+    return @{@"adMediaInfoArray" : @"mediainfo",
+             @"adMediaInfo"      : @"mediainfo"};
+    
+}
 
-//+ (NSDictionary *)objectClassInArray{
-//    return @{
-//             @"adMediaInfoArray" : @"SCAdMediaInfo",
-//             };
-//}
++ (NSDictionary *)objectClassInArray{
+    return @{
+             @"adMediaInfoArray" : @"SCAdMediaInfo",
+             };
+}
 
 @end

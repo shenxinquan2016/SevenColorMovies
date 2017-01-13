@@ -15,8 +15,9 @@
 @property (nonatomic, copy) NSString *_adcount;
 /** 广告位 701:片头 704:缓冲 706:暂停 */
 @property (nonatomic, copy) NSString *_pos;
-/** 广告module数组 */
+/** 广告module数组 (放置 SCAdMediaInfo) */
 @property (nonatomic, copy) NSArray *adMediaInfoArray;
+
 @property (nonatomic, strong) SCAdMediaInfo *adMediaInfo;
 
 @end
