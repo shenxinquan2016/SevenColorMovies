@@ -30,6 +30,8 @@ typedef NS_ENUM(NSInteger, SCLiveState) {
 @property (nonatomic, assign) BOOL isLive;
 /** 直播时状态：直播/时移 */
 @property (nonatomic, assign) SCLiveState liveState;
+/** 时移初始化时进度条位置 */
+@property (nonatomic, assign) NSTimeInterval initPosition;
 /** 控制层 */
 @property (weak, nonatomic) IBOutlet UIView *overlayPanel;
 /** 底部视图 */

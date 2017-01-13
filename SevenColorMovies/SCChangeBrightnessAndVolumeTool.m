@@ -78,7 +78,7 @@
                 if (_mediaControlView.isLive) {
                     // 区分直播和时移
                     if (_mediaControlView.liveState == Live) {
-                        _sumTime = 6 * 60 * 60;
+                        _sumTime = _mediaControlView.initPosition;
                     } else if (_mediaControlView.liveState == TimeShift) {
                         _sumTime = _mediaControlView.delegatePlayer.currentPlaybackTime;
                     }
@@ -198,6 +198,7 @@
     
     // 每次滑动需要叠加时间
     _sumTime += value / 10;
+    _mediaControlView.initPosition = _sumTime;
     
     // 需要限定sumTime的范围
     if (_mediaControlView.isLive) {

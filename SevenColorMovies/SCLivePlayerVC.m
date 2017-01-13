@@ -67,8 +67,6 @@ static const CGFloat LabelWidth = 55.f;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;
 /** 直播/时移状态 */
 @property (nonatomic, assign) SCLiveState liveState;
-/** 时移时间 */
-@property (nonatomic, assign) NSTimeInterval timeShiftPlayTime;
 
 @end
 
@@ -587,13 +585,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 #pragma mark - IJK完成加载即将播放的通知
 - (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification
 {
-    NSLog(@"mediaIsPreparedToPlayDidChange\n");
-    //在此通知里设置加载IJK时的起始播放时间
-    if (_timeShiftPlayTime) {
-        DONG_Log(@"timeShiftPlayTime:%f", _timeShiftPlayTime);
-//        self.IJKPlayerViewController.player.currentPlaybackTime = _timeShiftPlayTime;
-    }
-    _timeShiftPlayTime = 0.0f;
+
 }
 
 #pragma mark - 全屏/小屏切换
@@ -810,7 +802,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
-//            _IJKPlayerViewController.mediaControl.isLive = YES;
+            _IJKPlayerViewController.mediaControl.isLive = YES;
             _IJKPlayerViewController.mediaControl.liveState = Live;
             
             // 6.推屏的回调
@@ -847,8 +839,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 DONG_Log(@"liveState:%@", liveState);
                 if ([liveState isEqualToString:@"timeShift"]) {
                     // 进入时移
-                    [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
-                    _timeShiftPlayTime = positionTime;
+//                    [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
                 }
                 
             };
@@ -882,7 +873,20 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     // 4.hid = UUID
     const NSString *uuidStr = [HLJUUID getUUID];
     
-    NSString *ext = [NSString stringWithFormat:@"stime=%d&port=5656&ext=oid:30050", positionTime];
+    NSTimeInterval minusSeconds = 6 * 3600 - positionTime;
+    
+    
+    NSDate *date = [NSDate date];// 格林尼治时间
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];// 获取系统的时区
+    NSTimeInterval seconds = [zone secondsFromGMTForDate:date]; // 以秒为单位返回当前时间与系统格林尼治时间的差
+    NSDate *nowDate = [date dateByAddingTimeInterval:seconds];// 本地时间
+    
+    NSString *nowTimeStap = [nowDate getTimeStamp];
+    
+    
+    NSString *currentPlayTimeStap = [NSString stringWithFormat:@"%.0f", [nowTimeStap integerValue] - minusSeconds];
+    
+    NSString *ext = [NSString stringWithFormat:@"stime=%@&port=5656&ext=oid:30050", currentPlayTimeStap];
     NSString *base64ext = [ext stringByBase64Encoding];
     
     NSDictionary *parameters = @{@"fid" : fidStr,

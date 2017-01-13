@@ -44,8 +44,8 @@ typedef NS_ENUM (NSUInteger, Direction) {
     
     self.goBackButton.enlargedEdge = 100.f;
     [self setupProgressSlider];//自定义UISlider
-//    [self refreshMediaControl];
-//    [self refreshMediaControlWhenLive];
+    //    [self refreshMediaControl];
+    //    [self refreshMediaControlWhenLive];
     [self showNoFade];
     self.programNameLabel.hidden = YES;
     self.programNameRunLabel.textAlignment = NSTextAlignmentLeft;
@@ -147,7 +147,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
     } else {
         [self refreshMediaControl];
     }
-
+    
 }
 
 // 点播刷新 除拖拽progressSlider时，数据源均来自self.delegatePlayer
@@ -185,7 +185,7 @@ typedef NS_ENUM (NSUInteger, Direction) {
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControl) object:nil];
     if (self.overlayPanel.alpha != 0) {
-        [self performSelector:@selector(refreshMediaControl) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(refreshMediaControl) withObject:nil afterDelay:1.0];
     }
 }
 
@@ -197,20 +197,16 @@ typedef NS_ENUM (NSUInteger, Direction) {
     // duration 秒（S）
     NSTimeInterval duration = 6 * 3600;// 支持6个小时内的时移
     NSInteger intDuration = duration + 0.5;
+    self.progressSlider.maximumValue = intDuration;
     
     // label
     NSDate *date = [NSDate date];// 格林尼治时间
     NSString *dateString = [NSDate dateStringFromDate:date withDateFormat:@"HH:mm:ss"];
     NSTimeInterval seconds = - 6*3600;
     NSDate *crrrentLabelDate = [date dateByAddingTimeInterval:seconds];
-    self.progressSlider.maximumValue = intDuration;
-    self.totalDurationLabel.text = dateString;
     NSString *currentLabelString = [NSDate dateStringFromDate:crrrentLabelDate withDateFormat:@"HH:mm:ss"];
+    self.totalDurationLabel.text = dateString;
     self.currentTimeLabel.text   = currentLabelString;
-    
-    
-    
-    
     
     
     // position  区分直播和时移
@@ -219,31 +215,31 @@ typedef NS_ENUM (NSUInteger, Direction) {
         
         if (_isMediaSliderBeingDragged) {
             position = self.progressSlider.value;
+            self.initPosition = self.progressSlider.value;
+            
         } else {
-            position = intDuration;
+            
+            position = self.initPosition;
         }
         
-      self.progressSlider.value = position;
+        self.progressSlider.value = position;
         
     } else if (_liveState == TimeShift) {
         
         if (_isMediaSliderBeingDragged) {
+            
             position = self.progressSlider.value;
         } else {
-            position = self.delegatePlayer.currentPlaybackTime;
+            position = self.progressSlider.value;
         }
-
+        
         self.progressSlider.value = position;
     }
-    
-   
-    
-    
-    
+
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshMediaControlWhenLive) object:nil];
     if (self.overlayPanel.alpha != 0) {
-        [self performSelector:@selector(refreshMediaControlWhenLive) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(refreshMediaControlWhenLive) withObject:nil afterDelay:1.0];
     }
     
 }
@@ -252,8 +248,15 @@ typedef NS_ENUM (NSUInteger, Direction) {
 {
     _isLive = isLive;
     if (isLive) {
+        // duration 秒（S）
+        NSTimeInterval duration = 6 * 3600;// 支持6个小时内的时移
+        NSInteger intDuration = duration + 0.5;
+        self.initPosition = intDuration;
+        // 直播刷新
         [self refreshMediaControlWhenLive];
+        
     } else {
+        // 点播刷新
         [self refreshMediaControl];
     }
 }
