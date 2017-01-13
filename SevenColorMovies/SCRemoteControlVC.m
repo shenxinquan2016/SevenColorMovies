@@ -21,6 +21,7 @@
 #import "SCNetRequsetManger+iCloudRemoteControl.h"
 #import "SCXMPPManager.h"
 #import "HLJUUID.h" // uuid工具类
+#import "SCVideoLoadingView.h"
 
 #define PORT 9098
 
@@ -63,6 +64,9 @@
 @end
 
 @implementation SCRemoteControlVC
+{
+    SCVideoLoadingView *_loadView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -90,6 +94,7 @@
     [UdpScoketManager sendBroadcast];
     
     // 5.登录XMPP
+    //[CommonFunc showLoadingWithTips:@"绑定设备中..."];
     if (!XMPPManager.isConnected) {
         NSString *uuidStr = [HLJUUID getUUID];
         XMPPManager.uid = _uid;
@@ -100,6 +105,8 @@
     
     XMPPManager.delegate = self;
     _miroPhoneBtn.enabled = NO;
+    
+    [self startLoadingAnimating];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -119,6 +126,21 @@
 
 -(void)dealloc{
     DONG_Log(@"🔴%s 第%d行 \n",__func__, __LINE__);
+}
+
+- (void)startLoadingAnimating
+{
+    _loadView = [[NSBundle mainBundle] loadNibNamed:@"SCVideoLoadingView" owner:nil options:nil][0];
+    _loadView.backgroundColor = [UIColor colorWithHex:@"#000000" alpha:0.8];
+    _loadView.backgroundColor = [UIColor clearColor];
+    // 6.1 开始动画
+    [_loadView startAnimating];
+    [self.view addSubview:_loadView];
+    [_loadView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.centerY.equalTo(self.view.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(64, 64));
+    }];
 }
 
 #pragma mark - IBAction
@@ -596,13 +618,15 @@
         if ([dic[@"info"] isEqualToString:@"操作成功"]) {
             // 绑定成功
             
-            
+//            [_loadView endAnimating];
+            [CommonFunc dismiss];
         } else if ([dic[@"info"] isEqualToString:@"![CDATA[信息描述]]"]) {
             // 绑定失败
             
-            
+//            [_loadView endAnimating];
+            [CommonFunc dismiss];
         } else if ([dic[@"info"] isEqualToString:@"当前设备未绑定任何设备!"]) {
-            // 被踢掉线
+            // 被其他设备挤掉线
             
             
         } else if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&

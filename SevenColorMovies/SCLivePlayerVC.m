@@ -803,7 +803,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
             _IJKPlayerViewController.mediaControl.liveState = Live;
-            _IJKPlayerViewController.mediaControl.isLive = YES;
+            //_IJKPlayerViewController.mediaControl.isLive = YES;
             
             // 6.推屏的回调
             DONG_WeakSelf(self);

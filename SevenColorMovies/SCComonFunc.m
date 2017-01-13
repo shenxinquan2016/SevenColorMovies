@@ -259,7 +259,7 @@ static int textFieldMoveHight = 0;
 #pragma mark - 网络加载gif
 - (void)showLoadingWithTips:(NSString *)tipsString {
     if (tipsString.length == 0 || tipsString == nil) {
-        tipsString = @"正在加载中~";
+        tipsString = @"正在加载中...";
     }
     _loadingView = [SCLoadingView shareManager];
     [_loadingView showLoadingTitle:tipsString];
