@@ -875,7 +875,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     NSTimeInterval minusSeconds = 6 * 3600 - positionTime;
     
-    
     NSDate *date = [NSDate date];// 格林尼治时间
     NSTimeZone *zone = [NSTimeZone systemTimeZone];// 获取系统的时区
     NSTimeInterval seconds = [zone secondsFromGMTForDate:date]; // 以秒为单位返回当前时间与系统格林尼治时间的差
@@ -884,14 +883,15 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     NSString *nowTimeStap = [nowDate getTimeStamp];
     
     
-    NSString *currentPlayTimeStap = [NSString stringWithFormat:@"%.0f", [nowTimeStap integerValue] - minusSeconds];
+    NSString *currentPlayTimeStap = [NSString stringWithFormat:@"%.0f", ([nowTimeStap integerValue] - minusSeconds)];
     
     NSString *ext = [NSString stringWithFormat:@"stime=%@&port=5656&ext=oid:30050", currentPlayTimeStap];
-    NSString *base64ext = [ext stringByBase64Encoding];
+    NSString *base64Ext = [ext stringByBase64Encoding];
+    DONG_Log(@"base64Ext:%@", base64Ext);
     
     NSDictionary *parameters = @{@"fid" : fidStr,
                                  @"hid" : uuidStr,
-                                 @"ext" : base64ext};
+                                 @"ext" : base64Ext};
     
     NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:ToGetLiveTimeShiftVideoSignalFlowUrl];
     [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
@@ -945,6 +945,10 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             if ([liveState isEqualToString:@"live"]) {
                 // 进入直播
                 [weakself getLiveVideoSignalFlowUrl];
+                
+            } else if ([liveState isEqualToString:@"timeShift"]) {
+                // 请求新的时移
+                [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
             }
             
         };
