@@ -882,7 +882,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     NSString *nowTimeStap = [nowDate getTimeStamp];
     
-    
     NSString *currentPlayTimeStap = [NSString stringWithFormat:@"%.0f", ([nowTimeStap integerValue] - minusSeconds)];
     
     NSString *ext = [NSString stringWithFormat:@"stime=%@&port=5656&ext=oid:30050", currentPlayTimeStap];
