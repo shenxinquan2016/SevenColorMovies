@@ -1457,7 +1457,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         break;
                     }
                 }
-
+                
                 
                 [CommonFunc dismiss];
                 
@@ -1678,7 +1678,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                             break;
                         }
                     }
-
+                    
                     
                     [CommonFunc dismiss];
                 } failure:^(id  _Nullable errorObject) {
@@ -1871,7 +1871,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                             break;
                         }
                     }
-
+                    
                     
                     [CommonFunc dismiss];
                     
@@ -2029,6 +2029,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 };
                 // 4.暂停广告
                 strongself.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
+                
                 for (SCAdvertisemetPosModel *adPosModel in strongself.advertisementArray) {
                     // 选择暂停广告：706
                     if ([adPosModel._pos isEqualToString:@"706"]) {
