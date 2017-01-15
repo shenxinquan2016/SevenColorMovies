@@ -277,6 +277,11 @@ static const CGFloat LabelWidth = 55.f;
     
 }
 
+- (void)hideIJKPlayerMediaControlView
+{
+    [_IJKPlayerViewController.mediaControl hide];
+}
+
 #pragma mark- Event reponse
 - (void)labelClick:(UITapGestureRecognizer *)recognizer
 {
@@ -585,7 +590,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 #pragma mark - IJK完成加载即将播放的通知
 - (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification
 {
-
+    // 开始播放5秒后隐藏播放器控件
+    [self performSelector:@selector(hideIJKPlayerMediaControlView) withObject:nil afterDelay:5.0];
 }
 
 #pragma mark - 全屏/小屏切换

@@ -22,6 +22,7 @@
 #import "SCXMPPManager.h"
 #import "HLJUUID.h" // uuid工具类
 #import "SCVideoLoadingView.h"
+#import "SCScanQRCodesVC.h"
 
 #define PORT 9098
 
@@ -95,7 +96,7 @@
     
     // 5.登录XMPP
     if (!XMPPManager.isConnected) {
-        [CommonFunc showLoadingWithTips:@"绑定设备中..."];
+        
         NSString *uuidStr = [HLJUUID getUUID];
         XMPPManager.uid = _uid;
         XMPPManager.hid = _hid;
@@ -107,6 +108,15 @@
     _miroPhoneBtn.enabled = NO;
     
     //[self startLoadingAnimating];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+     XMPPManager.delegate = self;
+    
+    if (!XMPPManager.isConnected) {
+        [CommonFunc showLoadingWithTips:@"绑定设备中..."];
+    }
 }
 
 - (void)viewWillLayoutSubviews {
@@ -296,7 +306,14 @@
     NSString *value = @"-1";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
-    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+    if (XMPPManager.isConnected) {
+        [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+    }
 
 }
 
@@ -307,7 +324,14 @@
     NSString *value = @"1";
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
-    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+    if (XMPPManager.isConnected) {
+        [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+    }
 }
 
 - (IBAction)doMoveUp:(id)sender
@@ -318,7 +342,14 @@
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
-    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+    if (XMPPManager.isConnected) {
+        [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+    }
 }
 
 - (IBAction)doMoveDown:(id)sender
@@ -329,7 +360,14 @@
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
-    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+    if (XMPPManager.isConnected) {
+        [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+    }
 }
 
 - (IBAction)doMoveLeft:(id)sender
@@ -340,7 +378,14 @@
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
-    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+    if (XMPPManager.isConnected) {
+        [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+    }
 }
 
 - (IBAction)doMoveRignt:(id)sender
@@ -351,7 +396,14 @@
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
-    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+    if (XMPPManager.isConnected) {
+        [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+    }
 }
 
 - (IBAction)doOKAction:(id)sender
@@ -362,7 +414,14 @@
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
-    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+    if (XMPPManager.isConnected) {
+        [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+    }
     
 }
 
@@ -374,7 +433,14 @@
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
-    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+    if (XMPPManager.isConnected) {
+        [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+    }
 }
 
 - (IBAction)toHomePage:(id)sender
@@ -385,7 +451,14 @@
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
-    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+    if (XMPPManager.isConnected) {
+        [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+    }
     
 }
 
@@ -397,7 +470,14 @@
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
-    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+    if (XMPPManager.isConnected) {
+        [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+    }
 }
 
 - (IBAction)doVODAction:(id)sender
@@ -419,7 +499,14 @@
     NSString *xmlString = [self getXMLStringCommandWithIdentifier:identifier type:type value:value];
     
     //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1000];
-    [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+    if (XMPPManager.isConnected) {
+        [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+    }
 }
 
 - (IBAction)doPullScreen:(id)sender
@@ -617,17 +704,21 @@
     if (dic) {
         if ([dic[@"info"] isEqualToString:@"操作成功"]) {
             // 绑定成功
-            
-//            [_loadView endAnimating];
             [CommonFunc dismiss];
+            [MBProgressHUD showSuccess:@"绑定成功"];
+            
         } else if ([dic[@"info"] isEqualToString:@"绑定失败"]) {
             // 绑定失败
-            
-
             [CommonFunc dismiss];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备绑定失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+            [alertView show];
+            alertView.delegate = self;
+            
         } else if ([dic[@"info"] isEqualToString:@"当前设备未绑定任何设备!"]) {
             // 被其他设备挤掉线
-            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+            [alertView show];
+            alertView.delegate = self;
             
         } else if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
             [dic[@"_type"] isEqualToString:@"TV_Response"])
@@ -657,7 +748,18 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        [self.navigationController popViewControllerAnimated:YES];
+        //[self.navigationController popViewControllerAnimated:YES];
+        
+    } else if (buttonIndex == 1) {
+        
+        [XMPPManager disConnect];
+        
+        SCScanQRCodesVC *scanQRCodesVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanQRCodesVC");
+        scanQRCodesVC.entrance = @"player";
+        scanQRCodesVC.isQQSimulator = YES;
+        scanQRCodesVC.isVideoZoom = YES;
+        scanQRCodesVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:scanQRCodesVC animated:YES];
     }
 }
 

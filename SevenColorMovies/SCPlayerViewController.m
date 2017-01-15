@@ -709,6 +709,11 @@ static const CGFloat LabelWidth = 100.f;
     }];
 }
 
+- (void)hideIJKPlayerMediaControlView
+{
+    [_IJKPlayerViewController.mediaControl hide];
+}
+
 #pragma mark - Event reponse
 - (void)labelClick:(UITapGestureRecognizer *)recognizer {
     SCSlideHeaderLabel *label = (SCSlideHeaderLabel *)recognizer.view;
@@ -1006,6 +1011,11 @@ static const CGFloat LabelWidth = 100.f;
 - (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification
 {
     NSLog(@"mediaIsPreparedToPlayDidChange\n");
+    
+    // 开始播放5秒后隐藏播放器控件
+    [self performSelector:@selector(hideIJKPlayerMediaControlView) withObject:nil afterDelay:5.0];
+    
+    
     //在此通知里设置加载IJK时的起始播放时间
     //如果已经播放过，则从已播放时间开始播放
     if (_filmModel.currentPlayTime) {
@@ -1024,7 +1034,7 @@ static const CGFloat LabelWidth = 100.f;
         
         return;
         
-    }else if ([_identifier isEqualToString:@"电视剧"]){
+    } else if ([_identifier isEqualToString:@"电视剧"]){
         
         if (VODIndex+ ++timesIndexOfVOD < self.filmSetsArr.count) {
             DONG_Log(@"VODIndex:%lu timesIndexOfVOD: %lu",(unsigned long)VODIndex,(unsigned long)timesIndexOfVOD);
