@@ -20,7 +20,7 @@
 #import "SCMyDownloadManagerVC.h"
 #import "SCMyWatchingHistoryVC.h"
 #import "SCRemoteControlVC.h"
-
+#import "SCXMPPManager.h"
 
 @interface IJKVideoPlayerVC ()
 
@@ -220,14 +220,14 @@
 /** 返回 */
 - (IBAction)onClickBack:(id)sender
 {
-    //1.返回时添加观看记录
+    // 1.返回时添加观看记录
     if (self.addWatchHistoryBlock) {
         self.addWatchHistoryBlock();
     }
     
-    //2.如果是单独的播放器窗口(比如从我的下载、我的收藏等进入播放)，需要单独处理返回事物
+    // 2.如果是单独的播放器窗口(比如从我的下载、我的收藏等进入播放)，需要单独处理返回事物
     if (self.isSinglePlayerView) {
-        //先回调使父视图支持旋转才能旋转
+        // 先回调使父视图支持旋转才能旋转
         if (self.supportRotationBlock) {
             self.supportRotationBlock(NO);
         }
@@ -244,6 +244,8 @@
         for (int i = 0; i < navController.viewControllers.count ; i++) {
             unsigned long index = navController.viewControllers.count - i;
             UIViewController* controller = navController.viewControllers[index-1];
+            
+            DONG_Log(@"controller:%@", controller);
             
             if ([controller isKindOfClass:[SCMyProgramListVC class]]) {//我的节目单
                 
@@ -269,16 +271,23 @@
                 
                 [navController popToViewController:controller animated:YES];
                 return;
+                
+            } else if ([controller isKindOfClass:[SCXMPPManager class]]) {
+                
+                [navController popToViewController:controller animated:YES];
+                return;
+                
             }
-            
+
         }
+         [navController popViewControllerAnimated:YES];
         
     } else {
         
-        //如果正在全屏，先只返回小屏 返回小屏时需要旋转 如果此时处于全屏锁定状态，控制器不支持屏幕旋转，要先回调block使控制器支持屏幕旋转
+        // 如果正在全屏，先只返回小屏 返回小屏时需要旋转 如果此时处于全屏锁定状态，控制器不支持屏幕旋转，要先回调block使控制器支持屏幕旋转
         self.isLockFullScreen = NO;
         if ([PlayerViewRotate isOrientationLandscape]) {//全屏
-            //解锁fullScreenLock 先回调block使控制器页面支持旋转
+            // 解锁fullScreenLock 先回调block使控制器页面支持旋转
             if (self.fullScreenLockBlock) {
                 self.fullScreenLockBlock(NO);
             }
@@ -287,14 +296,14 @@
             self.isFullScreen = NO;
             [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
             
-        } else {//小屏
+        } else {// 小屏
             
             // 取出当前的导航控制器
             UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
             // 当前选择的导航控制器
             UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
             
-            //DONG_Log(@"%@",navController.viewControllers);
+            // DONG_Log(@"%@",navController.viewControllers);
             
             // pop到指定页面
             // 因为是出栈，所以要倒叙遍历navController.viewControllers 从栈顶到栈底遍历

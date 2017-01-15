@@ -94,6 +94,8 @@ static NSString *const cellId = @"cellId";
     [[HLJRequest requestWithPlayVideoURL:_filmClassModel.FilmClassUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
             
+            DONG_Log(@"responseObject:%@",responseObject);
+            
             if (responseObject) {
                 
                 NSArray *array = responseObject[@"FilmClass"];

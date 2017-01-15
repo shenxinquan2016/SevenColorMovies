@@ -674,6 +674,7 @@
 
 #pragma mark - SCXMPPManagerDelegate
 
+/** 登录成功 */
 - (void)xmppDidAuthenticate:(XMPPStream *)sender
 {
 //    self.hid = @"766572792900";
@@ -692,6 +693,18 @@
     
 }
 
+/** 登录失败 */
+- (void)xmppDidNotAuthenticate:(DDXMLElement *)error
+{
+    // 失败
+    [CommonFunc dismiss];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备绑定失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    [alertView show];
+    alertView.delegate = self;
+    
+}
+
+/** 接收消息成功 */
 - (void)xmppDidReceiveMessage:(XMPPMessage*)message
 {
     NSString *from = message.fromStr;
@@ -720,26 +733,27 @@
             [alertView show];
             alertView.delegate = self;
             
-        } else if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
-            [dic[@"_type"] isEqualToString:@"TV_Response"])
-        {
-            // 拉屏 飞屏
-            NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
-            DONG_Log(@"dic2:%@",dic2);
-            SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-            filmModel.FilmName = dic2[@"filmName"];
-            filmModel._Mid = dic2[@"_mid"];
-            filmModel.jiIndex = [dic2[@"_sid"] integerValue];
-            filmModel.currentPlayTime = [dic2[@"_currentPlayTime"] integerValue];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 调用播放器
-                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
-                
-                [self.navigationController pushViewController:player animated:YES];
-                
-            });
         }
+//        else if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
+//            [dic[@"_type"] isEqualToString:@"TV_Response"])
+//        {
+//            // 拉屏 飞屏
+//            NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
+//            DONG_Log(@"dic2:%@",dic2);
+//            SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+//            filmModel.FilmName = dic2[@"filmName"];
+//            filmModel._Mid = dic2[@"_mid"];
+//            filmModel.jiIndex = [dic2[@"_sid"] integerValue];
+//            filmModel.currentPlayTime = [dic2[@"_currentPlayTime"] integerValue];
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                // 调用播放器
+//                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
+//                
+//                [self.navigationController pushViewController:player animated:YES];
+//                
+//            });
+//        }
     }
 }
 

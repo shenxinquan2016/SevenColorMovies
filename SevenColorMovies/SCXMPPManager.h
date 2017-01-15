@@ -15,8 +15,13 @@
 
 @optional
 
+/** 登录成功 */
 - (void)xmppDidAuthenticate:(XMPPStream *)sender;
+/** 登录失败 */
+- (void)xmppDidNotAuthenticate:(DDXMLElement *)error;
+/** 接收消息成功 */
 - (void)xmppDidReceiveMessage:(XMPPMessage*)message;
+/** 消息发送成功 */
 - (void)xmppDidSendMessage:(XMPPMessage *)message;
 
 @end

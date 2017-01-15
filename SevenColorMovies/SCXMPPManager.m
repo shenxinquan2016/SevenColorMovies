@@ -8,6 +8,8 @@
 
 #import "SCXMPPManager.h"
 #import "HLJUUID.h" // uuid工具类
+#import "SCFilmModel.h"
+#import "SCHuikanPlayerViewController.h"
 
 @interface SCXMPPManager ()
 
@@ -183,8 +185,75 @@
     if ([self.delegate respondsToSelector:@selector(xmppDidReceiveMessage:)]) {
         [self.delegate xmppDidReceiveMessage:message];
     }
+    
+    
+    
+    NSString *info = message.body;
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithXMLString:info];
+    DONG_Log(@"dic:%@",dic);
+    
+    if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
+        [dic[@"_type"] isEqualToString:@"TV_Response"])
+    {
+        // 拉屏 飞屏
+        NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
+        DONG_Log(@"dic2:%@",dic2);
+        SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+        filmModel.FilmName = dic2[@"filmName"];
+        filmModel._Mid = dic2[@"_mid"];
+        filmModel.jiIndex = [dic2[@"_sid"] integerValue];
+        filmModel.currentPlayTime = [dic2[@"_currentPlayTime"] integerValue];
+        
+       
+        
+        
+        NSString *deviceType = @"TV";
+        NSString *mid = dic2[@"_mid"];
+        NSString *sid = dic2[@"_sid"];
+        NSString *tvId = dic2[@"_tvid"];
+        NSString *playingType = dic2[@"_playingType"];
+        NSString *fromWhere = dic2[@"_fromWhere"];
+        NSString *clientType = dic2[@"_clientType"];
+        NSString *currentPlayTime = dic2[@"_currentPlayTime"];
+        NSString *startTime = dic2[@"_startTime"];
+        NSString *endTime = dic2[@"_endTime"];
+        NSString *cyclePlay = dic2[@"_cyclePlay"];
+        NSString *filmName = dic2[@"filmName"];
+        NSString *columnCode = dic2[@"columnCode"];
+        NSString *dataUrl= dic2[@"dataUrl"];
+        
+        NSString *targetName;
+        if ([playingType isEqualToString:@"dianbo"]) {
+             targetName = @"epg.vurc.action";
+        } else if ([playingType isEqualToString:@"goback"]) {
+            targetName = @"epg.vurc.goback.action";
+        } else if ([playingType isEqualToString:@"live"]) {
+            targetName = @"com.hlj.live.action";
+        }
+        
+        NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", self.uid, self.hid];
+        
+      NSString *xmlString =  [self getXMLStringCommandWithTargetName:targetName deviceType:deviceType mid:mid sid:sid tvId:tvId playingType:playingType currentIndex:currentPlayTime fromWhere:fromWhere clientType:clientType currentPlayTime:currentPlayTime startTime:startTime endTime:endTime cyclePlay:cyclePlay filmName:filmName columnCode:columnCode dataUrl:dataUrl];
+       
+        DONG_Log(@"xmlString:%@",xmlString);
+        
+        [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 调用播放器
+            SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
+            
+            player.hidesBottomBarWhenPushed = YES;
+            // 取出当前的导航控制器
+            UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+            // 当前选择的导航控制器
+            UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+            [navController pushViewController:player animated:YES];
+            
+        });
+    }
 }
-
 
 
 - (void)xmppStream:(XMPPStream*)sender didFailToSendPresence:(XMPPPresence *)presence error:(NSError *)error
@@ -218,16 +287,13 @@
 
 
 /** xml命令构造器 */
-- (NSString *)getXMLStringCommandWithIdentifier:(NSString *)identifier type:(NSString *)type value:(NSString *)value;
+- (NSString *)getXMLStringCommandWithTargetName:(NSString *)targetName deviceType:(NSString *)deviceType mid:(NSString *)mid sid:(NSString *)sid tvId:(NSString *)tvId playingType:(NSString *)playingType currentIndex:(NSString *)currentIndex fromWhere:(NSString *)fromWhere clientType:(NSString *)clientType currentPlayTime:(NSString *)currentPlayTime startTime:(NSString *)startTime endTime:(NSString *)endTime cyclePlay:(NSString *)cyclePlay filmName:(NSString *)filmName columnCode:(NSString *)columnCode dataUrl:(NSString *)dataUrl
 {
-//    NSString *identifier = @"com.vurc.system";
-//    NSString *type = @"Rc_Move";
-//    NSString *value = @"MoveUp";
-
-    
-    NSString *xmlString = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"%@\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"%@\" value=\"%@\"></Message>]]></Body></Message>\n",identifier,  type, value];
+    NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"%@\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"Mobile_Response\" value=\"mobileStartPlayVideoInfo\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Device type=\"%@\" mid=\"%@\" sid=\"%@\" tvId=\"%@\" playingType=\"%@\" currentIndex=\"%@\" fromWhere=\"%@\" clientType=\"%@\" currentPlayTime=\"%@\" startTime=\"%@\" endTime=\"%@\" cyclePlay=\"%@\"><filmName><![CDATA[%@]]]]]]><![CDATA[><![CDATA[></filmName><columnCode><![CDATA[%@]]]]]]><![CDATA[><![CDATA[></columnCode><dataUrl><![CDATA[%@]]]]]]><![CDATA[><![CDATA[></dataUrl><info><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><ContentList />]]]]]]><![CDATA[><![CDATA[></info></Device>]]]]><![CDATA[></Body></Message>]]></Body></Message>\n", targetName, deviceType, mid, sid, tvId, playingType, currentIndex, fromWhere, clientType, currentPlayTime, startTime, endTime, cyclePlay, filmName, columnCode, dataUrl];
     
     return xmlString;
 }
+
+
 
 @end
