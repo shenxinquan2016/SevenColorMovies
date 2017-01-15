@@ -94,8 +94,8 @@
     [UdpScoketManager sendBroadcast];
     
     // 5.登录XMPP
-    //[CommonFunc showLoadingWithTips:@"绑定设备中..."];
     if (!XMPPManager.isConnected) {
+        [CommonFunc showLoadingWithTips:@"绑定设备中..."];
         NSString *uuidStr = [HLJUUID getUUID];
         XMPPManager.uid = _uid;
         XMPPManager.hid = _hid;
@@ -106,7 +106,7 @@
     XMPPManager.delegate = self;
     _miroPhoneBtn.enabled = NO;
     
-    [self startLoadingAnimating];
+    //[self startLoadingAnimating];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -132,7 +132,7 @@
 {
     _loadView = [[NSBundle mainBundle] loadNibNamed:@"SCVideoLoadingView" owner:nil options:nil][0];
     _loadView.backgroundColor = [UIColor colorWithHex:@"#000000" alpha:0.8];
-    _loadView.backgroundColor = [UIColor clearColor];
+//    _loadView.backgroundColor = [UIColor clearColor];
     // 6.1 开始动画
     [_loadView startAnimating];
     [self.view addSubview:_loadView];
@@ -620,10 +620,10 @@
             
 //            [_loadView endAnimating];
             [CommonFunc dismiss];
-        } else if ([dic[@"info"] isEqualToString:@"![CDATA[信息描述]]"]) {
+        } else if ([dic[@"info"] isEqualToString:@"绑定失败"]) {
             // 绑定失败
             
-//            [_loadView endAnimating];
+
             [CommonFunc dismiss];
         } else if ([dic[@"info"] isEqualToString:@"当前设备未绑定任何设备!"]) {
             // 被其他设备挤掉线

@@ -177,7 +177,8 @@
     
     //6.添加加载视频时进度动画
     _loadView = [[NSBundle mainBundle] loadNibNamed:@"SCVideoLoadingView" owner:nil options:nil][0];
-    _loadView.backgroundColor = [UIColor colorWithHex:@"#000000" alpha:0.8];
+    //_loadView.backgroundColor = [UIColor colorWithHex:@"#000000" alpha:0.4];
+    _loadView.backgroundColor = [UIColor clearColor];
     _loadView.frame = CGRectMake(0, 0, 64, 64);
     // 6.1 开始动画
     [_loadView startAnimating];

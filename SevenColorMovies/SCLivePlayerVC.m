@@ -1152,7 +1152,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     __block NSString *sequence = nil;
     __block NSString *xmlString= nil;
     [requestDataManager postRequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
-        //DONG_Log(@"====responseObject:::%@===",responseObject);
+        DONG_Log(@"====responseObject:::%@===",responseObject);
         
         NSArray *array = responseObject[@"LiveTvSort"];
         
