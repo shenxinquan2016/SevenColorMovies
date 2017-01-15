@@ -13,7 +13,7 @@
 - (void)postRequestDataToCloudRemoteControlServerWithUrl:(nullable NSString *)urlString parameters:(nullable id)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild
 {
     
-    [self POSTRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject){
+    [self POSTPOSTRequestDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject){
         
         success(responseObject);
         
@@ -34,7 +34,7 @@
 
 //******************☝️☝️☝️☝️☝️☝️☝️☝️下面为通用请求方法☝️☝️☝️☝️☝️☝️☝️☝️****************
 
-- (void)POSTRequestDataWithUrl:(NSString *)urlString parameters:(_Nullable id)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild {
+- (void)POSTPOSTRequestDataWithUrl:(NSString *)urlString parameters:(_Nullable id)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild {
     //        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
     //manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
