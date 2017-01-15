@@ -43,6 +43,10 @@
     
     // 设置配置信息
     [self setConfiguration];
+    
+    if (XMPPManager.isConnected) {
+        [XMPPManager disConnect];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -350,6 +354,7 @@
         }
         
     } else {
+        
         SCScanResultViewController *resultVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanResultViewController");
         resultVC.strScan = strResult.strScanned;
         resultVC.strCodeType = strResult.strBarCodeType;

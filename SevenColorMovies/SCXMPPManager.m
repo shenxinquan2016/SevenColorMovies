@@ -171,6 +171,7 @@
     if ([self.delegate respondsToSelector:@selector(xmppDidSendMessage:)]) {
         [self.delegate xmppDidSendMessage:message];
     }
+    DONG_Log(@"message:%@",message);
 }
 
 /** 消息发送失败 */
@@ -204,9 +205,6 @@
         filmModel._Mid = dic2[@"_mid"];
         filmModel.jiIndex = [dic2[@"_sid"] integerValue];
         filmModel.currentPlayTime = [dic2[@"_currentPlayTime"] integerValue];
-        
-       
-        
         
         NSString *deviceType = @"TV";
         NSString *mid = dic2[@"_mid"];

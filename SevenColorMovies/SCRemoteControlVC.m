@@ -108,6 +108,10 @@
     _miroPhoneBtn.enabled = NO;
     
     //[self startLoadingAnimating];
+    
+    // 6.
+    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+    self.toName = toName;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -681,7 +685,7 @@
 //    self.uid = @"8451204087955261";
     
 //    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
-    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", self.uid, self.hid];
+    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
     self.toName = toName;
     // 绑定试试
     NSString *uuidStr = [HLJUUID getUUID];
