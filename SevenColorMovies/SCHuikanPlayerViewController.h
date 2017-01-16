@@ -16,8 +16,8 @@
 + (instancetype)initPlayerWithFilmModel:(SCFilmModel *)filmModel;
 /** 由回看搜索单进入(直播回看) */
 + (instancetype)initPlayerWithProgramModel:(SCLiveProgramModel *)programModel;
-/** 播放直播回看 */
-//+ (instancetype)initPlayerWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel;
+/** 直播拉屏 */
++ (instancetype)initPlayerWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel;
 /** 播放本地文件 */
 + (instancetype)initPlayerWithFilePath:(NSString *)filePath;
 

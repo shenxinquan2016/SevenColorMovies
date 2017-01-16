@@ -238,20 +238,18 @@
         
         // 回看 的拉屏和飞屏消息
         if ([dic2[@"_playingType"] isEqualToString:@"goback"]) {
-            // _startTime = 2017-01-16 03:45:00
             
-            //当前tvId不好使，要重新请求获取Sequence
-            NSString *sequence = dic2[@"_tvId"];
+            NSString *tvId = dic2[@"_tvId"];
             NSString *startTime = dic2[@"_startTime"];
             NSString *endTime = dic2[@"_endTime"];
             NSString *currentPlayTime = dic2[@"_currentPlayTime"];
             
-            DONG_Log(@"sequence:%@",sequence);
+            DONG_Log(@"sequence:%@",tvId);
             
             SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
             liveProgramModel.forecastdate = startTime;
             liveProgramModel.endTime = endTime;
-            liveProgramModel.tvid = sequence;
+            liveProgramModel.tvid = tvId;
             liveProgramModel.currentPlayTime = [currentPlayTime integerValue];
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -315,6 +313,10 @@
             
         } else if ([dic2[@"_playingType"] isEqualToString:@"live"]) {
             
+            
+            NSString *tvId = dic2[@"_tvId"];
+            SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
+            liveProgramModel.tvid = tvId;
             
             
         } else {
