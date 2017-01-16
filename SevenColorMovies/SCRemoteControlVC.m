@@ -61,6 +61,8 @@
 @property (nonatomic, strong) NSMutableArray *macArray;
 /** 语音服务器状态 */
 @property (nonatomic, copy) NSString *voiceServerState;
+/** 是否绑定设备成功 */
+@property (nonatomic, assign) BOOL isReceivedBindMessage;
 
 @end
 
@@ -120,6 +122,8 @@
     
     if (!XMPPManager.isConnected) {
         [CommonFunc showLoadingWithTips:@"绑定设备中..."];
+        // 8s之后未收到盒子信息 切断连接
+        [self performSelector:@selector(hideLoadingVew) withObject:nil afterDelay:8.f];
     }
 }
 
@@ -589,6 +593,18 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)hideLoadingVew
+{
+    if (!_isReceivedBindMessage) {
+        
+        [XMPPManager disConnect];
+        [CommonFunc dismiss];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备绑定失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
+        
+    }
+}
 #pragma mark - UdpSocketManagerDelegate
 
 -(void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address withFilterContext:(id)filterContex
@@ -723,10 +739,12 @@
             // 绑定成功
             [CommonFunc dismiss];
             [MBProgressHUD showSuccess:@"绑定成功"];
+            _isReceivedBindMessage = YES;
             
         } else if ([dic[@"info"] isEqualToString:@"绑定失败"]) {
             // 绑定失败
             [CommonFunc dismiss];
+            _isReceivedBindMessage = YES;
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备绑定失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
             [alertView show];
             alertView.delegate = self;
