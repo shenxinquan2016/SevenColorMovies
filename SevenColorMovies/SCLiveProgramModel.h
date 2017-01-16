@@ -18,6 +18,10 @@
 @property (nonatomic, copy) NSString *startTime;
 /* 节目时间结束时间 yyyy-MM-dd HH:mm:ss */
 @property (nonatomic, copy) NSString *endTime;
+/* 节目开始时间时间戳 */
+@property (nonatomic, copy) NSString *startTimeStamp;
+/* 节目结束时间时间戳 */
+@property (nonatomic, copy) NSString *endTimeStamp;
 /* 节目状态:回看/播放/预约 */
 @property (nonatomic, assign) SCLiveProgramState programState;
 /* 节目是否正在播放 */

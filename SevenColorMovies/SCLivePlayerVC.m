@@ -668,13 +668,14 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 }
 
 #pragma mark - 网络请求
+
 //请求直播节目列表数据
 - (void)getLiveChannelData
 {
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"tvid" : self.filmModel._TvId ? self.filmModel._TvId : @""};
     [requestDataManager requestDataWithUrl:LiveProgramList parameters:parameters success:^(id  _Nullable responseObject) {
-        //NSLog(@"====responseObject:::%@===",responseObject);
+        NSLog(@"====responseObject:::%@===",responseObject);
         [_dataSourceArr removeAllObjects];
         NSArray *array = responseObject[@"FilmClass"][@"FilmlistSet"];
         if (array.count > 0) {
@@ -714,6 +715,10 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                         NSString *timeString = [formatter stringFromDate:pragramDate];
                         programModel.programTime = timeString;
                         programModel.startTime = forecastDateString;
+                        
+                        
+                        DONG_Log(@"programModel.startTime:%@", programModel.startTime);
+                        
                         //获取节目状态
                         //1.当前时间
                         NSDate *currenDate = [NSDate date];
@@ -818,7 +823,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 if (XMPPManager.isConnected) {
                     
                     NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
-                    [weakself getXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
+                    [weakself getLivePushScreenXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
                         
                         //[TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
                         [XMPPManager sendMessageWithBody:responseObject andToName:toName andType:@"text"];
@@ -982,15 +987,15 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
    
     // 3.请求播放地址url
     DONG_Log(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
-    DONG_Log(@"%@   %@",model1.startTime,model2.startTime);
+    DONG_Log(@"model1.startTime:%@   model2.startTime:%@",model1.startTime,model2.startTime);
     //获取时间戳字符串
     NSString *startTime = [NSString stringWithFormat:@"%ld", (long)[NSDate timeStampFromString:model1.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
     NSString *endTime =  [NSString stringWithFormat:@"%ld", (long)[NSDate timeStampFromString:model2.startTime format:@"yyyy-MM-dd HH:mm:ss"]];
     
-    model1.startTime = startTime;
-    model1.endTime = endTime;
+    model1.startTimeStamp = startTime;
+    model1.endTimeStamp = endTime;
     
-    DONG_Log(@"%@   %@",model1.startTime, model1.endTime);
+    DONG_Log(@"startTimeStamp:%@   endTimeStamp:%@",model1.startTimeStamp, model1.endTimeStamp);
     
     NSString *extStr = [NSString stringWithFormat:@"stime=%@&etime=%@&port=5656&ext=oid:30050",startTime,endTime];
     NSString *ext = [extStr stringByBase64Encoding];
@@ -1112,13 +1117,14 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 
 #pragma mark - XMLCommandConstruction 推屏
 
+/** 直播推屏 */
 - (void)getLivePushScreenXMLCommandWithFilmModel:(SCFilmModel *)filmModel liveProgramModel:(SCLiveProgramModel *)liveProgramModel success:(nullable void(^)(id _Nullable responseObject))backStr
 {
     //当前tvId不好使，要重新请求获取Sequence
     __block NSString *sequence = nil;
     __block NSString *xmlString= nil;
     [requestDataManager postRequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
-        //DONG_Log(@"====responseObject:::%@===",responseObject);
+        DONG_Log(@"====responseObject:::%@===",responseObject);
         
         NSArray *array = responseObject[@"LiveTvSort"];
         
@@ -1152,6 +1158,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 
 }
 
+/** 回看推屏 */
 - (void)getXMLCommandWithFilmModel:(SCFilmModel *)filmModel liveProgramModel:(SCLiveProgramModel *)liveProgramModel success:(nullable void(^)(id _Nullable responseObject))backStr
 {
     //当前tvId不好使，要重新请求获取Sequence
@@ -1172,10 +1179,21 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                     
                     NSString *targetName   = @"epg.vurc.goback.action";
                     NSString *playingType  = @"goback";
-                    NSString *sid       = @"1";
-                    NSString *tvId      = filmModel._TvId;
-                    NSString *startTime = liveProgramModel.startTime;
-                    NSString *endTime   = liveProgramModel.endTime;
+                    NSString *sid          = @"1";
+                    NSString *tvId         = filmModel._TvId;
+                    NSString *startTime    = liveProgramModel.startTime;
+                    NSString *endTime      = liveProgramModel.endTime;
+                    
+                    DONG_Log(@"liveProgramModel.programName:%@", liveProgramModel.programName);
+                    DONG_Log(@"startTime:%@", startTime);
+                    DONG_Log(@"endTime:%@", endTime);
+                    
+//                    NSDate *date1 = [NSDate getDateWithTimeStamp:startTime];
+//                    NSDate *date2 = [NSDate getDateWithTimeStamp:endTime];
+//                    
+//                    DONG_Log(@"date1:%@", date1);
+//                    DONG_Log(@"date2:%@", date2);
+                    
                     NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
                     
                     xmlString = [self getXMLStringCommandWithFilmName:liveProgramModel.programName mid:nil sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime targetName:targetName playingType:playingType];
