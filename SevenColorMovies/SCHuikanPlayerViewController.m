@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) SCLiveProgramModel *programModel;
 @property (nonatomic, strong) SCFilmModel *filmModel;
+@property (nonatomic, strong) SCLiveProgramModel *liveProgramModel;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
 @property (nonatomic, strong) HLJRequest *hljRequest;/** 域名替换工具 */
 @property (nonatomic, strong) NSURL *url;
@@ -26,7 +27,17 @@
 @implementation SCHuikanPlayerViewController
 
 #pragma mark - Initialize
-// 由我的节目单进入
+
+/** 播放直播回看 */
+//+ (instancetype)initPlayerWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel
+//{
+//    
+//    
+//    
+//    
+//}
+
+/** 由我的节目/点播飞屏拉屏单进入(点播) */
 + (instancetype)initPlayerWithFilmModel:(SCFilmModel *)filmModel{
     
     NSString *mtype;
@@ -57,7 +68,7 @@
     
 }
 
-//由回看搜索进入
+/** 由回看搜索单进入(直播回看) */
 + (instancetype)initPlayerWithProgramModel:(SCLiveProgramModel *)programModel{
     SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
     player.programModel = programModel;
@@ -72,7 +83,7 @@
     NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
     NSString *name = [[filePath componentsSeparatedByString:@"/"] lastObject];
     
-    //2.调用播放器播放
+    // 2.调用播放器播放
     player.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:filePathUrl];
     [player.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
     player.IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
@@ -80,7 +91,7 @@
     player.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
     player.IJKPlayerViewController.isSinglePlayerView = YES;
     player.isProhibitRotate = YES;
-    //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+    // 3.播放器返回按钮的回调 刷新本页是否支持旋转状态
     DONG_WeakSelf(player);
     player.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
         weakplayer.isProhibitRotate = isProhibitRotate;
@@ -686,11 +697,14 @@
 - (void)playFilmWithProgramModel:(SCLiveProgramModel *)programModel{
     //获取时间戳字符串
     NSString *startTime = [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:programModel.forecastdate format:@"yyyy-MM-dd HH:mm:ss"]];
-    NSString *endTime =  [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:programModel.endtime format:@"yyyy-MM-dd HH:mm:ss"]];
+    NSString *endTime =  [NSString stringWithFormat:@"%lu", [NSDate timeStampFromString:programModel.endTime format:@"yyyy-MM-dd HH:mm:ss"]];
     
     NSString *extStr = [NSString stringWithFormat:@"stime=%@&etime=%@&port=5656&ext=oid:30050",startTime,endTime];
     NSString *ext = [extStr stringByBase64Encoding];
     NSString *fid = [NSString stringWithFormat:@"%@_%@",_programModel.tvid,_programModel.tvid];
+    
+    DONG_Log(@"startTime：%@ \n endTime:%@",startTime, endTime);
+    
     DONG_Log(@"ext：%@ \nfid:%@",ext,fid);
     
     NSDictionary *parameters = @{@"fid" : fid,
@@ -773,9 +787,13 @@
     //如果已经播放过，则从已播放时间开始播放
         if (_filmModel.currentPlayTime) {
             DONG_Log(@"currentPlayTime:%f", _filmModel.currentPlayTime);
-            self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.currentPlayTime /1000;
+            self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.currentPlayTime / 1000;
+        } else if (_programModel.currentPlayTime) {
+            self.IJKPlayerViewController.player.currentPlaybackTime = _programModel.currentPlayTime / 1000;
         }
+    
     _filmModel.currentPlayTime = 0.0f;
+    _programModel.currentPlayTime = 0.f;
 }
 
 - (void)hideIJKPlayerMediaControlView

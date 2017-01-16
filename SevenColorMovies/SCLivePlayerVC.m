@@ -1000,6 +1000,9 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     NSString *extStr = [NSString stringWithFormat:@"stime=%@&etime=%@&port=5656&ext=oid:30050",startTime,endTime];
     NSString *ext = [extStr stringByBase64Encoding];
     NSString *fid = [NSString stringWithFormat:@"%@_%@",_filmModel._TvId,_filmModel._TvId];
+    
+    DONG_Log(@"startTime：%@ \n endTime:%@",startTime, endTime);
+    
     DONG_Log(@"ext：%@ \nfid:%@",ext,fid);
     
     NSDictionary *parameters = @{@"fid" : fid,

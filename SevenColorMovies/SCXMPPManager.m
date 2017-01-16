@@ -37,9 +37,9 @@
     self = [super init];
     if (self) {
         
-       
+        
     }
-     return self;
+    return self;
 }
 
 - (void)initXMPPWithUserName:(NSString *)name andPassWord:(NSString *)passWord resource:(NSString *)resource
@@ -62,7 +62,7 @@
     if (error) {
         DONG_Log(@"XMPPStreamConnectError:%@", error.description);
     }
- 
+    
 }
 
 - (XMPPMessage *)sendMessageWithBody:(NSString *)body andToName:(NSString *)toName andType:(NSString *)type
@@ -121,7 +121,7 @@
     if ([self.delegate respondsToSelector:@selector(xmppDidAuthenticate:)]) {
         [self.delegate xmppDidAuthenticate:sender];
     }
-
+    
     // 通知服务器登陆状态 上线
     [self goOnline];
 }
@@ -159,7 +159,7 @@
             DONG_Log(@"%@上线了",presenceFromUser);
             
         } else if ([presenceType isEqualToString:@"unavailable"]) {
-
+            
             DONG_Log(@"%@下线了",presenceFromUser);
         }
     }
@@ -237,21 +237,84 @@
         [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
         
         // 回看 的拉屏和飞屏消息
-        if (dic2[@"goback"]) {
+        if ([dic2[@"_playingType"] isEqualToString:@"goback"]) {
             // _startTime = 2017-01-16 03:45:00
+            
+            //当前tvId不好使，要重新请求获取Sequence
+            NSString *sequence = dic2[@"_tvId"];
             NSString *startTime = dic2[@"_startTime"];
             NSString *endTime = dic2[@"_endTime"];
-
-            //获取时间戳字符串
-            NSString *startTimeStamp = [NSString stringWithFormat:@"%ld", (long)[NSDate timeStampFromString:startTime format:@"yyyy-MM-dd HH:mm:ss"]];
-            NSString *endTimeStamp =  [NSString stringWithFormat:@"%ld", (long)[NSDate timeStampFromString:endTime format:@"yyyy-MM-dd HH:mm:ss"]];
+            NSString *currentPlayTime = dic2[@"_currentPlayTime"];
+            
+            DONG_Log(@"sequence:%@",sequence);
             
             SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
-            liveProgramModel.startTimeStamp = startTimeStamp;
-            liveProgramModel.endTimeStamp = endTimeStamp;
-            liveProgramModel.tvid = dic2[@"_tvId"];;
+            liveProgramModel.forecastdate = startTime;
+            liveProgramModel.endTime = endTime;
+            liveProgramModel.tvid = sequence;
+            liveProgramModel.currentPlayTime = [currentPlayTime integerValue];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 调用播放器
+                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithProgramModel:liveProgramModel];
+                
+                player.hidesBottomBarWhenPushed = YES;
+                // 取出当前的导航控制器
+                UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                // 当前选择的导航控制器
+                UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+                [navController pushViewController:player animated:YES];
+                
+            });
+            
+//            [requestDataManager postRequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
+//                DONG_Log(@"====responseObject:::%@===",responseObject);
+//                
+//                NSArray *array = responseObject[@"LiveTvSort"];
+//                
+//                for (NSDictionary *dic in array) {
+//                    
+//                    for (NSDictionary *dic2 in dic[@"LiveTv"]) {
+//                        
+//                        if ([sequence isEqualToString:dic2[@"_TvId"]]) {
+//                            
+//                            NSString *tvId = dic2[@"_Sequence"];
+//                            
+//                            SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
+//                            liveProgramModel.forecastdate = startTime;
+//                            liveProgramModel.endTime = endTime;
+//                            liveProgramModel.tvid = tvId;
+//                            liveProgramModel.currentPlayTime = [currentPlayTime integerValue];
+//                            
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                // 调用播放器
+//                                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithProgramModel:liveProgramModel];
+//                                
+//                                player.hidesBottomBarWhenPushed = YES;
+//                                // 取出当前的导航控制器
+//                                UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+//                                // 当前选择的导航控制器
+//                                UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+//                                [navController pushViewController:player animated:YES];
+//                                
+//                            });
+//
+//                           
+//                            
+//                            break;
+//                        }
+//                    }
+//                }
+//                
+//            } failure:^(id  _Nullable errorObject) {
+            
+                
+//            }];
             
  
+            
+        } else if ([dic2[@"_playingType"] isEqualToString:@"live"]) {
+            
             
             
         } else {
@@ -278,7 +341,7 @@
         }
         
         
-      
+        
         
         
     }

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SCFilmModel.h"
 
+
 @interface SCLivePlayerVC : UIViewController
 
 @property (nonatomic, strong) SCFilmModel *filmModel;

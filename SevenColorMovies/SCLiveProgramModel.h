@@ -39,5 +39,7 @@
 @property (nonatomic, copy) NSString *tvid;
 /* 节目时间结束时间 yyyy-MM-dd HH:mm:ss 回看搜索 */
 @property (nonatomic, copy) NSString *endtime;
+/** 记录当前播放时间 */
+@property (nonatomic, assign) NSTimeInterval currentPlayTime;
 
 @end

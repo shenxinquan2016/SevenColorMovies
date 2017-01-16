@@ -12,10 +12,12 @@
 
 @interface SCHuikanPlayerViewController : SCOtherBaseViewController
 
-/** 由我的节目单进入(点播) */
+/** 由我的节目/点播飞屏拉屏单进入(点播) */
 + (instancetype)initPlayerWithFilmModel:(SCFilmModel *)filmModel;
 /** 由回看搜索单进入(直播回看) */
 + (instancetype)initPlayerWithProgramModel:(SCLiveProgramModel *)programModel;
+/** 播放直播回看 */
+//+ (instancetype)initPlayerWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel;
 /** 播放本地文件 */
 + (instancetype)initPlayerWithFilePath:(NSString *)filePath;
 
