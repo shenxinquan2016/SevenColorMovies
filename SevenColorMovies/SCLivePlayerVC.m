@@ -816,6 +816,9 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             _IJKPlayerViewController.mediaControl.liveState = Live;
             //_IJKPlayerViewController.mediaControl.isLive = YES;
             
+            
+            [MBProgressHUD showError:fidStr];
+            
             // 6.推屏的回调
             DONG_WeakSelf(self);
             self.IJKPlayerViewController.pushScreenBlock = ^{
@@ -1030,6 +1033,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
         self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
+        
         
         // 7.推屏的回调
         DONG_WeakSelf(self);

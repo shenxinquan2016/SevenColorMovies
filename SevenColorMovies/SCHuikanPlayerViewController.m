@@ -672,6 +672,8 @@
             self.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
             [self.view addSubview:self.IJKPlayerViewController.view];
             
+            [MBProgressHUD showError:fidStr];
+            
             //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
             DONG_WeakSelf(self);
             self.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
