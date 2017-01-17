@@ -268,71 +268,52 @@
                 
             });
             
-//            [requestDataManager postRequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
-//                DONG_Log(@"====responseObject:::%@===",responseObject);
-//                
-//                NSArray *array = responseObject[@"LiveTvSort"];
-//                
-//                for (NSDictionary *dic in array) {
-//                    
-//                    for (NSDictionary *dic2 in dic[@"LiveTv"]) {
-//                        
-//                        if ([sequence isEqualToString:dic2[@"_TvId"]]) {
-//                            
-//                            NSString *tvId = dic2[@"_Sequence"];
-//                            
-//                            SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
-//                            liveProgramModel.forecastdate = startTime;
-//                            liveProgramModel.endTime = endTime;
-//                            liveProgramModel.tvid = tvId;
-//                            liveProgramModel.currentPlayTime = [currentPlayTime integerValue];
-//                            
-//                            dispatch_async(dispatch_get_main_queue(), ^{
-//                                // 调用播放器
-//                                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithProgramModel:liveProgramModel];
-//                                
-//                                player.hidesBottomBarWhenPushed = YES;
-//                                // 取出当前的导航控制器
-//                                UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-//                                // 当前选择的导航控制器
-//                                UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
-//                                [navController pushViewController:player animated:YES];
-//                                
-//                            });
-//
-//                           
-//                            
-//                            break;
-//                        }
-//                    }
-//                }
-//                
-//            } failure:^(id  _Nullable errorObject) {
-            
-                
-//            }];
-            
- 
             
         } else if ([dic2[@"_playingType"] isEqualToString:@"live"]) {
             
-            
-            NSString *tvId = dic2[@"_tvId"];
-            SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
-            liveProgramModel.tvid = tvId;
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 调用播放器
-                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithLiveProgramModel:liveProgramModel];
+            NSString *sequence = dic2[@"_tvId"];
+            [CommonFunc showLoadingWithTips:@"加载中"];
+            [requestDataManager postRequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
                 
-                player.hidesBottomBarWhenPushed = YES;
-                // 取出当前的导航控制器
-                UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-                // 当前选择的导航控制器
-                UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
-                [navController pushViewController:player animated:YES];
+                DONG_Log(@"====responseObject:::%@===",responseObject);
+                [CommonFunc dismiss];
                 
-            });
+                NSArray *array = responseObject[@"LiveTvSort"];
+                
+                for (NSDictionary *dic in array) {
+                    
+                    for (NSDictionary *dic3 in dic[@"LiveTv"]) {
+                        
+                        if ([sequence isEqualToString:dic3[@"_Sequence"]]) {
+                            
+                            NSString *tvId = dic3[@"_TvId"];
+                            
+                            SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
+                            liveProgramModel.tvid = tvId;
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                // 调用播放器
+                                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithLiveProgramModel:liveProgramModel];
+                                
+                                player.hidesBottomBarWhenPushed = YES;
+                                // 取出当前的导航控制器
+                                UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                                // 当前选择的导航控制器
+                                UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+                                [navController pushViewController:player animated:YES];
+                                
+                            });
+                            
+                            break;
+                        }
+                    }
+                }
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+                [CommonFunc dismiss];
+                
+            }];
             
         } else {
             
