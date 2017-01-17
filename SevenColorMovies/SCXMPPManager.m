@@ -321,6 +321,18 @@
             SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
             liveProgramModel.tvid = tvId;
             
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 调用播放器
+                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithLiveProgramModel:liveProgramModel];
+                
+                player.hidesBottomBarWhenPushed = YES;
+                // 取出当前的导航控制器
+                UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                // 当前选择的导航控制器
+                UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+                [navController pushViewController:player animated:YES];
+                
+            });
             
         } else {
             
