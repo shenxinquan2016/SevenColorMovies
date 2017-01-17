@@ -374,7 +374,7 @@
         [self.player play];
         // 播放时隐藏广告层
         self.mediaControl.advertisementIV.hidden = YES;
-        [self.mediaControl.playButton setImage:[UIImage imageNamed:@"nil"] forState:UIControlStateNormal];
+        [self.mediaControl.playButton setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
         [self.mediaControl refreshMediaControl];
         
     }

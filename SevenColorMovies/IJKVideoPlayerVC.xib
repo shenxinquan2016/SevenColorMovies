@@ -43,7 +43,6 @@
                                 <constraint firstAttribute="height" constant="43" id="7Xw-Qm-VSO"/>
                                 <constraint firstAttribute="width" constant="43" id="9QG-1h-lQF"/>
                             </constraints>
-                            <state key="normal" image="Pause"/>
                             <connections>
                                 <action selector="onClickPlay:" destination="-1" eventType="touchUpInside" id="flK-lL-d14"/>
                             </connections>
@@ -263,6 +262,5 @@
         <image name="FullScreen" width="19" height="19"/>
         <image name="FullScreenUnlock" width="40" height="40"/>
         <image name="InteractScreen" width="17" height="17"/>
-        <image name="Pause" width="43" height="43"/>
     </resources>
 </document>

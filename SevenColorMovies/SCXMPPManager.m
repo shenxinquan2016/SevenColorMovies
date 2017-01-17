@@ -191,20 +191,18 @@
         [self.delegate xmppDidReceiveMessage:message];
     }
     
-    
     NSString *info = message.body;
     
     NSDictionary *dic = [NSDictionary dictionaryWithXMLString:info];
     DONG_Log(@"dic:%@",dic);
-    
-    
+
+    // 只在单例工具类里处理 拉屏和飞屏 消息
     
     if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
         [dic[@"_type"] isEqualToString:@"TV_Response"])
     {
         NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
         DONG_Log(@"dic2:%@",dic2);
-        
         
         
         NSString *deviceType = @"TV";

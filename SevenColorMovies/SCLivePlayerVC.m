@@ -796,13 +796,15 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                  @"hid" : @""};
     self.hljRequest = [HLJRequest requestWithPlayVideoURL:ToGetLiveVideoSignalFlowUrl];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+    
+        DONG_Log(@">>>>>>>Live>>>newVideoUrl:%@", newVideoUrl);
         
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            NSLog(@"====responseObject:::%@===",responseObject);
+            DONG_Log(@"====responseObject:::%@===",responseObject);
             
             NSString *liveUrl = responseObject[@"play_url"];
             
-            NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
+            DONG_Log(@">>>>>>直播节目播放url>>>>>%@>>>>>>>",liveUrl);
             
             // 4.移除当前的播放器
             [self.IJKPlayerViewController closePlayer];

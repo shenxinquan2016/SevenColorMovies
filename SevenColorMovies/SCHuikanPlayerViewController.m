@@ -641,9 +641,11 @@
 /** 直播拉屏 */
 - (void)playLiveVideoWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel
 {
-    
     // 3.请求播放地址url
     NSString *fidStr = [[liveProgramModel.tvid stringByAppendingString:@"_"] stringByAppendingString:liveProgramModel.tvid];
+   
+    [MBProgressHUD showError:fidStr];
+   
     //hid = 设备的mac地址
     
     NSDictionary *parameters = @{@"fid" : fidStr,
@@ -672,8 +674,6 @@
             self.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
             [self.view addSubview:self.IJKPlayerViewController.view];
             
-            [MBProgressHUD showError:fidStr];
-            
             //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
             DONG_WeakSelf(self);
             self.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
@@ -696,8 +696,6 @@
         
         [CommonFunc dismiss];
     }];
-    
-    
 }
 
 - (void)playWithFilmModel:(SCFilmModel *)filmModel {
