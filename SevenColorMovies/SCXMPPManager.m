@@ -129,8 +129,11 @@
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error
 {
     DONG_Log(@"登陆失败");
+    if ([self.delegate respondsToSelector:@selector(xmppDidNotAuthenticate:)]) {
+        [self.delegate xmppDidNotAuthenticate:error];
+    }
     // 注册
-    [self.xmppStream registerWithPassword:self.password error:nil];
+    //[self.xmppStream registerWithPassword:self.password error:nil];
 }
 
 - (void)xmppStreamDidRegister:(XMPPStream *)sender

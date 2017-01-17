@@ -1101,9 +1101,12 @@ static const CGFloat LabelWidth = 100.f;
                         [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                         
                     } else {
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                        [alertView show];
-                        alertView.delegate = weakself;
+                        
+                        [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                        
+                        //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        //[alertView show];
+                        //alertView.delegate = weakself;
                     }
                 };
                 // 4.暂停广告
@@ -1208,9 +1211,12 @@ static const CGFloat LabelWidth = 100.f;
                             [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                             
                         } else {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                            [alertView show];
-                            alertView.delegate = weakself;
+                            
+                            [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                            
+                            //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                            //[alertView show];
+                            //alertView.delegate = weakself;
                         }
                     };
                     // 4.暂停广告
@@ -1320,9 +1326,12 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                 
             } else {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                [alertView show];
-                alertView.delegate = weakself;
+                
+                [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                
+                //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                //[alertView show];
+                //alertView.delegate = weakself;
             }
         };
         // 4.暂停广告
@@ -1440,9 +1449,12 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                         
                     } else {
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                        [alertView show];
-                        alertView.delegate = weakself;
+                        
+                        [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                        
+                        //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        //[alertView show];
+                        //alertView.delegate = weakself;
                     }
                 };
                 // 4.暂停广告
@@ -1661,9 +1673,12 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                             [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                             
                         } else {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                            [alertView show];
-                            alertView.delegate = weakself;
+                            
+                            [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                            
+                            //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                            //[alertView show];
+                            //alertView.delegate = weakself;
                         }
                     };
                     // 4.暂停广告
@@ -1854,9 +1869,12 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                             [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                             
                         } else {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                            [alertView show];
-                            alertView.delegate = weakself;
+                            
+                            [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                            
+                            //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                            //[alertView show];
+                            //alertView.delegate = weakself;
                         }
                     };
                     // 4.暂停广告
@@ -2032,9 +2050,12 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                         
                     } else {
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                        [alertView show];
-                        alertView.delegate = weakself;
+                        
+                        [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                        
+                        //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        //[alertView show];
+                        //alertView.delegate = weakself;
                     }
                 };
                 // 4.暂停广告
@@ -2087,19 +2108,40 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 
 #pragma mark - SCXMPPManagerDelegate
 
-/** 登录成功 */
-- (void)xmppDidAuthenticate:(XMPPStream *)sender
-{
-    DONG_MAIN_AFTER(0.2, [MBProgressHUD showSuccess:@"设备绑定成功"];);
-}
-
 /** 消息发送成功 */
 - (void)xmppDidSendMessage:(XMPPMessage *)message
 {
-    DONG_MAIN(^{
-        [MBProgressHUD showSuccess:@"推屏成功"];
-    });
+    
+    
 }
+
+- (void)xmppDidReceiveMessage:(XMPPMessage *)message
+{
+    NSString *from = message.fromStr;
+    NSString *info = message.body;
+    DONG_Log(@"接收到 %@ 说：%@",from, info);
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithXMLString:info];
+    DONG_Log(@"dic:%@",dic);
+    
+    if (dic) {
+        if ([dic[@"info"] isEqualToString:@"当前设备未绑定任何设备!"] || ([dic[@"_value"] isEqualToString:@"sendMsgUnder_unBind"] && [dic[@"_type"] isEqualToString:@"error"])) {
+            // 被其他设备挤掉线
+
+            [MBProgressHUD showError:@"绑定已被断开，请重新扫码绑定"];
+            
+        } else if ([dic[@"_type"] isEqualToString:@"TV_Response"] && [dic[@"_value"] isEqualToString:@"tvStartPlayVideoInfo"]) {
+            
+            // 推屏的返回消息
+            DONG_MAIN(^{
+                [MBProgressHUD showSuccess:@"推屏成功"];
+            });
+            
+        }
+    }
+    
+}
+
 
 #pragma mark - SocketManagerDelegate
 

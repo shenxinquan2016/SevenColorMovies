@@ -86,11 +86,11 @@
     [self addRightBBI];
     
     // 3.建立tcp连接
-//    TCPScoketManager.delegate = self;
-//    
-//    if (!TCPScoketManager.isConnected) {
-//        [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT];
-//    }
+    //    TCPScoketManager.delegate = self;
+    //
+    //    if (!TCPScoketManager.isConnected) {
+    //        [TCPScoketManager connectToHost:self.deviceModel._ip port:PORT];
+    //    }
     
     // 4.发广播获取盒子的IP
     UdpScoketManager.delegate = self;
@@ -118,7 +118,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-     XMPPManager.delegate = self;
+    XMPPManager.delegate = self;
     
     if (!XMPPManager.isConnected) {
         [CommonFunc showLoadingWithTips:@"绑定设备中..."];
@@ -150,7 +150,7 @@
 {
     _loadView = [[NSBundle mainBundle] loadNibNamed:@"SCVideoLoadingView" owner:nil options:nil][0];
     _loadView.backgroundColor = [UIColor colorWithHex:@"#000000" alpha:0.8];
-//    _loadView.backgroundColor = [UIColor clearColor];
+    //    _loadView.backgroundColor = [UIColor clearColor];
     // 6.1 开始动画
     [_loadView startAnimating];
     [self.view addSubview:_loadView];
@@ -168,56 +168,56 @@
 {
     NSString *ip = [_ipArray firstObject];
     NSString *mac = [_macArray firstObject];
-   
-    // 扫码得到的mac地址与upd广播得到的mac地址一致时 说明设备是对应的
-//    if ([mac isEqualToString:_hid]) {
     
-        NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/prepare", ip];
+    // 扫码得到的mac地址与upd广播得到的mac地址一致时 说明设备是对应的
+    //    if ([mac isEqualToString:_hid]) {
+    
+    NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/prepare", ip];
+    
+    DONG_Log(@"cloudRemoteControlUrlStr:%@",cloudRemoteControlUrlStr);
+    
+    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
         
-        DONG_Log(@"cloudRemoteControlUrlStr:%@",cloudRemoteControlUrlStr);
+        DONG_Log(@"responseObject:%@", responseObject);
         
-        [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
+        NSDictionary *dic = responseObject;
+        
+        if ([dic[@"result"] isEqualToString:@"ok"]) {
             
-            DONG_Log(@"responseObject:%@", responseObject);
+            _isOnline = dic[@"type"];
             
-            NSDictionary *dic = responseObject;
-            
-            if ([dic[@"result"] isEqualToString:@"ok"]) {
+            // 语音在线识别：采样率为8000 离线识别：采样率为16000
+            float sampleRate = 0.f;
+            if ([_isOnline isEqualToString:@"online"]) {
                 
-                _isOnline = dic[@"type"];
+                sampleRate = 8000.f;
                 
-                // 语音在线识别：采样率为8000 离线识别：采样率为16000
-                float sampleRate = 0.f;
-                if ([_isOnline isEqualToString:@"online"]) {
-                    
-                    sampleRate = 8000.f;
-                    
-                } else if ([_isOnline isEqualToString:@"offline"]) {
-                    
-                    sampleRate = 16000.f;
-                }
+            } else if ([_isOnline isEqualToString:@"offline"]) {
                 
-                //1.获取沙盒地址
-                NSString *tmpPath = [FileManageCommon GetTmpPath];
-                NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
-                
-                self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
-                
-                self.voiceServerState = @"ok";
-                [_audioRecordingTool startRecord];
-                
-            } else if ([dic[@"result"] isEqualToString:@"wait"] || [dic[@"result"] isEqualToString:@"error"] ) {
-                
-                [MBProgressHUD showError:@"语音模块初始化中，请稍后再试"];
-                self.voiceServerState = @"error";
+                sampleRate = 16000.f;
             }
             
-        } failure:^(id  _Nullable errorObject) {
+            //1.获取沙盒地址
+            NSString *tmpPath = [FileManageCommon GetTmpPath];
+            NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
             
-            [MBProgressHUD showError:@"网络故障，请稍后再试"];
-        }];
-  
-//    }
+            self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
+            
+            self.voiceServerState = @"ok";
+            [_audioRecordingTool startRecord];
+            
+        } else if ([dic[@"result"] isEqualToString:@"wait"] || [dic[@"result"] isEqualToString:@"error"] ) {
+            
+            [MBProgressHUD showError:@"语音模块初始化中，请稍后再试"];
+            self.voiceServerState = @"error";
+        }
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [MBProgressHUD showError:@"网络故障，请稍后再试"];
+    }];
+    
+    //    }
     
     
 }
@@ -293,17 +293,17 @@
             [FileManageCommon DeleteFile:marFilePath];
             
         }];
-
+        
     }
     
     
-//    [requestDataManager postDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:parameters success:^(id  _Nullable responseObject) {
-//        DONG_Log(@"responseObject:%@", responseObject);
-//        
-//    } failure:^(id  _Nullable errorObject) {
-//        
-//        
-//    }];
+    //    [requestDataManager postDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:parameters success:^(id  _Nullable responseObject) {
+    //        DONG_Log(@"responseObject:%@", responseObject);
+    //
+    //    } failure:^(id  _Nullable errorObject) {
+    //
+    //
+    //    }];
     
 }
 
@@ -322,7 +322,7 @@
         [alertView show];
         alertView.delegate = self;
     }
-
+    
 }
 
 - (IBAction)doVolumeUp:(id)sender
@@ -697,10 +697,10 @@
 /** 登录成功 */
 - (void)xmppDidAuthenticate:(XMPPStream *)sender
 {
-//    self.hid = @"766572792900";
-//    self.uid = @"8451204087955261";
+    //    self.hid = @"766572792900";
+    //    self.uid = @"8451204087955261";
     
-//    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
+    //    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
     NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
     self.toName = toName;
     // 绑定试试
@@ -735,47 +735,53 @@
     DONG_Log(@"dic:%@",dic);
     
     if (dic) {
-        if ([dic[@"info"] isEqualToString:@"操作成功"]) {
-            // 绑定成功
-            [CommonFunc dismiss];
-            [MBProgressHUD showSuccess:@"绑定成功"];
-            _isReceivedBindMessage = YES;
+        if ([dic[@"_type"] isEqualToString:@"Rc_bind"]) {
             
-        } else if ([dic[@"info"] isEqualToString:@"绑定失败"]) {
-            // 绑定失败
-            [CommonFunc dismiss];
-            _isReceivedBindMessage = YES;
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备绑定失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-            [alertView show];
-            alertView.delegate = self;
+            if ([dic[@"_value"] isEqualToString:@"true"]) {
+                
+                // 绑定成功
+                [CommonFunc dismiss];
+                [MBProgressHUD showSuccess:@"绑定成功"];
+                _isReceivedBindMessage = YES;
+                
+            } else {
+                
+                // 绑定失败
+                [CommonFunc dismiss];
+                _isReceivedBindMessage = YES;
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备绑定失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                [alertView show];
+                alertView.delegate = self;
+            }
             
-        } else if ([dic[@"info"] isEqualToString:@"当前设备未绑定任何设备!"]) {
+            
+        } else if ([dic[@"info"] isEqualToString:@"当前设备未绑定任何设备!"] || ([dic[@"_value"] isEqualToString:@"sendMsgUnder_unBind"] && [dic[@"_type"] isEqualToString:@"error"])) {
             // 被其他设备挤掉线
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
             [alertView show];
             alertView.delegate = self;
             
         }
-//        else if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
-//            [dic[@"_type"] isEqualToString:@"TV_Response"])
-//        {
-//            // 拉屏 飞屏
-//            NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
-//            DONG_Log(@"dic2:%@",dic2);
-//            SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-//            filmModel.FilmName = dic2[@"filmName"];
-//            filmModel._Mid = dic2[@"_mid"];
-//            filmModel.jiIndex = [dic2[@"_sid"] integerValue];
-//            filmModel.currentPlayTime = [dic2[@"_currentPlayTime"] integerValue];
-//            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                // 调用播放器
-//                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
-//                
-//                [self.navigationController pushViewController:player animated:YES];
-//                
-//            });
-//        }
+        //        else if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
+        //            [dic[@"_type"] isEqualToString:@"TV_Response"])
+        //        {
+        //            // 拉屏 飞屏
+        //            NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
+        //            DONG_Log(@"dic2:%@",dic2);
+        //            SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+        //            filmModel.FilmName = dic2[@"filmName"];
+        //            filmModel._Mid = dic2[@"_mid"];
+        //            filmModel.jiIndex = [dic2[@"_sid"] integerValue];
+        //            filmModel.currentPlayTime = [dic2[@"_currentPlayTime"] integerValue];
+        //
+        //            dispatch_async(dispatch_get_main_queue(), ^{
+        //                // 调用播放器
+        //                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
+        //
+        //                [self.navigationController pushViewController:player animated:YES];
+        //
+        //            });
+        //        }
     }
 }
 
