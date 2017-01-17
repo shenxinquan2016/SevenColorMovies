@@ -6,11 +6,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--新闻-->
+        <!--掌厅-->
         <scene sceneID="Prg-ap-DJ9">
             <objects>
                 <navigationController storyboardIdentifier="SCNewsNavController" id="Zke-Qf-VzF" customClass="BaseNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="2" title="新闻" image="News" selectedImage="News_sel" id="xXG-N2-EgD"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="掌厅" image="News" selectedImage="News_sel" id="xXG-N2-EgD"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hXU-vd-MeM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
