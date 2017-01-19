@@ -105,7 +105,6 @@
                     [self.channelLogoDictionary setObject:value forKey:key];
                 }
             }
-            
         }
         
         // 获取搜索结果

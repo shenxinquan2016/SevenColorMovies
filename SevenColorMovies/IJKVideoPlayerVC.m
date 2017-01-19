@@ -92,6 +92,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
     [self.player shutdown];
     [self removeMovieNotificationObservers];
     //注销全屏通知
@@ -103,7 +104,7 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)dealloc{
+- (void)dealloc {
     
 }
 
