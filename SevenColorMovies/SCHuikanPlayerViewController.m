@@ -644,8 +644,6 @@
     // 3.请求播放地址url
     NSString *fidStr = [[liveProgramModel.tvid stringByAppendingString:@"_"] stringByAppendingString:liveProgramModel.tvid];
    
-    [MBProgressHUD showError:fidStr];
-   
     //hid = 设备的mac地址
     
     NSDictionary *parameters = @{@"fid" : fidStr,
@@ -659,11 +657,13 @@
             NSString *liveUrl = responseObject[@"play_url"];
             
             NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
+            
+             NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
         
             //睡一会以解决屏幕旋转时的bug
             [NSThread sleepForTimeInterval:.5f];
             // 5.开始播放直播
-            self.url = [NSURL URLWithString:liveUrl];
+            self.url = [NSURL URLWithString:newLiveUrl];
             //2.调用播放器播放
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             [self.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];

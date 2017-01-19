@@ -804,22 +804,21 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             
             NSString *liveUrl = responseObject[@"play_url"];
             
+            NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
+            
             DONG_Log(@">>>>>>直播节目播放url>>>>>%@>>>>>>>",liveUrl);
             
             // 4.移除当前的播放器
             [self.IJKPlayerViewController closePlayer];
            
             // 5.开始播放直播
-            self.url = [NSURL URLWithString:liveUrl];
+            self.url = [NSURL URLWithString:newLiveUrl];
             //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
             _IJKPlayerViewController.mediaControl.liveState = Live;
             //_IJKPlayerViewController.mediaControl.isLive = YES;
-            
-            
-            [MBProgressHUD showError:fidStr];
             
             // 6.推屏的回调
             DONG_WeakSelf(self);

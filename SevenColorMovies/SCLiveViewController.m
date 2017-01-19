@@ -248,7 +248,7 @@ static const CGFloat LabelWidth = 95.f;
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataWithUrl:LivePageUrl parameters:nil success:^(id  _Nullable responseObject) {
         
-        DONG_Log(@"==========dic:::%@========",responseObject);
+        //DONG_Log(@"==========dic:::%@========",responseObject);
         if (responseObject) {
             NSArray *array = responseObject[@"LiveTvSort"];
             
@@ -322,7 +322,6 @@ static const CGFloat LabelWidth = 95.f;
                     
                     [_dataSourceArr addObject:[_filmModelArr copy]];
 
-                    
                 }
                 
             }
