@@ -87,7 +87,7 @@
     // 获取台标
     [requestDataManager requestDataWithUrl:GetChannelLogoUrl parameters:nil success:^(id  _Nullable responseObject) {
         
-        //        NSLog(@"==========dic:::%@========",responseObject);
+                DONG_Log(@"==========dic:::%@========",responseObject);
         
         self.channelLogoDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
         [_channelLogoDictionary removeAllObjects];
@@ -95,13 +95,17 @@
         NSArray *array1 = responseObject[@"LiveLookback"];
         for (NSDictionary *dic1 in array1) {
             
-            NSArray *array2 = dic1[@"ContentSet"][@"Content"];
-            for (NSDictionary *dic2 in array2) {
+            if ([dic1[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
                 
-                NSString *key = dic2[@"_ChannelName"];
-                NSString *value = dic2[@"ImgUrl"];
-                [self.channelLogoDictionary setObject:value forKey:key];
+                NSArray *array2 = dic1[@"ContentSet"][@"Content"];
+                for (NSDictionary *dic2 in array2) {
+                    
+                    NSString *key = dic2[@"_ChannelName"] ?  dic2[@"_ChannelName"] : @"1";
+                    NSString *value = dic2[@"ImgUrl"] ? dic2[@"ImgUrl"] : @"1";
+                    [self.channelLogoDictionary setObject:value forKey:key];
+                }
             }
+            
         }
         
         // 获取搜索结果
