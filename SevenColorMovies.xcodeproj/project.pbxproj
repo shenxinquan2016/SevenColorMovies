@@ -128,6 +128,8 @@
 		11796BF01DF93EE300F5923C /* SCTCPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BEF1DF93EE300F5923C /* SCTCPSocketManager.m */; };
 		117D1E201E08C466001195F2 /* SCSoundRecordingTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.mm */; };
 		11807D981E1632E600F19B41 /* NSData+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11807D971E1632E600F19B41 /* NSData+Addition.m */; };
+		1180E1DD1E30F52000AF1681 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1180E1DB1E30F52000AF1681 /* Fabric.framework */; };
+		1180E1DE1E30F52000AF1681 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1180E1DC1E30F52000AF1681 /* Crashlytics.framework */; };
 		1182415D1E23222200B78E1A /* SCXMPPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1182415C1E23222200B78E1A /* SCXMPPManager.m */; };
 		118241621E23282D00B78E1A /* SCDLNAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 118241601E23282D00B78E1A /* SCDLNAViewController.m */; };
 		118241631E23282D00B78E1A /* SCDLNAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 118241611E23282D00B78E1A /* SCDLNAViewController.xib */; };
@@ -462,6 +464,8 @@
 		117D1E1F1E08C466001195F2 /* SCSoundRecordingTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SCSoundRecordingTool.mm; sourceTree = "<group>"; };
 		11807D961E1632E600F19B41 /* NSData+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Addition.h"; sourceTree = "<group>"; };
 		11807D971E1632E600F19B41 /* NSData+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Addition.m"; sourceTree = "<group>"; };
+		1180E1DB1E30F52000AF1681 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		1180E1DC1E30F52000AF1681 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1182415B1E23222200B78E1A /* SCXMPPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCXMPPManager.h; sourceTree = "<group>"; };
 		1182415C1E23222200B78E1A /* SCXMPPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCXMPPManager.m; sourceTree = "<group>"; };
 		1182415F1E23282D00B78E1A /* SCDLNAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDLNAViewController.h; sourceTree = "<group>"; };
@@ -639,7 +643,9 @@
 				11759F631E0A5F05000B9440 /* libopencore-amrnb.a in Frameworks */,
 				116B1F601D5323BE00E9637A /* CoreMedia.framework in Frameworks */,
 				116B1F5E1D5323A600E9637A /* CoreGraphics.framework in Frameworks */,
+				1180E1DD1E30F52000AF1681 /* Fabric.framework in Frameworks */,
 				116B1F5C1D53238B00E9637A /* AVFoundation.framework in Frameworks */,
+				1180E1DE1E30F52000AF1681 /* Crashlytics.framework in Frameworks */,
 				116B1F5A1D53237D00E9637A /* AudioToolbox.framework in Frameworks */,
 				116B1F581D53236B00E9637A /* libbz2.tbd in Frameworks */,
 				116B1F561D53235600E9637A /* libz.tbd in Frameworks */,
@@ -2145,6 +2151,8 @@
 			isa = PBXGroup;
 			children = (
 				112EF5BE1DB8AF3E0029BC62 /* libc++.tbd */,
+				1180E1DB1E30F52000AF1681 /* Fabric.framework */,
+				1180E1DC1E30F52000AF1681 /* Crashlytics.framework */,
 				116B1F6D1D53281E00E9637A /* VideoToolbox.framework */,
 				116B1F6B1D53280600E9637A /* UIKit.framework */,
 				116B1F691D5327FA00E9637A /* QuartzCore.framework */,
@@ -2180,6 +2188,7 @@
 				8D76CBEA5442CBACAA6824D1 /* [CP] Copy Pods Resources */,
 				11B9DBD61E214DF80086E51E /* Embed Frameworks */,
 				11B9DBD71E214E020086E51E /* ShellScript */,
+				1180E1DA1E30F42600AF1681 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2359,7 +2368,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMoviesTests/Pods-SevenColorMoviesTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		11B9DBD71E214E020086E51E /* ShellScript */ = {
+		1180E1DA1E30F42600AF1681 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2371,6 +2380,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "";
+		};
+		11B9DBD71E214E020086E51E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run eaeada8cdedc56de1c991620468d9662e2af9833 8cbb782082547b20c41fc54d5d0d9d922cb06bde5d93f2fc65274ec5777b036f";
 		};
 		4A25385B5CCD56AB4BF449BD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

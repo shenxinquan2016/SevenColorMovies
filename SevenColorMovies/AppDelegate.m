@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 #import "SCNetUrlManger.h"
 #import "IQKeyboardManager.h"
 #import "HLJUUID.h"
@@ -37,6 +40,10 @@
     
     //3.设置点播播放列表点击标识置为0
     [self setSelectedInitialIndex];
+    
+    // 4.开启Crashlytics崩溃日志
+    [Fabric with:@[[Crashlytics class]]];
+
     
     return YES;
 }
