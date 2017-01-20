@@ -790,10 +790,13 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     // 3.请求播放地址url
     NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
+    [MBProgressHUD showError:fidStr];
     //hid = 设备的mac地址
     
-    NSDictionary *parameters = @{@"fid" : fidStr,
-                                 @"hid" : @""};
+    NSString *uuidStr = [HLJUUID getUUID];
+    
+    NSDictionary *parameters = @{@"fid" : fidStr? fidStr : @"",
+                                 @"hid" : uuidStr? uuidStr : @""};
     self.hljRequest = [HLJRequest requestWithPlayVideoURL:ToGetLiveVideoSignalFlowUrl];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
     

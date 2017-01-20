@@ -11,7 +11,9 @@
 #import "SCLiveProgramModel.h"
 #import "SCFilmModel.h"
 #import "PlayerViewRotate.h"//横竖屏强制转换
-#import "AppDelegate.h"
+//#import "AppDelegate.h"
+#import "HLJUUID.h"
+
 @interface SCHuikanPlayerViewController ()
 
 @property (nonatomic, strong) SCLiveProgramModel *programModel;
@@ -645,10 +647,13 @@
     // 3.请求播放地址url
     NSString *fidStr = [[liveProgramModel.tvid stringByAppendingString:@"_"] stringByAppendingString:liveProgramModel.tvid];
    
+    [MBProgressHUD showError:fidStr];
     //hid = 设备的mac地址
     
-    NSDictionary *parameters = @{@"fid" : fidStr,
-                                 @"hid" : @""};
+    NSString *uuidStr = [HLJUUID getUUID];
+    
+    NSDictionary *parameters = @{@"fid" : fidStr? fidStr : @"",
+                                 @"hid" : uuidStr? uuidStr : @""};
     self.hljRequest = [HLJRequest requestWithPlayVideoURL:ToGetLiveVideoSignalFlowUrl];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         
@@ -656,6 +661,7 @@
             NSLog(@"====responseObject:::%@===",responseObject);
             
             NSString *liveUrl = responseObject[@"play_url"];
+            
             
             NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
             
