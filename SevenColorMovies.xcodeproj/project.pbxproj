@@ -2187,8 +2187,7 @@
 				4A25385B5CCD56AB4BF449BD /* [CP] Embed Pods Frameworks */,
 				8D76CBEA5442CBACAA6824D1 /* [CP] Copy Pods Resources */,
 				11B9DBD61E214DF80086E51E /* Embed Frameworks */,
-				11B9DBD71E214E020086E51E /* ShellScript */,
-				1180E1DA1E30F42600AF1681 /* ShellScript */,
+				11B9DBD71E214E020086E51E /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -2368,26 +2367,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMoviesTests/Pods-SevenColorMoviesTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1180E1DA1E30F42600AF1681 /* ShellScript */ = {
+		11B9DBD71E214E020086E51E /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "";
-		};
-		11B9DBD71E214E020086E51E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

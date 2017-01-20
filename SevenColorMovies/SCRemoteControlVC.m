@@ -107,7 +107,7 @@
     }
     
     XMPPManager.delegate = self;
-    _miroPhoneBtn.enabled = NO;
+//    _miroPhoneBtn.enabled = NO;
     
     //[self startLoadingAnimating];
     
@@ -169,53 +169,76 @@
     NSString *ip = [_ipArray firstObject];
     NSString *mac = [_macArray firstObject];
     
+    
+    NSString *targetName = @"com.vurc.self";
+    NSString *type       = @"Rc_voice";
+    NSString *value      = @"VoicePrepare";
+    NSString *from       = [HLJUUID getUUID];
+    NSString *to         = XMPPManager.hid;
+    NSString *cardnum    = XMPPManager.uid;
+    NSString *data = @"";
+    
+    
+    
+    NSString *xmlString = [self getVoiceXMLStringCommandWithTargetName:targetName type:type value:value from:from to:to cardnum:cardnum data:data];
+    
+    [XMPPManager sendMessageWithBody:xmlString andToName:self.toName andType:@"text"];
+
+    
+    
+    
+    
+    
+    
+    
+    
     // 扫码得到的mac地址与upd广播得到的mac地址一致时 说明设备是对应的
     //    if ([mac isEqualToString:_hid]) {
     
-    NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/prepare", ip];
-    
-    DONG_Log(@"cloudRemoteControlUrlStr:%@",cloudRemoteControlUrlStr);
-    
-    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
-        
-        DONG_Log(@"responseObject:%@", responseObject);
-        
-        NSDictionary *dic = responseObject;
-        
-        if ([dic[@"result"] isEqualToString:@"ok"]) {
-            
-            _isOnline = dic[@"type"];
-            
-            // 语音在线识别：采样率为8000 离线识别：采样率为16000
-            float sampleRate = 0.f;
-            if ([_isOnline isEqualToString:@"online"]) {
-                
-                sampleRate = 8000.f;
-                
-            } else if ([_isOnline isEqualToString:@"offline"]) {
-                
-                sampleRate = 16000.f;
-            }
-            
-            //1.获取沙盒地址
-            NSString *tmpPath = [FileManageCommon GetTmpPath];
-            NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
-            
-            self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
-            
-            self.voiceServerState = @"ok";
-            [_audioRecordingTool startRecord];
-            
-        } else if ([dic[@"result"] isEqualToString:@"wait"] || [dic[@"result"] isEqualToString:@"error"] ) {
-            
-            [MBProgressHUD showError:@"语音模块初始化中，请稍后再试"];
-            self.voiceServerState = @"error";
-        }
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        [MBProgressHUD showError:@"网络故障，请稍后再试"];
-    }];
+//    NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/prepare", ip];
+//    
+//    DONG_Log(@"cloudRemoteControlUrlStr:%@",cloudRemoteControlUrlStr);
+//    
+//    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
+//        
+//        DONG_Log(@"responseObject:%@", responseObject);
+//        
+//        NSDictionary *dic = responseObject;
+//        
+//        if ([dic[@"result"] isEqualToString:@"ok"]) {
+//            
+//            _isOnline = dic[@"type"];
+//            
+//            // 语音在线识别：采样率为8000 离线识别：采样率为16000
+//            float sampleRate = 0.f;
+//            if ([_isOnline isEqualToString:@"online"]) {
+//                
+//                sampleRate = 8000.f;
+//                
+//            } else if ([_isOnline isEqualToString:@"offline"]) {
+//                
+//                sampleRate = 16000.f;
+//            }
+//            
+//            //1.获取沙盒地址
+//            NSString *tmpPath = [FileManageCommon GetTmpPath];
+//            NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
+//            
+//            self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
+//            
+//            self.voiceServerState = @"ok";
+//            [_audioRecordingTool startRecord];
+//            
+//        } else if ([dic[@"result"] isEqualToString:@"wait"] || [dic[@"result"] isEqualToString:@"error"] ) {
+//            
+//            [MBProgressHUD showError:@"语音模块初始化中，请稍后再试"];
+//            self.voiceServerState = @"error";
+//        }
+//        
+//    } failure:^(id  _Nullable errorObject) {
+//        
+//        [MBProgressHUD showError:@"网络故障，请稍后再试"];
+//    }];
     
     //    }
     
@@ -277,22 +300,34 @@
         NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
                                     @"data" , jsonStr, nil];
         
-        [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:parameters success:^(id  _Nullable responseObject) {
-            
-            DONG_Log(@"responseObject:%@", responseObject);
-            
-            // 完成传递后将音频文件删除
-            [FileManageCommon DeleteFile:wavFilePath];
-            [FileManageCommon DeleteFile:marFilePath];
-            
-        } failure:^(id  _Nullable errorObject) {
-            
-            [MBProgressHUD showError:@"网络故障，请稍后再试"];
-            // 失败时也将音频文件删除
-            [FileManageCommon DeleteFile:wavFilePath];
-            [FileManageCommon DeleteFile:marFilePath];
-            
-        }];
+        
+        NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+        self.toName = toName;
+        // 绑定试试
+        NSString *uuidStr = [HLJUUID getUUID];
+        DONG_Log(@"toName:%@",toName);
+        DONG_Log(@"uuidStr:%@",uuidStr);
+        NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\"  type=\"Rc_bind\" value=\"BindTv\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[信息描述]]</info></Message>", uuidStr, self.hid, self.uid];
+        
+        [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
+
+        
+//        [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:parameters success:^(id  _Nullable responseObject) {
+//            
+//            DONG_Log(@"responseObject:%@", responseObject);
+//            
+//            // 完成传递后将音频文件删除
+//            [FileManageCommon DeleteFile:wavFilePath];
+//            [FileManageCommon DeleteFile:marFilePath];
+//            
+//        } failure:^(id  _Nullable errorObject) {
+//            
+//            [MBProgressHUD showError:@"网络故障，请稍后再试"];
+//            // 失败时也将音频文件删除
+//            [FileManageCommon DeleteFile:wavFilePath];
+//            [FileManageCommon DeleteFile:marFilePath];
+//            
+//        }];
         
     }
     
@@ -559,6 +594,13 @@
 - (NSString *)getXMLStringCommandWithIdentifier:(NSString *)identifier type:(NSString *)type value:(NSString *)value;
 {
     NSString *xmlString = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><Message targetName=\"%@\"><Body><![CDATA[<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message type=\"%@\" value=\"%@\"></Message>]]></Body></Message>\n",identifier,  type, value];
+    
+    return xmlString;
+}
+
+- (NSString *)getVoiceXMLStringCommandWithTargetName:(NSString *)targetName type:(NSString *)type value:(NSString *)value from:(NSString *)from to:(NSString *)to cardnum:(NSString *)cardnum data:(NSString *)data
+{
+    NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"%@\"  type=\"%@\" value=\"%@\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[%@]]</info></Message>/n", targetName, type, value, from, to, cardnum, data];
     
     return xmlString;
 }

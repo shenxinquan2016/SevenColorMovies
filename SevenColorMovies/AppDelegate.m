@@ -44,6 +44,9 @@
     // 4.开启Crashlytics崩溃日志
     [Fabric with:@[[Crashlytics class]]];
 
+    // TODO: Move this to where you establish a user session
+    [self logUser];
+
     
     return YES;
 }
@@ -175,12 +178,21 @@
 
 }
 
+- (void) logUser {
+    // TODO: Use the current user's information
+    // You can call any combination of these three methods
+    [CrashlyticsKit setUserIdentifier:@"12345"];
+    [CrashlyticsKit setUserEmail:@"user@fabric.io"];
+    [CrashlyticsKit setUserName:@"Test User"];
+}
+
+
 //启动播放代理
 - (void)setLibagent
 {
     const NSString *uuidStr = [HLJUUID getUUID];
     const char *uuid = [uuidStr UTF8String];
-//    libagent_start(0, NULL, uuid, 5656);
+    libagent_start(0, NULL, uuid, 5656);
 
 }
 

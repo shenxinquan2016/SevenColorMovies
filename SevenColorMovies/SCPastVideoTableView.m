@@ -96,7 +96,7 @@
         for (NSDictionary *dic1 in array1) {
             
             if ([dic1[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
-                
+            
                 NSArray *array2 = dic1[@"ContentSet"][@"Content"];
                 for (NSDictionary *dic2 in array2) {
                     
