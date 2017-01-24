@@ -19,7 +19,7 @@
 
 /******************************************首页接口*******************************************/
 // homePage接口
-#define HomePageUrl @"http://10.177.1.234:5040/filmlist?epgid=909191&spid=20151103&cpid=10001000&ctype=9"
+#define HomePageUrl @"http://10.177.1.100:5040/filmlist?epgid=909191&spid=20151103&cpid=10001000&ctype=9"
 // banner接口
 #define BannerURL [NetUrlManager.domainName stringByAppendingString:url_Banner]
 // 片单接口

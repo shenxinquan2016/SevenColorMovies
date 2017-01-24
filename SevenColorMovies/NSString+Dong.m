@@ -112,6 +112,12 @@
     return [self stringByTrimmingString:@":"];
 }
 
+// 去掉等号
+- (instancetype)stringByTrimmingEqualMark
+{
+    return [self stringByTrimmingString:@"="];
+}
+
 - (instancetype)absoluteDateString {
     return [[[self stringByTrimmingString:@"-"] stringByTrimmingString:@":"] stringByTrimmingString:@" "];
 }

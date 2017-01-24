@@ -26,7 +26,7 @@
 + (instancetype)cellWithCollectionView:(UICollectionView *)collectionView identifier:(NSString *)identifier indexPath:(NSIndexPath *)indexPath {
     
     static NSString *ID;
-    if ([identifier isEqualToString:@"综艺"] || [identifier isEqualToString:@"生活"] || [identifier isEqualToString:@"专题"]) {
+    if ([identifier isEqualToString:@"综艺"] || [identifier isEqualToString:@"潮生活"] || [identifier isEqualToString:@"专题"]) {
         ID = @"SCCollectionViewPageArtsCell";
     }else{
         ID = @"SCCollectionViewPageCell";
@@ -42,7 +42,7 @@
     
     NSString *imageUrl;
    
-    if ([_identifier isEqualToString:@"综艺"] || [_identifier isEqualToString:@"生活"]) {
+    if ([_identifier isEqualToString:@"综艺"] || [_identifier isEqualToString:@"潮生活"]) {
         imageUrl = filmModel._ImgUrlB;
         NSURL *imgUrl = [NSURL URLWithString:imageUrl];
         [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"CellLoading_Horizontal"]];

@@ -157,7 +157,7 @@ static NSString *const footerId = @"footerId";
     [_bannerFilmModelArr removeAllObjects];
     
     [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
-//        DONG_Log(@"==========dic:::%@========",responseObject);
+        //DONG_Log(@"==========dic:::%@========",responseObject);
         //1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         
@@ -412,7 +412,7 @@ static NSString *const footerId = @"footerId";
     }else{
         // 综艺栏目cell大小
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
-        if ([classModel._FilmClassName isEqualToString:@"综艺"] || [classModel._FilmClassName isEqualToString:@"生活"] || [classModel._FilmClassName isEqualToString:@"专题"]) {
+        if ([classModel._FilmClassName isEqualToString:@"综艺"] || [classModel._FilmClassName isEqualToString:@"潮生活"] || [classModel._FilmClassName isEqualToString:@"专题"]) {
             return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
             
         }else{

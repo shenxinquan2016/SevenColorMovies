@@ -81,7 +81,7 @@
 }
 
 /** 上线 */
-- (void)goOnline//上线
+- (void)goOnline
 {
     XMPPPresence *presence = [XMPPPresence presence];
     [self.xmppStream sendElement:presence];
@@ -192,10 +192,15 @@
     }
     
     NSString *info = message.body;
-    
+    NSString *from = message.fromStr;
     NSDictionary *dic = [NSDictionary dictionaryWithXMLString:info];
-    DONG_Log(@"dic:%@",dic);
+    
 
+    
+    DONG_Log(@"接收到%@说：%@",from,info);
+    DONG_Log(@"dic:%@",dic);
+    
+    
     // 只在单例工具类里处理 拉屏和飞屏 消息
     
     if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&

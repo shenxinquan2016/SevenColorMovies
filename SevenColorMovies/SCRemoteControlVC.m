@@ -93,8 +93,8 @@
     //    }
     
     // 4.发广播获取盒子的IP
-    UdpScoketManager.delegate = self;
-    [UdpScoketManager sendBroadcast];
+//    UdpScoketManager.delegate = self;
+//    [UdpScoketManager sendBroadcast];
     
     // 5.登录XMPP
     if (!XMPPManager.isConnected) {
@@ -107,7 +107,7 @@
     }
     
     XMPPManager.delegate = self;
-//    _miroPhoneBtn.enabled = NO;
+    //    _miroPhoneBtn.enabled = NO;
     
     //[self startLoadingAnimating];
     
@@ -118,6 +118,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    // 监听语音服务器初始化状态
+    [self registerObserber];
     XMPPManager.delegate = self;
     
     if (!XMPPManager.isConnected) {
@@ -125,6 +127,11 @@
         // 8s之后未收到盒子信息 切断连接
         [self performSelector:@selector(hideLoadingVew) withObject:nil afterDelay:8.f];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self removeObserber];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -166,9 +173,10 @@
 // 开始录音
 - (IBAction)startRecord:(id)sender
 {
-    NSString *ip = [_ipArray firstObject];
-    NSString *mac = [_macArray firstObject];
+//    NSString *ip = [_ipArray firstObject];
+//    NSString *mac = [_macArray firstObject];
     
+    // 1.准备语音服务器
     
     NSString *targetName = @"com.vurc.self";
     NSString *type       = @"Rc_voice";
@@ -178,15 +186,12 @@
     NSString *cardnum    = XMPPManager.uid;
     NSString *data = @"";
     
-    
-    
     NSString *xmlString = [self getVoiceXMLStringCommandWithTargetName:targetName type:type value:value from:from to:to cardnum:cardnum data:data];
     
     [XMPPManager sendMessageWithBody:xmlString andToName:self.toName andType:@"text"];
-
     
-    
-    
+    // 2.开始录音
+    [self startRecordAction];
     
     
     
@@ -195,50 +200,49 @@
     // 扫码得到的mac地址与upd广播得到的mac地址一致时 说明设备是对应的
     //    if ([mac isEqualToString:_hid]) {
     
-//    NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/prepare", ip];
-//    
-//    DONG_Log(@"cloudRemoteControlUrlStr:%@",cloudRemoteControlUrlStr);
-//    
-//    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
-//        
-//        DONG_Log(@"responseObject:%@", responseObject);
-//        
-//        NSDictionary *dic = responseObject;
-//        
-//        if ([dic[@"result"] isEqualToString:@"ok"]) {
-//            
-//            _isOnline = dic[@"type"];
-//            
-//            // 语音在线识别：采样率为8000 离线识别：采样率为16000
-//            float sampleRate = 0.f;
-//            if ([_isOnline isEqualToString:@"online"]) {
-//                
-//                sampleRate = 8000.f;
-//                
-//            } else if ([_isOnline isEqualToString:@"offline"]) {
-//                
-//                sampleRate = 16000.f;
-//            }
-//            
-//            //1.获取沙盒地址
-//            NSString *tmpPath = [FileManageCommon GetTmpPath];
-//            NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
-//            
-//            self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
-//            
-//            self.voiceServerState = @"ok";
-//            [_audioRecordingTool startRecord];
-//            
-//        } else if ([dic[@"result"] isEqualToString:@"wait"] || [dic[@"result"] isEqualToString:@"error"] ) {
-//            
-//            [MBProgressHUD showError:@"语音模块初始化中，请稍后再试"];
-//            self.voiceServerState = @"error";
-//        }
-//        
-//    } failure:^(id  _Nullable errorObject) {
-//        
-//        [MBProgressHUD showError:@"网络故障，请稍后再试"];
-//    }];
+    //    NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/prepare", ip];
+    //
+    //    DONG_Log(@"cloudRemoteControlUrlStr:%@",cloudRemoteControlUrlStr);
+    //
+    //    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:nil success:^(id  _Nullable responseObject) {
+    //
+    //        DONG_Log(@"responseObject:%@", responseObject);
+    //
+    //        NSDictionary *dic = responseObject;
+    //
+    //        if ([dic[@"result"] isEqualToString:@"ok"]) {
+    //
+    //            _isOnline = dic[@"type"];
+    //
+    //            // 语音在线识别：采样率为8000 离线识别：采样率为16000
+    //            float sampleRate = 0.f;
+    //            if ([_isOnline isEqualToString:@"online"]) {
+    //
+    //                sampleRate = 8000.f;
+    //
+    //            } else if ([_isOnline isEqualToString:@"offline"]) {
+    //
+    //                sampleRate = 16000.f;
+    //            }
+    //
+    //            //1.获取沙盒地址
+    //            NSString *tmpPath = [FileManageCommon GetTmpPath];
+    //            NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
+    //
+    //            self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
+    ////self.voiceServerState = @"ok";
+    //            [_audioRecordingTool startRecord];
+    //
+    //        } else if ([dic[@"result"] isEqualToString:@"wait"] || [dic[@"result"] isEqualToString:@"error"] ) {
+    //
+    //            [MBProgressHUD showError:@"语音模块初始化中，请稍后再试"];
+    //            self.voiceServerState = @"error";
+    //        }
+    //
+    //    } failure:^(id  _Nullable errorObject) {
+    //
+    //        [MBProgressHUD showError:@"网络故障，请稍后再试"];
+    //    }];
     
     //    }
     
@@ -253,11 +257,12 @@
 
 - (IBAction)stopRecord:(id)sender
 {
-    if ([_voiceServerState isEqualToString:@"error"]) {
+    _isOnline = @"online";
+    
+    if ([_voiceServerState isEqualToString:@"error"] || [_voiceServerState isEqualToString:@"wait"]) {
         return;
         
     } else if ([_voiceServerState isEqualToString:@"ok"]) {
-        
         
         [_audioRecordingTool stopRecord];
         
@@ -268,38 +273,33 @@
         //格式转换 .wav --> .mar
         [SCSoundRecordingTool ConvertWavToAmr:wavFilePath amrSavePath:marFilePath];
         
-        NSString *ip = [_ipArray firstObject];
-        NSString *mac = [_macArray firstObject];
-        //    if (![mac isEqualToString:_hid]) {
-        //        return;
-        //    }
-        NSString *cloudRemoteControlUrlStr = [NSString stringWithFormat:@"http://%@:9099/recognition", ip];
         
         DONG_Log(@"marFilePath:%@", marFilePath);
-        DONG_Log(@"cloudRemoteControlUrlStr:%@", cloudRemoteControlUrlStr);
         
         // 在线传.war 离线传.wav
         NSString *base64String = nil;
-        if ([_isOnline isEqualToString:@"online"]) {
-            
+//        if ([_isOnline isEqualToString:@"online"]) {
+        
             NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:marFilePath] options:NSDataReadingMappedIfSafe error:nil];
             base64String = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
             
             DONG_Log(@"base64String.length: %lu",(unsigned long)base64String.length);
+            DONG_Log(@"data: %lu",(unsigned long)data.length);
+            DONG_Log(@"base64String:%@", base64String);
             
-        } else if ([_isOnline isEqualToString:@"offline"]) {
-            
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:wavFilePath] options:NSDataReadingMappedIfSafe error:nil];
-            base64String = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-        }
+//        } else if ([_isOnline isEqualToString:@"offline"]) {
+//            
+//            NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:wavFilePath] options:NSDataReadingMappedIfSafe error:nil];
+//            base64String = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+//        }
         
-        DONG_Log(@"base64String:%@", base64String);
+        
+        
+        //NSString *encodedValue = [base64String stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        
         
         NSString *jsonStr = [NSString stringWithFormat:@"{\"type\":\"%@\", \"sound\":\"%@\"}", _isOnline, base64String ? base64String : @"", nil];
-        
-        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    @"data" , jsonStr, nil];
-        
         
         NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
         self.toName = toName;
@@ -307,39 +307,20 @@
         NSString *uuidStr = [HLJUUID getUUID];
         DONG_Log(@"toName:%@",toName);
         DONG_Log(@"uuidStr:%@",uuidStr);
-        NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\"  type=\"Rc_bind\" value=\"BindTv\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[信息描述]]</info></Message>", uuidStr, self.hid, self.uid];
         
-        [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
-
+        NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\" type=\"Rc_voice\" value=\"VoiceRecognition\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info><![CDATA[%@]]></info></Message>/n", uuidStr, XMPPManager.hid, XMPPManager.uid, jsonStr];
         
-//        [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:parameters success:^(id  _Nullable responseObject) {
-//            
-//            DONG_Log(@"responseObject:%@", responseObject);
-//            
-//            // 完成传递后将音频文件删除
-//            [FileManageCommon DeleteFile:wavFilePath];
-//            [FileManageCommon DeleteFile:marFilePath];
-//            
-//        } failure:^(id  _Nullable errorObject) {
-//            
-//            [MBProgressHUD showError:@"网络故障，请稍后再试"];
-//            // 失败时也将音频文件删除
-//            [FileManageCommon DeleteFile:wavFilePath];
-//            [FileManageCommon DeleteFile:marFilePath];
-//            
-//        }];
+        [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"chat"];
         
+        
+       
+                  // 失败时也将音频文件删除
+        //            [FileManageCommon DeleteFile:wavFilePath];
+        //            [FileManageCommon DeleteFile:marFilePath];
+       
     }
     
-    
-    //    [requestDataManager postDataToCloudRemoteControlServerWithUrl:cloudRemoteControlUrlStr parameters:parameters success:^(id  _Nullable responseObject) {
-    //        DONG_Log(@"responseObject:%@", responseObject);
-    //
-    //    } failure:^(id  _Nullable errorObject) {
-    //
-    //
-    //    }];
-    
+
 }
 
 - (IBAction)doVolumeDown:(id)sender
@@ -560,7 +541,63 @@
     [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"voiceServerState"]) {
+        
+        DONG_Log(@"change:%@", change);
+        
+    }
+
+    
+}
+
+/** 为self.voiceServerState添加观察者 */
+- (void)registerObserber
+{
+    [self addObserver:self forKeyPath:NSStringFromSelector(@selector(voiceServerState)) options:NSKeyValueObservingOptionNew context:nil];
+    //[self addObserver:self forKeyPath:self.voiceServerState options:NSKeyValueObservingOptionNew context:nil];
+}
+
+/** 移除观察者 */
+- (void)removeObserber
+{
+    [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(voiceServerState))];
+}
+
+
 #pragma mark - priva method
+
+/** 语音服务器初始化好后开始录音 */
+- (void)startRecordAction
+{
+    self.voiceServerState = @"ok";
+    // 目前只处理在线状态  8000采样率
+    if ([self.voiceServerState isEqualToString:@"ok"]) {
+        
+        // 语音在线识别：采样率为8000 离线识别：采样率为16000
+        float sampleRate = 0.f;
+        //if ([_isOnline isEqualToString:@"online"]) {
+            
+            sampleRate = 8000.f;
+            
+//        } else if ([_isOnline isEqualToString:@"offline"]) {
+//            
+//            sampleRate = 16000.f;
+//        }
+    
+        //1.获取沙盒地址
+        NSString *tmpPath = [FileManageCommon GetTmpPath];
+        NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
+        
+        self.audioRecordingTool = [[SCSoundRecordingTool alloc] initWithRecordFilePath:filePath sampleRate:sampleRate];
+        
+        [_audioRecordingTool startRecord];
+    }
+    
+}
 
 - (void)addRightBBI
 {
@@ -745,13 +782,15 @@
     //    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
     NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
     self.toName = toName;
+    
     // 绑定试试
     NSString *uuidStr = [HLJUUID getUUID];
     DONG_Log(@"toName:%@",toName);
     DONG_Log(@"uuidStr:%@",uuidStr);
-    NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\"  type=\"Rc_bind\" value=\"BindTv\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[信息描述]]</info></Message>", uuidStr, self.hid, self.uid];
     
-    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
+    NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\"  type=\"Rc_bind\" value=\"BindTv\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[信息描述]]</info></Message>/n", uuidStr, self.hid, self.uid];
+    
+    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"chat"];
     
 }
 
@@ -771,7 +810,7 @@
 {
     NSString *from = message.fromStr;
     NSString *info = message.body;
-    DONG_Log(@"接收到 %@ 说：%@",from, info);
+    //DONG_Log(@"接收到 %@ 说：%@",from, info);
     
     NSDictionary *dic = [NSDictionary dictionaryWithXMLString:info];
     DONG_Log(@"dic:%@",dic);
@@ -796,14 +835,24 @@
                 alertView.delegate = self;
             }
             
-            
         } else if ([dic[@"info"] isEqualToString:@"当前设备未绑定任何设备!"] || ([dic[@"_value"] isEqualToString:@"sendMsgUnder_unBind"] && [dic[@"_type"] isEqualToString:@"error"])) {
             // 被其他设备挤掉线
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备已断开，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
             [alertView show];
             alertView.delegate = self;
             
+        } else if ([dic[@"_type"] isEqualToString:@"Rc_voice"] && [dic[@"_value"] isEqualToString:@"VoicePrepareResult"]) {
+            // 语音准备的结果反馈
+            
+            
+            
+            //self.voiceServerState = dic[@"info"][@"result"];
+            
+           
+            //DONG_Log(@"dic2dic2dic2:%@",dic[@"info"]);
+            
         }
+        
         //        else if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
         //            [dic[@"_type"] isEqualToString:@"TV_Response"])
         //        {
