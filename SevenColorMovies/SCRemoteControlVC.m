@@ -194,9 +194,7 @@
     [self startRecordAction];
     
     
-    
-    
-    
+
     // 扫码得到的mac地址与upd广播得到的mac地址一致时 说明设备是对应的
     //    if ([mac isEqualToString:_hid]) {
     
@@ -331,7 +329,6 @@
         [alertView show];
         alertView.delegate = self;
     }
-    
 }
 
 - (IBAction)doVolumeUp:(id)sender

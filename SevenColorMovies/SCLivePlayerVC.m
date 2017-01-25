@@ -790,7 +790,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     // 3.请求播放地址url
     NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
-    [MBProgressHUD showError:fidStr];
+   // [MBProgressHUD showError:fidStr];
     //hid = 设备的mac地址
     
     NSString *uuidStr = [HLJUUID getUUID];
@@ -924,13 +924,13 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         // ip转换
         NSString *newTimeShiftUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:timeShiftUrl];
         
-        NSString *ddddd = @"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1100&mid=1&sid=1&pid=1&uid=10&oemid=30050&hid=dc:ee:06:c9:8b:a6&fid=13_13&ext=c3RpbWU9MTQ4NTE1NDg0MCZwb3J0PTU2NTYmZXh0PW9pZDozMDA1MA&time=10000&proto=11&key=dc:ee:06:c9:8b:a600000000000000000000000_tv_13.m3u8";
+//        NSString *ddddd = @"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1100&mid=1&sid=1&pid=1&uid=10&oemid=30050&hid=dc:ee:06:c9:8b:a6&fid=13_13&ext=c3RpbWU9MTQ4NTE1NDg0MCZwb3J0PTU2NTYmZXh0PW9pZDozMDA1MA&time=10000&proto=11&key=dc:ee:06:c9:8b:a600000000000000000000000_tv_13.m3u8";
         // 5.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
         
         // 6.开始播放直播
-        self.url = [NSURL URLWithString:ddddd];
-        NSURL *playUrl = [NSURL URLWithString:ddddd];
+        self.url = [NSURL URLWithString:newTimeShiftUrl];
+        NSURL *playUrl = [NSURL URLWithString:newTimeShiftUrl];
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:playUrl];
         _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
