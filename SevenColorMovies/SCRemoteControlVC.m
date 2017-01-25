@@ -93,8 +93,8 @@
     //    }
     
     // 4.发广播获取盒子的IP
-//    UdpScoketManager.delegate = self;
-//    [UdpScoketManager sendBroadcast];
+    //    UdpScoketManager.delegate = self;
+    //    [UdpScoketManager sendBroadcast];
     
     // 5.登录XMPP
     if (!XMPPManager.isConnected) {
@@ -173,8 +173,8 @@
 // 开始录音
 - (IBAction)startRecord:(id)sender
 {
-//    NSString *ip = [_ipArray firstObject];
-//    NSString *mac = [_macArray firstObject];
+    //    NSString *ip = [_ipArray firstObject];
+    //    NSString *mac = [_macArray firstObject];
     
     // 1.准备语音服务器
     
@@ -278,28 +278,25 @@
         
         // 在线传.war 离线传.wav
         NSString *base64String = nil;
-//        if ([_isOnline isEqualToString:@"online"]) {
+        //        if ([_isOnline isEqualToString:@"online"]) {
         
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:marFilePath] options:NSDataReadingMappedIfSafe error:nil];
-            base64String = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-            
-            DONG_Log(@"base64String.length: %lu",(unsigned long)base64String.length);
-            DONG_Log(@"data: %lu",(unsigned long)data.length);
-            DONG_Log(@"base64String:%@", base64String);
-            
-//        } else if ([_isOnline isEqualToString:@"offline"]) {
-//            
-//            NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:wavFilePath] options:NSDataReadingMappedIfSafe error:nil];
-//            base64String = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-//        }
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:marFilePath] options:NSDataReadingMappedIfSafe error:nil];
+        base64String = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        // 二次编码
+        NSString *encodedValue = [base64String stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"%"]];
         
+        DONG_Log(@"base64String.length: %lu",(unsigned long)base64String.length);
+        DONG_Log(@"data: %lu",(unsigned long)data.length);
+        DONG_Log(@"encodedValue:%@", encodedValue);
         
-        
-        //NSString *encodedValue = [base64String stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        //        } else if ([_isOnline isEqualToString:@"offline"]) {
+        //
+        //            NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:wavFilePath] options:NSDataReadingMappedIfSafe error:nil];
+        //            base64String = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        //        }
         
         
-        
-        NSString *jsonStr = [NSString stringWithFormat:@"{\"type\":\"%@\", \"sound\":\"%@\"}", _isOnline, base64String ? base64String : @"", nil];
+        NSString *jsonStr = [NSString stringWithFormat:@"{\"type\":\"%@\",\"sound\":\"%@\"}", _isOnline, encodedValue ? encodedValue : @"", nil];
         
         NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
         self.toName = toName;
@@ -312,15 +309,11 @@
         
         [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"chat"];
         
+        // 将音频文件删除
+        [FileManageCommon DeleteFile:wavFilePath];
+        [FileManageCommon DeleteFile:marFilePath];
         
-       
-                  // 失败时也将音频文件删除
-        //            [FileManageCommon DeleteFile:wavFilePath];
-        //            [FileManageCommon DeleteFile:marFilePath];
-       
     }
-    
-
 }
 
 - (IBAction)doVolumeDown:(id)sender
@@ -550,7 +543,7 @@
         DONG_Log(@"change:%@", change);
         
     }
-
+    
     
 }
 
@@ -580,14 +573,14 @@
         // 语音在线识别：采样率为8000 离线识别：采样率为16000
         float sampleRate = 0.f;
         //if ([_isOnline isEqualToString:@"online"]) {
-            
-            sampleRate = 8000.f;
-            
-//        } else if ([_isOnline isEqualToString:@"offline"]) {
-//            
-//            sampleRate = 16000.f;
-//        }
-    
+        
+        sampleRate = 8000.f;
+        
+        //        } else if ([_isOnline isEqualToString:@"offline"]) {
+        //
+        //            sampleRate = 16000.f;
+        //        }
+        
         //1.获取沙盒地址
         NSString *tmpPath = [FileManageCommon GetTmpPath];
         NSString *filePath = [tmpPath stringByAppendingPathComponent:@"/SoundRecord.wav"];
@@ -848,7 +841,7 @@
             
             //self.voiceServerState = dic[@"info"][@"result"];
             
-           
+            
             //DONG_Log(@"dic2dic2dic2:%@",dic[@"info"]);
             
         }
