@@ -780,6 +780,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 // 请求直播流url
 - (void)getLiveVideoSignalFlowUrl
 {
+    DONG_Log(@"<<<<<<<<<<<<< 进入直播 >>>>>>>>>>>>>");
     // 1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
@@ -803,13 +804,16 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         DONG_Log(@">>>>>>>Live>>>newVideoUrl:%@", newVideoUrl);
         
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            DONG_Log(@"====responseObject:::%@===",responseObject);
+            //DONG_Log(@"====responseObject:::%@===",responseObject);
             
             NSString *liveUrl = responseObject[@"play_url"];
             
             NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
             
-            DONG_Log(@">>>>>>直播节目播放url>>>>>%@>>>>>>>",liveUrl);
+//            NSString *newLiveUrl = @"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1100&mid=1&sid=1&pid=1&uid=10&oemid=30050&hid=dc:ee:06:c9:8b:a6&fid=160_160&ext=c3RpbWU9MTQ4NjM0MjYwNyZwb3J0PTU2NTYmZXh0PW9pZDozMDA1MA&time=10000&proto=11&key=dc:ee:06:c9:8b:a600000000000000000000000_tv_160.m3u8";
+            
+            DONG_Log(@">>>>>>直播节目播放url>>>>>%@>>>>>>>",newLiveUrl);
+            
             
             // 4.移除当前的播放器
             [self.IJKPlayerViewController closePlayer];
@@ -879,6 +883,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 // 请求时移节目视屏流url
 - (void)requestTimeShiftVideoSignalFlowUrl:(int)positionTime
 {
+    DONG_Log(@"<<<<<<<<<<<<< 进入时移 >>>>>>>>>>>>>");
     // 1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
@@ -895,17 +900,9 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     NSTimeInterval minusSeconds = 6 * 3600 - positionTime;
     
     NSDate *date = [NSDate date];// 格林尼治时间
-    NSTimeZone *zone = [NSTimeZone systemTimeZone];// 获取系统的时区
-    NSTimeInterval seconds = [zone secondsFromGMTForDate:date]; // 以秒为单位返回当前时间与系统格林尼治时间的差
-    NSDate *nowDate = [date dateByAddingTimeInterval:seconds];// 本地时间
-    
-    NSString *nowTimeStap = [nowDate getTimeStamp];
-    
-    NSString *currentPlayTimeStap = [NSString stringWithFormat:@"%.0f", ([nowTimeStap integerValue] - minusSeconds)];
-    
+    NSInteger nowTimeStap = [NSDate timeStampFromDate:date];
+    NSString *currentPlayTimeStap = [NSString stringWithFormat:@"%.0f", (nowTimeStap - minusSeconds)];
     NSString *ext = [NSString stringWithFormat:@"stime=%@&port=5656&ext=oid:30050", currentPlayTimeStap];
-//    NSString *ext = [NSString stringWithFormat:@"stime=%@&port=5656&ext=oid:30050", @"1485143945"];
-   
     NSString *base64Ext = [[ext stringByBase64Encoding] stringByTrimmingEqualMark];
     DONG_Log(@"currentPlayTimeStap:%@", currentPlayTimeStap);
     DONG_Log(@"base64Ext:%@", base64Ext);
@@ -915,7 +912,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                  @"fid" : fidStr};
     
     NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:ToGetLiveTimeShiftVideoSignalFlowUrl];
-    
+
     DONG_Log(@"newVideoUrl:%@",newVideoUrl);
     
     [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
@@ -924,14 +921,14 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         // ip转换
         NSString *newTimeShiftUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:timeShiftUrl];
         
-//        NSString *ddddd = @"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1100&mid=1&sid=1&pid=1&uid=10&oemid=30050&hid=dc:ee:06:c9:8b:a6&fid=13_13&ext=c3RpbWU9MTQ4NTE1NDg0MCZwb3J0PTU2NTYmZXh0PW9pZDozMDA1MA&time=10000&proto=11&key=dc:ee:06:c9:8b:a600000000000000000000000_tv_13.m3u8";
+        DONG_Log(@"newTimeShiftUrl:%@",newTimeShiftUrl);
+        
         // 5.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
         
         // 6.开始播放直播
         self.url = [NSURL URLWithString:newTimeShiftUrl];
-        NSURL *playUrl = [NSURL URLWithString:newTimeShiftUrl];
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:playUrl];
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
         _IJKPlayerViewController.mediaControl.liveState = TimeShift;

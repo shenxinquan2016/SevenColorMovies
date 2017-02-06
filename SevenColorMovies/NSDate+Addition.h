@@ -10,7 +10,7 @@
 
 @interface NSDate (Addition)
 
-// 当前日期类转换成时间戳
+// 当前现在日期类转换成时间戳
 - (NSString *)getTimeStamp;
 
 // 时间戳转换成NSDate对象

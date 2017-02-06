@@ -193,6 +193,8 @@
 -(void)closePlayer
 {
     if (self.player) {
+        // 先关闭播放代理
+        libagent_finish();
         [self.player shutdown];
         [self.player.view removeFromSuperview];
         [self.mediaControl removeFromSuperview];

@@ -12,7 +12,7 @@
 4.直播
     filmModel._TvId  --> 获取该频道下每一天的节目数组programModelArr(存放的SCLiveProgramModel) --> programModelArr存放到该节目的数组dataSourceArr中
 
-    1️⃣请求直播信号流 --> 用filmModel._TvId拼接处fid --> 请求得到liveUrl --> 直播播放
+    1️⃣请求直播信号流 --> 用filmModel._TvId拼接出fid --> 请求得到liveUrl --> ip转换 --> 直播播放
 
 
     2️⃣请求回看节目视频流url --> 用filmModel._TvId拼接处fid | 用startTime和endTime拼接出ext --> 请求获取play_url --> IP转换playUrl--> 播放
