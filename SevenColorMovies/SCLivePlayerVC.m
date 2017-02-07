@@ -67,6 +67,8 @@ static const CGFloat LabelWidth = 55.f;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;
 /** 直播/时移状态 */
 @property (nonatomic, assign) SCLiveState liveState;
+/** 记录时移时距最右端的位置差 */
+@property (nonatomic, assign) NSTimeInterval minusSeconds;
 
 @end
 
@@ -884,6 +886,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 - (void)requestTimeShiftVideoSignalFlowUrl:(int)positionTime
 {
     DONG_Log(@"<<<<<<<<<<<<< 进入时移 >>>>>>>>>>>>>");
+    
     // 1.关闭正在播放的节目
     if ([self.IJKPlayerViewController.player isPlaying]) {
         [self.IJKPlayerViewController.player pause];
@@ -898,9 +901,13 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     const NSString *uuidStr = [HLJUUID getUUID];
     
     NSTimeInterval minusSeconds = 6 * 3600 - positionTime;
+    _minusSeconds = minusSeconds;
     
-    NSDate *date = [NSDate date];// 格林尼治时间
+    // 格林尼治时间
+    NSDate *date = [NSDate date];
+    // 当前时间的时间戳
     NSInteger nowTimeStap = [NSDate timeStampFromDate:date];
+    // 当前播放位置的时间戳
     NSString *currentPlayTimeStap = [NSString stringWithFormat:@"%.0f", (nowTimeStap - minusSeconds)];
     NSString *ext = [NSString stringWithFormat:@"stime=%@&port=5656&ext=oid:30050", currentPlayTimeStap];
     NSString *base64Ext = [[ext stringByBase64Encoding] stringByTrimmingEqualMark];
@@ -942,11 +949,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             if (XMPPManager.isConnected) {
                 
                 NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
-                [weakself getXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
+                [weakself getLivePushScreenXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
                     
-                    //[TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
                     [XMPPManager sendMessageWithBody:responseObject andToName:toName andType:@"text"];
                 }];
+                
                 
             } else {
                 
@@ -1184,14 +1191,31 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 if ([tvId isEqualToString:self.filmModel._TvId]) {
                     sequence = dic2[@"_Sequence"];
                     
+                    NSString *playingType;
+                    NSString *currentPlayTime;
+                    if (_IJKPlayerViewController.mediaControl.liveState == TimeShift) {
+                       
+                        playingType = @"timeshift";
+                        // 格林尼治时间
+                        NSDate *date = [NSDate date];
+                        // 当前时间的时间戳
+                        NSInteger nowTimeStap = [NSDate timeStampFromDate:date];
+                        // 当前播放位置的时间戳
+                        NSString *currentPlayTimeStap = [NSString stringWithFormat:@"%.0f", (nowTimeStap - _minusSeconds)];
+                        currentPlayTime = currentPlayTimeStap;
+                        
+                    } else {
+                        
+                        playingType = @"live";
+                        currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
+                    }
+                    
                     NSString *targetName   = @"com.hlj.live.action";
-                    NSString *playingType  = @"live";
                     NSString *mid       = @"";
                     NSString *sid       = @"1";
                     NSString *tvId      = sequence;
                     NSString *startTime = @"";
-                    NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
-                    
+                   
                     xmlString = [self getXMLStringCommandWithFilmName:programOnLiveName_ mid:mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:nil targetName:targetName playingType:playingType];
                     
                     backStr(xmlString);
