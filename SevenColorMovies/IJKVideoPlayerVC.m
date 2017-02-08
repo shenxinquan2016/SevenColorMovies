@@ -119,18 +119,18 @@
 
 - (void) setupIJKPlayer
 {
-    //1. 根据当前环境设置日志信息
-    //1.1如果是Debug状态的
+    // 1. 根据当前环境设置日志信息
+    // 1.1如果是Debug状态的
 #ifdef DEBUG
-    //  设置报告日志
+    // 设置报告日志
     [IJKFFMoviePlayerController setLogReport:YES];
     //  设置日志的级别为Debug
     [IJKFFMoviePlayerController setLogLevel:k_IJK_LOG_DEBUG];
-    //1.2否则(如果不是debug状态的)
+    // 1.2否则(如果不是debug状态的)
 #else
-    //  设置不报告日志
+    // 设置不报告日志
     [IJKFFMoviePlayerController setLogReport:NO];
-    //  设置日志级别为信息
+    // 设置日志级别为信息
     [IJKFFMoviePlayerController setLogLevel:k_IJK_LOG_INFO];
 #endif
     
@@ -152,11 +152,11 @@
     self.player.view.frame = self.view.bounds;
     // 4.2 设置适配横竖屏(设置四边固定,长宽灵活)
     self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    //  4.3 设置播放视图的缩放模式
+    // 4.3 设置播放视图的缩放模式
     self.player.scalingMode = IJKMPMovieScalingModeAspectFit;
-    //  4.4 设置自动播放
+    // 4.4 设置自动播放
     self.player.shouldAutoplay = YES;
-    //  4.5 自动更新子视图的大小
+    // 4.5 自动更新子视图的大小
     self.view.autoresizesSubviews = YES;
     //  4.6 添加播放视图到控制器的View
     [self.view addSubview:self.player.view];
@@ -174,7 +174,7 @@
         }
     };
     
-    //6.添加加载视频时进度动画
+    // 6.添加加载视频时进度动画
     _loadView = [[NSBundle mainBundle] loadNibNamed:@"SCVideoLoadingView" owner:nil options:nil][0];
     //_loadView.backgroundColor = [UIColor colorWithHex:@"#000000" alpha:0.4];
     _loadView.backgroundColor = [UIColor clearColor];
