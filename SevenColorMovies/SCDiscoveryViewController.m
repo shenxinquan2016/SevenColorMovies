@@ -31,6 +31,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self setTableView];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
