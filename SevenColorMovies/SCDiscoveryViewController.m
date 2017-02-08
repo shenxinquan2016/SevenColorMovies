@@ -16,6 +16,8 @@
 #import "SCScanQRCodesVC.h"
 #import "SCXMPPManager.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 @interface SCDiscoveryViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -27,12 +29,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
+    self.view.backgroundColor = [UIColor colorWithHex:@"#dddddd"];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self setTableView];
     
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.frame = CGRectMake(0, 550, 60, 30);
+    [button setTitle:@"Crash" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor colorWithHex:@"#F0F1F2"] forState:UIControlStateNormal];
+    
+    [button addTarget:self action:@selector(crashButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+    
+    
 }
+
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -185,5 +198,13 @@
 - (BOOL)shouldAutorotate {
     return NO;
 }
+
+
+
+
+- (IBAction)crashButtonTapped:(id)sender {
+    [[Crashlytics sharedInstance] crash];
+}
+
 
 @end

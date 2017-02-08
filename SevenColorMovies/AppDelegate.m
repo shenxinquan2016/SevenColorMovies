@@ -180,7 +180,7 @@
 - (void) logUser {
     // TODO: Use the current user's information
     // You can call any combination of these three methods
-    [CrashlyticsKit setUserIdentifier:@"12345"];
+    [CrashlyticsKit setUserIdentifier:@"54321"];
     [CrashlyticsKit setUserEmail:@"yesdgq@yahoo.com"];
     [CrashlyticsKit setUserName:@"yesdgq"];
 }
@@ -191,7 +191,7 @@
 {
     const NSString *uuidStr = [HLJUUID getUUID];
     const char *uuid = [uuidStr UTF8String];
-//    libagent_start(0, NULL, uuid, 5656);
+    libagent_start(0, NULL, uuid, 5656);
 
 }
 
