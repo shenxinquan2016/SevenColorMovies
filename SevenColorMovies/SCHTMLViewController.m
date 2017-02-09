@@ -33,19 +33,19 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     
-//    [self setNavigationBarItem];
-    
+    [self setNavigationBarItem];
     
     
     if (_urlString) {
         [self webViewLoadUrlData];
     }
-    [self addGoBackButton];
+    
+    //    [self addGoBackButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    //    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     //    if (_H5Type) {//&& UserInfoManager.isLogin
     //        [self requestData];
@@ -70,15 +70,15 @@
     [btn addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:btn];
-
+    
 }
 
 - (void)popView
 {
-        UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-        tabBarVC.selectedIndex = 0;
-        [self.navigationController popViewControllerAnimated:YES];
-
+    UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    tabBarVC.selectedIndex = 0;
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 - (void)setNavigationBarItem
@@ -111,7 +111,8 @@
 }
 
 //webView如果有多层页面，点击返回回到上一页面。返回到首页再点击关闭当前控制器
-- (void)clickBackBBI:(UIButton *)sender {
+- (void)clickBackBBI:(UIButton *)sender
+{
     if (self.notificationPresentH5) {
         if (_webView.canGoBack) {
             [_webView goBack];
@@ -129,7 +130,8 @@
 }
 
 //关闭当前控制器
-- (void)closeController:(UIButton *)sender {
+- (void)closeController:(UIButton *)sender
+{
     if (self.notificationPresentH5) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     } else {

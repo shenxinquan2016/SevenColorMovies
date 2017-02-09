@@ -1,19 +1,14 @@
 //
-//  SCMineTopCell.m
+//  SCNewsTableViewCell.m
 //  SevenColorMovies
 //
-//  Created by yesdgq on 16/7/25.
-//  Copyright © 2016年 yesdgq. All rights reserved.
+//  Created by yesdgq on 2017/2/9.
+//  Copyright © 2017年 yesdgq. All rights reserved.
 //
 
-#import "SCMineTopCell.h"
+#import "SCNewsTableViewCell.h"
 
-@interface SCMineTopCell()
-
-@end
-
-
-@implementation SCMineTopCell
+@implementation SCNewsTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -28,10 +23,12 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {
     
-    static NSString *ID = @"SCMineTopCell";
-    SCMineTopCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    static NSString *ID = @"SCNewsTableViewCell";
+    SCNewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
     cell.backgroundColor = [UIColor whiteColor];
+    
+    
     return cell;
 }
 
@@ -39,5 +36,6 @@
     
     
 }
+
 
 @end

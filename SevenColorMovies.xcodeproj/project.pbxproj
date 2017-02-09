@@ -35,6 +35,8 @@
 		1114482C1D87D31700CB8FA9 /* 域名替换IP说明.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 111448281D87D31700CB8FA9 /* 域名替换IP说明.pdf */; };
 		1118278E1D800C92005921D6 /* SCFliterOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1118278D1D800C92005921D6 /* SCFliterOptionView.m */; };
 		111827901D800CD3005921D6 /* SCFliterOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1118278F1D800CD3005921D6 /* SCFliterOptionView.xib */; };
+		111ED72E1E4C138700B6DCE3 /* SCNewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 111ED72C1E4C138700B6DCE3 /* SCNewsTableViewCell.m */; };
+		111ED72F1E4C138700B6DCE3 /* SCNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 111ED72D1E4C138700B6DCE3 /* SCNewsTableViewCell.xib */; };
 		1122149D1DADDE6E00277BD6 /* SCHuikanPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122149C1DADDE6E00277BD6 /* SCHuikanPlayerViewController.m */; };
 		1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */; };
 		1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */; };
@@ -305,6 +307,9 @@
 		1118278C1D800C92005921D6 /* SCFliterOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFliterOptionView.h; sourceTree = "<group>"; };
 		1118278D1D800C92005921D6 /* SCFliterOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFliterOptionView.m; sourceTree = "<group>"; };
 		1118278F1D800CD3005921D6 /* SCFliterOptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCFliterOptionView.xib; sourceTree = "<group>"; };
+		111ED72B1E4C138700B6DCE3 /* SCNewsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNewsTableViewCell.h; sourceTree = "<group>"; };
+		111ED72C1E4C138700B6DCE3 /* SCNewsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNewsTableViewCell.m; sourceTree = "<group>"; };
+		111ED72D1E4C138700B6DCE3 /* SCNewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCNewsTableViewCell.xib; sourceTree = "<group>"; };
 		1122149B1DADDE6E00277BD6 /* SCHuikanPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHuikanPlayerViewController.h; sourceTree = "<group>"; };
 		1122149C1DADDE6E00277BD6 /* SCHuikanPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHuikanPlayerViewController.m; sourceTree = "<group>"; };
 		1122FF611D4A22E900E6E8A2 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
@@ -817,6 +822,25 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		111ED7291E4C103800B6DCE3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				113F8D881D3C6FE800B12D39 /* SCNewsViewController.h */,
+				113F8D891D3C6FE800B12D39 /* SCNewsViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		111ED72A1E4C105500B6DCE3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				111ED72B1E4C138700B6DCE3 /* SCNewsTableViewCell.h */,
+				111ED72C1E4C138700B6DCE3 /* SCNewsTableViewCell.m */,
+				111ED72D1E4C138700B6DCE3 /* SCNewsTableViewCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		1122149A1DADDD9300277BD6 /* PastVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -937,8 +961,8 @@
 		113F8D941D3C705900B12D39 /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
-				113F8D881D3C6FE800B12D39 /* SCNewsViewController.h */,
-				113F8D891D3C6FE800B12D39 /* SCNewsViewController.m */,
+				111ED7291E4C103800B6DCE3 /* Controller */,
+				111ED72A1E4C105500B6DCE3 /* View */,
 			);
 			name = MainBody;
 			sourceTree = "<group>";
@@ -2301,6 +2325,7 @@
 				11853B431E1267B60008E58E /* index1.html in Resources */,
 				116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */,
 				11EB4A681DB4D5EB0032F2C4 /* SCWatchingHistoryCell.xib in Resources */,
+				111ED72F1E4C138700B6DCE3 /* SCNewsTableViewCell.xib in Resources */,
 				11DC2BC61D3DD48400012480 /* SCDemandChannelItemCell.xib in Resources */,
 				11BA52EC1DFC465F0036CF25 /* SCSearchingDeviceView.xib in Resources */,
 				11BA52F01DFC46D20036CF25 /* SCDevicesListView.xib in Resources */,
@@ -2465,6 +2490,7 @@
 			files = (
 				1182415D1E23222200B78E1A /* SCXMPPManager.m in Sources */,
 				1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */,
+				111ED72E1E4C138700B6DCE3 /* SCNewsTableViewCell.m in Sources */,
 				119A677C1DFE4FC9000A147C /* SCDeviceModel.m in Sources */,
 				1101750A1D549B3C00E43773 /* SCFilmSetModel.m in Sources */,
 				11A0AF5C1DFAF1E90047A46E /* SCSearchDeviceVC.m in Sources */,
