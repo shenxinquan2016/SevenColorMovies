@@ -119,7 +119,7 @@
 
 - (void) setupIJKPlayer
 {
-    // 1. 根据当前环境设置日志信息
+    // 1.根据当前环境设置日志信息
     // 1.1如果是Debug状态的
 #ifdef DEBUG
     // 设置报告日志
@@ -137,17 +137,17 @@
     // 后加，还不知道有什么作用
     [IJKMediaModule sharedModule].appIdleTimerDisabled = YES;
     
-    // 2. 检查版本是否匹配
+    // 2.检查版本是否匹配
     [IJKFFMoviePlayerController checkIfFFmpegVersionMatch:YES];
     // [IJKFFMoviePlayerController checkIfPlayerVersionMatch:YES major:1 minor:0 micro:0];
     
-    // 3.  创建IJKFFMoviePlayerController
+    // 3.创建IJKFFMoviePlayerController
     // 3.1 默认选项配置
     IJKFFOptions *options = [IJKFFOptions optionsByDefault];
     // 3.2 创建播放控制器
     self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:options];
     
-    // 4. 屏幕适配
+    // 4.屏幕适配
     // 4.1 设置播放视频视图的frame与控制器的View的bounds一致
     self.player.view.frame = self.view.bounds;
     // 4.2 设置适配横竖屏(设置四边固定,长宽灵活)
@@ -161,7 +161,7 @@
     //  4.6 添加播放视图到控制器的View
     [self.view addSubview:self.player.view];
     
-    // 5. 添加播放控件到控制器的View
+    // 5.添加播放控件到控制器的View
     [self.player.view addSubview:self.mediaControl];
     self.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     // 5.1 代理设置
