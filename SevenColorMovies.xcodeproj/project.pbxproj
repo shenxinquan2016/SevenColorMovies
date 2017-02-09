@@ -37,6 +37,7 @@
 		111827901D800CD3005921D6 /* SCFliterOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1118278F1D800CD3005921D6 /* SCFliterOptionView.xib */; };
 		111ED72E1E4C138700B6DCE3 /* SCNewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 111ED72C1E4C138700B6DCE3 /* SCNewsTableViewCell.m */; };
 		111ED72F1E4C138700B6DCE3 /* SCNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 111ED72D1E4C138700B6DCE3 /* SCNewsTableViewCell.xib */; };
+		111ED7361E4C513900B6DCE3 /* SCNewsMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 111ED7351E4C513900B6DCE3 /* SCNewsMenuModel.m */; };
 		1122149D1DADDE6E00277BD6 /* SCHuikanPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122149C1DADDE6E00277BD6 /* SCHuikanPlayerViewController.m */; };
 		1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */; };
 		1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */; };
@@ -310,6 +311,8 @@
 		111ED72B1E4C138700B6DCE3 /* SCNewsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNewsTableViewCell.h; sourceTree = "<group>"; };
 		111ED72C1E4C138700B6DCE3 /* SCNewsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNewsTableViewCell.m; sourceTree = "<group>"; };
 		111ED72D1E4C138700B6DCE3 /* SCNewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCNewsTableViewCell.xib; sourceTree = "<group>"; };
+		111ED7341E4C513900B6DCE3 /* SCNewsMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNewsMenuModel.h; sourceTree = "<group>"; };
+		111ED7351E4C513900B6DCE3 /* SCNewsMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNewsMenuModel.m; sourceTree = "<group>"; };
 		1122149B1DADDE6E00277BD6 /* SCHuikanPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHuikanPlayerViewController.h; sourceTree = "<group>"; };
 		1122149C1DADDE6E00277BD6 /* SCHuikanPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHuikanPlayerViewController.m; sourceTree = "<group>"; };
 		1122FF611D4A22E900E6E8A2 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
@@ -841,6 +844,18 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		111ED7301E4C4E8C00B6DCE3 /* WebViewTool */ = {
+			isa = PBXGroup;
+			children = (
+				11052AC31E10FEA800BF795B /* SCHTMLViewController.h */,
+				11052AC41E10FEA800BF795B /* SCHTMLViewController.m */,
+				11853B421E1267B60008E58E /* index1.html */,
+				11853B441E1267C80008E58E /* index1.css */,
+				11853B461E1267DD0008E58E /* index1.js */,
+			);
+			name = WebViewTool;
+			sourceTree = "<group>";
+		};
 		1122149A1DADDD9300277BD6 /* PastVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -946,16 +961,13 @@
 			name = MainBody;
 			sourceTree = "<group>";
 		};
-		113F8D931D3C705600B12D39 /* View */ = {
+		113F8D931D3C705600B12D39 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				11052AC31E10FEA800BF795B /* SCHTMLViewController.h */,
-				11052AC41E10FEA800BF795B /* SCHTMLViewController.m */,
-				11853B421E1267B60008E58E /* index1.html */,
-				11853B441E1267C80008E58E /* index1.css */,
-				11853B461E1267DD0008E58E /* index1.js */,
+				111ED7341E4C513900B6DCE3 /* SCNewsMenuModel.h */,
+				111ED7351E4C513900B6DCE3 /* SCNewsMenuModel.m */,
 			);
-			name = View;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		113F8D941D3C705900B12D39 /* MainBody */ = {
@@ -1211,6 +1223,7 @@
 				11BB37BF1D38DB220002D487 /* Tabbar */,
 				11A1D0691D3F4FEA00E2BA0D /* Search */,
 				11A1D0761D3F7DD500E2BA0D /* SlideHeaderView */,
+				111ED7301E4C4E8C00B6DCE3 /* WebViewTool */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -1887,7 +1900,7 @@
 			isa = PBXGroup;
 			children = (
 				113F8D941D3C705900B12D39 /* MainBody */,
-				113F8D931D3C705600B12D39 /* View */,
+				113F8D931D3C705600B12D39 /* Model */,
 			);
 			name = News;
 			sourceTree = "<group>";
@@ -2539,6 +2552,7 @@
 				11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */,
 				11323E0A1DB5C4B80089A207 /* SCMyCollectionCell.m in Sources */,
 				115A21041D41B62D0097DE57 /* SCChannelCategoryVC.m in Sources */,
+				111ED7361E4C513900B6DCE3 /* SCNewsMenuModel.m in Sources */,
 				114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */,
 				1111A4221D48B2E000C17B92 /* SCNetRequsetManger+Home.m in Sources */,
 				11DDB8821D5B15760074DFAB /* SCArtsFilmCell.m in Sources */,
