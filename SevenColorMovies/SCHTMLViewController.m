@@ -12,7 +12,7 @@
 
 #define WebViewNav_TintColor [UIColor colorWithHex:@"#16a7d1"]
 
-@interface SCHTMLViewController () <UIWebViewDelegate>
+@interface SCHTMLViewController () <UIWebViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) UIWebView *webView;
 /** 进度条进度 */
@@ -27,13 +27,18 @@
 @end
 
 @implementation SCHTMLViewController
+{
+    float _offSet;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationController.navigationBar.alpha = 0;
     self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     
     [self setNavigationBarItem];
+    
     
     
     if (_urlString) {
@@ -45,15 +50,18 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self registerObserber];
     //    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     //    if (_H5Type) {//&& UserInfoManager.isLogin
     //        [self requestData];
     //    }
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self removeObserber];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -250,6 +258,49 @@
     return TRUE;
 }
 
+#pragma mark - KVO
+
+/** 添加观察者 */
+- (void)registerObserber
+{
+    [_webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset)) options:NSKeyValueObservingOptionNew context:nil];
+
+}
+
+/** 移除观察者 */
+- (void)removeObserber
+{
+    [_webView.scrollView removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset))];
+}
+
+/** kvo监听动作 */
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"contentOffset"]) {
+        
+        //DONG_Log(@"change:%@", change);
+        
+        float minus = _webView.scrollView.contentOffset.y - _offSet;
+        _offSet = _webView.scrollView.contentOffset.y;
+        
+        if (minus > 0) {
+            DONG_Log(@"向上滑动");
+        } else if (minus < 0) {
+            DONG_Log(@"向下滑动");
+        }
+        
+        CGFloat y = _webView.scrollView.contentOffset.y;
+        if (y>=0 && y<=64) {
+            CGFloat nav_alpha = y/64;
+            DONG_Log(@"透明度%f",nav_alpha);
+            self.navigationController.navigationBar.alpha = nav_alpha;
+        }else if(y>64){
+            self.navigationController.navigationBar.alpha = 1.0;
+        }else{
+            self.navigationController.navigationBar.alpha = 0.0;
+        }
+    }
+}
 
 #pragma mark - 网络请求
 
