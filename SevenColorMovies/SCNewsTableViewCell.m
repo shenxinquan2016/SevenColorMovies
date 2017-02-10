@@ -42,7 +42,9 @@
 - (void)setMenuModel:(SCNewsMenuModel *)menuModel
 {
     _nameLabel.text = menuModel.name;
-    NSURL *imgUrl = [NSURL URLWithString:menuModel.icon];
+    //NSURL *imgUrl = [NSURL URLWithString:menuModel.icon];
+    NSURL *imgUrl = [NSURL URLWithString:@"http://10.10.5.5:8085/load/file/111.png"];
+    
     [_iconImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"Back"]];
 }
 
