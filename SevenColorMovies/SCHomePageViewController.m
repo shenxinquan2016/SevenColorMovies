@@ -160,7 +160,7 @@ static NSString *const footerId = @"footerId";
     NSString *urlString = @"http://10.10.5.5:8085/load/file/homePageData.xml";
     
     [requestDataManager requestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
-        DONG_Log(@"==========dic:::%@========",responseObject);
+//        DONG_Log(@"==========dic:::%@========",responseObject);
         //1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         
@@ -171,8 +171,8 @@ static NSString *const footerId = @"footerId";
                 [_titleArray addObject:classModel._FilmClassName];
                 [_filmClassArray addObject:classModel];
                 
-                //                NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
-                //                NSLog(@"====FilmClassUrl::::%@",classModel.FilmClassUrl);
+//                                NSLog(@">>>>>>>>homePageData:::%@",classModel._FilmClassName);
+                                //NSLog(@"====classModel._Icon::::%@",classModel._Icon);
                 
             } else if ([classModel._FilmClassName hasSuffix:@"今日推荐"]) {
                 //添加banner
@@ -340,9 +340,15 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == 0){
-        return 8;
-    }else{
+    if (section == 0) {
+        if (self.filmClassArray.count < 8) {
+            return self.filmClassArray.count + 1;
+        } else {
+            
+            return 8;
+        }
+        
+    } else {
         
         SCFilmClassModel *model = _filmClassArray[section-1];
         return model.filmArray.count;
@@ -355,7 +361,8 @@ static NSString *const footerId = @"footerId";
     cell.backgroundColor = [UIColor whiteColor];
     
     if (indexPath.section == 0) {
-        NSArray *array = self.filmClassTitleArray? self.filmClassTitleArray : self.allItemsArr;
+//        NSArray *array = self.filmClassArray? self.filmClassArray : self.allItemsArr;
+        NSArray *array = self.filmClassArray;
         [cell setModel:array IndexPath:indexPath];
         return cell;
         

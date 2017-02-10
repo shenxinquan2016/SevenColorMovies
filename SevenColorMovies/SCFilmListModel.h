@@ -24,4 +24,5 @@
 /** FilmClass模型*/
 @property (nonatomic, strong) SCFilmClassModel *filmClassModel;
 
+
 @end

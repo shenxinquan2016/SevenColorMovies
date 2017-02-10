@@ -18,6 +18,8 @@
 @property (nonatomic, copy) NSString *_FilmCount;
 /** 包含影片个数 */
 @property (nonatomic, copy) NSString *_Count;
+/** 图标ulr */
+@property (nonatomic, copy) NSString *_Icon;
 /** 分页数量 */
 @property (nonatomic, copy) NSString *_PageCount;
 /** 封面图片 */

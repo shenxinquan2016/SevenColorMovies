@@ -7,6 +7,7 @@
 //
 
 #import "SCDemandChannelItemCell.h"
+#import "SCFilmClassModel.h"
 
 @interface SCDemandChannelItemCell()
 
@@ -30,16 +31,24 @@
     if (indexPath.row == 0) {
         _channelImg.image = [UIImage imageNamed:@"直播"];
         _channelNameLabel.text =  @"直播";
-    }else if (indexPath.row == 7){
+    } else if (indexPath.row == 7){
         _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         _channelNameLabel.text =  @"更多";
 
-    }else{
-        _channelImg.image = [UIImage imageNamed:array[indexPath.row-1]];
-        if (_channelImg.image == nil){
+    } else {
+        
+        
+        SCFilmClassModel *filmClassModel = array[indexPath.row-1];
+        
+//        _channelImg.image = [UIImage imageNamed:array[indexPath.row-1]];
+        
+        NSURL *imgUrl = [NSURL URLWithString:@"http://10.10.5.5:8085/load/file/111.png"];
+        [_channelImg sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"Back"]];
+        
+        if (_channelImg.image == nil) {
             _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         }
-        _channelNameLabel.text =  array[indexPath.row-1];
+//        _channelNameLabel.text =  filmClassModel._FilmClassName;
 
     } 
 }
