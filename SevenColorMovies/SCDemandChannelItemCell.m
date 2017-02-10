@@ -37,18 +37,11 @@
 
     } else {
         
-        
-        SCFilmClassModel *filmClassModel = array[indexPath.row-1];
-        
-//        _channelImg.image = [UIImage imageNamed:array[indexPath.row-1]];
-        
-        NSURL *imgUrl = [NSURL URLWithString:@"http://10.10.5.5:8085/load/file/111.png"];
-        [_channelImg sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"Back"]];
-        
-        if (_channelImg.image == nil) {
-            _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
-        }
-//        _channelNameLabel.text =  filmClassModel._FilmClassName;
+        SCFilmClassModel *filmClassModel = array[indexPath.row - 1];
+        //NSURL *imgUrl = [NSURL URLWithString:@"http://10.10.5.5:8085/load/file/111.png"];
+        NSURL *imgUrl = [NSURL URLWithString:filmClassModel._Icon];
+        [_channelImg sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"GeneralChannel"]];
+        _channelNameLabel.text =  filmClassModel._FilmClassName;
 
     } 
 }

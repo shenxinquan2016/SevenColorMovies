@@ -39,15 +39,16 @@
         if (indexPath.row == 0) {
             _channelNameLabel.text = @"直播";
             _channelImg.image = [UIImage imageNamed:@"直播"];
+            
         }else{
             
-            NSArray *filmClassTitleArray = model;
-            _channelNameLabel.text = filmClassTitleArray[indexPath.row-1];
-            _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassTitleArray[indexPath.row-1]]];
-            
-            if (_channelImg.image == nil) {
-                _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
-            }
+            NSArray *array = model;
+            SCFilmClassModel *filmClassModel = array[indexPath.row - 1];
+            //NSURL *imgUrl = [NSURL URLWithString:@"http://10.10.5.5:8085/load/file/111.png"];
+            NSURL *imgUrl = [NSURL URLWithString:filmClassModel._Icon];
+            [_channelImg sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"GeneralChannel"]];
+            _channelNameLabel.text = filmClassModel._FilmClassName;
+
         }
     }
     

@@ -144,7 +144,7 @@ static NSString *const footerId = @"footerId";
 {
     SCChannelCatalogueCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     
-    [cell setModel:self.filmClassTitleArray IndexPath:indexPath];
+    [cell setModel:self.filmClassArray IndexPath:indexPath];
     
     return cell;
 }

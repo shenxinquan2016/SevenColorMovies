@@ -224,6 +224,7 @@ static NSString *const footerId = @"footerId";
     // 将self.titleArray存到本地，每次点击时先取本地的数组：1、如果本地数组与self.titleArray元素相同，则使用本地数组 2.如果本地数组与self.filmClassArray元素不同，则使用self.titleArray
     
     NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray];// NSUserDefaults 只能读取不可变对象
+    
     if (filmClassTitleArray.count == 0) {
         
         NSArray *array = [NSArray arrayWithArray:self.titleArray];// NSUserDefaults 只能读取不可变对象
@@ -235,6 +236,7 @@ static NSString *const footerId = @"footerId";
         NSLog(@">*******************************<");
         
     }else{
+        
         //谓词判断：A中元素不包含在B中的个数为0切B中元素不包含在A中的个数为0，则两个数组元素相同
         if ([filmClassTitleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", self.titleArray]].count == 0 && [self.titleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", filmClassTitleArray]].count == 0) {//本地保存的和新请求到的相同时
             
@@ -314,6 +316,7 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark ---- responce
+
 - (void)sectionClick:(UIButton *)sender {
     
     if (_filmClassArray) {
@@ -342,7 +345,9 @@ static NSString *const footerId = @"footerId";
 {
     if (section == 0) {
         if (self.filmClassArray.count < 8) {
+            
             return self.filmClassArray.count + 1;
+            
         } else {
             
             return 8;
@@ -484,14 +489,17 @@ static NSString *const footerId = @"footerId";
         //设置返回键标题
         if (indexPath.row == 7) {//更多
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:@"更多"];
-            moreView.filmClassArray = [NSMutableArray arrayWithArray:_filmClassArray];
+            moreView.filmClassArray = _filmClassArray;
             moreView.bannerFilmModelArray = _bannerFilmModelArr;
             
             NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray];// NSUserDefaults 只能读取不可变对象
             moreView.filmClassTitleArray = [NSMutableArray arrayWithArray:filmClassTitleArray];
+            
+            // 分类排序block回调
             moreView.refreshHomePageBlock = ^{
                 [self setFilmClassTitleArray];//刷新section 0
             };
+            
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
             
