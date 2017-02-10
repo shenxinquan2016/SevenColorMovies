@@ -74,12 +74,14 @@ static NSString *const footerId = @"footerId";
     _editBtn.selected = NO;
 }
 
-- (void)doEditingAction{
+- (void)doEditingAction
+{
     if (_editBtn.selected == NO) {
         _editBtn.selected = YES;
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
         
-    }else if (_editBtn.selected != NO){
+    } else if (_editBtn.selected != NO) {
+        
         _editBtn.selected = NO;
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         
@@ -248,7 +250,7 @@ static NSString *const footerId = @"footerId";
     return (CGSize){kMainScreenWidth,0};
 }
 
-/** section Footer 尺寸*/
+/** section Footer 尺寸 */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
     return (CGSize){kMainScreenWidth,80};
@@ -293,6 +295,7 @@ static NSString *const footerId = @"footerId";
         [self.navigationController pushViewController:liveVC animated:YES];
         
     }else{
+        
         if (_filmClassArray.count != 0) {
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-1]];
             channelVC.bannerFilmModelArray = self.bannerFilmModelArray;

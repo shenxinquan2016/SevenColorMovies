@@ -489,7 +489,7 @@ static NSString *const footerId = @"footerId";
         //设置返回键标题
         if (indexPath.row == 7) {//更多
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:@"更多"];
-            moreView.filmClassArray = _filmClassArray;
+            moreView.filmClassArray = [NSMutableArray arrayWithArray:_filmClassArray];
             moreView.bannerFilmModelArray = _bannerFilmModelArr;
             
             NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray];// NSUserDefaults 只能读取不可变对象
@@ -508,7 +508,9 @@ static NSString *const footerId = @"footerId";
             liveView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:liveView animated:YES];
             
-        }else{//其他
+        }else{
+            
+            //其他
             NSString *key = _filmClassTitleArray[indexPath.row-1];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
             channelVC.filmClassModel = _filmClassModelDictionary[key];

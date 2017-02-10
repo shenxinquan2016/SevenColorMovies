@@ -51,7 +51,6 @@
 
         }
     }
-    
 }
 
 - (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel{
