@@ -73,14 +73,17 @@
     //    NSLog(@"---- %@",newParameters);
     
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        DONG_Log(@"responseObject:%@",responseObject);
+        
         if (success) {
             
             NSError *myError;
 //            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:&myError];
             
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&myError];
+            id result = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&myError];
             
-            success(dic);
+            success(result);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

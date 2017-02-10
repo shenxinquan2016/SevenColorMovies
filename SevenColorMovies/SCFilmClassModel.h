@@ -10,7 +10,7 @@
 
 @interface SCFilmClassModel : NSObject
 
-/** FilmClassList */
+/** FilmClassName */
 @property (nonatomic, copy) NSString *_FilmClassName;
 /** film介绍 */
 @property (nonatomic, copy) NSString *_Intro;

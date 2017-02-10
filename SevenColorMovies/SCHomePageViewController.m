@@ -75,6 +75,7 @@ static NSString *const footerId = @"footerId";
     
     //3.添加collectionView
     [self addCollView];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -156,8 +157,10 @@ static NSString *const footerId = @"footerId";
     [_bannerImageUrlArr removeAllObjects];
     [_bannerFilmModelArr removeAllObjects];
     
-    [requestDataManager requestDataWithUrl:HomePageUrl parameters:nil success:^(id  _Nullable responseObject) {
-        //DONG_Log(@"==========dic:::%@========",responseObject);
+    NSString *urlString = @"http://10.10.5.5:8085/load/file/homePageData.xml";
+    
+    [requestDataManager requestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
+        DONG_Log(@"==========dic:::%@========",responseObject);
         //1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         

@@ -10,6 +10,7 @@
 #import "Dong_NullDataView.h"
 #import "SCHTMLViewController.h"
 #import "SCNewsTableViewCell.h"
+#import "SCNetRequsetManger+iCloudRemoteControl.h"
 
 @interface SCNewsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -35,6 +36,8 @@
     
     //2.添加TableView
     [self loadTableView];
+    
+    [self requestData];
     
 }
 
@@ -129,7 +132,6 @@
     }
     
     
-    
     [self.navigationController pushViewController:htmlVC animated:YES];
 
 }
@@ -144,6 +146,25 @@
     return nil;
 }
 
+- (void)requestData
+{
+    NSString *urlString = @"http://10.10.5.5:8085/load/file/handheldHallData.txt";
+
+    [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
+        
+        
+        NSArray *resultArray = responseObject;
+        
+        NSDictionary *dic = [resultArray firstObject];
+        
+        DONG_Log(@"resultArray:%@",dic);
+        
+
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+}
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate {
