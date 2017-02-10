@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCNewsMenuModel.h"
 
 @interface SCNewsTableViewCell : UITableViewCell
 
+@property (nonatomic, strong) SCNewsMenuModel *menuModel;
 + (instancetype)cellWithTableView:(UITableView *)tableView;
-- (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath;
+
 
 @end

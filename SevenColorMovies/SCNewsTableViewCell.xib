@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="掌厅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPA-16-Chr">
-                        <rect key="frame" x="69" y="11" width="45" height="21"/>
+                        <rect key="frame" x="69" y="11" width="192" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -31,7 +31,11 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="-19" y="76"/>
+            <connections>
+                <outlet property="iconImage" destination="d1F-WJ-hIP" id="8wo-tC-alf"/>
+                <outlet property="nameLabel" destination="vPA-16-Chr" id="xzD-tx-Zgr"/>
+            </connections>
+            <point key="canvasLocation" x="39" y="72"/>
         </tableViewCell>
     </objects>
     <resources>

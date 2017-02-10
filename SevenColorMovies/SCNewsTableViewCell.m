@@ -8,6 +8,13 @@
 
 #import "SCNewsTableViewCell.h"
 
+@interface SCNewsTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *iconImage;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
+@end
+
 @implementation SCNewsTableViewCell
 
 - (void)awakeFromNib {
@@ -32,10 +39,11 @@
     return cell;
 }
 
-- (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath{
-    
-    
+- (void)setMenuModel:(SCNewsMenuModel *)menuModel
+{
+    _nameLabel.text = menuModel.name;
+    NSURL *imgUrl = [NSURL URLWithString:menuModel.icon];
+    [_iconImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"Back"]];
 }
-
 
 @end

@@ -74,7 +74,7 @@
     
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        DONG_Log(@"responseObject:%@",responseObject);
+        //DONG_Log(@"responseObject:%@",responseObject);
         
         if (success) {
             

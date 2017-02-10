@@ -10,7 +10,8 @@
 #import "Dong_NullDataView.h"
 #import "SCHTMLViewController.h"
 #import "SCNewsTableViewCell.h"
-#import "SCNetRequsetManger+iCloudRemoteControl.h"
+#import "SCNetRequsetManger+iCloudRemoteControl.h" // 返回数据为json的请求方法
+#import "SCNewsMenuModel.h"
 
 @interface SCNewsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -31,8 +32,7 @@
 //    [Dong_NullDataView addTapAction:self action:@selector(jkdljlj) view:self.view];
     
     
-    self.dataArray = [NSMutableArray arrayWithObjects:@1, @2, @3, nil];
-    
+    self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
     //2.添加TableView
     [self loadTableView];
@@ -103,6 +103,11 @@
     SCNewsTableViewCell *cell = [SCNewsTableViewCell cellWithTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    if (indexPath.row < _dataArray.count) {
+        SCNewsMenuModel *menuModel = _dataArray[indexPath.row];
+        cell.menuModel = menuModel;
+        DONG_Log(@"menuModel.name:%@",menuModel.name);
+    }
     return cell;
 }
 
@@ -118,20 +123,10 @@
     SCHTMLViewController *htmlVC = [[SCHTMLViewController alloc] init];
     htmlVC.hidesBottomBarWhenPushed = YES;
     
-    if (indexPath.row == 0) {
-        
-        htmlVC.urlString = @"http://10.177.4.25/mobile/";
-        
-    } else if (indexPath.row == 1) {
-        
-        htmlVC.urlString = @"https://www.baidu.com";
-        
-    } else if (indexPath.row ==2){
-        
-        htmlVC.urlString = @"https://www.baidu.com";
+    if (indexPath.row < _dataArray.count) {
+        SCNewsMenuModel *menuModel = _dataArray[indexPath.row];
+        htmlVC.urlString = menuModel.url;
     }
-    
-    
     [self.navigationController pushViewController:htmlVC animated:YES];
 
 }
@@ -149,20 +144,28 @@
 - (void)requestData
 {
     NSString *urlString = @"http://10.10.5.5:8085/load/file/handheldHallData.txt";
-
+    [CommonFunc showLoadingWithTips:@""];
     [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
         
-        
+        // 返回数据为数组
         NSArray *resultArray = responseObject;
+        //DONG_Log(@"resultArray:%@",resultArray);
         
-        NSDictionary *dic = [resultArray firstObject];
+        [_dataArray removeAllObjects];
+        // 转换model
+        for (NSDictionary *dic in resultArray) {
+            SCNewsMenuModel *menuModel = [SCNewsMenuModel mj_objectWithKeyValues:dic];
+            [_dataArray addObject:menuModel];
+            DONG_Log(@"cell:name:%@",menuModel.name);
+        }
         
-        DONG_Log(@"resultArray:%@",dic);
-        
+        // 列表刷新
+        [_tableView reloadData];
+        [CommonFunc dismiss];
 
     } failure:^(id  _Nullable errorObject) {
         
-        
+        [CommonFunc dismiss];
     }];
 }
 
