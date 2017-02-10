@@ -11,11 +11,14 @@
 #import "SCFilmModel.h"
 #import "SCLiveProgramModel.h"
 #import "SCHuikanPlayerViewController.h"
+#import <XMPPReconnect.h>
 
 @interface SCXMPPManager ()
 
 @property (nonatomic, strong) XMPPStream *xmppStream;
 @property (nonatomic, strong) NSString *password;
+/* 重连 */
+@property (nonatomic, strong) XMPPReconnect *xmppReconnect;
 
 @end
 
@@ -62,6 +65,12 @@
     if (error) {
         DONG_Log(@"XMPPStreamConnectError:%@", error.description);
     }
+    
+    // 设置重连部分
+    self.xmppReconnect = [[XMPPReconnect alloc] init];
+    self.xmppReconnect.autoReconnect = YES;
+    [self.xmppReconnect activate:self.xmppStream];
+    [self.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
     
 }
 
@@ -340,11 +349,6 @@
                 
             });
         }
-        
-        
-        
-        
-        
     }
 }
 
@@ -378,6 +382,21 @@
     }
 }
 
+#pragma mark - xmppReconnectDelegate
+
+-(BOOL)xmppReconnect:(XMPPReconnect *)sender shouldAttemptAutoReconnect:(SCNetworkConnectionFlags)connectionFlags{
+    
+     DONG_Log(@"开始尝试自动连接:%u", connectionFlags);
+    
+    return YES;
+    
+}
+
+-(void)xmppReconnect:(XMPPReconnect *)sender didDetectAccidentalDisconnect:(SCNetworkConnectionFlags)connectionFlags{
+    
+     DONG_Log(@"检测到意外断开连接:%u",connectionFlags);
+    
+}
 
 /** xml命令构造器 */
 - (NSString *)getXMLStringCommandWithTargetName:(NSString *)targetName deviceType:(NSString *)deviceType mid:(NSString *)mid sid:(NSString *)sid tvId:(NSString *)tvId playingType:(NSString *)playingType currentIndex:(NSString *)currentIndex fromWhere:(NSString *)fromWhere clientType:(NSString *)clientType currentPlayTime:(NSString *)currentPlayTime startTime:(NSString *)startTime endTime:(NSString *)endTime cyclePlay:(NSString *)cyclePlay filmName:(NSString *)filmName columnCode:(NSString *)columnCode dataUrl:(NSString *)dataUrl
