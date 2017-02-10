@@ -232,7 +232,7 @@ static NSString *const footerId = @"footerId";
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         self.filmClassTitleArray = self.titleArray;
-        [_collView reloadData];
+        
         NSLog(@">*******************************<");
         
     }else{
@@ -242,7 +242,6 @@ static NSString *const footerId = @"footerId";
             //本地保存的和新请求到的相同时
             
             self.filmClassTitleArray = filmClassTitleArray;
-            [_collView reloadData];
             
         }else{
             //本地保存的和新请求到的不同时
@@ -251,7 +250,6 @@ static NSString *const footerId = @"footerId";
             [[NSUserDefaults standardUserDefaults] synchronize];
             
             self.filmClassTitleArray = self.titleArray;
-            [_collView reloadData];
         }
     }
     
@@ -260,6 +258,7 @@ static NSString *const footerId = @"footerId";
         NSString *key = filmClassModel._FilmClassName;
         [_filmClassModelDictionary setObject:filmClassModel forKey:key];
     }
+    [_collView reloadData];
 }
 
 //section header
@@ -368,7 +367,9 @@ static NSString *const footerId = @"footerId";
     
     if (indexPath.section == 0) {
 //        NSArray *array = self.filmClassArray? self.filmClassArray : self.allItemsArr;
-        NSArray *array = self.filmClassArray;
+        //NSArray *array = self.filmClassArray;
+        cell.filmClassModelDictionary = _filmClassModelDictionary;
+        NSArray *array = self.filmClassTitleArray;
         [cell setModel:array IndexPath:indexPath];
         return cell;
         

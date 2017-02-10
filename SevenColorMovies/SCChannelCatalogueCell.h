@@ -11,8 +11,8 @@
 
 @interface SCChannelCatalogueCell : UICollectionViewCell
 
-@property (nonatomic, strong, nonnull) SCFilmClassModel *filmClassModel;
-
+/** 将filmClassModel放入字典 */
+@property (nonatomic, strong, nullable) NSMutableDictionary *filmClassModelDictionary;
 + (nonnull instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView indexPath:(nonnull NSIndexPath *)indexPath;
 
 - (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath;

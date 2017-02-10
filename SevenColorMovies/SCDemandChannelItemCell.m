@@ -27,7 +27,7 @@
 
 - (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath
 {
-    NSArray *array = model;
+    
     if (indexPath.row == 0) {
         _channelImg.image = [UIImage imageNamed:@"直播"];
         _channelNameLabel.text =  @"直播";
@@ -37,7 +37,11 @@
 
     } else {
         
-        SCFilmClassModel *filmClassModel = array[indexPath.row - 1];
+        NSArray *array = model;
+        // 通过键值找对应的filmClassModel 
+        NSString *key = array[indexPath.row - 1];
+        SCFilmClassModel *filmClassModel = _filmClassModelDictionary[key];
+        
         //NSURL *imgUrl = [NSURL URLWithString:@"http://10.10.5.5:8085/load/file/111.png"];
         NSURL *imgUrl = [NSURL URLWithString:filmClassModel._Icon];
         [_channelImg sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"GeneralChannel"]];
