@@ -206,7 +206,7 @@ static NSString *const footerId = @"footerId";
         //        NSLog(@">>>>>>>>homePageData:::%ld",_filmClassArray.count);
         //        NSLog(@">>>>>>>>homePageData:::%ld",_titleArray.count);
         //        NSLog(@">>>>>>>>homePageData:::%@",responseObject);
-        [_collView reloadData];
+        //[_collView reloadData];
         [self setFilmClassTitleArray];
         [CommonFunc dismiss];
         [_collView.mj_header endRefreshing];
@@ -238,7 +238,8 @@ static NSString *const footerId = @"footerId";
     }else{
         
         //谓词判断：A中元素不包含在B中的个数为0切B中元素不包含在A中的个数为0，则两个数组元素相同
-        if ([filmClassTitleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", self.titleArray]].count == 0 && [self.titleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", filmClassTitleArray]].count == 0) {//本地保存的和新请求到的相同时
+        if ([filmClassTitleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", self.titleArray]].count == 0 && [self.titleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", filmClassTitleArray]].count == 0) {
+            //本地保存的和新请求到的相同时
             
             self.filmClassTitleArray = filmClassTitleArray;
             [_collView reloadData];
@@ -497,7 +498,7 @@ static NSString *const footerId = @"footerId";
             
             // 分类排序block回调
             moreView.refreshHomePageBlock = ^{
-                [self setFilmClassTitleArray];//刷新section 0
+                [self setFilmClassTitleArray];// 刷新section 0
             };
             
             moreView.hidesBottomBarWhenPushed = YES;
@@ -531,6 +532,7 @@ static NSString *const footerId = @"footerId";
             [self.navigationController pushViewController:vc animated:YES];
             
         }else{
+            
             SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
             teleplayPlayer.filmModel = filmModel;
             teleplayPlayer.bannerFilmModelArray = _bannerFilmModelArr;
