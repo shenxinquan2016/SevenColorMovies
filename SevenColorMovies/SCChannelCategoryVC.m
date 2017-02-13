@@ -93,7 +93,7 @@ static NSString *const cellId = @"cellId";
     [CommonFunc showLoadingWithTips:@""];
     [[HLJRequest requestWithPlayVideoURL:_filmClassModel.FilmClassUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
-            
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             DONG_Log(@"responseObject:%@",responseObject);
             
             if (responseObject) {

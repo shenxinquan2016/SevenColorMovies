@@ -18,6 +18,8 @@
 
 
 /******************************************首页接口*******************************************/
+// 动态域名接口
+#define DynamicDomainEntrance @"http://10.177.1.222:8050/entry?uid=21&oemid=30050&hid=741e93d05fc2&app_version=sksjd_1.0"
 // homePage接口
 #define HomePageUrl @"http://10.177.1.234:5040/filmlist?epgid=909191&spid=20151103&cpid=10001000&ctype=9"
 // banner接口
