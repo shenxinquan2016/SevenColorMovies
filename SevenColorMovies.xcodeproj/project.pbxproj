@@ -205,6 +205,7 @@
 		11DDB87E1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DDB87D1D5B14E00074DFAB /* SCArtsFilmsCollectionVC.m */; };
 		11DDB8821D5B15760074DFAB /* SCArtsFilmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DDB8811D5B15760074DFAB /* SCArtsFilmCell.m */; };
 		11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */; };
+		11DF6DAE1E51AE4500710379 /* SCDomaintransformTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DF6DAD1E51AE4500710379 /* SCDomaintransformTool.m */; };
 		11E97A051D6320CA00512D10 /* PlayerViewRotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E97A041D6320CA00512D10 /* PlayerViewRotate.m */; };
 		11EB4A671DB4D5EB0032F2C4 /* SCWatchingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EB4A651DB4D5EB0032F2C4 /* SCWatchingHistoryCell.m */; };
 		11EB4A681DB4D5EB0032F2C4 /* SCWatchingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11EB4A661DB4D5EB0032F2C4 /* SCWatchingHistoryCell.xib */; };
@@ -596,6 +597,8 @@
 		11DDB8801D5B15760074DFAB /* SCArtsFilmCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCArtsFilmCell.h; sourceTree = "<group>"; };
 		11DDB8811D5B15760074DFAB /* SCArtsFilmCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCArtsFilmCell.m; sourceTree = "<group>"; };
 		11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCArtsFilmCell.xib; sourceTree = "<group>"; };
+		11DF6DAC1E51AE4500710379 /* SCDomaintransformTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDomaintransformTool.h; sourceTree = "<group>"; };
+		11DF6DAD1E51AE4500710379 /* SCDomaintransformTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDomaintransformTool.m; sourceTree = "<group>"; };
 		11E97A031D6320CA00512D10 /* PlayerViewRotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewRotate.h; sourceTree = "<group>"; };
 		11E97A041D6320CA00512D10 /* PlayerViewRotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewRotate.m; sourceTree = "<group>"; };
 		11EB4A641DB4D5EB0032F2C4 /* SCWatchingHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWatchingHistoryCell.h; sourceTree = "<group>"; };
@@ -1871,6 +1874,7 @@
 		11BB37D81D38F0490002D487 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				11DF6DAB1E51ADB400710379 /* 动态域名转换 */,
 				1182416B1E2360C800B78E1A /* UserInfoManager */,
 				1182415A1E2321E500B78E1A /* XMPPManager */,
 				114552C91E014C3500BA6367 /* ComonFunc */,
@@ -2059,6 +2063,15 @@
 				11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		11DF6DAB1E51ADB400710379 /* 动态域名转换 */ = {
+			isa = PBXGroup;
+			children = (
+				11DF6DAC1E51AE4500710379 /* SCDomaintransformTool.h */,
+				11DF6DAD1E51AE4500710379 /* SCDomaintransformTool.m */,
+			);
+			name = "动态域名转换";
 			sourceTree = "<group>";
 		};
 		11EBC3F21D5C698600C1A338 /* SpecialTopic专题 */ = {
@@ -2504,6 +2517,7 @@
 				11458EA71D45FF2D00EBD16D /* SCMineOtherCell.m in Sources */,
 				116E0F551DB0872E00E280C6 /* SCMyProgramListVC.m in Sources */,
 				116E1D5E1D4B4E0200B488EC /* SCFilterViewController.m in Sources */,
+				11DF6DAE1E51AE4500710379 /* SCDomaintransformTool.m in Sources */,
 				116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */,
 				1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */,
 				11F42E3B1E0BD9090073A6BC /* SCNetRequsetManger+iCloudRemoteControl.m in Sources */,
