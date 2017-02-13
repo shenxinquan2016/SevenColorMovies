@@ -157,7 +157,7 @@ static NSString *const footerId = @"footerId";
     [_bannerImageUrlArr removeAllObjects];
     [_bannerFilmModelArr removeAllObjects];
     
-    NSString *urlString = @"http://10.10.5.5:8085/load/file/homePageData.xml";
+    NSString *urlString = @"http://10.177.4.81:8080/load/file/homePageData.xml";
     
     [requestDataManager requestDataWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
 //        DONG_Log(@"==========dic:::%@========",responseObject);

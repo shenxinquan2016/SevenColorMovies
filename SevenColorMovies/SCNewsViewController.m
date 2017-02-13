@@ -143,7 +143,7 @@
 
 - (void)requestData
 {
-    NSString *urlString = @"http://10.10.5.5:8085/load/file/handheldHallData.txt";
+    NSString *urlString = @"http://10.177.4.81:8080/load/file/handheldHallData.txt";
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager postRequestDataToCloudRemoteControlServerWithUrl:urlString parameters:nil success:^(id  _Nullable responseObject) {
         
