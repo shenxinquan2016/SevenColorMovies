@@ -229,12 +229,14 @@ static NSString *const footerId = @"footerId";
         } failure:^(NSError *error) {
             
             [CommonFunc dismiss];
+            [_collView.mj_header endRefreshing];
             
         }];
         
     } failure:^(id  _Nullable errorObject) {
        
         [CommonFunc dismiss];
+        [_collView.mj_header endRefreshing];
         
     }];
     

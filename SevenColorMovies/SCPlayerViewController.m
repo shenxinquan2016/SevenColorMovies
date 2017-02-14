@@ -71,7 +71,10 @@ static const CGFloat LabelWidth = 100.f;
 @property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;
 @property (nonatomic, strong) SCArtsFilmsCollectionVC *needScrollToTopPage;
 @property (nonatomic, copy) NSString *movieType;
+/** ip转换工具 */
 @property (nonatomic, strong) HLJRequest *hljRequest;
+/** 动态域名获取工具 */
+@property (nonatomic, strong) SCDomaintransformTool *domainTransformTool;
 /** 存储正在播放的剧集 */
 @property (nonatomic, strong) SCFilmSetModel *filmSetModel;
 /** 是否全屏锁定 */
@@ -387,7 +390,7 @@ static const CGFloat LabelWidth = 100.f;
         [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-                //        DONG_Log(@"====responseObject:::%@===",responseObject);
+                DONG_Log(@"====responseObject:::%@===",responseObject);
                 
                 DONG_StrongSelf(self);
                 // 坑：：单片不同film竟然数据结构不同 服了！
@@ -1383,6 +1386,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         
         //请求播放地址
         [CommonFunc showLoadingWithTips:@""];
+        DONG_Log(@"urlStr:%@",urlStr);
         [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject){
             NSString *downLoadUrl = nil;
             if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]) {
@@ -1511,50 +1515,30 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"filmmid" : filmmidStr};
     
-    self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
-    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+    // 域名获取
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:FilmSourceUrl key:@"skdbpd" success:^(id  _Nullable newUrlString) {
         
-        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            //NSLog(@"====responseObject:::%@===",responseObject);
-            if (responseObject) {
-                
-                NSString *mid = responseObject[@"Film"][@"_Mid"];
-                DONG_Log(@"_mid:%@",mid);
-                //介绍页model
-                self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
-                
-                if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
-                    SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:responseObject[@"ContentSet"][@"Content"]];
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+            
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            
+            
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                //NSLog(@"====responseObject:::%@===",responseObject);
+                if (responseObject) {
                     
-                    NSString *downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+                    NSString *mid = responseObject[@"Film"][@"_Mid"];
+                    DONG_Log(@"_mid:%@",mid);
+                    //介绍页model
+                    self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
                     
-                    //base64编码downloadUrl
-                    NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
-                    
-                    //获取fid
-                    NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
-                    //base64编码downloadUrl
-                    
-                    //视频播放url
-                    NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
-                    NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
-                    
-                    model.VODStreamingUrl = VODStreamingUrl;
-                    
-                    //NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>>>>%@",downloadUrl);
-                    //NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>>%@",model.VODStreamingUrl);
-                    [_filmSetsArr addObject:model];
-                    
-                }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
-                    
-                    
-                    for (NSDictionary *dic in responseObject[@"ContentSet"][@"Content"]) {
+                    if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
+                        SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:responseObject[@"ContentSet"][@"Content"]];
                         
-                        SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:dic];
-                        
-                        
-                        //downloadUrl
-                        NSString *downloadUrl = dic[@"_DownUrl"];
+                        NSString *downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
                         
                         //base64编码downloadUrl
                         NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
@@ -1568,157 +1552,191 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                         
                         model.VODStreamingUrl = VODStreamingUrl;
+                        
                         //NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>>>>%@",downloadUrl);
                         //NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>>%@",model.VODStreamingUrl);
                         [_filmSetsArr addObject:model];
                         
+                    }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
+                        
+                        
+                        for (NSDictionary *dic in responseObject[@"ContentSet"][@"Content"]) {
+                            
+                            SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:dic];
+                            
+                            
+                            //downloadUrl
+                            NSString *downloadUrl = dic[@"_DownUrl"];
+                            
+                            //base64编码downloadUrl
+                            NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
+                            
+                            //获取fid
+                            NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+                            //base64编码downloadUrl
+                            
+                            //视频播放url
+                            NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
+                            NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                            
+                            model.VODStreamingUrl = VODStreamingUrl;
+                            //NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>>>>%@",downloadUrl);
+                            //NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>>%@",model.VODStreamingUrl);
+                            [_filmSetsArr addObject:model];
+                            
+                        }
                     }
-                }
-                
-                if (_filmSetsArr.count == 1) {
                     
-                    self.titleArr = @[@"详情", @"精彩推荐"];
-                    self.identifier = @"电影";
+                    if (_filmSetsArr.count == 1) {
+                        
+                        self.titleArr = @[@"详情", @"精彩推荐"];
+                        self.identifier = @"电影";
+                        
+                    }else if (_filmSetsArr.count > 1){
+                        
+                        self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
+                        self.identifier = @"电视剧";
+                        
+                    }
+                    //1.添加滑动headerView
+                    [self constructSlideHeaderView];
+                    //2.添加contentScrllowView
+                    [self constructContentView];
                     
-                }else if (_filmSetsArr.count > 1){
-                    
-                    self.titleArr = @[@"剧情", @"详情", @"精彩推荐"];
-                    self.identifier = @"电视剧";
-                    
-                }
-                //1.添加滑动headerView
-                [self constructSlideHeaderView];
-                //2.添加contentScrllowView
-                [self constructContentView];
-                
-                /*
-                 * 如 _filmModel.jiIndex > 1 则为由观看记录进入(_filmModel.jiIndex初始值为0)
-                 * 需要定位播放焦点
-                 * 通过发送通知定位 _filmModel不用改变
-                 */
-                SCFilmSetModel *filmSetModel = nil;
-                if (_filmModel.jiIndex > 1) {
-                    if (_filmModel.jiIndex - 1 < self.filmSetsArr.count) {
+                    /*
+                     * 如 _filmModel.jiIndex > 1 则为由观看记录进入(_filmModel.jiIndex初始值为0)
+                     * 需要定位播放焦点
+                     * 通过发送通知定位 _filmModel不用改变
+                     */
+                    SCFilmSetModel *filmSetModel = nil;
+                    if (_filmModel.jiIndex > 1) {
+                        if (_filmModel.jiIndex - 1 < self.filmSetsArr.count) {
+                            
+                            filmSetModel = self.filmSetsArr[_filmModel.jiIndex - 1];
+                            SCFilmSetModel *lastFilmSetModel = self.filmSetsArr[_filmModel.jiIndex - 2];;
+                            
+                            
+                            NSDictionary *message = @{@"nextFilmSetModel" : filmSetModel,
+                                                      @"lastFilmSetModel" : lastFilmSetModel};
+                            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
+                            
+                            /*
+                             * 比较乱
+                             *
+                             * VODIndex需要矫正 不矫正时VODIndex=0 自动播放下一个节目时焦点位置会出错
+                             * 此时_filmModel.filmSetModel为空 需要赋值
+                             */
+                            VODIndex = _filmModel.jiIndex - 1;
+                            //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
+                            _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
+                            
+                        }
                         
-                        filmSetModel = self.filmSetsArr[_filmModel.jiIndex - 1];
-                        SCFilmSetModel *lastFilmSetModel = self.filmSetsArr[_filmModel.jiIndex - 2];;
+                    } else {
                         
-                        
-                        NSDictionary *message = @{@"nextFilmSetModel" : filmSetModel,
-                                                  @"lastFilmSetModel" : lastFilmSetModel};
-                        [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
-                        
-                        /*
-                         * 比较乱
-                         *
-                         * VODIndex需要矫正 不矫正时VODIndex=0 自动播放下一个节目时焦点位置会出错
-                         * 此时_filmModel.filmSetModel为空 需要赋值
-                         */
-                        VODIndex = _filmModel.jiIndex - 1;
+                        filmSetModel = [_filmSetsArr firstObject];
+                        filmSetModel.onLive = YES;
+                        _filmSetModel = filmSetModel;
+                        _filmModel.jiIndex = 1;
                         //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
                         _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
                         
                     }
                     
-                } else {
-                    
-                    filmSetModel = [_filmSetsArr firstObject];
-                    filmSetModel.onLive = YES;
-                    _filmSetModel = filmSetModel;
-                    _filmModel.jiIndex = 1;
-                    //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
-                    _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
-                    
-                }
-                
-                //请求第一集的播放地址
-                [requestDataManager requestDataWithUrl:filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-                    //            NSLog(@"====responseObject:::%@===",responseObject);
-                    NSString *play_url = responseObject[@"play_url"];
-                    DONG_Log(@"responseObject:%@",play_url);
-                    //请求将播放地址域名转换  并拼接最终的播放地址
-                    NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                    
-                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-                    //1.拼接新地址
-                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-                    self.url = [NSURL URLWithString:playUrl];
-                    //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-                    
-                    //2.调用播放器播放
-                    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-                    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                    //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
-                    _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
-                    [self.view addSubview:_IJKPlayerViewController.view];
-                    
-                    DONG_WeakSelf(self);
-                    //1.全屏锁定回调
-                    weakself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
-                        DONG_StrongSelf(self);
-                        strongself.fullScreenLock = isFullScreenLock;
-                    };
-                    //2.添加播放记录的回调
-                    weakself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
-                        DONG_StrongSelf(self);
-                        [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
-                    };
-                    //3.推屏的回调
-                    weakself.IJKPlayerViewController.pushScreenBlock = ^{
-                        // 未连接设备时要先扫描设备
-                        if (XMPPManager.isConnected) {
-                            NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
-                            NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
-                            //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
-                            [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
-                            
-                        } else {
-                            
-                            [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
-                            
-                            //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                            //[alertView show];
-                            //alertView.delegate = weakself;
-                        }
-                    };
-                    // 4.暂停广告
-                    self.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
-                    for (SCAdvertisemetPosModel *adPosModel in self.advertisementArray) {
-                        // 选择暂停广告：706
-                        if ([adPosModel._pos isEqualToString:@"706"]) {
-                            
-                            if (adPosModel.adMediaInfoArray.count) {
-                                // 暂停广告有多条
-                                SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
-                                NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
-                                [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                    //请求第一集的播放地址
+                    [requestDataManager requestDataWithUrl:filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+                        //            NSLog(@"====responseObject:::%@===",responseObject);
+                        NSString *play_url = responseObject[@"play_url"];
+                        DONG_Log(@"responseObject:%@",play_url);
+                        //请求将播放地址域名转换  并拼接最终的播放地址
+                        NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+                        
+                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                        //1.拼接新地址
+                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                        self.url = [NSURL URLWithString:playUrl];
+                        //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+                        
+                        //2.调用播放器播放
+                        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                        //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                        _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
+                        [self.view addSubview:_IJKPlayerViewController.view];
+                        
+                        DONG_WeakSelf(self);
+                        //1.全屏锁定回调
+                        weakself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+                            DONG_StrongSelf(self);
+                            strongself.fullScreenLock = isFullScreenLock;
+                        };
+                        //2.添加播放记录的回调
+                        weakself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
+                            DONG_StrongSelf(self);
+                            [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
+                        };
+                        //3.推屏的回调
+                        weakself.IJKPlayerViewController.pushScreenBlock = ^{
+                            // 未连接设备时要先扫描设备
+                            if (XMPPManager.isConnected) {
+                                NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+                                NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
+                                //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                                [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
                                 
                             } else {
-                                // 暂停广告只一条
-                                NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
-                                [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
                                 
+                                [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                                
+                                //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                                //[alertView show];
+                                //alertView.delegate = weakself;
                             }
-                            
-                            break;
+                        };
+                        // 4.暂停广告
+                        self.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
+                        for (SCAdvertisemetPosModel *adPosModel in self.advertisementArray) {
+                            // 选择暂停广告：706
+                            if ([adPosModel._pos isEqualToString:@"706"]) {
+                                
+                                if (adPosModel.adMediaInfoArray.count) {
+                                    // 暂停广告有多条
+                                    SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
+                                    NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
+                                    [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                                    
+                                } else {
+                                    // 暂停广告只一条
+                                    NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
+                                    [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                                    
+                                }
+                                
+                                break;
+                            }
                         }
-                    }
-                    
-                    
-                    [CommonFunc dismiss];
-                } failure:^(id  _Nullable errorObject) {
-                    [CommonFunc dismiss];
-                }];
-            }
+                        
+                        
+                        [CommonFunc dismiss];
+                    } failure:^(id  _Nullable errorObject) {
+                        [CommonFunc dismiss];
+                    }];
+                }
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+                [CommonFunc dismiss];
+            }];
             
-        } failure:^(id  _Nullable errorObject) {
+        } failure:^(NSError *error) {
             
             [CommonFunc dismiss];
         }];
         
-    } failure:^(NSError *error) {
+    } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
+        
     }];
 }
 
@@ -1740,126 +1758,332 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     
     [CommonFunc showLoadingWithTips:@""];
     DONG_WeakSelf(self);
-    self.hljRequest = [HLJRequest requestWithPlayVideoURL:ArtsAndLifeSourceUrl];
-    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            DONG_StrongSelf(self);
-            //            NSLog(@"====responseObject======%@===",responseObject);
-            [strongself.filmsArr removeAllObjects];
-            if (responseObject) {
-                
-                //介绍页model
-                strongself.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"ParentFilm"]];
-                
-                if ([responseObject[@"Film"] isKindOfClass:[NSDictionary class]]){
+    
+    // 域名获取
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:ArtsAndLifeSourceUrl key:@"skdbpd" success:^(id  _Nullable newUrlString) {
+        
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+            
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                DONG_StrongSelf(self);
+                //            NSLog(@"====responseObject======%@===",responseObject);
+                [strongself.filmsArr removeAllObjects];
+                if (responseObject) {
                     
-                    SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:responseObject[@"Film"]];
-                    model.onLive = YES;
-                    [strongself.filmsArr addObject:model];
+                    //介绍页model
+                    strongself.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"ParentFilm"]];
                     
-                }else if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]){
-                    
-                    [responseObject[@"Film"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([responseObject[@"Film"] isKindOfClass:[NSDictionary class]]){
                         
-                        NSDictionary *dic = obj;
-                        SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:dic];
-                        //                        if (idx == 0) {
-                        //                            model.onLive = YES;
-                        //                        }
+                        SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:responseObject[@"Film"]];
+                        model.onLive = YES;
                         [strongself.filmsArr addObject:model];
+                        
+                    }else if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]){
+                        
+                        [responseObject[@"Film"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            
+                            NSDictionary *dic = obj;
+                            SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:dic];
+                            //                        if (idx == 0) {
+                            //                            model.onLive = YES;
+                            //                        }
+                            [strongself.filmsArr addObject:model];
+                        }];
+                    }
+                }
+                strongself.titleArr = @[@"剧情", @"详情"];
+                strongself.identifier = @"综艺";
+                
+                //4.添加滑动headerView
+                [strongself constructSlideHeaderView];
+                [strongself constructContentView];
+                
+                SCFilmModel *artsFilmModel = nil;
+                
+                /*
+                 * 如 jiIndex > 1 则为由观看记录进入(_filmModel.jiIndex初始值为0)
+                 * 需要定位播放焦点
+                 * 通过发送通知定位 _filmModel不用改变
+                 */
+                if (_filmModel.jiIndex > 1) {
+                    if (_filmModel.jiIndex - 1 < self.filmsArr.count) {
+                        
+                        artsFilmModel = self.filmsArr[_filmModel.jiIndex - 1];
+                        NSString *VODIndex2 = [NSString stringWithFormat:@"%lu",_filmModel.jiIndex - 1];
+                        
+                        NSDictionary *message = @{@"filmModel" : artsFilmModel,
+                                                  @"VODIndex" : VODIndex2};
+                        
+                        [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
+                        
+                        /*
+                         * 比较乱
+                         *
+                         * 当从观看记录播放时，filmModel是没有SourceURL的，如果此时添加到收藏或者节目单 再从收藏或节目单播放时，
+                         * filmModel.SourceURL为空则无法播放，所以这里要给filmModel.SourceURL赋值
+                         *
+                         * VODIndex需要矫正 不矫正时VODIndex=0 自动播放下一个节目时焦点位置会出错
+                         *
+                         */
+                        
+                        _filmModel.SourceURL = artsFilmModel.SourceURL;
+                        VODIndex = _filmModel.jiIndex - 1;
+                    }
+                    
+                } else {
+                    
+                    artsFilmModel = [strongself.filmsArr firstObject];
+                    artsFilmModel.onLive = YES;
+                    _filmModel = artsFilmModel;
+                    _filmModel.jiIndex = 1;
+                }
+                
+                //请求播放地址
+                NSString *urlStr = [artsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                //获取downLoadUrl
+                [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
+                    
+                    NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+                    
+                    //获取fid
+                    NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+                    //base64编码downloadUrl
+                    NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
+                    //视频播放url
+                    NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
+                    NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:artsFilmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                    //获取play_url
+                    [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+                        //            NSLog(@"====responseObject:::%@===",responseObject);
+                        NSString *play_url = responseObject[@"play_url"];
+                        DONG_Log(@"responseObject:%@",play_url);
+                        //请求将播放地址域名转换  并拼接最终的播放地址
+                        NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                        //1.拼接新地址
+                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                        strongself.url = [NSURL URLWithString:playUrl];
+                        //2.调用播放器播放
+                        strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                        strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                        //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
+                        strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = strongself.filmModel.FilmName;//节目名称
+                        [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                        
+                        //1.全屏锁定回调
+                        strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+                            DONG_StrongSelf(self);
+                            strongself.fullScreenLock = isFullScreenLock;
+                        };
+                        //2.添加播放记录的回调
+                        strongself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
+                            DONG_StrongSelf(self);
+                            [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
+                        };
+                        //3.推屏的回调
+                        strongself.IJKPlayerViewController.pushScreenBlock = ^{
+                            // 未连接设备时要先扫描设备
+                            if (XMPPManager.isConnected) {
+                                NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+                                NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
+                                //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                                [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
+                                
+                            } else {
+                                
+                                [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                                
+                                //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                                //[alertView show];
+                                //alertView.delegate = weakself;
+                            }
+                        };
+                        // 4.暂停广告
+                        strongself.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
+                        for (SCAdvertisemetPosModel *adPosModel in strongself.advertisementArray) {
+                            // 选择暂停广告：706
+                            if ([adPosModel._pos isEqualToString:@"706"]) {
+                                
+                                if (adPosModel.adMediaInfoArray.count) {
+                                    // 暂停广告有多条
+                                    SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
+                                    NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
+                                    [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                                    
+                                } else {
+                                    // 暂停广告只一条
+                                    NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
+                                    [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                                    
+                                }
+                                
+                                break;
+                            }
+                        }
+                        
+                        
+                        [CommonFunc dismiss];
+                        
+                    } failure:^(id  _Nullable errorObject) {
+                        [CommonFunc dismiss];
                     }];
+                } failure:^(id  _Nullable errorObject) {
+                    
+                    [CommonFunc dismiss];
+                }];
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+                [CommonFunc dismiss];
+            }];
+            
+        } failure:^(NSError *error) {
+            [CommonFunc dismiss];
+            
+        }];
+        
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+        
+    }];
+    
+}
+
+//电影请求数据
+- (void)getMovieData{
+    
+    [CommonFunc showLoadingWithTips:@""];
+    
+    if (_filmModel._Mid) {
+        _mid = _filmModel._Mid;
+    }else if (_filmModel.mid){
+        _mid = _filmModel.mid;
+    }
+    
+    _filmModel.jiIndex = -1;
+    NSString *filmmidStr = _mid ? _mid : @"";
+    
+    NSDictionary *parameters = @{@"pagesize" : @"1000",
+                                 @"filmmid" : filmmidStr};
+    
+    DONG_WeakSelf(self);
+    
+    // 域名获取
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:FilmSourceUrl key:@"skdbpd" success:^(id  _Nullable newUrlString) {
+        
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+            
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            
+            //请求film详细信息
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                //            DONG_Log(@"====responseObject:::%@===",responseObject);
+                
+                DONG_StrongSelf(self);
+                //介绍页model
+                strongself.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
+                
+                // 坑：：单片不同film竟然数据结构不同 服了！
+                //downloadUrl
+                NSString *downloadUrl;
+                if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
+                    
+                    downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+                    
+                }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
+                    
+                    downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
                 }
-            }
-            strongself.titleArr = @[@"剧情", @"详情"];
-            strongself.identifier = @"综艺";
-            
-            //4.添加滑动headerView
-            [strongself constructSlideHeaderView];
-            [strongself constructContentView];
-            
-            SCFilmModel *artsFilmModel = nil;
-            
-            /*
-             * 如 jiIndex > 1 则为由观看记录进入(_filmModel.jiIndex初始值为0)
-             * 需要定位播放焦点
-             * 通过发送通知定位 _filmModel不用改变
-             */
-            if (_filmModel.jiIndex > 1) {
-                if (_filmModel.jiIndex - 1 < self.filmsArr.count) {
-                    
-                    artsFilmModel = self.filmsArr[_filmModel.jiIndex - 1];
-                    NSString *VODIndex2 = [NSString stringWithFormat:@"%lu",_filmModel.jiIndex - 1];
-                    
-                    NSDictionary *message = @{@"filmModel" : artsFilmModel,
-                                              @"VODIndex" : VODIndex2};
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
-                    
-                    /*
-                     * 比较乱
-                     *
-                     * 当从观看记录播放时，filmModel是没有SourceURL的，如果此时添加到收藏或者节目单 再从收藏或节目单播放时，
-                     * filmModel.SourceURL为空则无法播放，所以这里要给filmModel.SourceURL赋值
-                     *
-                     * VODIndex需要矫正 不矫正时VODIndex=0 自动播放下一个节目时焦点位置会出错
-                     *
-                     */
-                    
-                    _filmModel.SourceURL = artsFilmModel.SourceURL;
-                    VODIndex = _filmModel.jiIndex - 1;
-                }
                 
-            } else {
-                
-                artsFilmModel = [strongself.filmsArr firstObject];
-                artsFilmModel.onLive = YES;
-                _filmModel = artsFilmModel;
-                _filmModel.jiIndex = 1;
-            }
-            
-            //请求播放地址
-            NSString *urlStr = [artsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            //获取downLoadUrl
-            [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
-                
-                NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+                //base64编码downloadUrl
+                NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
                 
                 //获取fid
-                NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
-                //base64编码downloadUrl
-                NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
-                //视频播放url
+                NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+                
+                //这只是个请求视频播放流的url地址
                 NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
-                NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:artsFilmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
-                //获取play_url
+                NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmmidStr] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                
+                //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
+                //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+                //请求播放地址
                 [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-                    //            NSLog(@"====responseObject:::%@===",responseObject);
+                    //DONG_Log(@"====responseObject:::%@===",responseObject);
+                    
+                    // 处理广告信息
+                    NSDictionary *adinfoDic = responseObject[@"adinfo"];
+                    [_advertisementArray removeAllObjects];
+                    
+                    if (adinfoDic) {
+                        if ([adinfoDic[@"adpos"] isKindOfClass:[NSArray class]]) {
+                            
+                            NSArray *adposArray = adinfoDic[@"adpos"];
+                            if (adposArray.count) {
+                                for (NSDictionary *adUnitDic in adposArray) {
+                                    
+                                    SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adUnitDic];
+                                    
+                                    [_advertisementArray addObject:adPosModel];
+                                    
+                                    DONG_Log(@"adPosModel:%@", adPosModel.adMediaInfo.__text);
+                                }
+                            }
+                            
+                        } else if ([adinfoDic[@"adpos"] isKindOfClass:[NSDictionary class]]) {
+                            
+                            SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adinfoDic[@"adpos"]];
+                            
+                            [_advertisementArray addObject:adPosModel];
+                            
+                        }
+                    }
+                    
                     NSString *play_url = responseObject[@"play_url"];
                     DONG_Log(@"responseObject:%@",play_url);
                     //请求将播放地址域名转换  并拼接最终的播放地址
                     NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                    
                     //1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                     strongself.url = [NSURL URLWithString:playUrl];
                     //2.调用播放器播放
                     strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                     strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                    //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
-                    strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = strongself.filmModel.FilmName;//节目名称
+                    
                     [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                     
-                    //1.全屏锁定回调
+                    NSString *filmName;
+                    if (strongself.filmModel.FilmName) {
+                        filmName = strongself.filmModel.FilmName;
+                    }else if (strongself.filmModel.cnname){
+                        filmName = strongself.filmModel.cnname;
+                    }
+                    
+                    strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;
+                    
+                    // 1.全屏锁定回调
                     strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                         DONG_StrongSelf(self);
                         strongself.fullScreenLock = isFullScreenLock;
                     };
-                    //2.添加播放记录的回调
+                    // 2.添加播放记录的回调
                     strongself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
                         DONG_StrongSelf(self);
                         [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                     };
-                    //3.推屏的回调
+                    // 3.推屏的回调
                     strongself.IJKPlayerViewController.pushScreenBlock = ^{
                         // 未连接设备时要先扫描设备
                         if (XMPPManager.isConnected) {
@@ -1879,6 +2103,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     };
                     // 4.暂停广告
                     strongself.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
+                    
                     for (SCAdvertisemetPosModel *adPosModel in strongself.advertisementArray) {
                         // 选择暂停广告：706
                         if ([adPosModel._pos isEqualToString:@"706"]) {
@@ -1900,207 +2125,33 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         }
                     }
                     
-                    
                     [CommonFunc dismiss];
                     
                 } failure:^(id  _Nullable errorObject) {
                     [CommonFunc dismiss];
                 }];
+                
+                strongself.titleArr = @[@"详情", @"精彩推荐"];
+                strongself.identifier = @"电影";
+                
+                // 4.添加滑动headerView
+                [strongself constructSlideHeaderView];
+                [strongself constructContentView];
+                
             } failure:^(id  _Nullable errorObject) {
                 
                 [CommonFunc dismiss];
             }];
             
-        } failure:^(id  _Nullable errorObject) {
+            
+        } failure:^(NSError *error) {
             
             [CommonFunc dismiss];
+            
         }];
         
-    } failure:^(NSError *error) {
-        [CommonFunc dismiss];
+    } failure:^(id  _Nullable errorObject) {
         
-    }];
-}
-
-//电影请求数据
-- (void)getMovieData{
-    
-    [CommonFunc showLoadingWithTips:@""];
-    
-    if (_filmModel._Mid) {
-        _mid = _filmModel._Mid;
-    }else if (_filmModel.mid){
-        _mid = _filmModel.mid;
-    }
-    
-    _filmModel.jiIndex = -1;
-    NSString *filmmidStr = _mid ? _mid : @"";
-    
-    NSDictionary *parameters = @{@"pagesize" : @"1000",
-                                 @"filmmid" : filmmidStr};
-    
-    DONG_WeakSelf(self);
-    //请求film详细信息
-    self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
-    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-        
-        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            //            DONG_Log(@"====responseObject:::%@===",responseObject);
-            
-            DONG_StrongSelf(self);
-            //介绍页model
-            strongself.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
-            
-            // 坑：：单片不同film竟然数据结构不同 服了！
-            //downloadUrl
-            NSString *downloadUrl;
-            if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
-                
-                downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
-                
-            }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
-                
-                downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
-            }
-            
-            //base64编码downloadUrl
-            NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
-            
-            //获取fid
-            NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
-            
-            //这只是个请求视频播放流的url地址
-            NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
-            NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmmidStr] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
-            
-            //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
-            //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
-            //请求播放地址
-            [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-                DONG_Log(@"====responseObject:::%@===",responseObject);
-                
-                // 处理广告信息
-                NSDictionary *adinfoDic = responseObject[@"adinfo"];
-                [_advertisementArray removeAllObjects];
-                
-                if (adinfoDic) {
-                    if ([adinfoDic[@"adpos"] isKindOfClass:[NSArray class]]) {
-                        
-                        NSArray *adposArray = adinfoDic[@"adpos"];
-                        if (adposArray.count) {
-                            for (NSDictionary *adUnitDic in adposArray) {
-                                
-                                SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adUnitDic];
-                                
-                                [_advertisementArray addObject:adPosModel];
-                                
-                                DONG_Log(@"adPosModel:%@", adPosModel.adMediaInfo.__text);
-                            }
-                        }
-                        
-                    } else if ([adinfoDic[@"adpos"] isKindOfClass:[NSDictionary class]]) {
-                        
-                        SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adinfoDic[@"adpos"]];
-                        
-                        [_advertisementArray addObject:adPosModel];
-                        
-                    }
-                }
-                
-                NSString *play_url = responseObject[@"play_url"];
-                DONG_Log(@"responseObject:%@",play_url);
-                //请求将播放地址域名转换  并拼接最终的播放地址
-                NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                
-                //1.拼接新地址
-                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-                strongself.url = [NSURL URLWithString:playUrl];
-                //2.调用播放器播放
-                strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
-                strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                
-                [strongself.view addSubview:strongself.IJKPlayerViewController.view];
-                
-                NSString *filmName;
-                if (strongself.filmModel.FilmName) {
-                    filmName = strongself.filmModel.FilmName;
-                }else if (strongself.filmModel.cnname){
-                    filmName = strongself.filmModel.cnname;
-                }
-                
-                strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;
-                
-                // 1.全屏锁定回调
-                strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
-                    DONG_StrongSelf(self);
-                    strongself.fullScreenLock = isFullScreenLock;
-                };
-                // 2.添加播放记录的回调
-                strongself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
-                    DONG_StrongSelf(self);
-                    [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
-                };
-                // 3.推屏的回调
-                strongself.IJKPlayerViewController.pushScreenBlock = ^{
-                    // 未连接设备时要先扫描设备
-                    if (XMPPManager.isConnected) {
-                        NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
-                        NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
-                        //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
-                        [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
-                        
-                    } else {
-                        
-                        [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
-                        
-                        //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                        //[alertView show];
-                        //alertView.delegate = weakself;
-                    }
-                };
-                // 4.暂停广告
-                strongself.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
-                
-                for (SCAdvertisemetPosModel *adPosModel in strongself.advertisementArray) {
-                    // 选择暂停广告：706
-                    if ([adPosModel._pos isEqualToString:@"706"]) {
-                        
-                        if (adPosModel.adMediaInfoArray.count) {
-                            // 暂停广告有多条
-                            SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
-                            NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
-                            [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
-                            
-                        } else {
-                            // 暂停广告只一条
-                            NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
-                            [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
-                            
-                        }
-                        
-                        break;
-                    }
-                }
-                
-                [CommonFunc dismiss];
-                
-            } failure:^(id  _Nullable errorObject) {
-                [CommonFunc dismiss];
-            }];
-            
-            strongself.titleArr = @[@"详情", @"精彩推荐"];
-            strongself.identifier = @"电影";
-            
-            // 4.添加滑动headerView
-            [strongself constructSlideHeaderView];
-            [strongself constructContentView];
-            
-        } failure:^(id  _Nullable errorObject) {
-            
-            [CommonFunc dismiss];
-        }];
-        
-    } failure:^(NSError *error) {
         [CommonFunc dismiss];
         
     }];
@@ -2127,7 +2178,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     if (dic) {
         if ([dic[@"info"] isEqualToString:@"当前设备未绑定任何设备!"] || ([dic[@"_value"] isEqualToString:@"sendMsgUnder_unBind"] && [dic[@"_type"] isEqualToString:@"error"])) {
             // 被其他设备挤掉线
-
+            
             [MBProgressHUD showError:@"绑定已被断开，请重新扫码绑定"];
             
         } else if ([dic[@"_type"] isEqualToString:@"TV_Response"] && [dic[@"_value"] isEqualToString:@"tvStartPlayVideoInfo"]) {

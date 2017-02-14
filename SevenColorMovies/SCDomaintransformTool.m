@@ -45,5 +45,25 @@
 }
 
 
+- (nullable NSString *)getNewViedoURLByUrlString:(nullable NSString *)urlString key:(nullable NSString *)key
+{
+    if (_domainNameArray.count) {
+        for (NSDictionary *dic in _domainNameArray) {
+            
+            if ([key isEqualToString:dic[@"_Key"]]) {
+                //DONG_Log(@"urlString:%@",urlString);
+                NSString *tempString = dic[@"SourceUrl"];
+                
+                NSString *newUrlString = [tempString stringByAppendingString:urlString];
+                //DONG_Log(@"newUrlString:%@",newUrlString);
+                
+                return newUrlString;
+                break;
+            }
+        }
+    }
+    return @"";
+}
+
 
 @end

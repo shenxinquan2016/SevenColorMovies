@@ -43,9 +43,9 @@
 #define ToGetProgramHavePastVideoSignalFlowUrl @"/Service.do?action=b2bplayauth&mid=1&sid=1&pid=1&playtype=1500&oemid=30050&hid=&uid=10"
 
 // 电影 电视剧等 sourceUrl
-#define FilmSourceUrl @"http://hljdesktop.voole.com/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=4"
+#define FilmSourceUrl @"/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=4"
 // 综艺 生活栏目  sourceUrl
-#define ArtsAndLifeSourceUrl @"http://hljdesktop.voole.com/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=102"
+#define ArtsAndLifeSourceUrl @"/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=102"
 // 推荐影片接口
 #define RecommendUrl @"http://10.177.1.236:9040?epgid=909191&format=1&type=1&limit=6"
 
