@@ -249,14 +249,14 @@ static const CGFloat LabelWidth = 95.f;
     [CommonFunc showLoadingWithTips:@""];
     
     // 域名获取
-    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:LivePageUrl success:^(id  _Nullable newUrlString) {
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:LivePageUrl key:@"sklivelist" success:^(id  _Nullable newUrlString) {
         
-        //DONG_Log(@"newUrlString:%@",newUrlString);
+        DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
         _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
         [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
-            //DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
                 

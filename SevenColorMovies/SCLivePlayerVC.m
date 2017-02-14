@@ -186,7 +186,7 @@ static const CGFloat LabelWidth = 55.f;
     }
     
     [navController popToRootViewControllerAnimated:YES];
-
+    
 }
 
 
@@ -547,7 +547,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         case IJKMPMoviePlaybackStateSeekingBackward: {
             NSLog(@"IJKMPMoviePlayBackStateDidChange %d: seeking", (int)_IJKPlayerViewController.player.playbackState);
             
-           
+            
             
             break;
         }
@@ -642,7 +642,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
             _IJKPlayerViewController.mediaControl.frame = self.view.frame;
             [self.view bringSubviewToFront:_IJKPlayerViewController.view];
-             DONG_Log(@"全屏");
+            DONG_Log(@"全屏");
             break;
             
         case UIDeviceOrientationPortraitUpsideDown:
@@ -675,105 +675,127 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 - (void)getLiveChannelData
 {
     [CommonFunc showLoadingWithTips:@""];
-    NSDictionary *parameters = @{@"tvid" : self.filmModel._TvId ? self.filmModel._TvId : @""};
-    [requestDataManager requestDataWithUrl:LiveProgramList parameters:parameters success:^(id  _Nullable responseObject) {
-        NSLog(@"====responseObject:::%@===",responseObject);
-        [_dataSourceArr removeAllObjects];
-        NSArray *array = responseObject[@"FilmClass"][@"FilmlistSet"];
-        if (array.count > 0) {
+    
+    // 域名获取
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:LiveProgramList key:@"sklive" success:^(id  _Nullable newUrlString) {
+        
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
-            [_titleArr removeAllObjects];
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
-            for (NSDictionary *dic in array) {
-                
-                NSString *dateStr = dic[@"_Date"];
-                //按格式如:08.28 获取滑动标题头
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                formatter.dateFormat = @"yyyy-MM-dd";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
-                NSDate *date = [formatter dateFromString:dateStr];
-                formatter.dateFormat = @"MM.dd";
-                NSString *dateString = [formatter stringFromDate:date];
-                
-                [_titleArr addObject:dateString];
-                
-                //以下获取program信息
-                NSArray *arr = dic[@"Film"];
-                if (arr.count > 0) {
-                    [_programModelArr removeAllObjects];
-                    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                        NSDictionary *dic1 = obj;
+            NSDictionary *parameters = @{@"tvid" : self.filmModel._TvId ? self.filmModel._TvId : @""};
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                //NSLog(@"====responseObject:::%@===",responseObject);
+                [_dataSourceArr removeAllObjects];
+                NSArray *array = responseObject[@"FilmClass"][@"FilmlistSet"];
+                if (array.count > 0) {
+                    
+                    [_titleArr removeAllObjects];
+                    
+                    for (NSDictionary *dic in array) {
                         
-                        SCLiveProgramModel *programModel = [[SCLiveProgramModel alloc] init];
-                        
-                        programModel.onLive = NO;
-                        //节目名称
-                        programModel.programName = dic1[@"FilmName"];
-                        NSString *forecastDateString = dic1[@"_ForecastDate"];
-                        //按格式如:10:05 获取时间
+                        NSString *dateStr = dic[@"_Date"];
+                        //按格式如:08.28 获取滑动标题头
                         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
-                        NSDate *pragramDate = [formatter dateFromString:forecastDateString];
-                        formatter.dateFormat = @"HH:mm";
-                        NSString *timeString = [formatter stringFromDate:pragramDate];
-                        programModel.programTime = timeString;
-                        programModel.startTime = forecastDateString;
+                        formatter.dateFormat = @"yyyy-MM-dd";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+                        NSDate *date = [formatter dateFromString:dateStr];
+                        formatter.dateFormat = @"MM.dd";
+                        NSString *dateString = [formatter stringFromDate:date];
                         
+                        [_titleArr addObject:dateString];
                         
-                        DONG_Log(@"programModel.startTime:%@", programModel.startTime);
-                        
-                        //获取节目状态
-                        //1.当前时间
-                        NSDate *currenDate = [NSDate date];
-                        //2.日期比较
-                        NSTimeInterval secondsInterval = [currenDate timeIntervalSinceDate:pragramDate];
-                        
-                        if (secondsInterval >= 0) {
-                            if (idx+1 < arr.count) {
-                                //获取下一个节目的开始时间
-                                NSDictionary *dic2 = arr[idx+1];
-                                NSString *forecastDateString2 = dic2[@"_ForecastDate"];
-                                programModel.endTime = forecastDateString2;//下一个开始即上一个结束时间
-                                formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
-                                NSDate *pragramDate2 = [formatter dateFromString:forecastDateString2];
-                                //日期比较
-                                NSTimeInterval secondsInterval2 = [currenDate timeIntervalSinceDate:pragramDate2];
+                        //以下获取program信息
+                        NSArray *arr = dic[@"Film"];
+                        if (arr.count > 0) {
+                            [_programModelArr removeAllObjects];
+                            [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                NSDictionary *dic1 = obj;
                                 
-                                if (secondsInterval2 < 0) {//当前时间比当前节目的开始时间晚且比下一个节目的开始时间早，当前节目即为正在播出节目
-                                    
-                                    programModel.programState = NowPlaying;
-                                    programModel.onLive = YES;
-                                    _index = idx;//正在播出节目的index
-                                    programOnLiveName_ = programModel.programName;//保存正在播出的节目的名称
-                                    
-                                    [[NSUserDefaults standardUserDefaults] setInteger:_index forKey:k_for_Live_selectedCellIndex];//被选中的行
-                                    [[NSUserDefaults standardUserDefaults] synchronize];
-                                    
+                                SCLiveProgramModel *programModel = [[SCLiveProgramModel alloc] init];
+                                
+                                programModel.onLive = NO;
+                                //节目名称
+                                programModel.programName = dic1[@"FilmName"];
+                                NSString *forecastDateString = dic1[@"_ForecastDate"];
+                                //按格式如:10:05 获取时间
+                                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                                formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+                                NSDate *pragramDate = [formatter dateFromString:forecastDateString];
+                                formatter.dateFormat = @"HH:mm";
+                                NSString *timeString = [formatter stringFromDate:pragramDate];
+                                programModel.programTime = timeString;
+                                programModel.startTime = forecastDateString;
+                                
+                                
+                                DONG_Log(@"programModel.startTime:%@", programModel.startTime);
+                                
+                                //获取节目状态
+                                //1.当前时间
+                                NSDate *currenDate = [NSDate date];
+                                //2.日期比较
+                                NSTimeInterval secondsInterval = [currenDate timeIntervalSinceDate:pragramDate];
+                                
+                                if (secondsInterval >= 0) {
+                                    if (idx+1 < arr.count) {
+                                        //获取下一个节目的开始时间
+                                        NSDictionary *dic2 = arr[idx+1];
+                                        NSString *forecastDateString2 = dic2[@"_ForecastDate"];
+                                        programModel.endTime = forecastDateString2;//下一个开始即上一个结束时间
+                                        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";//格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+                                        NSDate *pragramDate2 = [formatter dateFromString:forecastDateString2];
+                                        //日期比较
+                                        NSTimeInterval secondsInterval2 = [currenDate timeIntervalSinceDate:pragramDate2];
+                                        
+                                        if (secondsInterval2 < 0) {//当前时间比当前节目的开始时间晚且比下一个节目的开始时间早，当前节目即为正在播出节目
+                                            
+                                            programModel.programState = NowPlaying;
+                                            programModel.onLive = YES;
+                                            _index = idx;//正在播出节目的index
+                                            programOnLiveName_ = programModel.programName;//保存正在播出的节目的名称
+                                            
+                                            [[NSUserDefaults standardUserDefaults] setInteger:_index forKey:k_for_Live_selectedCellIndex];//被选中的行
+                                            [[NSUserDefaults standardUserDefaults] synchronize];
+                                            
+                                        }else{
+                                            programModel.programState = HavePast;
+                                        }
+                                    }
                                 }else{
-                                    programModel.programState = HavePast;
+                                    programModel.programState = WillPlay;
                                 }
-                            }
-                        }else{
-                            programModel.programState = WillPlay;
+                                
+                                [_programModelArr addObject:programModel];
+                                
+                                //NSLog(@"====responseObject:::%@=%lu==",timeString,(unsigned long)programModel.programState);
+                            }];
                         }
                         
-                        [_programModelArr addObject:programModel];
-                        
-                        //NSLog(@"====responseObject:::%@=%lu==",timeString,(unsigned long)programModel.programState);
-                    }];
+                        [_dataSourceArr addObject:[_programModelArr copy]];
+                    }
                 }
                 
-                [_dataSourceArr addObject:[_programModelArr copy]];
-            }
-        }
-        
-        //0.请求该频道直播流url
-        [self getLiveVideoSignalFlowUrl];
-        //1.添加滑动headerView
-        [self constructSlideHeaderView];
-        //2.添加contentScrllowView
-        [self constructContentView];
+                //0.请求该频道直播流url
+                [self getLiveVideoSignalFlowUrl];
+                //1.添加滑动headerView
+                [self constructSlideHeaderView];
+                //2.添加contentScrllowView
+                [self constructContentView];
+                
+            } failure:^(id  _Nullable errorObject) {
+                [CommonFunc dismiss];
+                
+            }];
+        } failure:^(NSError *error) {
+            
+            [CommonFunc dismiss];
+            
+        }];
         
     } failure:^(id  _Nullable errorObject) {
+        
         [CommonFunc dismiss];
         
     }];
@@ -793,92 +815,103 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     // 3.请求播放地址url
     NSString *fidStr = [[_filmModel._TvId stringByAppendingString:@"_"] stringByAppendingString:_filmModel._TvId];
-   // [MBProgressHUD showError:fidStr];
+    // [MBProgressHUD showError:fidStr];
     //hid = 设备的mac地址
     
     NSString *uuidStr = [HLJUUID getUUID];
     
     NSDictionary *parameters = @{@"fid" : fidStr? fidStr : @"",
                                  @"hid" : uuidStr? uuidStr : @""};
-    self.hljRequest = [HLJRequest requestWithPlayVideoURL:ToGetLiveVideoSignalFlowUrl];
-    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
     
-        DONG_Log(@">>>>>>>Live>>>newVideoUrl:%@", newVideoUrl);
+    // 域名获取
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:ToGetLiveVideoSignalFlowUrl key:@"playauth" success:^(id  _Nullable newUrlString) {
         
-        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            //DONG_Log(@"====responseObject:::%@===",responseObject);
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
-            NSString *liveUrl = responseObject[@"play_url"];
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
-            NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
-            
-//            NSString *newLiveUrl = @"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1100&mid=1&sid=1&pid=1&uid=10&oemid=30050&hid=dc:ee:06:c9:8b:a6&fid=160_160&ext=c3RpbWU9MTQ4NjM0MjYwNyZwb3J0PTU2NTYmZXh0PW9pZDozMDA1MA&time=10000&proto=11&key=dc:ee:06:c9:8b:a600000000000000000000000_tv_160.m3u8";
-            
-            DONG_Log(@">>>>>>直播节目播放url>>>>>%@>>>>>>>",newLiveUrl);
-            
-            
-            // 4.移除当前的播放器
-            [self.IJKPlayerViewController closePlayer];
-           
-            // 5.开始播放直播
-            self.url = [NSURL URLWithString:newLiveUrl];
-            //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
-            _IJKPlayerViewController.mediaControl.liveState = Live;
-            _IJKPlayerViewController.mediaControl.isLive = YES;
-            
-            // 6.推屏的回调
-            DONG_WeakSelf(self);
-            self.IJKPlayerViewController.pushScreenBlock = ^{
-                // 未连接设备时要先扫描设备
-                if (XMPPManager.isConnected) {
-                    
-                    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
-                    [weakself getLivePushScreenXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
-                        
-                        //[TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
-                        [XMPPManager sendMessageWithBody:responseObject andToName:toName andType:@"text"];
-                    }];
-                    
-                } else {
-                    
-                    [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
-                    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                    //[alertView show];
-                    //alertView.delegate = weakself;
-                    
-                }
-            };
-          
-            // 7.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
-            self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
-                DONG_StrongSelf(self);
-                strongself.fullScreenLock = isFullScreenLock;
-                [strongself shouldAutorotate];
-            };
-            
-            // 8.时移的回调
-            self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState, int positionTime) {
-                DONG_Log(@"liveState:%@", liveState);
-                if ([liveState isEqualToString:@"timeShift"]) {
-                    // 进入时移
-                    [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
-                }
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                DONG_Log(@"====responseObject:::%@===",responseObject);
                 
-            };
-
-            [self.view addSubview:_IJKPlayerViewController.view];
+                NSString *liveUrl = responseObject[@"play_url"];
+                
+                NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
+                
+                //            NSString *newLiveUrl = @"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1100&mid=1&sid=1&pid=1&uid=10&oemid=30050&hid=dc:ee:06:c9:8b:a6&fid=160_160&ext=c3RpbWU9MTQ4NjM0MjYwNyZwb3J0PTU2NTYmZXh0PW9pZDozMDA1MA&time=10000&proto=11&key=dc:ee:06:c9:8b:a600000000000000000000000_tv_160.m3u8";
+                
+                DONG_Log(@">>>>>>直播节目播放url>>>>>%@>>>>>>>",newLiveUrl);
+                
+                
+                // 4.移除当前的播放器
+                [self.IJKPlayerViewController closePlayer];
+                
+                // 5.开始播放直播
+                self.url = [NSURL URLWithString:newLiveUrl];
+                //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+                self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+                _IJKPlayerViewController.mediaControl.liveState = Live;
+                _IJKPlayerViewController.mediaControl.isLive = YES;
+                
+                // 6.推屏的回调
+                DONG_WeakSelf(self);
+                self.IJKPlayerViewController.pushScreenBlock = ^{
+                    // 未连接设备时要先扫描设备
+                    if (XMPPManager.isConnected) {
+                        
+                        NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+                        [weakself getLivePushScreenXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
+                            
+                            //[TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
+                            [XMPPManager sendMessageWithBody:responseObject andToName:toName andType:@"text"];
+                        }];
+                        
+                    } else {
+                        
+                        [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                        //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                        //[alertView show];
+                        //alertView.delegate = weakself;
+                        
+                    }
+                };
+                
+                // 7.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+                self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+                    DONG_StrongSelf(self);
+                    strongself.fullScreenLock = isFullScreenLock;
+                    [strongself shouldAutorotate];
+                };
+                
+                // 8.时移的回调
+                self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState, int positionTime) {
+                    DONG_Log(@"liveState:%@", liveState);
+                    if ([liveState isEqualToString:@"timeShift"]) {
+                        // 进入时移
+                        [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
+                    }
+                    
+                };
+                
+                [self.view addSubview:_IJKPlayerViewController.view];
+                
+                [CommonFunc dismiss];
+            } failure:^(id  _Nullable errorObject) {
+                [CommonFunc dismiss];
+                
+            }];
+        } failure:^(NSError *error) {
             
             [CommonFunc dismiss];
-        } failure:^(id  _Nullable errorObject) {
-            [CommonFunc dismiss];
-            
         }];
-    } failure:^(NSError *error) {
+    } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
+        
     }];
 }
 
@@ -919,7 +952,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                  @"fid" : fidStr};
     
     NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:ToGetLiveTimeShiftVideoSignalFlowUrl];
-
+    
     DONG_Log(@"newVideoUrl:%@",newVideoUrl);
     
     [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
@@ -987,7 +1020,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         };
         
         [self.view addSubview:_IJKPlayerViewController.view];
-
+        
         
         [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
@@ -1007,7 +1040,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     // 2.加载动画
     [CommonFunc showLoadingWithTips:@"视频加载中..."];
-   
+    
     // 3.请求播放地址url
     DONG_Log(@"<<<<<<<<<<<<<<播放新节目:%@>>>下一个节目：%@>>>>>>>>",model1.programName, model2.programName);
     DONG_Log(@"model1.startTime:%@   model2.startTime:%@",model1.startTime,model2.startTime);
@@ -1034,7 +1067,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:ToGetProgramHavePastVideoSignalFlowUrl];
     DONG_Log(@"newVideoUrl：%@ ",newVideoUrl);
     [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-                 NSLog(@"====responseObject:::%@===",responseObject);
+        NSLog(@"====responseObject:::%@===",responseObject);
         
         NSString *liveUrl = responseObject[@"play_url"];
         
@@ -1045,7 +1078,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         
         // 5.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
-       
+        
         // 6.加载新的播放器开始播放
         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
         self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
@@ -1076,14 +1109,14 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 
             }
         };
-
+        
         // 8.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
         self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
             DONG_StrongSelf(self);
             strongself.fullScreenLock = isFullScreenLock;
             [strongself shouldAutorotate];
         };
-
+        
         [self.view addSubview:self.IJKPlayerViewController.view];
         
         [CommonFunc dismiss];
@@ -1126,7 +1159,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             });
             
         } else if ([dic[@"_targetName"] isEqualToString:@"com.hlj.live.action"]) {
-           
+            
             // 推屏的返回消息
             DONG_MAIN(^{
                 [MBProgressHUD showSuccess:@"推屏成功"];
@@ -1194,7 +1227,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                     NSString *playingType;
                     NSString *currentPlayTime;
                     if (_IJKPlayerViewController.mediaControl.liveState == TimeShift) {
-                       
+                        
                         playingType = @"timeshift";
                         // 格林尼治时间
                         NSDate *date = [NSDate date];
@@ -1215,19 +1248,19 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                     NSString *sid       = @"1";
                     NSString *tvId      = sequence;
                     NSString *startTime = @"";
-                   
+                    
                     xmlString = [self getXMLStringCommandWithFilmName:programOnLiveName_ mid:mid sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:nil targetName:targetName playingType:playingType];
                     
                     backStr(xmlString);
                 }
             }
         }
-
+        
     } failure:^(id  _Nullable errorObject) {
         
         
     }];
-
+    
 }
 
 /** 回看推屏 */
@@ -1260,11 +1293,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                     DONG_Log(@"startTime:%@", startTime);
                     DONG_Log(@"endTime:%@", endTime);
                     
-//                    NSDate *date1 = [NSDate getDateWithTimeStamp:startTime];
-//                    NSDate *date2 = [NSDate getDateWithTimeStamp:endTime];
-//                    
-//                    DONG_Log(@"date1:%@", date1);
-//                    DONG_Log(@"date2:%@", date2);
+                    //                    NSDate *date1 = [NSDate getDateWithTimeStamp:startTime];
+                    //                    NSDate *date2 = [NSDate getDateWithTimeStamp:endTime];
+                    //
+                    //                    DONG_Log(@"date1:%@", date1);
+                    //                    DONG_Log(@"date2:%@", date2);
                     
                     NSString *currentPlayTime = [NSString stringWithFormat:@"%.0f", self.IJKPlayerViewController.player.currentPlaybackTime * 1000];
                     

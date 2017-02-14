@@ -158,7 +158,7 @@ static NSString *const footerId = @"footerId";
     [_bannerFilmModelArr removeAllObjects];
     
     // 域名获取
-    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:HomePageUrl success:^(id  _Nullable newUrlString) {
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:HomePageUrl key:@"tv_cs_union" success:^(id  _Nullable newUrlString) {
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换

@@ -16,7 +16,7 @@
 
 @implementation SCDomaintransformTool
 
-- (void)getNewDomainByUrlString:(nullable NSString *)urlString success:(nullable void(^)(id _Nullable newUrlString))success failure:(nullable void(^)(id _Nullable errorObject))faild
+- (void)getNewDomainByUrlString:(nullable NSString *)urlString key:(nullable NSString *)key success:(nullable void(^)(id _Nullable newUrlString))success failure:(nullable void(^)(id _Nullable errorObject))faild
 {
     [requestDataManager requestDataWithUrl:DynamicDomainEntrance parameters:nil success:^(id  _Nullable responseObject) {
 //        DONG_Log(@"responseObject:%@",responseObject);
@@ -24,12 +24,12 @@
         if (_domainNameArray.count) {
             for (NSDictionary *dic in _domainNameArray) {
                 
-                if ([urlString containsString:dic[@"_Key"]]) {
+                if ([key isEqualToString:dic[@"_Key"]]) {
                     //DONG_Log(@"urlString:%@",urlString);
                     NSString *tempString = dic[@"SourceUrl"];
-                    NSString *domainString = [[tempString componentsSeparatedByString:@"//"] lastObject];
-                    NSString *newUrlString = [urlString stringByReplacingOccurrencesOfString:dic[@"_Key"] withString:domainString];
-                    DONG_Log(@"newUrlString:%@",newUrlString);
+                    
+                    NSString *newUrlString = [tempString stringByAppendingString:urlString];
+                    //DONG_Log(@"newUrlString:%@",newUrlString);
                     
                     success(newUrlString);
                     break;

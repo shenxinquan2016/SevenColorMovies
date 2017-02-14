@@ -10,6 +10,6 @@
 
 @interface SCDomaintransformTool : NSObject
 
-- (void)getNewDomainByUrlString:(nullable NSString *)urlString success:(nullable void(^)(id _Nullable newUrlString))success failure:(nullable void(^)(id _Nullable errorObject))faild;
+- (void)getNewDomainByUrlString:(nullable NSString *)urlString key:(nullable NSString *)key success:(nullable void(^)(id _Nullable newUrlString))success failure:(nullable void(^)(id _Nullable errorObject))faild;
 
 @end
