@@ -38,9 +38,9 @@
 // 获取直播节目播放流url接口
 #define ToGetLiveVideoSignalFlowUrl @"/Service.do?action=b2bplayauth&playtype=1000&mid=1&sid=1&pid=1&uid=10&oemid=30050"
 // 获取时移播放流接口
-#define ToGetLiveTimeShiftVideoSignalFlowUrl @"http://userauthb2b.voole.com/Service.do?action=b2bplayauth&playtype=1100&mid=1&sid=1&pid=1&uid=10&oemid=30050"
+#define ToGetLiveTimeShiftVideoSignalFlowUrl @"/Service.do?action=b2bplayauth&playtype=1100&mid=1&sid=1&pid=1&uid=10&oemid=30050"
 // 获取回看节目播放流url接口
-#define ToGetProgramHavePastVideoSignalFlowUrl @"http://userauthb2b.voole.com/Service.do?action=b2bplayauth&mid=1&sid=1&pid=1&playtype=1500&oemid=30050&hid=&uid=10"
+#define ToGetProgramHavePastVideoSignalFlowUrl @"/Service.do?action=b2bplayauth&mid=1&sid=1&pid=1&playtype=1500&oemid=30050&hid=&uid=10"
 
 // 电影 电视剧等 sourceUrl
 #define FilmSourceUrl @"http://hljdesktop.voole.com/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=4"
