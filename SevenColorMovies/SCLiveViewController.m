@@ -31,6 +31,7 @@ static const CGFloat LabelWidth = 95.f;
 @property (nonatomic, strong) CALayer *bottomLine;
 /** 在当前页设置点击顶部滚动复位 */
 @property (nonatomic, strong) SCLivePageCollectionVC *needScrollToTopPage;
+@property (nonatomic, strong) HLJRequest *hljRequest;
 
 @end
 
@@ -246,98 +247,118 @@ static const CGFloat LabelWidth = 95.f;
 - (void)getLiveClassListData
 {
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager requestDataWithUrl:LivePageUrl parameters:nil success:^(id  _Nullable responseObject) {
+    
+    // 域名获取
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:LivePageUrl success:^(id  _Nullable newUrlString) {
         
-        //DONG_Log(@"==========dic:::%@========",responseObject);
-        if (responseObject) {
-            NSArray *array = responseObject[@"LiveTvSort"];
+        //DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
-            for (NSDictionary *dic in array) {
+            //DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
                 
-                if (dic[@"LiveTv"]) {
-                    // 收集标题
-                    [_titleArr addObject:dic[@"_AssortName"]];
+                //DONG_Log(@"==========dic:::%@========",responseObject);
+                if (responseObject) {
+                    NSArray *array = responseObject[@"LiveTvSort"];
                     
-                    if ( [dic[@"LiveTv"] isKindOfClass:[NSArray class]]) {
+                    for (NSDictionary *dic in array) {
                         
-                        NSArray *arr = dic[@"LiveTv"];
-                        
-                        [_filmModelArr removeAllObjects];
-                        
-                        for (NSDictionary *dic in arr) {
-                            //获取filmModel
-                            SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                        if (dic[@"LiveTv"]) {
+                            // 收集标题
+                            [_titleArr addObject:dic[@"_AssortName"]];
                             
-                            //获取播放列表
-                            if ([dic[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
-                                NSArray *array = dic[@"ContentSet"][@"Content"];
+                            if ( [dic[@"LiveTv"] isKindOfClass:[NSArray class]]) {
                                 
-                                //循环比较当前时间与节目的开始时间和结束时间的关系 开始时间 < 当前时间 < 结束时间 则该节目为正在播放节目 并得出即将播出节目
+                                NSArray *arr = dic[@"LiveTv"];
                                 
-                                __block NSUInteger index;
-                                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                                    NSDictionary *dic1 = obj;
+                                [_filmModelArr removeAllObjects];
+                                
+                                for (NSDictionary *dic in arr) {
+                                    //获取filmModel
+                                    SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
                                     
-                                    //0.时间字符串
-                                    NSString *timeBeginString = dic1[@"_PlayerTime"];
-                                    NSString *timeEndString = dic1[@"_StopTime"];
-                                    //1.创建一个时间格式化对象
-                                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                                    //2.格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
-                                    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-                                    //3.利用时间格式化对象让字符串转换成时间 (自动转换0时区/东加西减)
-                                    NSDate *timeBeginDate = [formatter dateFromString:timeBeginString];
-                                    NSDate *timeEndDate = [formatter dateFromString:timeEndString];
-                                    //4.当前时间
-                                    NSDate *currenDate = [NSDate date];
-                                    //5.日期比较
-                                    NSTimeInterval secondsInterval1 = [currenDate timeIntervalSinceDate:timeBeginDate];
-                                    
-                                    NSTimeInterval secondsInterval2 = [currenDate timeIntervalSinceDate:timeEndDate];
-                                    
-                                    // 得出即将播出节目和该节目的index
-                                    if (secondsInterval1 >= 0 && secondsInterval2 <= 0) {
+                                    //获取播放列表
+                                    if ([dic[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
+                                        NSArray *array = dic[@"ContentSet"][@"Content"];
                                         
-                                        filmModel.nowPlaying = dic1[@"_ProgramName"];
-                                        index = idx;
+                                        //循环比较当前时间与节目的开始时间和结束时间的关系 开始时间 < 当前时间 < 结束时间 则该节目为正在播放节目 并得出即将播出节目
+                                        
+                                        __block NSUInteger index;
+                                        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                            NSDictionary *dic1 = obj;
+                                            
+                                            //0.时间字符串
+                                            NSString *timeBeginString = dic1[@"_PlayerTime"];
+                                            NSString *timeEndString = dic1[@"_StopTime"];
+                                            //1.创建一个时间格式化对象
+                                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                                            //2.格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+                                            formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                                            //3.利用时间格式化对象让字符串转换成时间 (自动转换0时区/东加西减)
+                                            NSDate *timeBeginDate = [formatter dateFromString:timeBeginString];
+                                            NSDate *timeEndDate = [formatter dateFromString:timeEndString];
+                                            //4.当前时间
+                                            NSDate *currenDate = [NSDate date];
+                                            //5.日期比较
+                                            NSTimeInterval secondsInterval1 = [currenDate timeIntervalSinceDate:timeBeginDate];
+                                            
+                                            NSTimeInterval secondsInterval2 = [currenDate timeIntervalSinceDate:timeEndDate];
+                                            
+                                            // 得出即将播出节目和该节目的index
+                                            if (secondsInterval1 >= 0 && secondsInterval2 <= 0) {
+                                                
+                                                filmModel.nowPlaying = dic1[@"_ProgramName"];
+                                                index = idx;
+                                            }
+                                        }];
+                                        // 获取即将播出节目
+                                        if (index+1 < array.count) {
+                                            
+                                            filmModel.nextPlay = array[index+1][@"_ProgramName"];
+                                        }
                                     }
-                                }];
-                                // 获取即将播出节目
-                                if (index+1 < array.count) {
-                                    
-                                    filmModel.nextPlay = array[index+1][@"_ProgramName"];
+                                    [_filmModelArr addObject:filmModel];
                                 }
+                                
+                            } else if ([dic[@"LiveTv"] isKindOfClass:[NSDictionary class]]) {
+                                
+                                [_filmModelArr removeAllObjects];
+                                
+                                //获取filmModel
+                                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                                [_filmModelArr addObject:filmModel];
                             }
-                            [_filmModelArr addObject:filmModel];
+                            
+                            [_dataSourceArr addObject:[_filmModelArr copy]];
                         }
-                        
-                    } else if ([dic[@"LiveTv"] isKindOfClass:[NSDictionary class]]) {
-                        
-                        [_filmModelArr removeAllObjects];
-                        
-                        //获取filmModel
-                        SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-                        [_filmModelArr addObject:filmModel];
                     }
-                    
-                    [_dataSourceArr addObject:[_filmModelArr copy]];
-
+                    //1.添加滑动headerView
+                    [self constructSlideHeaderView];
+                    //2.添加contentScrllowView
+                    [self constructContentView];
                 }
                 
-            }
-            //1.添加滑动headerView
-            [self constructSlideHeaderView];
-            //2.添加contentScrllowView
-            [self constructContentView];
-        }
-        
-        [CommonFunc dismiss];
+                [CommonFunc dismiss];
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+                [CommonFunc dismiss];
+            }];
+            
+        } failure:^(NSError *error) {
+            
+            [CommonFunc dismiss];
+            
+        }];
         
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
+        
     }];
-    
 }
 
 // 禁止旋转屏幕

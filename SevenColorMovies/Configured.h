@@ -33,11 +33,11 @@
 #import "UIImageView+WebCache.h"// SDWebImage
 #import "UILabel+Addition.h"
 #import "libagent_start.h"// 黑广播放代理
-#import "HLJRequest.h"
 #import "FileManageCommon.h"
 #import "SCNetHelper.h"
 #import "NSData+Addition.h"
-#import "SCDomaintransformTool.h"// 动态域名转换获取
+#import "SCDomaintransformTool.h"// 动态域名转换获取工具
+#import "HLJRequest.h"// ip 转换工具
 
 //@import MJRefresh;
 //@import MJExtension;

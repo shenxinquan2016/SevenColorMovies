@@ -21,18 +21,18 @@
 // 动态域名接口
 #define DynamicDomainEntrance @"http://10.177.1.222:8050/entry?uid=21&oemid=30050&hid=741e93d05fc2&app_version=sksjd_1.0"
 // homePage接口
-#define HomePageUrl @"http://首页联合查询/filmlist?epgid=909191&spid=20151103&cpid=10001000&ctype=9"
+#define HomePageUrl @"http://tv_cs_union/filmlist?epgid=909191&spid=20151103&cpid=10001000&ctype=9"
 // banner接口
 #define BannerURL [NetUrlManager.domainName stringByAppendingString:url_Banner]
 // 片单接口
 #define FilmList [NetUrlManager.domainName stringByAppendingString:url_FilmList]
 // filmClass接口
-#define FilmClass @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=gf201606271730129921467019536749"
+//#define FilmClass @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=gf201606271730129921467019536749"
 // 点播播放接口
 #define VODUrl  @"http://userauthb2b.voole.com/Service.do?action=b2bplayauth&pid=101001&playtype=0&checkproduct=0&checkuser=0&adversion=1.3.7&area=1208&hid=00301bba02db&oemid=30050&epgid=909191&spid=20151103&uid=0"
 
 // 直播页接口
-#define LivePageUrl @"http://10.177.1.236:9000/b2b/livetv/service.php?ctype=4&oemid=30050&uid=0&hid=58:48:22:6b:f3:009"
+#define LivePageUrl @"http://sklive/b2b/livetv/service.php?ctype=4&oemid=30050&uid=0&hid=58:48:22:6b:f3:009"
 // 直播节目列表接口
 #define LiveProgramList @"http://10.177.1.236:9000/b2b/livetv/service.php?ctype=12&tvid=14&oemid=30050"
 // 获取直播节目播放流url接口

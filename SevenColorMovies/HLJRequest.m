@@ -9,7 +9,8 @@
 #import "HLJRequest.h"
 #import "HLJDomainNameModel.h"
 
-NSString *const DomainNameXMLURL = @"http://10.177.1.198:8095/b2b/search/domainIpRel.htm";
+//NSString *const DomainNameXMLURL = @"http://10.177.1.198:8095/b2b/search/domainIpRel.htm";
+NSString *const DomainNameXMLURL = @"http://10.177.1.100:8095/b2b/search/domainIpRel.htm";
 
 @interface HLJRequest ()<NSXMLParserDelegate>
 

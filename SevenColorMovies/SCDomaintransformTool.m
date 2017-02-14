@@ -19,17 +19,19 @@
 - (void)getNewDomainByUrlString:(nullable NSString *)urlString success:(nullable void(^)(id _Nullable newUrlString))success failure:(nullable void(^)(id _Nullable errorObject))faild
 {
     [requestDataManager requestDataWithUrl:DynamicDomainEntrance parameters:nil success:^(id  _Nullable responseObject) {
-        
-         self.domainNameArray = responseObject[@"Data"][@"UrlList"][@"Url"];
+//        DONG_Log(@"responseObject:%@",responseObject);
+        self.domainNameArray = responseObject[@"Data"][@"UrlList"][@"Url"];
         if (_domainNameArray.count) {
             for (NSDictionary *dic in _domainNameArray) {
                 
-                if ([urlString containsString:dic[@"Name"]]) {
-                    DONG_Log(@"urlString:%@",urlString);
-                    [urlString stringByReplacingOccurrencesOfString:dic[@"Name"] withString:dic[@"SourceUrl"]];
-                    DONG_Log(@"urlString:%@",urlString);
-                    DONG_Log(@"domain:%@",dic[@"SourceUrl"]);
-                    success(urlString);
+                if ([urlString containsString:dic[@"_Key"]]) {
+                    //DONG_Log(@"urlString:%@",urlString);
+                    NSString *tempString = dic[@"SourceUrl"];
+                    NSString *domainString = [[tempString componentsSeparatedByString:@"//"] lastObject];
+                    NSString *newUrlString = [urlString stringByReplacingOccurrencesOfString:dic[@"_Key"] withString:domainString];
+                    DONG_Log(@"newUrlString:%@",newUrlString);
+                    
+                    success(newUrlString);
                     break;
                 }
             }
@@ -39,7 +41,7 @@
         
         faild(errorObject);
     }];
-
+    
 }
 
 
