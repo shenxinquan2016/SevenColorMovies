@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) HLJRequest *hljRequest;
+@property (nonatomic, strong) SCDomaintransformTool *domainTransformTool;
 
 @end
 
