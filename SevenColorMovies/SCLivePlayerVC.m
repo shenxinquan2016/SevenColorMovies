@@ -1103,7 +1103,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
             self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
             
-            
             // 7.推屏的回调
             DONG_WeakSelf(self);
             self.IJKPlayerViewController.pushScreenBlock = ^{

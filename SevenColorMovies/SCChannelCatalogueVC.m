@@ -293,6 +293,7 @@ static NSString *const footerId = @"footerId";
         [self.navigationController pushViewController:liveVC animated:YES];
         
     }else{
+        
         if (_filmClassArray.count != 0) {
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-1]];
             channelVC.bannerFilmModelArray = self.bannerFilmModelArray;

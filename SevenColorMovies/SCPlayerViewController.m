@@ -386,87 +386,101 @@ static const CGFloat LabelWidth = 100.f;
         [mtype isEqualToString:@"13"])
     {
         DONG_WeakSelf(self);
-        self.hljRequest = [HLJRequest requestWithPlayVideoURL:FilmSourceUrl];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        
+        // 域名获取
+        _domainTransformTool = [[SCDomaintransformTool alloc] init];
+        [_domainTransformTool getNewDomainByUrlString:FilmSourceUrl key:@"skdbpd" success:^(id  _Nullable newUrlString) {
             
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-                DONG_Log(@"====responseObject:::%@===",responseObject);
+            DONG_Log(@"newUrlString:%@",newUrlString);
+            // ip转换
+            _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+            [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
                 
-                DONG_StrongSelf(self);
-                // 坑：：单片不同film竟然数据结构不同 服了！
-                //downloadUrl
-                NSString *downloadUrl;
-                if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
+                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+      
+                [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                    DONG_Log(@"====responseObject:::%@===",responseObject);
                     
-                    downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
-                    
-                }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
-                    
-                    downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
-                }
-                
-                //base64编码downloadUrl
-                NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
-                
-                //获取fid
-                NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
-                
-                //这只是个请求视频播放流的url地址
-                //视频播放url
-                NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
-                DONG_Log(@"domainUrl:%@",domainUrl);
-                NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
-                //NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
-                NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
-                
-                //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
-                //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
-                //请求播放地址
-                [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-                    //                //            NSLog(@"====responseObject:::%@===",responseObject);
-                    NSString *play_url = responseObject[@"play_url"];
-                    DONG_Log(@"responseObject:%@",play_url);
-                    //请求将播放地址域名转换  并拼接最终的播放地址
-                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                    
-                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-                    //1.拼接新地址
-                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-                    //NSString *str = @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4";
-                    
-                    // 利用ZFDownloadManager下载
-                    [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
-                    // 设置最多同时下载个数（默认是3）
-                    [ZFDownloadManager sharedDownloadManager].maxCount = 1;
-                    [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoad_Click"] forState:UIControlStateNormal];
-                    
-                    // 初始化Realm
-                    NSString *documentPath = [FileManageCommon GetDocumentPath];
-                    NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
-                    NSURL *databaseUrl = [NSURL URLWithString:filePath];
-                    RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
-                    // 使用 NSPredicate 查询
-                    NSPredicate *pred = [NSPredicate predicateWithFormat:
-                                         @"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
-                                         _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
-                    RLMResults *results = [SCFilmModel objectsInRealm:realm withPredicate:pred];
-                    
-                    if (!results.count) {//没有保存过才保存
-                        //保存到数据库
-                        SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
-                        [realm transactionWithBlock:^{
-                            [realm addObject: filmModel];
-                        }];
+                    DONG_StrongSelf(self);
+                    // 坑：：单片不同film竟然数据结构不同 服了！
+                    //downloadUrl
+                    NSString *downloadUrl;
+                    if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
+                        
+                        downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+                        
+                    }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
+                        
+                        downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
                     }
-                    [CommonFunc dismiss];
+                    
+                    //base64编码downloadUrl
+                    NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
+                    
+                    //获取fid
+                    NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
+                    
+                    //这只是个请求视频播放流的url地址
+                    //视频播放url
+                    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
+                    DONG_Log(@"domainUrl:%@",domainUrl);
+                    NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+                    //NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
+                    NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                    
+                    //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
+                    //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+                    //请求播放地址
+                    [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+                        //                //            NSLog(@"====responseObject:::%@===",responseObject);
+                        NSString *play_url = responseObject[@"play_url"];
+                        DONG_Log(@"responseObject:%@",play_url);
+                        //请求将播放地址域名转换  并拼接最终的播放地址
+                        NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+                        
+                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                        //1.拼接新地址
+                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                        //NSString *str = @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4";
+                        
+                        // 利用ZFDownloadManager下载
+                        [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
+                        // 设置最多同时下载个数（默认是3）
+                        [ZFDownloadManager sharedDownloadManager].maxCount = 1;
+                        [_downLoadBtn setImage:[UIImage imageNamed:@"DownLoad_Click"] forState:UIControlStateNormal];
+                        
+                        // 初始化Realm
+                        NSString *documentPath = [FileManageCommon GetDocumentPath];
+                        NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
+                        NSURL *databaseUrl = [NSURL URLWithString:filePath];
+                        RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
+                        // 使用 NSPredicate 查询
+                        NSPredicate *pred = [NSPredicate predicateWithFormat:
+                                             @"FilmName = %@ AND _Mid = %@ And jiIndex = %ld",
+                                             _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
+                        RLMResults *results = [SCFilmModel objectsInRealm:realm withPredicate:pred];
+                        
+                        if (!results.count) {//没有保存过才保存
+                            //保存到数据库
+                            SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
+                            [realm transactionWithBlock:^{
+                                [realm addObject: filmModel];
+                            }];
+                        }
+                        [CommonFunc dismiss];
+                    } failure:^(id  _Nullable errorObject) {
+                        [CommonFunc dismiss];
+                    }];
                 } failure:^(id  _Nullable errorObject) {
                     [CommonFunc dismiss];
                 }];
-            } failure:^(id  _Nullable errorObject) {
+            } failure:^(NSError *error) {
                 [CommonFunc dismiss];
             }];
-        } failure:^(NSError *error) {
+        } failure:^(id  _Nullable errorObject) {
+            
             [CommonFunc dismiss];
+            
         }];
         
     }else if // 综艺 生活
@@ -1177,7 +1191,7 @@ static const CGFloat LabelWidth = 100.f;
                 NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
                 DONG_Log(@"domainUrl:%@",domainUrl);
                 NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
-            
+                
                 NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:atrsFilmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 //获取play_url
                 [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {

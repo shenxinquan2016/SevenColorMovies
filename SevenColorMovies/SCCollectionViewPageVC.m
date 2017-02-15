@@ -76,7 +76,7 @@ static NSString *const cellId = @"cellId";
     self.hljRequest = [HLJRequest requestWithPlayVideoURL:_urlString];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         [requestDataManager requestFilmClassDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            //NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
+            NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
             if (responseObject) {
                 if (responseObject[@"FilmClass"]) {// 专题页面(比其他多一层)
                     
@@ -89,7 +89,7 @@ static NSString *const cellId = @"cellId";
                     [self.collectionView.mj_header endRefreshing];
                     [self.collectionView.mj_footer endRefreshing];
                     [CommonFunc dismiss];
-
+                    
                 }else{// 其他
                     
                     NSArray *filmsArr = responseObject[@"Film"];
@@ -157,10 +157,10 @@ static NSString *const cellId = @"cellId";
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         if ([_FilmClassModel._FilmClassName isEqualToString:@"综艺"] || [_FilmClassModel._FilmClassName isEqualToString:@"潮生活"]) {
             return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
-        }else{
+        } else {
             return (CGSize){(kMainScreenWidth-24-30)/3,(kMainScreenWidth-24-30)*33/3/24+30};//竖版尺寸
         }
-    }else{//专题
+    } else {// 专题
         return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
     }
 }
