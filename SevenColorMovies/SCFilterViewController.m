@@ -249,7 +249,6 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     
     NSDictionary *parameters = @{@"cate" : [_filmClassModel._KeyValue description]};
     
-    
     // 域名获取
     _domainTransformTool = [[SCDomaintransformTool alloc] init];
     [_domainTransformTool getNewDomainByUrlString:FilterOptionTypeTabUrl key:@"skdqsj" success:^(id  _Nullable newUrlString) {
@@ -263,7 +262,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             
             NSString *urlStr = [newVideoUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
-            NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:FilterOptionAreaAndTimeTab2Url key:@"FullTextSearch"];
+            NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj"];
             NSString *ipUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
             
             NSString *urlString = [ipUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -352,7 +351,6 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             
             
             
-    
         } failure:^(NSError *error) {
             
             [CommonFunc dismiss];
@@ -382,38 +380,58 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                                  @"time" : _time? _time : @"",
                                  @"mtype" : _mtype? _mtype : @"",
                                  @"column" : _filmClassModel._FilmClassID? _filmClassModel._FilmClassID : @""};
-    
-    [requestDataManager requestDataWithUrl:FilterUrl parameters:parameters success:^(id  _Nullable responseObject){
-        //        NSLog(@"==========dic:::%@========",responseObject);
+    // 域名获取
+    _domainTransformTool = [[SCDomaintransformTool alloc] init];
+    [_domainTransformTool getNewDomainByUrlString:FilterUrl key:@"FullTextSearch" success:^(id  _Nullable newUrlString) {
         
-        if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]) {
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
-            for (NSDictionary *dic in responseObject[@"Film"]) {
-                
-                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-                
-                [_dataArray addObject:filmModel];
-            }
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
-        }
-        
-        [_collView reloadData];
-        [_collView.mj_footer endRefreshing];
-        [CommonFunc dismiss];
-        
-        if (_dataArray.count == 0) {
-            [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.collView];
-        }else{
-            [CommonFunc hideTipsViews:self.collView];
-        }
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject){
+                //        NSLog(@"==========dic:::%@========",responseObject);
+                
+                if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]) {
+                    
+                    for (NSDictionary *dic in responseObject[@"Film"]) {
+                        
+                        SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                        
+                        [_dataArray addObject:filmModel];
+                    }
+                    
+                }
+                
+                [_collView reloadData];
+                [_collView.mj_footer endRefreshing];
+                [CommonFunc dismiss];
+                
+                if (_dataArray.count == 0) {
+                    [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.collView];
+                }else{
+                    [CommonFunc hideTipsViews:self.collView];
+                }
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+                [_collView.mj_footer endRefreshing];
+                [CommonFunc dismiss];
+                [_collView reloadData];
+            }];
+        } failure:^(NSError *error) {
+            
+            [CommonFunc dismiss];
+            
+        }];
         
     } failure:^(id  _Nullable errorObject) {
         
-        [_collView.mj_footer endRefreshing];
         [CommonFunc dismiss];
-        [_collView reloadData];
+        
     }];
-    
 }
 
 @end

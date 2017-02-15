@@ -53,7 +53,7 @@
 #define FilterOptionTypeTabUrl @"/b2b/itvservice/search.php?icoId=B2BSTBOXMovie|1413364584&epgid=909191&spid=20120528&cnt=&column=13346&ctype=100&mtype=6&v=3.0"
 #define FilterOptionAreaAndTimeTab2Url @"/b2b/itvservice/search.php?cate=&epgid=909191&cnt=5&spid=20120528&ctype=102&v=3.0"
 // 筛选搜索
-#define FilterUrl @"http://10.177.1.236/b2b/itvservice/search.php?pagesize=15&epgid=909191&spid=20151103&typekey=5&ctype=2&category=&search=&v=3.0"
+#define FilterUrl @"/b2b/itvservice/search.php?pagesize=15&epgid=909191&spid=20151103&typekey=5&ctype=2&category=&search=&v=3.0"
 
 
 
