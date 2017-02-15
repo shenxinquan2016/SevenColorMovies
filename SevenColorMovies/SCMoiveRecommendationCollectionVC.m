@@ -55,35 +55,56 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     NSString *midstring = mid ? mid : @"";
     NSDictionary *parameters = @{@"mid" : midstring};
     
-    [requestDataManager requestDataWithUrl:RecommendUrl parameters:parameters success:^(id  _Nullable responseObject) {
-        //NSLog(@"<<<<<<<<<<<<<responseObject:::%@",responseObject);
-        if (responseObject) {
+    // 域名获取
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:RecommendUrl key:@"push" success:^(id  _Nullable newUrlString) {
+        
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
-            NSArray *filmsArr = responseObject[@"movieinfo"];
-            for (NSDictionary *dic in filmsArr) {
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                //NSLog(@"<<<<<<<<<<<<<responseObject:::%@",responseObject);
+                if (responseObject) {
+                    
+                    NSArray *filmsArr = responseObject[@"movieinfo"];
+                    for (NSDictionary *dic in filmsArr) {
+                        
+                        SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                        
+                        [_filmModelArr addObject:filmModel];
+                    }
+                }
                 
-                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                [CommonFunc dismiss];
                 
-                [_filmModelArr addObject:filmModel];
-            }
-        }
-        
-        [CommonFunc dismiss];
-        
-        if (_filmModelArr.count == 0) {//当推荐无数据的时候显示banner内容
-            _filmModelArr = [_bannerFilmModelArray copy];
-            //[CommonFunc noDataOrNoNetTipsString:@"暂无推荐" addView:self.view];
-        }else{
-            [CommonFunc hideTipsViews:self.collectionView];
-        }
-        
-        [self.collectionView reloadData];
+                if (_filmModelArr.count == 0) {//当推荐无数据的时候显示banner内容
+                    _filmModelArr = [_bannerFilmModelArray copy];
+                    //[CommonFunc noDataOrNoNetTipsString:@"暂无推荐" addView:self.view];
+                }else{
+                    [CommonFunc hideTipsViews:self.collectionView];
+                }
+                
+                [self.collectionView reloadData];
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+                [self.collectionView reloadData];
+                [CommonFunc noDataOrNoNetTipsString:@"暂无推荐" addView:self.view];
+                [CommonFunc dismiss];
+            }];
+            
+        } failure:^(NSError *error) {
+            
+            [CommonFunc dismiss];
+            
+        }];
         
     } failure:^(id  _Nullable errorObject) {
         
-        [self.collectionView reloadData];
-        [CommonFunc noDataOrNoNetTipsString:@"暂无推荐" addView:self.view];
         [CommonFunc dismiss];
+        
     }];
     
     
