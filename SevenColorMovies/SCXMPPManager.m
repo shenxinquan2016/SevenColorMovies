@@ -278,6 +278,8 @@
                 UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
                 [navController pushViewController:player animated:YES];
                 
+               
+                
             });
             
             
@@ -314,6 +316,8 @@
                                 UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
                                 [navController pushViewController:player animated:YES];
                                 
+                                
+                                 DONG_Log(@"直播拉屏直播拉屏");
                             });
                             
                             break;
