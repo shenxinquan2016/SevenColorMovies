@@ -90,7 +90,7 @@ static NSString *const cellId = @"cellId";
                     [self.collectionView.mj_footer endRefreshing];
                     [CommonFunc dismiss];
                     
-                }else{// 其他
+                } else {// 其他
                     
                     NSArray *filmsArr = responseObject[@"Film"];
                     for (NSDictionary *dic in filmsArr) {
@@ -136,10 +136,22 @@ static NSString *const cellId = @"cellId";
         
         SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:self.FilmClassModel._FilmClassName indexPath:indexPath];
         cell.backgroundColor = [UIColor whiteColor];
-        cell.model = _filmModelArr[indexPath.row];
+        
+        if ([_FilmClassModel._FilmClassName isEqualToString:@"专题"] ) {
+            
+            SCFilmModel *filmModel = _filmModelArr[indexPath.row];
+            filmModel.scale = @"专题";
+            cell.model = filmModel;
+            return cell;
+            
+        }
+        
+        SCFilmModel *filmModel = _filmModelArr[indexPath.row];
+        cell.model = filmModel;
         return cell;
         
-    }else{
+    } else {
+        
         static NSString * const identifier = @"专题";
         SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:identifier indexPath:indexPath];
         SCFilmClassModel *filmClassModel = _filmModelArr[indexPath.row];
@@ -157,10 +169,23 @@ static NSString *const cellId = @"cellId";
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         if ([_FilmClassModel._FilmClassName isEqualToString:@"综艺"] || [_FilmClassModel._FilmClassName isEqualToString:@"潮生活"]) {
             return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
+        
         } else {
-            return (CGSize){(kMainScreenWidth-24-30)/3,(kMainScreenWidth-24-30)*33/3/24+30};//竖版尺寸
+            
+            if ([_FilmClassModel._FilmClassName isEqualToString:@"专题"] ) {
+                // 专题推荐横版
+                return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
+                
+            } else {
+            
+                 return (CGSize){(kMainScreenWidth-24-30)/3,(kMainScreenWidth-24-30)*33/3/24+30};//竖版尺寸
+                
+            }
+            
         }
-    } else {// 专题
+        
+    } else { // 专题
+        
         return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
     }
 }

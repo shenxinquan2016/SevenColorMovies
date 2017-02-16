@@ -131,13 +131,14 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     SCFilmModel *model = _filmModelArr[indexPath.row];
     cell.model = model;
     return cell;
+    
 }
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (CGSize){(kMainScreenWidth-24-16)/3,180};
+    return (CGSize){(kMainScreenWidth-24-20)/3,180};
 }
 
 /** CollectionView四周间距 EdgeInsets */

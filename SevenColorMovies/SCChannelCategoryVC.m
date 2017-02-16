@@ -251,7 +251,8 @@ static NSString *const cellId = @"cellId";
 }
 
 // 筛选
-- (void)doFilter{
+- (void)doFilter {
+    
     if (_siftBtn.selected == NO) {
         _siftBtn.selected = YES;
         [_siftBtn setBackgroundImage:[UIImage imageNamed:@"Sifting"] forState:UIControlStateNormal];

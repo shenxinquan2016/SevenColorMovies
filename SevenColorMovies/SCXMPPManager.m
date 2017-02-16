@@ -278,7 +278,6 @@
                 UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
                 [navController pushViewController:player animated:YES];
                 
-               
                 
             });
             
@@ -324,6 +323,7 @@
                         }
                     }
                 }
+                [CommonFunc dismiss];
                 
             } failure:^(id  _Nullable errorObject) {
                 

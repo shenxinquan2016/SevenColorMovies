@@ -83,6 +83,8 @@
 @property SCFilmSetModel *filmSetModel;
 /** 已经播放的时间 */
 @property (nonatomic, assign) NSTimeInterval currentPlayTime;
+/** 用于专题推荐页横版判断 */
+@property (nonatomic, strong) NSString *scale;
 
 @end
 
