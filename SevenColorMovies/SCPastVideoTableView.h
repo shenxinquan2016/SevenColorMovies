@@ -17,6 +17,6 @@ typedef void(^CallBack)(id obj);//回传值block
 
 - (void)getSearchResultAndChannelLogoWithFilmName:(NSString *)keyword Page:(NSInteger)pageNumber CallBack:(CallBack)callBack;
 
-- (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword  Page:(NSInteger)pageNumber CallBack:(CallBack)callBack;
+//- (void)getProgramHavePastSearchResultWithFilmName:(NSString *)keyword  Page:(NSInteger)pageNumber CallBack:(CallBack)callBack;
 
 @end

@@ -13,8 +13,14 @@
 
 @interface SCPastVideoTableView ()
 
-@property (nonatomic, strong) NSMutableDictionary *channelLogoDictionary;/** channel Logo字典 */
-@property (nonatomic, copy) NSString *keyWord;/** 键盘输入的内容 */
+/** channel Logo字典 */
+@property (nonatomic, strong) NSMutableDictionary *channelLogoDictionary;
+/** 键盘输入的内容 */
+@property (nonatomic, copy) NSString *keyWord;
+/** ip转换工具 */
+@property (nonatomic, strong) HLJRequest *hljRequest;
+/** 动态域名获取工具 */
+@property (nonatomic, strong) SCDomaintransformTool *domainTransformTool;
 
 @end
 
@@ -85,38 +91,62 @@
     [CommonFunc showLoadingWithTips:@""];
     
     // 获取台标
-    [requestDataManager requestDataWithUrl:GetChannelLogoUrl parameters:nil success:^(id  _Nullable responseObject) {
+    // 域名获取
+    _domainTransformTool = [[SCDomaintransformTool alloc] init];
+    [_domainTransformTool getNewDomainByUrlString:GetChannelLogoUrl key:@"skhkjmd" success:^(id  _Nullable newUrlString) {
         
-        DONG_Log(@"==========dic:::%@========",responseObject);
-        
-        self.channelLogoDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
-        [_channelLogoDictionary removeAllObjects];
-        
-        NSArray *array1 = responseObject[@"LiveLookback"];
-        for (NSDictionary *dic1 in array1) {
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
-            if ([dic1[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
                 
-                NSArray *array2 = dic1[@"ContentSet"][@"Content"];
-                for (NSDictionary *dic2 in array2) {
+                DONG_Log(@"==========dic:::%@========",responseObject);
+                
+                self.channelLogoDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
+                [_channelLogoDictionary removeAllObjects];
+                
+                NSArray *array1 = responseObject[@"LiveLookback"];
+                for (NSDictionary *dic1 in array1) {
                     
-                    NSString *key = dic2[@"_ChannelName"] ?  dic2[@"_ChannelName"] : @"1";
-                    NSString *value = dic2[@"ImgUrl"] ? dic2[@"ImgUrl"] : @"1";
-                    [self.channelLogoDictionary setObject:value forKey:key];
+                    if ([dic1[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
+                        
+                        NSArray *array2 = dic1[@"ContentSet"][@"Content"];
+                        for (NSDictionary *dic2 in array2) {
+                            
+                            NSString *key = dic2[@"_ChannelName"] ?  dic2[@"_ChannelName"] : @"1";
+                            NSString *value = dic2[@"ImgUrl"] ? dic2[@"ImgUrl"] : @"1";
+                            [self.channelLogoDictionary setObject:value forKey:key];
+                        }
+                    }
                 }
-            }
-        }
-        
-        // 获取搜索结果
-        [self getProgramHavePastSearchResultWithFilmName:keyword Page:pageNumber CallBack:^(id obj) {
+                
+                // 获取搜索结果
+                [self getProgramHavePastSearchResultWithFilmName:keyword Page:pageNumber CallBack:^(id obj) {
+                    
+                    callBack(obj);
+                }];
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+                [CommonFunc dismiss];
+            }];
             
-            callBack(obj);
+        } failure:^(NSError *error) {
+            
+            [CommonFunc dismiss];
+            
         }];
         
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
+        
     }];
+    
     
 }
 
@@ -148,83 +178,71 @@
                                  @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
     // 域名获取
-    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:SearchProgramHavePastUrl key:@"PlayBackSearch" success:^(id  _Nullable newUrlString) {
+    
+    
+    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:SearchProgramHavePastUrl key:@"PlayBackSearch"];
+    DONG_Log(@"domainUrl:%@",domainUrl);
+    // ip转换
+    NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+    
+    [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
-        DONG_Log(@"newUrlString:%@",newUrlString);
-        // ip转换
-        [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        DONG_Log(@"==========dic:::%@========",responseObject);
+        
+        if ([responseObject[@"program"] isKindOfClass:[NSDictionary class]]) {
             
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            NSDictionary *dic = responseObject[@"program"];
+            SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
             
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-                
-                DONG_Log(@"==========dic:::%@========",responseObject);
-                
-                if ([responseObject[@"program"] isKindOfClass:[NSDictionary class]]) {
-                    
-                    NSDictionary *dic = responseObject[@"program"];
-                    SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
-                    
-                    [_dataSource addObject:programModel];
-                    
-                    
-                }else if ([responseObject[@"program"] isKindOfClass:[NSArray class]]){
-                    
-                    for (NSDictionary *dic in responseObject[@"program"]) {
-                        
-                        SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
-                        programModel.channelLogoUrl = [self.channelLogoDictionary objectForKey:programModel.tvchannelen];
-                        //                DONG_Log(@"%@",programModel.tvid);
-                        [_dataSource addObject:programModel];
-                    }
-                }
-                
-                //总的搜索条数
-                NSString *lookBackVideoTotalCount ;
-                if (responseObject[@"_dbtotal"]) {
-                    lookBackVideoTotalCount = responseObject[@"_dbtotal"];
-                }else{
-                    lookBackVideoTotalCount = @"0";
-                }
-                callBack(lookBackVideoTotalCount);
-                
-                [self.tableView reloadData];
-                
-                [self.tableView.mj_footer endRefreshing];
-                [CommonFunc dismiss];
-                
-                if (_dataSource.count == 0) {
-                    [CommonFunc hideTipsViews:self.tableView];
-                    [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
-                }else{
-                    [CommonFunc hideTipsViews:self.tableView];
-                }
-                
-                [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"program"]];
-                
-            } failure:^(id  _Nullable errorObject) {
-                
-                //总的搜索条数
-                NSString *VODTotalCount = @"0";
-                callBack(VODTotalCount);
-                [self.tableView reloadData];
-                [CommonFunc hideTipsViews:self.tableView];
-                [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
-                [self.tableView.mj_footer endRefreshing];
-                self.tableView.mj_footer.hidden = YES;
-                [CommonFunc dismiss];
-            }];
+            [_dataSource addObject:programModel];
             
-        } failure:^(NSError *error) {
             
-            [CommonFunc dismiss];
+        }else if ([responseObject[@"program"] isKindOfClass:[NSArray class]]){
             
-        }];
+            for (NSDictionary *dic in responseObject[@"program"]) {
+                
+                SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
+                programModel.channelLogoUrl = [self.channelLogoDictionary objectForKey:programModel.tvchannelen];
+                //                DONG_Log(@"%@",programModel.tvid);
+                [_dataSource addObject:programModel];
+            }
+        }
+        
+        //总的搜索条数
+        NSString *lookBackVideoTotalCount ;
+        if (responseObject[@"_dbtotal"]) {
+            lookBackVideoTotalCount = responseObject[@"_dbtotal"];
+        }else{
+            lookBackVideoTotalCount = @"0";
+        }
+        callBack(lookBackVideoTotalCount);
+        
+        [self.tableView reloadData];
+        
+        [self.tableView.mj_footer endRefreshing];
+        [CommonFunc dismiss];
+        
+        if (_dataSource.count == 0) {
+            [CommonFunc hideTipsViews:self.tableView];
+            [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
+        }else{
+            [CommonFunc hideTipsViews:self.tableView];
+        }
+        
+        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"program"]];
         
     } failure:^(id  _Nullable errorObject) {
         
+        //总的搜索条数
+        NSString *VODTotalCount = @"0";
+        callBack(VODTotalCount);
+        [self.tableView reloadData];
+        [CommonFunc hideTipsViews:self.tableView];
+        [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
+        [self.tableView.mj_footer endRefreshing];
+        self.tableView.mj_footer.hidden = YES;
         [CommonFunc dismiss];
-        
     }];
     
     

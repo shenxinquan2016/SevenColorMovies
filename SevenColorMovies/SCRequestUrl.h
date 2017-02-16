@@ -67,7 +67,7 @@
 // 回看搜获接口
 #define SearchProgramHavePastUrl @"/live/?areaid=cwtest&uid=0&oemid=30050&hid=&limit=50"
 // 获取channel logo接口
-#define GetChannelLogoUrl @"http://10.177.1.236:9000/b2b/livetv/service.php?ctype=11&oemid=30050"
+#define GetChannelLogoUrl @"/b2b/livetv/service.php?ctype=11&oemid=30050"
 
 /***************************************观看记录管理接口*****************************************/
 // 添加观看历史记录
