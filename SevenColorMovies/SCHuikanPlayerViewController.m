@@ -731,7 +731,7 @@
                 NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
                 
                 //睡一会以解决屏幕旋转时的bug
-                [NSThread sleepForTimeInterval:.5f];
+                [NSThread sleepForTimeInterval:1.0f];
                 // 5.开始播放直播
                 self.url = [NSURL URLWithString:newLiveUrl];
                 //2.调用播放器播放

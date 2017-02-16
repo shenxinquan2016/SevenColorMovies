@@ -138,7 +138,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (CGSize){(kMainScreenWidth-24-20)/3,180};
+    return (CGSize){(kMainScreenWidth-24-20)/3, 200};
 }
 
 /** CollectionView四周间距 EdgeInsets */

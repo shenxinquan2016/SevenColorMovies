@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,13 +20,15 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CellLoading" translatesAutoresizingMaskIntoConstraints="NO" id="33v-1D-28D">
+                        <rect key="frame" x="0.0" y="0.0" width="162" height="223"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="33v-1D-28D" secondAttribute="height" multiplier="24:33" id="r76-qQ-BNK"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="敢死队2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdD-7t-h0q">
+                        <rect key="frame" x="0.0" y="233" width="162" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="21" id="GV2-kg-ea7"/>
+                            <constraint firstAttribute="height" constant="21" id="sED-Kf-ksU"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -32,12 +37,12 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="bdD-7t-h0q" secondAttribute="trailing" id="Fbp-j3-IfN"/>
                 <constraint firstItem="33v-1D-28D" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="KPj-RG-fCu"/>
                 <constraint firstAttribute="trailing" secondItem="33v-1D-28D" secondAttribute="trailing" id="ORm-D4-bg0"/>
                 <constraint firstItem="33v-1D-28D" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="OTh-Z1-Le2"/>
-                <constraint firstItem="bdD-7t-h0q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="YWc-hu-6A7"/>
-                <constraint firstAttribute="bottom" secondItem="bdD-7t-h0q" secondAttribute="bottom" id="ecb-Rr-gdg"/>
+                <constraint firstAttribute="trailing" secondItem="bdD-7t-h0q" secondAttribute="trailing" id="m8M-vc-d0z"/>
+                <constraint firstItem="bdD-7t-h0q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="m8R-wz-WjR"/>
+                <constraint firstItem="bdD-7t-h0q" firstAttribute="top" secondItem="33v-1D-28D" secondAttribute="bottom" constant="10" id="wpt-Zr-YcI"/>
             </constraints>
             <size key="customSize" width="165" height="265"/>
             <connections>
