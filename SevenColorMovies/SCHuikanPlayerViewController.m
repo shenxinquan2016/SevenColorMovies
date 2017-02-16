@@ -622,7 +622,7 @@
 - (void)playFilmWithProgramModel:(SCLiveProgramModel *)programModel{
     //获取时间戳字符串
     NSString *startTime = [NSString stringWithFormat:@"%lu", (long)[NSDate timeStampFromString:programModel.forecastdate format:@"yyyy-MM-dd HH:mm:ss"]];
-    NSString *endTime =  [NSString stringWithFormat:@"%lu", (long)[NSDate timeStampFromString:programModel.endtime format:@"yyyy-MM-dd HH:mm:ss"]];
+    NSString *endTime =  [NSString stringWithFormat:@"%lu", (long)[NSDate timeStampFromString:programModel.endtime?programModel.endtime:programModel.endTime format:@"yyyy-MM-dd HH:mm:ss"]];
     
     NSString *extStr = [NSString stringWithFormat:@"stime=%@&etime=%@&port=5656&ext=oid:30050",startTime,endTime];
     NSString *ext = [extStr stringByBase64Encoding];
