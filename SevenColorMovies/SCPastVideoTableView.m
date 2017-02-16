@@ -178,8 +178,6 @@
                                  @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
     // 域名获取
-    
-    
     NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:SearchProgramHavePastUrl key:@"PlayBackSearch"];
     DONG_Log(@"domainUrl:%@",domainUrl);
     // ip转换

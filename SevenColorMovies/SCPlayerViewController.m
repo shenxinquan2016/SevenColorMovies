@@ -721,7 +721,14 @@ static const CGFloat LabelWidth = 100.f;
                                  @"detailurl" : filmModel._ImgUrlO? filmModel._ImgUrlO : @""
                                  };
     
-    [requestDataManager requestDataWithUrl:AddWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
+    // 域名获取
+    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:AddWatchHistory key:@"skscxb"];
+    DONG_Log(@"domainUrl:%@",domainUrl);
+    // ip转换
+    NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+    
+    [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
         DONG_Log(@"添加观看记录成功 parameters:%@ \nresponseObject:%@",parameters, responseObject);
         

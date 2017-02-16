@@ -25,8 +25,12 @@
 @property (nonatomic, assign) BOOL isEditing;/** 标记是否正在编辑 */
 @property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;/** 标记是否被全部选中 */
 @property (nonatomic, strong) NSMutableArray *tempArray;/** 保存临时选择的要删除的watchHistoryModel */
-@property (nonatomic, strong) HLJRequest *hljRequest;
 @property (nonatomic,assign) NSInteger page;/**< 分页的页码 */
+/** ip转换工具 */
+@property (nonatomic, strong) HLJRequest *hljRequest;
+/** 动态域名获取工具 */
+@property (nonatomic, strong) SCDomaintransformTool *domainTransformTool;
+
 @end
 
 @implementation SCMyWatchingHistoryVC
@@ -46,7 +50,7 @@
     
     // 3. 获取数据 添加视图
     [self getMyWatchHistoryRecord];
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -146,7 +150,7 @@
     [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
     [_tempArray removeAllObjects];
     [indexPathArray removeAllObjects];
-
+    
 }
 
 - (void)addRightBBI {
@@ -257,7 +261,7 @@
         [_tempArray removeObject:watchHistoryModel];
         // 3.删除服务器中数据
         [self deleteWatchHistoryRecordWithModel:watchHistoryModel];
-    } 
+    }
 }
 
 #pragma mark - UITableView Delegate
@@ -336,34 +340,56 @@
                                  };
     
     //请求播放地址
-    [requestDataManager requestDataWithUrl:GetWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
-        DONG_Log(@"responseObject:%@",responseObject);
-        if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSDictionary class]]) {
-            
-            SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:responseObject[@"contentlist"][@"content"]];
-            [_dataArray addObject:watchHistoryModel];
-            
-        } else if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSArray class]]) {
-            
-            NSArray *contentArray = responseObject[@"contentlist"][@"content"];
-            for (NSDictionary *dic in contentArray) {
-                SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:dic];
-                [_dataArray addObject:watchHistoryModel];
-            }
-        }
+    // 域名获取
+    _domainTransformTool = [[SCDomaintransformTool alloc] init];
+    [_domainTransformTool getNewDomainByUrlString:GetWatchHistory key:@"skscxb" success:^(id  _Nullable newUrlString) {
         
-        if (_dataArray.count) {
-            [self setTableView];
-            // 4.3 全选/删除
-            [self setBottomBtnView];
-        } else {
-            [CommonFunc noDataOrNoNetTipsString:@"还没有观看任何节目哦" addView:self.view];
-        }
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+            
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                DONG_Log(@"responseObject:%@",responseObject);
+                if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSDictionary class]]) {
+                    
+                    SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:responseObject[@"contentlist"][@"content"]];
+                    [_dataArray addObject:watchHistoryModel];
+                    
+                } else if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSArray class]]) {
+                    
+                    NSArray *contentArray = responseObject[@"contentlist"][@"content"];
+                    for (NSDictionary *dic in contentArray) {
+                        SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:dic];
+                        [_dataArray addObject:watchHistoryModel];
+                    }
+                }
+                
+                if (_dataArray.count) {
+                    [self setTableView];
+                    // 4.3 全选/删除
+                    [self setBottomBtnView];
+                } else {
+                    [CommonFunc noDataOrNoNetTipsString:@"还没有观看任何节目哦" addView:self.view];
+                }
+                
+                [CommonFunc dismiss];
+            }failure:^(id  _Nullable errorObject) {
+                [CommonFunc noDataOrNoNetTipsString:@"网络异常请稍后再试" addView:self.view];
+                [CommonFunc dismiss];
+            }];
+        } failure:^(NSError *error) {
+            
+            [CommonFunc dismiss];
+            
+        }];
+        
+    } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
-    }failure:^(id  _Nullable errorObject) {
-        [CommonFunc noDataOrNoNetTipsString:@"网络异常请稍后再试" addView:self.view];
-        [CommonFunc dismiss];
+        
     }];
 }
 
@@ -385,9 +411,18 @@
                                  @"sid"      : sid,
                                  @"fid"      : fid
                                  };
+    
+    
     //请求播放地址
-    [requestDataManager requestDataWithUrl:DeleteWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
-
+    // 域名获取
+    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:DeleteWatchHistory key:@"skscxb"];
+    DONG_Log(@"domainUrl:%@",domainUrl);
+    // ip转换
+    NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+    
+    [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        
         [CommonFunc dismiss];
     }failure:^(id  _Nullable errorObject) {
         [CommonFunc dismiss];
@@ -402,7 +437,7 @@
     NSNumber *oemid     = [NSNumber numberWithInt:300126];
     NSString *uuidStr   = [HLJUUID getUUID];
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
-
+    
     NSDictionary *parameters = @{@"oemid"    : oemid,
                                  @"hid"      : uuidStr,
                                  @"datetime" : timeStamp

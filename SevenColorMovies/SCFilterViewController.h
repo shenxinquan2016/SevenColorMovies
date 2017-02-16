@@ -13,7 +13,9 @@
 @interface SCFilterViewController : SCOtherBaseViewController
 
 @property (nonatomic, strong) SCFilmClassModel *filmClassModel;
-@property (nonatomic, copy) NSString *mtype;/** mtype筛选参数之一 */
-@property (nonatomic, copy) NSArray *bannerFilmModelArray;/** 当精彩推荐没有推荐数据时显示banner内容 */
+/** mtype筛选参数之一 */
+@property (nonatomic, copy) NSString *mtype;
+/** 当精彩推荐没有推荐数据时显示banner内容 */
+@property (nonatomic, copy) NSArray *bannerFilmModelArray;
 
 @end
