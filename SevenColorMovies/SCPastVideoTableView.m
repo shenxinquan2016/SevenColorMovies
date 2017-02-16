@@ -72,7 +72,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithProgramModel:_dataSource[indexPath.row]];
     [self.navigationController pushViewController:playerVC animated:YES];
     
@@ -87,7 +87,7 @@
     // 获取台标
     [requestDataManager requestDataWithUrl:GetChannelLogoUrl parameters:nil success:^(id  _Nullable responseObject) {
         
-                DONG_Log(@"==========dic:::%@========",responseObject);
+        DONG_Log(@"==========dic:::%@========",responseObject);
         
         self.channelLogoDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
         [_channelLogoDictionary removeAllObjects];
@@ -96,7 +96,7 @@
         for (NSDictionary *dic1 in array1) {
             
             if ([dic1[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
-            
+                
                 NSArray *array2 = dic1[@"ContentSet"][@"Content"];
                 for (NSDictionary *dic2 in array2) {
                     
@@ -128,7 +128,7 @@
     if (pageNumber == 1) {
         [_dataSource removeAllObjects];
     }
-
+    
     NSDate *now = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
@@ -147,72 +147,86 @@
                                  @"endtime" : endTimeStr,
                                  @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
-    [[HLJRequest requestWithPlayVideoURL:SearchProgramHavePastUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+    // 域名获取
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:SearchProgramHavePastUrl key:@"PlayBackSearch" success:^(id  _Nullable newUrlString) {
+        
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
-            //NSLog(@"==========dic:::%@========",responseObject);
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
-            if ([responseObject[@"program"] isKindOfClass:[NSDictionary class]]) {
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 
-                NSDictionary *dic = responseObject[@"program"];
-                SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
+                DONG_Log(@"==========dic:::%@========",responseObject);
                 
-                [_dataSource addObject:programModel];
-                
-                
-            }else if ([responseObject[@"program"] isKindOfClass:[NSArray class]]){
-                
-                for (NSDictionary *dic in responseObject[@"program"]) {
+                if ([responseObject[@"program"] isKindOfClass:[NSDictionary class]]) {
                     
+                    NSDictionary *dic = responseObject[@"program"];
                     SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
-                    programModel.channelLogoUrl = [self.channelLogoDictionary objectForKey:programModel.tvchannelen];
-                    //                DONG_Log(@"%@",programModel.tvid);
+                    
                     [_dataSource addObject:programModel];
+                    
+                    
+                }else if ([responseObject[@"program"] isKindOfClass:[NSArray class]]){
+                    
+                    for (NSDictionary *dic in responseObject[@"program"]) {
+                        
+                        SCLiveProgramModel *programModel = [SCLiveProgramModel mj_objectWithKeyValues:dic];
+                        programModel.channelLogoUrl = [self.channelLogoDictionary objectForKey:programModel.tvchannelen];
+                        //                DONG_Log(@"%@",programModel.tvid);
+                        [_dataSource addObject:programModel];
+                    }
                 }
-            }
-            
-            //总的搜索条数
-            NSString *lookBackVideoTotalCount ;
-            if (responseObject[@"_dbtotal"]) {
-                lookBackVideoTotalCount = responseObject[@"_dbtotal"];
-            }else{
-                lookBackVideoTotalCount = @"0";
-            }
-            callBack(lookBackVideoTotalCount);
-            
-            [self.tableView reloadData];
-            
-            [self.tableView.mj_footer endRefreshing];
-            [CommonFunc dismiss];
-            
-            if (_dataSource.count == 0) {
+                
+                //总的搜索条数
+                NSString *lookBackVideoTotalCount ;
+                if (responseObject[@"_dbtotal"]) {
+                    lookBackVideoTotalCount = responseObject[@"_dbtotal"];
+                }else{
+                    lookBackVideoTotalCount = @"0";
+                }
+                callBack(lookBackVideoTotalCount);
+                
+                [self.tableView reloadData];
+                
+                [self.tableView.mj_footer endRefreshing];
+                [CommonFunc dismiss];
+                
+                if (_dataSource.count == 0) {
+                    [CommonFunc hideTipsViews:self.tableView];
+                    [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
+                }else{
+                    [CommonFunc hideTipsViews:self.tableView];
+                }
+                
+                [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"program"]];
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+                //总的搜索条数
+                NSString *VODTotalCount = @"0";
+                callBack(VODTotalCount);
+                [self.tableView reloadData];
                 [CommonFunc hideTipsViews:self.tableView];
                 [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
-            }else{
-                [CommonFunc hideTipsViews:self.tableView];
-            }
+                [self.tableView.mj_footer endRefreshing];
+                self.tableView.mj_footer.hidden = YES;
+                [CommonFunc dismiss];
+            }];
             
-            [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"program"]];
+        } failure:^(NSError *error) {
             
-        } failure:^(id  _Nullable errorObject) {
-            
-            //总的搜索条数
-            NSString *VODTotalCount = @"0";
-            callBack(VODTotalCount);
-            [self.tableView reloadData];
-            [CommonFunc hideTipsViews:self.tableView];
-            [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
-            [self.tableView.mj_footer endRefreshing];
-            self.tableView.mj_footer.hidden = YES;
             [CommonFunc dismiss];
+            
         }];
-
         
-    } failure:^(NSError *error) {
+    } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
+        
     }];
-     
+    
     
 }
 

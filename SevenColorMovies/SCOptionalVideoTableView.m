@@ -104,58 +104,80 @@ NSString *identifier;
     NSDictionary *parameters = @{@"keyword" : keyword? keyword : @"",
                                  @"pg" : [NSString stringWithFormat:@"%zd",pageNumber]};
     
-    [requestDataManager requestDataWithUrl:SearchVODUrl parameters:parameters success:^(id  _Nullable responseObject) {
+    // 域名获取
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:SearchVODUrl key:@"skss" success:^(id  _Nullable newUrlString) {
         
-        //        NSLog(@"==========dic:::%@========",responseObject);
-        
-        if ([responseObject[@"movieinfo"] isKindOfClass:[NSDictionary class]]) {
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        // ip转换
+        [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
-            NSDictionary *dic = responseObject[@"movieinfo"];
-            SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-            if (filmModel) {
-                [_dataSource addObject:filmModel];
-            }
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
-        }else if ([responseObject[@"movieinfo"] isKindOfClass:[NSArray class]]){
-            
-            for (NSDictionary *dic in responseObject[@"movieinfo"]) {
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 
-                SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-                if (filmModel) {
-                    [_dataSource addObject:filmModel];
+                //        NSLog(@"==========dic:::%@========",responseObject);
+                
+                if ([responseObject[@"movieinfo"] isKindOfClass:[NSDictionary class]]) {
+                    
+                    NSDictionary *dic = responseObject[@"movieinfo"];
+                    SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                    if (filmModel) {
+                        [_dataSource addObject:filmModel];
+                    }
+                    
+                }else if ([responseObject[@"movieinfo"] isKindOfClass:[NSArray class]]){
+                    
+                    for (NSDictionary *dic in responseObject[@"movieinfo"]) {
+                        
+                        SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                        if (filmModel) {
+                            [_dataSource addObject:filmModel];
+                        }
+                    }
                 }
-            }
-        }
-        
-        //总的搜索条数
-        NSString *VODTotalCount ;
-        if (responseObject[@"_dbtotal"]) {
-            VODTotalCount = responseObject[@"_dbtotal"];
-        }else{
-            VODTotalCount = @"0";
-        }
-        
-        callBack(VODTotalCount);
-        
-        [self.tableView reloadData];
-        [self.tableView.mj_footer endRefreshing];
-        
-        if (_dataSource.count == 0) {
-            [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
-        }else{
-            [CommonFunc hideTipsViews:self.tableView];
-        }
-        
-        [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"movieinfo"]];
+                
+                //总的搜索条数
+                NSString *VODTotalCount ;
+                if (responseObject[@"_dbtotal"]) {
+                    VODTotalCount = responseObject[@"_dbtotal"];
+                }else{
+                    VODTotalCount = @"0";
+                }
+                
+                callBack(VODTotalCount);
+                
+                [self.tableView reloadData];
+                [self.tableView.mj_footer endRefreshing];
+                
+                if (_dataSource.count == 0) {
+                    [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
+                }else{
+                    [CommonFunc hideTipsViews:self.tableView];
+                }
+                
+                [CommonFunc mj_FooterViewHidden:self.tableView dataArray:_dataSource pageMaxNumber:40 responseObject:responseObject[@"movieinfo"]];
+                
+            } failure:^(id  _Nullable errorObject) {
+                
+                //总的搜索条数
+                NSString *VODTotalCount = @"0";
+                callBack(VODTotalCount);
+                [self.tableView reloadData];
+                [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
+                [self.tableView.mj_footer endRefreshing];
+                [CommonFunc dismiss];
+                
+            }];
+        } failure:^(NSError *error) {
+            
+            [CommonFunc dismiss];
+            
+        }];
         
     } failure:^(id  _Nullable errorObject) {
-        //总的搜索条数
-        NSString *VODTotalCount = @"0";
-        callBack(VODTotalCount);
-        [self.tableView reloadData];
-        [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.view];
-        [self.tableView.mj_footer endRefreshing];
+        
         [CommonFunc dismiss];
+        
     }];
     
     
