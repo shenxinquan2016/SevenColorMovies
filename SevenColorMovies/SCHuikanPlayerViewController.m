@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, assign) BOOL isProhibitRotate;/** 是否禁止旋转 */
 @property (nonatomic, strong) SCDomaintransformTool *domainTransformTool;
+@property (nonatomic, strong) NSString *currentPlayTime;
 
 @end
 
@@ -36,6 +37,15 @@
 {
     SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
     [player playLiveVideoWithLiveProgramModel:liveProgramModel];
+    return player;
+}
+
+/** 时移拉屏 */
++ (instancetype)initPlayerWithTimeShiftWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel currentPlayTime:(NSString *)currentPlayTime
+{
+    SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
+    player.currentPlayTime = currentPlayTime;
+    [player playTimeShiftVideoWithLiveProgramModel:liveProgramModel];
     return player;
 }
 
@@ -720,7 +730,7 @@
                                  @"hid" : uuidStr? uuidStr : @""};
     
     [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:ToGetLiveVideoSignalFlowUrl key:@"playauth" success:^(id  _Nullable newUrlString) {
-  
+        
         self.hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
         [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
@@ -774,6 +784,87 @@
         [CommonFunc dismiss];
         
     }];
+}
+
+/** 时移拉屏 */
+- (void)playTimeShiftVideoWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel
+{
+    // 2.加载动画
+    [CommonFunc showLoadingWithTips:@"视频加载中..."];
+    // 3.请求播放地址url
+    NSString *fidStr = [[liveProgramModel.tvid stringByAppendingString:@"_"] stringByAppendingString:liveProgramModel.tvid];
+    // 4.hid = UUID
+    const NSString *uuidStr = [HLJUUID getUUID];
+    
+    // 当前播放位置的时间戳
+    NSString *ext = [NSString stringWithFormat:@"stime=%@&port=5656&ext=oid:30050", _currentPlayTime];
+    NSString *base64Ext = [[ext stringByBase64Encoding] stringByTrimmingEqualMark];
+    
+    DONG_Log(@"base64Ext:%@", base64Ext);
+    
+    NSDictionary *parameters = @{@"ext" : base64Ext,
+                                 @"hid" : uuidStr,
+                                 @"fid" : fidStr};
+    
+    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:ToGetLiveTimeShiftVideoSignalFlowUrl key:@"playauth" success:^(id  _Nullable newUrlString) {
+        
+        DONG_Log(@"newUrlString:%@",newUrlString);
+        
+        self.hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+            
+            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                //DONG_Log(@"responseObject:%@",responseObject);
+                NSString *timeShiftUrl = responseObject[@"play_url"];
+                // ip转换
+                NSString *newTimeShiftUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:timeShiftUrl];
+                
+                DONG_Log(@"newTimeShiftUrl:%@",newTimeShiftUrl);
+                
+                // 6.开始播放时移
+                self.url = [NSURL URLWithString:newTimeShiftUrl];
+                
+                //2.调用播放器播放
+                self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                [self.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                self.IJKPlayerViewController.isSinglePlayerView = YES;
+                self.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+                self.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
+                self.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
+                [self.view addSubview:self.IJKPlayerViewController.view];
+                
+                //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+                DONG_WeakSelf(self);
+                self.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
+                    DONG_StrongSelf(self);
+                    strongself.isProhibitRotate = isProhibitRotate;
+                };
+                
+                //4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
+                [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+                self.IJKPlayerViewController.isFullScreen = YES;
+                self.isProhibitRotate = YES;
+                
+                [CommonFunc dismiss];
+            } failure:^(id  _Nullable errorObject) {
+                
+                [CommonFunc dismiss];
+                
+            }];
+            
+        } failure:^(NSError *error) {
+            
+            [CommonFunc dismiss];
+        }];
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+        
+    }];
+    
 }
 
 - (void)playWithFilmModel:(SCFilmModel *)filmModel {

@@ -18,6 +18,8 @@
 + (instancetype)initPlayerWithProgramModel:(SCLiveProgramModel *)programModel;
 /** 直播拉屏 */
 + (instancetype)initPlayerWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel;
+/** 时移拉屏 */
++ (instancetype)initPlayerWithTimeShiftWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel currentPlayTime:(NSString *)currentPlayTime;
 /** 播放本地文件 */
 + (instancetype)initPlayerWithFilePath:(NSString *)filePath;
 

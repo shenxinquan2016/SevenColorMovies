@@ -283,6 +283,7 @@
             
             
         } else if ([dic2[@"_playingType"] isEqualToString:@"live"]) {
+            // 直播
             
             NSString *sequence = dic2[@"_tvId"];
             [CommonFunc showLoadingWithTips:@"加载中"];
@@ -349,6 +350,80 @@
                 [CommonFunc dismiss];
                 
             }];
+            
+        } else if ([dic2[@"_playingType"] isEqualToString:@"timeShift"]) {
+            
+            DONG_Log(@"进入时移了");
+            
+            NSString *sequence = dic2[@"_tvId"];
+            [CommonFunc showLoadingWithTips:@"加载中"];
+            [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:GetLiveNewTvId key:@"sklivezh" success:^(id  _Nullable newUrlString) {
+                
+                DONG_Log(@"newUrlString:%@",newUrlString);
+                
+                [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+                    
+                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                    
+                    [requestDataManager postRequestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
+                        
+                        DONG_Log(@"====responseObject:::%@===",responseObject);
+                        [CommonFunc dismiss];
+                        
+                        NSArray *array = responseObject[@"LiveTvSort"];
+                        
+                        for (NSDictionary *dic in array) {
+                            
+                            for (NSDictionary *dic3 in dic[@"LiveTv"]) {
+                                
+                                if ([sequence isEqualToString:dic3[@"_Sequence"]]) {
+                                    
+                                    NSString *tvId = dic3[@"_TvId"];
+                                    
+                                    DONG_Log(@"tvId:%@",tvId);
+                                    
+                                    SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
+                                    liveProgramModel.tvid = tvId;
+                                    NSString *currentPlayTime = dic2[@"_currentPlayTime"];
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        // 调用播放器
+                                        SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithTimeShiftWithLiveProgramModel:liveProgramModel currentPlayTime:currentPlayTime];
+                                        
+                                        player.hidesBottomBarWhenPushed = YES;
+                                        // 取出当前的导航控制器
+                                        UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                                        // 当前选择的导航控制器
+                                        UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+                                        [navController pushViewController:player animated:YES];
+                                        
+                                        
+                                        DONG_Log(@"直播拉屏直播拉屏");
+                                    });
+                                    
+                                    break;
+                                }
+                            }
+                        }
+                        [CommonFunc dismiss];
+                        
+                    } failure:^(id  _Nullable errorObject) {
+                        
+                        [CommonFunc dismiss];
+                        
+                    }];
+                    
+                } failure:^(NSError *error) {
+                    [CommonFunc dismiss];
+                    
+                }];
+                
+                
+            } failure:^(id  _Nullable errorObject) {
+                [CommonFunc dismiss];
+                
+            }];
+            
             
         } else {
             
