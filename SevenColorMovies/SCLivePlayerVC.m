@@ -61,6 +61,8 @@ static const CGFloat LabelWidth = 55.f;
 @property (nonatomic, strong) SCLiveProgramModel *liveModel;
 /** 域名替换工具 */
 @property (nonatomic, strong) HLJRequest *hljRequest;
+/** 动态域名获取工具 */
+@property (nonatomic, strong) SCDomaintransformTool *domainTransformTool;
 /** 是否全屏锁定 */
 @property (nonatomic, assign) BOOL fullScreenLock;
 /** 功能区距顶部约束 */
@@ -493,7 +495,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         SCLiveProgramModel *model2 = self.liveProgramModelArray[huikanIndex+timesIndexOfHuikan+1];
         
         //当前列表的arr在dataSourceArr的位置通知给cellectionView
-        NSString *index = [NSString stringWithFormat:@"%lu",self.indexOfArrInArr];
+        NSString *index = [NSString stringWithFormat:@"%lu",(unsigned long)self.indexOfArrInArr];
         NSDictionary *message = @{@"model" : model1, @"index" : index};
         
         //请求url并播放
@@ -677,7 +679,8 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     [CommonFunc showLoadingWithTips:@""];
     
     // 域名获取
-    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:LiveProgramList key:@"sklive" success:^(id  _Nullable newUrlString) {
+    _domainTransformTool  = [[SCDomaintransformTool alloc] init];
+    [_domainTransformTool getNewDomainByUrlString:LiveProgramList key:@"sklive" success:^(id  _Nullable newUrlString) {
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
@@ -824,92 +827,82 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                  @"hid" : uuidStr? uuidStr : @""};
     
     // 域名获取
-    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:ToGetLiveVideoSignalFlowUrl key:@"playauth" success:^(id  _Nullable newUrlString) {
+    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:ToGetLiveVideoSignalFlowUrl key:@"playauth"];
+    
+    DONG_Log(@"domainUrl:%@",domainUrl);
+    // ip转换
+    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+    
+    DONG_Log(@"newIpUrl:%@",newIpUrl);
+    
+    [requestDataManager requestDataWithUrl:newIpUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"====responseObject:::%@===",responseObject);
         
-        DONG_Log(@"newUrlString:%@",newUrlString);
-        // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-                DONG_Log(@"====responseObject:::%@===",responseObject);
+        NSString *liveUrl = responseObject[@"play_url"];
+        
+        NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
+        
+        //            NSString *newLiveUrl = @"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1100&mid=1&sid=1&pid=1&uid=10&oemid=30050&hid=dc:ee:06:c9:8b:a6&fid=160_160&ext=c3RpbWU9MTQ4NjM0MjYwNyZwb3J0PTU2NTYmZXh0PW9pZDozMDA1MA&time=10000&proto=11&key=dc:ee:06:c9:8b:a600000000000000000000000_tv_160.m3u8";
+        
+        DONG_Log(@">>>>>>直播节目播放url>>>>>%@>>>>>>>",newLiveUrl);
+        
+        
+        // 4.移除当前的播放器
+        [self.IJKPlayerViewController closePlayer];
+        
+        // 5.开始播放直播
+        self.url = [NSURL URLWithString:newLiveUrl];
+        //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+        _IJKPlayerViewController.mediaControl.liveState = Live;
+        _IJKPlayerViewController.mediaControl.isLive = YES;
+        
+        // 6.推屏的回调
+        DONG_WeakSelf(self);
+        self.IJKPlayerViewController.pushScreenBlock = ^{
+            // 未连接设备时要先扫描设备
+            if (XMPPManager.isConnected) {
                 
-                NSString *liveUrl = responseObject[@"play_url"];
-                
-                NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
-                
-                //            NSString *newLiveUrl = @"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1100&mid=1&sid=1&pid=1&uid=10&oemid=30050&hid=dc:ee:06:c9:8b:a6&fid=160_160&ext=c3RpbWU9MTQ4NjM0MjYwNyZwb3J0PTU2NTYmZXh0PW9pZDozMDA1MA&time=10000&proto=11&key=dc:ee:06:c9:8b:a600000000000000000000000_tv_160.m3u8";
-                
-                DONG_Log(@">>>>>>直播节目播放url>>>>>%@>>>>>>>",newLiveUrl);
-                
-                
-                // 4.移除当前的播放器
-                [self.IJKPlayerViewController closePlayer];
-                
-                // 5.开始播放直播
-                self.url = [NSURL URLWithString:newLiveUrl];
-                //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-                self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-                _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
-                _IJKPlayerViewController.mediaControl.liveState = Live;
-                _IJKPlayerViewController.mediaControl.isLive = YES;
-                
-                // 6.推屏的回调
-                DONG_WeakSelf(self);
-                self.IJKPlayerViewController.pushScreenBlock = ^{
-                    // 未连接设备时要先扫描设备
-                    if (XMPPManager.isConnected) {
-                        
-                        NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
-                        [weakself getLivePushScreenXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
-                            
-                            //[TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
-                            [XMPPManager sendMessageWithBody:responseObject andToName:toName andType:@"text"];
-                        }];
-                        
-                    } else {
-                        
-                        [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
-                        //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                        //[alertView show];
-                        //alertView.delegate = weakself;
-                        
-                    }
-                };
-                
-                // 7.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
-                self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
-                    DONG_StrongSelf(self);
-                    strongself.fullScreenLock = isFullScreenLock;
-                    [strongself shouldAutorotate];
-                };
-                
-                // 8.时移的回调
-                self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState, int positionTime) {
-                    DONG_Log(@"liveState:%@", liveState);
-                    if ([liveState isEqualToString:@"timeShift"]) {
-                        // 进入时移
-                        [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
-                    }
+                NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+                [weakself getLivePushScreenXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
                     
-                };
+                    //[TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
+                    [XMPPManager sendMessageWithBody:responseObject andToName:toName andType:@"text"];
+                }];
                 
-                [self.view addSubview:_IJKPlayerViewController.view];
+            } else {
                 
-                [CommonFunc dismiss];
-            } failure:^(id  _Nullable errorObject) {
-                [CommonFunc dismiss];
+                [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                //[alertView show];
+                //alertView.delegate = weakself;
                 
-            }];
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-        }];
-    } failure:^(id  _Nullable errorObject) {
+            }
+        };
         
+        // 7.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+        self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+            DONG_StrongSelf(self);
+            strongself.fullScreenLock = isFullScreenLock;
+            [strongself shouldAutorotate];
+        };
+        
+        // 8.时移的回调
+        self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState, int positionTime) {
+            DONG_Log(@"liveState:%@", liveState);
+            if ([liveState isEqualToString:@"timeShift"]) {
+                // 进入时移
+                [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
+            }
+            
+        };
+        
+        [self.view addSubview:_IJKPlayerViewController.view];
+        
+        [CommonFunc dismiss];
+    } failure:^(id  _Nullable errorObject) {
         [CommonFunc dismiss];
         
     }];
@@ -952,92 +945,89 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                  @"fid" : fidStr};
     
     // 域名获取
-    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:ToGetLiveTimeShiftVideoSignalFlowUrl key:@"playauth" success:^(id  _Nullable newUrlString) {
-        
-        DONG_Log(@"newUrlString:%@",newUrlString);
+    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:ToGetLiveTimeShiftVideoSignalFlowUrl key:@"playauth"];
+    
+    DONG_Log(@"domainUrl:%@",domainUrl);
+    // ip转换
+    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+    
+    DONG_Log(@"newIpUrl:%@",newIpUrl);
+    
+    [requestDataManager requestDataWithUrl:newIpUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        //DONG_Log(@"responseObject:%@",responseObject);
+        NSString *timeShiftUrl = responseObject[@"play_url"];
         // ip转换
-        NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:newUrlString];
+        NSString *newTimeShiftUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:timeShiftUrl];
         
-        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        DONG_Log(@"newTimeShiftUrl:%@",newTimeShiftUrl);
         
-        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            //DONG_Log(@"responseObject:%@",responseObject);
-            NSString *timeShiftUrl = responseObject[@"play_url"];
-            // ip转换
-            NSString *newTimeShiftUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:timeShiftUrl];
-            
-            DONG_Log(@"newTimeShiftUrl:%@",newTimeShiftUrl);
-            
-            // 5.移除当前的播放器
-            [self.IJKPlayerViewController closePlayer];
-            
-            // 6.开始播放直播
-            self.url = [NSURL URLWithString:newTimeShiftUrl];
-            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
-            _IJKPlayerViewController.mediaControl.liveState = TimeShift;
-            _IJKPlayerViewController.mediaControl.firmPosition = positionTime;
-            _IJKPlayerViewController.mediaControl.isLive = YES;
-            
-            // 7.推屏的回调
-            DONG_WeakSelf(self);
-            self.IJKPlayerViewController.pushScreenBlock = ^{
-                // 未连接设备时要先扫描设备
-                if (XMPPManager.isConnected) {
-                    
-                    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
-                    [weakself getLivePushScreenXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
-                        
-                        [XMPPManager sendMessageWithBody:responseObject andToName:toName andType:@"text"];
-                    }];
-                    
-                    
-                } else {
-                    
-                    [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
-                    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                    //[alertView show];
-                    //alertView.delegate = weakself;
-                    
-                }
-            };
-            
-            // 8.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
-            self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
-                DONG_StrongSelf(self);
-                strongself.fullScreenLock = isFullScreenLock;
-                [strongself shouldAutorotate];
-            };
-            
-            // 9.时移的回调
-            self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState, int positionTime) {
-                DONG_Log(@"liveState:%@", liveState);
-                if ([liveState isEqualToString:@"live"]) {
-                    // 进入直播
-                    [weakself getLiveVideoSignalFlowUrl];
-                    
-                } else if ([liveState isEqualToString:@"timeShift"]) {
-                    // 请求新的时移
-                    [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
-                }
+        // 5.移除当前的播放器
+        [self.IJKPlayerViewController closePlayer];
+        
+        // 6.开始播放直播
+        self.url = [NSURL URLWithString:newTimeShiftUrl];
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+        _IJKPlayerViewController.mediaControl.liveState = TimeShift;
+        _IJKPlayerViewController.mediaControl.firmPosition = positionTime;
+        _IJKPlayerViewController.mediaControl.isLive = YES;
+        
+        // 7.推屏的回调
+        DONG_WeakSelf(self);
+        self.IJKPlayerViewController.pushScreenBlock = ^{
+            // 未连接设备时要先扫描设备
+            if (XMPPManager.isConnected) {
                 
-            };
-            
-            [self.view addSubview:_IJKPlayerViewController.view];
-            
-            
-            [CommonFunc dismiss];
-        } failure:^(id  _Nullable errorObject) {
-            [CommonFunc dismiss];
-            
-        }];
+                NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+                [weakself getLivePushScreenXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
+                    
+                    [XMPPManager sendMessageWithBody:responseObject andToName:toName andType:@"text"];
+                }];
+                
+                
+            } else {
+                
+                [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                //[alertView show];
+                //alertView.delegate = weakself;
+                
+            }
+        };
         
+        // 8.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+        self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+            DONG_StrongSelf(self);
+            strongself.fullScreenLock = isFullScreenLock;
+            [strongself shouldAutorotate];
+        };
+        
+        // 9.时移的回调
+        self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState, int positionTime) {
+            DONG_Log(@"liveState:%@", liveState);
+            if ([liveState isEqualToString:@"live"]) {
+                // 进入直播
+                [weakself getLiveVideoSignalFlowUrl];
+                
+            } else if ([liveState isEqualToString:@"timeShift"]) {
+                // 请求新的时移
+                [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
+            }
+            
+        };
+        
+        [self.view addSubview:_IJKPlayerViewController.view];
+        
+        
+        [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
         
     }];
+    
+    
     
 }
 
@@ -1076,77 +1066,73 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                  @"ext"  : ext };
     
     // 域名获取
-    [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:ToGetProgramHavePastVideoSignalFlowUrl key:@"playauth" success:^(id  _Nullable newUrlString) {
+    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:ToGetProgramHavePastVideoSignalFlowUrl key:@"playauth"];
+    
+    DONG_Log(@"domainUrl:%@",domainUrl);
+    // ip转换
+    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+    
+    DONG_Log(@"newIpUrl:%@",newIpUrl);
+    
+    
+    [requestDataManager requestDataWithUrl:newIpUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        NSLog(@"====responseObject:::%@===",responseObject);
         
-        DONG_Log(@"newUrlString:%@",newUrlString);
-        // ip转换
-        NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:newUrlString];
+        NSString *liveUrl = responseObject[@"play_url"];
         
-        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        NSString *playUrl = [_hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
+        DONG_Log(@"playUrl：%@ ",playUrl);
+        //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+        self.url= [NSURL URLWithString:playUrl];
         
-        [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            NSLog(@"====responseObject:::%@===",responseObject);
-            
-            NSString *liveUrl = responseObject[@"play_url"];
-            
-            NSString *playUrl = [_hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
-            DONG_Log(@"playUrl：%@ ",playUrl);
-            //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-            self.url= [NSURL URLWithString:playUrl];
-            
-            // 5.移除当前的播放器
-            [self.IJKPlayerViewController closePlayer];
-            
-            // 6.加载新的播放器开始播放
-            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-            self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-            //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
-            self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
-            
-            // 7.推屏的回调
-            DONG_WeakSelf(self);
-            self.IJKPlayerViewController.pushScreenBlock = ^{
-                // 未连接设备时要先扫描设备
-                if (XMPPManager.isConnected) {
-                    
-                    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
-                    [weakself getXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:model1 success:^(id  _Nullable responseObject) {
-                        
-                        //[TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
-                        [XMPPManager sendMessageWithBody:responseObject andToName:toName andType:@"text"];
-                    }];
-                    
-                } else {
-                    
-                    [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
-                    
-                    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                    //[alertView show];
-                    //alertView.delegate = weakself;
-                    
-                }
-            };
-            
-            // 8.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
-            self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
-                DONG_StrongSelf(self);
-                strongself.fullScreenLock = isFullScreenLock;
-                [strongself shouldAutorotate];
-            };
-            
-            [self.view addSubview:self.IJKPlayerViewController.view];
-            
-            [CommonFunc dismiss];
-        } failure:^(id  _Nullable errorObject) {
-            [CommonFunc dismiss];
-            
-        }];
+        // 5.移除当前的播放器
+        [self.IJKPlayerViewController closePlayer];
         
+        // 6.加载新的播放器开始播放
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+        self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
+        self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
+        
+        // 7.推屏的回调
+        DONG_WeakSelf(self);
+        self.IJKPlayerViewController.pushScreenBlock = ^{
+            // 未连接设备时要先扫描设备
+            if (XMPPManager.isConnected) {
+                
+                NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+                [weakself getXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:model1 success:^(id  _Nullable responseObject) {
+                    
+                    //[TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
+                    [XMPPManager sendMessageWithBody:responseObject andToName:toName andType:@"text"];
+                }];
+                
+            } else {
+                
+                [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                
+                //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                //[alertView show];
+                //alertView.delegate = weakself;
+                
+            }
+        };
+        
+        // 8.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+        self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+            DONG_StrongSelf(self);
+            strongself.fullScreenLock = isFullScreenLock;
+            [strongself shouldAutorotate];
+        };
+        
+        [self.view addSubview:self.IJKPlayerViewController.view];
+        
+        [CommonFunc dismiss];
     } failure:^(id  _Nullable errorObject) {
-        
         [CommonFunc dismiss];
         
     }];
+    
     
 }
 
@@ -1234,7 +1220,16 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     //当前tvId不好使，要重新请求获取Sequence
     __block NSString *sequence = nil;
     __block NSString *xmlString= nil;
-    [requestDataManager postRequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
+    
+    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:GetLiveNewTvId key:@"sklivezh"];
+    
+    DONG_Log(@"domainUrl:%@",domainUrl);
+    
+    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+    
+    DONG_Log(@"newIpUrl:%@",newIpUrl);
+    
+    [requestDataManager postRequestDataWithUrl:newIpUrl parameters:nil success:^(id  _Nullable responseObject) {
         DONG_Log(@"====responseObject:::%@===",responseObject);
         
         NSArray *array = responseObject[@"LiveTvSort"];
@@ -1292,7 +1287,17 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     //当前tvId不好使，要重新请求获取Sequence
     __block NSString *sequence = nil;
     __block NSString *xmlString= nil;
-    [requestDataManager postRequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
+    
+    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:GetLiveNewTvId key:@"sklivezh"];
+    
+    DONG_Log(@"domainUrl:%@",domainUrl);
+    
+    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+    
+    DONG_Log(@"newIpUrl:%@",newIpUrl);
+    
+    
+    [requestDataManager postRequestDataWithUrl:newIpUrl parameters:nil success:^(id  _Nullable responseObject) {
         DONG_Log(@"====responseObject:::%@===",responseObject);
         
         NSArray *array = responseObject[@"LiveTvSort"];

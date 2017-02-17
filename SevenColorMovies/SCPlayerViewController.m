@@ -144,9 +144,11 @@ static const CGFloat LabelWidth = 100.f;
     XMPPManager.delegate = self;
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    // 关闭播放代理
+    libagent_finish();
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -2050,17 +2052,33 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 //base64编码downloadUrl
                 NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
                 
+                DONG_Log(@">>>>>>>>>>>>filmmid>>>>>>>>>>%@",filmmidStr);
+                DONG_Log(@">>>>>>>>>>>>downloadUrl>>>>>>>>>>%@",downloadUrl);
+                DONG_Log(@">>>>>>>>>>>>downloadBase64Url>>>>>>>>>>%@",downloadBase64Url);
+                
+                
                 //获取fid
                 NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
                 
                 //这只是个请求视频播放流的url地址
                 NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
                 DONG_Log(@"domainUrl:%@",domainUrl);
+                
                 NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+                
+                DONG_Log(@"replacedUrl:%@",replacedUrl);
+                
                 NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmmidStr] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 
-                //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
-                //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+//                DONG_Log(@">>>>>>>>>>>replacedUrl>>>>>>>>>>%@",replacedUrl);
+//                DONG_Log(@">>>>>>>>>>>filmmidStr>>>>>>>>>>%@",filmmidStr);
+//                DONG_Log(@">>>>>>>>>>>fidString>>>>>>>>>>%@",fidString);
+//                DONG_Log(@">>>>>>>>>>>>downloadBase64Url>>>>>>>>>>%@",downloadBase64Url);
+//                DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+                
+                
+                
+                
                 //请求播放地址
                 [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                     //DONG_Log(@"====responseObject:::%@===",responseObject);

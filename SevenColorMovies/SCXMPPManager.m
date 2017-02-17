@@ -204,7 +204,7 @@
     NSString *from = message.fromStr;
     NSDictionary *dic = [NSDictionary dictionaryWithXMLString:info];
     
-
+    
     
     DONG_Log(@"接收到%@说：%@",from,info);
     DONG_Log(@"dic:%@",dic);
@@ -286,47 +286,66 @@
             
             NSString *sequence = dic2[@"_tvId"];
             [CommonFunc showLoadingWithTips:@"加载中"];
-            [requestDataManager postRequestDataWithUrl:GetLiveNewTvId parameters:nil success:^(id  _Nullable responseObject) {
+            [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:GetLiveNewTvId key:@"sklivezh" success:^(id  _Nullable newUrlString) {
                 
-                DONG_Log(@"====responseObject:::%@===",responseObject);
-                [CommonFunc dismiss];
+                DONG_Log(@"newUrlString:%@",newUrlString);
                 
-                NSArray *array = responseObject[@"LiveTvSort"];
-                
-                for (NSDictionary *dic in array) {
+                [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
                     
-                    for (NSDictionary *dic3 in dic[@"LiveTv"]) {
+                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                    
+                    [requestDataManager postRequestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
                         
-                        if ([sequence isEqualToString:dic3[@"_Sequence"]]) {
+                        DONG_Log(@"====responseObject:::%@===",responseObject);
+                        [CommonFunc dismiss];
+                        
+                        NSArray *array = responseObject[@"LiveTvSort"];
+                        
+                        for (NSDictionary *dic in array) {
                             
-                            NSString *tvId = dic3[@"_TvId"];
-                            
-                            SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
-                            liveProgramModel.tvid = tvId;
-                            
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                // 调用播放器
-                                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithLiveProgramModel:liveProgramModel];
+                            for (NSDictionary *dic3 in dic[@"LiveTv"]) {
                                 
-                                player.hidesBottomBarWhenPushed = YES;
-                                // 取出当前的导航控制器
-                                UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-                                // 当前选择的导航控制器
-                                UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
-                                [navController pushViewController:player animated:YES];
-                                
-                                
-                                 DONG_Log(@"直播拉屏直播拉屏");
-                            });
-                            
-                            break;
+                                if ([sequence isEqualToString:dic3[@"_Sequence"]]) {
+                                    
+                                    NSString *tvId = dic3[@"_TvId"];
+                                    
+                                    SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
+                                    liveProgramModel.tvid = tvId;
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        // 调用播放器
+                                        SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithLiveProgramModel:liveProgramModel];
+                                        
+                                        player.hidesBottomBarWhenPushed = YES;
+                                        // 取出当前的导航控制器
+                                        UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                                        // 当前选择的导航控制器
+                                        UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+                                        [navController pushViewController:player animated:YES];
+                                        
+                                        
+                                        DONG_Log(@"直播拉屏直播拉屏");
+                                    });
+                                    
+                                    break;
+                                }
+                            }
                         }
-                    }
-                }
-                [CommonFunc dismiss];
+                        [CommonFunc dismiss];
+                        
+                    } failure:^(id  _Nullable errorObject) {
+                        
+                        [CommonFunc dismiss];
+                        
+                    }];
+                    
+                } failure:^(NSError *error) {
+                    [CommonFunc dismiss];
+                    
+                }];
+                
                 
             } failure:^(id  _Nullable errorObject) {
-                
                 [CommonFunc dismiss];
                 
             }];
@@ -390,7 +409,7 @@
 
 -(BOOL)xmppReconnect:(XMPPReconnect *)sender shouldAttemptAutoReconnect:(SCNetworkConnectionFlags)connectionFlags{
     
-     DONG_Log(@"开始尝试自动连接:%u", connectionFlags);
+    DONG_Log(@"开始尝试自动连接:%u", connectionFlags);
     
     return YES;
     
@@ -398,7 +417,7 @@
 
 -(void)xmppReconnect:(XMPPReconnect *)sender didDetectAccidentalDisconnect:(SCNetworkConnectionFlags)connectionFlags{
     
-     DONG_Log(@"检测到意外断开连接:%u",connectionFlags);
+    DONG_Log(@"检测到意外断开连接:%u",connectionFlags);
     
 }
 

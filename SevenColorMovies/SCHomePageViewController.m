@@ -511,12 +511,13 @@ static NSString *const footerId = @"footerId";
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
             
-        }else if (indexPath.row == 0) {//直播
+        } else if (indexPath.row == 0) { //直播
             SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
             liveView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:liveView animated:YES];
             
-        }else{//其他
+        } else {//其他
+            
             NSString *key = _filmClassTitleArray[indexPath.row-1];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
             channelVC.filmClassModel = _filmClassModelDictionary[key];
@@ -525,7 +526,7 @@ static NSString *const footerId = @"footerId";
             [self.navigationController pushViewController:channelVC animated:YES];
         }
         
-    }else{
+    } else {
         
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
@@ -536,7 +537,8 @@ static NSString *const footerId = @"footerId";
             vc.bannerFilmModelArray = _bannerFilmModelArr;
             [self.navigationController pushViewController:vc animated:YES];
             
-        }else{
+        } else {
+            
             SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
             teleplayPlayer.filmModel = filmModel;
             teleplayPlayer.bannerFilmModelArray = _bannerFilmModelArr;

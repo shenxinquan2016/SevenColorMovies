@@ -82,8 +82,8 @@
 #define GetTimeHaveWatched @"http://interface.voole.com/b2b/resume/service.php?ctype=1&spid=20151103&epgid=909191&uid=0&detailurl="
 
 
-// 直播推屏时tvId转换
-#define GetLiveNewTvId @"http://10.177.1.222:8095/b2b/search/getCodeByServiceId.htm?serviceId=new"
+// 直播推屏时tvId转换  该接口直返回完整地址
+#define GetLiveNewTvId @""
 
 
 

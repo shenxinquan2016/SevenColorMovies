@@ -706,6 +706,7 @@
 /** 直播拉屏 */
 - (void)playLiveVideoWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel
 {
+    [CommonFunc showLoadingWithTips:@"加载中"];
     // 3.请求播放地址url
     NSString *fidStr = [[liveProgramModel.tvid stringByAppendingString:@"_"] stringByAppendingString:liveProgramModel.tvid];
     
@@ -768,6 +769,7 @@
         }];
     } failure:^(id  _Nullable errorObject) {
         
+        [CommonFunc dismiss];
         
     }];
 }

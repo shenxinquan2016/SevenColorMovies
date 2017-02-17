@@ -28,8 +28,8 @@
     
     [self checkNetworkEnvironment];
     
-    //-1.启动播放代理包
-    [self setLibagent];
+//    //-1.启动播放代理包
+//    [self setLibagent];
     
     //0.初始化键盘控制
     [self initKeyboardManager];
@@ -52,7 +52,7 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     
-    //    libagent_close();
+        libagent_close();
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -73,12 +73,14 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //-1.启动播放代理包
+    [self setLibagent];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 
-//       libagent_close();
+
 }
 
 ////禁用横屏
@@ -198,8 +200,6 @@
 {
     const NSString *uuidStr = [HLJUUID getUUID];
     const char *uuid = [uuidStr UTF8String];
-    
-    
     
     libagent_start(0, NULL, uuid, 5656);
 
