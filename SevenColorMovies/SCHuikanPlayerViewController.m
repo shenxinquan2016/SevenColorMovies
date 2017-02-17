@@ -697,6 +697,7 @@
                 strongself.isProhibitRotate = YES;
                 
                 [CommonFunc dismiss];
+                
             } failure:^(id  _Nullable errorObject) {
                 [CommonFunc dismiss];
                 
@@ -710,7 +711,6 @@
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
-        
     }];
     
 }
@@ -734,6 +734,9 @@
         self.hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
         [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
+            // 睡一会以解决屏幕旋转时的bug
+            [NSThread sleepForTimeInterval:1.5f];
+            
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 NSLog(@"====responseObject:::%@===",responseObject);
                 
@@ -743,8 +746,7 @@
                 
                 NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
                 
-                //睡一会以解决屏幕旋转时的bug
-//                [NSThread sleepForTimeInterval:1.0f];
+                
                 // 5.开始播放直播
                 self.url = [NSURL URLWithString:newLiveUrl];
                 //2.调用播放器播放
@@ -768,7 +770,6 @@
                 [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
                 self.IJKPlayerViewController.isFullScreen = YES;
                 self.isProhibitRotate = YES;
-                
                 
                 [CommonFunc dismiss];
             } failure:^(id  _Nullable errorObject) {
@@ -814,6 +815,8 @@
         [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
             DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            // 睡一会以解决屏幕旋转时的bug
+            [NSThread sleepForTimeInterval:1.5f];
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 //DONG_Log(@"responseObject:%@",responseObject);
@@ -834,6 +837,11 @@
                 self.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
                 self.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
                 self.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
+                
+//                _IJKPlayerViewController.mediaControl.liveState = TimeShift;
+//                _IJKPlayerViewController.mediaControl.firmPosition = [_currentPlayTime integerValue];
+//                _IJKPlayerViewController.mediaControl.isLive = YES;
+                
                 [self.view addSubview:self.IJKPlayerViewController.view];
                 
                 //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
