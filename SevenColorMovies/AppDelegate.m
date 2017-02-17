@@ -27,10 +27,7 @@
     
     
     [self checkNetworkEnvironment];
-    
-//    //-1.启动播放代理包
-//    [self setLibagent];
-    
+        
     //0.初始化键盘控制
     [self initKeyboardManager];
     
