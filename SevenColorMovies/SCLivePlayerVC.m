@@ -120,6 +120,8 @@ static const CGFloat LabelWidth = 55.f;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     huikanIndex = 0;
     timesIndexOfHuikan = 0;
+    // 关闭播放代理
+    libagent_finish();
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

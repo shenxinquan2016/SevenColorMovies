@@ -149,7 +149,7 @@
     [super viewDidLoad];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
@@ -158,15 +158,17 @@
     
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    //注销所有通知
+    // 注销所有通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    // 关闭播放代理
+    libagent_finish();
 }
 
-- (void)viewDidDisappear:(BOOL)animated{
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     
