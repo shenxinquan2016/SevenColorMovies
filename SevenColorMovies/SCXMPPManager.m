@@ -287,7 +287,7 @@
             // 直播
             
             NSString *sequence = dic2[@"_tvId"];
-            [CommonFunc showLoadingWithTips:@"加载中"];
+            [CommonFunc showLoadingWithTips:@"加载中..."];
             [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:GetLiveNewTvId key:@"sklivezh" success:^(id  _Nullable newUrlString) {
                 
                 DONG_Log(@"newUrlString:%@",newUrlString);
@@ -362,7 +362,7 @@
             DONG_Log(@"进入时移拉屏了");
             
             NSString *sequence = dic2[@"_tvId"];
-            [CommonFunc showLoadingWithTips:@"加载中"];
+            [CommonFunc showLoadingWithTips:@"加载中..."];
             [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:GetLiveNewTvId key:@"sklivezh" success:^(id  _Nullable newUrlString) {
                 
                 DONG_Log(@"newUrlString:%@",newUrlString);

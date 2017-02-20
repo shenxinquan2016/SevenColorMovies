@@ -1087,6 +1087,13 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         
         DONG_Log(@"newTimeShiftUrl:%@",newTimeShiftUrl);
         
+        // 格林尼治时间
+        NSDate *date = [NSDate date];
+        // 当前时间的时间戳
+        NSInteger nowTimeStap = [NSDate timeStampFromDate:date];
+        // 当前播放位置
+        NSInteger currentPlace = 6 * 3600 - (nowTimeStap - [currentPlayTime integerValue]);
+        
         // 5.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
         
@@ -1096,7 +1103,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
         _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
         _IJKPlayerViewController.mediaControl.liveState = TimeShift;
-        _IJKPlayerViewController.mediaControl.firmPosition = [currentPlayTime intValue];
+        _IJKPlayerViewController.mediaControl.firmPosition = currentPlace;
         _IJKPlayerViewController.mediaControl.isLive = YES;
         
         // 7.推屏的回调
