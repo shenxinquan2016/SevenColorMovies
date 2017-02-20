@@ -317,23 +317,13 @@
                                     dispatch_async(dispatch_get_main_queue(), ^{
                                         
                                         // 调用播放器
-                                        /*  // 独立播放器
-                                        SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithLiveProgramModel:liveProgramModel];
-                                        
-                                        player.hidesBottomBarWhenPushed = YES;
-                                        // 取出当前的导航控制器
-                                        UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-                                        // 当前选择的导航控制器
-                                        UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
-                                        [navController pushViewController:player animated:YES];
-                                        */
-                                        
                                         // 进入直播详情页
                                         SCLivePlayerVC *livePlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCLivePlayerVC");
-                                        
                                         livePlayer.filmModel = filmModel;
                                         livePlayer.channelNameLabel.text = dic2[@"filmName"];
+                                        livePlayer.liveState = Live;
                                         livePlayer.hidesBottomBarWhenPushed = YES;
+                                        
                                         // 取出当前的导航控制器
                                         UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
                                         // 当前选择的导航控制器
@@ -369,7 +359,7 @@
             
         } else if ([dic2[@"_playingType"] isEqualToString:@"timeShift"]) {
             
-            DONG_Log(@"进入时移了");
+            DONG_Log(@"进入时移拉屏了");
             
             NSString *sequence = dic2[@"_tvId"];
             [CommonFunc showLoadingWithTips:@"加载中"];
@@ -396,32 +386,36 @@
                                     
                                     NSString *tvId = dic3[@"_TvId"];
                                     
+                                    SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+                                    filmModel._TvId = tvId;
+                                    filmModel._Title = dic3[@"_Title"];
+                                    
                                     DONG_Log(@"tvId:%@",tvId);
                                     
-                                    SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
-                                    liveProgramModel.tvid = tvId;
                                     NSString *currentPlayTime = dic2[@"_currentPlayTime"];
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
                                         // 调用播放器
-                                        SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithTimeShiftWithLiveProgramModel:liveProgramModel currentPlayTime:currentPlayTime];
+                                        // 进入直播详情页
+                                        SCLivePlayerVC *livePlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCLivePlayerVC");
+                                        livePlayer.filmModel = filmModel;
+                                        livePlayer.currentPlayTime = currentPlayTime;
+                                        livePlayer.liveState = TimeShift;
+                                        livePlayer.hidesBottomBarWhenPushed = YES;
                                         
-                                        player.hidesBottomBarWhenPushed = YES;
                                         // 取出当前的导航控制器
                                         UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
                                         // 当前选择的导航控制器
                                         UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
-                                        [navController pushViewController:player animated:YES];
+                                        [navController pushViewController:livePlayer animated:YES];
+                                        [CommonFunc dismiss];
                                         
-                                        
-                                        DONG_Log(@"直播拉屏直播拉屏");
                                     });
                                     
                                     break;
                                 }
                             }
                         }
-                        [CommonFunc dismiss];
                         
                     } failure:^(id  _Nullable errorObject) {
                         

@@ -327,7 +327,12 @@
                     [navController popToViewController:controller animated:YES];
                     return;
                     
-                } else if ([controller isKindOfClass:[SCMyWatchingHistoryVC class]]) {//直播频道列表页
+                } else if ([controller isKindOfClass:[SCMyWatchingHistoryVC class]]) {//观看记录页
+                    
+                    [navController popToViewController:controller animated:YES];
+                    return;
+                    
+                } else if ([controller isKindOfClass:[SCRemoteControlVC class]]){//遥控器
                     
                     [navController popToViewController:controller animated:YES];
                     return;
