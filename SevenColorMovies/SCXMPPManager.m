@@ -11,6 +11,7 @@
 #import "SCFilmModel.h"
 #import "SCLiveProgramModel.h"
 #import "SCHuikanPlayerViewController.h"
+#import "SCLivePlayerVC.h"
 #import <XMPPReconnect.h>
 
 @interface SCXMPPManager ()
@@ -310,11 +311,13 @@
                                     
                                     NSString *tvId = dic3[@"_TvId"];
                                     
-                                    SCLiveProgramModel *liveProgramModel = [[SCLiveProgramModel alloc] init];
-                                    liveProgramModel.tvid = tvId;
+                                    SCFilmModel *filmModel = [[SCFilmModel alloc] init];
+                                    filmModel._TvId = tvId;
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                        
                                         // 调用播放器
+                                        /*  // 独立播放器
                                         SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithLiveProgramModel:liveProgramModel];
                                         
                                         player.hidesBottomBarWhenPushed = YES;
@@ -323,9 +326,22 @@
                                         // 当前选择的导航控制器
                                         UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
                                         [navController pushViewController:player animated:YES];
+                                        */
                                         
+                                        // 进入直播详情页
+                                        SCLivePlayerVC *livePlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCLivePlayerVC");
+                                        
+                                        livePlayer.filmModel = filmModel;
+                                        livePlayer.channelNameLabel.text = dic2[@"filmName"];
+                                        livePlayer.hidesBottomBarWhenPushed = YES;
+                                        // 取出当前的导航控制器
+                                        UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                                        // 当前选择的导航控制器
+                                        UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+                                        [navController pushViewController:livePlayer animated:YES];
                                         
                                         DONG_Log(@"直播拉屏直播拉屏");
+                                        
                                     });
                                     
                                     break;

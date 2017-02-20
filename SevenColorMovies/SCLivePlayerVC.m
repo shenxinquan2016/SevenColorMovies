@@ -67,10 +67,10 @@ static const CGFloat LabelWidth = 55.f;
 @property (nonatomic, assign) BOOL fullScreenLock;
 /** 功能区距顶部约束 */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;
-/** 直播/时移状态 */
-@property (nonatomic, assign) SCLiveState liveState;
 /** 记录时移时距最右端的位置差 */
 @property (nonatomic, assign) NSTimeInterval minusSeconds;
+/** 直播时状态：直播/时移 */
+
 
 @end
 
