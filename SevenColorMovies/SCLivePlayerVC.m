@@ -25,6 +25,8 @@
 #import "HLJUUID.h" // 获取UDID
 #import "SCXMPPManager.h"
 #import "SCScanQRCodesVC.h"
+#import "PlayerViewRotate.h"
+#import "SCRemoteControlVC.h"
 
 //static const CGFloat StatusBarHeight = 20.0f;
 /** 滑动标题栏高度 */
@@ -158,6 +160,11 @@ static const CGFloat LabelWidth = 55.f;
             return;
             
         } else if ([controller isKindOfClass:[SCMyDownloadManagerVC class]]) {//我的下载
+            
+            [navController popToViewController:controller animated:YES];
+            return;
+            
+        }  else if ([controller isKindOfClass:[SCRemoteControlVC class]]){//遥控器
             
             [navController popToViewController:controller animated:YES];
             return;
@@ -782,15 +789,15 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                     }
                 }
                 
-                if (_liveState == Live) {
+                if (_liveState == TimeShift) {
                     
-                    // 0.请求该频道直播流url
-                    [self getLiveVideoSignalFlowUrl];
-                    
-                } else if (_liveState == TimeShift) {
-                    
-                    // 1.请求时移拉屏视频流url
+                    // 0.请求时移拉屏视频流url
                     [self requestTimeShiftVideoSignalFlowUrlWhenPullScreenWithCurrentPlayTime:_currentPlayTime];
+                    
+                } else {
+                    
+                    // 1.请求该频道直播流url
+                    [self getLiveVideoSignalFlowUrl];
                 }
                 
                 // 2.添加滑动headerView
@@ -802,6 +809,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 [CommonFunc dismiss];
                 
             }];
+            
         } failure:^(NSError *error) {
             
             [CommonFunc dismiss];
@@ -861,14 +869,32 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         // 4.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
         
-        // 5.开始播放直播
-        self.url = [NSURL URLWithString:newLiveUrl];
-        //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
-        _IJKPlayerViewController.mediaControl.liveState = Live;
-        _IJKPlayerViewController.mediaControl.isLive = YES;
+        if ([PlayerViewRotate isOrientationLandscape]) {
+            // 全屏
+            // 5.开始播放直播
+            self.url = [NSURL URLWithString:newLiveUrl];
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            self.view.frame = [[UIScreen mainScreen] bounds];
+            _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+            _IJKPlayerViewController.mediaControl.liveState = Live;
+            _IJKPlayerViewController.mediaControl.isLive = YES;
+            
+        } else {
+            
+            // 小屏
+            // 5.开始播放直播
+            self.url = [NSURL URLWithString:newLiveUrl];
+            //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+            _IJKPlayerViewController.mediaControl.liveState = Live;
+            _IJKPlayerViewController.mediaControl.isLive = YES;
+            
+        }
         
         // 6.推屏的回调
         DONG_WeakSelf(self);
@@ -975,14 +1001,33 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         // 5.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
         
-        // 6.开始播放直播
-        self.url = [NSURL URLWithString:newTimeShiftUrl];
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
-        _IJKPlayerViewController.mediaControl.liveState = TimeShift;
-        _IJKPlayerViewController.mediaControl.firmPosition = positionTime;
-        _IJKPlayerViewController.mediaControl.isLive = YES;
+        if ([PlayerViewRotate isOrientationLandscape]) {
+            // 全屏
+            // 6.开始播放直播
+            self.url = [NSURL URLWithString:newTimeShiftUrl];
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            self.view.frame = [[UIScreen mainScreen] bounds];
+            _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+            
+            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+            _IJKPlayerViewController.mediaControl.liveState = TimeShift;
+            _IJKPlayerViewController.mediaControl.firmPosition = positionTime;
+            _IJKPlayerViewController.mediaControl.isLive = YES;
+            
+        } else {
+            // 小屏
+            // 6.开始播放直播
+            self.url = [NSURL URLWithString:newTimeShiftUrl];
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+            _IJKPlayerViewController.mediaControl.liveState = TimeShift;
+            _IJKPlayerViewController.mediaControl.firmPosition = positionTime;
+            _IJKPlayerViewController.mediaControl.isLive = YES;
+            
+        }
         
         // 7.推屏的回调
         DONG_WeakSelf(self);
@@ -1097,14 +1142,33 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         // 5.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
         
-        // 6.开始播放直播
-        self.url = [NSURL URLWithString:newTimeShiftUrl];
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
-        _IJKPlayerViewController.mediaControl.liveState = TimeShift;
-        _IJKPlayerViewController.mediaControl.firmPosition = currentPlace;
-        _IJKPlayerViewController.mediaControl.isLive = YES;
+        if ([PlayerViewRotate isOrientationLandscape]) {
+            // 全屏
+            // 6.开始播放直播
+            self.url = [NSURL URLWithString:newTimeShiftUrl];
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            self.view.frame = [[UIScreen mainScreen] bounds];
+            _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+            
+            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+            _IJKPlayerViewController.mediaControl.liveState = TimeShift;
+            _IJKPlayerViewController.mediaControl.firmPosition = currentPlace;
+            _IJKPlayerViewController.mediaControl.isLive = YES;
+            
+        } else {
+            // 小屏
+            // 6.开始播放直播
+            self.url = [NSURL URLWithString:newTimeShiftUrl];
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+            _IJKPlayerViewController.mediaControl.liveState = TimeShift;
+            _IJKPlayerViewController.mediaControl.firmPosition = currentPlace;
+            _IJKPlayerViewController.mediaControl.isLive = YES;
+            
+        }
         
         // 7.推屏的回调
         DONG_WeakSelf(self);
@@ -1159,7 +1223,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         [CommonFunc dismiss];
         
     }];
-
+    
 }
 
 // 请求回看节目视频流url
