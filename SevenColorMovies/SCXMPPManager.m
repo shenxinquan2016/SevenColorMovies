@@ -313,6 +313,7 @@
                                     
                                     SCFilmModel *filmModel = [[SCFilmModel alloc] init];
                                     filmModel._TvId = tvId;
+                                    filmModel._Title = dic3[@"_Title"];
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
                                         
