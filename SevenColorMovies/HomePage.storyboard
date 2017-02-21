@@ -138,6 +138,8 @@
                     </view>
                     <connections>
                         <outlet property="channelNameLabel" destination="h4V-oX-dGt" id="rSH-Hg-V5g"/>
+                        <outlet property="functionalZoneView" destination="Uuo-yE-Wvr" id="xhT-ux-SCd"/>
+                        <outlet property="playerBackgroundView" destination="XPY-U3-a1s" id="oZB-Eo-4Ji"/>
                         <outlet property="toTopConstraint" destination="n1B-GT-h01" id="zaF-DR-CI0"/>
                     </connections>
                 </viewController>
@@ -395,6 +397,7 @@
                         <outlet property="addMyCollectionBtn" destination="Gsb-sb-XSX" id="Md7-KY-7N4"/>
                         <outlet property="addProgramListBtn" destination="NcL-zt-Smf" id="4KK-na-Nzz"/>
                         <outlet property="downLoadBtn" destination="edT-o3-lwm" id="K8C-7E-Db6"/>
+                        <outlet property="functionalZoneView" destination="AU6-pC-Xoa" id="SlF-YQ-gCK"/>
                         <outlet property="playerBackGroundView" destination="yZZ-Ok-tX2" id="8Hp-fr-kWJ"/>
                         <outlet property="toTopConstraint" destination="tMT-Lj-HkR" id="UO3-iv-0aa"/>
                     </connections>

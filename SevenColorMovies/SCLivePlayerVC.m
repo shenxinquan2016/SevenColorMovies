@@ -71,8 +71,10 @@ static const CGFloat LabelWidth = 55.f;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopConstraint;
 /** 记录时移时距最右端的位置差 */
 @property (nonatomic, assign) NSTimeInterval minusSeconds;
-/** 直播时状态：直播/时移 */
 
+@property (weak, nonatomic) IBOutlet UIView *playerBackgroundView;
+
+@property (weak, nonatomic) IBOutlet UIView *functionalZoneView;
 
 @end
 
@@ -625,8 +627,10 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     switch (orient) {
         case UIDeviceOrientationPortrait:
+            
             //此方向为正常竖屏方向，当锁定全屏设备旋转至此方向时，屏幕虽然不显示StatusBar，但会留出StatusBar位置，所以调整IJKPlayer的位置
             if (self.fullScreenLock) {
+                [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                 _IJKPlayerViewController.isFullScreen = YES;
                 [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
                 _IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
@@ -636,7 +640,10 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 
             } else {
                 
+                [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
                 [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                _playerBackgroundView.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _functionalZoneView.frame = CGRectMake(0, 20 + (kMainScreenWidth * 9 / 16) + 2, kMainScreenWidth, 36);
                 _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
@@ -645,6 +652,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             break;
             
         case UIDeviceOrientationLandscapeLeft:
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
             [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;
@@ -657,6 +665,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             break;
             
         case UIDeviceOrientationPortraitUpsideDown:
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
             _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
             _IJKPlayerViewController.isFullScreen = YES;
             _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
@@ -664,6 +673,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             break;
             
         case UIDeviceOrientationLandscapeRight:
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
             [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;

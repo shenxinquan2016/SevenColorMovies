@@ -91,6 +91,7 @@ static const CGFloat LabelWidth = 100.f;
 @property (nonatomic, strong) NSMutableArray *advertisementArray;
 
 @property (weak, nonatomic) IBOutlet UIView *playerBackGroundView;
+@property (weak, nonatomic) IBOutlet UIView *functionalZoneView;
 
 @end
 
@@ -966,6 +967,7 @@ static const CGFloat LabelWidth = 100.f;
                 
                 [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
                 _playerBackGroundView.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                _functionalZoneView.frame = CGRectMake(0, 20 + (kMainScreenWidth * 9 / 16) + 2, kMainScreenWidth, 36);
                 [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
                 _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);

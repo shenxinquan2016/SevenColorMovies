@@ -126,7 +126,7 @@
     if (!XMPPManager.isConnected) {
         [CommonFunc showLoadingWithTips:@"绑定设备中..."];
         // 8s之后未收到盒子信息 切断连接
-        [self performSelector:@selector(hideLoadingVew) withObject:nil afterDelay:8.f];
+        [self performSelector:@selector(hideLoadingVew) withObject:nil afterDelay:10.f];
     }
 }
 
