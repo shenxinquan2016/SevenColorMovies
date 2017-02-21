@@ -42,6 +42,8 @@ typedef void(^TimeShiftBlock)(NSString *liveState, int positionTime);
 /** 标记是否是单独播放器页面 */
 @property (nonatomic, assign) BOOL isSinglePlayerView;
 @property (strong, nonatomic) IBOutlet IJKMediaControl *mediaControl;
+/** 是否是飞屏（用于控制播放器返回动作）*/
+@property (nonatomic, assign) BOOL isFeiPing;
 
 - (id)initWithURL:(NSURL *)url;
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void(^)())completion;

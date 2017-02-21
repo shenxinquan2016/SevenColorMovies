@@ -242,6 +242,12 @@
         UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
         // pop到指定页面
         // 因为是出栈，所以要倒叙遍历navController.viewControllers 从栈顶到栈底遍历
+        
+        if (_isFeiPing) {
+            // 如果是飞屏 直接返回到根目录
+            [navController popViewControllerAnimated:YES];
+        }
+        
         for (int i = 0; i < navController.viewControllers.count ; i++) {
             unsigned long index = navController.viewControllers.count - i;
             UIViewController* controller = navController.viewControllers[index-1];

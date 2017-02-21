@@ -118,6 +118,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
     // 监听语音服务器初始化状态
     [self registerObserber];
     XMPPManager.delegate = self;

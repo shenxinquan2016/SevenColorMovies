@@ -12,6 +12,9 @@
 
 @interface SCHuikanPlayerViewController : SCOtherBaseViewController
 
+/** 是否是飞屏（用于控制播放器返回动作）*/
+@property (nonatomic, assign) BOOL isFeiPing;
+
 /** 由我的节目/点播飞屏拉屏单进入(点播) */
 + (instancetype)initPlayerWithFilmModel:(SCFilmModel *)filmModel;
 /** 由回看搜索单进入(直播回看) */

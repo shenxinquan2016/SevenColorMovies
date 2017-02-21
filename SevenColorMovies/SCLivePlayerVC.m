@@ -1483,28 +1483,28 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     __block NSString *sequence = nil;
     __block NSString *xmlString= nil;
     
-    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:GetLiveNewTvId key:@"sklivezh"];
+//    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:GetLiveNewTvId key:@"sklivezh"];
     
-    DONG_Log(@"domainUrl:%@",domainUrl);
+//    DONG_Log(@"domainUrl:%@",domainUrl);
     
-    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
     
-    DONG_Log(@"newIpUrl:%@",newIpUrl);
+//    DONG_Log(@"newIpUrl:%@",newIpUrl);
     
     
-    [requestDataManager postRequestDataWithUrl:newIpUrl parameters:nil success:^(id  _Nullable responseObject) {
-        DONG_Log(@"====responseObject:::%@===",responseObject);
-        
-        NSArray *array = responseObject[@"LiveTvSort"];
-        
-        for (NSDictionary *dic in array) {
-            
-            for (NSDictionary *dic2 in dic[@"LiveTv"]) {
-                
-                NSString *tvId = dic2[@"_TvId"];
-                if ([tvId isEqualToString:self.filmModel._TvId]) {
-                    sequence = dic2[@"_Sequence"];
-                    
+//    [requestDataManager postRequestDataWithUrl:newIpUrl parameters:nil success:^(id  _Nullable responseObject) {
+//        DONG_Log(@"====responseObject:::%@===",responseObject);
+    
+//        NSArray *array = responseObject[@"LiveTvSort"];
+    
+//        for (NSDictionary *dic in array) {
+    
+//            for (NSDictionary *dic2 in dic[@"LiveTv"]) {
+    
+//                NSString *tvId = dic2[@"_TvId"];
+//                if ([tvId isEqualToString:self.filmModel._TvId]) {
+//                    sequence = dic2[@"_Sequence"];
+    
                     NSString *targetName   = @"epg.vurc.goback.action";
                     NSString *playingType  = @"goback";
                     NSString *sid          = @"1";
@@ -1527,14 +1527,14 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                     xmlString = [self getXMLStringCommandWithFilmName:liveProgramModel.programName mid:nil sid:sid tvId:tvId currentPlayTime:currentPlayTime startTime:startTime endTime:endTime targetName:targetName playingType:playingType];
                     
                     backStr(xmlString);
-                }
-            }
-        }
+//                }
+//            }
+//        }
+
+//    } failure:^(id  _Nullable errorObject) {
+    
         
-    } failure:^(id  _Nullable errorObject) {
-        
-        
-    }];
+//    }];
     
 }
 

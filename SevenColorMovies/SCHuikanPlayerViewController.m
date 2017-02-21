@@ -168,6 +168,11 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
@@ -324,6 +329,11 @@
                     strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                     [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                     
+                    if (_isFeiPing) {
+                        // 飞屏 （控制播放器返回事件）
+                        strongself.IJKPlayerViewController.isFeiPing = YES;
+                    }
+                    
                     //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
                     strongself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
                         DONG_StrongSelf(self);
@@ -431,6 +441,12 @@
                         strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
                         strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                         [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                       
+                        if (_isFeiPing) {
+                            // 飞屏 （控制播放器返回事件）
+                            strongself.IJKPlayerViewController.isFeiPing = YES;
+                        }
+
                         
                         //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
                         strongself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
@@ -573,6 +589,12 @@
                         strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
                         strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                         [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                        
+                        if (_isFeiPing) {
+                            // 飞屏 （控制播放器返回事件）
+                            strongself.IJKPlayerViewController.isFeiPing = YES;
+                        }
+
                         
                         //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
                         strongself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {

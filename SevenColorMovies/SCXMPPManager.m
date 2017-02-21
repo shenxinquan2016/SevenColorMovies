@@ -359,7 +359,7 @@
             }];
             
         } else if ([dic2[@"_playingType"] isEqualToString:@"timeShift"]) {
-            
+            // 时移拉屏
             DONG_Log(@"进入时移拉屏了");
             
             NSString *sequence = dic2[@"_tvId"];
@@ -448,7 +448,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 // 调用播放器
                 SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
-                
+                player.isFeiPing = YES;
                 player.hidesBottomBarWhenPushed = YES;
                 // 取出当前的导航控制器
                 UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
