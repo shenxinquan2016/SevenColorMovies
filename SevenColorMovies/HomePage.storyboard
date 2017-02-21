@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -49,6 +52,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KmD-0X-dhG">
+                                <rect key="frame" x="0.0" y="72" width="375" height="135"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="135" id="Def-ZR-BVc"/>
@@ -83,9 +87,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uuo-yE-Wvr">
+                                <rect key="frame" x="0.0" y="240" width="375" height="36"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CCTV" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4V-oX-dGt">
-                                        <frame key="frameInset" minX="13" minY="8" width="118" height="21"/>
+                                        <rect key="frame" x="13" y="8" width="118" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -98,8 +103,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPY-U3-a1s" userLabel="View2">
+                                <rect key="frame" x="0.0" y="20" width="375" height="218"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAa-sX-5xp" userLabel="GoBackButton">
+                                        <rect key="frame" x="4" y="6" width="23" height="27"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27" id="48O-pt-LMW"/>
                                             <constraint firstAttribute="width" constant="23" id="tM6-P5-RwC"/>
@@ -187,6 +194,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日期：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eg8-NQ-Av4">
+                                <rect key="frame" x="12" y="14" width="46" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="MnP-9W-XZE"/>
                                     <constraint firstAttribute="height" constant="21" id="alk-c3-FEB"/>
@@ -196,6 +204,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caj-w6-BPd">
+                                <rect key="frame" x="50" y="14" width="313" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Vf7-bL-Ctb"/>
                                 </constraints>
@@ -204,6 +213,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="导演：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qju-8Y-nmf">
+                                <rect key="frame" x="12" y="35" width="46" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="IgT-xD-ZFN"/>
                                     <constraint firstAttribute="height" constant="21" id="KgT-9f-kjR"/>
@@ -213,6 +223,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主演：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7D-mo-llD">
+                                <rect key="frame" x="12" y="56" width="46" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="t7m-mA-NRS"/>
                                     <constraint firstAttribute="width" constant="46" id="xgS-Lo-5DZ"/>
@@ -222,6 +233,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="F7A-Zu-135">
+                                <rect key="frame" x="12" y="94" width="348" height="200"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="49g-fI-eMR"/>
@@ -231,6 +243,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOe-7O-wWl">
+                                <rect key="frame" x="50" y="35" width="313" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="qhD-8g-4Vc"/>
                                 </constraints>
@@ -239,6 +252,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsn-lU-cON">
+                                <rect key="frame" x="50" y="56" width="313" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="hSI-ao-bSY"/>
                                 </constraints>
@@ -294,8 +308,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AU6-pC-Xoa" userLabel="View1">
+                                <rect key="frame" x="0.0" y="240" width="375" height="36"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NcL-zt-Smf">
+                                        <rect key="frame" x="10" y="6.5" width="113" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="113" id="SRl-HH-JnD"/>
                                             <constraint firstAttribute="height" constant="23" id="oVk-Zg-QWa"/>
@@ -309,6 +325,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edT-o3-lwm">
+                                        <rect key="frame" x="299" y="5" width="26" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="26" id="mLS-Db-hsZ"/>
                                             <constraint firstAttribute="height" constant="26" id="tVs-L9-PW2"/>
@@ -319,6 +336,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gsb-sb-XSX">
+                                        <rect key="frame" x="337" y="5" width="26" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="26" id="Xcr-Ea-Ntf"/>
                                             <constraint firstAttribute="height" constant="26" id="kZW-5O-isd"/>
@@ -341,8 +359,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yZZ-Ok-tX2" userLabel="View2">
+                                <rect key="frame" x="0.0" y="20" width="375" height="218"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7L-zZ-366" userLabel="GoBackButton">
+                                        <rect key="frame" x="4" y="6" width="23" height="27"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="23" id="JcU-iI-uAz"/>
                                             <constraint firstAttribute="height" constant="27" id="JjT-eT-tj3"/>
@@ -375,12 +395,13 @@
                         <outlet property="addMyCollectionBtn" destination="Gsb-sb-XSX" id="Md7-KY-7N4"/>
                         <outlet property="addProgramListBtn" destination="NcL-zt-Smf" id="4KK-na-Nzz"/>
                         <outlet property="downLoadBtn" destination="edT-o3-lwm" id="K8C-7E-Db6"/>
+                        <outlet property="playerBackGroundView" destination="yZZ-Ok-tX2" id="8Hp-fr-kWJ"/>
                         <outlet property="toTopConstraint" destination="tMT-Lj-HkR" id="UO3-iv-0aa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Icg-Qr-bfU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2400.8000000000002" y="214.54272863568218"/>
+            <point key="canvasLocation" x="1966" y="183"/>
         </scene>
     </scenes>
     <resources>

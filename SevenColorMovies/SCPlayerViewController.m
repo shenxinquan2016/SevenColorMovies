@@ -90,6 +90,8 @@ static const CGFloat LabelWidth = 100.f;
 /** 广告modul组 */
 @property (nonatomic, strong) NSMutableArray *advertisementArray;
 
+@property (weak, nonatomic) IBOutlet UIView *playerBackGroundView;
+
 @end
 
 @implementation SCPlayerViewController
@@ -140,6 +142,7 @@ static const CGFloat LabelWidth = 100.f;
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     //TCPScoketManager.delegate = self;
     XMPPManager.delegate = self;
 }
@@ -151,7 +154,7 @@ static const CGFloat LabelWidth = 100.f;
     libagent_finish();
 }
 
-- (void)viewDidDisappear:(BOOL)animated{
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     VODIndex = 0;
     timesIndexOfVOD = 0;
@@ -159,15 +162,11 @@ static const CGFloat LabelWidth = 100.f;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewWillLayoutSubviews{
+- (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     //7.查询数据库以更新功能区按钮视图
     [self refreshButtonStateFromQueryDatabase];
     [self refreshDownloadButtonStateFromQueryDatabase];
-}
-
-- (void)awakeFromNib{
-    [super awakeFromNib];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -262,8 +261,8 @@ static const CGFloat LabelWidth = 100.f;
         }];
         [MBProgressHUD showSuccess:@"从节目单移除"];
         
-    }else {//未添加 添加到数据库
-        //更新UI
+    } else {// 未添加 添加到数据库
+        // 更新UI
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
         //保存到数据库
         SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
@@ -953,8 +952,10 @@ static const CGFloat LabelWidth = 100.f;
     
     switch (orient) {
         case UIDeviceOrientationPortrait: {
+            
             //此方向为正常竖屏方向，当锁定全屏设备旋转至此方向时，屏幕虽然不显示StatusBar，但会留出StatusBar位置，所以调整IJKPlayer的位置
             if (self.fullScreenLock) {
+                [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                 _IJKPlayerViewController.isFullScreen = YES;
                 [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
                 _IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
@@ -963,6 +964,8 @@ static const CGFloat LabelWidth = 100.f;
                 
             } else {
                 
+                [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+                _playerBackGroundView.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
                 _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                 _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
@@ -973,6 +976,7 @@ static const CGFloat LabelWidth = 100.f;
         }
             
         case UIDeviceOrientationLandscapeLeft: {
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
             [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;
@@ -991,6 +995,7 @@ static const CGFloat LabelWidth = 100.f;
         }
             
         case UIDeviceOrientationLandscapeRight: {
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
             [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;
