@@ -329,6 +329,7 @@
                     strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
                     strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                     [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                     
                     if (_isFeiPing) {
                         // 飞屏 （控制播放器返回事件）
@@ -442,6 +443,7 @@
                         strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
                         strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                         [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                        
                         if (_isFeiPing) {
                             // 飞屏 （控制播放器返回事件）
@@ -590,6 +592,7 @@
                         strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
                         strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                         [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                         
                         if (_isFeiPing) {
                             // 飞屏 （控制播放器返回事件）
@@ -781,6 +784,7 @@
                 self.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
                 self.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                 [self.view addSubview:self.IJKPlayerViewController.view];
+                 [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                 
                 //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
                 DONG_WeakSelf(self);
@@ -866,6 +870,7 @@
 //                _IJKPlayerViewController.mediaControl.isLive = YES;
                 
                 [self.view addSubview:self.IJKPlayerViewController.view];
+                 [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                 
                 //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
                 DONG_WeakSelf(self);
@@ -987,6 +992,7 @@
                     strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
                     strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                     [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                     
                     //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
                     strongself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
