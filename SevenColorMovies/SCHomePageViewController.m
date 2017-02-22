@@ -183,6 +183,7 @@ static NSString *const footerId = @"footerId";
                         //                NSLog(@"====FilmClassUrl::::%@",classModel.FilmClassUrl);
                         
                     } else if ([classModel._FilmClassName hasSuffix:@"今日推荐"]) {
+                        
                         //添加banner
                         NSArray *dataArr = responseObject[@"FilmClass"];
                         NSDictionary *dic = [dataArr firstObject];
@@ -382,7 +383,7 @@ static NSString *const footerId = @"footerId";
         [cell setModel:array IndexPath:indexPath];
         return cell;
         
-    }else{
+    } else {
         
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
@@ -511,12 +512,16 @@ static NSString *const footerId = @"footerId";
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
             
-        } else if (indexPath.row == 0) { //直播
+        } else if (indexPath.row == 0) { // 直播
             SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
             liveView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:liveView animated:YES];
             
-        } else {//其他
+        }else if (indexPath.row == 4) { // 掌厅
+            
+            DONG_Log(@"掌厅");
+            
+        } else {// 其他
             
             NSString *key = _filmClassTitleArray[indexPath.row-1];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
@@ -570,7 +575,7 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Getters and Setters
 - (NSMutableArray *)allItemsArr {
     if (!_allItemsArr) {
-        NSArray *array =@[@"电影", @"电视剧",  @"少儿", @"综艺", @"纪录片", @"潮生活", @"更多", @"二人转", @"动漫", @"生活", @"游戏", @"音乐", @"专题"];
+        NSArray *array =@[@"电影", @"电视剧",  @"少儿", @"掌厅", @"纪录片", @"潮生活", @"更多", @"二人转", @"动漫", @"生活", @"游戏", @"音乐", @"专题"];
         
         _allItemsArr = [NSMutableArray arrayWithCapacity:0];
         [_allItemsArr addObjectsFromArray:array];

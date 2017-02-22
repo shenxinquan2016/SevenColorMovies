@@ -46,14 +46,14 @@
 #pragma mark- private methods
 - (void)addLeftBBI {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 100, 30);
+    btn.frame = CGRectMake(0, 0, 105, 27);
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
     [btn setBackgroundImage:[UIImage imageNamed:@"BusinessLogo"] forState:UIControlStateNormal];
     btn.userInteractionEnabled = NO;
     UIBarButtonItem *leftNegativeSpacer = [[UIBarButtonItem alloc]
                                            initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                            target:nil action:nil];
-    leftNegativeSpacer.width = -6;
+    leftNegativeSpacer.width = -5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftNegativeSpacer,item, nil];
     _leftBBI = btn;
 }

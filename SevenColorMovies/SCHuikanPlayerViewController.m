@@ -139,7 +139,6 @@
     
     return player;
     
-    
 }
 
 
@@ -150,13 +149,12 @@
     [player playWithFilmModel:filmModel];
     return player;
     
-    
-    
 }
 
 #pragma mark -  ViewLife Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
