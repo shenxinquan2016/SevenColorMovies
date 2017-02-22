@@ -19,5 +19,7 @@
 @property (nonatomic, assign) SCLiveState liveState;
 /** 时移拉屏时当前播放时间 */
 @property (nonatomic, copy) NSString *currentPlayTime;
+/** 是否是飞屏（用于控制播放器返回动作）*/
+@property (nonatomic, assign) BOOL isFeiPing;
 
 @end

@@ -26,7 +26,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://10.177.4.25/mobile/"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
     // 取出当前的导航控制器
     DONG_MAIN_AFTER(0.5, UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
                     tabBarVC.selectedIndex = 0;);
