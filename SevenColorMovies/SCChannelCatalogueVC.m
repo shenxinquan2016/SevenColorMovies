@@ -136,7 +136,7 @@ static NSString *const footerId = @"footerId";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    return self.filmClassArray.count+1;
+    return self.filmClassArray.count + 2;
 }
 
 
@@ -265,7 +265,7 @@ static NSString *const footerId = @"footerId";
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    if (fromIndexPath.row-1 < self.filmClassTitleArray.count && toIndexPath.row-1 < self.filmClassTitleArray.count) {
+    if (fromIndexPath.row-2 < self.filmClassTitleArray.count && toIndexPath.row-2 < self.filmClassTitleArray.count) {
         
         NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-1];
         [self.filmClassTitleArray removeObject:filmClassTitle];
@@ -280,6 +280,8 @@ static NSString *const footerId = @"footerId";
 {
     if (toIndexPath.row == 0) return NO;//🚫禁止移动到第一个cell
     
+    if (toIndexPath.row == 4) return NO;//🚫禁止移动到第五个cell
+    
     return YES;
 }
 
@@ -292,13 +294,29 @@ static NSString *const footerId = @"footerId";
         SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
         [self.navigationController pushViewController:liveVC animated:YES];
         
-    }else{
+    } else if (indexPath.row == 4) {
+      
+        DONG_Log(@"掌厅");
         
+    } else if (indexPath.row > 0 && indexPath.row < 4) {
+    
         if (_filmClassArray.count != 0) {
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-1]];
             channelVC.bannerFilmModelArray = self.bannerFilmModelArray;
             
             NSString *key = _filmClassTitleArray[indexPath.row-1];
+            channelVC.filmClassModel = _filmClassModelDictionary[key];
+            channelVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:channelVC animated:YES];
+        }
+        
+    } else {
+    
+        if (_filmClassArray.count != 0) {
+            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-2]];
+            channelVC.bannerFilmModelArray = self.bannerFilmModelArray;
+            
+            NSString *key = _filmClassTitleArray[indexPath.row-2];
             channelVC.filmClassModel = _filmClassModelDictionary[key];
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];

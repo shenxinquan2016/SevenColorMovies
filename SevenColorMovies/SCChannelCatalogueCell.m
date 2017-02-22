@@ -39,11 +39,27 @@
         if (indexPath.row == 0) {
             _channelNameLabel.text = @"直播";
             _channelImg.image = [UIImage imageNamed:@"直播"];
-        }else{
+            
+        } else if (indexPath.row == 4) {
+            
+            _channelNameLabel.text = @"掌厅";
+            _channelImg.image = [UIImage imageNamed:@"掌厅"];
+            
+        } else if (indexPath.row > 0 && indexPath.row < 4){
             
             NSArray *filmClassTitleArray = model;
             _channelNameLabel.text = filmClassTitleArray[indexPath.row-1];
             _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassTitleArray[indexPath.row-1]]];
+            
+            if (_channelImg.image == nil) {
+                _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
+            }
+            
+        } else {
+            
+            NSArray *filmClassTitleArray = model;
+            _channelNameLabel.text = filmClassTitleArray[indexPath.row-2];
+            _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassTitleArray[indexPath.row-2]]];
             
             if (_channelImg.image == nil) {
                 _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];

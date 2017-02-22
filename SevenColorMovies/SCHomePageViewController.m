@@ -76,6 +76,7 @@ static NSString *const footerId = @"footerId";
     
     //3.添加collectionView
     [self addCollView];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -258,7 +259,8 @@ static NSString *const footerId = @"footerId";
         [_collView reloadData];
         NSLog(@">*******************************<");
         
-    }else{
+    } else{
+        
         //谓词判断：A中元素不包含在B中的个数为0切B中元素不包含在A中的个数为0，则两个数组元素相同
         if ([filmClassTitleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", self.titleArray]].count == 0 && [self.titleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", filmClassTitleArray]].count == 0) {//本地保存的和新请求到的相同时
             
