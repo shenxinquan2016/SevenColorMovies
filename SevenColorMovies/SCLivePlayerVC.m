@@ -906,6 +906,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             
         }
         
+        if (_isFeiPing) {
+            // 飞屏 （控制播放器返回事件）
+            _IJKPlayerViewController.isFeiPing = YES;
+        }
+        
         // 6.推屏的回调
         DONG_WeakSelf(self);
         self.IJKPlayerViewController.pushScreenBlock = ^{
@@ -1037,6 +1042,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             _IJKPlayerViewController.mediaControl.firmPosition = positionTime;
             _IJKPlayerViewController.mediaControl.isLive = YES;
             
+        }
+        
+        if (_isFeiPing) {
+            // 飞屏 （控制播放器返回事件）
+            _IJKPlayerViewController.isFeiPing = YES;
         }
         
         // 7.推屏的回调
@@ -1178,6 +1188,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             _IJKPlayerViewController.mediaControl.firmPosition = currentPlace;
             _IJKPlayerViewController.mediaControl.isLive = YES;
             
+        }
+        
+        if (_isFeiPing) {
+            // 飞屏 （控制播放器返回事件）
+            _IJKPlayerViewController.isFeiPing = YES;
         }
         
         // 7.推屏的回调

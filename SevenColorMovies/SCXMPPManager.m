@@ -271,7 +271,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 // 调用播放器
                 SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithProgramModel:liveProgramModel];
-                
+                player.isFeiPing = YES;
                 player.hidesBottomBarWhenPushed = YES;
                 // 取出当前的导航控制器
                 UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
@@ -323,6 +323,7 @@
                                         livePlayer.filmModel = filmModel;
                                         livePlayer.channelNameLabel.text = dic2[@"filmName"];
                                         livePlayer.liveState = Live;
+//                                        livePlayer.isFeiPing = YES;
                                         livePlayer.hidesBottomBarWhenPushed = YES;
                                         
                                         // 取出当前的导航控制器
@@ -402,6 +403,7 @@
                                         livePlayer.filmModel = filmModel;
                                         livePlayer.currentPlayTime = currentPlayTime;
                                         livePlayer.liveState = TimeShift;
+//                                        livePlayer.isFeiPing = YES;
                                         livePlayer.hidesBottomBarWhenPushed = YES;
                                         
                                         // 取出当前的导航控制器

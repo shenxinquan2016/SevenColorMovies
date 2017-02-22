@@ -710,6 +710,11 @@
                 strongself.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
                 strongself.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
                 [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+                
+                if (strongself.isFeiPing == YES) {
+                    strongself.IJKPlayerViewController.isFeiPing = YES;
+                }
                 
                 //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
                 strongself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
