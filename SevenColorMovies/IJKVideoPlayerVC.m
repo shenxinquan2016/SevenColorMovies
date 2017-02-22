@@ -245,7 +245,7 @@
         
         if (_isFeiPing) {
             // 如果是飞屏 直接返回到根目录
-            [navController popViewControllerAnimated:YES];
+            [navController popViewControllerAnimated:NO];
         }
         
         for (int i = 0; i < navController.viewControllers.count ; i++) {

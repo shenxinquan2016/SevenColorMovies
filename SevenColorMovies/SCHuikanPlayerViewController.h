@@ -27,3 +27,4 @@
 + (instancetype)initPlayerWithFilePath:(NSString *)filePath;
 
 @end
+
