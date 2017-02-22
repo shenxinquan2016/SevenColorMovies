@@ -191,6 +191,8 @@ static NSString *const footerId = @"footerId";
         
         if (indexPath.row == 0) return NO;//🚫第一个单元格不让移动
         
+        if (indexPath.row == 1) return NO;//🚫第二个单元格不让移动
+        
         return YES;
         
     }else{
@@ -267,9 +269,9 @@ static NSString *const footerId = @"footerId";
 {
     if (fromIndexPath.row-2 < self.filmClassTitleArray.count && toIndexPath.row-2 < self.filmClassTitleArray.count) {
         
-        NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-1];
+        NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-2];
         [self.filmClassTitleArray removeObject:filmClassTitle];
-        [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row-1];
+        [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row-2];
         
     }
     
@@ -280,7 +282,7 @@ static NSString *const footerId = @"footerId";
 {
     if (toIndexPath.row == 0) return NO;//🚫禁止移动到第一个cell
     
-    if (toIndexPath.row == 4) return NO;//🚫禁止移动到第五个cell
+    if (toIndexPath.row == 1) return NO;//🚫禁止移动到第五个cell
     
     return YES;
 }
@@ -294,21 +296,10 @@ static NSString *const footerId = @"footerId";
         SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
         [self.navigationController pushViewController:liveVC animated:YES];
         
-    } else if (indexPath.row == 4) {
+    } else if (indexPath.row == 1) {
       
         DONG_Log(@"掌厅");
-        
-    } else if (indexPath.row > 0 && indexPath.row < 4) {
-    
-        if (_filmClassArray.count != 0) {
-            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-1]];
-            channelVC.bannerFilmModelArray = self.bannerFilmModelArray;
-            
-            NSString *key = _filmClassTitleArray[indexPath.row-1];
-            channelVC.filmClassModel = _filmClassModelDictionary[key];
-            channelVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:channelVC animated:YES];
-        }
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
         
     } else {
     

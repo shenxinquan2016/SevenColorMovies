@@ -522,6 +522,7 @@ static NSString *const footerId = @"footerId";
         }else if (indexPath.row == 4) { // 掌厅
             
             DONG_Log(@"掌厅");
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
             
         } else {// 其他
             
