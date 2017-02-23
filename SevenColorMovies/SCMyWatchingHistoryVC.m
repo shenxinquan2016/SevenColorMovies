@@ -333,7 +333,7 @@
     NSString *uuidStr   = [HLJUUID getUUID];
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
     NSNumber *page      = [NSNumber numberWithInteger:1];
-    NSDictionary *parameters = @{@"oemid"    : oemid,
+    NSDictionary *parameters = @{@"ctype"    : @"3",
                                  @"hid"      : uuidStr,
                                  @"datetime" : timeStamp,
                                  @"page"     : page
@@ -404,7 +404,7 @@
     NSString *sid       = watchHistoryModel.sid;
     NSString *fid       = watchHistoryModel.fid;
     
-    NSDictionary *parameters = @{@"oemid"    : oemid,
+    NSDictionary *parameters = @{@"ctype"    : @"4",
                                  @"hid"      : uuidStr,
                                  @"mid"      : mid,
                                  @"datetime" : timeStamp,
@@ -438,7 +438,7 @@
     NSString *uuidStr   = [HLJUUID getUUID];
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
     
-    NSDictionary *parameters = @{@"oemid"    : oemid,
+    NSDictionary *parameters = @{
                                  @"hid"      : uuidStr,
                                  @"datetime" : timeStamp
                                  };

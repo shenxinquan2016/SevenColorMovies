@@ -711,7 +711,7 @@ static const CGFloat LabelWidth = 100.f;
     NSNumber *fid      = [NSNumber numberWithInteger:[filmModel._FilmID integerValue]];
     NSNumber *playtime = [NSNumber numberWithInteger:self.IJKPlayerViewController.player.currentPlaybackTime];
     
-    NSDictionary *parameters = @{@"oemid"     : oemid,
+    NSDictionary *parameters = @{@"ctype"     : @"2",
                                  @"hid"       : uuidStr,
                                  @"mid"       : mid,
                                  @"mtype"     : mType,

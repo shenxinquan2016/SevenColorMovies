@@ -63,21 +63,21 @@
 
 /******************************************影片搜索接口*******************************************/
 // 点播搜索接口
-#define SearchVODUrl @"/?serachtype=2&ispid=20151103&epgid=909191&field=&categoryid=&weight=&years=&limit=50&format=1&mtype="
+#define SearchVODUrl @"" //  /?serachtype=2&ispid=20151103&epgid=909191&field=&categoryid=&weight=&years=&limit=50&format=1&mtype=
 // 回看搜获接口
-#define SearchProgramHavePastUrl @"/live/?areaid=cwtest&uid=0&oemid=30050&hid=&limit=50"
+#define SearchProgramHavePastUrl @""  //  /live/?areaid=cwtest&uid=0&oemid=30050&hid=&limit=50
 // 获取channel logo接口
-#define GetChannelLogoUrl @"/b2b/livetv/service.php?ctype=11&oemid=30050"
+#define GetChannelLogoUrl @""  //  /b2b/livetv/service.php?ctype=11&oemid=30050
 
 /***************************************观看记录管理接口*****************************************/
 // 添加观看历史记录
-#define AddWatchHistory @"/b2b/resume?ctype=2&spid=20151103&epgid=909191&uid=0&totalsid=999&&version=3.0"
+#define AddWatchHistory @""  //  /b2b/resume?ctype=2&spid=20151103&epgid=909191&uid=0&totalsid=999&&version=3.0
 // 查看观看历史记录
-#define GetWatchHistory @"/b2b/resume?ctype=3&spid=20151103&epgid=909191&uid=0&orderby=1&version=3.0&pagesize=1000"
+#define GetWatchHistory @""  //  /b2b/resume?ctype=3&spid=20151103&epgid=909191&uid=0&orderby=1&version=3.0&pagesize=1000
 // 删除观看历史记录
-#define DeleteWatchHistory @"/b2b/resume?ctype=4&spid=20151103&epgid=909191&uid=0&&ip=&&version=3.0"
+#define DeleteWatchHistory @""  //  /b2b/resume?ctype=4&spid=20151103&epgid=909191&uid=0&&ip=&&version=3.0
 // 删除全部历史记录
-#define DeleteAllWatchHistory @"/b2b/resume?ctype=4&spid=20151103&epgid=909191&uid=0&version=3.0"
+#define DeleteAllWatchHistory @""  // /b2b/resume?ctype=4&spid=20151103&epgid=909191&uid=0&version=3.0
 // 查看观看时间
 #define GetTimeHaveWatched @"http://interface.voole.com/b2b/resume/service.php?ctype=1&spid=20151103&epgid=909191&uid=0&detailurl="
 
