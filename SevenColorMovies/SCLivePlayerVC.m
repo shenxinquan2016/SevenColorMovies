@@ -1285,9 +1285,9 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     DONG_Log(@"ext：%@ \nfid:%@",ext,fid);
     
-    NSDictionary *parameters = @{@"fid"     : fid,
-                                @"playtype" : @"1500",
-                                 @"ext"     : ext };
+    NSDictionary *parameters = @{@"fid"      : fid,
+                                 @"playtype" : @"1500",
+                                 @"ext"      : ext };
     
     // 域名获取
     NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:ToGetProgramHavePastVideoSignalFlowUrl key:@"playauth"];

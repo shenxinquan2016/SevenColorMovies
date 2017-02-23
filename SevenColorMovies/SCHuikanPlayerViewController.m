@@ -283,7 +283,8 @@
     NSString *filmmidStr = mid ? mid : @"";
     
     NSDictionary *parameters = @{@"pagesize" : @"1000",
-                                 @"filmmid" : filmmidStr};
+                                 @"ctype"    : @"4",
+                                 @"filmmid"  : filmmidStr};
     
     DONG_WeakSelf(self);
     //请求film详细信息
@@ -668,8 +669,9 @@
     
     DONG_Log(@"ext：%@ \nfid:%@",ext,fid);
     
-    NSDictionary *parameters = @{@"fid" : fid,
-                                 @"ext"  : ext };
+    NSDictionary *parameters = @{@"fid"      : fid,
+                                 @"playtype" : @"1500",
+                                 @"ext"      : ext };
     //IP替换
     [CommonFunc showLoadingWithTips:@""];
     DONG_WeakSelf(self);
@@ -833,9 +835,10 @@
     
     DONG_Log(@"base64Ext:%@", base64Ext);
     
-    NSDictionary *parameters = @{@"ext" : base64Ext,
-                                 @"hid" : uuidStr,
-                                 @"fid" : fidStr};
+    NSDictionary *parameters = @{@"ext"      : base64Ext,
+                                 @"hid"      : uuidStr,
+                                 @"playtype" : @"1100",
+                                 @"fid"      : fidStr};
     
     [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:ToGetLiveTimeShiftVideoSignalFlowUrl key:@"playauth" success:^(id  _Nullable newUrlString) {
         
@@ -921,6 +924,7 @@
     NSString *filmmidStr = mid ? mid : @"";
     
     NSDictionary *parameters = @{@"pagesize" : @"1000",
+                                 @"ctype"    : @"4",
                                  @"filmmid" : filmmidStr};
     
     DONG_WeakSelf(self);

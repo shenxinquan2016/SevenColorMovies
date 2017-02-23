@@ -374,6 +374,7 @@ static const CGFloat LabelWidth = 100.f;
     NSString *filmmidStr = mid ? mid : @"";
     
     NSDictionary *parameters = @{@"pagesize" : @"1000",
+                                 @"ctype"    : @"4",
                                  @"filmmid" : filmmidStr};
     NSString *mtype;
     if (_filmModel._Mtype) {
@@ -1800,6 +1801,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     DONG_Log(@"filmMidStr:%@",filmMidStr);
     
     NSDictionary *parameters = @{@"pagesize" : @"1000",
+                                 @"ctype"    : @"102",
                                  @"filmmid" : filmMidStr};
     
     [CommonFunc showLoadingWithTips:@""];
