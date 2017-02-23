@@ -11,15 +11,15 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>七彩影视</string>
+	<string>七彩云</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.3.6</string>
+	<string>1.3.7</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.3.6</string>
+	<string>1.3.7</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

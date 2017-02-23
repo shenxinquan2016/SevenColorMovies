@@ -52,7 +52,7 @@
     self.xmppStream = [[XMPPStream alloc] init];
     // 设置delegate
     [self.xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-    //允许后台模式(注意iOS模拟器上是不支持后台socket的)
+    // 允许后台模式(注意iOS模拟器上是不支持后台socket的)
     self.xmppStream.enableBackgroundingOnSocket = YES;
     // 设置服务器地址 172.60.5.100  124.207.192.18
     [self.xmppStream setHostName:@"10.177.1.44"];
