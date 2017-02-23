@@ -409,7 +409,7 @@
                     NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
                     
                     //这只是个请求视频播放流的url地址
-                    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
+                    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                     DONG_Log(@"domainUrl:%@",domainUrl);
                     NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                     
@@ -555,7 +555,7 @@
         
         // 域名获取
         _domainTransformTool = [[SCDomaintransformTool alloc] init];
-        [_domainTransformTool getNewDomainByUrlString:VODUrl key:@"playauth" success:^(id  _Nullable newUrlString) {
+        [_domainTransformTool getNewDomainByUrlString:VODUrl key:@"vodplayauth" success:^(id  _Nullable newUrlString) {
             
             DONG_Log(@"newUrlString:%@",newUrlString);
             // ip转换
@@ -963,7 +963,7 @@
                 NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
                 
                 //这只是个请求视频播放流的url地址
-                NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
+                NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                 DONG_Log(@"domainUrl:%@",domainUrl);
                 NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                 

@@ -424,7 +424,7 @@ static const CGFloat LabelWidth = 100.f;
                     
                     //这只是个请求视频播放流的url地址
                     //视频播放url
-                    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
+                    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                     DONG_Log(@"domainUrl:%@",domainUrl);
                     NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                     //NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
@@ -1204,7 +1204,7 @@ static const CGFloat LabelWidth = 100.f;
                 //base64编码downloadUrl
                 NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
                 //视频播放url
-                NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
+                NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                 DONG_Log(@"domainUrl:%@",domainUrl);
                 NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                 
@@ -1438,7 +1438,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             //base64编码downloadUrl
             NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
             //视频播放url
-            NSString *domainUrl = [weakself.domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
+            NSString *domainUrl = [weakself.domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
             DONG_Log(@"domainUrl:%@",domainUrl);
             NSString *replacedUrl = [weakself.hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
             NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
@@ -1590,7 +1590,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         //base64编码downloadUrl
                         
                         //视频播放url
-                        NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
+                        NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                         DONG_Log(@"domainUrl:%@",domainUrl);
                         NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                         NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
@@ -1620,7 +1620,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                             //base64编码downloadUrl
                             
                             //视频播放url
-                            NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
+                            NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                             DONG_Log(@"domainUrl:%@",domainUrl);
                             NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                             NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
@@ -1903,7 +1903,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     //base64编码downloadUrl
                     NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
                     //这只是个请求视频播放流的url地址
-                    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
+                    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                     DONG_Log(@"domainUrl:%@",domainUrl);
                     //视频播放url
                     NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:domainUrl];

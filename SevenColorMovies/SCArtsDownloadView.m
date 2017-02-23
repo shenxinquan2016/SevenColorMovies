@@ -193,7 +193,7 @@ static NSString *const cellId = @"cellId";
         //视频播放url
         // 域名获取
         _domainTransformTool = [[SCDomaintransformTool alloc] init];
-        [_domainTransformTool getNewDomainByUrlString:VODUrl key:@"playauth" success:^(id  _Nullable newUrlString) {
+        [_domainTransformTool getNewDomainByUrlString:VODUrl key:@"vodplayauth" success:^(id  _Nullable newUrlString) {
             
             DONG_Log(@"newUrlString:%@",newUrlString);
             // ip转换
