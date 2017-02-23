@@ -248,6 +248,8 @@ static const CGFloat LabelWidth = 95.f;
 {
     [CommonFunc showLoadingWithTips:@""];
     
+    
+    
     // 域名获取
     [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:LivePageUrl key:@"sklivelist" success:^(id  _Nullable newUrlString) {
         
@@ -258,7 +260,12 @@ static const CGFloat LabelWidth = 95.f;
             
             DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
+            NSString *uuidStr = [HLJUUID getUUID];
+            
+            NSDictionary *parameters = @{@"hid" : uuidStr
+                                         };
+            
+            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 
                 //DONG_Log(@"==========dic:::%@========",responseObject);
                 if (responseObject) {

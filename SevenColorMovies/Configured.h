@@ -38,6 +38,7 @@
 #import "NSData+Addition.h"
 #import "SCDomaintransformTool.h"// 动态域名转换获取工具
 #import "HLJRequest.h"// ip 转换工具
+#import "HLJUUID.h"
 
 //@import MJRefresh;
 //@import MJExtension;

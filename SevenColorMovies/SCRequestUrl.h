@@ -21,7 +21,7 @@
 // 动态域名接口
 #define DynamicDomainEntrance @"http://10.177.1.222:8050/entry?uid=21&oemid=30050&hid=741e93d05fc2&app_version=sksjd_1.0"
 // homePage接口
-#define HomePageUrl @"/filmlist?epgid=909191&spid=20151103&cpid=10001000&ctype=9"
+#define HomePageUrl @""
 // banner接口
 #define BannerURL [NetUrlManager.domainName stringByAppendingString:url_Banner]
 // 片单接口
@@ -32,9 +32,9 @@
 #define VODUrl  @"/Service.do?action=b2bplayauth&pid=101001&playtype=0&checkproduct=0&checkuser=0&adversion=1.3.7&area=1208&hid=00301bba02db&oemid=30050&epgid=909191&spid=20151103&uid=0"
 
 // 直播页接口
-#define LivePageUrl @"/b2b/livetv/service.php?ctype=4&oemid=30050&uid=0&hid=58:48:22:6b:f3:009"
+#define LivePageUrl @""
 // 直播节目列表接口
-#define LiveProgramList @"/b2b/livetv/service.php?ctype=12&tvid=14&oemid=30050"
+#define LiveProgramList @""
 // 获取直播节目播放流url接口
 #define ToGetLiveVideoSignalFlowUrl @"/Service.do?action=b2bplayauth&playtype=1000&mid=1&sid=1&pid=1&uid=10&oemid=30050"
 // 获取时移播放流接口

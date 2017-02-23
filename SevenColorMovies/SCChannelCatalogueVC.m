@@ -283,7 +283,7 @@ static NSString *const footerId = @"footerId";
     if (toIndexPath.row == 0) return NO;//🚫禁止移动到第一个cell
     
     if (toIndexPath.row == 1) return NO;//🚫禁止移动到第五个cell
-        
+    
     return YES;
 }
 
