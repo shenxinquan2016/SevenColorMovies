@@ -262,7 +262,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             
             NSString *urlStr = [newVideoUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
-            NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj"];
+            NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj2"];
             NSString *ipUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
             
             NSString *urlString = [ipUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

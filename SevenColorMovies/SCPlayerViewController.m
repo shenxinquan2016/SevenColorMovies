@@ -1553,6 +1553,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     //请求播放资源
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"pagesize" : @"1000",
+                                 @"ctype"    : @"4",
                                  @"filmmid" : filmmidStr};
     
     // 域名获取
@@ -2021,7 +2022,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     NSString *filmmidStr = _mid ? _mid : @"";
     
     NSDictionary *parameters = @{@"pagesize" : @"1000",
-                                 @"filmmid" : filmmidStr};
+                                 @"ctype"    : @"4",
+                                 @"filmmid"  : filmmidStr};
     
     DONG_WeakSelf(self);
     
@@ -2068,7 +2070,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
                 
                 //这只是个请求视频播放流的url地址
-                NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"playauth"];
+                NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                 DONG_Log(@"domainUrl:%@",domainUrl);
                 
                 NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
@@ -2076,6 +2078,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 DONG_Log(@"replacedUrl:%@",replacedUrl);
                 
                 NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmmidStr] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                
+                
                 
 //                DONG_Log(@">>>>>>>>>>>replacedUrl>>>>>>>>>>%@",replacedUrl);
 //                DONG_Log(@">>>>>>>>>>>filmmidStr>>>>>>>>>>%@",filmmidStr);

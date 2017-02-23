@@ -29,7 +29,7 @@
 // filmClass接口
 //#define FilmClass @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=gf201606271730129921467019536749"
 // 点播播放接口
-#define VODUrl  @"/Service.do?action=b2bplayauth&pid=101001&playtype=0&checkproduct=0&checkuser=0&adversion=1.3.7&area=1208&hid=00301bba02db&oemid=30050&epgid=909191&spid=20151103&uid=0"
+#define VODUrl  @""
 
 // 直播页接口
 #define LivePageUrl @""
@@ -43,17 +43,17 @@
 #define ToGetProgramHavePastVideoSignalFlowUrl @""
 
 // 电影 电视剧等 sourceUrl
-#define FilmSourceUrl @"/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=4"
+#define FilmSourceUrl @"" //   /b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=4
 // 综艺 生活栏目  sourceUrl
-#define ArtsAndLifeSourceUrl @"/b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=102"
+#define ArtsAndLifeSourceUrl @"" //  /b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=102
 // 推荐影片接口
-#define RecommendUrl @"?epgid=909191&format=1&type=1&limit=6"
+#define RecommendUrl @"" //  ?epgid=909191&format=1&type=1&limit=6
 
 // 筛选选项卡接口
-#define FilterOptionTypeTabUrl @"/b2b/itvservice/search.php?icoId=B2BSTBOXMovie|1413364584&epgid=909191&spid=20120528&cnt=&column=13346&ctype=100&mtype=6&v=3.0"
-#define FilterOptionAreaAndTimeTab2Url @"/b2b/itvservice/search.php?cate=&epgid=909191&cnt=5&spid=20120528&ctype=102&v=3.0"
+#define FilterOptionTypeTabUrl @"" //  /b2b/itvservice/search.php?icoId=B2BSTBOXMovie|1413364584&epgid=909191&spid=20120528&cnt=&column=13346&ctype=100&mtype=6&v=3.0
+#define FilterOptionAreaAndTimeTab2Url @""  //  /b2b/itvservice/search.php?cate=&epgid=909191&cnt=5&spid=20120528&ctype=102&v=3.0
 // 筛选搜索
-#define FilterUrl @"/b2b/itvservice/search.php?pagesize=15&epgid=909191&spid=20151103&typekey=5&ctype=2&category=&search=&v=3.0"
+#define FilterUrl @""  //  /b2b/itvservice/search.php?pagesize=15&epgid=909191&spid=20151103&typekey=5&ctype=2&category=&search=&v=3.0
 
 
 
