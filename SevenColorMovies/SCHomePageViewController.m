@@ -204,7 +204,7 @@ static NSString *const footerId = @"footerId";
                                 [self addBannerView];
                                 _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
                                 
-                            }else if (_bannerImageUrlArr.count == 0){
+                            } else if (_bannerImageUrlArr.count == 0){
                                 if (_bannerView) {
                                     [_bannerView removeFromSuperview];
                                 }
