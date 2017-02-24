@@ -92,6 +92,8 @@ static NSString *const cellId = @"cellId";
     //域名转换成IP
     [CommonFunc showLoadingWithTips:@""];
     [[HLJRequest requestWithPlayVideoURL:_filmClassModel.FilmClassUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        
+        DONG_Log(@"_filmClassModel.FilmClassUrl:%@",_filmClassModel.FilmClassUrl);
         DONG_Log(@"newVideoUrl:%@",newVideoUrl);
         
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
