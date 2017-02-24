@@ -452,7 +452,7 @@ BOOL isLoading = NO;
         [downloadIV_ setImage:[UIImage imageNamed:@"DownLoadIMG"]];
         [headerTitlelabel_ setText:@"全部开始"];
         [DownloadManager pauseAllDownloads];
-    }else{
+    } else {
         isLoading = !isLoading;
         [downloadIV_ setImage:[UIImage imageNamed:@"PauseDownload"]];
         [headerTitlelabel_ setText:@"全部暂停"];
@@ -627,14 +627,15 @@ BOOL isLoading = NO;
                 fileInfo.selected = NO;
                 //从临时数据中删除
                 [_downloadingTempArray removeObject:fileInfo];
-            }else{
+            } else {
                 fileInfo.selected = YES;
                 //添加到临时数组中 待确定后从数据库中删除
                 [_downloadingTempArray addObject:fileInfo];
             }
             cell.fileInfo = fileInfo;
         }
-    } else {//非编辑状态 播放
+        
+    } else { // 非编辑状态 播放
         
         if (indexPath.section == 0) {
             ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];

@@ -180,6 +180,10 @@ static NSString *const cellId = @"cellId";
             
             DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
+            NSDictionary *parameters = @{
+                                         @"ctype"    : @"4"
+                                         };
+            
             //请求播放地址
             [requestDataManager requestDataWithUrl:filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                 DONG_StrongSelf(self);

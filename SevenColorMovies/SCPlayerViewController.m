@@ -505,7 +505,7 @@ static const CGFloat LabelWidth = 100.f;
                 [_artsDownloadView setFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
             }];
         }
-    }else{//电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
+    } else {//电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         
         if (!_dsjdownloadView) {
             _dsjdownloadView = [[SCDSJDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +40, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];

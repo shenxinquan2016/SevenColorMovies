@@ -174,7 +174,7 @@ static NSString *const cellId = @"cellId";
     DONG_WeakSelf(self);
     //请求播放地址
     NSString *urlStr = [filmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    //获取downLoadUrl
+    // 获取downLoadUrl
     [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
         DONG_StrongSelf(self);
         NSString *downLoadUrl = nil;
