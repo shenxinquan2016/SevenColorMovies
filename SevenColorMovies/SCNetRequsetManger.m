@@ -63,7 +63,7 @@
         if (![SCNetHelper isNetConnect]) {
             faild(@"网络异常，请检查网络设置!");
         } else {
-            faild(@"获取数据失败!");
+            faild(@"获取数据失败，请检查网络设置!");
         }
     }];
 }
@@ -81,7 +81,7 @@
         if (![SCNetHelper isNetConnect]) {
             faild(@"网络异常，请检查网络设置!");
         } else {
-            faild(@"获取数据失败!");
+            faild(@"获取数据失败，请检查网络设置!");
         }
         
     }];
@@ -101,7 +101,7 @@
         if (![SCNetHelper isNetConnect]) {
             faild(@"网络异常，请检查网络设置!");
         } else {
-            faild(@"获取数据失败!");
+            faild(@"获取数据失败，请检查网络设置!");
         }
         
         
@@ -120,7 +120,7 @@
         if (![SCNetHelper isNetConnect]) {
             faild(@"网络异常，请检查网络设置!");
         } else {
-            faild(@"获取数据失败!");
+            faild(@"获取数据失败，请检查网络设置!");
         }
         
         
@@ -143,7 +143,7 @@
             [MBProgressHUD showError:@"网络异常，请检查网络设置!"];
         } else {
             faild(errorObject);
-            [MBProgressHUD showError:@"获取数据失败!"];
+            [MBProgressHUD showError:@"获取数据失败，请检查网络设置!"];
         }
     }];
     
@@ -163,7 +163,7 @@
         if (![SCNetHelper isNetConnect]) {
             faild(@"网络异常，请检查网络设置!");
         } else {
-            faild(@"获取数据失败!");
+            faild(@"获取数据失败，请检查网络设置!");
         }
         
     }];
@@ -294,7 +294,7 @@
                 [MBProgressHUD showError:@"网络异常，请检查网络设置!"];
             } else {
                 faild(error);
-                [MBProgressHUD showError:@"获取数据失败!"];
+                [MBProgressHUD showError:@"获取数据失败，请检查网络设置!"];
             }
         }
     }];

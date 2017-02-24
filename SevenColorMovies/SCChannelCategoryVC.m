@@ -88,7 +88,7 @@ static NSString *const cellId = @"cellId";
 }
 
 //
-- (void)getFilmClassData{
+- (void)getFilmClassData {
     //域名转换成IP
     [CommonFunc showLoadingWithTips:@""];
 //    [[HLJRequest requestWithPlayVideoURL:_filmClassModel.FilmClassUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
