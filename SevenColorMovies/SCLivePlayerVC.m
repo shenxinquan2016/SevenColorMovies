@@ -1312,11 +1312,30 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         // 5.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
         
-        // 6.加载新的播放器开始播放
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-        self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
-        self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
+        if ([PlayerViewRotate isOrientationLandscape]) {
+            // 全屏
+            // 6.加载新的播放器开始播放
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            self.view.frame = [[UIScreen mainScreen] bounds];
+            _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+            
+            //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
+            self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
+           
+            
+        } else {
+          
+            // 6.加载新的播放器开始播放
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            //self.IJKPlayerViewController.mediaControl.programNameLabel.text = model1.programName;
+            self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = model1.programName;
+            
+        }
+        
+        
         
         // 7.推屏的回调
         DONG_WeakSelf(self);
