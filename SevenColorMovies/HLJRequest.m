@@ -12,6 +12,13 @@
 //NSString *const DomainNameXMLURL = @"http://10.177.1.198:8095/b2b/search/domainIpRel.htm";
 NSString *const DomainNameXMLURL = @"http://10.177.1.100:8095/b2b/search/domainIpRel.htm";
 
+/**
+ *  isIpReplace： 是否进行ip转换开关
+ *  YES        ： 进行ip转换
+ *  NO         ： 不进行ip转换
+ */
+BOOL isIpReplace = NO;
+
 @interface HLJRequest ()<NSXMLParserDelegate>
 
 @property (nonatomic, strong) NSXMLParser *parser;
@@ -136,6 +143,8 @@ NSString *const DomainNameXMLURL = @"http://10.177.1.100:8095/b2b/search/domainI
 
 - (NSString *)getNewViedoURLByOriginVideoURL:(NSString *)videoURL{
     
+    if (isIpReplace) {
+    
     NSArray<NSString *> *keysArray = [self.domainNamesDic allKeys];
     
     NSString *ipStr = videoURL;
@@ -150,6 +159,11 @@ NSString *const DomainNameXMLURL = @"http://10.177.1.100:8095/b2b/search/domainI
     }
     
     return ipStr;
+        
+    } else {
+        
+        return videoURL;
+    }
 }
 
 #pragma mark - 外部调用接口
@@ -157,10 +171,18 @@ NSString *const DomainNameXMLURL = @"http://10.177.1.100:8095/b2b/search/domainI
 - (void)getNewVideoURLSuccess:(XMLParseIPSuccess )parseSuccess
                       failure:(XMLParseIPFailure )parseFailure{
     
-    self.parseIPSuccess = [parseSuccess copy];
-    self.parseIPFailure = [parseFailure copy];
+    if (isIpReplace) {
+        
+        self.parseIPSuccess = [parseSuccess copy];
+        self.parseIPFailure = [parseFailure copy];
+        
+        [self loadXMLData];
+        
+    } else {
+        
+        parseSuccess(self.videoURL);
+    }
     
-    [self loadXMLData];
 }
 
 #pragma mark - 解析接口

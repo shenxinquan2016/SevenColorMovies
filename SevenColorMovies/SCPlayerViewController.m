@@ -2129,6 +2129,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     //请求将播放地址域名转换  并拼接最终的播放地址
                     NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
                     
+                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                     //1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                     strongself.url = [NSURL URLWithString:playUrl];
