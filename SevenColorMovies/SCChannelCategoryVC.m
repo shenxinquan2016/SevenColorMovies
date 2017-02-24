@@ -22,17 +22,30 @@ static const CGFloat LabelWidth = 95.f;
 
 @interface SCChannelCategoryVC ()<UIScrollViewDelegate>
 
-@property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
-@property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
-@property (nonatomic, strong) NSMutableArray *titleArr;/** 标题数组 */
-@property (nonatomic, strong) NSMutableArray *filmClassModelArr;/** ... */
-@property (nonatomic, strong) NSMutableArray *FilmClassUrlArr;/** filmClassUrl数组 */
-@property (nonatomic, strong) NSMutableArray *filmModelArr;/** ... */
-@property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
-@property (nonatomic, strong) UIButton *siftBtn;/** 筛选按钮 */
-@property (nonatomic, assign) int tag;/** collectionView加载标识 */
-@property (nonatomic, strong) SCCollectionViewPageVC *needScrollToTopPage;/** 在当前页设置点击顶部滚动复位 */
-@property (nonatomic, copy) NSString *mtype;/** 下一个页面回传的mType */
+/** 标题栏scrollView */
+@property (nonatomic, strong) UIScrollView *titleScroll;
+/** 内容栏scrollView */
+@property (nonatomic, strong) UIScrollView *contentScroll;
+/** 标题数组 */
+@property (nonatomic, strong) NSMutableArray *titleArr;
+/** ... */
+@property (nonatomic, strong) NSMutableArray *filmClassModelArr;
+/** 存储如推荐的pageCount给下一级目录用 */
+@property (nonatomic, strong) NSMutableArray *pageCountArr;
+/** filmClassUrl数组 */
+@property (nonatomic, strong) NSMutableArray *FilmClassUrlArr;
+/** ... */
+@property (nonatomic, strong) NSMutableArray *filmModelArr;
+/** 滑动短线 */
+@property (nonatomic, strong) CALayer *bottomLine;
+/** 筛选按钮 */
+@property (nonatomic, strong) UIButton *siftBtn;
+/** collectionView加载标识 */
+@property (nonatomic, assign) int tag;
+/** 在当前页设置点击顶部滚动复位 */
+@property (nonatomic, strong) SCCollectionViewPageVC *needScrollToTopPage;
+/** 下一个页面回传的mType */
+@property (nonatomic, copy) NSString *mtype;
 @end
 
 @implementation SCChannelCategoryVC
@@ -52,13 +65,14 @@ static NSString *const cellId = @"cellId";
     self.filmClassModelArr = [NSMutableArray arrayWithCapacity:0];
     self.filmModelArr = [NSMutableArray arrayWithCapacity:0];
     self.FilmClassUrlArr = [NSMutableArray arrayWithCapacity:0];
+    self.pageCountArr = [NSMutableArray arrayWithCapacity:0];
     
     //3.网络请求
     [self getFilmClassData];
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -97,7 +111,7 @@ static NSString *const cellId = @"cellId";
         DONG_Log(@"newVideoUrl:%@",newVideoUrl);
         
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+
             DONG_Log(@"responseObject:%@",responseObject);
             
             if (responseObject) {
@@ -107,8 +121,10 @@ static NSString *const cellId = @"cellId";
                     
                     [_titleArr addObject:dic[@"_FilmClassName"]];
                     [_FilmClassUrlArr addObject:dic[@"_FilmClassUrl"]];
+                    [_pageCountArr addObject:dic[@"_PageCount"]];
                     
                 }
+                
                 //1.添加滑动headerView
                 [self constructSlideHeaderView];
                 //2.添加contentScrllowView
@@ -187,7 +203,7 @@ static NSString *const cellId = @"cellId";
 }
 
 /** 添加正文内容页 */
-- (void)constructContentView{
+- (void)constructContentView {
     
     _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, StatusBarHeight+TitleHeight+44+8+8, kMainScreenWidth, kMainScreenHeight-StatusBarHeight-TitleHeight-44-8-8)];// 滚动窗口
     _contentScroll.scrollsToTop = NO;
@@ -204,11 +220,14 @@ static NSString *const cellId = @"cellId";
         SCCollectionViewPageVC *vc = [[SCCollectionViewPageVC alloc] initWithCollectionViewLayout:layout];
         vc.bannerFilmModelArray = self.bannerFilmModelArray;
         
+        
+        
         if (_FilmClassUrlArr.count) {
             NSString *urlStr = _FilmClassUrlArr[i];
             NSString *url = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             vc.urlString = url;
             vc.FilmClassModel = _filmClassModel;// 用于判断cell的显示类型
+            vc.pageCount = _pageCountArr[i];// 分页数量
         }
     
         [self addChildViewController:vc];
@@ -231,7 +250,7 @@ static NSString *const cellId = @"cellId";
 
 #pragma mark- Event reponse
 // 点击标题label
-- (void)labelClick:(UITapGestureRecognizer *)recognizer{
+- (void)labelClick:(UITapGestureRecognizer *)recognizer {
     SCSlideHeaderLabel *label = (SCSlideHeaderLabel *)recognizer.view;
     CGFloat offsetX = label.tag * _contentScroll.frame.size.width;
     

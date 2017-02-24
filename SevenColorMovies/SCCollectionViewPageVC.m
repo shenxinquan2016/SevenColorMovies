@@ -63,8 +63,20 @@ static NSString *const cellId = @"cellId";
 }
 
 - (void)loadMoreData {
+    
+    DONG_Log(@"_PageCount:%@",_pageCount);
     _page++;
-    [self requestDataWithPage:_page];
+    
+    if (_page <= [_pageCount intValue] ) {
+       
+        [self requestDataWithPage:_page];
+        
+    } else {
+        
+        [self.collectionView.mj_header endRefreshing];
+        [self.collectionView.mj_footer endRefreshing];
+    }
+    
 }
 
 - (void)requestDataWithPage:(NSInteger)page {
@@ -120,6 +132,7 @@ static NSString *const cellId = @"cellId";
             [self.collectionView.mj_footer endRefreshing];
             [CommonFunc dismiss];
         }];
+        
     } failure:^(NSError *error) {
         [CommonFunc dismiss];
     }];

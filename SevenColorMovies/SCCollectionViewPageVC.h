@@ -9,14 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "SCFilmClassModel.h"
 
-typedef void(^GetMtypeBlock)(NSString *mType);/** 将mTye回传给上一级控制器 */
+/** 将mTye回传给上一级控制器 */
+typedef void(^GetMtypeBlock)(NSString *mType);
 
 @interface SCCollectionViewPageVC : UICollectionViewController
 
-@property(nonatomic,copy) NSString *urlString;/** url端口 */
+/** url端口 */
+@property(nonatomic,copy) NSString *urlString;
 @property (nonatomic,assign) NSInteger index;
-@property (nonatomic, strong) SCFilmClassModel *FilmClassModel;/** 用于区别cell的显示类型 */
+/** 用于区别cell的显示类型 */
+@property (nonatomic, strong) SCFilmClassModel *FilmClassModel;
 @property (nonatomic, copy) GetMtypeBlock getMtype;
-@property (nonatomic, copy) NSArray *bannerFilmModelArray;/** 当精彩推荐没有推荐数据时显示banner内容 */
+/** 当精彩推荐没有推荐数据时显示banner内容 */
+@property (nonatomic, copy) NSArray *bannerFilmModelArray;
+/** 分页数量 */
+@property (nonatomic, copy) NSString *pageCount;
 
 @end
