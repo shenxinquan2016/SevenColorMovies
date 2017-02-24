@@ -703,13 +703,13 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
             NSDictionary *parameters = @{@"tvid" : self.filmModel._TvId ? self.filmModel._TvId : @""};
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+            [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                 //NSLog(@"====responseObject:::%@===",responseObject);
                 [_dataSourceArr removeAllObjects];
                 NSArray *array = responseObject[@"FilmClass"][@"FilmlistSet"];
@@ -820,11 +820,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 
             }];
             
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-            
-        }];
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//            
+//        }];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -861,20 +861,20 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     DONG_Log(@"domainUrl:%@",domainUrl);
     // ip转换
-    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    
+//    DONG_Log(@"newIpUrl:%@",newIpUrl);
     
-    DONG_Log(@"newIpUrl:%@",newIpUrl);
-    
-    [requestDataManager requestDataWithUrl:newIpUrl parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataWithUrl:domainUrl parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"====responseObject:::%@===",responseObject);
         
         NSString *liveUrl = responseObject[@"play_url"];
         
-        NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
+//        NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
         
         //            NSString *newLiveUrl = @"http://10.177.1.245/IndexProxy.do?action=b2bplayauth&playtype=1100&mid=1&sid=1&pid=1&uid=10&oemid=30050&hid=dc:ee:06:c9:8b:a6&fid=160_160&ext=c3RpbWU9MTQ4NjM0MjYwNyZwb3J0PTU2NTYmZXh0PW9pZDozMDA1MA&time=10000&proto=11&key=dc:ee:06:c9:8b:a600000000000000000000000_tv_160.m3u8";
         
-        DONG_Log(@">>>>>>直播节目播放url>>>>>%@>>>>>>>",newLiveUrl);
+//        DONG_Log(@">>>>>>直播节目播放url>>>>>%@>>>>>>>",newLiveUrl);
         
         
         // 4.移除当前的播放器
@@ -883,7 +883,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         if ([PlayerViewRotate isOrientationLandscape]) {
             // 全屏
             // 5.开始播放直播
-            self.url = [NSURL URLWithString:newLiveUrl];
+            self.url = [NSURL URLWithString:liveUrl];
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;
@@ -897,7 +897,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             
             // 小屏
             // 5.开始播放直播
-            self.url = [NSURL URLWithString:newLiveUrl];
+            self.url = [NSURL URLWithString:liveUrl];
             //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
@@ -1003,17 +1003,17 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     DONG_Log(@"domainUrl:%@",domainUrl);
     // ip转换
-    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    
+//    DONG_Log(@"newIpUrl:%@",newIpUrl);
     
-    DONG_Log(@"newIpUrl:%@",newIpUrl);
-    
-    [requestDataManager requestDataWithUrl:newIpUrl parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataWithUrl:domainUrl parameters:parameters success:^(id  _Nullable responseObject) {
         //DONG_Log(@"responseObject:%@",responseObject);
         NSString *timeShiftUrl = responseObject[@"play_url"];
         // ip转换
-        NSString *newTimeShiftUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:timeShiftUrl];
-        
-        DONG_Log(@"newTimeShiftUrl:%@",newTimeShiftUrl);
+//        NSString *newTimeShiftUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:timeShiftUrl];
+//        
+//        DONG_Log(@"newTimeShiftUrl:%@",newTimeShiftUrl);
         
         // 5.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
@@ -1021,7 +1021,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         if ([PlayerViewRotate isOrientationLandscape]) {
             // 全屏
             // 6.开始播放直播
-            self.url = [NSURL URLWithString:newTimeShiftUrl];
+            self.url = [NSURL URLWithString:timeShiftUrl];
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;
@@ -1036,7 +1036,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         } else {
             // 小屏
             // 6.开始播放直播
-            self.url = [NSURL URLWithString:newTimeShiftUrl];
+            self.url = [NSURL URLWithString:timeShiftUrl];
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
@@ -1143,17 +1143,17 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     DONG_Log(@"domainUrl:%@",domainUrl);
     // ip转换
-    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    
+//    DONG_Log(@"newIpUrl:%@",newIpUrl);
     
-    DONG_Log(@"newIpUrl:%@",newIpUrl);
-    
-    [requestDataManager requestDataWithUrl:newIpUrl parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataWithUrl:domainUrl parameters:parameters success:^(id  _Nullable responseObject) {
         //DONG_Log(@"responseObject:%@",responseObject);
         NSString *timeShiftUrl = responseObject[@"play_url"];
         // ip转换
-        NSString *newTimeShiftUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:timeShiftUrl];
-        
-        DONG_Log(@"newTimeShiftUrl:%@",newTimeShiftUrl);
+//        NSString *newTimeShiftUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:timeShiftUrl];
+//        
+//        DONG_Log(@"newTimeShiftUrl:%@",newTimeShiftUrl);
         
         // 格林尼治时间
         NSDate *date = [NSDate date];
@@ -1168,7 +1168,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         if ([PlayerViewRotate isOrientationLandscape]) {
             // 全屏
             // 6.开始播放直播
-            self.url = [NSURL URLWithString:newTimeShiftUrl];
+            self.url = [NSURL URLWithString:timeShiftUrl];
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             self.view.frame = [[UIScreen mainScreen] bounds];
             _IJKPlayerViewController.view.frame = self.view.bounds;
@@ -1183,7 +1183,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         } else {
             // 小屏
             // 6.开始播放直播
-            self.url = [NSURL URLWithString:newTimeShiftUrl];
+            self.url = [NSURL URLWithString:timeShiftUrl];
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
@@ -1294,20 +1294,20 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     DONG_Log(@"domainUrl:%@",domainUrl);
     // ip转换
-    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    
+//    DONG_Log(@"newIpUrl:%@",newIpUrl);
     
-    DONG_Log(@"newIpUrl:%@",newIpUrl);
     
-    
-    [requestDataManager requestDataWithUrl:newIpUrl parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataWithUrl:domainUrl parameters:parameters success:^(id  _Nullable responseObject) {
         NSLog(@"====responseObject:::%@===",responseObject);
         
         NSString *liveUrl = responseObject[@"play_url"];
         
-        NSString *playUrl = [_hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
-        DONG_Log(@"playUrl：%@ ",playUrl);
+//        NSString *playUrl = [_hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
+//        DONG_Log(@"playUrl：%@ ",playUrl);
         //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-        self.url= [NSURL URLWithString:playUrl];
+        self.url= [NSURL URLWithString:liveUrl];
         
         // 5.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
@@ -1449,11 +1449,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     
     DONG_Log(@"domainUrl:%@",domainUrl);
     
-    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    NSString *newIpUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    
+//    DONG_Log(@"newIpUrl:%@",newIpUrl);
     
-    DONG_Log(@"newIpUrl:%@",newIpUrl);
-    
-    [requestDataManager postRequestDataWithUrl:newIpUrl parameters:nil success:^(id  _Nullable responseObject) {
+    [requestDataManager postRequestDataWithUrl:domainUrl parameters:nil success:^(id  _Nullable responseObject) {
         DONG_Log(@"====responseObject:::%@===",responseObject);
         
         NSArray *array = responseObject[@"LiveTvSort"];

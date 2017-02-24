@@ -73,9 +73,9 @@ static NSString *const cellId = @"cellId";
         [_filmModelArr removeAllObjects];
     }
     //域名转IP
-    self.hljRequest = [HLJRequest requestWithPlayVideoURL:_urlString];
-    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-        [requestDataManager requestFilmClassDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+//    self.hljRequest = [HLJRequest requestWithPlayVideoURL:_urlString];
+//    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        [requestDataManager requestFilmClassDataWithUrl:_urlString parameters:parameters success:^(id  _Nullable responseObject) {
             NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
             if (responseObject) {
                 if (responseObject[@"FilmClass"]) {// 专题页面(比其他多一层)
@@ -113,9 +113,10 @@ static NSString *const cellId = @"cellId";
             [self.collectionView.mj_footer endRefreshing];
             [CommonFunc dismiss];
         }];
-    } failure:^(NSError *error) {
-        [CommonFunc dismiss];
-    }];
+    
+//    } failure:^(NSError *error) {
+//        [CommonFunc dismiss];
+//    }];
 }
 
 #pragma mark - <UICollectionViewDataSource>

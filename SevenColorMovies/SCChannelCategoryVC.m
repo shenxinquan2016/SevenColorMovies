@@ -91,11 +91,11 @@ static NSString *const cellId = @"cellId";
 - (void)getFilmClassData{
     //域名转换成IP
     [CommonFunc showLoadingWithTips:@""];
-    [[HLJRequest requestWithPlayVideoURL:_filmClassModel.FilmClassUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-        
-        [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//    [[HLJRequest requestWithPlayVideoURL:_filmClassModel.FilmClassUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+    
+        [requestDataManager requestDataWithUrl:_filmClassModel.FilmClassUrl parameters:nil success:^(id  _Nullable responseObject) {
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             DONG_Log(@"responseObject:%@",responseObject);
             
             if (responseObject) {
@@ -120,10 +120,10 @@ static NSString *const cellId = @"cellId";
             [CommonFunc dismiss];
         }];
 
-    } failure:^(NSError *error) {
-        
-       [CommonFunc dismiss];
-    }];
+//    } failure:^(NSError *error) {
+//        
+//       [CommonFunc dismiss];
+//    }];
     
 }
 /** 添加滚动标题栏*/

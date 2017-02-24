@@ -346,12 +346,12 @@
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
+            [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                 DONG_Log(@"responseObject:%@",responseObject);
                 if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSDictionary class]]) {
                     
@@ -380,11 +380,11 @@
                 [CommonFunc noDataOrNoNetTipsString:@"网络异常请稍后再试" addView:self.view];
                 [CommonFunc dismiss];
             }];
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-            
-        }];
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//            
+//        }];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -418,10 +418,10 @@
     NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:DeleteWatchHistory key:@"skscxb"];
     DONG_Log(@"domainUrl:%@",domainUrl);
     // ip转换
-    NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
-    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//    NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
     
-    [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataWithUrl:domainUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
         [CommonFunc dismiss];
     }failure:^(id  _Nullable errorObject) {

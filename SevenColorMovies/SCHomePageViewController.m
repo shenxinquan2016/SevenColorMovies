@@ -163,12 +163,12 @@ static NSString *const footerId = @"footerId";
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
+            [requestDataManager requestDataWithUrl:newUrlString parameters:nil success:^(id  _Nullable responseObject) {
                 //DONG_Log(@"==========dic:::%@========",responseObject);
                 //1.第一层 filmList
                 SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
@@ -228,13 +228,13 @@ static NSString *const footerId = @"footerId";
                 
             }];
             
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-            [_collView.mj_header endRefreshing];
-            
-        }];
-        
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//            [_collView.mj_header endRefreshing];
+//            
+//        }];
+//        
     } failure:^(id  _Nullable errorObject) {
        
         [CommonFunc dismiss];

@@ -60,11 +60,11 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+//        [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
+            [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                 //NSLog(@"<<<<<<<<<<<<<responseObject:::%@",responseObject);
                 if (responseObject) {
                     
@@ -95,11 +95,11 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                 [CommonFunc dismiss];
             }];
             
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-            
-        }];
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//            
+//        }];
         
     } failure:^(id  _Nullable errorObject) {
         

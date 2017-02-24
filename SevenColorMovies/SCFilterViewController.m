@@ -255,17 +255,17 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
-            NSString *urlStr = [newVideoUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
+            NSString *urlStr = [newUrlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
             NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj2"];
-            NSString *ipUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
-            
-            NSString *urlString = [ipUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//            NSString *ipUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+        
+            NSString *urlString = [domainUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
             
             //1.创建队列组
@@ -351,11 +351,11 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             
             
             
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-            
-        }];
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//            
+//        }];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -386,12 +386,12 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject){
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
+            [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject){
                 //        NSLog(@"==========dic:::%@========",responseObject);
                 
                 if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]) {
@@ -421,11 +421,11 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                 [CommonFunc dismiss];
                 [_collView reloadData];
             }];
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-            
-        }];
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//            
+//        }];
         
     } failure:^(id  _Nullable errorObject) {
         

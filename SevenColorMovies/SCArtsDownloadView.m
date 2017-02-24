@@ -197,22 +197,22 @@ static NSString *const cellId = @"cellId";
             
             DONG_Log(@"newUrlString:%@",newUrlString);
             // ip转换
-            _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-            [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-                
-                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-                
-                NSString *VODStreamingUrl = [[[[[[newVideoUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+//            _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//            [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//                
+//                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            
+                NSString *VODStreamingUrl = [[[[[[newUrlString stringByAppendingString:@"&mid="] stringByAppendingString:filmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 //获取play_url
                 [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                     //            NSLog(@"====responseObject:::%@===",responseObject);
                     NSString *play_url = responseObject[@"play_url"];
                     DONG_Log(@"responseObject:%@",play_url);
                     //请求将播放地址域名转换  并拼接最终的播放地址
-                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                     //1.拼接新地址
-                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                     // NSString *downloadUrl = @"http://dlsw.baidu.com/sw-search-sp/soft/2a/25677/QQ_V4.1.1.1456905733.dmg";
                     // 利用ZFDownloadManager下载
                     [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmModel.FilmName fileimage:nil];
@@ -243,10 +243,10 @@ static NSString *const cellId = @"cellId";
                     [CommonFunc dismiss];
                 }];
                 
-            } failure:^(NSError *error) {
-                [CommonFunc dismiss];
-                
-            }];
+//            } failure:^(NSError *error) {
+//                [CommonFunc dismiss];
+//                
+//            }];
             
         } failure:^(id  _Nullable errorObject) {
             

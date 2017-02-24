@@ -396,12 +396,12 @@ static const CGFloat LabelWidth = 100.f;
             
             DONG_Log(@"newUrlString:%@",newUrlString);
             // ip转换
-            _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-            [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-                
-                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//            _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//            [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//                
+//                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
       
-                [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                     DONG_Log(@"====responseObject:::%@===",responseObject);
                     
                     DONG_StrongSelf(self);
@@ -427,9 +427,9 @@ static const CGFloat LabelWidth = 100.f;
                     //视频播放url
                     NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                     DONG_Log(@"domainUrl:%@",domainUrl);
-                    NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//                    NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                     //NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
-                    NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                    NSString *VODStreamingUrl = [[[[[[domainUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                     
                     //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
                     //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
@@ -439,11 +439,11 @@ static const CGFloat LabelWidth = 100.f;
                         NSString *play_url = responseObject[@"play_url"];
                         DONG_Log(@"responseObject:%@",play_url);
                         //请求将播放地址域名转换  并拼接最终的播放地址
-                        NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                        
-                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//                        NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                        
+//                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                         //1.拼接新地址
-                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                         //NSString *str = @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4";
                         
                         // 利用ZFDownloadManager下载
@@ -477,9 +477,9 @@ static const CGFloat LabelWidth = 100.f;
                 } failure:^(id  _Nullable errorObject) {
                     [CommonFunc dismiss];
                 }];
-            } failure:^(NSError *error) {
-                [CommonFunc dismiss];
-            }];
+//            } failure:^(NSError *error) {
+//                [CommonFunc dismiss];
+//            }];
         } failure:^(id  _Nullable errorObject) {
             
             [CommonFunc dismiss];
@@ -728,10 +728,10 @@ static const CGFloat LabelWidth = 100.f;
     NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:AddWatchHistory key:@"skscxb"];
     DONG_Log(@"domainUrl:%@",domainUrl);
     // ip转换
-    NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
-    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//    NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
     
-    [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataWithUrl:domainUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
         DONG_Log(@"添加观看记录成功 parameters:%@ \nresponseObject:%@",parameters, responseObject);
         
@@ -1104,9 +1104,9 @@ static const CGFloat LabelWidth = 100.f;
                 NSString *play_url = responseObject[@"play_url"];
                 DONG_Log(@"responseObject:%@",play_url);
                 //请求将播放地址域名转换  并拼接最终的播放地址
-                NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:play_url];
                 //1.拼接新地址
-                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                 self.url = [NSURL URLWithString:playUrl];
                 //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
                 //1.移除当前的播放器
@@ -1207,18 +1207,18 @@ static const CGFloat LabelWidth = 100.f;
                 //视频播放url
                 NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                 DONG_Log(@"domainUrl:%@",domainUrl);
-                NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//                NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                 
-                NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:atrsFilmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                NSString *VODStreamingUrl = [[[[[[domainUrl stringByAppendingString:@"&mid="] stringByAppendingString:atrsFilmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 //获取play_url
                 [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                     //            NSLog(@"====responseObject:::%@===",responseObject);
                     NSString *play_url = responseObject[@"play_url"];
                     DONG_Log(@"responseObject:%@",play_url);
                     //请求将播放地址域名转换  并拼接最终的播放地址
-                    NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                    NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:play_url];
                     //1.拼接新地址
-                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                     self.url = [NSURL URLWithString:playUrl];
                     //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
                     //1.移除播放器
@@ -1332,9 +1332,9 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         
         NSString *play_url = responseObject[@"play_url"];
         //-1.请求将播放地址域名转换  并拼接最终的播放地址
-        NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//        NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:play_url];
         //拼接新地址
-        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
         self.url = [NSURL URLWithString:playUrl];
         //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
         //1.移除当前的播放器
@@ -1441,8 +1441,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             //视频播放url
             NSString *domainUrl = [weakself.domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
             DONG_Log(@"domainUrl:%@",domainUrl);
-            NSString *replacedUrl = [weakself.hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
-            NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+//            NSString *replacedUrl = [weakself.hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+            NSString *VODStreamingUrl = [[[[[[domainUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
             
             NSLog(@">>>>>>>>>>>downLoadUrl>>>>>>>>%@",downLoadUrl);
             NSLog(@">>>>>>>>>>>VODStreamingUrl>>>>>>>>%@",VODStreamingUrl);
@@ -1461,9 +1461,9 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 //            NSLog(@"====responseObject:::%@===",responseObject);
                 NSString *play_url = responseObject[@"play_url"];
                 //请求将播放地址域名转换  并拼接最终的播放地址
-                NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
                 //1.拼接新地址
-                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                 strongself.url = [NSURL URLWithString:playUrl];
                 //            strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
                 //2.调用播放器播放
@@ -1563,13 +1563,13 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
             
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
-            
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+            [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                 //NSLog(@"====responseObject:::%@===",responseObject);
                 if (responseObject) {
                     
@@ -1593,8 +1593,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         //视频播放url
                         NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                         DONG_Log(@"domainUrl:%@",domainUrl);
-                        NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
-                        NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+//                        NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+                        NSString *VODStreamingUrl = [[[[[[domainUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                         
                         model.VODStreamingUrl = VODStreamingUrl;
                         
@@ -1623,8 +1623,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                             //视频播放url
                             NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                             DONG_Log(@"domainUrl:%@",domainUrl);
-                            NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
-                            NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+//                            NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+                            NSString *VODStreamingUrl = [[[[[[domainUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                             
                             model.VODStreamingUrl = VODStreamingUrl;
                             //NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>>>>%@",downloadUrl);
@@ -1696,11 +1696,11 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         NSString *play_url = responseObject[@"play_url"];
                         DONG_Log(@"responseObject:%@",play_url);
                         //请求将播放地址域名转换  并拼接最终的播放地址
-                        NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                        NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:play_url];
                         
-                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                         //1.拼接新地址
-                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                         self.url = [NSURL URLWithString:playUrl];
                         //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
                         
@@ -1775,10 +1775,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 [CommonFunc dismiss];
             }];
             
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-        }];
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//        }];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -1813,12 +1813,12 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
+            [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                 DONG_StrongSelf(self);
                 //            NSLog(@"====responseObject======%@===",responseObject);
                 [strongself.filmsArr removeAllObjects];
@@ -1908,18 +1908,18 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                     DONG_Log(@"domainUrl:%@",domainUrl);
                     //视频播放url
-                    NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
-                    NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:artsFilmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+//                    NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+                    NSString *VODStreamingUrl = [[[[[[domainUrl stringByAppendingString:@"&mid="] stringByAppendingString:artsFilmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                     //获取play_url
                     [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                         //            NSLog(@"====responseObject:::%@===",responseObject);
                         NSString *play_url = responseObject[@"play_url"];
                         DONG_Log(@"responseObject:%@",play_url);
                         //请求将播放地址域名转换  并拼接最终的播放地址
-                        NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//                        NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                         //1.拼接新地址
-                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                         strongself.url = [NSURL URLWithString:playUrl];
                         //2.调用播放器播放
                         strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
@@ -1995,10 +1995,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 [CommonFunc dismiss];
             }];
             
-        } failure:^(NSError *error) {
-            [CommonFunc dismiss];
-            
-        }];
+//        } failure:^(NSError *error) {
+//            [CommonFunc dismiss];
+//            
+//        }];
         
         
     } failure:^(id  _Nullable errorObject) {
@@ -2035,13 +2035,13 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
             //请求film详细信息
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+            [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                 //            DONG_Log(@"====responseObject:::%@===",responseObject);
                 
                 DONG_StrongSelf(self);
@@ -2075,11 +2075,11 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                 DONG_Log(@"domainUrl:%@",domainUrl);
                 
-                NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//                NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//                
+//                DONG_Log(@"replacedUrl:%@",replacedUrl);
                 
-                DONG_Log(@"replacedUrl:%@",replacedUrl);
-                
-                NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmmidStr] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                NSString *VODStreamingUrl = [[[[[[domainUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmmidStr] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 
                 
                 
@@ -2127,10 +2127,10 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     NSString *play_url = responseObject[@"play_url"];
                     DONG_Log(@"responseObject:%@",play_url);
                     //请求将播放地址域名转换  并拼接最终的播放地址
-                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
                     
                     //1.拼接新地址
-                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                     strongself.url = [NSURL URLWithString:playUrl];
                     //2.调用播放器播放
                     strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
@@ -2218,11 +2218,11 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             }];
             
             
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-            
-        }];
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//            
+//        }];
         
     } failure:^(id  _Nullable errorObject) {
         

@@ -97,12 +97,12 @@
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
+            [requestDataManager requestDataWithUrl:newUrlString parameters:nil success:^(id  _Nullable responseObject) {
                 
                 DONG_Log(@"==========dic:::%@========",responseObject);
                 
@@ -135,11 +135,11 @@
                 [CommonFunc dismiss];
             }];
             
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-            
-        }];
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//            
+//        }];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -181,10 +181,10 @@
     NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:SearchProgramHavePastUrl key:@"PlayBackSearch"];
     DONG_Log(@"domainUrl:%@",domainUrl);
     // ip转换
-    NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
-    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//    NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
     
-    [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataWithUrl:domainUrl parameters:parameters success:^(id  _Nullable responseObject) {
         
         DONG_Log(@"==========dic:::%@========",responseObject);
         

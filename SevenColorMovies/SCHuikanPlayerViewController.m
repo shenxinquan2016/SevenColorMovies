@@ -295,11 +295,11 @@
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
             if (filmModel.filmSetModel) {// 电视剧 系列影片通道
                 
                 //睡一会以解决屏幕旋转时的bug
@@ -312,11 +312,11 @@
                     NSString *play_url = responseObject[@"play_url"];
                     DONG_Log(@"responseObject:%@",play_url);
                     //请求将播放地址域名转换  并拼接最终的播放地址
-                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                    
-                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                    
+//                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                     //1.拼接新地址
-                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                     strongself.url = [NSURL URLWithString:playUrl];
                     
                     //2.调用播放器播放
@@ -369,7 +369,7 @@
                 
                 // 拉屏时即使是电视剧，因为filmModel.filmSetModel为空，所以也会走此通道 可以根据filmModel.jiIndex做判断，若filmModel.jiIndex>1则按电视剧处理  综艺的jiIndex=1,又有自己的mid，都按单个影片处理
                 
-                [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+                [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                     //DONG_Log(@"====responseObject:::%@===",responseObject);
                     DONG_StrongSelf(self);
                     
@@ -412,11 +412,11 @@
                     //这只是个请求视频播放流的url地址
                     NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                     DONG_Log(@"domainUrl:%@",domainUrl);
-                    NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//                    NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                     
                     //NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
                     
-                    NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                    NSString *VODStreamingUrl = [[[[[[domainUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                     
                     //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
                     //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
@@ -426,11 +426,11 @@
                         NSString *play_url = responseObject[@"play_url"];
                         DONG_Log(@"responseObject:%@",play_url);
                         //请求将播放地址域名转换  并拼接最终的播放地址
-                        NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                        
-                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//                        NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                        
+//                        DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                         //1.拼接新地址
-                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                         strongself.url = [NSURL URLWithString:playUrl];
                         
                         //2.调用播放器播放
@@ -519,10 +519,10 @@
                 
             }
             
-        } failure:^(NSError *error) {
-            [CommonFunc dismiss];
-            //[CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
-        }];
+//        } failure:^(NSError *error) {
+//            [CommonFunc dismiss];
+//            //[CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
+//        }];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -560,13 +560,13 @@
             
             DONG_Log(@"newUrlString:%@",newUrlString);
             // ip转换
-            _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-            [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-                
-                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-                
+//            _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//            [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//                
+//                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+            
                 //视频播放url
-                NSString *VODStreamingUrl = [[[[[[newVideoUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmMidStr] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                NSString *VODStreamingUrl = [[[[[[newUrlString stringByAppendingString:@"&mid="] stringByAppendingString:filmMidStr] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 
                 //2.请求播放地址
                 [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
@@ -575,9 +575,9 @@
                     NSString *play_url = responseObject[@"play_url"];
                     
                     //请求将播放地址域名转换  并拼接最终的播放地址
-                    [[HLJRequest requestWithPlayVideoURL:play_url] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//                    [[HLJRequest requestWithPlayVideoURL:play_url] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
                         //1.拼接新地址
-                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                        NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                         strongself.url = [NSURL URLWithString:playUrl];
                         //            strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
                         DONG_Log(@"====url:::%@===",strongself.url);
@@ -624,10 +624,10 @@
                         [CommonFunc dismiss];
                         //[CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
                         
-                    } failure:^(NSError *error) {
-                        [CommonFunc dismiss];
-                        //[CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
-                    }];
+//                    } failure:^(NSError *error) {
+//                        [CommonFunc dismiss];
+//                        //[CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
+//                    }];
                     
                 } failure:^(id  _Nullable errorObject) {
                     [CommonFunc dismiss];
@@ -636,11 +636,11 @@
                 
                 
                 
-            } failure:^(NSError *error) {
-                [CommonFunc dismiss];
-                
-            }];
-            
+//            } failure:^(NSError *error) {
+//                [CommonFunc dismiss];
+//                
+//            }];
+//            
         } failure:^(id  _Nullable errorObject) {
             
             [CommonFunc dismiss];
@@ -681,25 +681,24 @@
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
             //睡一会以解决屏幕旋转时的bug
             [NSThread sleepForTimeInterval:.5f];
             
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+            [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                 //                     NSLog(@"====responseObject:::%@===",responseObject);
                 DONG_StrongSelf(self);
                 NSString *liveUrl = responseObject[@"play_url"];
                 
-                NSString *playUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
+//                NSString *playUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
                 
-                DONG_Log(@"playUrl：%@ ",playUrl);
+//                DONG_Log(@"playUrl：%@ ",playUrl);
                 //strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-                strongself.url= [NSURL URLWithString:playUrl];
+                strongself.url= [NSURL URLWithString:liveUrl];
                 
                 //2.调用播放器播放
                 strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
@@ -734,10 +733,10 @@
                 
             }];
             
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-        }];
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//        }];
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -762,24 +761,24 @@
     
     [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:ToGetLiveVideoSignalFlowUrl key:@"playauth" success:^(id  _Nullable newUrlString) {
         
-        self.hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
+//        self.hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        
             // 睡一会以解决屏幕旋转时的bug
             [NSThread sleepForTimeInterval:1.5f];
             
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+            [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                 NSLog(@"====responseObject:::%@===",responseObject);
                 
                 NSString *liveUrl = responseObject[@"play_url"];
                 
                 NSLog(@">>>>>>ToGetLiveVideoSignalFlowUrl>>>>>%@>>>>>>>",liveUrl);
                 
-                NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
+//                NSString *newLiveUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:liveUrl];
                 
                 
                 // 5.开始播放直播
-                self.url = [NSURL URLWithString:newLiveUrl];
+                self.url = [NSURL URLWithString:liveUrl];
                 //2.调用播放器播放
                 self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
                 [self.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
@@ -808,10 +807,10 @@
                 [CommonFunc dismiss];
                 
             }];
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-        }];
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//        }];
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
@@ -844,23 +843,23 @@
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         
-        self.hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//        self.hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             // 睡一会以解决屏幕旋转时的bug
             [NSThread sleepForTimeInterval:1.5f];
             
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+            [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                 //DONG_Log(@"responseObject:%@",responseObject);
                 NSString *timeShiftUrl = responseObject[@"play_url"];
                 // ip转换
-                NSString *newTimeShiftUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:timeShiftUrl];
-                
-                DONG_Log(@"newTimeShiftUrl:%@",newTimeShiftUrl);
+//                NSString *newTimeShiftUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:timeShiftUrl];
+//                
+//                DONG_Log(@"newTimeShiftUrl:%@",newTimeShiftUrl);
                 
                 // 6.开始播放时移
-                self.url = [NSURL URLWithString:newTimeShiftUrl];
+                self.url = [NSURL URLWithString:timeShiftUrl];
                 
                 //2.调用播放器播放
                 self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
@@ -897,10 +896,10 @@
                 
             }];
             
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-        }];
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//        }];
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
@@ -936,12 +935,12 @@
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
-            [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//            
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
+            [requestDataManager requestDataWithUrl:newUrlString parameters:parameters success:^(id  _Nullable responseObject) {
                 //        DONG_Log(@"====responseObject:::%@===",responseObject);
                 
                 //睡一会以解决屏幕旋转时的bug
@@ -969,11 +968,11 @@
                 //这只是个请求视频播放流的url地址
                 NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                 DONG_Log(@"domainUrl:%@",domainUrl);
-                NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+//                NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                 
                 //NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:VODUrl];
                 
-                NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
+                NSString *VODStreamingUrl = [[[[[[domainUrl stringByAppendingString:@"&mid="] stringByAppendingString:mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 
                 //DONG_Log(@">>>>>>>>>>>DownUrl>>>>>>>>>>%@",downloadUrl);
                 //DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
@@ -983,11 +982,11 @@
                     NSString *play_url = responseObject[@"play_url"];
                     DONG_Log(@"responseObject:%@",play_url);
                     //请求将播放地址域名转换  并拼接最终的播放地址
-                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                    
-                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                    
+//                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                     //1.拼接新地址
-                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                     strongself.url = [NSURL URLWithString:playUrl];
                     
                     //2.调用播放器播放
@@ -1038,11 +1037,11 @@
             }];
             
             
-        } failure:^(NSError *error) {
-            
-            [CommonFunc dismiss];
-        }];
-        
+//        } failure:^(NSError *error) {
+//            
+//            [CommonFunc dismiss];
+//        }];
+//        
         
     } failure:^(id  _Nullable errorObject) {
         

@@ -293,11 +293,11 @@
                 
                 DONG_Log(@"newUrlString:%@",newUrlString);
                 
-                [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-                    
-                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-                    
-                    [requestDataManager postRequestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
+//                [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//                    
+//                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                
+                    [requestDataManager postRequestDataWithUrl:newUrlString parameters:nil success:^(id  _Nullable responseObject) {
                         
                         DONG_Log(@"====responseObject:::%@===",responseObject);
                         [CommonFunc dismiss];
@@ -349,10 +349,10 @@
                         
                     }];
                     
-                } failure:^(NSError *error) {
-                    [CommonFunc dismiss];
-                    
-                }];
+//                } failure:^(NSError *error) {
+//                    [CommonFunc dismiss];
+//                    
+//                }];
                 
                 
             } failure:^(id  _Nullable errorObject) {
@@ -370,11 +370,11 @@
                 
                 DONG_Log(@"newUrlString:%@",newUrlString);
                 
-                [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-                    
-                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-                    
-                    [requestDataManager postRequestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
+//                [[HLJRequest requestWithPlayVideoURL:newUrlString] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+//                    
+//                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                
+                    [requestDataManager postRequestDataWithUrl:newUrlString parameters:nil success:^(id  _Nullable responseObject) {
                         
                         DONG_Log(@"====responseObject:::%@===",responseObject);
                         [CommonFunc dismiss];
@@ -427,10 +427,10 @@
                         
                     }];
                     
-                } failure:^(NSError *error) {
-                    [CommonFunc dismiss];
-                    
-                }];
+//                } failure:^(NSError *error) {
+//                    [CommonFunc dismiss];
+//                    
+//                }];
                 
                 
             } failure:^(id  _Nullable errorObject) {

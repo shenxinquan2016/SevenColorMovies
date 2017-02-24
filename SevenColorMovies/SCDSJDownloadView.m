@@ -175,11 +175,11 @@ static NSString *const cellId = @"cellId";
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-            
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
+//        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+//        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        
+//            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+        
             //请求播放地址
             [requestDataManager requestDataWithUrl:filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                 DONG_StrongSelf(self);
@@ -187,11 +187,11 @@ static NSString *const cellId = @"cellId";
                 NSString *play_url = responseObject[@"play_url"];
                 DONG_Log(@"responseObject:%@",play_url);
                 //请求将播放地址域名转换  并拼接最终的播放地址
-                NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                
-                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+//                NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+//                
+//                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                 //1.拼接新地址
-                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",play_url];
                 
                 // 名称
                 NSString *filmName;
@@ -234,10 +234,10 @@ static NSString *const cellId = @"cellId";
             } failure:^(id  _Nullable errorObject) {
                 [CommonFunc dismiss];
             }];
-        } failure:^(NSError *error) {
-            [CommonFunc dismiss];
-        }];
-        
+//        } failure:^(NSError *error) {
+//            [CommonFunc dismiss];
+//        }];
+//        
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
