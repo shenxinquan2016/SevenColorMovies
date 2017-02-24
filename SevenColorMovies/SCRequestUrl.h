@@ -18,8 +18,12 @@
 
 
 /******************************************首页接口*******************************************/
-// 动态域名接口
-#define DynamicDomainEntrance @"http://10.177.1.222:8050/entry?uid=21&oemid=30050&hid=741e93d05fc2&app_version=sksjd_1.0"
+// 动态域名接口  内网
+//#define DynamicDomainEntrance @"http://10.177.1.222:8050/entry?uid=21&oemid=30050&hid=741e93d05fc2&app_version=sksjd_1.0"
+
+// 动态域名接口  外网
+#define DynamicDomainEntrance @"http://125.223.98.233:40398/entry?uid=21&oemid=30118&hid=741e93d05fc2&app_version=sksjd_outernet"
+
 // homePage接口
 #define HomePageUrl @""
 // banner接口

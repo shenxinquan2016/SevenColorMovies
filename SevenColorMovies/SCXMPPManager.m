@@ -54,9 +54,9 @@
     [self.xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     // 允许后台模式(注意iOS模拟器上是不支持后台socket的)
     self.xmppStream.enableBackgroundingOnSocket = YES;
-    // 设置服务器地址 172.60.5.100  124.207.192.18   新xmpp外网地址：10.177.1.44 端口：5222
-    [self.xmppStream setHostName:@"10.177.1.44"];
-    [self.xmppStream setHostPort:5222];
+    // 设置服务器地址 172.60.5.100  124.207.192.18   新xmpp外网地址：125.223.98.233 端口：40441
+    [self.xmppStream setHostName:@"125.223.98.233"];
+    [self.xmppStream setHostPort:40441];
     // 设置当前用户的信息
     XMPPJID *myJID = [XMPPJID jidWithUser:name domain:@"hljvoole.com" resource:resource];
     [self.xmppStream setMyJID:myJID];
