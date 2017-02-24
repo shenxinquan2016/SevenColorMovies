@@ -25,7 +25,6 @@
     
     //    [self setAppearance];
     
-    
     [self checkNetworkEnvironment];
         
     //0.初始化键盘控制
@@ -54,14 +53,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
  
-    
-//    [application setKeepAliveTimeout:600 handler:^{
-//        
-//        
-//    }];
-    
-    
-    
+  
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

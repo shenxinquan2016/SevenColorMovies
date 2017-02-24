@@ -63,7 +63,7 @@
             imageUrl = filmModel.smallposterurl;
         }
         
-        DONG_Log(@"imageUrl:%@",imageUrl);
+//        DONG_Log(@"imageUrl:%@",imageUrl);
         NSURL *imgUrl = [NSURL URLWithString:imageUrl];
         [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"CellLoading"]];
     }

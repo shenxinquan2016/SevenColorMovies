@@ -68,6 +68,7 @@ static NSString *const cellId = @"cellId";
 }
 
 - (void)requestDataWithPage:(NSInteger)page {
+    
     NSDictionary *parameters = @{@"page" : [NSString stringWithFormat:@"%zd",page]};
     if (page == 1) {
         [_filmModelArr removeAllObjects];
@@ -90,10 +91,15 @@ static NSString *const cellId = @"cellId";
                     [self.collectionView.mj_footer endRefreshing];
                     [CommonFunc dismiss];
                     
-                } else {// 其他
+                } else {// 其他电影 电视剧等
                     
-                    NSArray *filmsArr = responseObject[@"Film"];
-                    for (NSDictionary *dic in filmsArr) {
+                    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+                    [array removeAllObjects];
+                    [array addObjectsFromArray:responseObject[@"Film"]];
+                    
+//                    NSArray *filmsArr = responseObject[@"Film"];
+                    
+                    for (NSDictionary *dic in array) {
                         SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
                         [_filmModelArr addObject:filmModel];
                     }
@@ -109,6 +115,7 @@ static NSString *const cellId = @"cellId";
             //        self.getMtype(mType);
             
         } failure:^(id  _Nullable errorObject) {
+            
             [self.collectionView.mj_header endRefreshing];
             [self.collectionView.mj_footer endRefreshing];
             [CommonFunc dismiss];

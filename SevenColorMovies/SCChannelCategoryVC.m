@@ -189,7 +189,7 @@ static NSString *const cellId = @"cellId";
 /** 添加正文内容页 */
 - (void)constructContentView{
     
-    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, StatusBarHeight+TitleHeight+44+8+8, kMainScreenWidth, kMainScreenHeight-StatusBarHeight-TitleHeight-44-8-8)];//滚动窗口
+    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, StatusBarHeight+TitleHeight+44+8+8, kMainScreenWidth, kMainScreenHeight-StatusBarHeight-TitleHeight-44-8-8)];// 滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
     _contentScroll.pagingEnabled = YES;
@@ -197,7 +197,7 @@ static NSString *const cellId = @"cellId";
     //    _contentScroll.backgroundColor = [UIColor redColor];
     [self.view addSubview:_contentScroll];
     
-    //添加子控制器
+    // 添加子控制器
     for (int i=0 ; i<_titleArr.count ;i++){
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
         

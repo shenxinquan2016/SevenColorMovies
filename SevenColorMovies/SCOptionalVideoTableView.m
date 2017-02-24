@@ -137,12 +137,12 @@ NSString *identifier;
                 }
                 
                 //总的搜索条数
-                NSString *VODTotalCount ;
-                if (responseObject[@"_dbtotal"]) {
-                    VODTotalCount = responseObject[@"_dbtotal"];
-                }else{
-                    VODTotalCount = @"0";
-                }
+                NSString *VODTotalCount = [NSString stringWithFormat:@"%lu",(unsigned long)_dataSource.count];
+//                if (responseObject[@"_dbtotal"]) {
+//                    VODTotalCount = responseObject[@"_dbtotal"];
+//                }else{
+//                    VODTotalCount = @"0";
+//                }
                 
                 callBack(VODTotalCount);
                 

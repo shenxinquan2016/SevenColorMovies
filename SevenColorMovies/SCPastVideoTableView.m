@@ -208,12 +208,12 @@
         }
         
         //总的搜索条数
-        NSString *lookBackVideoTotalCount ;
-        if (responseObject[@"_dbtotal"]) {
-            lookBackVideoTotalCount = responseObject[@"_dbtotal"];
-        }else{
-            lookBackVideoTotalCount = @"0";
-        }
+        NSString *lookBackVideoTotalCount = [NSString stringWithFormat:@"%lu",(unsigned long)_dataSource.count];
+//        if (responseObject[@"_dbtotal"]) {
+//            lookBackVideoTotalCount = responseObject[@"_dbtotal"];
+//        }else{
+//            lookBackVideoTotalCount = @"0";
+//        }
         callBack(lookBackVideoTotalCount);
         
         [self.tableView reloadData];
