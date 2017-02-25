@@ -17,7 +17,7 @@ NSString *const DomainNameXMLURL = @"http://10.177.1.100:8095/b2b/search/domainI
  *  YES        ： 进行ip转换
  *  NO         ： 不进行ip转换
  */
-BOOL isIpReplace = YES;
+BOOL isIpReplace = NO;
 
 @interface HLJRequest ()<NSXMLParserDelegate>
 

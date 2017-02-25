@@ -19,10 +19,10 @@
 
 /******************************************首页接口*******************************************/
 // 动态域名接口  内网
-#define DynamicDomainEntrance @"http://10.177.1.222:8050/entry?uid=21&oemid=30050&hid=741e93d05fc2&app_version=sksjd_1.0"
+//#define DynamicDomainEntrance @"http://10.177.1.222:8050/entry?uid=21&oemid=30050&hid=741e93d05fc2&app_version=sksjd_1.0"
 
 // 动态域名接口  外网
-//#define DynamicDomainEntrance @"http://125.223.98.233:40398/entry?uid=21&oemid=30118&hid=741e93d05fc2&app_version=sksjd_outernet"
+#define DynamicDomainEntrance @"http://125.223.98.233:40398/entry?uid=21&oemid=30118&hid=741e93d05fc2&app_version=sksjd_outernet"
 
 // homePage接口
 #define HomePageUrl @""
@@ -33,7 +33,7 @@
 // filmClass接口
 //#define FilmClass @"http://interface5.voole.com/b2b/filmlist.php?v=3.0&spid=20120528&epgid=600111&ctype=3&column=gf201606271730129921467019536749"
 // 点播播放接口
-#define VODUrl  @""
+#define VODUrl @""
 
 // 直播页接口
 #define LivePageUrl @""
@@ -47,7 +47,7 @@
 #define ToGetProgramHavePastVideoSignalFlowUrl @""
 
 // 电影 电视剧等 sourceUrl
-#define FilmSourceUrl @"" //   /b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=4
+#define FilmSourceUrl @"" //  /b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=4
 // 综艺 生活栏目  sourceUrl
 #define ArtsAndLifeSourceUrl @"" //  /b2b/filmlist.php?v=3.0&spid=20151103&epgid=909191&isad=0&ctype=102
 // 推荐影片接口
