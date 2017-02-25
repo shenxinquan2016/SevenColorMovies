@@ -30,6 +30,7 @@
     if (indexPath.row == 0) {
         _channelImg.image = [UIImage imageNamed:@"直播"];
         _channelNameLabel.text =  @"直播";
+        
     } else if (indexPath.row == 7){
         _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         _channelNameLabel.text =  @"更多";

@@ -381,6 +381,7 @@ static NSString *const footerId = @"footerId";
     cell.backgroundColor = [UIColor whiteColor];
     
     if (indexPath.section == 0) {
+        
         NSArray *array = self.filmClassTitleArray? self.filmClassTitleArray : self.allItemsArr;
         [cell setModel:array IndexPath:indexPath];
         return cell;

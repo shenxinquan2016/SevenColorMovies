@@ -86,7 +86,8 @@
 }
 
 #pragma mark - 全选
-- (void)selcetAll {
+- (void)selcetAll
+{
     NSMutableArray *downladed = DownloadManager.finishedlist;
     NSMutableArray *downloading = DownloadManager.downinglist;
     
@@ -110,7 +111,8 @@
             [_downloadingTempArray addObject:fileInfo];
         }];
         
-    }else{
+    } else {
+        
         _selectAll = NO;
         [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
         [_downloadingTempArray removeAllObjects];
@@ -132,10 +134,11 @@
 }
 
 #pragma mark - 删除
-- (void)deleteSelected {
+- (void)deleteSelected
+{
     NSMutableArray *downladed = DownloadManager.finishedlist;
-    NSMutableArray *downloading = [NSMutableArray arrayWithCapacity:0];//保存下载中的ZFFileModel
-    NSArray *downloadingRequest = [NSArray arrayWithArray: DownloadManager.downinglist];//保存下载中的ZFHttpRequest  DownloadManager.downinglist是个坑 必须要copy出来一份 否则遍历时inde对不上
+    NSMutableArray *downloading = [NSMutableArray arrayWithCapacity:0];// 保存下载中的ZFFileModel
+    NSArray *downloadingRequest = [NSArray arrayWithArray: DownloadManager.downinglist];// 保存下载中的ZFHttpRequest  DownloadManager.downinglist是个坑 必须要copy出来一份 否则遍历时inde对不上
     
     [downloadingRequest enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ZFHttpRequest *request = obj;
@@ -143,13 +146,13 @@
         [downloading addObject:fileInfo];
     }];
     
-    //初始化realm
+    // 初始化realm
     NSString *documentPath = [FileManageCommon GetDocumentPath];
     NSString *filePath = [documentPath stringByAppendingPathComponent:@"/myDownload.realm"];
     NSURL *databaseUrl = [NSURL URLWithString:filePath];
     RLMRealm *realm = [RLMRealm realmWithURL:databaseUrl];
     
-    //1.在下载队列中删除对应任务 删除realm中相应数据   并分别遍历获取所选的model在原始数组中的位置 以获取对应的indexPath
+    // 1.在下载队列中删除对应任务 删除realm中相应数据   并分别遍历获取所选的model在原始数组中的位置 以获取对应的indexPath
     NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
     [_downloadedTempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ZFFileModel *fileInfo = obj;
@@ -254,7 +257,9 @@
     
     if ([_downloadObjectArr.firstObject count] == 0 && [_downloadObjectArr.lastObject count] == 0) {
         [CommonFunc noDataOrNoNetTipsString:@"还没有下载任何视频哦" addView:self.view];
-    }else{
+        
+    } else {
+        
         [CommonFunc hideTipsViews:_listView];
         // 4.2 tableview
         [self setTableView];
@@ -325,7 +330,9 @@
         [self.view addSubview:_listView];
         //4.3 全选/删除
         [self setBottomBtnView];
+        
     } else {
+        
         [self.listView reloadData];
     }
 }
@@ -358,7 +365,8 @@
     NSMutableArray *downladed = DownloadManager.finishedlist;
     NSMutableArray *downloading = DownloadManager.downinglist;
     
-    if (_editBtn.selected == NO) {//正在编辑
+    if (_editBtn.selected == NO) {// 正在编辑
+        
         _isEditing = YES;
         _editBtn.selected = YES;
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
@@ -380,7 +388,8 @@
         }];
         [_listView reloadData];
         
-    } else if (_editBtn.selected != NO){//完成编辑
+    } else if (_editBtn.selected != NO){// 完成编辑
+        
         _isEditing = NO;
         _editBtn.selected = NO;
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
@@ -405,7 +414,8 @@
     
 }
 
-- (void)setTableViewTopButton {
+- (void)setTableViewTopButton
+{
     UIView *view = [[UIImageView alloc] init];
     view.frame = CGRectMake(0, 0, kMainScreenWidth, 40.f);
     view.backgroundColor = [UIColor whiteColor];
@@ -477,12 +487,14 @@ BOOL isLoading = NO;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
+        
         SCDownloadedCell *cell = [SCDownloadedCell cellWithTableView:tableView];
         ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
         cell.fileInfo = fileInfo;
         return cell;
         
     } else if (indexPath.section == 1) {
+        
         SCMyDownLoadManagerCell *cell = [SCMyDownLoadManagerCell cellWithTableView:tableView];
         
         ZFHttpRequest *request = self.downloadObjectArr[indexPath.section][indexPath.row];
@@ -519,8 +531,10 @@ BOOL isLoading = NO;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
         ZFFileModel *fileInfo = nil;
         if (indexPath.section == 0) {
+            
             fileInfo = DownloadManager.finishedlist[indexPath.row];
             //删除本地文件
             [DownloadManager deleteFinishFile:fileInfo];
