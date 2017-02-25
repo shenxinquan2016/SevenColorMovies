@@ -496,13 +496,13 @@ static NSString *const footerId = @"footerId";
 #pragma mark ---- UICollectionView DataDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section ==0) {//点播栏
+    if (indexPath.section ==0) {// 点播栏
         if (_filmClassArray.count == 0) {
             [MBProgressHUD showSuccess:@"暂无数据，请稍后再试"];
             return;
         }
         //设置返回键标题
-        if (indexPath.row == 7) {//更多
+        if (indexPath.row == 7) {// 更多
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:@"更多"];
             moreView.filmClassArray = [NSMutableArray arrayWithArray:_filmClassArray];
             moreView.bannerFilmModelArray = _bannerFilmModelArr;
@@ -525,7 +525,7 @@ static NSString *const footerId = @"footerId";
             DONG_Log(@"掌厅");
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
             
-        } else {// 其他
+        } else if (indexPath.row < 0 && indexPath.row < 4) {// 1--3
             
             NSString *key = _filmClassTitleArray[indexPath.row-1];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
@@ -533,6 +533,16 @@ static NSString *const footerId = @"footerId";
             channelVC.bannerFilmModelArray = _bannerFilmModelArr;
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
+            
+        } else if (indexPath.row == 5 || indexPath.row == 6) {// 5 || 6
+          
+            NSString *key = _filmClassTitleArray[indexPath.row-2];
+            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
+            channelVC.filmClassModel = _filmClassModelDictionary[key];
+            channelVC.bannerFilmModelArray = _bannerFilmModelArr;
+            channelVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:channelVC animated:YES];
+            
         }
         
     } else {
