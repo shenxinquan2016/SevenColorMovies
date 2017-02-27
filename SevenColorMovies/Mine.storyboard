@@ -93,10 +93,21 @@
                                 <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="版本号：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Gl-03-Ilf">
-                                <rect key="frame" x="23" y="210" width="343" height="33"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.5.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Gl-03-Ilf">
+                                <rect key="frame" x="152.5" y="214" width="70" height="33"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="5lv-i8-5iB"/>
+                                    <constraint firstAttribute="width" constant="70" id="PRa-Ky-wy5"/>
+                                    <constraint firstAttribute="height" constant="33" id="kNp-Iu-QBj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="版本号：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h43-2W-m2z">
+                                <rect key="frame" x="96.5" y="214" width="76" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="76" id="KLF-Kx-j3x"/>
+                                    <constraint firstAttribute="height" constant="33" id="kCK-dc-y9Z"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -106,11 +117,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9dP-eC-IbR" firstAttribute="top" secondItem="vKO-2L-ezf" secondAttribute="bottom" constant="90" id="AnK-Tx-g2m"/>
-                            <constraint firstItem="8Gl-03-Ilf" firstAttribute="leading" secondItem="YQy-Sa-ROU" secondAttribute="leading" constant="23" id="KCz-gp-U5l"/>
+                            <constraint firstItem="8Gl-03-Ilf" firstAttribute="centerY" secondItem="h43-2W-m2z" secondAttribute="centerY" id="K0D-oa-Ar9"/>
+                            <constraint firstItem="8Gl-03-Ilf" firstAttribute="centerX" secondItem="2n3-zJ-POd" secondAttribute="centerX" id="Neg-l3-2Tb"/>
                             <constraint firstAttribute="trailing" secondItem="2n3-zJ-POd" secondAttribute="trailing" constant="15" id="SX2-tg-S67"/>
+                            <constraint firstItem="8Gl-03-Ilf" firstAttribute="top" secondItem="2n3-zJ-POd" secondAttribute="bottom" constant="8" id="U24-Gp-2fI"/>
                             <constraint firstItem="2n3-zJ-POd" firstAttribute="leading" secondItem="YQy-Sa-ROU" secondAttribute="leading" constant="15" id="UII-W3-fea"/>
-                            <constraint firstItem="8Gl-03-Ilf" firstAttribute="top" secondItem="9dP-eC-IbR" secondAttribute="bottom" constant="40" id="ePG-Ks-oek"/>
-                            <constraint firstAttribute="trailing" secondItem="8Gl-03-Ilf" secondAttribute="trailing" constant="9" id="gaH-cz-2O7"/>
+                            <constraint firstItem="8Gl-03-Ilf" firstAttribute="leading" secondItem="h43-2W-m2z" secondAttribute="trailing" constant="-20" id="mKA-Xy-Ig0"/>
                             <constraint firstItem="2n3-zJ-POd" firstAttribute="top" secondItem="9dP-eC-IbR" secondAttribute="bottom" constant="15" id="sEs-QH-H4g"/>
                             <constraint firstItem="9dP-eC-IbR" firstAttribute="centerX" secondItem="YQy-Sa-ROU" secondAttribute="centerX" id="wWv-M3-8RD"/>
                         </constraints>
