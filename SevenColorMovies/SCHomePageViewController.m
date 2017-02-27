@@ -7,6 +7,7 @@
 //
 
 #import "SCHomePageViewController.h"
+#import "AppDelegate.h"
 #import "SCSycleBanner.h"
 #import "SCDemandChannelItemCell.h"//section 0 cell
 #import "SCCollectionViewPageCell.h"//其他cell
@@ -200,12 +201,18 @@ static NSString *const footerId = @"footerId";
                                 [_bannerFilmModelArr addObject:filmModel];
                             }
                             
+                            // 全局共享bannerFilmModelArr
+                            AppDelegate *app = (AppDelegate *)[[UIApplication  sharedApplication] delegate];
+                            app.bannerFilmModelArray = _bannerFilmModelArr;
+                            
                             //添加banner
                             if (_bannerImageUrlArr.count > 0) {
+                                
                                 [self addBannerView];
                                 _bannerView.imageURLStringsGroup = _bannerImageUrlArr;
                                 
-                            } else if (_bannerImageUrlArr.count == 0){
+                            } else if (_bannerImageUrlArr.count == 0) {
+                                
                                 if (_bannerView) {
                                     [_bannerView removeFromSuperview];
                                 }

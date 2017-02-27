@@ -17,11 +17,11 @@
 #import "SCMoiveRecommendationCollectionVC.h"
 #import "SCFilmIntroduceModel.h"
 #import "SCArtsFilmsCollectionVC.h"
-#import "IJKVideoPlayerVC.h"//播放器
-#import <Realm/Realm.h>//数据库
+#import "IJKVideoPlayerVC.h"// 播放器
+#import <Realm/Realm.h>// 数据库
 #import "Dong_DownloadManager.h"
 #import "Dong_DownloadModel.h"
-#import "ZFDownloadManager.h"//第三方下载工具
+#import "ZFDownloadManager.h"// 第三方下载工具
 #import "SCDSJDownloadView.h"
 #import "SCArtsDownloadView.h"
 #import "HLJUUID.h"
@@ -39,6 +39,7 @@
 #import "SCScanQRCodesVC.h"
 #import "SCAdvertisemetPosModel.h"
 #import "SCAdMediaInfo.h"
+#import "PlayerViewRotate.h" // 旋转控制
 
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
@@ -353,13 +354,13 @@ static const CGFloat LabelWidth = 100.f;
     if (_filmModel.FilmName) {
         if (_filmModel.filmSetModel) {
             filmName = [NSString stringWithFormat:@"%@ 第%@集",_filmModel.FilmName,_filmModel.filmSetModel._ContentIndex];
-        }else{
+        } else {
             filmName = [NSString stringWithFormat:@"%@",_filmModel.FilmName];
         }
-    }else if (_filmModel.cnname){
+    } else if (_filmModel.cnname){
         if (_filmModel.filmSetModel) {
             filmName = [NSString stringWithFormat:@"%@ 第%@集",_filmModel.cnname,_filmModel.filmSetModel._ContentIndex];
-        }else{
+        } else {
             filmName = [NSString stringWithFormat:@"%@",_filmModel.cnname];
         }
     }
@@ -486,7 +487,7 @@ static const CGFloat LabelWidth = 100.f;
             
         }];
         
-    }else if // 综艺 生活
+    } else if // 综艺 生活
         ([mtype isEqualToString:@"7"] ||
          [mtype isEqualToString:@"9"])
     {
@@ -527,7 +528,8 @@ static const CGFloat LabelWidth = 100.f;
 
 #pragma mark - query database
 // 查询收藏和节目单
--(void)refreshButtonStateFromQueryDatabase{
+-(void)refreshButtonStateFromQueryDatabase
+{
     //1.查询是否已经添加到节目单
     //使用 NSPredicate 查询
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"FilmName = %@ And jiIndex = %ld",
@@ -555,11 +557,12 @@ static const CGFloat LabelWidth = 100.f;
 }
 
 // 查询电影下载 电视剧和综艺无需查询
--(void)refreshDownloadButtonStateFromQueryDatabase {
+-(void)refreshDownloadButtonStateFromQueryDatabase
+{
     NSString *mtype;
     if (_filmModel._Mtype) {
         mtype = _filmModel._Mtype;
-    }else if (_filmModel.mtype){
+    } else if (_filmModel.mtype) {
         mtype = _filmModel.mtype;
     }
     NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
@@ -1112,12 +1115,29 @@ static const CGFloat LabelWidth = 100.f;
                 //1.移除当前的播放器
                 [self.IJKPlayerViewController closePlayer];
                 //2.调用播放器播放
-                self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-                _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
-                _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
-                [self.view addSubview:_IJKPlayerViewController.view];
                 
+                if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
+                    
+                    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                    
+                    self.view.frame = [[UIScreen mainScreen] bounds];
+                    self.IJKPlayerViewController.view.frame = self.view.bounds;
+                    self.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                    self.IJKPlayerViewController.mediaControl.frame = self.view.frame;
+                    _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;// 节目名称
+                    [self.view addSubview:_IJKPlayerViewController.view];
+                    
+                } else {
+                    // 竖屏时
+                    
+                    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                    _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
+                    [self.view addSubview:_IJKPlayerViewController.view];
+                    
+                }
+
                 DONG_WeakSelf(self);
                 //1.全屏锁定回调
                 weakself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
@@ -1176,7 +1196,7 @@ static const CGFloat LabelWidth = 100.f;
                 
             }];
         }
-    }else if ([_identifier isEqualToString:@"综艺"]){
+    } else if ([_identifier isEqualToString:@"综艺"]) {
         
         if (VODIndex+ ++timesIndexOfVOD < self.filmsArr.count) {
             //0.获取下一个节目的model
@@ -1225,11 +1245,28 @@ static const CGFloat LabelWidth = 100.f;
                     [self.IJKPlayerViewController closePlayer];
                     
                     //2.调用播放器播放
-                    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-                    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                    //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
-                    _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
-                    [self.view addSubview:_IJKPlayerViewController.view];
+                    if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
+                        
+                        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                        
+                        self.view.frame = [[UIScreen mainScreen] bounds];
+                        self.IJKPlayerViewController.view.frame = self.view.bounds;
+                        self.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                        self.IJKPlayerViewController.mediaControl.frame = self.view.frame;
+                        self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = self.filmModel.FilmName;//节目名称
+                        
+                        [self.view addSubview:self.IJKPlayerViewController.view];
+                        
+                    } else {
+                        // 竖屏时
+                        
+                        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                        //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+                        _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
+                        [self.view addSubview:_IJKPlayerViewController.view];
+                        
+                    }
                     
                     DONG_WeakSelf(self);
                     //1.全屏锁定回调
@@ -1340,11 +1377,32 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
         //1.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
         //2.调用播放器播放
-        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-        //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
-        _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
-        [self.view addSubview:_IJKPlayerViewController.view];
+        if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
+            
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            
+            self.view.frame = [[UIScreen mainScreen] bounds];
+            self.IJKPlayerViewController.view.frame = self.view.bounds;
+            self.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            self.IJKPlayerViewController.mediaControl.frame = self.view.frame;
+            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;// 节目名称
+            [self.view addSubview:_IJKPlayerViewController.view];
+            
+        } else {
+            // 竖屏时
+            
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
+            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
+            [self.view addSubview:_IJKPlayerViewController.view];
+            
+        }
+
+        
+        
+        
+     
         
         DONG_WeakSelf(self);
         //1.全屏锁定回调
@@ -1409,7 +1467,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 }
 
 #pragma mark - 综艺播放列表点击事件
-- (void)doPlayNewArtsFilmBlock{
+- (void)doPlayNewArtsFilmBlock
+{
     DONG_WeakSelf(self);
     self.needScrollToTopPage.clickToPlayBlock = ^(NSString *urlStr,SCFilmModel *filmModel){
         DONG_StrongSelf(self);
@@ -1467,12 +1526,29 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 strongself.url = [NSURL URLWithString:playUrl];
                 //            strongself.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
                 //2.调用播放器播放
-                strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
-                strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
-                strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = strongself.filmModel.FilmName;//节目名称
-                
-                [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
+                    
+                    strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                    
+                    strongself.view.frame = [[UIScreen mainScreen] bounds];
+                    strongself.IJKPlayerViewController.view.frame = strongself.view.bounds;
+                    strongself.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                    strongself.IJKPlayerViewController.mediaControl.frame = strongself.view.frame;
+                    strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = strongself.filmModel.FilmName;//节目名称
+                    
+                    [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                    
+                } else {
+                    // 竖屏时
+                    
+                    strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                    strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
+                    strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = strongself.filmModel.FilmName;//节目名称
+                    
+                    [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                    
+                }
                 
                 //1.全屏锁定回调
                 weakself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
@@ -1705,11 +1781,27 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
                         
                         //2.调用播放器播放
-                        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
-                        _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                        //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
-                        _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;//节目名称
-                        [self.view addSubview:_IJKPlayerViewController.view];
+                        if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
+                            
+                            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                            
+                            self.view.frame = [[UIScreen mainScreen] bounds];
+                            self.IJKPlayerViewController.view.frame = self.view.bounds;
+                            self.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                            self.IJKPlayerViewController.mediaControl.frame = self.view.frame;
+                            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;// 节目名称
+                            [self.view addSubview:_IJKPlayerViewController.view];
+                            
+                        } else {
+                            // 竖屏时
+                            
+                            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+                            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                            //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;// 节目名称
+                            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;// 节目名称
+                            [self.view addSubview:_IJKPlayerViewController.view];
+
+                        }
                         
                         DONG_WeakSelf(self);
                         //1.全屏锁定回调
@@ -1833,7 +1925,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         model.onLive = YES;
                         [strongself.filmsArr addObject:model];
                         
-                    }else if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]){
+                    } else if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]){
                         
                         [responseObject[@"Film"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                             
@@ -1922,12 +2014,28 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                         strongself.url = [NSURL URLWithString:playUrl];
                         //2.调用播放器播放
-                        strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
-                        strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                        //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
-                        strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = strongself.filmModel.FilmName;//节目名称
-                        [strongself.view addSubview:strongself.IJKPlayerViewController.view];
-                        
+                        if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
+                            
+                            strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                            
+                            strongself.view.frame = [[UIScreen mainScreen] bounds];
+                            strongself.IJKPlayerViewController.view.frame = strongself.view.bounds;
+                            strongself.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                            strongself.IJKPlayerViewController.mediaControl.frame = strongself.view.frame;
+                            strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = strongself.filmModel.FilmName;//节目名称
+                            [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                            
+                        } else {
+                            // 竖屏时
+                            
+                            strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                            strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                            //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
+                            strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = strongself.filmModel.FilmName;//节目名称
+                            [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                            
+                        }
+
                         //1.全屏锁定回调
                         strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                             DONG_StrongSelf(self);
@@ -2009,7 +2117,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
     
 }
 
-//电影请求数据
+// 电影请求数据
 - (void)getMovieData{
     
     [CommonFunc showLoadingWithTips:@""];
@@ -2049,7 +2157,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 strongself.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
                 
                 // 坑：：单片不同film竟然数据结构不同 服了！
-                //downloadUrl
+                // downloadUrl
                 NSString *downloadUrl;
                 if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
                     

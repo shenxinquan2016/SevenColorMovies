@@ -9,6 +9,7 @@
 #import "SCMoiveRecommendationCollectionVC.h"
 #import "SCCollectionViewPageCell.h"
 #import "SCPlayerViewController.h"
+#import "AppDelegate.h"
 
 
 @interface SCMoiveRecommendationCollectionVC ()
@@ -79,10 +80,15 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                 
                 [CommonFunc dismiss];
                 
-                if (_filmModelArr.count == 0) {//当推荐无数据的时候显示banner内容
+                if (_filmModelArr.count == 0) {// 当推荐无数据的时候显示banner内容
+                    
                     _filmModelArr = [_bannerFilmModelArray copy];
+                    AppDelegate *app = (AppDelegate *)[[UIApplication  sharedApplication] delegate];
+                    _filmModelArr = [NSMutableArray arrayWithArray:app.bannerFilmModelArray];
                     //[CommonFunc noDataOrNoNetTipsString:@"暂无推荐" addView:self.view];
-                }else{
+                    
+                } else {
+                    
                     [CommonFunc hideTipsViews:self.collectionView];
                 }
                 

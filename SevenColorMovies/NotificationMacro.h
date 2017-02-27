@@ -30,6 +30,4 @@ static NSString *const CutOffTcpConnectByUser = @"CutOffTcpConnectByUser";/** ç”
 
 
 
-
-
 #endif /* NotificationMacro_h */
