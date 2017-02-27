@@ -145,7 +145,7 @@
     // 3.1 默认选项配置
     IJKFFOptions *options = [IJKFFOptions optionsByDefault];
     
-    //[options setPlayerOptionIntValue:1 forKey:@"videotoolbox"];// 开启硬解码
+    [options setPlayerOptionIntValue:1 forKey:@"videotoolbox"];// 开启硬解码
     // 3.2 创建播放控制器
     self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:options];
     
@@ -189,6 +189,28 @@
         make.size.mas_equalTo(CGSizeMake(64, 64));
         
     }];
+    
+}
+
+/** 暂停 */
+-(void)pause
+{
+    if (self.player) {
+        if ([self.player isPlaying]) {
+            [self.player pause];
+        }
+    }
+    
+}
+
+/** 播放 */
+-(void)play
+{
+    if (self.player) {
+        if (![self.player isPlaying]) {
+            [self.player play];
+        }
+    }
     
 }
 
@@ -287,9 +309,9 @@
                 return;
                 
             }
-
+            
         }
-         [navController popViewControllerAnimated:YES];
+        [navController popViewControllerAnimated:YES];
         
     } else {
         
@@ -451,18 +473,18 @@
         NSInteger duration = 6 * 3600;
         NSInteger minus = duration - _touchEndTime;
         if (minus > 5) {
-                // 进入时移
-                NSString *liveState = @"timeShift";
-                if (weakself.timeShiftBlock) {
-                    weakself.timeShiftBlock(liveState, _touchEndTime);
-                }
-
+            // 进入时移
+            NSString *liveState = @"timeShift";
+            if (weakself.timeShiftBlock) {
+                weakself.timeShiftBlock(liveState, _touchEndTime);
+            }
+            
         } else {
-                // 进入直播
-                NSString *liveState = @"live";
-                if (weakself.timeShiftBlock) {
-                    weakself.timeShiftBlock(liveState, _touchEndTime);
-                }
+            // 进入直播
+            NSString *liveState = @"live";
+            if (weakself.timeShiftBlock) {
+                weakself.timeShiftBlock(liveState, _touchEndTime);
+            }
         }
         DONG_Log(@"minus:%ld",(long)minus);
     }
@@ -588,6 +610,7 @@
         }
         case IJKMPMoviePlaybackStatePaused: {
             NSLog(@"IJKMPMoviePlayBackStateDidChange %d: paused", (int)_player.playbackState);
+            
             break;
         }
         case IJKMPMoviePlaybackStateInterrupted: {

@@ -134,17 +134,18 @@ static const CGFloat LabelWidth = 100.f;
     //2.组建页面
     [self setView];
     //3.注册通知
-    [self registerNotification];
+    //[self registerNotification];
     
     //TCPScoketManager.delegate = self;
     XMPPManager.delegate = self;
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [self registerNotification];
     //TCPScoketManager.delegate = self;
     XMPPManager.delegate = self;
 }
@@ -401,7 +402,7 @@ static const CGFloat LabelWidth = 100.f;
             [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
                 
                 DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-      
+                
                 [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                     DONG_Log(@"====responseObject:::%@===",responseObject);
                     
@@ -609,6 +610,7 @@ static const CGFloat LabelWidth = 100.f;
          [mtype isEqualToString:@"9"])
     {
         [self getArtsAndLifeData];
+        
     }else{
         //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         [self getTeleplayData];
@@ -616,21 +618,43 @@ static const CGFloat LabelWidth = 100.f;
 }
 
 - (void)registerNotification {
-    //1.监听屏幕旋转
+    // 1.监听屏幕旋转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    //第一次加载成功准备播放
+    // 2.第一次加载成功准备播放
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mediaIsPreparedToPlayDidChange:)
                                                  name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification
                                                object:nil];
-    //2.注册播放结束通知
+    // 3.播放结束通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackDidFinish:)
                                                  name:IJKMPMoviePlayerPlaybackDidFinishNotification
                                                object:nil];
-    //3.注册点击列表播放通知
+    // 4.点击列表播放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
+//    // 5.APP进入后台
+//    [DONG_NotificationCenter addObserver:self selector:@selector(playerPause) name:AppWillResignActive object:nil];
+//    // 6.APP被激活
+//    [DONG_NotificationCenter addObserver:self selector:@selector(playerPlay) name:AppDidBecomeActive object:nil];
 }
+
+/** 暂停 */
+- (void)playerPause
+{
+    [self.IJKPlayerViewController pause];
+}
+
+/** 播放 */
+- (void)playerPlay
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.IJKPlayerViewController play];
+    });
+    
+}
+
+
 
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView {
@@ -1137,7 +1161,7 @@ static const CGFloat LabelWidth = 100.f;
                     [self.view addSubview:_IJKPlayerViewController.view];
                     
                 }
-
+                
                 DONG_WeakSelf(self);
                 //1.全屏锁定回调
                 weakself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
@@ -1398,11 +1422,11 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             [self.view addSubview:_IJKPlayerViewController.view];
             
         }
-
         
         
         
-     
+        
+        
         
         DONG_WeakSelf(self);
         //1.全屏锁定回调
@@ -1800,7 +1824,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                             //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;// 节目名称
                             _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = _filmModel.FilmName;// 节目名称
                             [self.view addSubview:_IJKPlayerViewController.view];
-
+                            
                         }
                         
                         DONG_WeakSelf(self);
@@ -2035,7 +2059,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                             [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                             
                         }
-
+                        
                         //1.全屏锁定回调
                         strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                             DONG_StrongSelf(self);
@@ -2191,11 +2215,11 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 
                 
                 
-//                DONG_Log(@">>>>>>>>>>>replacedUrl>>>>>>>>>>%@",replacedUrl);
-//                DONG_Log(@">>>>>>>>>>>filmmidStr>>>>>>>>>>%@",filmmidStr);
-//                DONG_Log(@">>>>>>>>>>>fidString>>>>>>>>>>%@",fidString);
-//                DONG_Log(@">>>>>>>>>>>>downloadBase64Url>>>>>>>>>>%@",downloadBase64Url);
-//                DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+                //                DONG_Log(@">>>>>>>>>>>replacedUrl>>>>>>>>>>%@",replacedUrl);
+                //                DONG_Log(@">>>>>>>>>>>filmmidStr>>>>>>>>>>%@",filmmidStr);
+                //                DONG_Log(@">>>>>>>>>>>fidString>>>>>>>>>>%@",fidString);
+                //                DONG_Log(@">>>>>>>>>>>>downloadBase64Url>>>>>>>>>>%@",downloadBase64Url);
+                //                DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
                 
                 
                 

@@ -26,7 +26,7 @@
     //    [self setAppearance];
     
     [self checkNetworkEnvironment];
-        
+    
     //0.初始化键盘控制
     [self initKeyboardManager];
     
@@ -38,22 +38,24 @@
     
     // 4.开启Crashlytics崩溃日志
     [Fabric with:@[[Crashlytics class]]];
-
+    
     // TODO: Move this to where you establish a user session
     [self logUser];
-
     
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     
-        libagent_close();
+//    [DONG_NotificationCenter postNotificationName:AppWillResignActive object:nil];
+     libagent_close();
+    
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
- 
-  
+    
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -64,12 +66,13 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //-1.启动播放代理包
     [self setLibagent];
+//    [DONG_NotificationCenter postNotificationName:AppDidBecomeActive object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-
-
+    
+    
 }
 
 ////禁用横屏
@@ -155,24 +158,24 @@
     //        DONG_NSLog(WiFi网络);
     //    }];
     //
-       DONG_Log(@"%@",[SCNetHelper getNetWorkStates]);
+    DONG_Log(@"%@",[SCNetHelper getNetWorkStates]);
     
     
     
     [SCNetHelper changeToWifi:^{
         DONG_Log(@"wifi");
-       
-
+        
+        
     } netWorkChangeToWWAN:^{
         DONG_Log(@"4G");
         UIAlertView *alertview =[[UIAlertView alloc] initWithTitle:@"提示" message:@"切换到移动网络,继续使用将会消耗您的流量" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alertview show];
-
+        
     } changeToNoNetWork:^{
         DONG_Log(@"没有网络");
         [MBProgressHUD showError:@"网络断开"];
     }];
-
+    
 }
 
 - (void) logUser {
@@ -183,7 +186,6 @@
     [CrashlyticsKit setUserName:@"yesdgq"];
 }
 
-
 //启动播放代理
 - (void)setLibagent
 {
@@ -191,7 +193,7 @@
     const char *uuid = [uuidStr UTF8String];
     
     libagent_start(0, NULL, uuid, 5656);
-
+    
 }
 
 @end

@@ -18,7 +18,8 @@ static NSString *const FilterOptionChanged = @"FilterOptionChanged";/** 点击�
 static NSString *const PlayVODFilmWhenClick = @"PlayVODFilmWhenClick";/** 点击点播节目列表 */
 static NSString *const CutOffTcpConnectByUser = @"CutOffTcpConnectByUser";/** 用户断开设备连接 */
 
-
+static NSString *const AppWillResignActive = @"AppWillResignActive";/** app失去活性 */
+static NSString *const AppDidBecomeActive = @"AppDidBecomeActive";/** app被激活 */
 
 
 

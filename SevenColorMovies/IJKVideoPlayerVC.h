@@ -48,8 +48,15 @@ typedef void(^TimeShiftBlock)(NSString *liveState, int positionTime);
 - (id)initWithURL:(NSURL *)url;
 + (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void(^)())completion;
 + (instancetype)initIJKPlayerWithURL:(NSURL *)url;
+
+/** 暂停 */
+-(void)pause;
+/** 播放 */
+-(void)play;
 /** 关闭播放器 */
 -(void)closePlayer;
+
+
 
 /** 返回 */
 - (IBAction)onClickBack:(id)sender;
