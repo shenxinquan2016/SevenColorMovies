@@ -143,21 +143,18 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark - 集成刷新
-- (void)setCollectionViewRefresh {
+- (void)setCollectionViewRefresh
+{
     [CommonFunc setupRefreshWithCollectionViewWithBanner:_collView withSelf:self headerFunc:@selector(headerRefresh) headerFuncFirst:YES footerFunc:nil];
 }
 
-- (void)headerRefresh {
+- (void)headerRefresh
+{
     [self requestData];
 }
 
-- (void)requestData {
-    
-    [_titleArray removeAllObjects];
-    [_filmClassArray removeAllObjects];
-    [_bannerImageUrlArr removeAllObjects];
-    [_bannerFilmModelArr removeAllObjects];
-    
+- (void)requestData
+{
     // 域名获取
     [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:HomePageUrl key:@"tv_cs_union" success:^(id  _Nullable newUrlString) {
         
@@ -170,6 +167,10 @@ static NSString *const footerId = @"footerId";
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
                 //DONG_Log(@"==========dic:::%@========",responseObject);
+                [_titleArray removeAllObjects];
+                [_filmClassArray removeAllObjects];
+                [_bannerImageUrlArr removeAllObjects];
+                [_bannerFilmModelArr removeAllObjects];
                 //1.第一层 filmList
                 SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
                 
