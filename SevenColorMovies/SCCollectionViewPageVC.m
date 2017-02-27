@@ -64,8 +64,9 @@ static NSString *const cellId = @"cellId";
 
 - (void)loadMoreData {
     
-    DONG_Log(@"_PageCount:%@",_pageCount);
     _page++;
+    
+    DONG_Log(@"_PageCount:%@ page:%ld",_pageCount, (long)_page);
     
     if (_page <= [_pageCount intValue] ) {
        
