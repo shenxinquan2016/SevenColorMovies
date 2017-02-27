@@ -144,6 +144,8 @@
     // 3.创建IJKFFMoviePlayerController
     // 3.1 默认选项配置
     IJKFFOptions *options = [IJKFFOptions optionsByDefault];
+    
+    //[options setPlayerOptionIntValue:1 forKey:@"videotoolbox"];// 开启硬解码
     // 3.2 创建播放控制器
     self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:options];
     
