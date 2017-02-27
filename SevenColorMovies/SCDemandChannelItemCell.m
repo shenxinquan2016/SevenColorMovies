@@ -31,15 +31,15 @@
         _channelImg.image = [UIImage imageNamed:@"直播"];
         _channelNameLabel.text =  @"直播";
         
-    } else if (indexPath.row == 7){
+    } else if (indexPath.row == 7) {
         _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         _channelNameLabel.text =  @"更多";
 
-    } else if (indexPath.row == 4){
+    } else if (indexPath.row == 4) {
         _channelImg.image = [UIImage imageNamed:@"掌厅"];
         _channelNameLabel.text =  @"掌厅";
         
-    } else {
+    } else if (indexPath.row > 0 && indexPath.row < 4) {
         
         _channelImg.image = [UIImage imageNamed:array[indexPath.row-1]];
         if (_channelImg.image == nil){
@@ -47,6 +47,14 @@
         }
         _channelNameLabel.text =  array[indexPath.row-1];
 
+    } else if (indexPath.row > 4 && indexPath.row < 7) {
+       
+        _channelImg.image = [UIImage imageNamed:array[indexPath.row-2]];
+        if (_channelImg.image == nil){
+            _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
+        }
+        _channelNameLabel.text =  array[indexPath.row-2];
+        
     }
 }
 

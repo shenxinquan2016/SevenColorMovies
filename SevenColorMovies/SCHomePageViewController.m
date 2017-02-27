@@ -525,9 +525,18 @@ static NSString *const footerId = @"footerId";
             DONG_Log(@"掌厅");
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
             
-        } else {// 1--3
+        } else if (indexPath.row >0 && indexPath.row < 4) { // 1--3
             
             NSString *key = _filmClassTitleArray[indexPath.row-1];
+            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
+            channelVC.filmClassModel = _filmClassModelDictionary[key];
+            channelVC.bannerFilmModelArray = _bannerFilmModelArr;
+            channelVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:channelVC animated:YES];
+            
+        } else if (indexPath.row > 4 && indexPath.row < 7) {
+            
+            NSString *key = _filmClassTitleArray[indexPath.row-2];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
             channelVC.filmClassModel = _filmClassModelDictionary[key];
             channelVC.bannerFilmModelArray = _bannerFilmModelArr;
@@ -580,7 +589,7 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Getters and Setters
 - (NSMutableArray *)allItemsArr {
     if (!_allItemsArr) {
-        NSArray *array =@[@"电影", @"电视剧",  @"少儿", @"掌厅", @"纪录片", @"潮生活", @"更多", @"二人转", @"动漫", @"生活", @"游戏", @"音乐", @"专题"];
+        NSArray *array =@[@"电影", @"电视剧",  @"少儿", @"纪录片", @"潮生活", @"更多", @"二人转", @"动漫", @"生活", @"游戏", @"音乐", @"专题", @"掌厅"];
         
         _allItemsArr = [NSMutableArray arrayWithCapacity:0];
         [_allItemsArr addObjectsFromArray:array];

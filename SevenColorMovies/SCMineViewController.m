@@ -142,13 +142,13 @@
         [downloadManangerVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:downloadManangerVC animated:YES];
         
+//    } else if (indexPath.section == 2) {
+//        
+//        SCMessageCenterVC *messageVC = [[SCMessageCenterVC alloc] initWithWithTitle:@"消息"];
+//        [messageVC setHidesBottomBarWhenPushed:YES];
+//        [self.navigationController pushViewController:messageVC animated:YES];
+//        
     } else if (indexPath.section == 2) {
-        
-        SCMessageCenterVC *messageVC = [[SCMessageCenterVC alloc] initWithWithTitle:@"消息"];
-        [messageVC setHidesBottomBarWhenPushed:YES];
-        [self.navigationController pushViewController:messageVC animated:YES];
-        
-    } else if (indexPath.section == 3) {
         
         SCSettingVC *settingVC = [[SCSettingVC alloc] initWithWithTitle:@"设置"];
         [settingVC setHidesBottomBarWhenPushed:YES];
@@ -173,7 +173,7 @@
                            @[@{@"Associator" : @"会员中心"}],*/
                            @[@{@"Moive_list" : @"我的节目单"}, @{@"Watch_Record" : @"观看记录"}, @{@"Collection_1" : @"我的收藏"}],
                            @[@{@"Download" : @"下载管理"}],
-                           @[@{@"Message" : @"消息"}],
+                           /*@[@{@"Message" : @"消息"}],*/
                            @[@{@"Setting" : @"设置"}]];
         _dataSource = array;
     }
@@ -181,7 +181,8 @@
 }
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
+- (BOOL)shouldAutorotate
+{
     return NO;
 }
 
