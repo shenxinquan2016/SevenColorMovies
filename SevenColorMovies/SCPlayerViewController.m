@@ -465,8 +465,8 @@ static const CGFloat LabelWidth = 100.f;
                                              _filmModel.FilmName, _filmModel._Mid, _filmModel.jiIndex];
                         RLMResults *results = [SCFilmModel objectsInRealm:realm withPredicate:pred];
                         
-                        if (!results.count) {//没有保存过才保存
-                            //保存到数据库
+                        if (!results.count) { // 没有保存过才保存
+                            // 保存到数据库
                             SCFilmModel *filmModel = [[SCFilmModel alloc] initWithValue:_filmModel];
                             [realm transactionWithBlock:^{
                                 [realm addObject: filmModel];
@@ -507,7 +507,7 @@ static const CGFloat LabelWidth = 100.f;
                 [_artsDownloadView setFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
             }];
         }
-    } else {//电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
+    } else { // 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         
         if (!_dsjdownloadView) {
             _dsjdownloadView = [[SCDSJDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +40, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
@@ -605,13 +605,13 @@ static const CGFloat LabelWidth = 100.f;
         [mtype isEqualToString:@"13"])
     {
         [self getMovieData];
-    }else if // 综艺 生活
+    } else if // 综艺 生活
         ([mtype isEqualToString:@"7"] ||
          [mtype isEqualToString:@"9"])
     {
         [self getArtsAndLifeData];
         
-    }else{
+    } else {
         //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
         [self getTeleplayData];
     }

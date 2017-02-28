@@ -157,6 +157,8 @@
     [_downloadedTempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ZFFileModel *fileInfo = obj;
         NSInteger index = [downladed indexOfObject:fileInfo];
+        DONG_Log(@"index:%ld ",index);
+        DONG_Log(@"idx:%ld ",idx);
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [indexPathArray addObject:indexPath];
         //删除本地文件
@@ -189,6 +191,8 @@
     [_downloadingTempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ZFFileModel *fileInfo = obj;
         NSInteger index = [downloading indexOfObject:fileInfo];
+        DONG_Log(@"index:%ld ",index);
+        DONG_Log(@"idx:%ld ",idx);
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:1];
         [indexPathArray addObject:indexPath];
         //删除下载请求
