@@ -64,7 +64,7 @@
     
     [self.filmImageView sd_setImageWithURL:[NSURL URLWithString:filmModel.smallposterurl] placeholderImage:[UIImage imageNamed:@"NoImage"]];
     self.filmNameLabel.text = filmModel.cnname;
-    self.scoreLabel.text = [NSString stringWithFormat:@"评分：%@",filmModel.endGrade];
+    self.scoreLabel.text = [NSString stringWithFormat:@"评分：%@",filmModel.endGrade?filmModel.endGrade:@"-"];
     self.directorLabel.text = filmModel._Year;
     self.mainCharacterTextView.text = filmModel.actor;
     self.filmIntroduceLabel.text = filmModel.storyintro;
