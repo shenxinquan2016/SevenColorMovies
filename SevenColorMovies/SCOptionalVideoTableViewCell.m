@@ -60,7 +60,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setFilmModel:(SCFilmModel *)filmModel{
+- (void)setFilmModel:(SCFilmModel *)filmModel {
     
     [self.filmImageView sd_setImageWithURL:[NSURL URLWithString:filmModel.smallposterurl] placeholderImage:[UIImage imageNamed:@"NoImage"]];
     self.filmNameLabel.text = filmModel.cnname;
