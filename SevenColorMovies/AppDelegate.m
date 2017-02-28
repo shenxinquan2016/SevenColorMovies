@@ -194,14 +194,15 @@
     
     libagent_start(0, NULL, uuid, 5656);
     
-    [requestDataManager requestDataWithUrl:@"http://127.0.0.1:5656/logon" parameters:nil success:^(id  _Nullable responseObject) {
-        
-        DONG_Log(@"responseObject:%@",responseObject);
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        
-    }];
+    // 开代理日志
+//    [requestDataManager requestDataWithUrl:@"http://127.0.0.1:5656/logon" parameters:nil success:^(id  _Nullable responseObject) {
+//        
+//        DONG_Log(@"responseObject:%@",responseObject);
+//        
+//    } failure:^(id  _Nullable errorObject) {
+//        
+//        
+//    }];
     
 }
 
