@@ -137,7 +137,6 @@
 
 - (void)setAppearance
 {
-    
     UINavigationBar *navigationBar = [UINavigationBar appearance];
     navigationBar.barStyle = UIStatusBarStyleDefault;
     [navigationBar setTintColor:[UIColor blackColor]];

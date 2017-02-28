@@ -159,7 +159,7 @@
         NSInteger index = [downladed indexOfObject:fileInfo];
         DONG_Log(@"index:%ld ",index);
         DONG_Log(@"idx:%ld ",idx);
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
         [indexPathArray addObject:indexPath];
         //删除本地文件
         [DownloadManager deleteFinishFile:fileInfo];
