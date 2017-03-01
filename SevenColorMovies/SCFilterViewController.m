@@ -270,9 +270,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                 
                 DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                 
-                            NSString *urlStr = [newVideoUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                
-//                NSString *urlStr = [newVideoUrl  stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                NSString *urlStr = [newVideoUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 
                 [requestDataManager requestDataWithUrl:urlStr parameters:parameters success:^(id  _Nullable responseObject){
                     //            NSLog(@"==========dic:::%@========",responseObject);
@@ -316,7 +314,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
         dispatch_group_enter(group);
         
         [self.domainTransformTool getNewDomainByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj2" success:^(id  _Nullable newUrlString) {
-             DONG_Log(@"newUrlString:%@",newUrlString);
+            DONG_Log(@"newUrlString:%@",newUrlString);
             // ip转换
             _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
             [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
@@ -381,7 +379,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
         DONG_MAIN_AFTER(0.5f, [CommonFunc dismiss]);
         
     });
-
+    
 }
 
 // 筛选搜索
