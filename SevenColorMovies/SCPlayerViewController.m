@@ -599,22 +599,53 @@ static const CGFloat LabelWidth = 100.f;
         mtype = _filmModel.mtype;
     }
     NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
-    // 私人影院 电影 海外片场
-    if ([mtype isEqualToString:@"0"] ||
-        [mtype isEqualToString:@"2"] ||
-        [mtype isEqualToString:@"13"])
-    {
-        [self getMovieData];
-    } else if // 综艺 生活
-        ([mtype isEqualToString:@"7"] ||
-         [mtype isEqualToString:@"9"])
-    {
-        [self getArtsAndLifeData];
-        
+    
+    if ([self.entrance isEqualToString:@"search"]) {
+    
+        // 私人影院 电影 海外片场
+        if ([mtype isEqualToString:@"0"] ||
+            [mtype isEqualToString:@"2"] ||
+            [mtype isEqualToString:@"13"] || (([mtype isEqualToString:@"7"] || [mtype isEqualToString:@"9"]) && ![_filmModel.stype isEqualToString:@"1"]))
+        {
+            [self getMovieData];
+            
+        } else if // 综艺 生活
+            
+            ([mtype isEqualToString:@"7"] ||
+             [mtype isEqualToString:@"9"])
+        {
+            [self getArtsAndLifeData];
+            
+        } else {
+            //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
+            [self getTeleplayData];
+        }
+
     } else {
-        //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
-        [self getTeleplayData];
+        
+        // 私人影院 电影 海外片场
+        if ([mtype isEqualToString:@"0"] ||
+            [mtype isEqualToString:@"2"] ||
+            [mtype isEqualToString:@"13"])
+        {
+            [self getMovieData];
+            
+        } else if // 综艺 生活
+            
+            ([mtype isEqualToString:@"7"] ||
+             [mtype isEqualToString:@"9"])
+        {
+            [self getArtsAndLifeData];
+            
+        } else {
+            //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
+            [self getTeleplayData];
+        }
+
+        
+        
     }
+    
 }
 
 - (void)registerNotification {
@@ -1906,7 +1937,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 {
     if (_filmModel._Mid) {
         _mid = _filmModel._Mid;
-    }else if (_filmModel.mid){
+    } else if (_filmModel.mid){
         _mid = _filmModel.mid;
     }
     

@@ -114,6 +114,7 @@
     // 6.
     NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
     self.toName = toName;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -125,7 +126,7 @@
     
     if (!XMPPManager.isConnected) {
         [CommonFunc showLoadingWithTips:@"绑定设备中..."];
-        // 8s之后未收到盒子信息 切断连接
+        // 10s之后未收到盒子信息 切断连接
         [self performSelector:@selector(hideLoadingVew) withObject:nil afterDelay:10.f];
     }
 }
@@ -777,7 +778,9 @@
     // 查询设备是否在线
     
     
-    
+//    NSString *xmlString = [NSString stringWithFormat:@"<message to=\"%@\" type=\"query_online\"><body>{uid:%@,hid:%@,msg}</body></message>", toName, self.hid, self.uid];
+//    
+//    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"chat"];
     
     
     // 绑定设备
@@ -807,10 +810,10 @@
 {
     NSString *from = message.fromStr;
     NSString *info = message.body;
-    //DONG_Log(@"接收到 %@ 说：%@",from, info);
+    DONG_Log(@"接收到 %@ 说：%@",from, info);
     
     NSDictionary *dic = [NSDictionary dictionaryWithXMLString:info];
-    DONG_Log(@"dic:%@",dic);
+//    DONG_Log(@"dic:%@",dic);
     
     if (dic) {
         if ([dic[@"_type"] isEqualToString:@"Rc_bind"]) {
@@ -848,29 +851,14 @@
             
             //DONG_Log(@"dic2dic2dic2:%@",dic[@"info"]);
             
+        } else if ([dic[@"_type"] isEqualToString:@"query_online"]) {
+            
+//            DONG_Log(@"");
         }
-        
-        //        else if ([dic[@"_value"] isEqualToString:@"tvPushMobileVideoInfo"] &&
-        //            [dic[@"_type"] isEqualToString:@"TV_Response"])
-        //        {
-        //            // 拉屏 飞屏
-        //            NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
-        //            DONG_Log(@"dic2:%@",dic2);
-        //            SCFilmModel *filmModel = [[SCFilmModel alloc] init];
-        //            filmModel.FilmName = dic2[@"filmName"];
-        //            filmModel._Mid = dic2[@"_mid"];
-        //            filmModel.jiIndex = [dic2[@"_sid"] integerValue];
-        //            filmModel.currentPlayTime = [dic2[@"_currentPlayTime"] integerValue];
-        //
-        //            dispatch_async(dispatch_get_main_queue(), ^{
-        //                // 调用播放器
-        //                SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilmModel:filmModel];
-        //
-        //                [self.navigationController pushViewController:player animated:YES];
-        //
-        //            });
-        //        }
     }
+    
+    
+    
 }
 
 #pragma mark - UIAlertViewDelegate

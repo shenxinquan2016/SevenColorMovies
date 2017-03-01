@@ -87,6 +87,7 @@ NSString *identifier;
     SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
     SCFilmModel *filmModel = self.dataSource[indexPath.row];
     teleplayPlayer.filmModel = filmModel;
+    teleplayPlayer.entrance = @"search";
     teleplayPlayer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:teleplayPlayer animated:YES];
     
@@ -115,7 +116,7 @@ NSString *identifier;
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 
-                //        NSLog(@"==========dic:::%@========",responseObject);
+                        DONG_Log(@"==========dic:::%@========",responseObject);
                 
                 if ([responseObject[@"movieinfo"] isKindOfClass:[NSDictionary class]]) {
                     
@@ -125,7 +126,7 @@ NSString *identifier;
                         [_dataSource addObject:filmModel];
                     }
                     
-                }else if ([responseObject[@"movieinfo"] isKindOfClass:[NSArray class]]){
+                } else if ([responseObject[@"movieinfo"] isKindOfClass:[NSArray class]]){
                     
                     for (NSDictionary *dic in responseObject[@"movieinfo"]) {
                         

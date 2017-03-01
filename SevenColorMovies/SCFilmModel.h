@@ -29,6 +29,8 @@
 @property NSString *_Mtype;
 /** 影片类型 两个都用 */
 @property NSString *mtype;
+/** 搜索是用于判断是否是综艺 1为综艺 */
+@property NSString *stype;
 /** 影片编号 两个都用 */
 @property NSString *_Mid;
 /** 影片编号 两个都用 */
