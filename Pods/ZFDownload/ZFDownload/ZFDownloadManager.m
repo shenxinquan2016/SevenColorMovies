@@ -590,6 +590,7 @@ static ZFDownloadManager *sharedDownloadManager = nil;
 - (void)request:(ZFHttpRequest *)request didReceiveBytes:(long long)bytes
 {
     ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
+    NSLog(@"🔴%s 第%d行 \n\n",__func__, __LINE__);
     NSLog(@"%@,%lld",fileInfo.fileReceivedSize,bytes);
     if (fileInfo.isFirstReceived) {
         fileInfo.isFirstReceived = NO;

@@ -101,7 +101,8 @@
             
         }
         
-    }else{
+    } else {
+        
         _deleteBtn.hidden = YES;
         _downLoadBtn.hidden = NO;
         
@@ -129,7 +130,8 @@
             
         }
         
-    }else{
+    } else {
+        
         _deleteBtn.hidden = YES;
         _downLoadBtn.hidden = NO;
         
@@ -163,6 +165,8 @@
     
     self.downLoadProgressLabel.text = [NSString stringWithFormat:@"%@ / %@ (%.2f%%)",currentSize, totalSize, progress*100];
     
+    DONG_Log(@"进度：%@",self.downLoadProgressLabel.text);
+    
     self.downLoadProgressView.progress = progress;
     
     NSString *spped = [NSString stringWithFormat:@"%@/S",[ZFCommonHelper getFileSizeString:[NSString stringWithFormat:@"%lu",[ASIHTTPRequest averageBandwidthUsedPerSecond]]]];
@@ -173,7 +177,7 @@
     } else if (fileInfo.downloadState == ZFStopDownload&&!fileInfo.error) {
         self.downLoadBtn.selected = YES;
         self.downLoadStateLabel.text = @"已暂停";
-    }else if (fileInfo.downloadState == ZFWillDownload&&!fileInfo.error) {
+    } else if (fileInfo.downloadState == ZFWillDownload&&!fileInfo.error) {
         self.downLoadBtn.selected = YES;
         self.downLoadStateLabel.text = @"等待下载";
     } else if (fileInfo.error) {
