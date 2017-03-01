@@ -774,7 +774,13 @@
     NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
     self.toName = toName;
     
-    // 绑定试试
+    // 查询设备是否在线
+    
+    
+    
+    
+    
+    // 绑定设备
     NSString *uuidStr = [HLJUUID getUUID];
     DONG_Log(@"toName:%@",toName);
     DONG_Log(@"uuidStr:%@",uuidStr);
@@ -790,7 +796,7 @@
 {
     // 失败
     [CommonFunc dismiss];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备绑定失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"手机登录失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView show];
     alertView.delegate = self;
     

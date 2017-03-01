@@ -143,6 +143,7 @@
     if ([self.delegate respondsToSelector:@selector(xmppDidNotAuthenticate:)]) {
         [self.delegate xmppDidNotAuthenticate:error];
     }
+    
     // 注册
     //[self.xmppStream registerWithPassword:self.password error:nil];
 }
@@ -157,6 +158,7 @@
 - (void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error
 {
     DONG_Log(@"注册失败 ：%@",error);
+    [MBProgressHUD showError:@"手机注册失败"];
 }
 
 - (void)xmppStream:(XMPPStream*)sender didReceivePresence:(XMPPPresence *)presence

@@ -654,8 +654,6 @@ static const CGFloat LabelWidth = 100.f;
     
 }
 
-
-
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView {
     

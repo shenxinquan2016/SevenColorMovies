@@ -76,6 +76,7 @@
 		1147FBB61DDE9D6000126F2E /* SCArtsDownloadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1147FBB41DDE9D5F00126F2E /* SCArtsDownloadCell.xib */; };
 		114AE1A11D81100F00BED623 /* SCFilterOptionTabModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 114AE1A01D81100F00BED623 /* SCFilterOptionTabModel.m */; };
 		114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */; };
+		1152447C1E667B5B0017BE9B /* libagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1152447B1E667B5B0017BE9B /* libagent.a */; };
 		11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11588F691D6AEA3700C91E3A /* SCLiveViewController.m */; };
 		11588F6E1D6AECDF00C91E3A /* SCLivePageCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11588F6D1D6AECDF00C91E3A /* SCLivePageCollectionVC.m */; };
 		11588F731D6B079900C91E3A /* SCLivePageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11588F711D6B079900C91E3A /* SCLivePageCell.m */; };
@@ -152,7 +153,6 @@
 		11A0AF5C1DFAF1E90047A46E /* SCSearchDeviceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0AF5B1DFAF1E90047A46E /* SCSearchDeviceVC.m */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
 		11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */; };
-		11A39D9F1D9269EE00C9FEA8 /* libagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A39D9E1D9269EE00C9FEA8 /* libagent.a */; };
 		11B072281DD2B7C800DD3FED /* Dong_DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B072271DD2B7C800DD3FED /* Dong_DownloadModel.m */; };
 		11B0722B1DD2BAD200DD3FED /* Dong_DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0722A1DD2BAD200DD3FED /* Dong_DownloadManager.m */; };
 		11B0722E1DD2BBDF00DD3FED /* Dong_DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0722D1DD2BBDF00DD3FED /* Dong_DownloadOperation.m */; };
@@ -382,6 +382,7 @@
 		114AE1A01D81100F00BED623 /* SCFilterOptionTabModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilterOptionTabModel.m; sourceTree = "<group>"; };
 		114BC8071D51D70D0091ECE0 /* UIButton+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Addition.h"; sourceTree = "<group>"; };
 		114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Addition.m"; sourceTree = "<group>"; };
+		1152447B1E667B5B0017BE9B /* libagent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libagent.a; sourceTree = "<group>"; };
 		11588F681D6AEA3700C91E3A /* SCLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLiveViewController.h; sourceTree = "<group>"; };
 		11588F691D6AEA3700C91E3A /* SCLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLiveViewController.m; sourceTree = "<group>"; };
 		11588F6C1D6AECDF00C91E3A /* SCLivePageCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLivePageCollectionVC.h; sourceTree = "<group>"; };
@@ -508,7 +509,6 @@
 		11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchViewController.h; sourceTree = "<group>"; };
 		11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchViewController.m; sourceTree = "<group>"; };
 		11A39D9D1D9269EE00C9FEA8 /* libagent_start.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libagent_start.h; sourceTree = "<group>"; };
-		11A39D9E1D9269EE00C9FEA8 /* libagent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libagent.a; sourceTree = "<group>"; };
 		11B072261DD2B7C800DD3FED /* Dong_DownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dong_DownloadModel.h; sourceTree = "<group>"; };
 		11B072271DD2B7C800DD3FED /* Dong_DownloadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dong_DownloadModel.m; sourceTree = "<group>"; };
 		11B072291DD2BAD200DD3FED /* Dong_DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dong_DownloadManager.h; sourceTree = "<group>"; };
@@ -648,6 +648,7 @@
 				116B1F6A1D5327FA00E9637A /* QuartzCore.framework in Frameworks */,
 				116B1F681D5327E200E9637A /* OpenGLES.framework in Frameworks */,
 				11759F641E0A5F05000B9440 /* libopencore-amrwb.a in Frameworks */,
+				1152447C1E667B5B0017BE9B /* libagent.a in Frameworks */,
 				116B1F661D5323FD00E9637A /* MobileCoreServices.framework in Frameworks */,
 				116B1F641D5323E700E9637A /* MediaPlayer.framework in Frameworks */,
 				116B1F621D5323D800E9637A /* CoreVideo.framework in Frameworks */,
@@ -661,7 +662,6 @@
 				116B1F581D53236B00E9637A /* libbz2.tbd in Frameworks */,
 				116B1F561D53235600E9637A /* libz.tbd in Frameworks */,
 				116B1F541D53211C00E9637A /* IJKMediaFramework.framework in Frameworks */,
-				11A39D9F1D9269EE00C9FEA8 /* libagent.a in Frameworks */,
 				081D0D94DAAC6F0452543183 /* libPods-SevenColorMovies.a in Frameworks */,
 				11B9DBD41E214DF70086E51E /* Realm.framework in Frameworks */,
 			);
@@ -800,7 +800,7 @@
 			isa = PBXGroup;
 			children = (
 				11A39D9D1D9269EE00C9FEA8 /* libagent_start.h */,
-				11A39D9E1D9269EE00C9FEA8 /* libagent.a */,
+				1152447B1E667B5B0017BE9B /* libagent.a */,
 			);
 			name = "播放的代理";
 			sourceTree = "<group>";
