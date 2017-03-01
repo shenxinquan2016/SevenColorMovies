@@ -213,8 +213,8 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 }
 
 #pragma mark- Event reponse
-- (void)doFilterAction:(NSNotification *)notification{
-    
+- (void)doFilterAction:(NSNotification *)notification
+{
     NSDictionary *dic = notification.object;
     
     switch ([dic[@"type"] integerValue]) {
@@ -243,8 +243,8 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 
 #pragma mark- 网络请求
 // 获取筛选选项卡
-- (void)getFilterOptionTabData{
-    
+- (void)getFilterOptionTabData
+{
     [CommonFunc showLoadingWithTips:@""];
     
     NSDictionary *parameters = @{@"cate" : [_filmClassModel._KeyValue description]};
@@ -383,8 +383,8 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 }
 
 // 筛选搜索
-- (void)requestFilterDataWithTypeAndAreaAndTimeAndPage:(NSInteger)page{
-    
+- (void)requestFilterDataWithTypeAndAreaAndTimeAndPage:(NSInteger)page
+{
     [CommonFunc showLoadingWithTips:@""];
     
     if (page == 1) {
