@@ -249,132 +249,139 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     
     NSDictionary *parameters = @{@"cate" : [_filmClassModel._KeyValue description]};
     
-    // 域名获取
-    self.domainTransformTool = [[SCDomaintransformTool alloc] init];
-    [self.domainTransformTool getNewDomainByUrlString:FilterOptionTypeTabUrl key:@"skdqsj" success:^(id  _Nullable newUrlString) {
+    
+    //1.创建队列组
+    dispatch_group_t group = dispatch_group_create();
+    //2.创建队列
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //3.多次使用队列组的方法执行任务, 只有异步方法
+    //afn内部是一个block，等数据请求完成之后dispatch_group_notify已经执行过了，所以这里要手动管理group进出
+    dispatch_group_async(group, queue, ^{
+        dispatch_group_enter(group);
         
-        DONG_Log(@"newUrlString:%@",newUrlString);
-        // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        // 域名获取
+        self.domainTransformTool = [[SCDomaintransformTool alloc] init];
+        [self.domainTransformTool getNewDomainByUrlString:FilterOptionTypeTabUrl key:@"skdqsj" success:^(id  _Nullable newUrlString) {
             
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
-            //            NSString *urlStr = [newVideoUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            
-            NSString *urlStr = [newVideoUrl  stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-            
-            [self.domainTransformTool getNewDomainByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj2" success:^(id  _Nullable newUrlString) {
+            DONG_Log(@"newUrlString:%@",newUrlString);
+            // ip转换
+            _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+            [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
                 
-                //            NSString *domainUrl = [self.domainTransformTool getNewViedoURLByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj2"];
-                NSString *ipUrl = [_hljRequest getNewViedoURLByOriginVideoURL:newUrlString];
+                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                 
+                            NSString *urlStr = [newVideoUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 
-                DONG_Log(@"ipUrl:%@",ipUrl);
+//                NSString *urlStr = [newVideoUrl  stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
                 
-                //            NSString *urlString = [ipUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                //
-                //            DONG_Log(@"urlString:%@",urlString);
-                
-                //1.创建队列组
-                dispatch_group_t group = dispatch_group_create();
-                //2.创建队列
-                dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                //3.多次使用队列组的方法执行任务, 只有异步方法
-                //afn内部是一个block，等数据请求完成之后dispatch_group_notify已经执行过了，所以这里要手动管理group进出
-                dispatch_group_async(group, queue, ^{
-                    dispatch_group_enter(group);
-                    [requestDataManager requestDataWithUrl:urlStr parameters:parameters success:^(id  _Nullable responseObject){
-                        //            NSLog(@"==========dic:::%@========",responseObject);
-                        
-                        [_typeArray removeAllObjects];
-                        
-                        for (NSString *tabText in responseObject[@"Label"][@"LabelName"]) {
-                            
-                            SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
-                            optionTabModel.tabText = tabText;
-                            [_typeArray addObject:optionTabModel];
-                        }
-                        
-                        SCFilterOptionTabModel *model = [[SCFilterOptionTabModel alloc] init];
-                        model.tabText = @"全部";
-                        model.selected = YES;
-                        [_typeArray insertObject:model atIndex:0];
-                        
-                        dispatch_group_leave(group);
-                    } failure:^(id  _Nullable errorObject) {
-                        
-                        [CommonFunc dismiss];
-                        dispatch_group_leave(group);
-                    }];
-                });
-                
-                dispatch_group_async(group, queue, ^{
-                    dispatch_group_enter(group);
-                    [requestDataManager requestDataWithUrl:ipUrl parameters:parameters success:^(id  _Nullable responseObject){
-                        //            NSLog(@"==========dic:::%@========",responseObject);
-                        
-                        [_timeArray removeAllObjects];
-                        [_areaArray removeAllObjects];
-                        
-                        for (NSString *tabText in [responseObject[@"Label"] firstObject][@"LabelName"]) {
-                            
-                            SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
-                            optionTabModel.tabText = tabText;
-                            [_areaArray addObject:optionTabModel];
-                        }
-                        
-                        SCFilterOptionTabModel *model1 = [[SCFilterOptionTabModel alloc] init];
-                        model1.tabText = @"全部";
-                        model1.selected = YES;
-                        [_areaArray insertObject:model1 atIndex:0];
-                        
-                        for (NSString *tabText in [responseObject[@"Label"] lastObject][@"LabelName"]) {
-                            
-                            SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
-                            optionTabModel.tabText = tabText;
-                            [_timeArray addObject:optionTabModel];
-                        }
-                        
-                        SCFilterOptionTabModel *model2 = [[SCFilterOptionTabModel alloc] init];
-                        model2.tabText = @"全部";
-                        model2.selected = YES;
-                        [_timeArray insertObject:model2 atIndex:0];
-                        
-                        dispatch_group_leave(group);
-                    } failure:^(id  _Nullable errorObject) {
-                        
-                        [CommonFunc dismiss];
-                        dispatch_group_leave(group);
-                    }];
-                });
-                
-                //4.都完成后会自动通知
-                dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+                [requestDataManager requestDataWithUrl:urlStr parameters:parameters success:^(id  _Nullable responseObject){
+                    //            NSLog(@"==========dic:::%@========",responseObject);
                     
-                    [self setFilterOptionTitleView];
-                    DONG_MAIN_AFTER(0.5f, [CommonFunc dismiss]);
+                    [_typeArray removeAllObjects];
                     
-                });
+                    for (NSString *tabText in responseObject[@"Label"][@"LabelName"]) {
+                        
+                        SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
+                        optionTabModel.tabText = tabText;
+                        [_typeArray addObject:optionTabModel];
+                    }
+                    
+                    SCFilterOptionTabModel *model = [[SCFilterOptionTabModel alloc] init];
+                    model.tabText = @"全部";
+                    model.selected = YES;
+                    [_typeArray insertObject:model atIndex:0];
+                    
+                    dispatch_group_leave(group);
+                    
+                } failure:^(id  _Nullable errorObject) {
+                    
+                    [CommonFunc dismiss];
+                    dispatch_group_leave(group);
+                }];
                 
-            } failure:^(id  _Nullable errorObject) {
+            } failure:^(NSError *error) {
                 
                 [CommonFunc dismiss];
                 
             }];
             
-        } failure:^(NSError *error) {
+        } failure:^(id  _Nullable errorObject) {
             
             [CommonFunc dismiss];
             
         }];
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        [CommonFunc dismiss];
-        
-    }];
+    });
     
+    dispatch_group_async(group, queue, ^{
+        dispatch_group_enter(group);
+        
+        [self.domainTransformTool getNewDomainByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj2" success:^(id  _Nullable newUrlString) {
+             DONG_Log(@"newUrlString:%@",newUrlString);
+            // ip转换
+            _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
+            [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+                
+                DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                
+                [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject){
+                    //            NSLog(@"==========dic:::%@========",responseObject);
+                    
+                    [_timeArray removeAllObjects];
+                    [_areaArray removeAllObjects];
+                    
+                    for (NSString *tabText in [responseObject[@"Label"] firstObject][@"LabelName"]) {
+                        
+                        SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
+                        optionTabModel.tabText = tabText;
+                        [_areaArray addObject:optionTabModel];
+                    }
+                    
+                    SCFilterOptionTabModel *model1 = [[SCFilterOptionTabModel alloc] init];
+                    model1.tabText = @"全部";
+                    model1.selected = YES;
+                    [_areaArray insertObject:model1 atIndex:0];
+                    
+                    for (NSString *tabText in [responseObject[@"Label"] lastObject][@"LabelName"]) {
+                        
+                        SCFilterOptionTabModel *optionTabModel = [[SCFilterOptionTabModel alloc] init];
+                        optionTabModel.tabText = tabText;
+                        [_timeArray addObject:optionTabModel];
+                    }
+                    
+                    SCFilterOptionTabModel *model2 = [[SCFilterOptionTabModel alloc] init];
+                    model2.tabText = @"全部";
+                    model2.selected = YES;
+                    [_timeArray insertObject:model2 atIndex:0];
+                    
+                    dispatch_group_leave(group);
+                    
+                } failure:^(id  _Nullable errorObject) {
+                    
+                    [CommonFunc dismiss];
+                    
+                }];
+                
+            } failure:^(NSError *error) {
+                
+                [CommonFunc dismiss];
+                
+            }];
+            
+        } failure:^(id  _Nullable errorObject) {
+            
+            [CommonFunc dismiss];
+            dispatch_group_leave(group);
+        }];
+    });
+    
+    //4.都完成后会自动通知
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        
+        [self setFilterOptionTitleView];
+        DONG_MAIN_AFTER(0.5f, [CommonFunc dismiss]);
+        
+    });
+
 }
 
 // 筛选搜索
