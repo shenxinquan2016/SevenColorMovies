@@ -20,7 +20,7 @@
 {
     [requestDataManager requestDataWithUrl:DynamicDomainEntrance parameters:nil success:^(id  _Nullable responseObject) {
 //        DONG_Log(@"responseObject:%@",responseObject);
-        self.domainNameArray = responseObject[@"Data"][@"UrlList"][@"Url"];
+        self.domainNameArray = [NSArray arrayWithArray:responseObject[@"Data"][@"UrlList"][@"Url"]];
         if (_domainNameArray.count) {
             for (NSDictionary *dic in _domainNameArray) {
                 
@@ -47,7 +47,7 @@
 
 - (nullable NSString *)getNewViedoURLByUrlString:(nullable NSString *)urlString key:(nullable NSString *)key
 {
-    if (_domainNameArray.count) {
+    if (self.domainNameArray.count) {
         for (NSDictionary *dic in _domainNameArray) {
             
             if ([key isEqualToString:dic[@"_Key"]]) {
@@ -55,7 +55,7 @@
                 NSString *tempString = dic[@"SourceUrl"];
                 
                 NSString *newUrlString = [tempString stringByAppendingString:urlString];
-                //DONG_Log(@"newUrlString:%@",newUrlString);
+                DONG_Log(@"newUrlString:%@",newUrlString);
                 
                 return newUrlString;
                 break;
