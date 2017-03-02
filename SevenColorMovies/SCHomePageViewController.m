@@ -23,7 +23,10 @@
 #import "SCFilmModel.h"
 #import "SCSpecialTopicDetailVC.h"
 
-@interface SCHomePageViewController ()<UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, SDCycleScrollViewDelegate>
+/** 全屏锁定btn点击回调 */
+typedef void(^alertViewClickBlock)();
+
+@interface SCHomePageViewController ()<UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, SDCycleScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collView;
 
@@ -46,7 +49,10 @@
 @property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary;
 /** 将filmClass的标题存到本地 */
 @property (nonatomic, copy) NSArray *filmClassTitleArray;
+/** ip转换 */
 @property (nonatomic, strong)HLJRequest *hljRequest;
+/** 点击播放网络提示回调block */
+@property (nonatomic, copy) alertViewClickBlock alertViewClickBolck;
 
 @end
 
@@ -478,9 +484,9 @@ static NSString *const footerId = @"footerId";
 /** item垂直间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    if (section == 0){
+    if (section == 0) {
         return 5;
-    }else{
+    } else {
         return 0;
     }
 }
@@ -488,9 +494,9 @@ static NSString *const footerId = @"footerId";
 /** section Header 尺寸 */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    if (section == 0){
+    if (section == 0) {
         return (CGSize){kMainScreenWidth,0};
-    }else{
+    } else {
         return (CGSize){kMainScreenWidth,50};
     }
 }
@@ -528,7 +534,7 @@ static NSString *const footerId = @"footerId";
             liveView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:liveView animated:YES];
             
-        }else if (indexPath.row == 4) { // 掌厅
+        } else if (indexPath.row == 4) { // 掌厅
             
             DONG_Log(@"掌厅");
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
@@ -566,13 +572,41 @@ static NSString *const footerId = @"footerId";
             
         } else {
             
-            SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
-            teleplayPlayer.filmModel = filmModel;
-            teleplayPlayer.bannerFilmModelArray = _bannerFilmModelArr;
-            teleplayPlayer.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:teleplayPlayer animated:YES];
-            
+            if (![[SCNetHelper getNetWorkStates] isEqualToString:@"WIFI"]) {
+               
+                SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+                teleplayPlayer.filmModel = filmModel;
+                teleplayPlayer.bannerFilmModelArray = _bannerFilmModelArr;
+                teleplayPlayer.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:teleplayPlayer animated:YES];
+                
+            } else {
+                
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前为移动网络，继续播放会使用您的流量！" delegate:nil cancelButtonTitle:@"取消播放" otherButtonTitles:@"确认播放", nil];
+                [alertView show];
+                alertView.delegate = self;
+                DONG_WeakSelf(self);
+                self.alertViewClickBolck = ^{
+                    DONG_Log(@"播放");
+                    SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+                    teleplayPlayer.filmModel = filmModel;
+                    teleplayPlayer.bannerFilmModelArray = weakself.bannerFilmModelArr;
+                    teleplayPlayer.hidesBottomBarWhenPushed = YES;
+                    [weakself.navigationController pushViewController:teleplayPlayer animated:YES];
+                };
+                
+            }
         }
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+      
+        self.alertViewClickBolck();
     }
 }
 
