@@ -10,7 +10,10 @@
 #import "SCLivePageCell.h"
 #import "SCLivePlayerVC.h"
 
-@interface SCLivePageCollectionVC ()
+@interface SCLivePageCollectionVC () <UIAlertViewDelegate>
+
+/** 非wifi弹出alert时存储filmModel */
+@property (nonatomic, strong) SCFilmModel *alertViewClickFilmModel;
 
 @end
 
@@ -119,13 +122,43 @@ static NSString *const footerId = @"footerId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCLivePlayerVC *livePlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCLivePlayerVC");
-    
-    
-    SCFilmModel *model = _filmModelArr[indexPath.row];
-    livePlayer.filmModel = model;
-    livePlayer.channelNameLabel.text = @"zhibozhibo";
-    [self.navigationController pushViewController:livePlayer animated:YES];
+     BOOL mobileNetworkAlert = [DONG_UserDefaults boolForKey:kMobileNetworkAlert];
+     if (![[SCNetHelper getNetWorkStates] isEqualToString:@"WIFI"] && mobileNetworkAlert) {
+         
+         self.alertViewClickFilmModel = _filmModelArr[indexPath.row];
+         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前为移动网络，继续播放将消耗流量" delegate:nil cancelButtonTitle:@"取消播放" otherButtonTitles:@"确认播放", nil];
+         [alertView show];
+         alertView.delegate = self;
+         
+     } else {
+         
+         SCLivePlayerVC *livePlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCLivePlayerVC");
+         
+         SCFilmModel *model = _filmModelArr[indexPath.row];
+         livePlayer.filmModel = model;
+         livePlayer.channelNameLabel.text = @"zhibozhibo";
+         [self.navigationController pushViewController:livePlayer animated:YES];
+     }
+   
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        
+        BOOL mobileNetworkAlert = NO;
+        [DONG_UserDefaults setBool:mobileNetworkAlert forKey:kMobileNetworkAlert];
+        [DONG_UserDefaults synchronize];
+        
+        SCLivePlayerVC *livePlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCLivePlayerVC");
+        SCFilmModel *model = self.alertViewClickFilmModel;
+        livePlayer.filmModel = model;
+        livePlayer.channelNameLabel.text = @"zhibozhibo";
+        [self.navigationController pushViewController:livePlayer animated:YES];
+        
+    }
 }
 
 // 禁止旋转屏幕
