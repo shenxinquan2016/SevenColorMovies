@@ -15,11 +15,16 @@
 #import "SCFilmClassModel.h"
 #import "SCSpecialTopicDetailVC.h"// 专题详情页
 
-@interface SCCollectionViewPageVC ()
+@interface SCCollectionViewPageVC () <UIAlertViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *filmModelArr;/** 每页电影模型数组 */
-@property (nonatomic, strong) HLJRequest *hljRequest;/** ip转换工具 */
-@property (nonatomic,assign) NSInteger page;/**< 分页的页码 */
+/** 每页电影模型数组 */
+@property (nonatomic, strong) NSMutableArray *filmModelArr;
+/** ip转换工具 */
+@property (nonatomic, strong) HLJRequest *hljRequest;
+/**< 分页的页码 */
+@property (nonatomic,assign) NSInteger page;
+/** 非wifi弹出alert时存储filmModel */
+@property (nonatomic, strong) SCFilmModel *alertViewClickFilmModel;
 
 @end
 
@@ -253,8 +258,53 @@ static NSString *const cellId = @"cellId";
 {
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
         
+        BOOL mobileNetworkAlert = [DONG_UserDefaults boolForKey:kMobileNetworkAlert];
+        
+        if ([[SCNetHelper getNetWorkStates] isEqualToString:@"WIFI"] && mobileNetworkAlert) {
+           
+            self.alertViewClickFilmModel = _filmModelArr[indexPath.row];;
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前为移动网络，继续播放将消耗流量" delegate:nil cancelButtonTitle:@"取消播放" otherButtonTitles:@"确认播放", nil];
+            [alertView show];
+            alertView.delegate = self;
+            
+        } else {
+            
+            SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+            SCFilmModel *model = _filmModelArr[indexPath.row];
+            teleplayPlayer.filmModel = model;
+            teleplayPlayer.bannerFilmModelArray = self.bannerFilmModelArray;
+            NSLog(@"======点击=====%@",model._Mtype);
+            teleplayPlayer.hidesBottomBarWhenPushed = YES;
+            
+            if (self.navigationController) {
+                [self.navigationController pushViewController:teleplayPlayer animated:YES];
+            }else{
+                [[self respondController].navigationController pushViewController:teleplayPlayer animated:YES];
+            }
+        }
+
+    } else { // 专题第一级页面点击
+        
+        SCFilmClassModel *filmClassModel = _filmModelArr[indexPath.row];
+        SCSpecialTopicDetailVC *vc = [[SCSpecialTopicDetailVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
+        vc.urlString = filmClassModel._FilmClassUrl;
+        vc.bannerFilmModelArray = self.bannerFilmModelArray;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        
+        BOOL mobileNetworkAlert = NO;
+        [DONG_UserDefaults setBool:mobileNetworkAlert forKey:kMobileNetworkAlert];
+        [DONG_UserDefaults synchronize];
+        
         SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
-        SCFilmModel *model = _filmModelArr[indexPath.row];
+        SCFilmModel *model = self.alertViewClickFilmModel;
         teleplayPlayer.filmModel = model;
         teleplayPlayer.bannerFilmModelArray = self.bannerFilmModelArray;
         NSLog(@"======点击=====%@",model._Mtype);
@@ -266,15 +316,9 @@ static NSString *const cellId = @"cellId";
             [[self respondController].navigationController pushViewController:teleplayPlayer animated:YES];
         }
         
-    }else{// 专题第一级页面点击
-        
-        SCFilmClassModel *filmClassModel = _filmModelArr[indexPath.row];
-        SCSpecialTopicDetailVC *vc = [[SCSpecialTopicDetailVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
-        vc.urlString = filmClassModel._FilmClassUrl;
-        vc.bannerFilmModelArray = self.bannerFilmModelArray;
-        [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
 
 - (UIViewController *)respondController
 {

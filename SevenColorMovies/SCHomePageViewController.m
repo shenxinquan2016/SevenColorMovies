@@ -23,8 +23,6 @@
 #import "SCFilmModel.h"
 #import "SCSpecialTopicDetailVC.h"
 
-/** 全屏锁定btn点击回调 */
-typedef void(^alertViewClickBlock)();
 
 @interface SCHomePageViewController ()<UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, SDCycleScrollViewDelegate, UIAlertViewDelegate>
 
@@ -50,9 +48,9 @@ typedef void(^alertViewClickBlock)();
 /** 将filmClass的标题存到本地 */
 @property (nonatomic, copy) NSArray *filmClassTitleArray;
 /** ip转换 */
-@property (nonatomic, strong)HLJRequest *hljRequest;
-/** 点击播放网络提示回调block */
-@property (nonatomic, copy) alertViewClickBlock alertViewClickBolck;
+@property (nonatomic, strong) HLJRequest *hljRequest;
+/** 非wifi弹出alert时存储filmModel */
+@property (nonatomic, strong) SCFilmModel *alertViewClickFilmModel;
 
 @end
 
@@ -250,7 +248,7 @@ static NSString *const footerId = @"footerId";
         }];
         
     } failure:^(id  _Nullable errorObject) {
-       
+        
         [CommonFunc dismiss];
         [_collView.mj_header endRefreshing];
         
@@ -572,41 +570,33 @@ static NSString *const footerId = @"footerId";
             
         } else {
             
-            if (![[SCNetHelper getNetWorkStates] isEqualToString:@"WIFI"]) {
-               
+            BOOL mobileNetworkAlert = [DONG_UserDefaults boolForKey:kMobileNetworkAlert];
+            
+            if (![[SCNetHelper getNetWorkStates] isEqualToString:@"WIFI"] && mobileNetworkAlert) {
+                
+                self.alertViewClickFilmModel = filmModel;
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前为移动网络，继续播放将消耗流量" delegate:nil cancelButtonTitle:@"取消播放" otherButtonTitles:@"确认播放", nil];
+                [alertView show];
+                alertView.delegate = self;
+                
+            } else {
+                
                 SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
                 teleplayPlayer.filmModel = filmModel;
                 teleplayPlayer.bannerFilmModelArray = _bannerFilmModelArr;
                 teleplayPlayer.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:teleplayPlayer animated:YES];
                 
-            } else {
-                
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前为移动网络，继续播放会使用您的流量！" delegate:nil cancelButtonTitle:@"取消播放" otherButtonTitles:@"确认播放", nil];
-                [alertView show];
-                alertView.delegate = self;
-                DONG_WeakSelf(self);
-                self.alertViewClickBolck = ^{
-                    DONG_Log(@"播放");
-                    SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
-                    teleplayPlayer.filmModel = filmModel;
-                    teleplayPlayer.bannerFilmModelArray = weakself.bannerFilmModelArr;
-                    teleplayPlayer.hidesBottomBarWhenPushed = YES;
-                    [weakself.navigationController pushViewController:teleplayPlayer animated:YES];
-                };
-                
             }
+            
+            
+            [DONG_UserDefaults setBool:mobileNetworkAlert forKey:kMobileNetworkAlert];
+            [DONG_UserDefaults synchronize];
+            
+            
+            
+            
         }
-    }
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-      
-        self.alertViewClickBolck();
     }
 }
 
@@ -614,12 +604,45 @@ static NSString *const footerId = @"footerId";
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
-    SCFilmModel *filmModel = _bannerFilmModelArr[index];
-    SCPlayerViewController *VODPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
-    VODPlayer.filmModel = filmModel;
-    VODPlayer.bannerFilmModelArray = _bannerFilmModelArr;
-    VODPlayer.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:VODPlayer animated:YES];
+    BOOL mobileNetworkAlert = [DONG_UserDefaults boolForKey:kMobileNetworkAlert];
+    
+    if (![[SCNetHelper getNetWorkStates] isEqualToString:@"WIFI"] && mobileNetworkAlert) {
+        
+        self.alertViewClickFilmModel = _bannerFilmModelArr[index];;
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前为移动网络，继续播放将消耗流量" delegate:nil cancelButtonTitle:@"取消播放" otherButtonTitles:@"确认播放", nil];
+        [alertView show];
+        alertView.delegate = self;
+        
+    } else {
+        
+        SCFilmModel *filmModel = _bannerFilmModelArr[index];
+        SCPlayerViewController *VODPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+        VODPlayer.filmModel = filmModel;
+        VODPlayer.bannerFilmModelArray = _bannerFilmModelArr;
+        VODPlayer.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:VODPlayer animated:YES];
+        
+    }
+    
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        
+        BOOL mobileNetworkAlert = NO;
+        [DONG_UserDefaults setBool:mobileNetworkAlert forKey:kMobileNetworkAlert];
+        [DONG_UserDefaults synchronize];
+        
+        SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
+        teleplayPlayer.filmModel = self.alertViewClickFilmModel;
+        teleplayPlayer.bannerFilmModelArray = _bannerFilmModelArr;
+        teleplayPlayer.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:teleplayPlayer animated:YES];
+        
+    }
 }
 
 /** 图片滚动回调 */

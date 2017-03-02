@@ -2396,19 +2396,19 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         }
                     }
                     
+                    strongself.titleArr = @[@"详情", @"精彩推荐"];
+                    strongself.identifier = @"电影";
+                    
+                    // 4.添加滑动headerView
+                    [strongself constructSlideHeaderView];
+                    [strongself constructContentView];
+                    
                     [CommonFunc dismiss];
                     
                 } failure:^(id  _Nullable errorObject) {
                     [CommonFunc dismiss];
                 }];
-                
-                strongself.titleArr = @[@"详情", @"精彩推荐"];
-                strongself.identifier = @"电影";
-                
-                // 4.添加滑动headerView
-                [strongself constructSlideHeaderView];
-                [strongself constructContentView];
-                
+            
             } failure:^(id  _Nullable errorObject) {
                 
                 [CommonFunc dismiss];

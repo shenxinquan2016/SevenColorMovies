@@ -80,12 +80,18 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //-1.启动播放代理包
     [self setLibagent];
-//    [DONG_NotificationCenter postNotificationName:AppDidBecomeActive object:nil];
+//    [DONG_NotificationCenter postNotificationName:AppDidBecomeActive object:nil]
+    
+    
+    // 移动网络环境下播放是否提醒  每次APP进入时，设置为yes
+    BOOL mobileNetworkAlert = YES;
+    [DONG_UserDefaults setBool:mobileNetworkAlert forKey:kMobileNetworkAlert];
+    [DONG_UserDefaults synchronize];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    
+    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:
     
 }
 
@@ -172,7 +178,6 @@
     //    }];
     //
     DONG_Log(@"%@",[SCNetHelper getNetWorkStates]);
-    
     
     
     [SCNetHelper changeToWifi:^{
