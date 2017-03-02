@@ -136,7 +136,7 @@ static NSString *const cellId = @"cellId";
     return YES;
 }
 
-//点击某item
+// 点击某item
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     //通过改变cell对应model的onLive属性来改变选中cell为选中状态

@@ -74,7 +74,7 @@ static const CGFloat LabelWidth = 70.f;
         NSString *str = [NSString stringWithFormat:@"1-%ld",arr.count%20];
         [array addObject:str];
         
-    }else{
+    } else {
         
         if (arr.count%20 == 0) {
             
@@ -84,7 +84,7 @@ static const CGFloat LabelWidth = 70.f;
                 [array addObject:str];
             }
             
-        }else{
+        } else {
             
             for (int i = 0; i < arr.count/20; i++) {
                 
@@ -243,7 +243,7 @@ static const CGFloat LabelWidth = 70.f;
     vc.view.frame = self.contentScroll.bounds;
     [self.contentScroll addSubview:vc.view];
 
-    CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
+    CGFloat contentX = self.childViewControllers.count * screenWith;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
 }
 
