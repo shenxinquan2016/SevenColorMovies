@@ -260,7 +260,7 @@ static NSString *const cellId = @"cellId";
         
         BOOL mobileNetworkAlert = [DONG_UserDefaults boolForKey:kMobileNetworkAlert];
         
-        if ([[SCNetHelper getNetWorkStates] isEqualToString:@"WIFI"] && mobileNetworkAlert) {
+        if (![[SCNetHelper getNetWorkStates] isEqualToString:@"WIFI"] && mobileNetworkAlert) {
            
             self.alertViewClickFilmModel = _filmModelArr[indexPath.row];;
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前为移动网络，继续播放将消耗流量" delegate:nil cancelButtonTitle:@"取消播放" otherButtonTitles:@"确认播放", nil];
@@ -326,14 +326,14 @@ static NSString *const cellId = @"cellId";
     do {
         if (!vc) {
             vc = (UIViewController *)self.nextResponder;
-        }else{
+        } else {
             vc = (UIViewController *)vc.nextResponder;
         }
-    }while(![vc isKindOfClass:[UIViewController class]]);
+    } while(![vc isKindOfClass:[UIViewController class]]);
     
     if ([vc isKindOfClass:[UIViewController class]]) {
         return vc;
-    }else{
+    } else {
         return nil;
     }
 }
