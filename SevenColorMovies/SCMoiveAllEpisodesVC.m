@@ -196,7 +196,8 @@ static const CGFloat LabelWidth = 70.f;
 }
 
 #pragma mark- Event reponse
-- (void)labelClick:(UITapGestureRecognizer *)recognizer{
+- (void)labelClick:(UITapGestureRecognizer *)recognizer
+{
     SCSlideHeaderLabel *label = (SCSlideHeaderLabel *)recognizer.view;
     CGFloat offsetX = label.tag * _contentScroll.frame.size.width;
     
@@ -207,7 +208,8 @@ static const CGFloat LabelWidth = 70.f;
 }
 
 /** 添加正文内容页 */
-- (void)constructContentView{
+- (void)constructContentView
+{
     NSInteger screenWith;
     NSInteger screenHeight;
     if ([PlayerViewRotate isOrientationLandscape]) { // 全屏
@@ -226,8 +228,8 @@ static const CGFloat LabelWidth = 70.f;
     //    _contentScroll.backgroundColor = [UIColor redColor];
     [self.view addSubview:_contentScroll];
     
-    //添加子控制器
-    for (int i=0 ; i<_titleArr.count ;i++){
+    // 添加子控制器
+    for (int i=0 ; i<_titleArr.count ;i++) {
         
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
         SCMoiveAllEpisodesCollectionVC *vc = [[SCMoiveAllEpisodesCollectionVC alloc] initWithCollectionViewLayout:layout];
@@ -245,10 +247,10 @@ static const CGFloat LabelWidth = 70.f;
     _contentScroll.contentSize = CGSizeMake(contentX, 0);
 }
 
-
 #pragma mark - UIScrollViewDelegate
 /** 滚动结束后调用（代码导致的滚动停止） */
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
     // 获得索引
     NSUInteger index = scrollView.contentOffset.x / _contentScroll.frame.size.width;
     // 滚动标题栏
@@ -288,12 +290,13 @@ static const CGFloat LabelWidth = 70.f;
 }
 
 /** 滚动结束（手势导致的滚动停止） */
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 
 /** 正在滚动 */
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     // 取出绝对值 避免最左边往右拉时形变超过1
     CGFloat value = ABS(scrollView.contentOffset.x / scrollView.frame.size.width);
     NSUInteger leftIndex = (int)value;

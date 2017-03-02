@@ -38,11 +38,10 @@ static NSString *const cellId = @"cellId";
         _screenHeight = kMainScreenHeight;
     }
     
-
     [DONG_NotificationCenter addObserver:self selector:@selector(changeCellStateWhenPlayNextProgrom:) name:ChangeCellStateWhenPlayNextVODFilm object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [DONG_UserDefaults setInteger:0 forKey:k_for_VOD_selectedCellIndex];
     [DONG_UserDefaults synchronize];

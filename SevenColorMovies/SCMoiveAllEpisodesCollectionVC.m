@@ -43,21 +43,19 @@ static NSString *const cellId = @"cellId";
         _screenHeight = kMainScreenHeight;
     }
 
-
     // 自动播放下一个节目发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCellStateWhenPlayNextVODFilm:) name:ChangeCellStateWhenPlayNextVODFilm object:nil];
     // 取消上一个cell的选中状态
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLastCellToUnselectedState:) name:ChangeCellStateWhenClickProgramList object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
 }
 
-- (void)viewDidAppear{
+- (void)viewDidAppear {
     [super viewDidAppear:YES];
-    
     
 }
 
@@ -98,7 +96,6 @@ static NSString *const cellId = @"cellId";
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     return (CGSize){(_screenWith-24-32)/5,(_screenWith/6-15)};
 }
 
@@ -158,7 +155,10 @@ static NSString *const cellId = @"cellId";
             //通知选中的cell转为非选中状态
             [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenClickProgramList object:indexPath];
         }
-    }else{//点击不同页
+        
+    } else {
+        
+        //点击不同页
         //通知选中的cell转为非选中状态
         [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenClickProgramList object:indexPath];
     }
@@ -174,8 +174,8 @@ static NSString *const cellId = @"cellId";
 }
 
 #pragma mark - Event reponse
-- (void)changeLastCellToUnselectedState:(NSNotification *)notification{
-    
+- (void)changeLastCellToUnselectedState:(NSNotification *)notification
+{
     NSInteger selectedViewIndex = [[NSUserDefaults standardUserDefaults] integerForKey:k_for_VOD_selectedViewIndex];
     
     if (_viewIdentifier == selectedViewIndex) {
@@ -195,8 +195,8 @@ static NSString *const cellId = @"cellId";
     }
 }
 
-- (void)changeCellStateWhenPlayNextVODFilm:(NSNotification *)notification{
-    
+- (void)changeCellStateWhenPlayNextVODFilm:(NSNotification *)notification
+{
     NSDictionary *dic = notification.object;
     SCFilmSetModel *filmSetModel = dic[@"nextFilmSetModel"];
     SCFilmSetModel *lastFilmSetModel = dic[@"lastFilmSetModel"];

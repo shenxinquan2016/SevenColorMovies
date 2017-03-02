@@ -721,7 +721,8 @@ static const CGFloat LabelWidth = 100.f;
 }
 
 /** 添加标题栏label */
-- (void)addLabel {
+- (void)addLabel
+{
     for (int i = 0; i < _titleArr.count; i++) {
         CGFloat lbW = LabelWidth;        //宽
         CGFloat lbH = TitleHeight;       //高
@@ -735,7 +736,7 @@ static const CGFloat LabelWidth = 100.f;
         label.tag = i;
         label.userInteractionEnabled = YES;
         //        label.backgroundColor = [UIColor greenColor];
-        [label addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(labelClick:)]];
+        [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelClick:)]];
     }
     
     _titleScroll.contentSize = CGSizeMake(LabelWidth * _titleArr.count, 0);
@@ -871,9 +872,10 @@ static const CGFloat LabelWidth = 100.f;
         //    self.needScrollToTopPage = self.childViewControllers[0];
         
         [self.contentScroll addSubview:vc.view];
-    }else if ([_identifier isEqualToString:@"电视剧"]){
         
-        for (int i=0; i<_titleArr.count ;i++){
+    } else if ([_identifier isEqualToString:@"电视剧"]) {
+        
+        for (int i=0; i<_titleArr.count ;i++) {
             switch (i) {
                 case 0:{//剧集
                     SCMoiveAllEpisodesVC *episodesVC = [[SCMoiveAllEpisodesVC alloc] init];
