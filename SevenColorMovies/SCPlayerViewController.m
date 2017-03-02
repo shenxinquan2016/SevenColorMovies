@@ -688,11 +688,20 @@ static const CGFloat LabelWidth = 100.f;
 /** 添加滚动标题栏*/
 - (void)constructSlideHeaderView {
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20+36+8, kMainScreenWidth, TitleHeight)];
+    NSInteger screenWith;
+    if ([PlayerViewRotate isOrientationLandscape]) { // 全屏
+        screenWith = kMainScreenHeight;
+    } else {
+        screenWith = kMainScreenWidth;
+    }
+    
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, screenWith * 9 / 16 +20+36+8, screenWith, TitleHeight)];
+    
+    DONG_Log(@"kMainScreenWidth:%ld",(long)screenWith);
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
     
-    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake((kMainScreenWidth-LabelWidth*_titleArr.count)/2, 0, LabelWidth*_titleArr.count, TitleHeight)];//滚动窗口
+    self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake((screenWith-LabelWidth*_titleArr.count)/2, 0, LabelWidth*_titleArr.count, TitleHeight)];//滚动窗口
     //    _titleScroll.backgroundColor = [UIColor greenColor];
     self.titleScroll.showsHorizontalScrollIndicator = NO;
     self.titleScroll.showsVerticalScrollIndicator = NO;
@@ -813,8 +822,18 @@ static const CGFloat LabelWidth = 100.f;
 }
 
 /** 添加正文内容页 */
-- (void)constructContentView {
-    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +20+36+8+TitleHeight+8, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20+36+8+TitleHeight+8))];//滚动窗口
+- (void)constructContentView
+{
+    NSInteger screenWith;
+    NSInteger screenHeight;
+    if ([PlayerViewRotate isOrientationLandscape]) { // 全屏
+        screenWith = kMainScreenHeight;
+        screenHeight = kMainScreenWidth;
+    } else {
+        screenWith = kMainScreenWidth;
+        screenHeight = kMainScreenHeight;
+    }
+    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, screenWith * 9 / 16 +20+36+8+TitleHeight+8, screenWith, screenHeight-(screenWith * 9 / 16 +20+36+8+TitleHeight+8))];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
     _contentScroll.pagingEnabled = YES;
@@ -2079,8 +2098,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                             [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                             
                         } else {
-                            // 竖屏时
                             
+                            // 竖屏时
                             strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                             strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                             //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
@@ -2294,11 +2313,25 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     //1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                     strongself.url = [NSURL URLWithString:playUrl];
-                    //2.调用播放器播放
-                    strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
-                    strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                     
-                    [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                    if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
+                        
+                        //2.调用播放器播放
+                        strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                        strongself.view.frame = [[UIScreen mainScreen] bounds];
+                        strongself.IJKPlayerViewController.view.frame = strongself.view.bounds;
+                        strongself.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                        strongself.IJKPlayerViewController.mediaControl.frame = strongself.view.frame;
+                        [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                        
+                    } else {
+                        
+                        //2.调用播放器播放
+                        strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                        strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                        
+                        [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                    }
                     
                     NSString *filmName;
                     if (strongself.filmModel.FilmName) {

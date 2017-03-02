@@ -10,7 +10,7 @@
 #import "SCSlideHeaderLabel.h"
 #import "SCMoiveAllEpisodesCollectionVC.h"
 #import "SCFilmSetModel.h"
-
+#import "PlayerViewRotate.h" // 旋转控制
 
 static const CGFloat TitleHeight = 40.0f;
 //static const CGFloat StatusBarHeight = 20.0f;
@@ -132,17 +132,27 @@ static const CGFloat LabelWidth = 70.f;
 
 
 /** 添加滚动标题栏*/
-- (void)constructSlideHeaderView{
-    
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, TitleHeight)];
+- (void)constructSlideHeaderView
+{
+    NSInteger screenWith;
+    NSInteger screenHeight;
+    if ([PlayerViewRotate isOrientationLandscape]) { // 全屏
+        screenWith = kMainScreenHeight;
+        screenHeight = kMainScreenWidth;
+    } else {
+        screenWith = kMainScreenWidth;
+        screenHeight = kMainScreenHeight;
+    }
+
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWith, TitleHeight)];
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
     
     CGFloat titleScrollWith = 0.f;
-    if (_titleArr.count*LabelWidth<kMainScreenWidth) {
+    if (_titleArr.count*LabelWidth<screenWith) {
         titleScrollWith = _titleArr.count*LabelWidth;
     }else{
-        titleScrollWith = kMainScreenWidth;
+        titleScrollWith = screenWith;
     }
     
     self.titleScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, titleScrollWith, TitleHeight)];//滚动窗口
@@ -198,7 +208,17 @@ static const CGFloat LabelWidth = 70.f;
 
 /** 添加正文内容页 */
 - (void)constructContentView{
-    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 48, kMainScreenWidth, kMainScreenHeight-393)];//滚动窗口
+    NSInteger screenWith;
+    NSInteger screenHeight;
+    if ([PlayerViewRotate isOrientationLandscape]) { // 全屏
+        screenWith = kMainScreenHeight;
+        screenHeight = kMainScreenWidth;
+    } else {
+        screenWith = kMainScreenWidth;
+        screenHeight = kMainScreenHeight;
+    }
+
+    _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 48, screenWith, screenHeight-393)];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
     _contentScroll.pagingEnabled = YES;

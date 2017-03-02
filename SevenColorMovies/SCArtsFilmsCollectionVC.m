@@ -9,8 +9,13 @@
 #import "SCArtsFilmsCollectionVC.h"
 #import "SCArtsFilmCell.h"
 #import "SCFilmModel.h"
+#import "PlayerViewRotate.h" // 旋转控制
 
 @implementation SCArtsFilmsCollectionVC
+{
+    NSInteger _screenWith;
+    NSInteger _screenHeight;
+}
 
 
 static NSString *const cellId = @"cellId";
@@ -19,12 +24,21 @@ static NSString *const cellId = @"cellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //0.初始化collectionView
+    // 0.初始化collectionView
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical=YES;
     // 注册cell、sectionHeader、sectionFooter
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCArtsFilmCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
     
+    if ([PlayerViewRotate isOrientationLandscape]) { // 全屏
+        _screenWith = kMainScreenHeight;
+        _screenHeight = kMainScreenWidth;
+    } else {
+        _screenWith = kMainScreenWidth;
+        _screenHeight = kMainScreenHeight;
+    }
+    
+
     [DONG_NotificationCenter addObserver:self selector:@selector(changeCellStateWhenPlayNextProgrom:) name:ChangeCellStateWhenPlayNextVODFilm object:nil];
 }
 
@@ -64,7 +78,7 @@ static NSString *const cellId = @"cellId";
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (CGSize){(kMainScreenWidth-24), 59};
+    return (CGSize){(_screenWith-24), 59};
 }
 
 /** CollectionView四周间距 EdgeInsets */
@@ -88,13 +102,13 @@ static NSString *const cellId = @"cellId";
 /** section Header 尺寸 */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    return (CGSize){kMainScreenWidth,0};
+    return (CGSize){_screenWith,0};
 }
 
 /** section Footer 尺寸*/
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
-    return (CGSize){kMainScreenWidth,80};
+    return (CGSize){_screenWith,80};
 }
 
 #pragma mark ---- UICollectionViewDelegate

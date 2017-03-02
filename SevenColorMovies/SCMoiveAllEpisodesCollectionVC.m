@@ -9,6 +9,7 @@
 #import "SCMoiveAllEpisodesCollectionVC.h"
 #import "SCMovieEpisodeCell.h"
 #import "SCFilmSetModel.h"
+#import "PlayerViewRotate.h" // 旋转控制
 
 @interface SCMoiveAllEpisodesCollectionVC ()
 
@@ -19,7 +20,8 @@
 
 {
     SCFilmSetModel *filmSetModel_;
-    
+    NSInteger _screenWith;
+    NSInteger _screenHeight;
 }
 
 static NSString *const cellId = @"cellId";
@@ -27,15 +29,24 @@ static NSString *const cellId = @"cellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //0.初始化collectionView
+    // 0.初始化collectionView
     self.collectionView.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
     self.collectionView.alwaysBounceVertical=YES;
     // 注册cell、sectionHeader、sectionFooter
     [self.collectionView registerNib:[UINib nibWithNibName:@"SCMovieEpisodeCell" bundle:nil] forCellWithReuseIdentifier:@"cellId"];
     
-    //自动播放下一个节目发出的通知
+    if ([PlayerViewRotate isOrientationLandscape]) { // 全屏
+        _screenWith = kMainScreenHeight;
+        _screenHeight = kMainScreenWidth;
+    } else {
+        _screenWith = kMainScreenWidth;
+        _screenHeight = kMainScreenHeight;
+    }
+
+
+    // 自动播放下一个节目发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCellStateWhenPlayNextVODFilm:) name:ChangeCellStateWhenPlayNextVODFilm object:nil];
-    //取消上一个cell的选中状态
+    // 取消上一个cell的选中状态
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLastCellToUnselectedState:) name:ChangeCellStateWhenClickProgramList object:nil];
 }
 
@@ -87,7 +98,8 @@ static NSString *const cellId = @"cellId";
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (CGSize){(kMainScreenWidth-24-32)/5,(kMainScreenWidth/6-15)};
+    
+    return (CGSize){(_screenWith-24-32)/5,(_screenWith/6-15)};
 }
 
 /** CollectionView四周间距 EdgeInsets */
@@ -111,13 +123,13 @@ static NSString *const cellId = @"cellId";
 /** section Header 尺寸 */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    return (CGSize){kMainScreenWidth,0};
+    return (CGSize){_screenWith,0};
 }
 
 /** section Footer 尺寸*/
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
-    return (CGSize){kMainScreenWidth,80};
+    return (CGSize){_screenWith,80};
 }
 
 #pragma mark - UICollectionViewDelegate
