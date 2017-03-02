@@ -159,25 +159,26 @@ static NSString *const cellId = @"cellId";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmModel class]]) {
-        
+        // 适合只有一级目录就进入详情的入口
         SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:self.FilmClassModel._FilmClassName indexPath:indexPath];
         cell.backgroundColor = [UIColor whiteColor];
         
-        if ([_FilmClassModel._FilmClassName isEqualToString:@"专题"] ) {
-            
-            SCFilmModel *filmModel = _filmModelArr[indexPath.row];
-            filmModel.scale = @"专题";
-            cell.model = filmModel;
-            return cell;
-            
-        }
+//        if ([_FilmClassModel._FilmClassName isEqualToString:@"专题"] ) {
+//            
+//            SCFilmModel *filmModel = _filmModelArr[indexPath.row];
+//            filmModel.scale = @"专题";
+//            cell.model = filmModel;
+//            return cell;
+//            
+//        }
         
         SCFilmModel *filmModel = _filmModelArr[indexPath.row];
         cell.model = filmModel;
         return cell;
         
-    } else {
+    } else if ([_filmModelArr[indexPath.row] isKindOfClass:[SCFilmClassModel class]]) {
         
+        // 更多分类中专题横版（有下一级目录）
         static NSString * const identifier = @"专题";
         SCCollectionViewPageCell *cell = [SCCollectionViewPageCell cellWithCollectionView:collectionView identifier:identifier indexPath:indexPath];
         SCFilmClassModel *filmClassModel = _filmModelArr[indexPath.row];
@@ -185,6 +186,8 @@ static NSString *const cellId = @"cellId";
         cell.filmClassModel = filmClassModel;
         return cell;
     }
+    
+    return nil;
 }
 
 #pragma mark - <UICollectionViewDelegate>

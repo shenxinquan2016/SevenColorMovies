@@ -378,12 +378,24 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == 0){
+    if (section == 0) {
         return 8;
-    }else{
+    } else {
         
-        SCFilmClassModel *model = _filmClassArray[section-1];
-        return model.filmArray.count;
+        if ([_titleArray[section-1] isEqualToString:@"综艺"] || [_titleArray[section-1] isEqualToString:@"潮生活"] || [_titleArray[section-1] isEqualToString:@"专题"])  {
+            
+            SCFilmClassModel *model = _filmClassArray[section-1];
+            if (model.filmArray.count < 6) {
+                return model.filmArray.count;
+            } else {
+                return 6;
+            }
+            
+        } else {
+            
+            SCFilmClassModel *model = _filmClassArray[section-1];
+            return model.filmArray.count;
+        }
     }
 }
 
@@ -564,6 +576,7 @@ static NSString *const footerId = @"footerId";
         
         if ([classModel._FilmClassName isEqualToString:@"专题"]) {
             SCSpecialTopicDetailVC *vc = [[SCSpecialTopicDetailVC alloc] initWithWithTitle:filmModel.FilmName];
+            vc.hidesBottomBarWhenPushed = YES;
             vc.urlString = filmModel.SourceUrl;
             vc.bannerFilmModelArray = _bannerFilmModelArr;
             [self.navigationController pushViewController:vc animated:YES];
@@ -592,10 +605,6 @@ static NSString *const footerId = @"footerId";
             
             [DONG_UserDefaults setBool:mobileNetworkAlert forKey:kMobileNetworkAlert];
             [DONG_UserDefaults synchronize];
-            
-            
-            
-            
         }
     }
 }

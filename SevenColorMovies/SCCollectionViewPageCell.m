@@ -38,27 +38,40 @@
     return cell;
 }
 
-- (void)setModel:(SCFilmModel *)filmModel {
-    
+- (void)setModel:(SCFilmModel *)filmModel
+{
     NSString *imageUrl;
    
     if ([_identifier isEqualToString:@"综艺"] || [_identifier isEqualToString:@"潮生活"]) {
+        // 横版图片
         imageUrl = filmModel._ImgUrlB;
         NSURL *imgUrl = [NSURL URLWithString:imageUrl];
         
         [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"CellLoading_Horizontal"]];
 
-    } else {
+    } else if ([_identifier isEqualToString:@"专题"]) {
         
-        if (filmModel.scale) {
+        // 横版图片 专题时取图用的字段不一样不一样
+        if (filmModel._ImgUrlO) {
             
-            imageUrl = filmModel._ImgUrlB;
+            imageUrl = filmModel._ImgUrlO;
             
-        } else if (filmModel._ImgUrl) {
+        } else if (filmModel._ImgUrlOriginal) {
+            
+             imageUrl = filmModel._ImgUrlOriginal;
+        }
+        
+        NSURL *imgUrl = [NSURL URLWithString:imageUrl];
+        
+        [_filmImage sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"CellLoading_Horizontal"]];
+        
+    } else {
+    
+        if (filmModel._ImgUrl) {
             
             imageUrl = filmModel._ImgUrl;
             
-        }else if (filmModel.smallposterurl){
+        } else if (filmModel.smallposterurl){
             
             imageUrl = filmModel.smallposterurl;
         }
@@ -81,7 +94,7 @@
     _filmName.text = filmName;
 }
 
-//专题
+// 专题 更多分类中专题横版（有下一级目录）
 - (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel
 {
     NSURL *imgUrl = [NSURL URLWithString:filmClassModel._BigImgUrl];
