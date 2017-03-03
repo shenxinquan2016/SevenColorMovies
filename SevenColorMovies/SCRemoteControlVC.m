@@ -61,8 +61,8 @@
 @property (nonatomic, strong) NSMutableArray *macArray;
 /** 语音服务器状态 */
 @property (nonatomic, copy) NSString *voiceServerState;
-/** 是否绑定设备成功 */
-@property (nonatomic, assign) BOOL isReceivedBindMessage;
+/** 标记xmpp是否登录成功 */
+@property (nonatomic, assign) BOOL xmppIsLogin;
 
 @end
 
@@ -666,16 +666,24 @@
 
 - (void)hideLoadingVew
 {
-    if (!_isReceivedBindMessage) {
+    if (_xmppIsLogin) {
         
         [XMPPManager disConnect];
         [CommonFunc dismiss];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备绑定失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"绑定超时，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         [alertView show];
         alertView.delegate = self;
         
+    } else {
+        
+        [XMPPManager disConnect];
+        [CommonFunc dismiss];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"手机登录失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+        alertView.delegate = self;
     }
 }
+
 #pragma mark - UdpSocketManagerDelegate
 
 -(void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address withFilterContext:(id)filterContex
@@ -718,7 +726,6 @@
         NSLog(@"tag:200 数据发送成功");
     }
 }
-
 
 #pragma mark - SocketManagerDelegate
 
@@ -768,25 +775,29 @@
 /** 登录成功 */
 - (void)xmppDidAuthenticate:(XMPPStream *)sender
 {
+    self.xmppIsLogin = YES;
     //    self.hid = @"766572792900";
     //    self.uid = @"8451204087955261";
     
     //    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
-    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
-    self.toName = toName;
     
-    // 查询设备是否在线
-    
-    
-//    NSString *xmlString = [NSString stringWithFormat:@"<message to=\"%@\" type=\"query_online\"><body>{uid:%@,hid:%@,msg}</body></message>", toName, self.hid, self.uid];
+      // 查询设备是否在线
+//    NSString *uuidStr = [HLJUUID getUUID];
+//    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, uuidStr];
 //    
-//    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"chat"];
-    
+//    NSString *xmlString = [NSString stringWithFormat:@"{uid:%@,hid:%@}",self.uid, self.hid];
+//    
+//    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"query_online"];
+//    
+//    DONG_Log(@"xmlString:%@",xmlString);
     
     // 绑定设备
     NSString *uuidStr = [HLJUUID getUUID];
+    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
     DONG_Log(@"toName:%@",toName);
     DONG_Log(@"uuidStr:%@",uuidStr);
+
+    self.toName = toName;
     
     NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\"  type=\"Rc_bind\" value=\"BindTv\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[信息描述]]</info></Message>/n", uuidStr, self.hid, self.uid];
     
@@ -823,16 +834,17 @@
                 // 绑定成功
                 [CommonFunc dismiss];
                 [MBProgressHUD showSuccess:@"绑定成功"];
-                _isReceivedBindMessage = YES;
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideLoadingVew) object:nil];
                 
-            } else {
+            } else if ([dic[@"_value"] isEqualToString:@"false"]) {
                 
                 // 绑定失败
                 [CommonFunc dismiss];
-                _isReceivedBindMessage = YES;
+                
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备绑定失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                 [alertView show];
                 alertView.delegate = self;
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideLoadingVew) object:nil];
             }
             
         } else if ([dic[@"info"] isEqualToString:@"当前设备未绑定任何设备!"] || ([dic[@"_value"] isEqualToString:@"sendMsgUnder_unBind"] && [dic[@"_type"] isEqualToString:@"error"])) {
