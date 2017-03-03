@@ -88,14 +88,17 @@ static NSString *const cellId = @"cellId";
 - (void)requestDataWithPage:(NSInteger)page {
     
     NSDictionary *parameters = @{@"page" : [NSString stringWithFormat:@"%zd",page]};
-    if (page == 1) {
-        [_filmModelArr removeAllObjects];
-    }
+
     //域名转IP
     self.hljRequest = [HLJRequest requestWithPlayVideoURL:_urlString];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         [requestDataManager requestFilmClassDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
             NSLog(@">>>>>>>>>>>>responseObject::::%@",responseObject);
+            
+            if (page == 1) {
+                [_filmModelArr removeAllObjects];
+            }
+
             if (responseObject) {
                 if (responseObject[@"FilmClass"]) {// 专题页面(比其他多一层)
                     

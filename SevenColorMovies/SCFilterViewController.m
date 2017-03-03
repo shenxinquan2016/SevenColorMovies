@@ -65,13 +65,13 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doFilterAction:) name:FilterOptionChanged object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:FilterOptionChanged object:nil];
 }
@@ -238,7 +238,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     }
     // 开始筛选
     [self requestFilterDataWithTypeAndAreaAndTimeAndPage:1];
-    
+    _page = 0;
 }
 
 #pragma mark- 网络请求
@@ -387,10 +387,6 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 {
     [CommonFunc showLoadingWithTips:@""];
     
-    if (page == 1) {
-        [_dataArray removeAllObjects];
-    }
-    
     NSDictionary *parameters = @{@"page" : [NSString stringWithFormat:@"%ld",(long)page],
                                  @"style" : _type? _type : @"",
                                  @"zone" : _area? _area : @"",
@@ -411,6 +407,10 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject){
                 //        NSLog(@"==========dic:::%@========",responseObject);
                 
+                if (page == 1) {
+                    [_dataArray removeAllObjects];
+                }
+  
                 if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]) {
                     
                     for (NSDictionary *dic in responseObject[@"Film"]) {
@@ -419,7 +419,6 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                         
                         [_dataArray addObject:filmModel];
                     }
-                    
                 }
                 
                 [_collView reloadData];
