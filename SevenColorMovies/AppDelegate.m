@@ -62,8 +62,8 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     
 //    [DONG_NotificationCenter postNotificationName:AppWillResignActive object:nil];
+     libagent_finish();
      libagent_close();
-    
     
 }
 
