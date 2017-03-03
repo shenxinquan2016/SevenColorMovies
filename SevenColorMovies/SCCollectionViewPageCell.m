@@ -67,6 +67,7 @@
         
     } else {
     
+        // 竖版图片
         if (filmModel._ImgUrl) {
             
             imageUrl = filmModel._ImgUrl;
