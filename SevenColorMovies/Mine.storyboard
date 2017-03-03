@@ -113,21 +113,60 @@
                                 <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="龙江网络公司版权所有" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHL-9a-AVo">
+                                <rect key="frame" x="0.0" y="593" width="375" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="l6n-qf-QjQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright© 2017 LONGJIANG NETWORK Inc." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bje-mf-V2O">
+                                <rect key="frame" x="0.0" y="616" width="375" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="rrp-aV-PBT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Rights Reserved" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qps-2B-STB">
+                                <rect key="frame" x="0.0" y="631" width="375" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="vPX-lm-spW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Qps-2B-STB" secondAttribute="bottom" constant="15" id="9qv-w8-KrB"/>
                             <constraint firstItem="9dP-eC-IbR" firstAttribute="top" secondItem="vKO-2L-ezf" secondAttribute="bottom" constant="90" id="AnK-Tx-g2m"/>
+                            <constraint firstItem="bje-mf-V2O" firstAttribute="leading" secondItem="YQy-Sa-ROU" secondAttribute="leading" id="HEL-SY-Bfm"/>
+                            <constraint firstAttribute="trailing" secondItem="bje-mf-V2O" secondAttribute="trailing" id="KIO-ik-cor"/>
                             <constraint firstAttribute="trailing" secondItem="2n3-zJ-POd" secondAttribute="trailing" constant="15" id="SX2-tg-S67"/>
                             <constraint firstItem="2n3-zJ-POd" firstAttribute="leading" secondItem="YQy-Sa-ROU" secondAttribute="leading" constant="15" id="UII-W3-fea"/>
+                            <constraint firstItem="Qps-2B-STB" firstAttribute="leading" secondItem="YQy-Sa-ROU" secondAttribute="leading" id="VjK-ZX-GGz"/>
                             <constraint firstItem="mTO-hT-0m3" firstAttribute="top" secondItem="9dP-eC-IbR" secondAttribute="bottom" constant="30" id="XZB-mp-TOa"/>
                             <constraint firstItem="mTO-hT-0m3" firstAttribute="centerX" secondItem="9dP-eC-IbR" secondAttribute="centerX" id="XgX-JL-hRU"/>
+                            <constraint firstAttribute="bottom" secondItem="bje-mf-V2O" secondAttribute="bottom" constant="30" id="Xxn-ca-8GH"/>
+                            <constraint firstItem="RHL-9a-AVo" firstAttribute="leading" secondItem="YQy-Sa-ROU" secondAttribute="leading" id="bh2-4w-qAk"/>
+                            <constraint firstAttribute="trailing" secondItem="RHL-9a-AVo" secondAttribute="trailing" id="hlK-eg-TNw"/>
+                            <constraint firstAttribute="bottom" secondItem="RHL-9a-AVo" secondAttribute="bottom" constant="43" id="lJ3-wG-Jlm"/>
                             <constraint firstItem="8Gl-03-Ilf" firstAttribute="top" secondItem="2n3-zJ-POd" secondAttribute="bottom" constant="15" id="nRN-rd-S40"/>
                             <constraint firstItem="8Gl-03-Ilf" firstAttribute="centerX" secondItem="2n3-zJ-POd" secondAttribute="centerX" id="qEa-Kh-75W"/>
                             <constraint firstItem="2n3-zJ-POd" firstAttribute="top" secondItem="9dP-eC-IbR" secondAttribute="bottom" constant="5" id="sEs-QH-H4g"/>
                             <constraint firstItem="9dP-eC-IbR" firstAttribute="centerX" secondItem="YQy-Sa-ROU" secondAttribute="centerX" id="wWv-M3-8RD"/>
+                            <constraint firstAttribute="trailing" secondItem="Qps-2B-STB" secondAttribute="trailing" id="zvK-Be-ahz"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="companyNameLabel" destination="RHL-9a-AVo" id="TeD-3Z-qQD"/>
+                        <outlet property="copyrightLabel1" destination="bje-mf-V2O" id="06q-WW-e3S"/>
+                        <outlet property="copyrightLabel2" destination="Qps-2B-STB" id="WhL-rW-MuQ"/>
                         <outlet property="versionNumberLabel" destination="8Gl-03-Ilf" id="Lid-zg-mze"/>
                     </connections>
                 </viewController>

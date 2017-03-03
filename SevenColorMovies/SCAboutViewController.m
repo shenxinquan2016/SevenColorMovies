@@ -11,6 +11,9 @@
 @interface SCAboutViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *versionNumberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *companyNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *copyrightLabel1;
+@property (weak, nonatomic) IBOutlet UILabel *copyrightLabel2;
 
 @end
 
@@ -21,6 +24,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.leftBBI.text = @"关于";
     self.versionNumberLabel.text = [NSString stringWithFormat:@"%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey]];
+    
+    
     
     
 }
