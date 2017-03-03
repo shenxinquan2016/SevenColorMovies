@@ -28,7 +28,7 @@
     static NSString *ID;
     if ([identifier isEqualToString:@"综艺"] || [identifier isEqualToString:@"潮生活"] || [identifier isEqualToString:@"专题"]) {
         ID = @"SCCollectionViewPageArtsCell";
-    }else{
+    } else {
         ID = @"SCCollectionViewPageCell";
     }
     

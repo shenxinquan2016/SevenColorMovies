@@ -226,7 +226,7 @@ static NSString *const cellId = @"cellId";
             NSString *urlStr = _FilmClassUrlArr[i];
             NSString *url = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             vc.urlString = url;
-            
+            vc.FilmClassModel = _filmClassModel;// 用于判断cell的显示类型
             vc.pageCount = _pageCountArr[i];// 分页数量
         }
     
