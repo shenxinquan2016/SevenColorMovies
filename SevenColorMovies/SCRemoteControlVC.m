@@ -194,8 +194,6 @@
     
     // 2.开始录音
     [self startRecordAction];
-    
-    
 
     // 扫码得到的mac地址与upd广播得到的mac地址一致时 说明设备是对应的
     //    if ([mac isEqualToString:_hid]) {
@@ -782,26 +780,26 @@
     //    NSString *toName = @"8451204087955261@hljvoole.com/766572792900";
     
       // 查询设备是否在线
-//    NSString *uuidStr = [HLJUUID getUUID];
-//    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, uuidStr];
-//    
-//    NSString *xmlString = [NSString stringWithFormat:@"{uid:%@,hid:%@}",self.uid, self.hid];
-//    
-//    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"query_online"];
-//    
-//    DONG_Log(@"xmlString:%@",xmlString);
+    NSString *uuidStr = [HLJUUID getUUID];
+    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, uuidStr];
+    
+    NSString *xmlString = [NSString stringWithFormat:@"{uid:%@,hid:%@}",self.uid, self.hid];
+    
+    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"query_online"];
+    
+    DONG_Log(@"xmlString:%@",xmlString);
     
     // 绑定设备
-    NSString *uuidStr = [HLJUUID getUUID];
-    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
-    DONG_Log(@"toName:%@",toName);
-    DONG_Log(@"uuidStr:%@",uuidStr);
-
-    self.toName = toName;
-    
-    NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\"  type=\"Rc_bind\" value=\"BindTv\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[信息描述]]</info></Message>/n", uuidStr, self.hid, self.uid];
-    
-    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"chat"];
+//    NSString *uuidStr = [HLJUUID getUUID];
+//    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+//    DONG_Log(@"toName:%@",toName);
+//    DONG_Log(@"uuidStr:%@",uuidStr);
+//
+//    self.toName = toName;
+//    
+//    NSString *xmlString = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8' standalone='no' ?><Message targetName=\"com.vurc.self\"  type=\"Rc_bind\" value=\"BindTv\" from=\"%@\" to=\"%@\" cardnum=\"%@\"><info>![CDATA[信息描述]]</info></Message>/n", uuidStr, self.hid, self.uid];
+//    
+//    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"chat"];
     
 }
 
