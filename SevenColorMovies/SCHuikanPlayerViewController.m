@@ -1074,17 +1074,17 @@
     // 开始播放5秒后隐藏播放器控件
     [self performSelector:@selector(hideIJKPlayerMediaControlView) withObject:nil afterDelay:5.0];
     
-    //在此通知里设置加载IJK时的起始播放时间
-    //如果已经播放过，则从已播放时间开始播放
+    // 在此通知里设置加载IJK时的起始播放时间
+    // 如果已经播放过，则从已播放时间开始播放
     if (_filmModel.currentPlayTime) {
         DONG_Log(@"currentPlayTime:%f", _filmModel.currentPlayTime);
         self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.currentPlayTime / 1000;
+        _filmModel.currentPlayTime = 0.f;
     } else if (_programModel.currentPlayTime) {
         self.IJKPlayerViewController.player.currentPlaybackTime = _programModel.currentPlayTime / 1000;
+        _programModel.currentPlayTime = 0.f;
     }
     
-    _filmModel.currentPlayTime = 0.0f;
-    _programModel.currentPlayTime = 0.f;
 }
 
 - (void)hideIJKPlayerMediaControlView
