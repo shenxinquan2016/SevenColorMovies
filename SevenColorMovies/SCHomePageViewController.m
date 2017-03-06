@@ -671,9 +671,21 @@ static NSString *const footerId = @"footerId";
     return _allItemsArr;
 }
 
-// 禁止旋转屏幕
+
 - (BOOL)shouldAutorotate {
     return NO;
+}
+
+// 禁止旋转屏幕
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations // 支持哪些方向
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+// 默认显示的方向
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
 }
 
 @end
