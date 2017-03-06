@@ -42,8 +42,8 @@
             
         } else if (indexPath.row == 1) {
             
-            _channelNameLabel.text = @"掌厅";
-            _channelImg.image = [UIImage imageNamed:@"掌厅"];
+            _channelNameLabel.text = @"营业厅";
+            _channelImg.image = [UIImage imageNamed:@"营业厅"];
             
         } else {
             

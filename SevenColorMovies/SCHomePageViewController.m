@@ -546,7 +546,7 @@ static NSString *const footerId = @"footerId";
             
         } else if (indexPath.row == 4) { // 掌厅
             
-            DONG_Log(@"掌厅");
+            DONG_Log(@"营业厅");
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
             
         } else if (indexPath.row >0 && indexPath.row < 4) { // 1--3
@@ -663,7 +663,7 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Getters and Setters
 - (NSMutableArray *)allItemsArr {
     if (!_allItemsArr) {
-        NSArray *array =@[@"电影", @"电视剧",  @"少儿", @"纪录片", @"潮生活", @"更多", @"二人转", @"动漫", @"生活", @"游戏", @"音乐", @"专题", @"掌厅"];
+        NSArray *array =@[@"电影", @"电视剧",  @"少儿", @"纪录片", @"潮生活", @"更多", @"二人转", @"动漫", @"生活", @"游戏", @"音乐", @"专题", @"营业厅"];
         
         _allItemsArr = [NSMutableArray arrayWithCapacity:0];
         [_allItemsArr addObjectsFromArray:array];

@@ -148,9 +148,10 @@ static NSString *const cellId = @"cellId";
     }];
     
 }
+
 /** 添加滚动标题栏*/
-- (void)constructSlideHeaderView{
-    
+- (void)constructSlideHeaderView
+{
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 20+44+8, kMainScreenWidth, TitleHeight)];
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
@@ -181,7 +182,8 @@ static NSString *const cellId = @"cellId";
 }
 
 /** 添加标题栏label */
-- (void)addLabel{
+- (void)addLabel
+{
     for (int i = 0; i < _titleArr.count; i++) {
         CGFloat lbW = LabelWidth;                //宽
         CGFloat lbH = TitleHeight;       //高
@@ -207,8 +209,8 @@ static NSString *const cellId = @"cellId";
 }
 
 /** 添加正文内容页 */
-- (void)constructContentView {
-    
+- (void)constructContentView
+{
     _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, StatusBarHeight+TitleHeight+44+8+8, kMainScreenWidth, kMainScreenHeight-StatusBarHeight-TitleHeight-44-8-8)];// 滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
@@ -254,7 +256,8 @@ static NSString *const cellId = @"cellId";
 
 #pragma mark- Event reponse
 // 点击标题label
-- (void)labelClick:(UITapGestureRecognizer *)recognizer {
+- (void)labelClick:(UITapGestureRecognizer *)recognizer
+{
     SCSlideHeaderLabel *label = (SCSlideHeaderLabel *)recognizer.view;
     CGFloat offsetX = label.tag * _contentScroll.frame.size.width;
     
@@ -276,8 +279,8 @@ static NSString *const cellId = @"cellId";
 }
 
 // 筛选
-- (void)doFilter {
-    
+- (void)doFilter
+{
     if (_siftBtn.selected == NO) {
         _siftBtn.selected = YES;
         [_siftBtn setBackgroundImage:[UIImage imageNamed:@"Sifting"] forState:UIControlStateNormal];
@@ -298,7 +301,8 @@ static NSString *const cellId = @"cellId";
 
 #pragma mark - UIScrollViewDelegate
 /** 滚动结束后调用（代码导致的滚动停止） */
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
     // 获得索引
     NSUInteger index = scrollView.contentOffset.x / _contentScroll.frame.size.width;
     // 滚动标题栏
@@ -340,12 +344,14 @@ static NSString *const cellId = @"cellId";
 }
 
 /** 滚动结束（手势导致的滚动停止） */
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 
 /** 正在滚动 */
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     // 取出绝对值 避免最左边往右拉时形变超过1
     CGFloat value = ABS(scrollView.contentOffset.x / scrollView.frame.size.width);
     NSUInteger leftIndex = (int)value;

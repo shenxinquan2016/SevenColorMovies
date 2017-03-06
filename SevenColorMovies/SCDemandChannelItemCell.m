@@ -36,8 +36,8 @@
         _channelNameLabel.text =  @"更多";
 
     } else if (indexPath.row == 4) {
-        _channelImg.image = [UIImage imageNamed:@"掌厅"];
-        _channelNameLabel.text =  @"掌厅";
+        _channelImg.image = [UIImage imageNamed:@"营业厅"];
+        _channelNameLabel.text =  @"营业厅";
         
     } else if (indexPath.row > 0 && indexPath.row < 4) {
         

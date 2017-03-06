@@ -298,7 +298,7 @@ static NSString *const footerId = @"footerId";
         
     } else if (indexPath.row == 1) {
       
-        DONG_Log(@"掌厅");
+        DONG_Log(@"营业厅");
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
         
     } else {
