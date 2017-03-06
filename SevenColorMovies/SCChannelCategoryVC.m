@@ -84,7 +84,8 @@ static NSString *const cellId = @"cellId";
 
 #pragma mark- private methods
 // 添加筛选
-- (void)addFilterBtn {
+- (void)addFilterBtn
+{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 29, 29);
     [btn setBackgroundImage:[UIImage imageNamed:@"Sift"] forState:UIControlStateNormal];
@@ -102,7 +103,8 @@ static NSString *const cellId = @"cellId";
 }
 
 //
-- (void)getFilmClassData{
+- (void)getFilmClassData
+{
     //域名转换成IP
     [CommonFunc showLoadingWithTips:@""];
     [[HLJRequest requestWithPlayVideoURL:_filmClassModel.FilmClassUrl] getNewVideoURLSuccess:^(NSString *newVideoUrl) {
@@ -119,10 +121,12 @@ static NSString *const cellId = @"cellId";
                 NSArray *array = responseObject[@"FilmClass"];
                 for (NSDictionary *dic in array) {
                     
-                    [_titleArr addObject:dic[@"_FilmClassName"]];
-                    [_FilmClassUrlArr addObject:dic[@"_FilmClassUrl"]];
-                    [_pageCountArr addObject:dic[@"_PageCount"]];
-                    
+                    if (![dic[@"_FilmClassName"] isEqualToString:@"推荐"]) { // 隐藏分类详情的推荐
+                        
+                        [_titleArr addObject:dic[@"_FilmClassName"]];
+                        [_FilmClassUrlArr addObject:dic[@"_FilmClassUrl"]];
+                        [_pageCountArr addObject:dic[@"_PageCount"]];
+                    }
                 }
                 
                 //1.添加滑动headerView
