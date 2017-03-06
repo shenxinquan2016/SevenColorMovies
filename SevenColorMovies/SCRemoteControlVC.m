@@ -668,7 +668,7 @@
         
         [XMPPManager disConnect];
         [CommonFunc dismiss];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"绑定超时，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"机顶盒无响应，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         [alertView show];
         alertView.delegate = self;
         
