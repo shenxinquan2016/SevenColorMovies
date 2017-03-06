@@ -591,7 +591,7 @@ static ZFDownloadManager *sharedDownloadManager = nil;
 {
     ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
     NSLog(@"🔴%s 第%d行 \n\n",__func__, __LINE__);
-    NSLog(@"%lld",bytes);
+    NSLog(@"%@,%lld",fileInfo.fileReceivedSize,bytes);
     if (fileInfo.isFirstReceived) {
         fileInfo.isFirstReceived = NO;
         fileInfo.fileReceivedSize = [NSString stringWithFormat:@"%lld",bytes];
@@ -602,7 +602,6 @@ static ZFDownloadManager *sharedDownloadManager = nil;
     if([self.downloadDelegate respondsToSelector:@selector(updateCellProgress:)]) {
         [self.downloadDelegate updateCellProgress:request];
     }
-    
 }
 
 // 将正在下载的文件请求ASIHttpRequest从队列里移除，并将其配置文件删除掉,然后向已下载列表里添加该文件对象
