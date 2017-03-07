@@ -2192,8 +2192,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
 }
 
 // 电影请求数据
-- (void)getMovieData{
-    
+- (void)getMovieData
+{
     [CommonFunc showLoadingWithTips:@""];
     
     if (_filmModel._Mid) {
@@ -2271,7 +2271,12 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 //                DONG_Log(@">>>>>>>>>>>>downloadBase64Url>>>>>>>>>>%@",downloadBase64Url);
                 //                DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
                 
+                strongself.titleArr = @[@"详情", @"精彩推荐"];
+                strongself.identifier = @"电影";
                 
+                // 4.添加滑动headerView
+                [strongself constructSlideHeaderView];
+                [strongself constructContentView];
                 
                 
                 //请求播放地址
@@ -2325,6 +2330,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         strongself.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
                         strongself.IJKPlayerViewController.mediaControl.frame = strongself.view.frame;
                         [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                        [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
                         
                     } else {
                         
@@ -2396,12 +2402,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         }
                     }
                     
-                    strongself.titleArr = @[@"详情", @"精彩推荐"];
-                    strongself.identifier = @"电影";
                     
-                    // 4.添加滑动headerView
-                    [strongself constructSlideHeaderView];
-                    [strongself constructContentView];
                     
                     [CommonFunc dismiss];
                     
