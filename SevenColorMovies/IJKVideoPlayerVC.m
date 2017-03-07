@@ -21,6 +21,7 @@
 #import "SCMyWatchingHistoryVC.h"
 #import "SCRemoteControlVC.h"
 #import "SCXMPPManager.h"
+#import "ZFDownloadManager.h" //第三方下载工具
 
 @interface IJKVideoPlayerVC ()
 
@@ -65,6 +66,8 @@
 {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [[ZFDownloadManager sharedDownloadManager] pauseAllDownloads]; // 播放的时候主动暂停下载 否则下载报错
     //对UIViewAutoresizingNone进行清空，否则从xib加载View时显示出来的效果不一样(比如尺寸变大了)，autoresizingMask自动伸缩属性在搞鬼!
     self.view.autoresizingMask = UIViewAutoresizingNone;
     

@@ -193,7 +193,7 @@
     sender.userInteractionEnabled = NO;
     ZFFileModel *downFile = self.fileInfo;
     ZFDownloadManager *filedownmanage = [ZFDownloadManager sharedDownloadManager];
-    if(downFile.downloadState == ZFDownloading) { //文件正在下载，点击之后暂停下载 有可能进入等待状态
+    if(downFile.downloadState == ZFDownloading) { // 文件正在下载，点击之后暂停下载 有可能进入等待状态
         self.downLoadBtn.selected = YES;
         [self.downLoadBtn setImage:[UIImage imageNamed:@"PauseDownload"] forState:UIControlStateNormal];
         [filedownmanage stopRequest:self.request];

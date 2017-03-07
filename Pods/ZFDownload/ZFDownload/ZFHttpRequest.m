@@ -117,7 +117,8 @@
 
 - (void)request:(ZFHttpRequest *)request didReceiveBytes:(long long)bytes
 {
-    if (self.delegate&&[self.delegate respondsToSelector:@selector(request:didReceiveBytes:)]) {
+    NSLog(@"ASIHttpDelegate>>>>>>bytesbytes：%ld",bytes);
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(request:didReceiveBytes:)]&&bytes) {
         [self.delegate request:self didReceiveBytes:bytes];
     }
 }

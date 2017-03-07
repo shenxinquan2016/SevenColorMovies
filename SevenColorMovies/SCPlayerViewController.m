@@ -320,7 +320,7 @@ static const CGFloat LabelWidth = 100.f;
         
         [MBProgressHUD showSuccess:@"取消收藏"];
         
-    }else {//未添加 添加到数据库
+    } else {//未添加 添加到数据库
         
         //更新UI
         [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection_Click"] forState:UIControlStateNormal];
@@ -336,7 +336,7 @@ static const CGFloat LabelWidth = 100.f;
                 [realm addObject: filmModel];
             }];
             
-        }else{
+        } else {
             
             [realm transactionWithBlock:^{
                 [realm addObject: filmModel];

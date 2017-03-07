@@ -210,7 +210,7 @@ static NSString *const cellId = @"cellId";
                 //            // 利用ZFDownloadManager下载
                 [[ZFDownloadManager sharedDownloadManager] downFileUrl:playUrl filename:filmName fileimage:nil];
                 // 设置最多同时下载个数（默认是3）
-                [ZFDownloadManager sharedDownloadManager].maxCount = 2;
+                [ZFDownloadManager sharedDownloadManager].maxCount = 1;
                 
                 // 初始化Realm
                 NSString *documentPath = [FileManageCommon GetDocumentPath];

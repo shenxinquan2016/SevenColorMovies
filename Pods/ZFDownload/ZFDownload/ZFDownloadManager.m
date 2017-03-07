@@ -608,6 +608,18 @@ static ZFDownloadManager *sharedDownloadManager = nil;
 - (void)requestFinished:(ZFHttpRequest *)request
 {
     ZFFileModel *fileInfo = (ZFFileModel *)[request.userInfo objectForKey:@"File"];
+    
+    NSLog(@"fileSize:%@",fileInfo.fileSize);
+    NSLog(@"fileSize:%@",fileInfo.fileReceivedSize);
+    
+    NSLog(@"request.isFinished:%d",request.isFinished); // 结果会是1
+    NSLog(@"request.isExecuting:%d",request.isExecuting);// 结果会是0
+    
+    // 判断是否是真的下载完成
+    if ([fileInfo.fileSize integerValue] > ([fileInfo.fileReceivedSize integerValue]+1)) {
+        return;
+    }
+    
     [_finishedlist addObject:fileInfo];
     NSString *configPath = [fileInfo.tempPath stringByAppendingString:@".plist"];
     NSFileManager *fileManager = [NSFileManager defaultManager];

@@ -632,7 +632,6 @@ static NSString *const footerId = @"footerId";
         [self.navigationController pushViewController:VODPlayer animated:YES];
         
     }
-    
 }
 
 #pragma mark - UIAlertViewDelegate
