@@ -123,7 +123,7 @@
 		11759F621E0A5F05000B9440 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 11759F581E0A5F04000B9440 /* amrFileCodec.mm */; };
 		11759F631E0A5F05000B9440 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11759F5A1E0A5F05000B9440 /* libopencore-amrnb.a */; };
 		11759F641E0A5F05000B9440 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11759F5B1E0A5F05000B9440 /* libopencore-amrwb.a */; };
-		117608C11E6E7C6C00C11721 /* libagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 117608C01E6E7C6C00C11721 /* libagent.a */; };
+		117608C51E6E9AF800C11721 /* libagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 117608C41E6E9AF800C11721 /* libagent.a */; };
 		1177A0F91DF7A0B6004C216B /* Dong_RunLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1177A0F81DF7A0B6004C216B /* Dong_RunLabel.m */; };
 		11796BEA1DF8FB0C00F5923C /* SCUDPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BE91DF8FB0C00F5923C /* SCUDPSocketManager.m */; };
 		11796BF01DF93EE300F5923C /* SCTCPSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11796BEF1DF93EE300F5923C /* SCTCPSocketManager.m */; };
@@ -458,7 +458,7 @@
 		11759F5E1E0A5F05000B9440 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
 		11759F601E0A5F05000B9440 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
 		11759F611E0A5F05000B9440 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
-		117608C01E6E7C6C00C11721 /* libagent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libagent.a; sourceTree = "<group>"; };
+		117608C41E6E9AF800C11721 /* libagent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libagent.a; sourceTree = "<group>"; };
 		1177A0F71DF7A0B6004C216B /* Dong_RunLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dong_RunLabel.h; sourceTree = "<group>"; };
 		1177A0F81DF7A0B6004C216B /* Dong_RunLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dong_RunLabel.m; sourceTree = "<group>"; };
 		11796BE81DF8FB0C00F5923C /* SCUDPSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUDPSocketManager.h; sourceTree = "<group>"; };
@@ -648,7 +648,7 @@
 				116B1F6A1D5327FA00E9637A /* QuartzCore.framework in Frameworks */,
 				116B1F681D5327E200E9637A /* OpenGLES.framework in Frameworks */,
 				11759F641E0A5F05000B9440 /* libopencore-amrwb.a in Frameworks */,
-				117608C11E6E7C6C00C11721 /* libagent.a in Frameworks */,
+				117608C51E6E9AF800C11721 /* libagent.a in Frameworks */,
 				116B1F661D5323FD00E9637A /* MobileCoreServices.framework in Frameworks */,
 				116B1F641D5323E700E9637A /* MediaPlayer.framework in Frameworks */,
 				116B1F621D5323D800E9637A /* CoreVideo.framework in Frameworks */,
@@ -800,7 +800,7 @@
 			isa = PBXGroup;
 			children = (
 				11A39D9D1D9269EE00C9FEA8 /* libagent_start.h */,
-				117608C01E6E7C6C00C11721 /* libagent.a */,
+				117608C41E6E9AF800C11721 /* libagent.a */,
 			);
 			name = "播放的代理";
 			sourceTree = "<group>";

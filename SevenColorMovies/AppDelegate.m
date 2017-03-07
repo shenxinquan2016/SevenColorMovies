@@ -74,7 +74,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         DONG_Log(@"%@", [NSThread currentThread]); // 子线程
-        libagent_close();
+//        libagent_close();
     });
 }
 
@@ -137,11 +137,11 @@
     
     NSMutableDictionary *dic;
     
-    if ([netDic[@"netType"] isEqualToString:@"0"]) {//开发环境
+    if ([netDic[@"netType"] isEqualToString:@"0"]) { // 开发环境
         dic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"devEnvironment" ofType:@"plist"]];
-    }else if ([netDic[@"netType"] isEqualToString:@"1"]) {//测试环境
+    } else if ([netDic[@"netType"] isEqualToString:@"1"]) { // 测试环境
         dic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"testEnvironment" ofType:@"plist"]];
-    }else if ([netDic[@"netType"] isEqualToString:@"2"]) {//生产环境
+    } else if ([netDic[@"netType"] isEqualToString:@"2"]) { // 生产环境
         dic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"onlineEnvironment" ofType:@"plist"]];
     }
     
@@ -224,14 +224,14 @@
     libagent_start(0, NULL, uuid, 5656);
     
     // 开代理日志
-    //    [requestDataManager requestDataWithUrl:@"http://127.0.0.1:5656/logon" parameters:nil success:^(id  _Nullable responseObject) {
-    //
-    //        DONG_Log(@"responseObject:%@",responseObject);
-    //
-    //    } failure:^(id  _Nullable errorObject) {
-    //
-    //
-    //    }];
+//        [requestDataManager requestDataWithUrl:@"http://127.0.0.1:5656/logon" parameters:nil success:^(id  _Nullable responseObject) {
+//    
+//            DONG_Log(@"responseObject:%@",responseObject);
+//    
+//        } failure:^(id  _Nullable errorObject) {
+//    
+//    
+//        }];
     
 }
 
