@@ -18,6 +18,7 @@
 		11052AC21E10BFF300BF795B /* Dong_NullDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052AC11E10BFF300BF795B /* Dong_NullDataView.m */; };
 		11052AC51E10FEA800BF795B /* SCHTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052AC41E10FEA800BF795B /* SCHTMLViewController.m */; };
 		110591701D5046B20043C833 /* SCCollectionViewPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */; };
+		110D60AC1E6FEC620058951F /* libold_lib(1).a in Frameworks */ = {isa = PBXBuildFile; fileRef = 110D60AB1E6FEC620058951F /* libold_lib(1).a */; };
 		1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */; };
 		1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */; };
 		1111A40B1D488C1E00C17B92 /* DNIPhoneInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A40A1D488C1E00C17B92 /* DNIPhoneInfo.m */; };
@@ -216,7 +217,6 @@
 		11F9E2891D6D7503006326F3 /* SCLivePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F9E2881D6D7503006326F3 /* SCLivePlayerVC.m */; };
 		11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB481D3F16E100AAC216 /* SCBaseViewController.m */; };
 		11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */; };
-		11FB19871E6F9EA900413CF2 /* libold_lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11FB19861E6F9EA900413CF2 /* libold_lib.a */; };
 		11FEEF1A1D93846E00518029 /* HLJRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FEEF191D93846E00518029 /* HLJRequest.m */; };
 		11FEEF1E1D93848300518029 /* HLJDomainNameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FEEF1D1D93848300518029 /* HLJDomainNameModel.m */; };
 		11FF648C1E276799007DC954 /* SCAdvertisemetPosModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FF648B1E276799007DC954 /* SCAdvertisemetPosModel.m */; };
@@ -278,6 +278,7 @@
 		11052AC41E10FEA800BF795B /* SCHTMLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHTMLViewController.m; sourceTree = "<group>"; };
 		1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageVC.h; sourceTree = "<group>"; };
 		1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageVC.m; sourceTree = "<group>"; };
+		110D60AB1E6FEC620058951F /* libold_lib(1).a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libold_lib(1).a"; sourceTree = "<group>"; };
 		1111A4011D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		1111A4041D4886B300C17B92 /* SCNetRequsetManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNetRequsetManger.h; sourceTree = "<group>"; };
@@ -621,7 +622,6 @@
 		11FACB481D3F16E100AAC216 /* SCBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseViewController.m; sourceTree = "<group>"; };
 		11FACB4A1D3F19A000AAC216 /* SCSearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchBarView.h; sourceTree = "<group>"; };
 		11FACB4B1D3F19A000AAC216 /* SCSearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchBarView.m; sourceTree = "<group>"; };
-		11FB19861E6F9EA900413CF2 /* libold_lib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libold_lib.a; sourceTree = "<group>"; };
 		11FEEF181D93846E00518029 /* HLJRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJRequest.h; sourceTree = "<group>"; };
 		11FEEF191D93846E00518029 /* HLJRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJRequest.m; sourceTree = "<group>"; };
 		11FEEF1C1D93848300518029 /* HLJDomainNameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJDomainNameModel.h; sourceTree = "<group>"; };
@@ -644,7 +644,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				116B1F6E1D53281E00E9637A /* VideoToolbox.framework in Frameworks */,
-				11FB19871E6F9EA900413CF2 /* libold_lib.a in Frameworks */,
 				116B1F6C1D53280600E9637A /* UIKit.framework in Frameworks */,
 				116B1F6A1D5327FA00E9637A /* QuartzCore.framework in Frameworks */,
 				116B1F681D5327E200E9637A /* OpenGLES.framework in Frameworks */,
@@ -656,6 +655,7 @@
 				116B1F601D5323BE00E9637A /* CoreMedia.framework in Frameworks */,
 				116B1F5E1D5323A600E9637A /* CoreGraphics.framework in Frameworks */,
 				1180E1DD1E30F52000AF1681 /* Fabric.framework in Frameworks */,
+				110D60AC1E6FEC620058951F /* libold_lib(1).a in Frameworks */,
 				116B1F5C1D53238B00E9637A /* AVFoundation.framework in Frameworks */,
 				1180E1DE1E30F52000AF1681 /* Crashlytics.framework in Frameworks */,
 				116B1F5A1D53237D00E9637A /* AudioToolbox.framework in Frameworks */,
@@ -800,7 +800,7 @@
 			isa = PBXGroup;
 			children = (
 				11A39D9D1D9269EE00C9FEA8 /* libagent_start.h */,
-				11FB19861E6F9EA900413CF2 /* libold_lib.a */,
+				110D60AB1E6FEC620058951F /* libold_lib(1).a */,
 			);
 			name = "播放的代理";
 			sourceTree = "<group>";
