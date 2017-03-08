@@ -44,7 +44,7 @@
         
         if (session == nil) {
             DONG_Log(@"Error creating session: %@",[sessionError description]);
-        }else{
+        } else {
             [session setActive:YES error:nil];
         }
         
