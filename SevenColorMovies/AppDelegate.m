@@ -68,14 +68,15 @@
         
         [[ZFDownloadManager sharedDownloadManager] pauseAllDownloads];
         libagent_finish();
+        libagent_close();
         DONG_Log(@"%@", [NSThread currentThread]); // 主线程
     });
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        DONG_Log(@"%@", [NSThread currentThread]); // 子线程
-//        libagent_close();
-    });
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        
+//        DONG_Log(@"%@", [NSThread currentThread]); // 子线程
+//        
+//    });
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -122,7 +123,6 @@
 
 - (void)setSelectedInitialIndex
 {
-    
     //点播播放列表点击标识置为0
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedViewIndex];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:k_for_VOD_selectedCellIndex];
@@ -132,7 +132,6 @@
 //设置网络环境
 - (void)setNetworkEnvironment
 {
-    
     NSMutableDictionary *netDic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"switchNetworkEnvironment" ofType:@"plist"]];
     
     NSMutableDictionary *dic;
@@ -221,6 +220,7 @@
     const NSString *uuidStr = [HLJUUID getUUID];
     const char *uuid = [uuidStr UTF8String];
     
+
     libagent_start(0, NULL, uuid, 5656);
     
     // 开代理日志

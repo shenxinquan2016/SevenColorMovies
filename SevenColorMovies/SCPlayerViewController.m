@@ -2312,7 +2312,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                     }
                     
                     NSString *play_url = responseObject[@"play_url"];
-                    DONG_Log(@"responseObject:%@",play_url);
+                    DONG_Log(@"play_url:%@",play_url);
                     //请求将播放地址域名转换  并拼接最终的播放地址
                     NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
                     
