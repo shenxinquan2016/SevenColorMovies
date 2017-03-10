@@ -2783,7 +2783,7 @@
 					"$(PROJECT_DIR)/SevenColorMovies",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/yesdgq/Desktop/SevenColorMovies/SevenColorMovies/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/SevenColorMovies/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -2862,7 +2862,7 @@
 					"$(PROJECT_DIR)/SevenColorMovies",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/yesdgq/Desktop/SevenColorMovies/SevenColorMovies/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/SevenColorMovies/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
