@@ -62,8 +62,10 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     
-    //    [DONG_NotificationCenter postNotificationName:AppWillResignActive object:nil];
+    // App进入后台 发送通知 记录播放信息
+    [DONG_NotificationCenter postNotificationName:AppWillResignActive object:nil];
     
+    // App进入后台 关闭播放代理
     DONG_MAIN(^{
         
         [[ZFDownloadManager sharedDownloadManager] pauseAllDownloads];
@@ -72,11 +74,6 @@
         DONG_Log(@"%@", [NSThread currentThread]); // 主线程
     });
     
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        
-//        DONG_Log(@"%@", [NSThread currentThread]); // 子线程
-//        
-//    });
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -89,10 +86,11 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    //-1.启动播放代理包
+    
+    // App激活时 启动播放代理包
     [self setLibagent];
-    //    [DONG_NotificationCenter postNotificationName:AppDidBecomeActive object:nil]
+    // 如果是正在播放时进入后台的 接着播放
+    [DONG_NotificationCenter postNotificationName:AppDidBecomeActive object:nil];
     
     
     // 移动网络环境下播放是否提醒  每次APP进入时，设置为yes
@@ -220,18 +218,18 @@
     const NSString *uuidStr = [HLJUUID getUUID];
     const char *uuid = [uuidStr UTF8String];
     
-
+    
     libagent_start(0, NULL, uuid, 5656);
     
     // 开代理日志
-//        [requestDataManager requestDataWithUrl:@"http://127.0.0.1:5656/logon" parameters:nil success:^(id  _Nullable responseObject) {
-//    
-//            DONG_Log(@"responseObject:%@",responseObject);
-//    
-//        } failure:^(id  _Nullable errorObject) {
-//    
-//    
-//        }];
+    //        [requestDataManager requestDataWithUrl:@"http://127.0.0.1:5656/logon" parameters:nil success:^(id  _Nullable responseObject) {
+    //
+    //            DONG_Log(@"responseObject:%@",responseObject);
+    //
+    //        } failure:^(id  _Nullable errorObject) {
+    //
+    //
+    //        }];
     
 }
 

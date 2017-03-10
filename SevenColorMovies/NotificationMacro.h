@@ -29,6 +29,6 @@ static NSString *const AppDidBecomeActive = @"AppDidBecomeActive";/** app被激�
 #define k_for_VOD_selectedCellIndex @"k_for_VOD_selectedCellIndex"/** 点击cell的标识  点播 */
 #define kFilmClassTitleArray @"kFilmClassTitleArray"/** 节目分类title保存到本地 */
 #define kMobileNetworkAlert @"kMobileNetworkAlert"/** 移动网络播放时提醒 */
-
+#define kCurrentPlayTimeWhenGotoBG @"kCurrentPlayTimeWhenGotoBG"/** 进入后台时的当前播放时间 */
 
 #endif /* NotificationMacro_h */

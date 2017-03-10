@@ -94,6 +94,9 @@ static const CGFloat LabelWidth = 100.f;
 @property (weak, nonatomic) IBOutlet UIView *playerBackGroundView;
 @property (weak, nonatomic) IBOutlet UIView *functionalZoneView;
 
+/** 控制记录当前播放时间的时机 */
+@property (nonatomic, assign) BOOL isRecordingCurrentPlayTime;
+
 @end
 
 @implementation SCPlayerViewController
@@ -121,20 +124,22 @@ static const CGFloat LabelWidth = 100.f;
     self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     [self.navigationItem setHidesBackButton:YES];
     
-    //0.更新功能区的上约束值
+    // 0.更新功能区的上约束值
     _toTopConstraint.constant = kMainScreenWidth * 9 / 16;
     _addMyCollectionBtn.enlargedEdge = 5.f;
     _addProgramListBtn.enlargedEdge = 15.f;
     _downLoadBtn.enlargedEdge = 5.f;
     
-    //1.初始化数组
+    // 1.初始化数组
     self.filmSetsArr = [NSMutableArray arrayWithCapacity:0];
     self.filmsArr = [NSMutableArray arrayWithCapacity:0];
     self.advertisementArray = [NSMutableArray arrayWithCapacity:0];
-    //2.组建页面
+    // 2.组建页面
     [self setView];
-    //3.注册通知
+    // 3.注册通知
     //[self registerNotification];
+    // 4.YES:进入后台时需要记录当前播放时间
+    _isRecordingCurrentPlayTime = YES;
     
     //TCPScoketManager.delegate = self;
     XMPPManager.delegate = self;
@@ -489,8 +494,8 @@ static const CGFloat LabelWidth = 100.f;
         }];
         
     } else if // 综艺 生活
-        ([mtype isEqualToString:@"7"] ||
-         [mtype isEqualToString:@"9"])
+    ([mtype isEqualToString:@"7"] ||
+     [mtype isEqualToString:@"9"])
     {
         if (!_artsDownloadView) {
             _artsDownloadView = [[SCArtsDownloadView alloc] initWithFrame:CGRectMake(0, kMainScreenWidth * 9 / 16 +40, kMainScreenWidth, kMainScreenHeight-(kMainScreenWidth * 9 / 16 +20))];
@@ -601,7 +606,7 @@ static const CGFloat LabelWidth = 100.f;
     NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
     
     if ([self.entrance isEqualToString:@"search"]) {
-    
+        
         // 私人影院 电影 海外片场
         if ([mtype isEqualToString:@"0"] ||
             [mtype isEqualToString:@"2"] ||
@@ -610,9 +615,9 @@ static const CGFloat LabelWidth = 100.f;
             [self getMovieData];
             
         } else if // 综艺 生活
-            
-            ([mtype isEqualToString:@"7"] ||
-             [mtype isEqualToString:@"9"])
+        
+        ([mtype isEqualToString:@"7"] ||
+         [mtype isEqualToString:@"9"])
         {
             [self getArtsAndLifeData];
             
@@ -620,7 +625,7 @@ static const CGFloat LabelWidth = 100.f;
             //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
             [self getTeleplayData];
         }
-
+        
     } else {
         
         // 私人影院 电影 海外片场
@@ -631,9 +636,9 @@ static const CGFloat LabelWidth = 100.f;
             [self getMovieData];
             
         } else if // 综艺 生活
-            
-            ([mtype isEqualToString:@"7"] ||
-             [mtype isEqualToString:@"9"])
+        
+        ([mtype isEqualToString:@"7"] ||
+         [mtype isEqualToString:@"9"])
         {
             [self getArtsAndLifeData];
             
@@ -641,7 +646,7 @@ static const CGFloat LabelWidth = 100.f;
             //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
             [self getTeleplayData];
         }
-
+        
         
         
     }
@@ -663,25 +668,126 @@ static const CGFloat LabelWidth = 100.f;
                                                object:nil];
     // 4.点击列表播放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNewFilm:) name:PlayVODFilmWhenClick object:nil];
-//    // 5.APP进入后台
-//    [DONG_NotificationCenter addObserver:self selector:@selector(playerPause) name:AppWillResignActive object:nil];
-//    // 6.APP被激活
-//    [DONG_NotificationCenter addObserver:self selector:@selector(playerPlay) name:AppDidBecomeActive object:nil];
+    // 5.APP进入后台
+    [DONG_NotificationCenter addObserver:self selector:@selector(gotoBackground) name:AppWillResignActive object:nil];
+    // 6.APP被激活
+    [DONG_NotificationCenter addObserver:self selector:@selector(gotoFrontground) name:AppDidBecomeActive object:nil];
 }
 
-/** 暂停 */
-- (void)playerPause
+/** 进入后台 */
+- (void)gotoBackground
 {
-    [self.IJKPlayerViewController pause];
-}
-
-/** 播放 */
-- (void)playerPlay
-{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    if (_isRecordingCurrentPlayTime) {
+        // 允许保存时才记录当前播放时间
+    NSInteger currentPlayTime = self.IJKPlayerViewController.player.currentPlaybackTime;
+    [DONG_UserDefaults setInteger:currentPlayTime forKey:kCurrentPlayTimeWhenGotoBG];
+    [DONG_UserDefaults synchronize];
+    DONG_Log(@"进入后台: %ld", (long)currentPlayTime);
+    _isRecordingCurrentPlayTime = NO;
         
-        [self.IJKPlayerViewController play];
-    });
+    }
+}
+
+/** 回到前台 */
+- (void)gotoFrontground
+{
+    // 重置播放器
+    // 0.关闭正在播放的节目
+    if ([self.IJKPlayerViewController.player isPlaying]) {
+        [self.IJKPlayerViewController.player pause];
+    }
+    
+    // 1.移除当前的播放器
+    [self.IJKPlayerViewController closePlayer];
+    
+    // 2.重新加载播放器 seekto到指定时间
+    if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
+        
+        //2.调用播放器播放
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+        self.view.frame = [[UIScreen mainScreen] bounds];
+        self.IJKPlayerViewController.view.frame = self.view.bounds;
+        self.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+        self.IJKPlayerViewController.mediaControl.frame = self.view.frame;
+        [self.view addSubview:self.IJKPlayerViewController.view];
+        [self.view bringSubviewToFront:self.IJKPlayerViewController.view];
+        
+    } else {
+        
+        // 2.调用播放器播放
+        self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+        self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+        
+        [self.view addSubview:self.IJKPlayerViewController.view];
+    }
+    
+    NSString *filmName;
+    if (self.filmModel.FilmName) {
+        filmName = self.filmModel.FilmName;
+    }else if (self.filmModel.cnname){
+        filmName = self.filmModel.cnname;
+    }
+    
+    self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;
+    
+    // 1.全屏锁定回调
+    DONG_WeakSelf(self);
+    self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+        DONG_StrongSelf(self);
+        strongself.fullScreenLock = isFullScreenLock;
+    };
+    // 2.添加播放记录的回调
+    self.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
+        DONG_StrongSelf(self);
+        [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
+    };
+    // 3.推屏的回调
+    self.IJKPlayerViewController.pushScreenBlock = ^{
+        DONG_StrongSelf(self);
+        // 未连接设备时要先扫描设备
+        if (XMPPManager.isConnected) {
+            NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+            NSString *xmlString = [strongself getXMLCommandWithFilmModel:strongself.filmModel];
+            //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+            [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
+            
+        } else {
+            
+            [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+            
+            //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+            //[alertView show];
+            //alertView.delegate = weakself;
+        }
+    };
+    // 4.暂停广告
+    self.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
+    
+    for (SCAdvertisemetPosModel *adPosModel in self.advertisementArray) {
+        // 选择暂停广告：706
+        if ([adPosModel._pos isEqualToString:@"706"]) {
+            
+            if (adPosModel.adMediaInfoArray.count) {
+                // 暂停广告有多条
+                SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
+                NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
+                [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                
+            } else {
+                // 暂停广告只一条
+                NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
+                [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                
+            }
+            
+            break;
+        }
+    }
+
+    
+    
+    
+    
     
 }
 
@@ -845,21 +951,21 @@ static const CGFloat LabelWidth = 100.f;
     if ([_identifier isEqualToString:@"电影"]) {
         for (int i=0; i<_titleArr.count ;i++){
             switch (i) {
-                case 0:{//详情
-                    SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
-                    introduceVC.model = _filmIntroduceModel;
-                    [self addChildViewController:introduceVC];
-                    
-                    break;
-                }
-                case 1:{//精彩推荐
-                    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
-                    SCMoiveRecommendationCollectionVC *vc = [[SCMoiveRecommendationCollectionVC alloc] initWithCollectionViewLayout:layout];
-                    vc.filmModel = self.filmModel;
-                    vc.bannerFilmModelArray = self.bannerFilmModelArray;
-                    [self addChildViewController:vc];
-                    break;
-                }
+                    case 0:{//详情
+                        SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
+                        introduceVC.model = _filmIntroduceModel;
+                        [self addChildViewController:introduceVC];
+                        
+                        break;
+                    }
+                    case 1:{//精彩推荐
+                        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+                        SCMoiveRecommendationCollectionVC *vc = [[SCMoiveRecommendationCollectionVC alloc] initWithCollectionViewLayout:layout];
+                        vc.filmModel = self.filmModel;
+                        vc.bannerFilmModelArray = self.bannerFilmModelArray;
+                        [self addChildViewController:vc];
+                        break;
+                    }
                 default:
                     break;
             }
@@ -877,27 +983,27 @@ static const CGFloat LabelWidth = 100.f;
         
         for (int i=0; i<_titleArr.count ;i++) {
             switch (i) {
-                case 0:{//剧集
-                    SCMoiveAllEpisodesVC *episodesVC = [[SCMoiveAllEpisodesVC alloc] init];
-                    [self addChildViewController:episodesVC];
-                    episodesVC.filmSetsArr = _filmSetsArr;
-                    break;
-                }
-                case 1:{//详情
-                    SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
-                    introduceVC.model = _filmIntroduceModel;
-                    [self addChildViewController:introduceVC];
-                    
-                    break;
-                }
-                case 2:{//精彩推荐
-                    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
-                    SCMoiveRecommendationCollectionVC *vc = [[SCMoiveRecommendationCollectionVC alloc] initWithCollectionViewLayout:layout];
-                    vc.filmModel = self.filmModel;
-                    vc.bannerFilmModelArray = self.bannerFilmModelArray;
-                    [self addChildViewController:vc];
-                    break;
-                }
+                    case 0:{//剧集
+                        SCMoiveAllEpisodesVC *episodesVC = [[SCMoiveAllEpisodesVC alloc] init];
+                        [self addChildViewController:episodesVC];
+                        episodesVC.filmSetsArr = _filmSetsArr;
+                        break;
+                    }
+                    case 1:{//详情
+                        SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
+                        introduceVC.model = _filmIntroduceModel;
+                        [self addChildViewController:introduceVC];
+                        
+                        break;
+                    }
+                    case 2:{//精彩推荐
+                        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+                        SCMoiveRecommendationCollectionVC *vc = [[SCMoiveRecommendationCollectionVC alloc] initWithCollectionViewLayout:layout];
+                        vc.filmModel = self.filmModel;
+                        vc.bannerFilmModelArray = self.bannerFilmModelArray;
+                        [self addChildViewController:vc];
+                        break;
+                    }
                 default:
                     break;
             }
@@ -913,19 +1019,19 @@ static const CGFloat LabelWidth = 100.f;
         
         for (int i=0; i<_titleArr.count ;i++){
             switch (i) {
-                case 0:{// 剧集
-                    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
-                    SCArtsFilmsCollectionVC *filmsColleView = [[SCArtsFilmsCollectionVC alloc] initWithCollectionViewLayout:layout];
-                    filmsColleView.dataArray = _filmsArr;
-                    [self addChildViewController:filmsColleView];
-                    break;
-                }
-                case 1:{// 介绍
-                    SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
-                    introduceVC.model = _filmIntroduceModel;
-                    [self addChildViewController:introduceVC];
-                    break;
-                }
+                    case 0:{// 剧集
+                        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+                        SCArtsFilmsCollectionVC *filmsColleView = [[SCArtsFilmsCollectionVC alloc] initWithCollectionViewLayout:layout];
+                        filmsColleView.dataArray = _filmsArr;
+                        [self addChildViewController:filmsColleView];
+                        break;
+                    }
+                    case 1:{// 介绍
+                        SCMoiveIntroduceVC *introduceVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCMoiveIntroduceVC");
+                        introduceVC.model = _filmIntroduceModel;
+                        [self addChildViewController:introduceVC];
+                        break;
+                    }
                 default:
                     break;
             }
@@ -1030,62 +1136,62 @@ static const CGFloat LabelWidth = 100.f;
      UIDeviceOrientationFaceDown             // Device oriented flat, face down   */
     
     switch (orient) {
-        case UIDeviceOrientationPortrait: {
-            
-            //此方向为正常竖屏方向，当锁定全屏设备旋转至此方向时，屏幕虽然不显示StatusBar，但会留出StatusBar位置，所以调整IJKPlayer的位置
-            if (self.fullScreenLock) {
-                [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-                _IJKPlayerViewController.isFullScreen = YES;
-                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-                _IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+            case UIDeviceOrientationPortrait: {
                 
-            } else {
+                //此方向为正常竖屏方向，当锁定全屏设备旋转至此方向时，屏幕虽然不显示StatusBar，但会留出StatusBar位置，所以调整IJKPlayer的位置
+                if (self.fullScreenLock) {
+                    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+                    _IJKPlayerViewController.isFullScreen = YES;
+                    [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                    _IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+                    
+                } else {
+                    
+                    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+                    _playerBackGroundView.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    _functionalZoneView.frame = CGRectMake(0, 20 + (kMainScreenWidth * 9 / 16) + 2, kMainScreenWidth, 36);
+                    [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                    _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                    _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
+                }
                 
-                [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-                _playerBackGroundView.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                _functionalZoneView.frame = CGRectMake(0, 20 + (kMainScreenWidth * 9 / 16) + 2, kMainScreenWidth, 36);
-                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-                _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                _IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = YES;
+                break;
             }
             
-            break;
-        }
+            case UIDeviceOrientationLandscapeLeft: {
+                [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                self.view.frame = [[UIScreen mainScreen] bounds];
+                _IJKPlayerViewController.view.frame = self.view.bounds;
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+                _IJKPlayerViewController.isFullScreen = YES;
+                _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+                [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+                break;
+            }
             
-        case UIDeviceOrientationLandscapeLeft: {
-            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            self.view.frame = [[UIScreen mainScreen] bounds];
-            _IJKPlayerViewController.view.frame = self.view.bounds;
-            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
-            _IJKPlayerViewController.isFullScreen = YES;
-            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
-            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
-            [self.view bringSubviewToFront:_IJKPlayerViewController.view];
-            break;
-        }
+            case UIDeviceOrientationPortraitUpsideDown: {
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+                _IJKPlayerViewController.isFullScreen = YES;
+                DONG_Log(@"fullLock:%d",_isFullScreen);
+            }
             
-        case UIDeviceOrientationPortraitUpsideDown: {
-            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
-            _IJKPlayerViewController.isFullScreen = YES;
-            DONG_Log(@"fullLock:%d",_isFullScreen);
-        }
-            
-        case UIDeviceOrientationLandscapeRight: {
-            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-            [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
-            self.view.frame = [[UIScreen mainScreen] bounds];
-            _IJKPlayerViewController.view.frame = self.view.bounds;
-            _IJKPlayerViewController.isFullScreen = YES;
-            _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
-            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
-            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
-            [self.view bringSubviewToFront:_IJKPlayerViewController.view];
-            break;
-        }
+            case UIDeviceOrientationLandscapeRight: {
+                [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+                [_IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+                self.view.frame = [[UIScreen mainScreen] bounds];
+                _IJKPlayerViewController.view.frame = self.view.bounds;
+                _IJKPlayerViewController.isFullScreen = YES;
+                _IJKPlayerViewController.mediaControl.fullScreenLockButton.hidden = NO;
+                _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+                [self.view bringSubviewToFront:_IJKPlayerViewController.view];
+                break;
+            }
             
         default:
             break;
@@ -1102,17 +1208,17 @@ static const CGFloat LabelWidth = 100.f;
     
     switch (reason)
     {
-        case IJKMPMovieFinishReasonPlaybackEnded:
+            case IJKMPMovieFinishReasonPlaybackEnded:
             NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonPlaybackEnded: %d\n", reason);
             //当前节目播放结束，播放下一个节目
             [self playNextFilm];
             break;
             
-        case IJKMPMovieFinishReasonUserExited:
+            case IJKMPMovieFinishReasonUserExited:
             
             break;
             
-        case IJKMPMovieFinishReasonPlaybackError:
+            case IJKMPMovieFinishReasonPlaybackError:
             
             break;
             
@@ -1130,10 +1236,20 @@ static const CGFloat LabelWidth = 100.f;
     // 开始播放5秒后隐藏播放器控件
     [self performSelector:@selector(hideIJKPlayerMediaControlView) withObject:nil afterDelay:5.0];
     
-    
     //在此通知里设置加载IJK时的起始播放时间
-    //如果已经播放过，则从已播放时间开始播放
-    if (_filmModel.currentPlayTime) {
+    NSInteger currentPlayTime = [DONG_UserDefaults integerForKey:kCurrentPlayTimeWhenGotoBG];
+
+    if (currentPlayTime) {
+       // 如果是从后台回来
+        self.IJKPlayerViewController.player.currentPlaybackTime = currentPlayTime;
+        currentPlayTime = 0;// 复位
+        [DONG_UserDefaults setInteger:currentPlayTime forKey:kCurrentPlayTimeWhenGotoBG];
+        [DONG_UserDefaults synchronize];
+        // 加载成功seekTo指定时间后才允许下次进入后台时记录当前播放时间
+        _isRecordingCurrentPlayTime = YES;
+        
+    } else if (_filmModel.currentPlayTime) {
+        // 如果已经播放过，则从已播放时间开始播放
         DONG_Log(@"currentPlayTime:%f", _filmModel.currentPlayTime);
         self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.currentPlayTime;
     }
@@ -1752,7 +1868,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                         //NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>>%@",model.VODStreamingUrl);
                         [_filmSetsArr addObject:model];
                         
-                    }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
+                    } else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
                         
                         
                         for (NSDictionary *dic in responseObject[@"ContentSet"][@"Content"]) {
@@ -2409,7 +2525,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 } failure:^(id  _Nullable errorObject) {
                     [CommonFunc dismiss];
                 }];
-            
+                
             } failure:^(id  _Nullable errorObject) {
                 
                 [CommonFunc dismiss];
