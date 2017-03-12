@@ -75,6 +75,10 @@ static const CGFloat LabelWidth = 55.f;
 @property (weak, nonatomic) IBOutlet UIView *playerBackgroundView;
 
 @property (weak, nonatomic) IBOutlet UIView *functionalZoneView;
+/** 控制记录当前播放时间的时机 */
+@property (nonatomic, assign) BOOL isRecordingCurrentPlayTime;
+/** 记录进入后台时播放器的类型：直播/时移/回看 */
+//@property (nonatomic, copy) NSString *live;
 
 @end
 
@@ -107,6 +111,9 @@ static const CGFloat LabelWidth = 55.f;
     
     // 3.XMPP delegate
     XMPPManager.delegate = self;
+    
+    // 4.YES:进入后台时需要记录当前播放时间
+    _isRecordingCurrentPlayTime = YES;
     
 }
 
@@ -224,12 +231,126 @@ static const CGFloat LabelWidth = 55.f;
                                              selector:@selector(moviePlayBackDidFinish:)
                                                  name:IJKMPMoviePlayerPlaybackDidFinishNotification
                                                object:_IJKPlayerViewController.player];
+    // 5.APP进入后台
+    [DONG_NotificationCenter addObserver:self selector:@selector(gotoBackground) name:AppWillResignActive object:nil];
+    // 6.APP被激活
+    [DONG_NotificationCenter addObserver:self selector:@selector(gotoFrontground) name:AppDidBecomeActive object:nil];
 }
 
 - (void)setView
 {
     // 请求直播节目列表数据后组装页面
     [self getLiveChannelData];
+    
+}
+
+#pragma mark - 播放时进入后台和返回前台的处理
+/** 进入后台 */
+- (void)gotoBackground
+{
+    if (_isRecordingCurrentPlayTime) {
+        // 允许保存时才记录当前播放时间
+        NSInteger currentPlayTime = self.IJKPlayerViewController.player.currentPlaybackTime;
+        [DONG_UserDefaults setInteger:currentPlayTime forKey:kCurrentPlayTimeWhenGotoBG];
+        [DONG_UserDefaults synchronize];
+        DONG_Log(@"进入后台: %ld", (long)currentPlayTime);
+        _isRecordingCurrentPlayTime = NO;
+        
+    }
+}
+
+/** 回到前台 */
+- (void)gotoFrontground
+{
+    // 重置播放器
+    // 0.关闭正在播放的节目
+    if ([self.IJKPlayerViewController.player isPlaying]) {
+        [self.IJKPlayerViewController.player pause];
+    }
+    
+    // 1.移除当前的播放器
+    [self.IJKPlayerViewController closePlayer];
+    
+    // 2.重新加载播放器 seekto到指定时间
+    // 直播和时移时的进度条不同
+    if (@"直播 时移") {
+        
+        if ([PlayerViewRotate isOrientationLandscape]) {
+            // 全屏
+            // 5.开始播放直播
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            self.view.frame = [[UIScreen mainScreen] bounds];
+            _IJKPlayerViewController.view.frame = self.view.bounds;
+            _IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+            _IJKPlayerViewController.mediaControl.frame = self.view.frame;
+            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+            _IJKPlayerViewController.mediaControl.liveState = Live;
+            _IJKPlayerViewController.mediaControl.isLive = YES;
+            
+        } else {
+            
+            // 小屏
+            // 5.开始播放直播
+            self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+            _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = programOnLiveName_;
+            _IJKPlayerViewController.mediaControl.liveState = Live;
+            _IJKPlayerViewController.mediaControl.isLive = YES;
+            
+        }
+        
+        if (_isFeiPing) {
+            // 飞屏 （控制播放器返回事件）
+            _IJKPlayerViewController.isFeiPing = YES;
+        }
+        
+        // 6.推屏的回调
+        DONG_WeakSelf(self);
+        self.IJKPlayerViewController.pushScreenBlock = ^{
+            // 未连接设备时要先扫描设备
+            if (XMPPManager.isConnected) {
+                
+                NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+                [weakself getLivePushScreenXMLCommandWithFilmModel:weakself.filmModel liveProgramModel:nil success:^(id  _Nullable responseObject) {
+                    
+                    //[TCPScoketManager socketWriteData:responseObject withTimeout:-1 tag:1001];
+                    [XMPPManager sendMessageWithBody:responseObject andToName:toName andType:@"text"];
+                }];
+                
+            } else {
+                
+                [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                //[alertView show];
+                //alertView.delegate = weakself;
+                
+            }
+        };
+        
+        // 7.根据全屏锁定的回调，更新本页视图是否支持屏幕旋转的状态
+        self.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+            DONG_StrongSelf(self);
+            strongself.fullScreenLock = isFullScreenLock;
+            [strongself shouldAutorotate];
+        };
+        
+        // 8.时移的回调
+        self.IJKPlayerViewController.timeShiftBlock = ^(NSString *liveState, int positionTime) {
+            DONG_Log(@"liveState:%@", liveState);
+            if ([liveState isEqualToString:@"timeShift"]) {
+                // 进入时移
+                [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
+            }
+            
+        };
+        
+        [self.view addSubview:_IJKPlayerViewController.view];
+        
+    } else if (@"点播") {
+        
+        
+    }
+    
     
 }
 
@@ -607,6 +728,9 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
 {
     // 开始播放5秒后隐藏播放器控件
     [self performSelector:@selector(hideIJKPlayerMediaControlView) withObject:nil afterDelay:5.0];
+    
+    
+    
 }
 
 #pragma mark - 全屏/小屏切换

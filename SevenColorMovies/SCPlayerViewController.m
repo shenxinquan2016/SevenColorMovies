@@ -674,6 +674,7 @@ static const CGFloat LabelWidth = 100.f;
     [DONG_NotificationCenter addObserver:self selector:@selector(gotoFrontground) name:AppDidBecomeActive object:nil];
 }
 
+#pragma mark - 播放时进入后台和返回前台的处理
 /** 进入后台 */
 - (void)gotoBackground
 {
@@ -783,12 +784,7 @@ static const CGFloat LabelWidth = 100.f;
             break;
         }
     }
-
-    
-    
-    
-    
-    
+ 
 }
 
 /** 添加滚动标题栏*/
