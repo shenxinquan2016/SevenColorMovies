@@ -15,25 +15,35 @@
 #import "SCDLNAViewController.h"
 #import "SCScanQRCodesVC.h"
 #import "SCXMPPManager.h"
+#import "SCDiscoveryCollectionViewCell.h"
+#import "SCSecondLevelVC.h"
 
 #import <Crashlytics/Crashlytics.h>
 
-@interface SCDiscoveryViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface SCDiscoveryViewController () <UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSArray *dataSource;
+@property (nonatomic, strong) UICollectionView *collView;/** collectionView */
+
 
 @end
 
 @implementation SCDiscoveryViewController
+
+static NSString *const cellId = @"SCDiscoveryCollectionViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHex:@"#dddddd"];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    [self setTableView];
+//    [self setTableView];
     
+    //2.添加cellectionView
+    [self loadCollectionView];
+    
+    
+    // 崩溃测试
     UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(0, 550, 60, 30);
     [button setTitle:@"Crash" forState:UIControlStateNormal];
@@ -67,13 +77,23 @@
 }
 
 #pragma mark- private methods
-- (void)setTableView
+
+- (void)loadCollectionView
 {
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.backgroundColor = [UIColor colorWithHex:@"#F0F1F2"];
-    _tableView.scrollEnabled = NO;
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
+    _collView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64) collectionViewLayout:layout];
+    _collView.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
+    _collView.dataSource = self;
+    _collView.delegate = self;
+    _collView.scrollEnabled = NO;//禁止滚动
+    [self.view addSubview:_collView];
+    
+    
+    // 注册cell、sectionHeader、sectionFooter
+    [_collView registerNib:[UINib nibWithNibName:@"SCDiscoveryCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellId];
     
 }
+
 
 - (void)toSearchingDevicePage
 {
@@ -82,115 +102,99 @@
     [self.navigationController pushViewController:searchDeviceVC animated:YES];
 }
 
-#pragma mark- UITableViewDataSource
--(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tableView
+#pragma mark ---- UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
+    return 1;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    
     return self.dataSource.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (self.dataSource.count > section) {
-        NSArray *array = self.dataSource[section];
-        return array.count;
-    }
-    return 0;
-}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    SCDiscoveryCollectionViewCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     
-    SCDiscoveryTableViewCell *cell = [SCDiscoveryTableViewCell cellWithTableView:tableView];
-    if (indexPath.section < self.dataSource.count) {
-        NSArray *array = self.dataSource[indexPath.section];
-        if (indexPath.row < array.count) {
-            NSDictionary *dict = [array objectAtIndex:indexPath.row];
-            SCDiscoveryCellModel *model = [SCDiscoveryCellModel mj_objectWithKeyValues:dict];
-            cell.model = model;
-        }
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell setModel:self.dataSource[indexPath.row] IndexPath:indexPath];
     
     return cell;
 }
 
-#pragma mark -  UITableViewDataDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+
+
+#pragma mark ---- UICollectionViewDelegateFlowLayout
+/** item Size */
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 54.f;
+    return (CGSize){(kMainScreenWidth-2)/3,80};
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+/** Section EdgeInsets */
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    if (indexPath.section == 0) { // 扫码
-
-        SCScanQRCodesVC *scanQRCodesVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanQRCodesVC");
-        scanQRCodesVC.isQQSimulator = YES;
-        scanQRCodesVC.isVideoZoom = YES;
-        scanQRCodesVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:scanQRCodesVC animated:YES];
-        
-    } else if (indexPath.section == 1 && indexPath.row == 0){ // 遥控器
-        
-        if (XMPPManager.isConnected) {
-            SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
-            remoteVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:remoteVC animated:YES];
-            
-        } else {
-            
-            SCScanQRCodesVC *scanQRCodesVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanQRCodesVC");
-            scanQRCodesVC.isQQSimulator = YES;
-            scanQRCodesVC.isVideoZoom = YES;
-            scanQRCodesVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:scanQRCodesVC animated:YES];
-            
-        }
-        
-    } else if (indexPath.section == 1 && indexPath.row == 1) { // DLNA
-        
-//        SCDLNAViewController *dlnaVC = [[SCDLNAViewController alloc] initWithNibName:@"SCDLNAViewController" bundle:nil];;
-//        SCDLNAViewController *dlnaVC = [[NSBundle mainBundle] loadNibNamed:
-//         @"SCDLNAViewController" owner:nil options:nil ].lastObject;
-//        [self.navigationController pushViewController:dlnaVC animated:YES];
-        
-        // TCP已经连接 进遥控器页  没有连接进遥控器搜索页
-        if (TCPScoketManager.isConnected) {
-            SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
-            remoteVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:remoteVC animated:YES];
-            
-        } else {
-            
-            SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
-            searchDeviceVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:searchDeviceVC animated:YES];
-        }
-
-        
-    }
-    
+    return UIEdgeInsetsMake(10, 0, 1, 0);
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+/** item水平间距 */
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 10.f;
+    return 1.f;
 }
 
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+/** item垂直间距 */
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return nil;
+    return 1.f;
 }
+
+/** section Header 尺寸 */
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+    return (CGSize){kMainScreenWidth,0};
+}
+
+/** section Footer 尺寸*/
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
+{
+    return (CGSize){kMainScreenWidth,80};
+}
+
+#pragma mark ---- UICollectionViewDelegate
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+// 选中某item
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *dict = self.dataSource[indexPath.row];
+    NSString *keyStr = [dict.allKeys objectAtIndex:0];
+    SCSecondLevelVC *secondLevel  = [[SCSecondLevelVC alloc] initWithWithTitle:keyStr];
+    secondLevel.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:secondLevel animated:YES];
+
+}
+
+
 
 #pragma mark- Getters and Setters
 - (NSArray *)dataSource {
     
     if (!_dataSource) {
-        NSArray *array = @[@[@{@"leftImg":@"Scan",@"title":@"扫一扫",@"isShowBottmLine":@"YES"}],
-                           @[@{@"leftImg":@"RemoteControl",@"title":@"遥控器",@"isShowBottmLine":@"NO"},
-                             /*@{@"leftImg":@"DLNA",@"title":@"DLNA",@"isShowBottmLine":@"YES"}*/],
-                           /*@[@{@"leftImg":@"Activity",@"title":@"活动专区",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Game_1",@"title":@"游戏中心",@"isShowBottmLine":@"YES"}],
-                           @[@{@"leftImg":@"Application",@"title":@"应用中心",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Live_1",@"title":@"直播伴侣",@"isShowBottmLine":@"YES"}]*/];
+//        NSArray *array = @[@[@{@"leftImg":@"Scan",@"title":@"扫一扫",@"isShowBottmLine":@"YES"}],
+//                           @[@{@"leftImg":@"RemoteControl",@"title":@"遥控器",@"isShowBottmLine":@"NO"},
+//                             /*@{@"leftImg":@"DLNA",@"title":@"DLNA",@"isShowBottmLine":@"YES"}*/],
+//                           /*@[@{@"leftImg":@"Activity",@"title":@"活动专区",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Game_1",@"title":@"游戏中心",@"isShowBottmLine":@"YES"}],
+//                           @[@{@"leftImg":@"Application",@"title":@"应用中心",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Live_1",@"title":@"直播伴侣",@"isShowBottmLine":@"YES"}]*/];
+        NSArray *array = @[@{@"水费":@"水费"}, @{@"电费":@"电费"}, @{@"燃气费":@"燃气费"}, @{@"有线电视":@"有线电视"}, @{@"固话宽带":@"固话宽带"}, @{@"物业费":@"物业费"}, @{@"交通违章":@"交通违章"}];
         _dataSource = array;
     }
     return _dataSource;

@@ -39,28 +39,9 @@
                     <view key="view" contentMode="scaleToFill" id="pWq-bF-g2i">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LmJ-dW-Zv1">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="uYm-pm-wj0" id="7dh-NB-6eJ"/>
-                                    <outlet property="delegate" destination="uYm-pm-wj0" id="FMf-Bb-e7c"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="LmJ-dW-Zv1" firstAttribute="leading" secondItem="pWq-bF-g2i" secondAttribute="leading" id="9ux-eB-Gno"/>
-                            <constraint firstAttribute="trailing" secondItem="LmJ-dW-Zv1" secondAttribute="trailing" id="DKS-vN-kpO"/>
-                            <constraint firstItem="1fA-mN-DPe" firstAttribute="top" secondItem="LmJ-dW-Zv1" secondAttribute="bottom" id="pAf-ue-b3S"/>
-                            <constraint firstItem="LmJ-dW-Zv1" firstAttribute="top" secondItem="k07-Nc-aN2" secondAttribute="bottom" id="wUh-lO-hSM"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="8d4-n2-f8d"/>
-                    <connections>
-                        <outlet property="tableView" destination="LmJ-dW-Zv1" id="sw5-5T-vlm"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zFW-Pb-UPW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

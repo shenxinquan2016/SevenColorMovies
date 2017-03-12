@@ -59,7 +59,7 @@
     
 }
 
-- (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel{
+- (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel {
     
     _channelNameLabel.text = filmClassModel._FilmClassName;
     _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassModel._FilmClassName]];

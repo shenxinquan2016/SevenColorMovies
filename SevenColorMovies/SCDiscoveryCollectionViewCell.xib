@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="SCDiscoveryCollectionViewCell" id="m0z-bJ-6qj" customClass="SCDiscoveryCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="112" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="112" height="80"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电影" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpM-Qi-JFx">
+                        <rect key="frame" x="0.0" y="51" width="112" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nas-T1-ibm">
+                        <rect key="frame" x="40" y="11" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="0W9-xy-b71"/>
+                            <constraint firstAttribute="width" constant="32" id="3ze-0k-Gln"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="nas-T1-ibm" firstAttribute="centerX" secondItem="m0z-bJ-6qj" secondAttribute="centerX" id="230-cj-Xt1"/>
+                <constraint firstAttribute="trailing" secondItem="hpM-Qi-JFx" secondAttribute="trailing" id="2iN-H5-UET"/>
+                <constraint firstItem="hpM-Qi-JFx" firstAttribute="leading" secondItem="m0z-bJ-6qj" secondAttribute="leading" id="9gh-1T-06N"/>
+                <constraint firstItem="hpM-Qi-JFx" firstAttribute="top" secondItem="nas-T1-ibm" secondAttribute="bottom" constant="8" id="B8T-d3-bPg"/>
+                <constraint firstItem="nas-T1-ibm" firstAttribute="top" secondItem="m0z-bJ-6qj" secondAttribute="topMargin" constant="3" id="a1d-bL-9za"/>
+                <constraint firstItem="hpM-Qi-JFx" firstAttribute="centerX" secondItem="m0z-bJ-6qj" secondAttribute="centerX" id="vRh-pz-8Mp"/>
+            </constraints>
+            <size key="customSize" width="165" height="90"/>
+            <connections>
+                <outlet property="channelImg" destination="nas-T1-ibm" id="qpY-mh-Zy8"/>
+                <outlet property="channelNameLabel" destination="hpM-Qi-JFx" id="dnh-lZ-YIo"/>
+            </connections>
+            <point key="canvasLocation" x="157" y="240"/>
+        </collectionViewCell>
+    </objects>
+</document>

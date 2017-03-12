@@ -10,6 +10,9 @@
 
 @interface SCOtherBaseViewController : UIViewController
 
+/** 返回标题 */
+@property (nonatomic, copy) NSString *_title;
+
 /** 返回按钮 */
 @property (nonatomic,strong) UILabel *leftBBI;
 

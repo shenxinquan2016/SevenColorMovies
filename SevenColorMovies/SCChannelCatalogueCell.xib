@@ -47,7 +47,7 @@
                 <outlet property="channelImg" destination="x6p-Wm-ELs" id="svd-q7-5cd"/>
                 <outlet property="channelNameLabel" destination="bRi-gd-cWl" id="qx5-lK-02n"/>
             </connections>
-            <point key="canvasLocation" x="138" y="243.5"/>
+            <point key="canvasLocation" x="138" y="243"/>
         </collectionViewCell>
     </objects>
 </document>

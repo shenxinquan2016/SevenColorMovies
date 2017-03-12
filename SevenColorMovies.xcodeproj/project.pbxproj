@@ -19,6 +19,10 @@
 		11052AC51E10FEA800BF795B /* SCHTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052AC41E10FEA800BF795B /* SCHTMLViewController.m */; };
 		110591701D5046B20043C833 /* SCCollectionViewPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */; };
 		110D60AC1E6FEC620058951F /* libold_lib(1).a in Frameworks */ = {isa = PBXBuildFile; fileRef = 110D60AB1E6FEC620058951F /* libold_lib(1).a */; };
+		1110DECC1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1110DECA1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.m */; };
+		1110DECD1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1110DECB1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.xib */; };
+		1110DED91E75339600BB0126 /* SCSecondLevelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1110DED81E75339600BB0126 /* SCSecondLevelVC.m */; };
+		1110DEDC1E75395B00BB0126 /* SCThirdLevelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1110DEDB1E75395B00BB0126 /* SCThirdLevelVC.m */; };
 		1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */; };
 		1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */; };
 		1111A40B1D488C1E00C17B92 /* DNIPhoneInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A40A1D488C1E00C17B92 /* DNIPhoneInfo.m */; };
@@ -279,6 +283,13 @@
 		1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageVC.h; sourceTree = "<group>"; };
 		1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageVC.m; sourceTree = "<group>"; };
 		110D60AB1E6FEC620058951F /* libold_lib(1).a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libold_lib(1).a"; sourceTree = "<group>"; };
+		1110DEC91E75160E00BB0126 /* SCDiscoveryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDiscoveryCollectionViewCell.h; sourceTree = "<group>"; };
+		1110DECA1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDiscoveryCollectionViewCell.m; sourceTree = "<group>"; };
+		1110DECB1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCDiscoveryCollectionViewCell.xib; sourceTree = "<group>"; };
+		1110DED71E75339600BB0126 /* SCSecondLevelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSecondLevelVC.h; sourceTree = "<group>"; };
+		1110DED81E75339600BB0126 /* SCSecondLevelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSecondLevelVC.m; sourceTree = "<group>"; };
+		1110DEDA1E75395B00BB0126 /* SCThirdLevelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCThirdLevelVC.h; sourceTree = "<group>"; };
+		1110DEDB1E75395B00BB0126 /* SCThirdLevelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCThirdLevelVC.m; sourceTree = "<group>"; };
 		1111A4011D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		1111A4041D4886B300C17B92 /* SCNetRequsetManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNetRequsetManger.h; sourceTree = "<group>"; };
@@ -927,6 +938,10 @@
 			children = (
 				113F8D851D3C6FC800B12D39 /* SCDiscoveryViewController.h */,
 				113F8D861D3C6FC800B12D39 /* SCDiscoveryViewController.m */,
+				1110DED71E75339600BB0126 /* SCSecondLevelVC.h */,
+				1110DED81E75339600BB0126 /* SCSecondLevelVC.m */,
+				1110DEDA1E75395B00BB0126 /* SCThirdLevelVC.h */,
+				1110DEDB1E75395B00BB0126 /* SCThirdLevelVC.m */,
 				11458E991D45EE4C00EBD16D /* Model */,
 				11458E9D1D45FEA400EBD16D /* Cell */,
 			);
@@ -1018,6 +1033,9 @@
 				11458E941D45E0D500EBD16D /* SCDiscoveryTableViewCell.h */,
 				11458E951D45E0D500EBD16D /* SCDiscoveryTableViewCell.m */,
 				11458E961D45E0D500EBD16D /* SCDiscoveryTableViewCell.xib */,
+				1110DEC91E75160E00BB0126 /* SCDiscoveryCollectionViewCell.h */,
+				1110DECA1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.m */,
+				1110DECB1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -2349,6 +2367,7 @@
 				11853B451E1267C80008E58E /* index1.css in Resources */,
 				1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */,
 				11323E101DB5CB650089A207 /* SCMyDownLoadManagerCell.xib in Resources */,
+				1110DECD1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.xib in Resources */,
 				11BB37D41D38E5D10002D487 /* Mine.storyboard in Resources */,
 				118241631E23282D00B78E1A /* SCDLNAViewController.xib in Resources */,
 				11BB37D21D38E5C90002D487 /* News.storyboard in Resources */,
@@ -2499,12 +2518,14 @@
 				116E0F581DB0888C00E280C6 /* SCMyWatchingHistoryVC.m in Sources */,
 				11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */,
 				11412D181DF5130300AD9B0F /* DONG_BrightnessView.m in Sources */,
+				1110DED91E75339600BB0126 /* SCSecondLevelVC.m in Sources */,
 				11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */,
 				11E97A051D6320CA00512D10 /* PlayerViewRotate.m in Sources */,
 				1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */,
 				11458E971D45E0D500EBD16D /* SCDiscoveryTableViewCell.m in Sources */,
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
 				11BA52DF1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m in Sources */,
+				1110DECC1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.m in Sources */,
 				11052AC51E10FEA800BF795B /* SCHTMLViewController.m in Sources */,
 				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
 				11B496271DD967A400C51B8A /* SCDownloadedCell.m in Sources */,
@@ -2519,6 +2540,7 @@
 				11F9E2891D6D7503006326F3 /* SCLivePlayerVC.m in Sources */,
 				113334C11DFC52EE00BB025D /* SCDeviceCell.m in Sources */,
 				11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */,
+				1110DEDC1E75395B00BB0126 /* SCThirdLevelVC.m in Sources */,
 				1131C0D91D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m in Sources */,
 				11458EA21D45FEE200EBD16D /* SCMineTopCell.m in Sources */,
 				11DA5EFE1E24DFB500B32E1B /* SCScanResultViewController.m in Sources */,
