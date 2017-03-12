@@ -8,6 +8,7 @@
 
 #import "SCSecondLevelVC.h"
 #import "SCThirdLevelVC.h"
+#import "SCFourthViewController.h"
 
 @interface SCSecondLevelVC ()
 
@@ -87,7 +88,7 @@
         // 文本框
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-530, kMainScreenWidth-20, 50)];
         textField.textColor = [UIColor colorWithHex:@"#414141"];
-        textField.placeholder = @" 请输入购燃气金额";
+        textField.placeholder = @" 请输入购燃气费金额";
         textField.keyboardType = UIKeyboardTypeNumberPad;
         textField.clearButtonMode = UITextFieldViewModeAlways;
         textField.layer.borderWidth = 1.5;
@@ -103,7 +104,52 @@
 
     } else if ([self._title isEqualToString:@"有线电视"]) {
         
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"有线电视1"]];
+        imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+        [self.view addSubview:imageView];
+        
+        // 文本框
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(90, kMainScreenHeight-408, kMainScreenWidth-100, 40)];
+        textField.textColor = [UIColor colorWithHex:@"#414141"];
+        textField.backgroundColor = [UIColor whiteColor];
+        textField.placeholder = @" 请输入智能卡号";
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.clearButtonMode = UITextFieldViewModeAlways;
+        textField.layer.borderWidth = 1.5;
+        textField.layer.borderColor = [UIColor colorWithHex:@"#E5E5E5"].CGColor;
+        [self.view addSubview:textField];
+        
+        // 下一步
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-280, kMainScreenWidth-20, 45)];
+        btn.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
+        [btn setTitle:@"下一步" forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(goNextVC) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btn];
+        
     } else if ([self._title isEqualToString:@"固话宽带"]) {
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"固话宽带1"]];
+        imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+        [self.view addSubview:imageView];
+        
+        // 文本框
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(90, kMainScreenHeight-408, kMainScreenWidth-100, 40)];
+        textField.textColor = [UIColor colorWithHex:@"#414141"];
+        textField.backgroundColor = [UIColor whiteColor];
+        textField.placeholder = @" 请输入固话号码";
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.clearButtonMode = UITextFieldViewModeAlways;
+        textField.layer.borderWidth = 1.5;
+        textField.layer.borderColor = [UIColor colorWithHex:@"#E5E5E5"].CGColor;
+        [self.view addSubview:textField];
+        
+        // 下一步
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-280, kMainScreenWidth-20, 45)];
+        btn.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
+        [btn setTitle:@"下一步" forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(goNextVC) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btn];
+  
         
     } else if ([self._title isEqualToString:@"物业费"]) {
         
@@ -117,9 +163,25 @@
 - (void)goNextVC
 {
     DONG_Log(@"下一步");
-    SCThirdLevelVC *thirdLevel  = [[SCThirdLevelVC alloc] initWithWithTitle:self._title];
+    if ([self._title isEqualToString:@"有线电视"]) {
+        
+        SCFourthViewController *fourthLevel = [[SCFourthViewController alloc] initWithWithTitle:self._title];
+        [self.navigationController pushViewController:fourthLevel animated:YES];
+        
+    } else  if ([self._title isEqualToString:@"固话宽带"]) {
+        
+        SCFourthViewController *fourthLevel = [[SCFourthViewController alloc] initWithWithTitle:self._title];
+        [self.navigationController pushViewController:fourthLevel animated:YES];
+        
+    }
     
-    [self.navigationController pushViewController:thirdLevel animated:YES];
+    else {
+        
+        SCThirdLevelVC *thirdLevel  = [[SCThirdLevelVC alloc] initWithWithTitle:self._title];
+        [self.navigationController pushViewController:thirdLevel animated:YES];
+        
+    }
+    
 }
 
 @end

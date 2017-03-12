@@ -45,6 +45,18 @@
          imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
          [self.view addSubview:imageView];
          
+     } else if ([self._title isEqualToString:@"有线电视"]) {
+         
+         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"有线电视3"]];
+         imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+         [self.view addSubview:imageView];
+         
+     } else if ([self._title isEqualToString:@"固话宽带"]) {
+         
+         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"固话宽带3"]];
+         imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+         [self.view addSubview:imageView];
+         
      }
 
 }

@@ -23,6 +23,7 @@
 		1110DECD1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1110DECB1E75160E00BB0126 /* SCDiscoveryCollectionViewCell.xib */; };
 		1110DED91E75339600BB0126 /* SCSecondLevelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1110DED81E75339600BB0126 /* SCSecondLevelVC.m */; };
 		1110DEDC1E75395B00BB0126 /* SCThirdLevelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1110DEDB1E75395B00BB0126 /* SCThirdLevelVC.m */; };
+		1110DEDF1E75439B00BB0126 /* SCFourthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1110DEDE1E75439B00BB0126 /* SCFourthViewController.m */; };
 		1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */; };
 		1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */; };
 		1111A40B1D488C1E00C17B92 /* DNIPhoneInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A40A1D488C1E00C17B92 /* DNIPhoneInfo.m */; };
@@ -290,6 +291,8 @@
 		1110DED81E75339600BB0126 /* SCSecondLevelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSecondLevelVC.m; sourceTree = "<group>"; };
 		1110DEDA1E75395B00BB0126 /* SCThirdLevelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCThirdLevelVC.h; sourceTree = "<group>"; };
 		1110DEDB1E75395B00BB0126 /* SCThirdLevelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCThirdLevelVC.m; sourceTree = "<group>"; };
+		1110DEDD1E75439B00BB0126 /* SCFourthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFourthViewController.h; sourceTree = "<group>"; };
+		1110DEDE1E75439B00BB0126 /* SCFourthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFourthViewController.m; sourceTree = "<group>"; };
 		1111A4011D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		1111A4041D4886B300C17B92 /* SCNetRequsetManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNetRequsetManger.h; sourceTree = "<group>"; };
@@ -942,6 +945,8 @@
 				1110DED81E75339600BB0126 /* SCSecondLevelVC.m */,
 				1110DEDA1E75395B00BB0126 /* SCThirdLevelVC.h */,
 				1110DEDB1E75395B00BB0126 /* SCThirdLevelVC.m */,
+				1110DEDD1E75439B00BB0126 /* SCFourthViewController.h */,
+				1110DEDE1E75439B00BB0126 /* SCFourthViewController.m */,
 				11458E991D45EE4C00EBD16D /* Model */,
 				11458E9D1D45FEA400EBD16D /* Cell */,
 			);
@@ -2548,6 +2553,7 @@
 				11B0722E1DD2BBDF00DD3FED /* Dong_DownloadOperation.m in Sources */,
 				11BB377C1D38B9A00002D487 /* AppDelegate.m in Sources */,
 				113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */,
+				1110DEDF1E75439B00BB0126 /* SCFourthViewController.m in Sources */,
 				11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */,
 				11458E921D45D86800EBD16D /* SCHomePageSectionBGReusableView.m in Sources */,
 				1129A6551DE567DC000328C9 /* SCMessageCenterVC.m in Sources */,
