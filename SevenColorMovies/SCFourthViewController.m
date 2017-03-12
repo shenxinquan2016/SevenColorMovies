@@ -76,9 +76,8 @@
         [btn addTarget:self action:@selector(goNextVC) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn];
         
-    } else if ([self._title isEqualToString:@"物业费"]) {
+    }  else if ([self._title isEqualToString:@"交通违章"]) {
         
-    } else if ([self._title isEqualToString:@"交通违章"]) {
         
     }
 }

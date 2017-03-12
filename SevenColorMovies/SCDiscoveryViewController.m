@@ -17,6 +17,7 @@
 #import "SCXMPPManager.h"
 #import "SCDiscoveryCollectionViewCell.h"
 #import "SCSecondLevelVC.h"
+#import "SCJiaotongVC1.h"
 
 #import <Crashlytics/Crashlytics.h>
 
@@ -177,9 +178,19 @@ static NSString *const cellId = @"SCDiscoveryCollectionViewCell";
 {
     NSDictionary *dict = self.dataSource[indexPath.row];
     NSString *keyStr = [dict.allKeys objectAtIndex:0];
-    SCSecondLevelVC *secondLevel  = [[SCSecondLevelVC alloc] initWithWithTitle:keyStr];
-    secondLevel.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:secondLevel animated:YES];
+    
+    if ([keyStr isEqualToString:@"交通违章"]) {
+        
+        SCJiaotongVC1 *secondLevel  = [[SCJiaotongVC1 alloc] initWithWithTitle:keyStr];
+        secondLevel.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:secondLevel animated:YES];
+        
+    } else {
+        
+        SCSecondLevelVC *secondLevel  = [[SCSecondLevelVC alloc] initWithWithTitle:keyStr];
+        secondLevel.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:secondLevel animated:YES];
+    }
 
 }
 
