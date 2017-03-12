@@ -80,6 +80,8 @@ static const CGFloat LabelWidth = 55.f;
 /** 记录进入后台时播放器的类型：直播/时移/回看 */
 //@property (nonatomic, copy) NSString *live;
 
+
+
 @end
 
 @implementation SCLivePlayerVC
