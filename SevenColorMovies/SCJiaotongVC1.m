@@ -81,4 +81,10 @@
     thirdLevel.titleStr = @"违章停车";
     [self.navigationController pushViewController:thirdLevel animated:YES];
 }
+
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
 @end
