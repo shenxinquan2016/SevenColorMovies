@@ -94,6 +94,7 @@
     NSMutableArray *downloading = DownloadManager.downinglist;
     
     if (!self.isSelectAll) {
+        [DownloadManager pauseAllDownloads];
         _selectAll = YES;
         [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
         //遍历model以更改cell视图
@@ -115,6 +116,7 @@
         
     } else {
         
+        [DownloadManager startAllDownloads];
         _selectAll = NO;
         [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
         [_downloadingTempArray removeAllObjects];
@@ -197,10 +199,10 @@
         DONG_Log(@"idx:%ld ",idx);
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:1];
         [indexPathArray addObject:indexPath];
-        //删除下载请求
+        // 删除下载请求
         [DownloadManager deleteRequest:downloadingRequest[index]];
         
-        //从realm中删除
+        // 从realm中删除
         NSPredicate *pred1 = [NSPredicate predicateWithFormat:
                               @"_ContentSetName = %@",fileInfo.fileName];
         NSPredicate *pred2 = [NSPredicate predicateWithFormat:
@@ -223,9 +225,9 @@
         }
         
     }];
-    //2.把view相应的cell删掉
+    // 2.把view相应的cell删掉
     [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
-    //3.清空数组
+    // 3.清空数组
     [_downloadingTempArray removeAllObjects];
     [_downloadedTempArray removeAllObjects];
     [downloading removeAllObjects];

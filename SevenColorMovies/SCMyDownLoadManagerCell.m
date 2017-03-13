@@ -164,6 +164,11 @@
     // 下载进度
     float progress = (float)[fileInfo.fileReceivedSize longLongValue] / [fileInfo.fileSize longLongValue];
     
+    NSString *str = [NSString stringWithFormat:@"%lf",progress];
+    if ([str isEqualToString:@"nan"]) {
+        progress = 0.0;
+    }
+    
     self.downLoadProgressLabel.text = [NSString stringWithFormat:@"%@ / %@ (%.2f%%)",currentSize, totalSize, progress*100];
     
     DONG_Log(@"进度：%@",self.downLoadProgressLabel.text);
