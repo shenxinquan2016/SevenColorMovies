@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) UIButton *editBtn;/** 编辑按钮 */
 @property (nonatomic, strong) UITableView *listView;
+/** 存放全部的观看记录 */
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UIView *bottomBtnView;
 @property (nonatomic, strong) UIButton *selectAllBtn;/** 全选按钮 */
@@ -60,7 +61,8 @@
 
 #pragma mark - Private Method
 //添加 全选 || 删除 按钮视图
-- (void)setBottomBtnView{
+- (void)setBottomBtnView
+{
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, 60)];
     bottomView.backgroundColor = [UIColor whiteColor];
     [bottomView.layer setBorderWidth:1.f];
@@ -110,7 +112,8 @@
     
 }
 
-- (void)selcetAll{
+- (void)selcetAll
+{
     if (!self.isSelectAll) {
         _selectAll = YES;
         [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
@@ -121,7 +124,9 @@
             watchHistoryModel.selected = YES;
             [_tempArray addObject:watchHistoryModel];
         }];
-    }else{
+        
+    } else {
+        
         _selectAll = NO;
         [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
         [_tempArray removeAllObjects];
@@ -130,27 +135,40 @@
             watchHistoryModel.selected = NO;
         }];
     }
+    
     [_listView reloadData];
 }
 
-- (void)deleteAction{
-    //1.从数据库中删除数据
-    NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
-    [_tempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        SCWatchHistoryModel *watchHistoryModel = obj;
-        NSInteger index = [_dataArray indexOfObject:watchHistoryModel];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [indexPathArray addObject:indexPath];
-        //从服务器中删除数据
-        [self deleteWatchHistoryRecordWithModel:watchHistoryModel];
-    }];
-    
-    [_dataArray removeObjectsInArray:_tempArray];
-    // 2.把view相应的cell删掉
-    [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
-    [_tempArray removeAllObjects];
-    [indexPathArray removeAllObjects];
-    
+- (void)deleteAction
+{
+    if (_tempArray.count == _dataArray.count) {
+        // 调用全部删除方法
+        [_tempArray removeAllObjects];
+        [_dataArray removeAllObjects];
+        [_listView reloadData];
+        [self deleteAllWatchHistoryRecord];
+        
+    } else {
+        
+        // 1.从数据库中删除数据
+        NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
+        [_tempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            SCWatchHistoryModel *watchHistoryModel = obj;
+            NSInteger index = [_dataArray indexOfObject:watchHistoryModel];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            [indexPathArray addObject:indexPath];
+            //从服务器中删除数据
+            [self deleteWatchHistoryRecordWithModel:watchHistoryModel];
+        }];
+        
+        [_dataArray removeObjectsInArray:_tempArray];
+        // 2.把view相应的cell删掉
+        [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
+        [_tempArray removeAllObjects];
+        [indexPathArray removeAllObjects];
+        
+    }
+
 }
 
 - (void)addRightBBI {
@@ -439,11 +457,22 @@
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
     
     NSDictionary *parameters = @{
+                                 @"ctype"    : @"4",
                                  @"hid"      : uuidStr,
                                  @"datetime" : timeStamp
                                  };
+    
+    
     //请求播放地址
-    [requestDataManager requestDataWithUrl:DeleteWatchHistory parameters:parameters success:^(id  _Nullable responseObject) {
+    // 域名获取
+    NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:DeleteWatchHistory key:@"skscxb"];
+    DONG_Log(@"domainUrl:%@",domainUrl);
+    // ip转换
+    NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
+    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+    
+    [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
+        // 删除成功
         
         [CommonFunc dismiss];
     }failure:^(id  _Nullable errorObject) {
