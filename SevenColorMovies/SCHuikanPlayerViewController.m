@@ -1093,13 +1093,23 @@
         DONG_Log(@"进入后台: %ld", (long)currentPlayTime);
         _isRecordingCurrentPlayTime = NO;
         
+        
     }
 }
 
 /** 回到前台 */
 - (void)gotoFrontground
 {
-    //2.调用播放器播放
+    // 重置播放器
+    // 0.关闭正在播放的节目
+    if ([self.IJKPlayerViewController.player isPlaying]) {
+        [self.IJKPlayerViewController.player pause];
+    }
+
+    // 1.移除当前的播放器
+    [self.IJKPlayerViewController closePlayer];
+
+    // 2.调用播放器播放
     self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
     [self.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
     self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
@@ -1116,14 +1126,14 @@
         self.IJKPlayerViewController.isFeiPing = YES;
     }
     
-    //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+    // 3.播放器返回按钮的回调 刷新本页是否支持旋转状态
     DONG_WeakSelf(self);
     weakself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
         DONG_StrongSelf(self);
         strongself.isProhibitRotate = isProhibitRotate;
     };
     
-    //4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
+    // 4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
     [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
     self.IJKPlayerViewController.isFullScreen = YES;
     self.isProhibitRotate = YES;

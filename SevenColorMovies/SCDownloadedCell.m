@@ -53,7 +53,7 @@
         }else{
             [_deleteImageView setImage:[UIImage imageNamed:@"Unselected"]];
         }
-    }else{
+    } else {
         _deleteImageView.hidden = YES;
         _rightArrowImageView.hidden = NO;
         _playImageView.hidden = NO;

@@ -73,7 +73,7 @@
     // 更新数据源
     [self initData];
     // 开始全部下载
-    [DownloadManager startAllDownloads];
+//    [DownloadManager startAllDownloads];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -27,6 +27,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.deleteBtn.hidden = YES;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -67,7 +68,7 @@
             
         }
         
-    }else{
+    } else {
         _deleteBtn.hidden = YES;
         _downLoadBtn.hidden = NO;
         
