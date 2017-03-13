@@ -35,11 +35,11 @@
     if ([self._title isEqualToString:@"水费"]) {
         
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"水1"]];
-        imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+        imageView.frame = CGRectMake(0, 17, kMainScreenWidth, kMainScreenHeight-17);
         [self.view addSubview:imageView];
         
         // 文本框
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-530, kMainScreenWidth-20, 50)];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-590, kMainScreenWidth-20, 50)];
         textField.textColor = [UIColor colorWithHex:@"#414141"];
         textField.placeholder = @" 请输入购水金额";
         textField.keyboardType = UIKeyboardTypeNumberPad;
@@ -49,7 +49,7 @@
         [self.view addSubview:textField];
         
         // 下一步
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-280, kMainScreenWidth-20, 45)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-310, kMainScreenWidth-20, 45)];
         btn.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
         [btn setTitle:@"下一步" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(goNextVC) forControlEvents:UIControlEventTouchUpInside];
@@ -58,11 +58,11 @@
     } else if ([self._title isEqualToString:@"电费"]) {
         
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"电费1"]];
-        imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+        imageView.frame = CGRectMake(0, 17, kMainScreenWidth, kMainScreenHeight-17);
         [self.view addSubview:imageView];
         
         // 文本框
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-530, kMainScreenWidth-20, 50)];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-590, kMainScreenWidth-20, 50)];
         textField.textColor = [UIColor colorWithHex:@"#414141"];
         textField.placeholder = @" 请输入购电金额";
         textField.keyboardType = UIKeyboardTypeNumberPad;
@@ -72,7 +72,7 @@
         [self.view addSubview:textField];
         
         // 下一步
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-280, kMainScreenWidth-20, 45)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-310, kMainScreenWidth-20, 45)];
         btn.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
         [btn setTitle:@"下一步" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(goNextVC) forControlEvents:UIControlEventTouchUpInside];
@@ -82,11 +82,11 @@
     } else if ([self._title isEqualToString:@"燃气费"]) {
         
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"燃气费1"]];
-        imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+        imageView.frame = CGRectMake(0, 17, kMainScreenWidth, kMainScreenHeight-17);
         [self.view addSubview:imageView];
         
         // 文本框
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-530, kMainScreenWidth-20, 50)];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-590, kMainScreenWidth-20, 50)];
         textField.textColor = [UIColor colorWithHex:@"#414141"];
         textField.placeholder = @" 请输入购燃气费金额";
         textField.keyboardType = UIKeyboardTypeNumberPad;
@@ -96,7 +96,7 @@
         [self.view addSubview:textField];
         
         // 下一步
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-280, kMainScreenWidth-20, 45)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-310, kMainScreenWidth-20, 45)];
         btn.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
         [btn setTitle:@"下一步" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(goNextVC) forControlEvents:UIControlEventTouchUpInside];
@@ -105,11 +105,11 @@
     } else if ([self._title isEqualToString:@"有线电视"]) {
         
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"有线电视1"]];
-        imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+        imageView.frame = CGRectMake(0, 17, kMainScreenWidth, kMainScreenHeight-17);
         [self.view addSubview:imageView];
         
         // 文本框
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(90, kMainScreenHeight-408, kMainScreenWidth-100, 40)];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(90, kMainScreenHeight-450, kMainScreenWidth-100, 40)];
         textField.textColor = [UIColor colorWithHex:@"#414141"];
         textField.backgroundColor = [UIColor whiteColor];
         textField.placeholder = @" 请输入智能卡号";
@@ -120,7 +120,7 @@
         [self.view addSubview:textField];
         
         // 下一步
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-280, kMainScreenWidth-20, 45)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-270, kMainScreenWidth-20, 45)];
         btn.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
         [btn setTitle:@"下一步" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(goNextVC) forControlEvents:UIControlEventTouchUpInside];
@@ -129,11 +129,11 @@
     } else if ([self._title isEqualToString:@"固话宽带"]) {
         
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"固话宽带1"]];
-        imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+        imageView.frame = CGRectMake(0, 17, kMainScreenWidth, kMainScreenHeight-17);
         [self.view addSubview:imageView];
         
         // 文本框
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(90, kMainScreenHeight-408, kMainScreenWidth-100, 40)];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(90, kMainScreenHeight-450, kMainScreenWidth-100, 40)];
         textField.textColor = [UIColor colorWithHex:@"#414141"];
         textField.backgroundColor = [UIColor whiteColor];
         textField.placeholder = @" 请输入固话号码";
@@ -144,7 +144,7 @@
         [self.view addSubview:textField];
         
         // 下一步
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-280, kMainScreenWidth-20, 45)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-270, kMainScreenWidth-20, 45)];
         btn.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
         [btn setTitle:@"下一步" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(goNextVC) forControlEvents:UIControlEventTouchUpInside];
@@ -154,11 +154,11 @@
     } else if ([self._title isEqualToString:@"物业费"]) {
         
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"物业费1"]];
-        imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+        imageView.frame = CGRectMake(0, 17, kMainScreenWidth, kMainScreenHeight-17);
         [self.view addSubview:imageView];
         
         // 文本框
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-530, kMainScreenWidth-20, 50)];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-590, kMainScreenWidth-20, 50)];
         textField.backgroundColor = [UIColor whiteColor];
         textField.textColor = [UIColor colorWithHex:@"#414141"];
         textField.placeholder = @" 请输入金额";
@@ -169,7 +169,7 @@
         [self.view addSubview:textField];
         
         // 下一步
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-280, kMainScreenWidth-20, 45)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-310, kMainScreenWidth-20, 45)];
         btn.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
         [btn setTitle:@"下一步" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(goNextVC) forControlEvents:UIControlEventTouchUpInside];
@@ -179,11 +179,11 @@
     } else if ([self._title isEqualToString:@"交通违章"]) {
         
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"交通违章3"]];
-        imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+        imageView.frame = CGRectMake(0, 17, kMainScreenWidth, kMainScreenHeight-17);
         [self.view addSubview:imageView];
         
         // 文本框
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-530, kMainScreenWidth-20, 50)];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-590, kMainScreenWidth-20, 50)];
         textField.textColor = [UIColor colorWithHex:@"#414141"];
         textField.placeholder = @" 应缴金额";
         textField.backgroundColor = [UIColor whiteColor];
@@ -194,7 +194,7 @@
         [self.view addSubview:textField];
         
         // 下一步
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-280, kMainScreenWidth-20, 45)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-310, kMainScreenWidth-20, 45)];
         btn.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
         [btn setTitle:@"下一步" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(goNextVC) forControlEvents:UIControlEventTouchUpInside];

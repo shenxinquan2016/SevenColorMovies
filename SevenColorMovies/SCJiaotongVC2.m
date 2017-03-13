@@ -29,18 +29,18 @@
 
 - (void)setupViews
 {
-    // 抬头
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"交通违章2"]];
-    imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+    imageView.frame = CGRectMake(0, 17, kMainScreenWidth, kMainScreenHeight-17);
     [self.view addSubview:imageView];
     
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 64, kMainScreenWidth-15, 53)];
+    // 抬头
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 68, kMainScreenWidth-15, 53)];
     self.titleLabel.backgroundColor = [UIColor colorWithHex:@"#EEEFF4"];
     self.titleLabel.text = self.titleStr;
     [self.view addSubview:self.titleLabel];
     
     // 身份证号
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(90, kMainScreenHeight-537, kMainScreenWidth-100, 35)];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(100, kMainScreenHeight-597, kMainScreenWidth-110, 35)];
     textField.textColor = [UIColor colorWithHex:@"#414141"];
     textField.placeholder = @"请输入身份证号";
     textField.keyboardType = UIKeyboardTypeNumberPad;
@@ -49,7 +49,7 @@
     [self.view addSubview:textField];
     
     // 处罚
-    UITextField *textField2 = [[UITextField alloc] initWithFrame:CGRectMake(130, kMainScreenHeight-450, kMainScreenWidth-140, 35)];
+    UITextField *textField2 = [[UITextField alloc] initWithFrame:CGRectMake(130, kMainScreenHeight-500, kMainScreenWidth-140, 35)];
     textField2.textColor = [UIColor colorWithHex:@"#414141"];
     textField2.placeholder = @"请输入身份证号";
     textField2.keyboardType = UIKeyboardTypeNumberPad;
@@ -58,7 +58,7 @@
     [self.view addSubview:textField2];
     
     // 下一步
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-400, kMainScreenWidth-20, 45)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, kMainScreenHeight-430, kMainScreenWidth-20, 45)];
     btn.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
     [btn setTitle:@"下一步" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(goNextVC) forControlEvents:UIControlEventTouchUpInside];

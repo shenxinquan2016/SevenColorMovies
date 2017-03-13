@@ -30,26 +30,26 @@
 - (void)setupViews
 {
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"交通违章1"]];
-    imageView.frame = CGRectMake(0, 22, kMainScreenWidth, kMainScreenHeight-22);
+    imageView.frame = CGRectMake(0, 17, kMainScreenWidth, kMainScreenHeight-17);
     [self.view addSubview:imageView];
     
     // 高速缴罚
-    UIButton *btn1 = [[UIButton alloc] initWithFrame:CGRectMake(80, kMainScreenHeight-530, kMainScreenWidth-90, 55)];
+    UIButton *btn1 = [[UIButton alloc] initWithFrame:CGRectMake(80, kMainScreenHeight-590, kMainScreenWidth-90, 65)];
     
     btn1.backgroundColor = [UIColor clearColor];
-    
+//    btn1.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
     [btn1 addTarget:self action:@selector(goGaosu) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn1];
     
     // 道路交通罚款
-    UIButton *btn2 = [[UIButton alloc] initWithFrame:CGRectMake(80, kMainScreenHeight-455, kMainScreenWidth-90, 55)];
+    UIButton *btn2 = [[UIButton alloc] initWithFrame:CGRectMake(80, kMainScreenHeight-505, kMainScreenWidth-90, 65)];
     btn2.backgroundColor = [UIColor clearColor];
 //     btn2.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
     [btn2 addTarget:self action:@selector(goDaolujiaotong) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn2];
     
     // 违章停车缴费
-    UIButton *btn3 = [[UIButton alloc] initWithFrame:CGRectMake(80, kMainScreenHeight-370, kMainScreenWidth-90, 55)];
+    UIButton *btn3 = [[UIButton alloc] initWithFrame:CGRectMake(80, kMainScreenHeight-410, kMainScreenWidth-90, 65)];
     btn3.backgroundColor = [UIColor clearColor];
 //    btn3.backgroundColor = [UIColor colorWithHex:@"#1F90E6"];
     
