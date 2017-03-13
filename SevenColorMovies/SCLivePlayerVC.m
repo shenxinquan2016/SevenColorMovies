@@ -451,8 +451,6 @@ static const CGFloat LabelWidth = 55.f;
             
         }
         
-        
-        
         // 7.推屏的回调
         DONG_WeakSelf(self);
         self.IJKPlayerViewController.pushScreenBlock = ^{
