@@ -217,8 +217,6 @@ static NSString *const cellId = @"SCDiscoveryCollectionViewCell";
 }
 
 
-
-
 - (IBAction)crashButtonTapped:(id)sender {
     [[Crashlytics sharedInstance] crash];
 }
