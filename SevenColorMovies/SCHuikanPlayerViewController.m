@@ -19,12 +19,19 @@
 @property (nonatomic, strong) SCLiveProgramModel *programModel;
 @property (nonatomic, strong) SCFilmModel *filmModel;
 @property (nonatomic, strong) SCLiveProgramModel *liveProgramModel;
-@property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;/** 播放器控制器 */
-@property (nonatomic, strong) HLJRequest *hljRequest;/** 域名替换工具 */
+/** 播放器控制器 */
+@property (nonatomic, strong) IJKVideoPlayerVC *IJKPlayerViewController;
+/** 域名替换工具 */
+@property (nonatomic, strong) HLJRequest *hljRequest;
 @property (nonatomic, strong) NSURL *url;
-@property (nonatomic, assign) BOOL isProhibitRotate;/** 是否禁止旋转 */
+/** 是否禁止旋转 */
+@property (nonatomic, assign) BOOL isProhibitRotate;
 @property (nonatomic, strong) SCDomaintransformTool *domainTransformTool;
 @property (nonatomic, strong) NSString *currentPlayTime;
+/** 控制记录当前播放时间的时机 */
+@property (nonatomic, assign) BOOL isRecordingCurrentPlayTime;
+/** 记录进入后台时影片名称 */
+@property (nonatomic, copy) NSString *filmName;
 
 @end
 
@@ -155,6 +162,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 1. YES:进入后台时需要记录当前播放时间
+    _isRecordingCurrentPlayTime = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -353,7 +362,7 @@
                     }else if (filmModel.cnname){
                         filmName = [NSString stringWithFormat:@"%@ 第%@集",filmModel.cnname,filmModel.filmSetModel._ContentIndex];
                     }
-                    
+                    self.filmName = filmName;
                     //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
                     strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
                     
@@ -502,6 +511,7 @@
                             }
                         }
                         
+                        self.filmName = filmName;
                         strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
                         
                         [CommonFunc dismiss];
@@ -510,7 +520,6 @@
                         [CommonFunc dismiss];
                         //[CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
                     }];
-                    
                     
                 } failure:^(id  _Nullable errorObject) {
                     [CommonFunc dismiss];
@@ -598,7 +607,6 @@
                             strongself.IJKPlayerViewController.isFeiPing = YES;
                         }
 
-                        
                         //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
                         strongself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
                             DONG_StrongSelf(self);
@@ -618,6 +626,7 @@
                             filmName = filmModel.cnname;
                         }
                         
+                        self.filmName = filmName;
                         //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
                         strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
                         
@@ -1064,8 +1073,63 @@
                                              selector:@selector(mediaIsPreparedToPlayDidChange:)
                                                  name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification
                                                object:nil];
+    
+    // 5.APP进入后台
+    [DONG_NotificationCenter addObserver:self selector:@selector(gotoBackground) name:AppWillResignActive object:nil];
+    // 6.APP被激活
+    [DONG_NotificationCenter addObserver:self selector:@selector(gotoFrontground) name:AppDidBecomeActive object:nil];
+    
 }
 
+#pragma mark - 播放时进入后台和返回前台的处理
+/** 进入后台 */
+- (void)gotoBackground
+{
+    if (_isRecordingCurrentPlayTime) {
+        // 允许保存时才记录当前播放时间
+        NSInteger currentPlayTime = self.IJKPlayerViewController.player.currentPlaybackTime;
+        [DONG_UserDefaults setInteger:currentPlayTime forKey:kCurrentPlayTimeWhenGotoBG];
+        [DONG_UserDefaults synchronize];
+        DONG_Log(@"进入后台: %ld", (long)currentPlayTime);
+        _isRecordingCurrentPlayTime = NO;
+        
+    }
+}
+
+/** 回到前台 */
+- (void)gotoFrontground
+{
+    //2.调用播放器播放
+    self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
+    [self.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+    self.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+    self.IJKPlayerViewController.isSinglePlayerView = YES;
+    self.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+    self.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
+    self.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
+    self.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = self.filmName;//节目名称
+
+    [self.view addSubview:self.IJKPlayerViewController.view];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    
+    if (self.isFeiPing == YES) {
+        self.IJKPlayerViewController.isFeiPing = YES;
+    }
+    
+    //3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+    DONG_WeakSelf(self);
+    weakself.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
+        DONG_StrongSelf(self);
+        strongself.isProhibitRotate = isProhibitRotate;
+    };
+    
+    //4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
+    [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+    self.IJKPlayerViewController.isFullScreen = YES;
+    self.isProhibitRotate = YES;
+    
+    
+}
 #pragma mark - IJK完成加载即将播放的通知
 
 - (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification
@@ -1075,12 +1139,27 @@
     [self performSelector:@selector(hideIJKPlayerMediaControlView) withObject:nil afterDelay:5.0];
     
     // 在此通知里设置加载IJK时的起始播放时间
-    // 如果已经播放过，则从已播放时间开始播放
-    if (_filmModel.currentPlayTime) {
+    NSInteger currentPlayTime = [DONG_UserDefaults integerForKey:kCurrentPlayTimeWhenGotoBG];
+    
+    if (currentPlayTime) {
+        // 如果是从后台回来
+        self.IJKPlayerViewController.player.currentPlaybackTime = currentPlayTime;
+        currentPlayTime = 0;// 复位
+        [DONG_UserDefaults setInteger:currentPlayTime forKey:kCurrentPlayTimeWhenGotoBG];
+        [DONG_UserDefaults synchronize];
+        // 加载成功seekTo指定时间后才允许下次进入后台时记录当前播放时间
+        _isRecordingCurrentPlayTime = YES;
+        
+    } else if (_filmModel.currentPlayTime) {
+        
+        // 如果已经播放过，则从已播放时间开始播放
         DONG_Log(@"currentPlayTime:%f", _filmModel.currentPlayTime);
         self.IJKPlayerViewController.player.currentPlaybackTime = _filmModel.currentPlayTime / 1000;
         _filmModel.currentPlayTime = 0.f;
+        
     } else if (_programModel.currentPlayTime) {
+        
+        // 如果已经播放过，则从已播放时间开始播放
         self.IJKPlayerViewController.player.currentPlaybackTime = _programModel.currentPlayTime / 1000;
         _programModel.currentPlayTime = 0.f;
     }
