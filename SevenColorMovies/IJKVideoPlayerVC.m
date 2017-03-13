@@ -532,11 +532,26 @@
 {
     if (self.pushScreenBlock) {
         self.pushScreenBlock();
+        
+        // 5.登录XMPP
+        if (XMPPManager.isConnected) {
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(setPushScreenButtonEnabled) object:nil];
+            // 10s内只能推屏一次
+            self.mediaControl.pushScreenButton.enabled = NO;
+            [self performSelector:@selector(setPushScreenButtonEnabled) withObject:nil afterDelay:10.0];
+        }
+        
     }
 }
 
+- (void)setPushScreenButtonEnabled
+{
+    // 设置推屏button可点击
+    self.mediaControl.pushScreenButton.enabled = YES;
+}
 
 #pragma mark - IJK通知响应事件
+
 - (void)loadStateDidChange:(NSNotification*)notification
 {
     IJKMPMovieLoadState loadState = _player.loadState;
