@@ -10,11 +10,14 @@
 #import "NavigationPopAnimation.h"
 
 @interface NavigationInteractiveTransition ()
+
 @property (nonatomic, weak) UINavigationController *vc;
 @property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactivePopTransition;
+
 @end
 
 @implementation NavigationInteractiveTransition
+
 - (instancetype)initWithVc:(UIViewController *)vc {
     self = [super init];
     if (self) {

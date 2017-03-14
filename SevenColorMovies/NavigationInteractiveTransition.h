@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @class UIViewController, UIPercentDrivenInteractiveTransition;
+
 @interface NavigationInteractiveTransition : NSObject <UINavigationControllerDelegate>
+
 - (instancetype)initWithVc:(UIViewController *)vc;
 - (void)handlePop:(UIPanGestureRecognizer *)recognizer;
 - (UIPercentDrivenInteractiveTransition *)interactivePopTransition;
+
 @end
