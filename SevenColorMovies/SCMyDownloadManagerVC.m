@@ -21,19 +21,27 @@
 
 @interface SCMyDownloadManagerVC () <UITableViewDelegate, UITableViewDataSource, ZFDownloadDelegate>
 
-@property (nonatomic, strong) UIButton *editBtn;/** 编辑按钮 */
+/** 编辑按钮 */
+@property (nonatomic, strong) UIButton *editBtn;
 @property (nonatomic, strong) UITableView *listView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UIView *bottomBtnView;
-@property (nonatomic, strong) UIButton *selectAllBtn;/** 全选按钮 */
-@property (nonatomic, assign) BOOL isEditing;/** 标记是否正在编辑 */
-@property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;/** 标记是否被全部选中 */
-@property (nonatomic, strong) NSMutableArray *tempArray;/** 保存临时选择的要删除的filmModel */
-
+/** 全选按钮 */
+@property (nonatomic, strong) UIButton *selectAllBtn;
+/** 标记是否正在编辑 */
+@property (nonatomic, assign) BOOL isEditing;
+/** 标记是否被全部选中 */
+@property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;
+/** 保存临时选择的要删除的filmModel */
+@property (nonatomic, strong) NSMutableArray *tempArray;
+/** 保存下载完成的+正在下载的数组的数组 */
 @property (atomic, strong) NSMutableArray *downloadObjectArr;
-@property (nonatomic, strong) NSMutableArray *downloadingTempArray;;/** 保存临时选择的要删除的正在下载的model */
-@property (nonatomic, strong) NSMutableArray *downloadedTempArray;;/** 保存临时选择的要删除的完成下载的model */
-@property (nonatomic, assign) BOOL isCanRotate;//控制是否支持旋转
+/** 保存临时选择的要删除的正在下载的model */
+@property (nonatomic, strong) NSMutableArray *downloadingTempArray;
+/** 保存临时选择的要删除的完成下载的model */
+@property (nonatomic, strong) NSMutableArray *downloadedTempArray;
+/** 控制是否支持旋转 */
+@property (nonatomic, assign) BOOL isCanRotate;
 
 
 @end
@@ -64,7 +72,6 @@
     
     //4.3 全选/删除
     [self setBottomBtnView];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -72,8 +79,7 @@
     self.isCanRotate = NO;
     // 更新数据源
     [self initData];
-    // 开始全部下载
-    //[DownloadManager startAllDownloads];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -94,7 +100,8 @@
     NSMutableArray *downloading = DownloadManager.downinglist;
     
     if (!self.isSelectAll) {
-        [DownloadManager pauseAllDownloads];
+        
+//        [DownloadManager pauseAllDownloads];
         _selectAll = YES;
         [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
         //遍历model以更改cell视图
@@ -116,7 +123,7 @@
         
     } else {
         
-        [DownloadManager startAllDownloads];
+//        [DownloadManager startAllDownloads];
         _selectAll = NO;
         [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
         [_downloadingTempArray removeAllObjects];
@@ -236,7 +243,8 @@
 }
 
 #pragma mark - Private Method
-- (void)resetDownloadModel {
+- (void)resetDownloadModel
+{
     // 因为是单例 需将ZFFileModel的部分属性重置
     NSMutableArray *downladed = DownloadManager.finishedlist;
     NSMutableArray *downloading = DownloadManager.downinglist;
@@ -255,7 +263,8 @@
     }];
 }
 
-- (void)initData {
+- (void)initData
+{
     [DownloadManager startLoad];
     NSMutableArray *downladed = DownloadManager.finishedlist;
     NSMutableArray *downloading = DownloadManager.downinglist;
@@ -275,7 +284,8 @@
 }
 
 //全选 || 删除 按钮视图
-- (void)setBottomBtnView {
+- (void)setBottomBtnView
+{
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, 60)];
     bottomView.backgroundColor = [UIColor whiteColor];
     [bottomView.layer setBorderWidth:1.f];
@@ -479,6 +489,7 @@ BOOL isLoading = NO;
 }
 
 #pragma mark - UITableView dataSource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
@@ -592,6 +603,7 @@ BOOL isLoading = NO;
 }
 
 #pragma mark - UITableView Delegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -678,23 +690,27 @@ BOOL isLoading = NO;
 
 #pragma mark - ZFDownloadDelegate
 // 开始下载
-- (void)startDownload:(ZFHttpRequest *)request {
+- (void)startDownload:(ZFHttpRequest *)request
+{
     NSLog(@"开始下载!");
 }
 
 // 下载中
-- (void)updateCellProgress:(ZFHttpRequest *)request {
+- (void)updateCellProgress:(ZFHttpRequest *)request
+{
     ZFFileModel *fileInfo = [request.userInfo objectForKey:@"File"];
     [self performSelectorOnMainThread:@selector(updateCellOnMainThread:) withObject:fileInfo waitUntilDone:YES];
 }
 
 // 下载完成
-- (void)finishedDownload:(ZFHttpRequest *)request {
+- (void)finishedDownload:(ZFHttpRequest *)request
+{
     [self initData];
 }
 
 // 更新下载进度
-- (void)updateCellOnMainThread:(ZFFileModel *)fileInfo {
+- (void)updateCellOnMainThread:(ZFFileModel *)fileInfo
+{
     NSArray *cellArr = [self.listView visibleCells];
     for (id obj in cellArr) {
         if([obj isKindOfClass:[SCMyDownLoadManagerCell class]]) {
@@ -707,7 +723,8 @@ BOOL isLoading = NO;
 }
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate {
+- (BOOL)shouldAutorotate
+{
     DONG_Log(@"(self.isProhibitRotate:%d",self.isCanRotate);
     if (self.isCanRotate) {
         return YES;
@@ -716,7 +733,8 @@ BOOL isLoading = NO;
     }
 }
 
-- (void)setIsCanRotate:(BOOL)isCanRotate {
+- (void)setIsCanRotate:(BOOL)isCanRotate
+{
     _isCanRotate = isCanRotate;
     [self shouldAutorotate];
 }
