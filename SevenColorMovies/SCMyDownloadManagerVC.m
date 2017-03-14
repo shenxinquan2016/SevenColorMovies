@@ -100,7 +100,7 @@
     
     if (!self.isSelectAll) {
         
-        [DownloadManager pauseAllDownloads];
+         [DownloadManager pauseAllDownloads];
         _selectAll = YES;
         [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
         //遍历model以更改cell视图
@@ -166,9 +166,9 @@
     NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
     [_downloadedTempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ZFFileModel *fileInfo = obj;
-        NSInteger index = [downladed indexOfObject:fileInfo];
-        DONG_Log(@"index:%ld ",index);
-        DONG_Log(@"idx:%ld ",idx);
+                NSInteger index = [downladed indexOfObject:fileInfo];
+//                DONG_Log(@"index:%ld ",index);
+        //        DONG_Log(@"idx:%ld ",idx);
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
         [indexPathArray addObject:indexPath];
         //删除本地文件
@@ -207,10 +207,13 @@
         [indexPathArray addObject:indexPath];
         // 删除下载请求
         ZFHttpRequest *request = downloadingRequest[index];
-        DONG_Log(@"request:%@ %@  %@",request, request.url, request.originalURL);
-        DONG_Log(@"downinglist.count:%ld ",DownloadManager.downinglist.count);
+        
+        DONG_Log(@"downinglist.count删出前:%ld ",DownloadManager.downinglist.count);
+        
         [DownloadManager deleteRequest:request];
-        DONG_Log(@"downinglist.count:%ld ",DownloadManager.downinglist.count);
+        
+        DONG_Log(@"downinglist.count删除后:%ld ",DownloadManager.downinglist.count);
+        
         // 从realm中删除
         NSPredicate *pred1 = [NSPredicate predicateWithFormat:
                               @"_ContentSetName = %@",fileInfo.fileName];
@@ -234,15 +237,17 @@
         }
         
     }];
+    
     // 2.把view相应的cell删掉
     [_listView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
+    
     // 3.清空数组
     [_downloadingTempArray removeAllObjects];
     [_downloadedTempArray removeAllObjects];
     [downloading removeAllObjects];
     [indexPathArray removeAllObjects];
     downloadingRequest = nil;
-//    [_listView reloadData];
+    //[_listView reloadData];
 }
 
 #pragma mark - Private Method
@@ -682,7 +687,7 @@ BOOL isLoading = NO;
                 self.isCanRotate = YES;
                 //强制旋转
                 [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
-
+                
                 [self.navigationController pushViewController:playerVC animated:YES];
             } else {
                 [MBProgressHUD showSuccess:@"文件不存在"];
