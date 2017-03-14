@@ -47,7 +47,6 @@
 @end
 
 @implementation SCMyDownloadManagerVC
-
 {
     UIImageView *downloadIV_;
     UILabel *headerTitlelabel_;
@@ -101,7 +100,7 @@
     
     if (!self.isSelectAll) {
         
-//        [DownloadManager pauseAllDownloads];
+        [DownloadManager pauseAllDownloads];
         _selectAll = YES;
         [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
         //遍历model以更改cell视图
@@ -123,7 +122,7 @@
         
     } else {
         
-//        [DownloadManager startAllDownloads];
+        [DownloadManager startAllDownloads];
         _selectAll = NO;
         [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
         [_downloadingTempArray removeAllObjects];
@@ -207,8 +206,11 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:1];
         [indexPathArray addObject:indexPath];
         // 删除下载请求
-        [DownloadManager deleteRequest:downloadingRequest[index]];
-        
+        ZFHttpRequest *request = downloadingRequest[index];
+        DONG_Log(@"request:%@ %@  %@",request, request.url, request.originalURL);
+        DONG_Log(@"downinglist.count:%ld ",DownloadManager.downinglist.count);
+        [DownloadManager deleteRequest:request];
+        DONG_Log(@"downinglist.count:%ld ",DownloadManager.downinglist.count);
         // 从realm中删除
         NSPredicate *pred1 = [NSPredicate predicateWithFormat:
                               @"_ContentSetName = %@",fileInfo.fileName];
@@ -240,6 +242,7 @@
     [downloading removeAllObjects];
     [indexPathArray removeAllObjects];
     downloadingRequest = nil;
+//    [_listView reloadData];
 }
 
 #pragma mark - Private Method
