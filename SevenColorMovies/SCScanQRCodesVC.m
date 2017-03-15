@@ -404,7 +404,10 @@
      DONG_MAIN_AFTER(0.2, [MBProgressHUD showSuccess:@"设备绑定成功"];);
 }
 
-
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate {
+    return NO;
+}
 
 
 @end
