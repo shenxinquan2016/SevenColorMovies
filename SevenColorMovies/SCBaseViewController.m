@@ -31,7 +31,6 @@
 }
 
 
-
 #pragma mark- private methods
 - (void)addLeftBBI {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
