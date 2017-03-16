@@ -531,22 +531,13 @@
     [XMPPManager sendMessageWithBody:xmlString andToName:_toName andType:@"text"];
 }
 
-#pragma mark - KVO
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"voiceServerState"]) {
-        
-        DONG_Log(@"change:%@", change);
-        
-    }
-    
-    
-}
+#pragma mark - KVO
 
 /** 为self.voiceServerState添加观察者 */
 - (void)registerObserber
 {
+    // voiceServerState为属性
     [self addObserver:self forKeyPath:NSStringFromSelector(@selector(voiceServerState)) options:NSKeyValueObservingOptionNew context:nil];
     //[self addObserver:self forKeyPath:self.voiceServerState options:NSKeyValueObservingOptionNew context:nil];
 }
@@ -557,6 +548,13 @@
     [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(voiceServerState))];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"voiceServerState"]) {
+        
+        DONG_Log(@"change:%@", change);
+    }
+}
 
 #pragma mark - priva method
 
