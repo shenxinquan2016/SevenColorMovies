@@ -23,10 +23,17 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.leftBBI.text = @"关于";
-    self.versionNumberLabel.text = [NSString stringWithFormat:@"%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey]];
+
+    // app版本号
+    NSString  *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     
+    // build版本号
+    NSString  *buildVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     
+    self.versionNumberLabel.text = appVersion;
     
+    DONG_Log(@"appVersion:%@", appVersion);
+    DONG_Log(@"buildVersion:%@", buildVersion);
     
 }
 
