@@ -42,9 +42,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>需要相机权限</string>
+	<string>如果不允许，你将无法使用七彩云中扫一扫和遥控器功能。</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>microphoneDesciption</string>
+	<string>如果不允许，你将无法使用七彩云中语音遥控器功能。</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
