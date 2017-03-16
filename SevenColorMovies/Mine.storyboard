@@ -84,7 +84,7 @@
                                     <constraint firstAttribute="height" constant="150" id="TvC-8C-Mrq"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="龙江网络公司版权所有" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHL-9a-AVo">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="版权所有:黑龙江广播电视网络股份有限公司" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHL-9a-AVo">
                                 <rect key="frame" x="0.0" y="593" width="375" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="l6n-qf-QjQ"/>
@@ -93,11 +93,13 @@
                                 <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright© 2017 LONGJIANG NETWORK Inc." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bje-mf-V2O">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bje-mf-V2O">
                                 <rect key="frame" x="0.0" y="616" width="375" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="rrp-aV-PBT"/>
                                 </constraints>
+                                <string key="text">Copyright© 2017 Heilongjiang Radio and TV Network Co., Ltd. 
+All Rights Reserved</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -121,21 +123,45 @@
                                 <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="信息网络传播视听节目许可证号:0805077" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiy-Bj-1LK">
+                                <rect key="frame" x="0.0" y="569" width="375" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="Og4-sc-FL8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="黑龙江广播电视台授权" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ps2-3n-40D">
+                                <rect key="frame" x="0.0" y="551" width="375" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="3Et-AR-A8b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="ps2-3n-40D" secondAttribute="bottom" constant="85" id="63m-v9-ajf"/>
                             <constraint firstAttribute="bottom" secondItem="Qps-2B-STB" secondAttribute="bottom" constant="15" id="9qv-w8-KrB"/>
                             <constraint firstItem="9dP-eC-IbR" firstAttribute="top" secondItem="vKO-2L-ezf" secondAttribute="bottom" constant="70" id="AnK-Tx-g2m"/>
                             <constraint firstItem="8Gl-03-Ilf" firstAttribute="centerX" secondItem="9dP-eC-IbR" secondAttribute="centerX" id="DSf-dM-syL"/>
                             <constraint firstItem="bje-mf-V2O" firstAttribute="leading" secondItem="YQy-Sa-ROU" secondAttribute="leading" id="HEL-SY-Bfm"/>
                             <constraint firstAttribute="trailing" secondItem="bje-mf-V2O" secondAttribute="trailing" id="KIO-ik-cor"/>
                             <constraint firstItem="8Gl-03-Ilf" firstAttribute="top" secondItem="9dP-eC-IbR" secondAttribute="bottom" constant="4" id="QU7-o7-w2T"/>
+                            <constraint firstAttribute="bottom" secondItem="fiy-Bj-1LK" secondAttribute="bottom" constant="67" id="Sbg-ia-krS"/>
                             <constraint firstItem="Qps-2B-STB" firstAttribute="leading" secondItem="YQy-Sa-ROU" secondAttribute="leading" id="VjK-ZX-GGz"/>
                             <constraint firstAttribute="bottom" secondItem="bje-mf-V2O" secondAttribute="bottom" constant="30" id="Xxn-ca-8GH"/>
                             <constraint firstItem="RHL-9a-AVo" firstAttribute="leading" secondItem="YQy-Sa-ROU" secondAttribute="leading" id="bh2-4w-qAk"/>
+                            <constraint firstAttribute="trailing" secondItem="fiy-Bj-1LK" secondAttribute="trailing" id="c90-0h-gdq"/>
                             <constraint firstAttribute="trailing" secondItem="RHL-9a-AVo" secondAttribute="trailing" id="hlK-eg-TNw"/>
                             <constraint firstAttribute="bottom" secondItem="RHL-9a-AVo" secondAttribute="bottom" constant="43" id="lJ3-wG-Jlm"/>
+                            <constraint firstItem="fiy-Bj-1LK" firstAttribute="leading" secondItem="YQy-Sa-ROU" secondAttribute="leading" id="nHs-eR-hzZ"/>
+                            <constraint firstItem="ps2-3n-40D" firstAttribute="leading" secondItem="YQy-Sa-ROU" secondAttribute="leading" id="sQM-WD-sLn"/>
                             <constraint firstItem="9dP-eC-IbR" firstAttribute="centerX" secondItem="YQy-Sa-ROU" secondAttribute="centerX" id="wWv-M3-8RD"/>
+                            <constraint firstAttribute="trailing" secondItem="ps2-3n-40D" secondAttribute="trailing" id="xpA-PV-1k8"/>
                             <constraint firstAttribute="trailing" secondItem="Qps-2B-STB" secondAttribute="trailing" id="zvK-Be-ahz"/>
                         </constraints>
                     </view>
