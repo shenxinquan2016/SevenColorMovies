@@ -41,6 +41,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>如果不允许，你将无法使用七彩云中扫一扫和遥控器功能。</string>
 	<key>NSCameraUsageDescription</key>
 	<string>如果不允许，你将无法使用七彩云中扫一扫和遥控器功能。</string>
 	<key>NSMicrophoneUsageDescription</key>
