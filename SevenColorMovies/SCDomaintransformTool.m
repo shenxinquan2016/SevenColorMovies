@@ -18,7 +18,10 @@
 
 - (void)getNewDomainByUrlString:(nullable NSString *)urlString key:(nullable NSString *)key success:(nullable void(^)(id _Nullable newUrlString))success failure:(nullable void(^)(id _Nullable errorObject))faild
 {
-    [requestDataManager requestDataWithUrl:DynamicDomainEntrance parameters:nil success:^(id  _Nullable responseObject) {
+    const NSString *uuidStr = [HLJUUID getUUID];
+    
+    NSDictionary *patameters = @{@"hid" : uuidStr};
+    [requestDataManager requestDataWithUrl:DynamicDomainEntrance parameters:patameters success:^(id  _Nullable responseObject) {
 //        DONG_Log(@"responseObject:%@",responseObject);
         self.domainNameArray = [NSArray arrayWithArray:responseObject[@"Data"][@"UrlList"][@"Url"]];
         if (_domainNameArray.count) {
