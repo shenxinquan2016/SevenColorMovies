@@ -13,6 +13,10 @@
 // 当前现在日期类转换成时间戳
 - (NSString *)getTimeStamp;
 
+// 返回当前时间字符串：@"YYYY-MM-dd hh:mm:ss"
++ (NSString *)getNowDateStr;
+
+
 // 时间戳转换成NSDate对象
 + (NSDate *)getDateWithTimeStamp:(NSString *)timeStamp;
 

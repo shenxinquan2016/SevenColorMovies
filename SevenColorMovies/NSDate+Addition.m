@@ -15,6 +15,15 @@
     return [NSString stringWithFormat:@"%lf", [self timeIntervalSince1970]];//获取当前的秒数（毫秒需*1000 微秒需*1000*1000）
 }
 
+// 返回当前时间字符串：@"YYYY-MM-dd hh:mm:ss"
++ (NSString *)getNowDateStr
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+    return dateString;
+}
+
 // 时间戳转换成NSDate对象
 + (NSDate *)getDateWithTimeStamp:(NSString *)timeStamp {
     NSString *arg = timeStamp;

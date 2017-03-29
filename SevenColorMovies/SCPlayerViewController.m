@@ -603,6 +603,9 @@ static const CGFloat LabelWidth = 100.f;
     }else if (_filmModel.mtype){
         mtype = _filmModel.mtype;
     }
+    
+    NSString *stype = _filmModel.stype;
+    
     NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
     
     if ([self.entrance isEqualToString:@"search"]) {
@@ -637,8 +640,8 @@ static const CGFloat LabelWidth = 100.f;
             
         } else if // 综艺 生活
         
-        ([mtype isEqualToString:@"7"] ||
-         [mtype isEqualToString:@"9"])
+        (([mtype isEqualToString:@"7"] ||
+         [mtype isEqualToString:@"9"])&& [stype isEqualToString:@"1"])
         {
             [self getArtsAndLifeData];
             
@@ -646,9 +649,6 @@ static const CGFloat LabelWidth = 100.f;
             //电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题
             [self getTeleplayData];
         }
-        
-        
-        
     }
     
 }
@@ -2098,7 +2098,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 DONG_StrongSelf(self);
-                //            NSLog(@"====responseObject======%@===",responseObject);
+//                            DONG_Log(@"====responseObject======%@===",responseObject);
                 [strongself.filmsArr removeAllObjects];
                 if (responseObject) {
                     

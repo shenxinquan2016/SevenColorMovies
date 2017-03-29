@@ -48,13 +48,13 @@
 #define DONG_INSTANT_VC_WITH_ID(storyboardName,vcIdentifier)  [DONG_STORYBOARD(storyboardName) instantiateViewControllerWithIdentifier:vcIdentifier]
 
 /************************************** UIAlertView *************************************/
-//弹出信息
+// 弹出信息
 #define ALERT(msg) [[[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
-//带占字符弹出信息(format, ## __VA_ARGS__)
+// 带占字符弹出信息(format, ## __VA_ARGS__)
 #define ALERT_FORMAT(format, ...) [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:format, ## __VA_ARGS__] delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
 #define ALERT_TITLE(title, msg) [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] show]
 
-//NSLog(...)
+// NSLog(...)
 #ifdef DEBUG
 #define NSLog(...) NSLog(__VA_ARGS__)
 #else
@@ -62,10 +62,17 @@
 #endif
 
 #ifdef DEBUG
-#define DONG_Log(...) NSLog(@"🔴%s 第%d行 \n %@\n\n",__func__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
+#define DONG_Log2(...) NSLog(@"🔴%s 第%d行 \n %@\n\n",__func__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
+#else
+#define DONG_Log2(...)
+
+#endif
+
+#ifdef DEBUG
+#define DONG_Log(...) printf("%s %s 🔴 第%d行: %s\n", [[NSDate getNowDateStr] UTF8String], [[NSString stringWithFormat:@"%s", __FILE__].lastPathComponent UTF8String] ,__LINE__, [[NSString stringWithFormat:__VA_ARGS__] UTF8String]);
+
 #else
 #define DONG_Log(...)
-
 #endif
 
 #define DONG_Toast(str) [NSString stringWithFormat:@"%@",@#str]
