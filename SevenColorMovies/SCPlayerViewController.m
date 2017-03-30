@@ -2374,6 +2374,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 
                 DONG_Log(@"replacedUrl:%@",replacedUrl);
                 
+                // 拼接出认证地址
                 NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:filmmidStr] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
                 
                 
@@ -2381,8 +2382,8 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 //                DONG_Log(@">>>>>>>>>>>replacedUrl>>>>>>>>>>%@",replacedUrl);
                 //                DONG_Log(@">>>>>>>>>>>filmmidStr>>>>>>>>>>%@",filmmidStr);
                 //                DONG_Log(@">>>>>>>>>>>fidString>>>>>>>>>>%@",fidString);
-                //                DONG_Log(@">>>>>>>>>>>>downloadBase64Url>>>>>>>>>>%@",downloadBase64Url);
-                //                DONG_Log(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>%@",VODStreamingUrl);
+//               DONG_Log(@"downloadBase64Url：%@",downloadBase64Url);
+               DONG_Log(@"影片认证地址>>>VODStreamingUrl：%@",VODStreamingUrl);
                 
                 strongself.titleArr = @[@"详情", @"精彩推荐"];
                 strongself.identifier = @"电影";
