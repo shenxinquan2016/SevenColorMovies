@@ -604,9 +604,10 @@ static const CGFloat LabelWidth = 100.f;
         mtype = _filmModel.mtype;
     }
     
-    NSString *stype = _filmModel.stype;
+    NSString *stype = _filmModel._Stype;
     
-    NSLog(@"++++++++++++++++++++_filmModel._Mtype::::%@",mtype);
+    DONG_Log(@"mtype:%@",mtype);
+    DONG_Log(@"stype:%@",stype);
     
     if ([self.entrance isEqualToString:@"search"]) {
         
