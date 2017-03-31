@@ -17,7 +17,9 @@
 
     2️⃣请求回看节目视频流url --> 用filmModel._TvId拼接处fid | 用startTime和endTime拼接出ext --> 请求获取play_url --> IP转换playUrl--> 播放
 
+
 发布须知：
+
 1. 在Build Phases 点击下面左边的加号 选择 New Run Script Phase 会出来一个Run Script,将下面的脚本注释去掉然后贴到Run Script中
 
 Without further ado, here’s the script. Add a Run Script step to your build steps, put it after your step to embed frameworks, set it to use /bin/sh and enter the following script:
@@ -52,7 +54,9 @@ mv "$FRAMEWORK_EXECUTABLE_PATH-merged" "$FRAMEWORK_EXECUTABLE_PATH"
 
 done
 
-2. 在build setting中搜索 Other Linker Flags，将Reveal删除
+2. 删除Reveal
+a 文件目录中删除Realm.framework
+b 在build setting中搜索 Other Linker Flags，删除 Reveal  -framework  -lz -ObjC
 
 
 
