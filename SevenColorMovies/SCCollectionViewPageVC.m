@@ -122,7 +122,10 @@ static NSString *const cellId = @"cellId";
                     
                     for (NSDictionary *dic in array) {
                         SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-                        [_filmModelArr addObject:filmModel];
+                        // filmModel偶尔为nil
+                        if (filmModel) {
+                           [_filmModelArr addObject:filmModel];
+                        }
                     }
                     [self.collectionView reloadData];
                     [self.collectionView.mj_header endRefreshing];
