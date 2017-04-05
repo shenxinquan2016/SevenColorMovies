@@ -2177,8 +2177,20 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 //获取downLoadUrl
                 [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
                     
-                    NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
                     
+                    DONG_Log(@"responseObject:%@", responseObject[@"ContentSet"][@"Content"]);
+                    
+                    NSString *downLoadUrl = nil;
+                    
+                    if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]) {
+                        
+                        downLoadUrl  = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
+                        
+                    } else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
+                        
+                        downLoadUrl  = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
+                        
+                    }
                     //获取fid
                     NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
                     //base64编码downloadUrl

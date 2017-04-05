@@ -1770,7 +1770,7 @@
 			name = Vendor;
 			sourceTree = "<group>";
 		};
-		11BB37BD1D38DB160002D487 /* Discovery */ = {
+		11BB37BD1D38DB160002D487 /* Discovery 发现 */ = {
 			isa = PBXGroup;
 			children = (
 				113F8D921D3C705200B12D39 /* MainBody */,
@@ -1778,10 +1778,10 @@
 				11BA52E01DFC42400036CF25 /* RemoteControl */,
 				1182415E1E2327AF00B78E1A /* DLNA */,
 			);
-			name = Discovery;
+			name = "Discovery 发现";
 			sourceTree = "<group>";
 		};
-		11BB37BE1D38DB1F0002D487 /* HomePage */ = {
+		11BB37BE1D38DB1F0002D487 /* HomePage 首页 */ = {
 			isa = PBXGroup;
 			children = (
 				113F8D8E1D3C700900B12D39 /* MainBody */,
@@ -1792,7 +1792,7 @@
 				116E1D5B1D4B4D4600B488EC /* Filter筛选 */,
 				113E62E51D49F5FE00FB8F3A /* FilmModel */,
 			);
-			name = HomePage;
+			name = "HomePage 首页";
 			sourceTree = "<group>";
 		};
 		11BB37BF1D38DB220002D487 /* Tabbar */ = {
@@ -1820,10 +1820,10 @@
 				11BB37C21D38DB2D0002D487 /* Assistant */,
 				11BB37D91D38F04E0002D487 /* Base */,
 				116475FF1D40B98600A3BC1C /* Main */,
-				11BB37BE1D38DB1F0002D487 /* HomePage */,
-				11BB37BD1D38DB160002D487 /* Discovery */,
-				11BB37CC1D38E5480002D487 /* News */,
-				11BB37CB1D38E5440002D487 /* Mine */,
+				11BB37BE1D38DB1F0002D487 /* HomePage 首页 */,
+				11BB37BD1D38DB160002D487 /* Discovery 发现 */,
+				11BB37CC1D38E5480002D487 /* News 新闻 */,
+				11BB37CB1D38E5440002D487 /* Mine 我的 */,
 				11FF64881E275EC5007DC954 /* Model */,
 				11BB37DA1D38F0510002D487 /* NetRequestTool */,
 				11BB37C01D38DB250002D487 /* Utility */,
@@ -1861,7 +1861,7 @@
 			name = Plist;
 			sourceTree = "<group>";
 		};
-		11BB37CB1D38E5440002D487 /* Mine */ = {
+		11BB37CB1D38E5440002D487 /* Mine 我的 */ = {
 			isa = PBXGroup;
 			children = (
 				113F8D961D3C706300B12D39 /* MainBody */,
@@ -1872,16 +1872,16 @@
 				116E0F671DB0B7D200E280C6 /* Message */,
 				116E0F681DB0B7DE00E280C6 /* Setting */,
 			);
-			name = Mine;
+			name = "Mine 我的";
 			sourceTree = "<group>";
 		};
-		11BB37CC1D38E5480002D487 /* News */ = {
+		11BB37CC1D38E5480002D487 /* News 新闻 */ = {
 			isa = PBXGroup;
 			children = (
 				113F8D941D3C705900B12D39 /* MainBody */,
 				113F8D931D3C705600B12D39 /* View */,
 			);
-			name = News;
+			name = "News 新闻";
 			sourceTree = "<group>";
 		};
 		11BB37D81D38F0490002D487 /* Helper */ = {
