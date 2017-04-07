@@ -2178,7 +2178,7 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
                 [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
                     
                     
-                    DONG_Log(@"responseObject:%@", responseObject[@"ContentSet"][@"Content"]);
+                    //DONG_Log(@"responseObject:%@", responseObject[@"ContentSet"][@"Content"]);
                     
                     NSString *downLoadUrl = nil;
                     
