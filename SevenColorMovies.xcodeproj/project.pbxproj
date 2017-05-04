@@ -185,7 +185,7 @@
 		11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE83171D3CBA1B00886CF6 /* BaseNavigationController.m */; };
 		11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */; };
 		11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */; };
-		11BF11941EBB01C40091255E /* libiosagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BF11931EBB01C40091255E /* libiosagent.a */; };
+		11BF11971EBB20FF0091255E /* libiosagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BF11961EBB20FF0091255E /* libiosagent.a */; };
 		11C1C1C11D8020A300CEE71C /* SCFliterOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C1C1BF1D8020A300CEE71C /* SCFliterOptionCell.m */; };
 		11C1C1C21D8020A300CEE71C /* SCFliterOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C1C1C01D8020A300CEE71C /* SCFliterOptionCell.xib */; };
 		11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */; };
@@ -565,7 +565,7 @@
 		11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationInteractiveTransition.m; sourceTree = "<group>"; };
 		11BE831C1D3CBB3E00886CF6 /* NavigationPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationPopAnimation.h; sourceTree = "<group>"; };
 		11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationPopAnimation.m; sourceTree = "<group>"; };
-		11BF11931EBB01C40091255E /* libiosagent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiosagent.a; sourceTree = "<group>"; };
+		11BF11961EBB20FF0091255E /* libiosagent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiosagent.a; sourceTree = "<group>"; };
 		11C1C1BE1D8020A300CEE71C /* SCFliterOptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFliterOptionCell.h; sourceTree = "<group>"; };
 		11C1C1BF1D8020A300CEE71C /* SCFliterOptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFliterOptionCell.m; sourceTree = "<group>"; };
 		11C1C1C01D8020A300CEE71C /* SCFliterOptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCFliterOptionCell.xib; sourceTree = "<group>"; };
@@ -661,7 +661,7 @@
 				116B1F581D53236B00E9637A /* libbz2.tbd in Frameworks */,
 				116B1F561D53235600E9637A /* libz.tbd in Frameworks */,
 				116B1F541D53211C00E9637A /* IJKMediaFramework.framework in Frameworks */,
-				11BF11941EBB01C40091255E /* libiosagent.a in Frameworks */,
+				11BF11971EBB20FF0091255E /* libiosagent.a in Frameworks */,
 				081D0D94DAAC6F0452543183 /* libPods-SevenColorMovies.a in Frameworks */,
 				11B9DBD41E214DF70086E51E /* Realm.framework in Frameworks */,
 			);
@@ -800,7 +800,7 @@
 			isa = PBXGroup;
 			children = (
 				11A39D9D1D9269EE00C9FEA8 /* libagent_start.h */,
-				11BF11931EBB01C40091255E /* libiosagent.a */,
+				11BF11961EBB20FF0091255E /* libiosagent.a */,
 			);
 			name = "播放的代理";
 			sourceTree = "<group>";
