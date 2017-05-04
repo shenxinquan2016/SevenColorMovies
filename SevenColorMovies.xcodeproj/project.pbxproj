@@ -18,7 +18,6 @@
 		11052AC21E10BFF300BF795B /* Dong_NullDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052AC11E10BFF300BF795B /* Dong_NullDataView.m */; };
 		11052AC51E10FEA800BF795B /* SCHTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11052AC41E10FEA800BF795B /* SCHTMLViewController.m */; };
 		110591701D5046B20043C833 /* SCCollectionViewPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */; };
-		110D60AC1E6FEC620058951F /* libold_lib(1).a in Frameworks */ = {isa = PBXBuildFile; fileRef = 110D60AB1E6FEC620058951F /* libold_lib(1).a */; };
 		1111A4031D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */; };
 		1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A4051D4886B300C17B92 /* SCNetRequsetManger.m */; };
 		1111A40B1D488C1E00C17B92 /* DNIPhoneInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1111A40A1D488C1E00C17B92 /* DNIPhoneInfo.m */; };
@@ -186,6 +185,7 @@
 		11BE83181D3CBA1B00886CF6 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE83171D3CBA1B00886CF6 /* BaseNavigationController.m */; };
 		11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */; };
 		11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */; };
+		11BF11941EBB01C40091255E /* libiosagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BF11931EBB01C40091255E /* libiosagent.a */; };
 		11C1C1C11D8020A300CEE71C /* SCFliterOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C1C1BF1D8020A300CEE71C /* SCFliterOptionCell.m */; };
 		11C1C1C21D8020A300CEE71C /* SCFliterOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C1C1C01D8020A300CEE71C /* SCFliterOptionCell.xib */; };
 		11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */; };
@@ -278,7 +278,6 @@
 		11052AC41E10FEA800BF795B /* SCHTMLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHTMLViewController.m; sourceTree = "<group>"; };
 		1105916E1D5046B20043C833 /* SCCollectionViewPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageVC.h; sourceTree = "<group>"; };
 		1105916F1D5046B20043C833 /* SCCollectionViewPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageVC.m; sourceTree = "<group>"; };
-		110D60AB1E6FEC620058951F /* libold_lib(1).a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libold_lib(1).a"; sourceTree = "<group>"; };
 		1111A4011D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		1111A4021D48584C00C17B92 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		1111A4041D4886B300C17B92 /* SCNetRequsetManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNetRequsetManger.h; sourceTree = "<group>"; };
@@ -566,6 +565,7 @@
 		11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationInteractiveTransition.m; sourceTree = "<group>"; };
 		11BE831C1D3CBB3E00886CF6 /* NavigationPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationPopAnimation.h; sourceTree = "<group>"; };
 		11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationPopAnimation.m; sourceTree = "<group>"; };
+		11BF11931EBB01C40091255E /* libiosagent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiosagent.a; sourceTree = "<group>"; };
 		11C1C1BE1D8020A300CEE71C /* SCFliterOptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFliterOptionCell.h; sourceTree = "<group>"; };
 		11C1C1BF1D8020A300CEE71C /* SCFliterOptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFliterOptionCell.m; sourceTree = "<group>"; };
 		11C1C1C01D8020A300CEE71C /* SCFliterOptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCFliterOptionCell.xib; sourceTree = "<group>"; };
@@ -655,13 +655,13 @@
 				116B1F601D5323BE00E9637A /* CoreMedia.framework in Frameworks */,
 				116B1F5E1D5323A600E9637A /* CoreGraphics.framework in Frameworks */,
 				1180E1DD1E30F52000AF1681 /* Fabric.framework in Frameworks */,
-				110D60AC1E6FEC620058951F /* libold_lib(1).a in Frameworks */,
 				116B1F5C1D53238B00E9637A /* AVFoundation.framework in Frameworks */,
 				1180E1DE1E30F52000AF1681 /* Crashlytics.framework in Frameworks */,
 				116B1F5A1D53237D00E9637A /* AudioToolbox.framework in Frameworks */,
 				116B1F581D53236B00E9637A /* libbz2.tbd in Frameworks */,
 				116B1F561D53235600E9637A /* libz.tbd in Frameworks */,
 				116B1F541D53211C00E9637A /* IJKMediaFramework.framework in Frameworks */,
+				11BF11941EBB01C40091255E /* libiosagent.a in Frameworks */,
 				081D0D94DAAC6F0452543183 /* libPods-SevenColorMovies.a in Frameworks */,
 				11B9DBD41E214DF70086E51E /* Realm.framework in Frameworks */,
 			);
@@ -800,7 +800,7 @@
 			isa = PBXGroup;
 			children = (
 				11A39D9D1D9269EE00C9FEA8 /* libagent_start.h */,
-				110D60AB1E6FEC620058951F /* libold_lib(1).a */,
+				11BF11931EBB01C40091255E /* libiosagent.a */,
 			);
 			name = "播放的代理";
 			sourceTree = "<group>";
