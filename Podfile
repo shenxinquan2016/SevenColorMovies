@@ -19,7 +19,7 @@ target 'SevenColorMovies' do
     pod 'XMPPFramework', :git => "https://github.com/robbiehanson/XMPPFramework.git", :branch => 'master'
     #use_frameworks!
     #pod 'ReactiveCocoa', '~> 4.0.4-alpha-4'
-    pod 'LBXScan',git:'https://github.com/MxABC/LBXScan.git'
+    pod 'LBXScan',git:'https://github.com/MxABC/LBXScan.git' # ~> 1.1.1
 
 end
 
