@@ -91,7 +91,6 @@
     QINetReachabilityManager *manager = [QINetReachabilityManager sharedInstance];
     
     QINetReachabilityStatus status = (QINetReachabilityStatus)[manager currentNetReachabilityStatus];
-    
     if (status == QINetReachabilityStatusWIFI){
         NSLog(@"wifi");
         if (WifiNetwork) {
