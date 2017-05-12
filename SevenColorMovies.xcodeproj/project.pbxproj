@@ -40,6 +40,8 @@
 		1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */; };
 		1129A6551DE567DC000328C9 /* SCMessageCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1129A6541DE567DC000328C9 /* SCMessageCenterVC.m */; };
 		1129A6581DE56803000328C9 /* SCSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1129A6571DE56803000328C9 /* SCSettingVC.m */; };
+		112DEFA91EC5A5E0008DD890 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112DEFA81EC5A5E0008DD890 /* Realm.framework */; };
+		112DEFAA1EC5A5E0008DD890 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 112DEFA81EC5A5E0008DD890 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1131C0D91D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0D81D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m */; };
 		1131C0DF1D6705CD00BA151A /* IJKMediaControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0DB1D6705CD00BA151A /* IJKMediaControl.m */; };
 		1131C0E01D6705CD00BA151A /* IJKVideoPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131C0DD1D6705CD00BA151A /* IJKVideoPlayerVC.m */; };
@@ -159,8 +161,6 @@
 		11B496281DD967A400C51B8A /* SCDownloadedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11B496261DD967A400C51B8A /* SCDownloadedCell.xib */; };
 		11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */; };
 		11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */; };
-		11B9DBD41E214DF70086E51E /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11B9DBD31E214DF70086E51E /* Realm.framework */; };
-		11B9DBD51E214DF70086E51E /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11B9DBD31E214DF70086E51E /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11BA52DF1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BA52DE1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m */; };
 		11BA52E41DFC449A0036CF25 /* SCSearchingDeviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BA52E31DFC449A0036CF25 /* SCSearchingDeviceView.m */; };
 		11BA52E71DFC45F00036CF25 /* SCNoDeviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BA52E61DFC45F00036CF25 /* SCNoDeviceView.m */; };
@@ -248,7 +248,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				11B9DBD51E214DF70086E51E /* Realm.framework in Embed Frameworks */,
+				112DEFAA1EC5A5E0008DD890 /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,6 +319,7 @@
 		1129A6541DE567DC000328C9 /* SCMessageCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMessageCenterVC.m; sourceTree = "<group>"; };
 		1129A6561DE56803000328C9 /* SCSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSettingVC.h; sourceTree = "<group>"; };
 		1129A6571DE56803000328C9 /* SCSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSettingVC.m; sourceTree = "<group>"; };
+		112DEFA81EC5A5E0008DD890 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		112EF5BE1DB8AF3E0029BC62 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		1131C0D71D67057600BA151A /* SCChangeBrightnessAndVolumeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChangeBrightnessAndVolumeTool.h; sourceTree = "<group>"; };
 		1131C0D81D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChangeBrightnessAndVolumeTool.m; sourceTree = "<group>"; };
@@ -521,7 +522,6 @@
 		11B9837D1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveRecommendationCollectionVC.m; sourceTree = "<group>"; };
 		11B9837F1D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMoiveAllEpisodesCollectionVC.h; sourceTree = "<group>"; };
 		11B983801D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMoiveAllEpisodesCollectionVC.m; sourceTree = "<group>"; };
-		11B9DBD31E214DF70086E51E /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = ../Realm.framework; sourceTree = "<group>"; };
 		11BA52DD1DFC41FD0036CF25 /* SCRemoteHelpPageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRemoteHelpPageVC.h; sourceTree = "<group>"; };
 		11BA52DE1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRemoteHelpPageVC.m; sourceTree = "<group>"; };
 		11BA52E21DFC449A0036CF25 /* SCSearchingDeviceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchingDeviceView.h; sourceTree = "<group>"; };
@@ -661,9 +661,9 @@
 				116B1F581D53236B00E9637A /* libbz2.tbd in Frameworks */,
 				116B1F561D53235600E9637A /* libz.tbd in Frameworks */,
 				116B1F541D53211C00E9637A /* IJKMediaFramework.framework in Frameworks */,
+				112DEFA91EC5A5E0008DD890 /* Realm.framework in Frameworks */,
 				11BF11971EBB20FF0091255E /* libiosagent.a in Frameworks */,
 				081D0D94DAAC6F0452543183 /* libPods-SevenColorMovies.a in Frameworks */,
-				11B9DBD41E214DF70086E51E /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1690,6 +1690,7 @@
 		11BB376B1D38B9A00002D487 = {
 			isa = PBXGroup;
 			children = (
+				112DEFA81EC5A5E0008DD890 /* Realm.framework */,
 				1190EA351DEE7155002CA166 /*  提示 */,
 				11BB37761D38B9A00002D487 /* SevenColorMovies */,
 				11BB37901D38B9A00002D487 /* SevenColorMoviesTests */,
@@ -1758,7 +1759,6 @@
 			isa = PBXGroup;
 			children = (
 				11DA5EFA1E24742800B32E1B /* CodeScan.bundle */,
-				11B9DBD31E214DF70086E51E /* Realm.framework */,
 				1187027E1D7436B7005B3895 /* Reveal.framework */,
 				11052ABC1E10BF5000BF795B /* NullDataView */,
 				112BF95A1E0A5C3900A9C33D /* AudioConvert音频转码 */,
@@ -2214,6 +2214,7 @@
 				8D76CBEA5442CBACAA6824D1 /* [CP] Copy Pods Resources */,
 				11B9DBD61E214DF80086E51E /* Embed Frameworks */,
 				11B9DBD71E214E020086E51E /* Run Script */,
+				112DEFAB1EC5A71B008DD890 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2393,6 +2394,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SevenColorMoviesTests/Pods-SevenColorMoviesTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		112DEFAB1EC5A71B008DD890 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
 		};
 		11B9DBD71E214E020086E51E /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
