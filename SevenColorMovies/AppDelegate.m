@@ -172,20 +172,20 @@
 
 - (void)checkNetworkEnvironment
 {
-        [SCNetHelper noNetWork:^{
-            DONG_Log(@"没有网");
-        }];
-    
-        [SCNetHelper WWANNetwork:^{
-            DONG_Log(@"4G网络");
-    
-        }];
-    
-        [SCNetHelper wifiNetwork:^{
-            DONG_Log(@"WiFi网络");
-        }];
-    
-    DONG_Log(@"%@",[SCNetHelper getNetWorkStates]);
+//        [SCNetHelper noNetWork:^{
+//            DONG_Log(@"没有网");
+//        }];
+//    
+//        [SCNetHelper WWANNetwork:^{
+//            DONG_Log(@"4G网络");
+//    
+//        }];
+//    
+//        [SCNetHelper wifiNetwork:^{
+//            DONG_Log(@"WiFi网络");
+//        }];
+//    
+//    DONG_Log(@"%@",[SCNetHelper getNetWorkStates]);
     
     
     [SCNetHelper changeToWifi:^{
