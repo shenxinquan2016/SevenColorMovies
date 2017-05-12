@@ -202,6 +202,7 @@
         [MBProgressHUD showError:@"网络断开"];
     }];
     
+    
 }
 
 - (void) logUser {
