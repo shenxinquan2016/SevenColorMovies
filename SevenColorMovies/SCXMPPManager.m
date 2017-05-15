@@ -188,7 +188,7 @@
     if ([self.delegate respondsToSelector:@selector(xmppDidSendMessage:)]) {
         [self.delegate xmppDidSendMessage:message];
     }
-    DONG_Log(@"send message:%@",message);
+    //DONG_Log(@"send message:%@",message);
 }
 
 /** 消息发送失败 */
@@ -218,8 +218,7 @@
     {
         NSDictionary *dic2 =[NSDictionary dictionaryWithXMLString:dic[@"Body"]];
         DONG_Log(@"dic2:%@",dic2);
-        
-        
+
         NSString *deviceType = @"TV";
         NSString *mid = dic2[@"_mid"];
         NSString *sid = dic2[@"_sid"];
@@ -467,7 +466,6 @@
         }
     }
 }
-
 
 - (void)xmppStream:(XMPPStream*)sender didFailToSendPresence:(XMPPPresence *)presence error:(NSError *)error
 {

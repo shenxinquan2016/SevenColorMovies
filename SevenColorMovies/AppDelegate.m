@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-
+#import "SCXMPPManager.h"
 #import "SCNetUrlManger.h"
 #import "IQKeyboardManager.h"
 #import "HLJUUID.h"
@@ -23,25 +23,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    
-    //    [self setAppearance];
-    
+    // -1.网络状态监测
     [self checkNetworkEnvironment];
-    
-    //0.初始化键盘控制
+    // 0.初始化键盘控制
     [self initKeyboardManager];
-    
-    //2.设置网络环境
+    // 2.设置网络环境
     [self setNetworkEnvironment];
-    
-    //3.设置点播播放列表点击标识置为0
+    // 3.设置点播播放列表点击标识置为0
     [self setSelectedInitialIndex];
-    
     // 4.开启Crashlytics崩溃日志
     [Fabric with:@[[Crashlytics class]]];
-    
-    // TODO: Move this to where you establish a user session
     [self logUser];
+    // 5.自动登录xmpp
+//    [self xmppLogin];
     
     return YES;
 }
@@ -127,7 +121,20 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-//设置网络环境
+- (void)xmppLogin
+{
+    // 登录XMPP 不绑定
+    NSString *hid = [DONG_UserDefaults objectForKey:KHidByTVBox];
+    NSString *uid = [DONG_UserDefaults objectForKey:kUidByTVBox];
+    if (hid.length > 0 && hid.length > 0) {
+        NSString *uuidStr = [HLJUUID getUUID];
+        XMPPManager.uid = uid;
+        XMPPManager.hid = hid;
+        [XMPPManager initXMPPWithUserName:uid andPassWord:@"voole" resource:uuidStr];
+    }
+}
+
+// 设置网络环境
 - (void)setNetworkEnvironment
 {
     NSMutableDictionary *netDic = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"switchNetworkEnvironment" ofType:@"plist"]];
@@ -172,20 +179,20 @@
 
 - (void)checkNetworkEnvironment
 {
-//        [SCNetHelper noNetWork:^{
-//            DONG_Log(@"没有网");
-//        }];
-//    
-//        [SCNetHelper WWANNetwork:^{
-//            DONG_Log(@"4G网络");
-//    
-//        }];
-//    
-//        [SCNetHelper wifiNetwork:^{
-//            DONG_Log(@"WiFi网络");
-//        }];
-//    
-//    DONG_Log(@"%@",[SCNetHelper getNetWorkStates]);
+    //        [SCNetHelper noNetWork:^{
+    //            DONG_Log(@"没有网");
+    //        }];
+    //
+    //        [SCNetHelper WWANNetwork:^{
+    //            DONG_Log(@"4G网络");
+    //
+    //        }];
+    //
+    //        [SCNetHelper wifiNetwork:^{
+    //            DONG_Log(@"WiFi网络");
+    //        }];
+    //
+    //    DONG_Log(@"%@",[SCNetHelper getNetWorkStates]);
     
     
     [SCNetHelper changeToWifi:^{
@@ -223,14 +230,14 @@
     libagent_start(0, NULL, uuid, 5656);
     
     // 开代理日志
-//            [requestDataManager requestDataWithUrl:@"http://127.0.0.1:5656/logon" parameters:nil success:^(id  _Nullable responseObject) {
-//    
-//                DONG_Log(@"responseObject:%@",responseObject);
-//    
-//            } failure:^(id  _Nullable errorObject) {
-//    
-//    
-//            }];
+    //            [requestDataManager requestDataWithUrl:@"http://127.0.0.1:5656/logon" parameters:nil success:^(id  _Nullable responseObject) {
+    //
+    //                DONG_Log(@"responseObject:%@",responseObject);
+    //
+    //            } failure:^(id  _Nullable errorObject) {
+    //    
+    //    
+    //            }];
     
 }
 

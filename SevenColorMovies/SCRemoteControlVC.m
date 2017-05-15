@@ -105,11 +105,9 @@
         //[XMPPManager initXMPPWithUserName:@"8451204087955261" andPassWord:@"voole" resource:uuidStr];
         [XMPPManager initXMPPWithUserName:self.uid andPassWord:@"voole" resource:uuidStr];
     }
-    
     XMPPManager.delegate = self;
-    //    _miroPhoneBtn.enabled = NO;
     
-    //[self startLoadingAnimating];
+//    [self startLoadingAnimating];
     
     // 6.
     NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
@@ -610,6 +608,8 @@
     //1.断开连接
     //[TCPScoketManager disConnectSocket];
     [XMPPManager disConnect];
+    [DONG_UserDefaults removeObjectForKey:KHidByTVBox];
+    [DONG_UserDefaults removeObjectForKey:kUidByTVBox];
     [self.navigationController popToRootViewControllerAnimated:YES];
     //2.发送通知
     //[DONG_NotificationCenter postNotificationName:CutOffTcpConnectByUser object:nil];
@@ -831,12 +831,14 @@
                 [CommonFunc dismiss];
                 [MBProgressHUD showSuccess:@"绑定成功"];
                 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideLoadingVew) object:nil];
+                // 缓存hid和uid 便于此后自动连接
+                [DONG_UserDefaults setObject:_uid forKey:kUidByTVBox];
+                [DONG_UserDefaults setObject:_hid forKey:KHidByTVBox];
                 
             } else if ([dic[@"_value"] isEqualToString:@"false"]) {
                 
                 // 绑定失败
                 [CommonFunc dismiss];
-                
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备绑定失败，请重新扫码绑定" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
                 [alertView show];
                 alertView.delegate = self;
@@ -879,7 +881,8 @@
     } else if (buttonIndex == 1) {
         
         [XMPPManager disConnect];
-        
+        [DONG_UserDefaults removeObjectForKey:KHidByTVBox];
+        [DONG_UserDefaults removeObjectForKey:kUidByTVBox];
         SCScanQRCodesVC *scanQRCodesVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanQRCodesVC");
         scanQRCodesVC.entrance = @"player";
         scanQRCodesVC.isQQSimulator = YES;

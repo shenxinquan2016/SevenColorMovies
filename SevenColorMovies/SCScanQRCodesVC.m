@@ -34,7 +34,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self addLeftBBI];
    
-
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -44,8 +43,10 @@
     // 设置配置信息
     [self setConfiguration];
     
-    if (XMPPManager.isConnected) {
+    if (XMPPManager.isConnected && ![self.entrance isEqualToString:@"Section0Click"]) {
         [XMPPManager disConnect];
+        [DONG_UserDefaults removeObjectForKey:KHidByTVBox];
+        [DONG_UserDefaults removeObjectForKey:kUidByTVBox];
     }
 }
 
@@ -70,8 +71,10 @@
 
 - (void)setConfiguration
 {
-    //设置扫码后需要扫码图像
+    // 设置扫码后需要扫码图像
     self.isNeedScanImage = NO;
+    // 设置扫码区域仅限于识别框内
+    self.isOpenInterestRect = YES;
     
     // 创建参数对象
     LBXScanViewStyle *style = [[LBXScanViewStyle alloc] init];
@@ -270,26 +273,17 @@
     if (array.count < 1)
     {
         [self popAlertMsgWithScanResult:nil];
-        
         return;
     }
-    
     //经测试，可以同时识别2个二维码，不能同时识别二维码和条形码
     for (LBXScanResult *result in array) {
-        
         DONG_Log(@"scanResult:%@",result.strScanned);
     }
-    
     LBXScanResult *scanResult = array[0];
-    
     NSString*strResult = scanResult.strScanned;
-    
     self.scanImage = scanResult.imgScanned;
-    
     if (!strResult) {
-        
         [self popAlertMsgWithScanResult:nil];
-        
         return;
     }
     
@@ -297,8 +291,6 @@
      //[LBXScanWrapper systemVibrate];
     //声音提醒
     //[LBXScanWrapper systemSound];
-    
-    
     [self showNextVCWithScanResult:scanResult];
     
 }
