@@ -319,7 +319,7 @@
 		1129A6541DE567DC000328C9 /* SCMessageCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMessageCenterVC.m; sourceTree = "<group>"; };
 		1129A6561DE56803000328C9 /* SCSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSettingVC.h; sourceTree = "<group>"; };
 		1129A6571DE56803000328C9 /* SCSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSettingVC.m; sourceTree = "<group>"; };
-		112DEFA81EC5A5E0008DD890 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		112DEFA81EC5A5E0008DD890 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = ../Realm.framework; sourceTree = "<group>"; };
 		112EF5BE1DB8AF3E0029BC62 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		1131C0D71D67057600BA151A /* SCChangeBrightnessAndVolumeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChangeBrightnessAndVolumeTool.h; sourceTree = "<group>"; };
 		1131C0D81D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChangeBrightnessAndVolumeTool.m; sourceTree = "<group>"; };
@@ -1690,7 +1690,6 @@
 		11BB376B1D38B9A00002D487 = {
 			isa = PBXGroup;
 			children = (
-				112DEFA81EC5A5E0008DD890 /* Realm.framework */,
 				1190EA351DEE7155002CA166 /*  提示 */,
 				11BB37761D38B9A00002D487 /* SevenColorMovies */,
 				11BB37901D38B9A00002D487 /* SevenColorMoviesTests */,
@@ -1758,6 +1757,7 @@
 		11BB37BC1D38DB0E0002D487 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				112DEFA81EC5A5E0008DD890 /* Realm.framework */,
 				11DA5EFA1E24742800B32E1B /* CodeScan.bundle */,
 				1187027E1D7436B7005B3895 /* Reveal.framework */,
 				11052ABC1E10BF5000BF795B /* NullDataView */,
