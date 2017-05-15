@@ -188,7 +188,7 @@
     if ([self.delegate respondsToSelector:@selector(xmppDidSendMessage:)]) {
         [self.delegate xmppDidSendMessage:message];
     }
-    DONG_Log(@"message:%@",message);
+    DONG_Log(@"send message:%@",message);
 }
 
 /** 消息发送失败 */
@@ -208,11 +208,8 @@
     NSString *from = message.fromStr;
     NSDictionary *dic = [NSDictionary dictionaryWithXMLString:info];
     
-    
-    
     DONG_Log(@"接收到%@说：%@",from,info);
     DONG_Log(@"dic:%@",dic);
-    
     
     // 只在单例工具类里处理 拉屏和飞屏 消息
     
