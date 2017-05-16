@@ -15,6 +15,7 @@
 #import "SCDLNAViewController.h"
 #import "SCScanQRCodesVC.h"
 #import "SCXMPPManager.h"
+#import "SCFunctionDescriptionVC.h"
 
 #import <Crashlytics/Crashlytics.h>
 
@@ -122,14 +123,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) { // 扫码
+    if (indexPath.section == 0) { // 功能说明
 
-        SCScanQRCodesVC *scanQRCodesVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanQRCodesVC");
-        scanQRCodesVC.isQQSimulator = YES;
-        scanQRCodesVC.isVideoZoom = YES;
-        scanQRCodesVC.entrance = @"Section0Click";
-        scanQRCodesVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:scanQRCodesVC animated:YES];
+        SCFunctionDescriptionVC *funcVC = [[SCFunctionDescriptionVC alloc] initWithWithTitle:@"功能说明"];
+        funcVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:funcVC animated:YES];
         
     } else if (indexPath.section == 1 && indexPath.row == 0){ // 遥控器
         
@@ -148,26 +146,34 @@
             
         }
         
-    } else if (indexPath.section == 1 && indexPath.row == 1) { // DLNA
+    } else if (indexPath.section == 1 && indexPath.row == 1) { // 扫码
         
+        // DLNA
 //        SCDLNAViewController *dlnaVC = [[SCDLNAViewController alloc] initWithNibName:@"SCDLNAViewController" bundle:nil];;
 //        SCDLNAViewController *dlnaVC = [[NSBundle mainBundle] loadNibNamed:
 //         @"SCDLNAViewController" owner:nil options:nil ].lastObject;
 //        [self.navigationController pushViewController:dlnaVC animated:YES];
         
         // TCP已经连接 进遥控器页  没有连接进遥控器搜索页
-        if (TCPScoketManager.isConnected) {
-            SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
-            remoteVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:remoteVC animated:YES];
-            
-        } else {
-            
-            SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
-            searchDeviceVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:searchDeviceVC animated:YES];
-        }
+//        if (TCPScoketManager.isConnected) {
+//            SCRemoteControlVC *remoteVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCRemoteControlVC");
+//            remoteVC.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:remoteVC animated:YES];
+//            
+//        } else {
+//            
+//            SCSearchDeviceVC *searchDeviceVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCSearchDeviceVC");
+//            searchDeviceVC.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:searchDeviceVC animated:YES];
+//        }
 
+        
+        SCScanQRCodesVC *scanQRCodesVC = DONG_INSTANT_VC_WITH_ID(@"Discovery", @"SCScanQRCodesVC");
+        scanQRCodesVC.isQQSimulator = YES;
+        scanQRCodesVC.isVideoZoom = YES;
+        scanQRCodesVC.entrance = @"Section0Click";
+        scanQRCodesVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:scanQRCodesVC animated:YES];
         
     }
     
@@ -188,9 +194,9 @@
 - (NSArray *)dataSource
 {
     if (!_dataSource) {
-        NSArray *array = @[@[@{@"leftImg":@"Scan",@"title":@"扫一扫",@"isShowBottmLine":@"YES"}],
+        NSArray *array = @[@[@{@"leftImg":@"DLNA",@"title":@"功能说明",@"isShowBottmLine":@"YES"}],
                            @[@{@"leftImg":@"RemoteControl",@"title":@"遥控器",@"isShowBottmLine":@"NO"},
-                             @{@"leftImg":@"DLNA",@"title":@"功能说明",@"isShowBottmLine":@"YES"},
+                             @{@"leftImg":@"Scan",@"title":@"扫一扫",@"isShowBottmLine":@"YES"}
                              /*@{@"leftImg":@"DLNA",@"title":@"DLNA",@"isShowBottmLine":@"YES"}*/],
                            /*@[@{@"leftImg":@"Activity",@"title":@"活动专区",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Game_1",@"title":@"游戏中心",@"isShowBottmLine":@"YES"}],
                            @[@{@"leftImg":@"Application",@"title":@"应用中心",@"isShowBottmLine":@"NO"},                           @{@"leftImg":@"Live_1",@"title":@"直播伴侣",@"isShowBottmLine":@"YES"}]*/];

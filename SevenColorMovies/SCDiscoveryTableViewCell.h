@@ -15,4 +15,5 @@
 @property (nonatomic, strong) SCDiscoveryCellModel *model;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
+
 @end

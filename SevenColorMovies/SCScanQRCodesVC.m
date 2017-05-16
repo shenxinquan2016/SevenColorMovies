@@ -28,7 +28,6 @@
 
 @implementation SCScanQRCodesVC
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;

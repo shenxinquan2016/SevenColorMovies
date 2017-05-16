@@ -35,7 +35,7 @@
     [Fabric with:@[[Crashlytics class]]];
     [self logUser];
     // 5.自动登录xmpp
-//    [self xmppLogin];
+    [self xmppLogin];
     
     return YES;
 }
