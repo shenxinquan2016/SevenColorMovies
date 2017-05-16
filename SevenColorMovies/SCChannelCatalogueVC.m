@@ -288,17 +288,17 @@ static NSString *const footerId = @"footerId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
-        [self.navigationController pushViewController:liveVC animated:YES];
-    } else if (indexPath.row == 1) {
-        DONG_Log(@"营业厅");
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
-    } else if (indexPath.row == 2) {
         DONG_Log(@"政府");
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.hlj.gov.cn/szfsjz/index.shtml"]];
-    } else if (indexPath.row == 3) {
+    } else if (indexPath.row == 1) {
         DONG_Log(@"先锋网");
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ljxfw.gov.cn/dyjy"]];
+    } else if (indexPath.row == 2) {
+        SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
+        [self.navigationController pushViewController:liveVC animated:YES];
+    } else if (indexPath.row == 3) {
+        DONG_Log(@"营业厅");
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
     } else {
     
         if (_filmClassArray.count != 0) {

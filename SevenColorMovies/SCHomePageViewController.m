@@ -171,7 +171,7 @@ static NSString *const footerId = @"footerId";
             DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
-//                DONG_Log(@"==========dic:::%@========",responseObject);
+                //                DONG_Log(@"==========dic:::%@========",responseObject);
                 [_titleArray removeAllObjects];
                 [_filmClassArray removeAllObjects];
                 [_bannerImageUrlArr removeAllObjects];
@@ -373,6 +373,7 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark ---- UICollectionView  DataSource
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return _titleArray.count+1;
@@ -465,7 +466,7 @@ static NSString *const footerId = @"footerId";
         // 顶部点播栏cell大小
         return (CGSize){(kMainScreenWidth-10-15)/4,70};
         
-    }else{
+    } else {
         // 综艺栏目cell大小
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         if ([classModel._FilmClassName isEqualToString:@"综艺"] || [classModel._FilmClassName isEqualToString:@"潮生活"] || [classModel._FilmClassName isEqualToString:@"专题"]) {
@@ -542,19 +543,22 @@ static NSString *const footerId = @"footerId";
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
             
-        } else if (indexPath.row == 0) { // 直播
+        } else if (indexPath.row == 0) { // 政府
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.hlj.gov.cn/szfsjz/index.shtml"]];
+        } else if (indexPath.row == 1) { // 先锋网
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ljxfw.gov.cn/dyjy"]];
+        } else if (indexPath.row == 2) { // 直播
             SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
             liveView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:liveView animated:YES];
             
         } else if (indexPath.row == 4) { // 掌厅
-            
             DONG_Log(@"营业厅");
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
             
-        } else if (indexPath.row >0 && indexPath.row < 4) { // 1--3
+        } else if (indexPath.row > 0 && indexPath.row < 4) { // 3
             
-            NSString *key = _filmClassTitleArray[indexPath.row-1];
+            NSString *key = _filmClassTitleArray[indexPath.row-3];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
             channelVC.filmClassModel = _filmClassModelDictionary[key];
             channelVC.bannerFilmModelArray = _bannerFilmModelArr;
@@ -563,13 +567,12 @@ static NSString *const footerId = @"footerId";
             
         } else if (indexPath.row > 4 && indexPath.row < 7) {
             
-            NSString *key = _filmClassTitleArray[indexPath.row-2];
+            NSString *key = _filmClassTitleArray[indexPath.row-4];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
             channelVC.filmClassModel = _filmClassModelDictionary[key];
             channelVC.bannerFilmModelArray = _bannerFilmModelArr;
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
-            
         }
         
     } else {
@@ -604,8 +607,6 @@ static NSString *const footerId = @"footerId";
                 [self.navigationController pushViewController:teleplayPlayer animated:YES];
                 
             }
-            
-            
             [DONG_UserDefaults setBool:mobileNetworkAlert forKey:kMobileNetworkAlert];
             [DONG_UserDefaults synchronize];
         }
@@ -613,6 +614,7 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark - SDCycleScrollViewDelegate
+
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
