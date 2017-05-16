@@ -41,7 +41,7 @@ static char arrowIVKey;
     NSDictionary *jsonDic =@{@"group":
                                  @[
                                      @{@"groupName":@"扫一扫功能说明",@"groupCount":@"1",@"cellHeightOpen":@"1867",@"cellHeightClose":@"0"},
-                                     @{@"groupName":@"遥控器功能说明",@"groupCount":@"1",@"cellHeightOpen":@"1867",@"cellHeightClose":@"0"}
+                                     @{@"groupName":@"遥控器功能说明",@"groupCount":@"1",@"cellHeightOpen":@"1941",@"cellHeightClose":@"0"}
                                      ]};
     
     for (NSDictionary *groupDic in jsonDic[@"group"]) {
@@ -90,7 +90,7 @@ static char arrowIVKey;
         
     } else if (indexPath.section == 1) {
         SCFuncDescriptionCell *cell = [SCFuncDescriptionCell cellWithTableView:tableView];
-        cell.contentIV.image = [UIImage imageNamed:@"SaoyisaoContent"];
+        cell.contentIV.image = [UIImage imageNamed:@"YaokongqiContent"];
         return cell;
     }
     return nil;
