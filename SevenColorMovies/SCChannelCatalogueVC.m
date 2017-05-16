@@ -51,8 +51,8 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark -Private Method
-- (void)addRightBBI {
-    
+- (void)addRightBBI
+{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 45, 23);
     
@@ -74,7 +74,8 @@ static NSString *const footerId = @"footerId";
     _editBtn.selected = NO;
 }
 
-- (void)doEditingAction{
+- (void)doEditingAction
+{
     if (_editBtn.selected == NO) {
         _editBtn.selected = YES;
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
@@ -135,8 +136,7 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    
-    return self.filmClassArray.count + 2;
+    return self.filmClassArray.count + 4;
 }
 
 
@@ -187,18 +187,15 @@ static NSString *const footerId = @"footerId";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_editBtn.selected == YES){//编辑模式
-        
-        if (indexPath.row == 0) return NO;//🚫第一个单元格不让移动
-        
-        if (indexPath.row == 1) return NO;//🚫第二个单元格不让移动
-        
+    if (_editBtn.selected == YES) {//编辑模式
+        if (indexPath.row == 0) return NO; // 🚫第一个单元格不让移动
+        if (indexPath.row == 1) return NO; // 🚫第二个单元格不让移动
+        if (indexPath.row == 2) return NO; // 🚫第三个单元格不让移动
+        if (indexPath.row == 3) return NO; // 🚫第四个单元格不让移动
         return YES;
         
-    }else{
-        
+    } else {
         return NO;
-        
     }
 }
 
@@ -267,22 +264,21 @@ static NSString *const footerId = @"footerId";
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    if (fromIndexPath.row-2 < self.filmClassTitleArray.count && toIndexPath.row-2 < self.filmClassTitleArray.count) {
+    if (fromIndexPath.row-4 < self.filmClassTitleArray.count && toIndexPath.row-4 < self.filmClassTitleArray.count) {
         
-        NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-2];
+        NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-4];
         [self.filmClassTitleArray removeObject:filmClassTitle];
-        [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row-2];
-        
+        [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row-4];
     }
-    
 }
 
 
 - (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    if (toIndexPath.row == 0) return NO;//🚫禁止移动到第一个cell
-    
-    if (toIndexPath.row == 1) return NO;//🚫禁止移动到第五个cell
+    if (toIndexPath.row == 0) return NO; // 🚫禁止移动到第一个cell
+    if (toIndexPath.row == 1) return NO; // 🚫禁止移动到第二个cell
+    if (toIndexPath.row == 2) return NO; // 🚫禁止移动到第三个cell
+    if (toIndexPath.row == 3) return NO; // 🚫禁止移动到第四个cell
     
     return YES;
 }
@@ -292,22 +288,24 @@ static NSString *const footerId = @"footerId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        
         SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
         [self.navigationController pushViewController:liveVC animated:YES];
-        
     } else if (indexPath.row == 1) {
-      
         DONG_Log(@"营业厅");
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
-        
+    } else if (indexPath.row == 2) {
+        DONG_Log(@"政府");
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.hlj.gov.cn/szfsjz/index.shtml"]];
+    } else if (indexPath.row == 3) {
+        DONG_Log(@"先锋网");
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ljxfw.gov.cn/dyjy"]];
     } else {
     
         if (_filmClassArray.count != 0) {
-            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-2]];
+            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-4]];
             channelVC.bannerFilmModelArray = self.bannerFilmModelArray;
             
-            NSString *key = _filmClassTitleArray[indexPath.row-2];
+            NSString *key = _filmClassTitleArray[indexPath.row-4];
             channelVC.filmClassModel = _filmClassModelDictionary[key];
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
@@ -317,7 +315,8 @@ static NSString *const footerId = @"footerId";
 
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
+- (BOOL)shouldAutorotate
+{
     return NO;
 }
 

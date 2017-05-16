@@ -834,6 +834,7 @@
                 // 缓存hid和uid 便于此后自动连接
                 [DONG_UserDefaults setObject:_uid forKey:kUidByTVBox];
                 [DONG_UserDefaults setObject:_hid forKey:KHidByTVBox];
+                [DONG_UserDefaults synchronize];
                 
             } else if ([dic[@"_value"] isEqualToString:@"false"]) {
                 

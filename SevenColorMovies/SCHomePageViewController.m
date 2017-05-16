@@ -260,10 +260,10 @@ static NSString *const footerId = @"footerId";
 {
     // 将self.titleArray存到本地，每次点击时先取本地的数组：1、如果本地数组与self.titleArray元素相同，则使用本地数组 2.如果本地数组与self.filmClassArray元素不同，则使用self.titleArray
     
-    NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray];// NSUserDefaults 只能读取不可变对象
+    NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray]; // NSUserDefaults 只能读取不可变对象
     if (filmClassTitleArray.count == 0) {
         
-        NSArray *array = [NSArray arrayWithArray:self.titleArray];// NSUserDefaults 只能读取不可变对象
+        NSArray *array = [NSArray arrayWithArray:self.titleArray]; // NSUserDefaults 只能读取不可变对象
         [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -271,7 +271,7 @@ static NSString *const footerId = @"footerId";
         [_collView reloadData];
         NSLog(@">*******************************<");
         
-    } else{
+    } else {
         
         //谓词判断：A中元素不包含在B中的个数为0切B中元素不包含在A中的个数为0，则两个数组元素相同
         if ([filmClassTitleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", self.titleArray]].count == 0 && [self.titleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", filmClassTitleArray]].count == 0) {//本地保存的和新请求到的相同时
@@ -279,8 +279,8 @@ static NSString *const footerId = @"footerId";
             self.filmClassTitleArray = filmClassTitleArray;
             [_collView reloadData];
             
-        }else{
-            //本地保存的和新请求到的不同时
+        } else {
+            // 本地保存的和新请求到的不同时
             NSArray *array = [NSArray arrayWithArray:self.titleArray];
             [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
             [[NSUserDefaults standardUserDefaults] synchronize];
@@ -298,7 +298,8 @@ static NSString *const footerId = @"footerId";
 }
 
 //section header
-- (UIView *)addSectionHeaderViewWithTitle:(NSString *)title tag:(NSInteger)tag {
+- (UIView *)addSectionHeaderViewWithTitle:(NSString *)title tag:(NSInteger)tag
+{
     UIView *view = [[UIImageView alloc] init];
     view.frame = CGRectMake(0, 10, kMainScreenWidth, 40.f);
     view.backgroundColor = [UIColor whiteColor];
@@ -352,8 +353,9 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark ---- responce
-- (void)sectionClick:(UIButton *)sender {
-    
+
+- (void)sectionClick:(UIButton *)sender
+{
     if (_filmClassArray) {
         
         SCFilmClassModel *filmClassModel = _filmClassArray[sender.tag];
@@ -518,6 +520,7 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark ---- UICollectionView DataDelegate
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section ==0) {// 点播栏
