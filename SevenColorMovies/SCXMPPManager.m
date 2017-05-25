@@ -56,8 +56,9 @@
     self.xmppStream.enableBackgroundingOnSocket = YES;
     // 设置服务器地址 xmpp外网地址：125.223.98.233 端口：40441
     //             xmpp内网地址：10.177.1.44     端口：5222
+   //              xmpp发布会临时地址：125.223.98.233  端口：40459
     [self.xmppStream setHostName:@"125.223.98.233"];
-    [self.xmppStream setHostPort:40441];
+    [self.xmppStream setHostPort:40459];
     // 设置当前用户的信息
     XMPPJID *myJID = [XMPPJID jidWithUser:name domain:@"hljvoole.com" resource:resource];
     [self.xmppStream setMyJID:myJID];
