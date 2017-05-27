@@ -191,6 +191,7 @@
                     </constraints>
                     <connections>
                         <action selector="onClickOverlay:" destination="-1" eventType="touchDown" id="eqf-bt-5oq"/>
+                        <action selector="overlayPanelDoubleClick:" destination="-1" eventType="touchDownRepeat" id="wgd-M5-bCi"/>
                     </connections>
                 </view>
                 <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9mG-uu-5D5">

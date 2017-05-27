@@ -69,17 +69,6 @@ typedef NS_ENUM (NSUInteger, Direction) {
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panViewChange:)];
     [self addGestureRecognizer:pan];
     
-    // 2. 添加双击手势
-    // 2.1 创建手势对象
-    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction)];
-    // 2.2 设置属性
-    //点击的次数
-    tapGR.numberOfTapsRequired = 2;
-    // 点击的手指数 alt(option)模拟两个手指
-    tapGR.numberOfTouchesRequired = 1;
-    // 2.3 将手势添加到相应的视图中
-//    [self addGestureRecognizer:tapGR];
-    
 }
 
 
@@ -89,9 +78,56 @@ typedef NS_ENUM (NSUInteger, Direction) {
     
 }
 
-- (void)tapAction
+
+//#pragma mark--------触摸开始时调用此方法
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DONG_Log(@"双击");
+    //获取任意一个touch对象
+    UITouch * pTouch = [touches anyObject];
+    //获取对象所在的坐标
+    CGPoint point = [pTouch locationInView:self];
+    //以字符的形式输出触摸点
+    DONG_Log(@"触摸点的坐标：%@",NSStringFromCGPoint(point));
+    //获取触摸的次数
+    NSUInteger tapCount = [pTouch tapCount];
+    //对触摸次数判断
+    if (tapCount == 1) {
+        //在0.2秒内只触摸一次视为单击
+        [self performSelector:@selector(singleTouch:) withObject:nil afterDelay:0.2];
+    } else if (tapCount == 2) {
+        //取消单击响应，若无此方法则双击看做是：单击事件和双击事件
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(singleTouch:) object:nil];
+        //确定为双击事件
+        [self doubleTouch:nil];
+    }
+}
+
+// 单击方法
+- (void)singleTouch:(id)sender
+{
+    DONG_Log(@"此时是单击的操作");
+    [self showAndFade];
+}
+
+// 双击方法
+- (void)doubleTouch:(id)sender
+{
+    if ([_delegatePlayer isPlaying]) {
+        [_delegatePlayer pause];
+        // 暂停时显示广告层
+        self.advertisementIV.hidden = NO;
+        [self.playButton setImage:[UIImage imageNamed:@"Play"] forState:UIControlStateNormal];
+        [self refreshMediaControl];
+        
+    } else if (![_delegatePlayer isPlaying]){
+        [_delegatePlayer play];
+        // 播放时隐藏广告层
+        self.advertisementIV.hidden = YES;
+        [self.playButton setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
+        [self refreshMediaControl];
+        
+    }
 }
 
 // 自定义UISlider的样式和滑块
