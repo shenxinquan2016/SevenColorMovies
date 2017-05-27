@@ -2,17 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "暂停点击.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "暂停点击@2x.png",
+      "filename" : "pause-7.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "暂停点击@3x.png",
+      "filename" : "pause-8.png",
       "scale" : "3x"
     }
   ],
