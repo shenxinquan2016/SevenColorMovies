@@ -7,12 +7,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "全屏点击@2x.png",
+      "filename" : "全屏@2x-p.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "全屏点击@3x.png",
+      "filename" : "全屏@3x-p.png",
       "scale" : "3x"
     }
   ],
