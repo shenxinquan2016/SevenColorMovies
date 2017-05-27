@@ -59,10 +59,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TfL-Dg-BUN">
-                                    <rect key="frame" x="337" y="7.5" width="30" height="30"/>
+                                    <rect key="frame" x="342" y="10" width="25" height="25"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="30" id="Q6e-gf-RXb"/>
-                                        <constraint firstAttribute="height" constant="30" id="yFd-Io-0DT"/>
+                                        <constraint firstAttribute="width" constant="25" id="Q6e-gf-RXb"/>
+                                        <constraint firstAttribute="height" constant="25" id="yFd-Io-0DT"/>
                                     </constraints>
                                     <state key="normal" image="FullScreen"/>
                                     <connections>
@@ -70,7 +70,7 @@
                                     </connections>
                                 </button>
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0SY-TZ-qnQ">
-                                    <rect key="frame" x="101" y="7" width="139" height="31"/>
+                                    <rect key="frame" x="101" y="7" width="149" height="31"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="Yt9-M6-y2f"/>
                                     </constraints>
@@ -83,10 +83,10 @@
                                     </connections>
                                 </slider>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAa-WC-RXm">
-                                    <rect key="frame" x="299" y="7.5" width="30" height="30"/>
+                                    <rect key="frame" x="309" y="10" width="25" height="25"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="30" id="4R6-ng-XEe"/>
-                                        <constraint firstAttribute="height" constant="30" id="d8D-UR-8eC"/>
+                                        <constraint firstAttribute="width" constant="25" id="4R6-ng-XEe"/>
+                                        <constraint firstAttribute="height" constant="25" id="d8D-UR-8eC"/>
                                     </constraints>
                                     <state key="normal" image="InteractScreen"/>
                                     <connections>
@@ -94,7 +94,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiK-FX-EcO">
-                                    <rect key="frame" x="241" y="12" width="50" height="21"/>
+                                    <rect key="frame" x="251" y="12" width="50" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="nJ3-ET-bO8"/>
                                         <constraint firstAttribute="width" constant="50" id="ncG-zD-YBz"/>
@@ -283,9 +283,9 @@
     <resources>
         <image name="Back_WhiteArrow" width="16" height="16"/>
         <image name="FastForward" width="25" height="19"/>
-        <image name="FullScreen" width="24" height="24"/>
+        <image name="FullScreen" width="30" height="30"/>
         <image name="FullScreenUnlock" width="40" height="40"/>
-        <image name="InteractScreen" width="24" height="24"/>
+        <image name="InteractScreen" width="30" height="30"/>
         <image name="Pause" width="30" height="30"/>
     </resources>
 </document>

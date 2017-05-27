@@ -150,7 +150,6 @@ typedef NS_ENUM (NSUInteger, Direction) {
 - (void)showNoFade
 {
     self.overlayPanel.alpha = 1;
-    self.playButton.hidden = NO;
     [self cancelDelayedHide];
     
     if (_isLive) {
