@@ -50,7 +50,6 @@ typedef NS_ENUM (NSUInteger, Direction) {
     self.programNameLabel.hidden = YES;
     self.programNameRunLabel.textAlignment = NSTextAlignmentLeft;
     self.goFastView.hidden = YES;
-    self.playButton.hidden = YES;//第一次加载时隐藏
     self.fullScreenLockButton.hidden = YES;
     self.isLive = NO;//默认设置为NO
     
@@ -112,7 +111,6 @@ typedef NS_ENUM (NSUInteger, Direction) {
 - (void)showAndFade
 {
     [self showNoFade];
-    self.playButton.hidden = NO;
     [self performSelector:@selector(hide) withObject:nil afterDelay:3];
 }
 
