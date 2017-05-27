@@ -65,9 +65,20 @@ typedef NS_ENUM (NSUInteger, Direction) {
         }
     };
     
-    // 添加平移手势，用来控制音量亮度和快进快退
+    // 1.添加平移手势，用来控制音量亮度和快进快退
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panViewChange:)];
     [self addGestureRecognizer:pan];
+    
+    // 2. 添加双击手势
+    // 2.1 创建手势对象
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction)];
+    // 2.2 设置属性
+    //点击的次数
+    tapGR.numberOfTapsRequired = 2;
+    // 点击的手指数 alt(option)模拟两个手指
+    tapGR.numberOfTouchesRequired = 1;
+    // 2.3 将手势添加到相应的视图中
+//    [self addGestureRecognizer:tapGR];
     
 }
 
@@ -76,6 +87,11 @@ typedef NS_ENUM (NSUInteger, Direction) {
 {
     [_changeBrightnessAndVolumeToolView panDirection:pan];
     
+}
+
+- (void)tapAction
+{
+    DONG_Log(@"双击");
 }
 
 // 自定义UISlider的样式和滑块
