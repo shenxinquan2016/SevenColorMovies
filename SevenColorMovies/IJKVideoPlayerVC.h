@@ -24,7 +24,7 @@ typedef void(^TimeShiftBlock)(NSString *liveState, int positionTime);
 
 @interface IJKVideoPlayerVC : UIViewController
 
-@property (atomic,strong) NSURL *url;
+@property (atomic, strong) NSURL *url;
 /** 播放器实体 */
 @property (atomic, retain) id<IJKMediaPlayback> player;
 /** 是否正处于全屏状态 */
@@ -55,8 +55,6 @@ typedef void(^TimeShiftBlock)(NSString *liveState, int positionTime);
 -(void)play;
 /** 关闭播放器 */
 -(void)closePlayer;
-
-
 
 /** 返回 */
 - (IBAction)onClickBack:(id)sender;
