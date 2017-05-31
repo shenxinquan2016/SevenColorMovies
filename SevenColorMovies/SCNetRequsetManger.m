@@ -264,6 +264,9 @@
 - (void)GETRequestDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
+    DONG_Log(@"url-->%@", urlString);
+    DONG_Log(@"parameters-->%@", parameters);
+    
     //1.设置请求格式
     // 1.1
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"text/xml", nil];

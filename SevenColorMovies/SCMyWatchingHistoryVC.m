@@ -17,16 +17,24 @@
 
 @interface SCMyWatchingHistoryVC () <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) UIButton *editBtn;/** 编辑按钮 */
+/** 编辑按钮 */
+@property (nonatomic, strong) UIButton *editBtn;
 @property (nonatomic, strong) UITableView *listView;
 /** 存放全部的观看记录 */
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UIView *bottomBtnView;
-@property (nonatomic, strong) UIButton *selectAllBtn;/** 全选按钮 */
-@property (nonatomic, assign) BOOL isEditing;/** 标记是否正在编辑 */
-@property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;/** 标记是否被全部选中 */
-@property (nonatomic, strong) NSMutableArray *tempArray;/** 保存临时选择的要删除的watchHistoryModel */
-@property (nonatomic,assign) NSInteger page;/**< 分页的页码 */
+/** 全选按钮 */
+@property (nonatomic, strong) UIButton *selectAllBtn;
+/** 标记是否正在编辑 */
+@property (nonatomic, assign) BOOL isEditing;
+/** 标记是否被全部选中 */
+@property (nonatomic, assign, getter = isSelectAll) BOOL selectAll;
+/** 保存临时选择的要删除的watchHistoryModel */
+@property (nonatomic, strong) NSMutableArray *tempArray;
+/** 分页的页码 */
+@property (nonatomic, assign) NSInteger page;
+/** 总页数 */
+@property (nonatomic, assign) NSInteger totalPageCount;
 /** ip转换工具 */
 @property (nonatomic, strong) HLJRequest *hljRequest;
 /** 动态域名获取工具 */
@@ -41,7 +49,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
-    
     // 1.初始化
     _isEditing = NO;
     self.tempArray = [NSMutableArray arrayWithCapacity:0];
@@ -50,7 +57,16 @@
     [self addRightBBI];
     
     // 3. 获取数据 添加视图
-    [self getMyWatchHistoryRecord];
+//    [self getMyWatchHistoryRecord];
+    
+    
+    [self setTableView];
+    // 4.3 全选/删除
+    [self setBottomBtnView];
+    
+    
+    //2.集成刷新
+    [self setTabelViewRefresh];
     
 }
 
@@ -342,19 +358,45 @@
     }
 }
 
+#pragma mark - 集成刷新
+
+- (void)setTabelViewRefresh
+{
+   [CommonFunc setupRefreshWithView:self.listView withSelf:self headerFunc:@selector(headerRefresh) headerFuncFirst:YES footerFunc:@selector(loadMoreData)];
+}
+
+- (void)headerRefresh
+{
+    _page = 1;
+    [self getMyWatchHistoryRecord:_page];
+}
+
+- (void)loadMoreData
+{
+    _page++;
+    if (_page <= _totalPageCount ) {
+        [self getMyWatchHistoryRecord:_page];
+    } else {
+        [self.listView.mj_header endRefreshing];
+        [self.listView.mj_footer endRefreshing];
+    }
+}
+
 #pragma mark - NetRequest
+
 //查看观看记录
-- (void)getMyWatchHistoryRecord
+- (void)getMyWatchHistoryRecord:(NSInteger)page
 {
     [CommonFunc showLoadingWithTips:@""];
-    NSNumber *oemid     = [NSNumber numberWithInt:300126];
     NSString *uuidStr   = [HLJUUID getUUID];
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
-    NSNumber *page      = [NSNumber numberWithInteger:1];
+    NSNumber *currentPage      = [NSNumber numberWithInteger:page];
     NSDictionary *parameters = @{@"ctype"    : @"3",
                                  @"hid"      : uuidStr,
                                  @"datetime" : timeStamp,
-                                 @"page"     : page
+                                 @"page"     : currentPage,
+                                 @"pagesize" : @"20",
+                                 @"orderby"  : @"1"
                                  };
     
     //请求播放地址
@@ -362,15 +404,16 @@
     _domainTransformTool = [[SCDomaintransformTool alloc] init];
     [_domainTransformTool getNewDomainByUrlString:GetWatchHistory key:@"skscxb" success:^(id  _Nullable newUrlString) {
         
-        DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
         _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
         [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
-            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-            
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-                DONG_Log(@"responseObject:%@",responseObject);
+//                DONG_Log(@"responseObject:%@",responseObject);
+                self.totalPageCount = [[responseObject objectForKey:@"pagetotal"] integerValue];
+                if (page == 1) {
+                    [_dataArray removeAllObjects];
+                }
                 if ([responseObject[@"contentlist"][@"content"] isKindOfClass:[NSDictionary class]]) {
                     
                     SCWatchHistoryModel *watchHistoryModel = [SCWatchHistoryModel mj_objectWithKeyValues:responseObject[@"contentlist"][@"content"]];
@@ -386,22 +429,21 @@
                 }
                 
                 if (_dataArray.count) {
-                    [self setTableView];
-                    // 4.3 全选/删除
-                    [self setBottomBtnView];
+                    [_listView reloadData];
                 } else {
                     [CommonFunc noDataOrNoNetTipsString:@"还没有观看任何节目哦" addView:self.view];
                 }
-                
                 [CommonFunc dismiss];
-            }failure:^(id  _Nullable errorObject) {
+                [self.listView.mj_header endRefreshing];
+                [self.listView.mj_footer endRefreshing];
+                
+            } failure:^(id  _Nullable errorObject) {
                 [CommonFunc noDataOrNoNetTipsString:@"网络异常请稍后再试" addView:self.view];
                 [CommonFunc dismiss];
             }];
+            
         } failure:^(NSError *error) {
-            
             [CommonFunc dismiss];
-            
         }];
         
     } failure:^(id  _Nullable errorObject) {
@@ -415,7 +457,6 @@
 - (void)deleteWatchHistoryRecordWithModel:(SCWatchHistoryModel *)watchHistoryModel
 {
     [CommonFunc showLoadingWithTips:@""];
-    NSNumber *oemid     = [NSNumber numberWithInt:300126];
     NSString *uuidStr   = [HLJUUID getUUID];
     NSString *mid       = watchHistoryModel.mid;
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
@@ -452,7 +493,6 @@
 - (void)deleteAllWatchHistoryRecord
 {
     [CommonFunc showLoadingWithTips:@""];
-    NSNumber *oemid     = [NSNumber numberWithInt:300126];
     NSString *uuidStr   = [HLJUUID getUUID];
     NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[NSDate timeStampFromDate:[NSDate date]]];
     

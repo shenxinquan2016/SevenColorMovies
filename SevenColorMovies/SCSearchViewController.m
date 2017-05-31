@@ -78,7 +78,8 @@ const CGFloat LabelWidth = 100;
 
 
 #pragma mark- private methods
-- (void)addSearchBBI {
+- (void)addSearchBBI
+{
     SCSearchBarView *searchView = [[SCSearchBarView alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
     
     UIButton *btn = (UIButton *)searchView;
@@ -99,8 +100,8 @@ const CGFloat LabelWidth = 100;
 
 
 /** 添加滚动标题栏*/
-- (void)constructSlideHeaderView{
-    
+- (void)constructSlideHeaderView
+{
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 74, kMainScreenWidth, TitleHeight)];
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backgroundView];
@@ -151,7 +152,8 @@ const CGFloat LabelWidth = 100;
 }
 
 /** 添加正文内容页 */
-- (void)constructContentView{
+- (void)constructContentView
+{
     _contentScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, StatusBarHeight+TitleHeight+63, kMainScreenWidth, kMainScreenHeight-StatusBarHeight-TitleHeight-63)];//滚动窗口
     _contentScroll.scrollsToTop = NO;
     _contentScroll.showsHorizontalScrollIndicator = NO;
@@ -185,7 +187,8 @@ const CGFloat LabelWidth = 100;
 
 
 #pragma mark- Event reponse
-- (void)labelClick:(UITapGestureRecognizer *)recognizer{
+- (void)labelClick:(UITapGestureRecognizer *)recognizer
+{
     SCSlideHeaderLabel *label = (SCSlideHeaderLabel *)recognizer.view;
     CGFloat offsetX = label.tag * _contentScroll.frame.size.width;
     
@@ -198,7 +201,8 @@ const CGFloat LabelWidth = 100;
 
 #pragma mark - UIScrollViewDelegate
 /** 滚动结束后调用（代码导致的滚动停止） */
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
     // 获得索引
     NSUInteger index = scrollView.contentOffset.x / _contentScroll.frame.size.width;
     // 滚动标题栏
@@ -241,12 +245,14 @@ const CGFloat LabelWidth = 100;
 }
 
 /** 滚动结束（手势导致的滚动停止） */
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 
 /** 正在滚动 */
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     // 取出绝对值 避免最左边往右拉时形变超过1
     CGFloat value = ABS(scrollView.contentOffset.x / scrollView.frame.size.width);
     NSUInteger leftIndex = (int)value;
@@ -268,8 +274,8 @@ const CGFloat LabelWidth = 100;
 }
 
 #pragma mark - UITextFieldDelegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     [_searchTF resignFirstResponder];
     
     //点播搜索
@@ -300,7 +306,8 @@ const CGFloat LabelWidth = 100;
 }
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
+- (BOOL)shouldAutorotate
+{
     return NO;
 }
 

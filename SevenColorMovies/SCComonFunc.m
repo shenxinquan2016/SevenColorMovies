@@ -71,7 +71,7 @@ static int textFieldMoveHight = 0;
             footer.refreshingTitleHidden = YES;//隐藏刷新时的文字显示
             //footer.ignoredScrollViewContentInsetBottom = 40;
             [footer setTitle:@"" forState:MJRefreshStateIdle];
-            [footer setTitle:@"" forState:MJRefreshStateRefreshing];
+            [footer setTitle:@"到底了~" forState:MJRefreshStateRefreshing];
             [footer setTitle:@"到底了~" forState:MJRefreshStateNoMoreData];
             tableView.mj_footer = footer;
         }
@@ -216,7 +216,6 @@ static int textFieldMoveHight = 0;
  *  @param view 要加的主视图
  */
 - (void)noDataOrNoNetTipsString:(nullable NSString *)tipsStr addView:(nullable UIView *)view {
-    
     
     UIImageView *tipImageView = [[UIImageView alloc]init];
     tipImageView.image = [UIImage imageNamed:@"NoData"];

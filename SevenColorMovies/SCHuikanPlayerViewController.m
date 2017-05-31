@@ -1092,8 +1092,6 @@
         [DONG_UserDefaults synchronize];
         DONG_Log(@"进入后台: %ld", (long)currentPlayTime);
         _isRecordingCurrentPlayTime = NO;
-        
-        
     }
 }
 
