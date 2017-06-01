@@ -471,7 +471,6 @@
                                  @"fid"      : fid
                                  };
     
-    
     //请求播放地址
     // 域名获取
     NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:DeleteWatchHistory key:@"skscxb"];
