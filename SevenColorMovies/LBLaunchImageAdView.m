@@ -24,7 +24,7 @@
 @implementation LBLaunchImageAdView
 
 #pragma mark - 获取广告类型
-- (void (^)(AdType adType))getLBlaunchImageAdViewType{
+- (void (^)(AdType adType))getLBlaunchImageAdViewType {
     __weak typeof(self) weakSelf = self;
     return ^(AdType adType){
         [weakSelf addLBlaunchImageAdView:adType];
@@ -35,6 +35,7 @@
 - (void)activiTap:(UITapGestureRecognizer*)recognizer{
     _isClick = @"1";
     [self startcloseAnimation];
+    
 }
 
 #pragma mark - 开启关闭动画
@@ -179,6 +180,7 @@
     if (_imgUrl) {
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         [manager downloadImageWithURL:[NSURL URLWithString:_imgUrl] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             if (image) {
                 [self.aDImgView setImage:[self imageCompressForWidth:image targetWidth:mainWidth]];

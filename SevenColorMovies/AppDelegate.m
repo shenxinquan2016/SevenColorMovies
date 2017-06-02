@@ -261,6 +261,7 @@
     [NSObject makeLBLaunchImageAdView:^(LBLaunchImageAdView *imgAdView) {
         //设置广告的类型
         imgAdView.getLBlaunchImageAdViewType(FullScreenAdType);
+        
         imgAdView.imgUrl = @"http://192.167.1.6:15414//multimedia/image/EPOSIDE/2017/05/24/2017_05_24_10_05_27_590.jpg";
         //自定义跳过按钮
         imgAdView.skipBtn.backgroundColor = [UIColor lightGrayColor];
