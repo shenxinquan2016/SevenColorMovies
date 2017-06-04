@@ -160,7 +160,6 @@
 		11A1BFA61EDFF63D004B96D5 /* NSObject+LBLaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1BFA41EDFF63D004B96D5 /* NSObject+LBLaunchImage.m */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
 		11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */; };
-		11A73F501EE1434800A83036 /* DONG_LaunchAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A73F4F1EE1434800A83036 /* DONG_LaunchAdView.m */; };
 		11B072281DD2B7C800DD3FED /* Dong_DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B072271DD2B7C800DD3FED /* Dong_DownloadModel.m */; };
 		11B0722B1DD2BAD200DD3FED /* Dong_DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0722A1DD2BAD200DD3FED /* Dong_DownloadManager.m */; };
 		11B0722E1DD2BBDF00DD3FED /* Dong_DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0722D1DD2BBDF00DD3FED /* Dong_DownloadOperation.m */; };
@@ -527,8 +526,6 @@
 		11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchViewController.h; sourceTree = "<group>"; };
 		11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchViewController.m; sourceTree = "<group>"; };
 		11A39D9D1D9269EE00C9FEA8 /* libagent_start.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libagent_start.h; sourceTree = "<group>"; };
-		11A73F4E1EE1434800A83036 /* DONG_LaunchAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_LaunchAdView.h; sourceTree = "<group>"; };
-		11A73F4F1EE1434800A83036 /* DONG_LaunchAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_LaunchAdView.m; sourceTree = "<group>"; };
 		11B072261DD2B7C800DD3FED /* Dong_DownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dong_DownloadModel.h; sourceTree = "<group>"; };
 		11B072271DD2B7C800DD3FED /* Dong_DownloadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dong_DownloadModel.m; sourceTree = "<group>"; };
 		11B072291DD2BAD200DD3FED /* Dong_DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dong_DownloadManager.h; sourceTree = "<group>"; };
@@ -2051,8 +2048,6 @@
 				11A1BFA21EDFF63D004B96D5 /* LBLaunchImageAdView.m */,
 				11A1BFA31EDFF63D004B96D5 /* NSObject+LBLaunchImage.h */,
 				11A1BFA41EDFF63D004B96D5 /* NSObject+LBLaunchImage.m */,
-				11A73F4E1EE1434800A83036 /* DONG_LaunchAdView.h */,
-				11A73F4F1EE1434800A83036 /* DONG_LaunchAdView.m */,
 			);
 			name = "LaunchAd 启动广告";
 			sourceTree = "<group>";
@@ -2639,7 +2634,6 @@
 				116E0F5E1DB0891D00E280C6 /* SCMyDownloadManagerVC.m in Sources */,
 				11458E9C1D45EECE00EBD16D /* SCDiscoveryCellModel.m in Sources */,
 				1111A4121D48A62500C17B92 /* SCNetHelper.m in Sources */,
-				11A73F501EE1434800A83036 /* DONG_LaunchAdView.m in Sources */,
 				1111A4061D4886B300C17B92 /* SCNetRequsetManger.m in Sources */,
 				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,
 				1131C0E81D67081E00BA151A /* SCPlayerViewController.m in Sources */,

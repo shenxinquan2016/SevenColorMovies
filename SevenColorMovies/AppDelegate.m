@@ -18,6 +18,8 @@
 
 @interface AppDelegate ()
 
+//@property (nonatomic, strong) DONG_LaunchAdView *launchAdView;
+
 @end
 
 @implementation AppDelegate
@@ -248,21 +250,21 @@
 
 - (void)launchAdvertisement
 {
-    [requestDataManager requestDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
-        
-        DONG_Log(@"responseObject-->%@", responseObject);
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        DONG_Log(@"errorObject-->%@", errorObject);
-    }];
+//    [requestDataManager requestDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
+//        
+//        DONG_Log(@"responseObject-->%@", responseObject);
+//        
+//    } failure:^(id  _Nullable errorObject) {
+//        
+//        DONG_Log(@"errorObject-->%@", errorObject);
+//    }];
     
     
     [NSObject makeLBLaunchImageAdView:^(LBLaunchImageAdView *imgAdView) {
         //设置广告的类型
         imgAdView.getLBlaunchImageAdViewType(FullScreenAdType);
         
-        imgAdView.imgUrl = @"http://192.167.1.6:15414//multimedia/image/EPOSIDE/2017/05/24/2017_05_24_10_05_27_590.jpg";
+        imgAdView.imgUrl = @"http://img.shenghuozhe.net/shz/2016/05/07/750w_1224h_043751462609867.jpg";
         //自定义跳过按钮
         imgAdView.skipBtn.backgroundColor = [UIColor lightGrayColor];
         //各种点击事件的回调
@@ -286,6 +288,12 @@
         };
         
     }];
+    
+//    [self.window makeKeyAndVisible];
+//    
+//    self.launchAdView = [[DONG_LaunchAdView alloc] init];
+//    self.launchAdView.getLaunchImageAdViewType(FullScreenAdType);
+//    [self.window addSubview: self.launchAdView];
 }
 
 @end

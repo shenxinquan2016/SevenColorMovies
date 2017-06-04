@@ -240,8 +240,11 @@
     opacityAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     [self.aDImgView.layer addAnimation:opacityAnimation forKey:@"animateOpacity"];
     countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
-    [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
-     
+    
+//    [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
+    [[UIApplication sharedApplication].delegate.window makeKeyAndVisible];
+    [[UIApplication sharedApplication].delegate.window addSubview:self];
+    
 }
 
 @end
