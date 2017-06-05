@@ -14,11 +14,12 @@
 #import "IQKeyboardManager.h"
 #import "HLJUUID.h"
 #import "ZFDownloadManager.h"// 第三方下载工具
-#import "NSObject+LBLaunchImage.h"
+//#import "NSObject+LBLaunchImage.h"
+#import "DONG_LaunchAdView.h"
 
 @interface AppDelegate ()
 
-//@property (nonatomic, strong) DONG_LaunchAdView *launchAdView;
+@property (nonatomic, strong) DONG_LaunchAdView *launchAdView;
 
 @end
 
@@ -242,58 +243,49 @@
     //                DONG_Log(@"responseObject:%@",responseObject);
     //
     //            } failure:^(id  _Nullable errorObject) {
-    //    
-    //    
+    //
+    //
     //            }];
     
 }
 
 - (void)launchAdvertisement
 {
-//    [requestDataManager requestDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
-//        
-//        DONG_Log(@"responseObject-->%@", responseObject);
-//        
-//    } failure:^(id  _Nullable errorObject) {
-//        
-//        DONG_Log(@"errorObject-->%@", errorObject);
-//    }];
+    //    [requestDataManager requestDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
+    //
+    //        DONG_Log(@"responseObject-->%@", responseObject);
+    //
+    //    } failure:^(id  _Nullable errorObject) {
+    //
+    //        DONG_Log(@"errorObject-->%@", errorObject);
+    //    }];
     
     
-    [NSObject makeLBLaunchImageAdView:^(LBLaunchImageAdView *imgAdView) {
-        //设置广告的类型
-        imgAdView.getLBlaunchImageAdViewType(FullScreenAdType);
-        
-        imgAdView.imgUrl = @"http://img.shenghuozhe.net/shz/2016/05/07/750w_1224h_043751462609867.jpg";
-        //自定义跳过按钮
-        imgAdView.skipBtn.backgroundColor = [UIColor lightGrayColor];
-        //各种点击事件的回调
-        imgAdView.clickBlock = ^(clickType type){
-            switch (type) {
-                case clickAdType:{
-                    DONG_Log(@"点击广告回调");
-                  
-                    
-                }
-                    break;
-                case skipAdType:
-                    DONG_Log(@"点击跳过回调");
-                    break;
-                case overtimeAdType:
-                    DONG_Log(@"倒计时完成后的回调");
-                    break;
-                default:
-                    break;
+    [self.window makeKeyAndVisible];
+    
+    self.launchAdView = [[DONG_LaunchAdView alloc] init];
+    self.launchAdView.imageURL = @"http://img.shenghuozhe.net/shz/2016/05/07/750w_1224h_043751462609867.jpg";
+    self.launchAdView.getLaunchImageAdViewType(FullScreenAdType);
+    // 各种点击事件的回调
+    self.launchAdView.clickBlock = ^(clickType type){
+        switch (type) {
+            case clickAdType:{
+                DONG_Log(@"点击广告回调");
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.baidu.com"]];
             }
-        };
-        
-    }];
+                break;
+            case skipAdType:
+                DONG_Log(@"点击跳过回调");
+                break;
+            case overtimeAdType:
+                DONG_Log(@"倒计时完成后的回调");
+                break;
+            default:
+                break;
+        }
+    };
     
-//    [self.window makeKeyAndVisible];
-//    
-//    self.launchAdView = [[DONG_LaunchAdView alloc] init];
-//    self.launchAdView.getLaunchImageAdViewType(FullScreenAdType);
-//    [self.window addSubview: self.launchAdView];
+    [self.window addSubview: self.launchAdView];
 }
 
 @end

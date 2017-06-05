@@ -149,6 +149,7 @@
 		1190AC761D49F9EA004AAF23 /* SCFilmListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC751D49F9EA004AAF23 /* SCFilmListModel.m */; };
 		1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1190AC781D4A00D9004AAF23 /* SCFilmClassModel.m */; };
 		1190EA361DEE7155002CA166 /*  提示 in Resources */ = {isa = PBXBuildFile; fileRef = 1190EA351DEE7155002CA166 /*  提示 */; };
+		1192BC491EE45EE800A7DD09 /* DONG_LaunchAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1192BC481EE45EE800A7DD09 /* DONG_LaunchAdView.m */; };
 		1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */; };
 		1196A0741D42650A00B3C5EF /* SCMovieEpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */; };
 		119A677C1DFE4FC9000A147C /* SCDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 119A677B1DFE4FC9000A147C /* SCDeviceModel.m */; };
@@ -156,8 +157,6 @@
 		119E6B7F1E61D6D00091C8A3 /* SCSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 119E6B7D1E61D6D00091C8A3 /* SCSettingCell.xib */; };
 		119E6B821E61DC5B0091C8A3 /* SCAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 119E6B811E61DC5B0091C8A3 /* SCAboutViewController.m */; };
 		11A0AF5C1DFAF1E90047A46E /* SCSearchDeviceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0AF5B1DFAF1E90047A46E /* SCSearchDeviceVC.m */; };
-		11A1BFA51EDFF63D004B96D5 /* LBLaunchImageAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1BFA21EDFF63D004B96D5 /* LBLaunchImageAdView.m */; };
-		11A1BFA61EDFF63D004B96D5 /* NSObject+LBLaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1BFA41EDFF63D004B96D5 /* NSObject+LBLaunchImage.m */; };
 		11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0671D3F433900E2BA0D /* UIView+Addition.m */; };
 		11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1D0741D3F785600E2BA0D /* SCSearchViewController.m */; };
 		11B072281DD2B7C800DD3FED /* Dong_DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B072271DD2B7C800DD3FED /* Dong_DownloadModel.m */; };
@@ -505,6 +504,8 @@
 		1190AC771D4A00D9004AAF23 /* SCFilmClassModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilmClassModel.h; sourceTree = "<group>"; };
 		1190AC781D4A00D9004AAF23 /* SCFilmClassModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilmClassModel.m; sourceTree = "<group>"; };
 		1190EA351DEE7155002CA166 /*  提示 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = " 提示"; path = "SevenColorMovies/ 提示"; sourceTree = "<group>"; };
+		1192BC471EE45EE800A7DD09 /* DONG_LaunchAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_LaunchAdView.h; sourceTree = "<group>"; };
+		1192BC481EE45EE800A7DD09 /* DONG_LaunchAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_LaunchAdView.m; sourceTree = "<group>"; };
 		1196A0701D42650A00B3C5EF /* SCMovieEpisodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMovieEpisodeCell.h; sourceTree = "<group>"; };
 		1196A0711D42650A00B3C5EF /* SCMovieEpisodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMovieEpisodeCell.m; sourceTree = "<group>"; };
 		1196A0721D42650A00B3C5EF /* SCMovieEpisodeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCMovieEpisodeCell.xib; sourceTree = "<group>"; };
@@ -517,10 +518,6 @@
 		119E6B811E61DC5B0091C8A3 /* SCAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAboutViewController.m; sourceTree = "<group>"; };
 		11A0AF5A1DFAF1E90047A46E /* SCSearchDeviceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchDeviceVC.h; sourceTree = "<group>"; };
 		11A0AF5B1DFAF1E90047A46E /* SCSearchDeviceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchDeviceVC.m; sourceTree = "<group>"; };
-		11A1BFA11EDFF63D004B96D5 /* LBLaunchImageAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBLaunchImageAdView.h; sourceTree = "<group>"; };
-		11A1BFA21EDFF63D004B96D5 /* LBLaunchImageAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBLaunchImageAdView.m; sourceTree = "<group>"; };
-		11A1BFA31EDFF63D004B96D5 /* NSObject+LBLaunchImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+LBLaunchImage.h"; sourceTree = "<group>"; };
-		11A1BFA41EDFF63D004B96D5 /* NSObject+LBLaunchImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+LBLaunchImage.m"; sourceTree = "<group>"; };
 		11A1D0661D3F433900E2BA0D /* UIView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addition.h"; sourceTree = "<group>"; };
 		11A1D0671D3F433900E2BA0D /* UIView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Addition.m"; sourceTree = "<group>"; };
 		11A1D0731D3F785600E2BA0D /* SCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchViewController.h; sourceTree = "<group>"; };
@@ -2044,10 +2041,8 @@
 		11C21DB71EDEB54100A64A46 /* LaunchAd 启动广告 */ = {
 			isa = PBXGroup;
 			children = (
-				11A1BFA11EDFF63D004B96D5 /* LBLaunchImageAdView.h */,
-				11A1BFA21EDFF63D004B96D5 /* LBLaunchImageAdView.m */,
-				11A1BFA31EDFF63D004B96D5 /* NSObject+LBLaunchImage.h */,
-				11A1BFA41EDFF63D004B96D5 /* NSObject+LBLaunchImage.m */,
+				1192BC471EE45EE800A7DD09 /* DONG_LaunchAdView.h */,
+				1192BC481EE45EE800A7DD09 /* DONG_LaunchAdView.m */,
 			);
 			name = "LaunchAd 启动广告";
 			sourceTree = "<group>";
@@ -2579,7 +2574,6 @@
 				1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */,
 				11458E971D45E0D500EBD16D /* SCDiscoveryTableViewCell.m in Sources */,
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
-				11A1BFA61EDFF63D004B96D5 /* NSObject+LBLaunchImage.m in Sources */,
 				11BA52DF1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m in Sources */,
 				11052AC51E10FEA800BF795B /* SCHTMLViewController.m in Sources */,
 				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
@@ -2638,7 +2632,6 @@
 				11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */,
 				1131C0E81D67081E00BA151A /* SCPlayerViewController.m in Sources */,
 				1131C0E01D6705CD00BA151A /* IJKVideoPlayerVC.m in Sources */,
-				11A1BFA51EDFF63D004B96D5 /* LBLaunchImageAdView.m in Sources */,
 				1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */,
 				118241621E23282D00B78E1A /* SCDLNAViewController.m in Sources */,
 				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
@@ -2693,6 +2686,7 @@
 				1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */,
 				113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */,
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
+				1192BC491EE45EE800A7DD09 /* DONG_LaunchAdView.m in Sources */,
 				11FF648C1E276799007DC954 /* SCAdvertisemetPosModel.m in Sources */,
 				1122149D1DADDE6E00277BD6 /* SCHuikanPlayerViewController.m in Sources */,
 				11588F731D6B079900C91E3A /* SCLivePageCell.m in Sources */,
