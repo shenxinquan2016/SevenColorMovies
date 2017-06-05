@@ -209,8 +209,8 @@ static NSString *const adImageName = @"adImageName";
     }
 }
 
-- (void)downloadAdImageWithUrl:(NSString *)imageUrl imageName:(NSString *)imageName {
-    
+- (void)downloadAdImageWithUrl:(NSString *)imageUrl imageName:(NSString *)imageName
+{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]];
@@ -219,13 +219,13 @@ static NSString *const adImageName = @"adImageName";
         NSString *filePath = [self getFilePathWithImageName:imageName]; // 保存文件的名称
         
         if ([UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES]) {// 保存成功
-            DONG_Log(@"保存成功");
+            DONG_Log(@"广告下载并保存成功！");
             [self deleteOldImage];
             [DONG_UserDefaults setValue:imageName forKey:adImageName];
             [DONG_UserDefaults synchronize];
             // 如果有广告链接，将广告链接也保存下来
-        }else{
-            DONG_Log(@"保存失败");
+        } else {
+            DONG_Log(@"广告下载失败！");
             [self deleteOldImage];
             [DONG_UserDefaults setValue:imageName forKey:adImageName];
             [DONG_UserDefaults synchronize];
@@ -236,8 +236,8 @@ static NSString *const adImageName = @"adImageName";
 
 #pragma mark - 删除旧图片
 
-- (void)deleteOldImage {
-    
+- (void)deleteOldImage
+{
     NSString *imageName = [DONG_UserDefaults valueForKey:adImageName];
     if (imageName) {
         NSString *filePath = [self getFilePathWithImageName:imageName];
@@ -365,8 +365,8 @@ static NSString *const adImageName = @"adImageName";
 /**
  *  判断文件是否存在
  */
-- (BOOL)isFileExistWithFilePath:(NSString *)filePath {
-    
+- (BOOL)isFileExistWithFilePath:(NSString *)filePath
+{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDirectory = FALSE;
     return [fileManager fileExistsAtPath:filePath isDirectory:&isDirectory];
