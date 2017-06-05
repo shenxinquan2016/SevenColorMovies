@@ -201,9 +201,9 @@ static NSString *const adImageName = @"adImageName";
     
     // 拼接沙盒路径
     NSString *filePath = [self getFilePathWithImageName:imageName];
+    DONG_Log(@"filePath-->%@", filePath);
     BOOL isExist = [self isFileExistWithFilePath:filePath];
     if (!isExist){ // 如果该图片不存在，则删除老图片，下载新图片
-        
         [self downloadAdImageWithUrl:self.imageURL imageName:imageName];
     }
 }
@@ -349,7 +349,7 @@ static NSString *const adImageName = @"adImageName";
 }
 
 /**
- *  根据图片名拼接文件路径
+ *  根据图片名拼接文件路径 Caches文件夹
  */
 - (NSString *)getFilePathWithImageName:(NSString *)imageName
 {

@@ -52,8 +52,10 @@
 @property (nonatomic, strong) HLJRequest *hljRequest;
 /** 非wifi弹出alert时存储filmModel */
 @property (nonatomic, strong) SCFilmModel *alertViewClickFilmModel;
-/** 浮创广告 */
+/** 浮窗广告 */
 @property (nonatomic, strong) UIImageView *adImageView;
+/** 浮窗广告model */
+@property (nonatomic, strong) SCAdvertisementModel *floatingAdModel;
 
 @end
 
@@ -109,70 +111,6 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Initialize
 
 #pragma mark- Private methods
-
-- (void)setFloatingAdvertisement
-{
-    [requestDataManager getRequestJsonDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
-        
-        DONG_Log(@"responseObject-->%@", responseObject);
-        NSArray *dataArr = (NSArray *)responseObject;
-        
-        for (NSDictionary *dict in dataArr) {
-            if ([dict[@"adId"] isEqualToString:@"fc-ad"]) {
-                
-                SCAdvertisementModel *adModel = [SCAdvertisementModel mj_objectWithKeyValues:dict];
-                DONG_Log(@"adName--->%@", adModel.adName);
-                DONG_Log(@"openUrl--->%@", adModel.openUrl);
-                DONG_Log(@"packageName--->%@", adModel.openUrl[@"packageName"]);
-                
-                NSString *adImageUrl = dict[@"imgUrl"];
-                if (adImageUrl) {
-                    // 1.广告图片
-                    UIImageView *adImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight-kMainScreenWidth/3-49, kMainScreenWidth, kMainScreenWidth/3)];
-                  [adImageView sd_setImageWithURL:[NSURL URLWithString:adImageUrl] placeholderImage:[UIImage imageNamed:@""]];
-                    [adImageView setUserInteractionEnabled:YES];
-                    // 2.点击手势
-                    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAd)];
-                    [adImageView addGestureRecognizer:singleTap];
-                    // 3.删除按钮
-                    UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth-30, 10, 20, 20)];
-                    deleteBtn.enlargedEdge = 20.f;
-                    [deleteBtn setImage:[UIImage imageNamed:@"Delete"] forState:UIControlStateNormal];
-                    
-                    [deleteBtn addTarget:self action:@selector(deleteBtnCkick) forControlEvents:UIControlEventTouchUpInside];
-                    [adImageView addSubview:deleteBtn];
-                    self.adImageView = adImageView;
-                    [self.view addSubview:adImageView];
-                }
-                
-            }
-        }
-        
-    } failure:^(id  _Nullable errorObject) {
-        DONG_Log(@"errorObject-->%@", errorObject);
-    }];
-}
-
-- (void)clickAd
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        self.adImageView.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        [self.adImageView removeFromSuperview];
-    }];
-    
-    
-    
-}
-
-- (void)deleteBtnCkick
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        self.adImageView.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        [self.adImageView removeFromSuperview];
-    }];
-}
 
 - (void)addCollView
 {
@@ -748,6 +686,81 @@ static NSString *const footerId = @"footerId";
 
 - (BOOL)shouldAutorotate {
     return NO;
+}
+
+#pragma mark - 广告
+
+- (void)setFloatingAdvertisement
+{
+    [requestDataManager getRequestJsonDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
+        
+        DONG_Log(@"responseObject-->%@", responseObject);
+        NSArray *dataArr = (NSArray *)responseObject;
+        
+        for (NSDictionary *dict in dataArr) {
+            if ([dict[@"adId"] isEqualToString:@"fc-ad"]) {
+                
+                SCAdvertisementModel *adModel = [SCAdvertisementModel mj_objectWithKeyValues:dict];
+                self.floatingAdModel = adModel;
+                DONG_Log(@"adName--->%@", adModel.adName);
+                DONG_Log(@"openUrl--->%@", adModel.openUrl);
+                DONG_Log(@"packageName--->%@", adModel.openUrl[@"packageName"]);
+                
+                NSString *adImageUrl = dict[@"imgUrl"];
+                if (adImageUrl) {
+                    // 1.广告图片
+                    UIImageView *adImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight-kMainScreenWidth/3-49, kMainScreenWidth, kMainScreenWidth/3)];
+                    [adImageView sd_setImageWithURL:[NSURL URLWithString:adImageUrl] placeholderImage:[UIImage imageNamed:@""]];
+                    [adImageView setUserInteractionEnabled:YES];
+                    // 2.点击手势
+                    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAd)];
+                    [adImageView addGestureRecognizer:singleTap];
+                    // 3.删除按钮
+                    UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth-30, 10, 20, 20)];
+                    deleteBtn.enlargedEdge = 20.f;
+                    [deleteBtn setImage:[UIImage imageNamed:@"Delete"] forState:UIControlStateNormal];
+                    
+                    [deleteBtn addTarget:self action:@selector(deleteBtnCkick) forControlEvents:UIControlEventTouchUpInside];
+                    [adImageView addSubview:deleteBtn];
+                    self.adImageView = adImageView;
+                    [self.view addSubview:adImageView];
+                }
+                
+            }
+        }
+        
+    } failure:^(id  _Nullable errorObject) {
+        DONG_Log(@"errorObject-->%@", errorObject);
+    }];
+}
+
+- (void)clickAd
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.adImageView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.adImageView removeFromSuperview];
+    }];
+    
+    // adType:web-->打开网页 adType:app-->打开app
+    if ([_floatingAdModel.adType isEqualToString:@"web"]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_floatingAdModel.webUrl]];
+        
+    } else if ([_floatingAdModel.adType isEqualToString:@"app"]) {
+        NSString *urlScheme = _floatingAdModel.openUrl[@"packageName"];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@://",urlScheme]];
+        DONG_Log(@"packId-->%@", url);
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
+- (void)deleteBtnCkick
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.adImageView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.adImageView removeFromSuperview];
+    }];
 }
 
 @end

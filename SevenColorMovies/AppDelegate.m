@@ -253,7 +253,7 @@
 {
     [requestDataManager getRequestJsonDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
         
-        DONG_Log(@"responseObject-->%@", responseObject);
+        //DONG_Log(@"responseObject-->%@", responseObject);
         NSArray *dataArr = (NSArray *)responseObject;
         
         for (NSDictionary *dict in dataArr) {
@@ -273,12 +273,10 @@
                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:launchAdModel.webUrl]];
                                 
                             } else if ([launchAdModel.adType isEqualToString:@"app"]) {
-                                NSString *packId = launchAdModel.openUrl[@"packageName"];
-                                DONG_Log(@"packId-->%@", packId);
-                                NSURL *url = [NSURL URLWithString:packId];
-                                if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                                    [[UIApplication sharedApplication] openURL:url];
-                                }
+                                NSString *urlScheme = launchAdModel.openUrl[@"packageName"];
+                                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@://",urlScheme]];
+                                DONG_Log(@"packId-->%@", url);
+                                [[UIApplication sharedApplication] openURL:url];
                             }
                         }
                             break;
@@ -293,10 +291,6 @@
                     }
                 };
                 [self.window addSubview: self.launchAdView];
-                
-            } else if ([dict[@"adId"] isEqualToString:@"start-ad"]) {
-               SCAdvertisementModel *floatingAdModel = [SCAdvertisementModel mj_objectWithKeyValues:dict];
-                self.floatingAdModel = floatingAdModel;
             }
         }
    
@@ -304,9 +298,6 @@
         
         DONG_Log(@"errorObject-->%@", errorObject);
     }];
-    
-    
-    
 }
 
 @end
