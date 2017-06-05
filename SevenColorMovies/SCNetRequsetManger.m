@@ -168,6 +168,26 @@
     
 }
 
+/** json get通用请求方法 */
+- (void)getRequestJsonDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild
+{
+    [self GETRequestJsonDataWithUrl:urlString parameters:parameters success:^(id _Nullable responseObject) {
+        
+        success(responseObject);
+        
+    } faild:^(id _Nullable errorObject) {
+        //数据请求失败
+        if (![SCNetHelper isNetConnect]) {
+            faild(@"网络异常，请检查网络设置!");
+        } else {
+            faild(@"网络访问超时，请检查网络设置!");
+        }
+        
+    }];
+}
+
+
+
 /** 域名替换成IP */
 - (void)requestDataToReplaceDomainNameWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild
 {
@@ -216,12 +236,12 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     //此处设置后返回的默认是NSData的数据
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     // 1.2返回XMLParser
-//    manager.responseSerializer = [AFXMLParserResponseSerializer new];
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",@"multipart/form-data",nil];
+    //    manager.responseSerializer = [AFXMLParserResponseSerializer new];
+    //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",@"multipart/form-data",nil];
     
-//        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/plain",nil];
+    //        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/plain",nil];
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"text/xml", nil];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
@@ -247,20 +267,20 @@
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             //利用XMLDictionary工具，将返回的XML直接转换为字典
-//            NSDictionary *dic = [NSDictionary dictionaryWithXMLParser:responseObject];
+            //            NSDictionary *dic = [NSDictionary dictionaryWithXMLParser:responseObject];
             NSDictionary *dic = [NSDictionary dictionaryWithXMLData:responseObject];
-//                        DONG_Log(@"======successdic:%@",dic);
+            //                        DONG_Log(@"======successdic:%@",dic);
             success(dic);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"------%@》》》》》》", error);
         if (faild) {
-
+            
         }
     }];
 }
 
-
+/** 返回数据为json格式 */
 - (void)GETRequestDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -273,7 +293,7 @@
     // 1.2返回XMLParser
     manager.responseSerializer = [AFXMLParserResponseSerializer new];
     // 1.3返回XMLData
-    //manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     //2.请求超时时间设置
     manager.requestSerializer.timeoutInterval = 10;
     
@@ -301,5 +321,42 @@
     }];
 }
 
+
+/** 返回数据为json格式 */
+- (void)GETRequestJsonDataWithUrl:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    DONG_Log(@"url-->%@", urlString);
+    DONG_Log(@"parameters-->%@", parameters);
+    
+    //1.设置请求格式
+    // 1.1
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"text/xml", nil];
+    // 1.3返回XMLData
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //2.请求超时时间设置
+    manager.requestSerializer.timeoutInterval = 10;
+    
+    [manager GET:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            NSError *myError;
+            id dic = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:&myError];
+            success(dic);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"------%@》》》》》》", error);
+        if (faild) {
+            //数据请求失败
+            if (![SCNetHelper isNetConnect]) {
+                faild(@"网络异常，请检查网络设置!");
+                [MBProgressHUD showError:@"网络异常，请检查网络设置!"];
+            } else {
+                faild(error);
+                [MBProgressHUD showError:@"网络访问超时，请检查网络设置!"];
+            }
+        }
+    }];
+}
 
 @end

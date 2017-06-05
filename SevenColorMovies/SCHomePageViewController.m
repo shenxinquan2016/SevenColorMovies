@@ -22,6 +22,7 @@
 #import "SCFilmClassModel.h"
 #import "SCFilmModel.h"
 #import "SCSpecialTopicDetailVC.h"
+#import "SCAdvertisementModel.h"
 
 
 @interface SCHomePageViewController ()<UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, SDCycleScrollViewDelegate, UIAlertViewDelegate>
@@ -51,6 +52,8 @@
 @property (nonatomic, strong) HLJRequest *hljRequest;
 /** 非wifi弹出alert时存储filmModel */
 @property (nonatomic, strong) SCFilmModel *alertViewClickFilmModel;
+/** 浮创广告 */
+@property (nonatomic, strong) UIImageView *adImageView;
 
 @end
 
@@ -61,7 +64,7 @@ static NSString *const cellIdOther = @"cellIdOther";
 static NSString *const headerId = @"headerId";
 static NSString *const footerId = @"footerId";
 
-#pragma mark-  ViewLife Cycle
+#pragma mark -  ViewLife Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -81,6 +84,8 @@ static NSString *const footerId = @"footerId";
     
     //3.添加collectionView
     [self addCollView];
+    
+    [self setFloatingAdvertisement];
     
 }
 
@@ -104,8 +109,73 @@ static NSString *const footerId = @"footerId";
 #pragma mark- Initialize
 
 #pragma mark- Private methods
-- (void)addCollView {
+
+- (void)setFloatingAdvertisement
+{
+    [requestDataManager getRequestJsonDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
+        
+        DONG_Log(@"responseObject-->%@", responseObject);
+        NSArray *dataArr = (NSArray *)responseObject;
+        
+        for (NSDictionary *dict in dataArr) {
+            if ([dict[@"adId"] isEqualToString:@"fc-ad"]) {
+                
+                SCAdvertisementModel *adModel = [SCAdvertisementModel mj_objectWithKeyValues:dict];
+                DONG_Log(@"adName--->%@", adModel.adName);
+                DONG_Log(@"openUrl--->%@", adModel.openUrl);
+                DONG_Log(@"packageName--->%@", adModel.openUrl[@"packageName"]);
+                
+                NSString *adImageUrl = dict[@"imgUrl"];
+                if (adImageUrl) {
+                    // 1.广告图片
+                    UIImageView *adImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight-kMainScreenWidth/3-49, kMainScreenWidth, kMainScreenWidth/3)];
+                  [adImageView sd_setImageWithURL:[NSURL URLWithString:adImageUrl] placeholderImage:[UIImage imageNamed:@""]];
+                    [adImageView setUserInteractionEnabled:YES];
+                    // 2.点击手势
+                    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAd)];
+                    [adImageView addGestureRecognizer:singleTap];
+                    // 3.删除按钮
+                    UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth-30, 10, 20, 20)];
+                    deleteBtn.enlargedEdge = 20.f;
+                    [deleteBtn setImage:[UIImage imageNamed:@"Delete"] forState:UIControlStateNormal];
+                    
+                    [deleteBtn addTarget:self action:@selector(deleteBtnCkick) forControlEvents:UIControlEventTouchUpInside];
+                    [adImageView addSubview:deleteBtn];
+                    self.adImageView = adImageView;
+                    [self.view addSubview:adImageView];
+                }
+                
+            }
+        }
+        
+    } failure:^(id  _Nullable errorObject) {
+        DONG_Log(@"errorObject-->%@", errorObject);
+    }];
+}
+
+- (void)clickAd
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.adImageView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.adImageView removeFromSuperview];
+    }];
     
+    
+    
+}
+
+- (void)deleteBtnCkick
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.adImageView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.adImageView removeFromSuperview];
+    }];
+}
+
+- (void)addCollView
+{
     SCHomePageFlowLayout *layout = [[SCHomePageFlowLayout alloc]init]; // 布局对象
     layout.alternateDecorationViews = YES;
     // 读取xib背景

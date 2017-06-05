@@ -251,41 +251,62 @@
 
 - (void)launchAdvertisement
 {
-    //    [requestDataManager requestDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
-    //
-    //        DONG_Log(@"responseObject-->%@", responseObject);
-    //
-    //    } failure:^(id  _Nullable errorObject) {
-    //
-    //        DONG_Log(@"errorObject-->%@", errorObject);
-    //    }];
-    
-    
-    [self.window makeKeyAndVisible];
-    
-    self.launchAdView = [[DONG_LaunchAdView alloc] init];
-    self.launchAdView.imageURL = @"http://img.shenghuozhe.net/shz/2016/05/07/750w_1224h_043751462609867.jpg";
-    self.launchAdView.getLaunchImageAdViewType(FullScreenAdType);
-    // 各种点击事件的回调
-    self.launchAdView.clickBlock = ^(clickType type){
-        switch (type) {
-            case clickAdType:{
-                DONG_Log(@"点击广告回调");
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.baidu.com"]];
+    [requestDataManager getRequestJsonDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
+        
+        DONG_Log(@"responseObject-->%@", responseObject);
+        NSArray *dataArr = (NSArray *)responseObject;
+        
+        for (NSDictionary *dict in dataArr) {
+            if ([dict[@"adId"] isEqualToString:@"start-ad"]) {
+                SCAdvertisementModel *launchAdModel = [SCAdvertisementModel mj_objectWithKeyValues:dict];
+                [self.window makeKeyAndVisible];
+                self.launchAdView = [[DONG_LaunchAdView alloc] init];
+                self.launchAdView.imageURL = launchAdModel.imgUrl;
+                self.launchAdView.getLaunchImageAdViewType(FullScreenAdType);
+                // 各种点击事件的回调
+                self.launchAdView.clickBlock = ^(clickType type){
+                    switch (type) {
+                        case clickAdType:{
+                            // 点击广告回调
+                            // adType:web-->打开网页 adType:app-->打开app
+                            if ([launchAdModel.adType isEqualToString:@"web"]) {
+                                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:launchAdModel.webUrl]];
+                                
+                            } else if ([launchAdModel.adType isEqualToString:@"app"]) {
+                                NSString *packId = launchAdModel.openUrl[@"packageName"];
+                                DONG_Log(@"packId-->%@", packId);
+                                NSURL *url = [NSURL URLWithString:packId];
+                                if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                                    [[UIApplication sharedApplication] openURL:url];
+                                }
+                            }
+                        }
+                            break;
+                        case skipAdType:
+                            DONG_Log(@"点击跳过回调");
+                            break;
+                        case overtimeAdType:
+                            DONG_Log(@"倒计时完成后的回调");
+                            break;
+                        default:
+                            break;
+                    }
+                };
+                [self.window addSubview: self.launchAdView];
+                
+            } else if ([dict[@"adId"] isEqualToString:@"start-ad"]) {
+               SCAdvertisementModel *floatingAdModel = [SCAdvertisementModel mj_objectWithKeyValues:dict];
+                self.floatingAdModel = floatingAdModel;
             }
-                break;
-            case skipAdType:
-                DONG_Log(@"点击跳过回调");
-                break;
-            case overtimeAdType:
-                DONG_Log(@"倒计时完成后的回调");
-                break;
-            default:
-                break;
         }
-    };
+   
+    } failure:^(id  _Nullable errorObject) {
+        
+        DONG_Log(@"errorObject-->%@", errorObject);
+    }];
     
-    [self.window addSubview: self.launchAdView];
+    
+    
 }
 
 @end

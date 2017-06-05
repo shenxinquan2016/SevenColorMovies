@@ -151,7 +151,6 @@ static NSString *const adImageName = @"adImageName";
     } else {
         self.hidden = YES;
     }
-    
     // 2.无论沙盒中是否存在广告图片，都需要重新调用广告接口，判断广告是否更新
     [self requestAdvertisementData];
 }

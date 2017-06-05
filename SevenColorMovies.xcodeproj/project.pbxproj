@@ -193,6 +193,7 @@
 		11BF11971EBB20FF0091255E /* libiosagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BF11961EBB20FF0091255E /* libiosagent.a */; };
 		11C1C1C11D8020A300CEE71C /* SCFliterOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C1C1BF1D8020A300CEE71C /* SCFliterOptionCell.m */; };
 		11C1C1C21D8020A300CEE71C /* SCFliterOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C1C1C01D8020A300CEE71C /* SCFliterOptionCell.xib */; };
+		11C636061EE52BA000B14B37 /* SCAdvertisementModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C636051EE52BA000B14B37 /* SCAdvertisementModel.m */; };
 		11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */; };
 		11C8CFBC1D45157B00C04F38 /* SCCollectionViewPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */; };
 		11C905DF1D6C3BB9004D3749 /* NSDate+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C905DE1D6C3BB9004D3749 /* NSDate+Addition.m */; };
@@ -583,6 +584,8 @@
 		11C1C1BE1D8020A300CEE71C /* SCFliterOptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFliterOptionCell.h; sourceTree = "<group>"; };
 		11C1C1BF1D8020A300CEE71C /* SCFliterOptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFliterOptionCell.m; sourceTree = "<group>"; };
 		11C1C1C01D8020A300CEE71C /* SCFliterOptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCFliterOptionCell.xib; sourceTree = "<group>"; };
+		11C636041EE52BA000B14B37 /* SCAdvertisementModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdvertisementModel.h; sourceTree = "<group>"; };
+		11C636051EE52BA000B14B37 /* SCAdvertisementModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdvertisementModel.m; sourceTree = "<group>"; };
 		11C8CFB61D45157B00C04F38 /* SCCollectionViewPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageCell.h; sourceTree = "<group>"; };
 		11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageCell.m; sourceTree = "<group>"; };
 		11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCCollectionViewPageCell.xib; sourceTree = "<group>"; };
@@ -2043,6 +2046,8 @@
 			children = (
 				1192BC471EE45EE800A7DD09 /* DONG_LaunchAdView.h */,
 				1192BC481EE45EE800A7DD09 /* DONG_LaunchAdView.m */,
+				11C636041EE52BA000B14B37 /* SCAdvertisementModel.h */,
+				11C636051EE52BA000B14B37 /* SCAdvertisementModel.m */,
 			);
 			name = "LaunchAd 启动广告";
 			sourceTree = "<group>";
@@ -2591,6 +2596,7 @@
 				11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */,
 				1131C0D91D67057600BA151A /* SCChangeBrightnessAndVolumeTool.m in Sources */,
 				11458EA21D45FEE200EBD16D /* SCMineTopCell.m in Sources */,
+				11C636061EE52BA000B14B37 /* SCAdvertisementModel.m in Sources */,
 				11DA5EFE1E24DFB500B32E1B /* SCScanResultViewController.m in Sources */,
 				113F8D991D3C724100B12D39 /* SCMainTabBarViewController.m in Sources */,
 				11B0722E1DD2BBDF00DD3FED /* Dong_DownloadOperation.m in Sources */,

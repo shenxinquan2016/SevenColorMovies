@@ -47,13 +47,14 @@ NS_ASSUME_NONNULL_BEGIN
 /** post通用请求方法 */
 - (void)postRequestDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
 
-/** get通用请求方法 */
+/** xml get通用请求方法 */
 - (void)requestDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
 
 /** 域名替换成IP */
 - (void)requestDataToReplaceDomainNameWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
 
-
+/** json get通用请求方法 */
+- (void)getRequestJsonDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
 
 
 @end
