@@ -71,23 +71,23 @@ static NSString *const footerId = @"footerId";
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithHex:@"#dddddd"];
-    //0. 设置导航栏的颜色(效果只作用当前页面）
+    // 0. 设置导航栏的颜色(效果只作用当前页面）
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHex:@"#F0F1F2"]];
     
-    //1.初始化数组
+    // 1.初始化数组
     self.titleArray = [NSMutableArray arrayWithCapacity:0];
     self.filmClassArray = [NSMutableArray arrayWithCapacity:0];
     self.bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
     self.bannerFilmModelArr = [NSMutableArray arrayWithCapacity:0];
     
-    //2.设置导航栏的颜色（效果作用到所有页面）
+    // 2.设置导航栏的颜色（效果作用到所有页面）
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setBarTintColor:[UIColor colorWithHex:@"#F1F1F1"]];
     
-    //3.添加collectionView
+    // 3.添加collectionView
     [self addCollView];
-    
-    [self setFloatingAdvertisement];
+    // 4.符窗广告
+//    [self setFloatingAdvertisement];
     
 }
 

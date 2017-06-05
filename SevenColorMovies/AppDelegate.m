@@ -41,8 +41,7 @@
     // 5.自动登录xmpp
     [self xmppLogin];
     // 6.启动广告
-    [self launchAdvertisement];
-    
+//    [self launchAdvertisement];
     
     
     return YES;
