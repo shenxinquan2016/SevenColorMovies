@@ -66,7 +66,7 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
 }
@@ -80,7 +80,8 @@
 
 #pragma mark - Private Method
 //全选 || 删除 按钮视图
-- (void)setBottomBtnView{
+- (void)setBottomBtnView
+{
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, 60)];
     bottomView.backgroundColor = [UIColor whiteColor];
     [bottomView.layer setBorderWidth:1.f];
@@ -130,7 +131,8 @@
     
 }
 
-- (void)selcetAll{
+- (void)selcetAll
+{
     if (!self.isSelectAll) {
         _selectAll = YES;
         [_selectAllBtn setTitle:@"全部取消" forState:UIControlStateNormal];
@@ -141,7 +143,7 @@
             filmModel.selected = YES;
             [_tempArray addObject:filmModel];
         }];
-    }else{
+    } else {
         _selectAll = NO;
         [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
         [_tempArray removeAllObjects];
@@ -153,7 +155,8 @@
     [_listView reloadData];
 }
 
-- (void)delete{
+- (void)delete
+{
     // 遍历model获取对应的下标
     NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:0];
     [_tempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -187,7 +190,8 @@
     
 }
 
-- (void)setTableView{
+- (void)setTableView
+{
     _listView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     _listView.delegate = self;
     _listView.dataSource = self;
@@ -198,8 +202,8 @@
     [self.view addSubview:_listView];
 }
 
-- (void)addRightBBI {
-    
+- (void)addRightBBI
+{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 45, 23);
     
@@ -221,7 +225,8 @@
     _editBtn.selected = NO;
 }
 
-- (void)doEditingAction{
+- (void)doEditingAction
+{
     if (_editBtn.selected == NO) {//正在编辑
         
         _isEditing = YES;
@@ -239,7 +244,7 @@
         [_listView reloadData];
         
         
-    }else if (_editBtn.selected != NO){//完成编辑
+    } else if (_editBtn.selected != NO){//完成编辑
         _isEditing = NO;
         _editBtn.selected = NO;
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];

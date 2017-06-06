@@ -2347,12 +2347,12 @@ static NSUInteger timesIndexOfVOD = 0;//标记自动播放下一个节目的次�
             
             DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
-            //请求film详细信息
+            // 请求film详细信息
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 //            DONG_Log(@"====responseObject:::%@===",responseObject);
                 
                 DONG_StrongSelf(self);
-                //介绍页model
+                // 介绍页model
                 strongself.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
                 
                 // 坑：：单片不同film竟然数据结构不同 服了！

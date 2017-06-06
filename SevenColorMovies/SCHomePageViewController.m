@@ -305,13 +305,13 @@ static NSString *const footerId = @"footerId";
     }
 }
 
-//section header
+// section header
 - (UIView *)addSectionHeaderViewWithTitle:(NSString *)title tag:(NSInteger)tag
 {
     UIView *view = [[UIImageView alloc] init];
     view.frame = CGRectMake(0, 10, kMainScreenWidth, 40.f);
     view.backgroundColor = [UIColor whiteColor];
-    //图标
+    // 图标
     UIImageView *iv = [[UIImageView alloc] init];
     [iv setImage:[UIImage imageNamed:@"SectionLeftImage"]];
     [view addSubview:iv];
@@ -320,7 +320,7 @@ static NSString *const footerId = @"footerId";
         make.centerY.equalTo(view.mas_centerY);
         make.size.mas_equalTo(iv.image.size);
     }];
-    //标题label
+    // 标题label
     UILabel *label = [[UILabel alloc] init];
     label.text = title;
     [label setFont :[UIFont fontWithName :@"Helvetica-Bold" size :20]];//加粗
@@ -333,7 +333,7 @@ static NSString *const footerId = @"footerId";
         make.size.mas_equalTo(CGSizeMake(100, 21));
         
     }];
-    //右侧btn
+    // 右侧btn
     UIButton *btn = [[UIButton alloc] init];
     btn.tag = tag;
     [btn setTitle: @"更多" forState: UIControlStateNormal];
@@ -353,8 +353,8 @@ static NSString *const footerId = @"footerId";
     return view;
 }
 
-- (void)addBannerView {
-    
+- (void)addBannerView
+{
     _bannerView = [[SCSycleBanner alloc] initWithView:nil];
     _bannerView.delegate = self;
     [_collView addSubview:_bannerView];
@@ -467,6 +467,7 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark ---- UICollectionViewDelegateFlowLayout
+
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -673,7 +674,9 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark- Getters and Setters
-- (NSMutableArray *)allItemsArr {
+
+- (NSMutableArray *)allItemsArr
+{
     if (!_allItemsArr) {
         NSArray *array =@[@"电影", @"电视剧",  @"少儿", @"纪录片", @"潮生活", @"更多", @"二人转", @"动漫", @"生活", @"游戏", @"音乐", @"专题", @"营业厅"];
         
@@ -683,13 +686,14 @@ static NSString *const footerId = @"footerId";
     return _allItemsArr;
 }
 
-
-- (BOOL)shouldAutorotate {
+- (BOOL)shouldAutorotate
+{
     return NO;
 }
 
 #pragma mark - 广告
 
+// 添加广告
 - (void)setFloatingAdvertisement
 {
     [requestDataManager getRequestJsonDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
@@ -725,7 +729,6 @@ static NSString *const footerId = @"footerId";
                     self.adImageView = adImageView;
                     [self.view addSubview:adImageView];
                 }
-                
             }
         }
         
@@ -734,6 +737,7 @@ static NSString *const footerId = @"footerId";
     }];
 }
 
+// 点击广告
 - (void)clickAd
 {
     [UIView animateWithDuration:0.3 animations:^{
@@ -754,6 +758,7 @@ static NSString *const footerId = @"footerId";
     }
 }
 
+// 删除广告
 - (void)deleteBtnCkick
 {
     [UIView animateWithDuration:0.3 animations:^{
