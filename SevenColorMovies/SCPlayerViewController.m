@@ -312,7 +312,7 @@ static const CGFloat LabelWidth = 100.f;
                          _filmModel.FilmName, _filmModel.jiIndex];
     RLMResults *results = [SCFilmModel objectsInRealm:realm withPredicate:pred];
     
-    if (results.count) {//已经添加则取消收藏 从数据库删除
+    if (results.count) {// 已经添加则取消收藏 从数据库删除
         [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection"] forState:UIControlStateNormal];
         SCFilmModel *filmModel = results.firstObject;
         [realm transactionWithBlock:^{

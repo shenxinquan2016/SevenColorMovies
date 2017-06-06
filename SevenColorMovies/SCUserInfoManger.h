@@ -17,6 +17,7 @@
 /** 用户是否登录 */
 @property (nonatomic, copy) NSString *token;
 
+@property (nonatomic, copy) NSArray *dataCollectionArray;
 
 
 
@@ -24,5 +25,11 @@
 
 + (instancetype)shareManager;
 
+/*
+ *  保存操作记录
+ *
+ *  每满10条上传给服务器 删空数据
+ */
+- (void)addCollectionDataWithDict:(NSDictionary *)dict;
 
 @end

@@ -360,7 +360,7 @@ static NSString *const footerId = @"footerId";
     [_collView addSubview:_bannerView];
 }
 
-#pragma mark ---- responce
+#pragma mark - responce
 
 - (void)sectionClick:(UIButton *)sender
 {
@@ -380,7 +380,7 @@ static NSString *const footerId = @"footerId";
     }
 }
 
-#pragma mark ---- UICollectionView  DataSource
+#pragma mark - UICollectionView  DataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -466,7 +466,7 @@ static NSString *const footerId = @"footerId";
     return nil;
 }
 
-#pragma mark ---- UICollectionViewDelegateFlowLayout
+#pragma mark - UICollectionViewDelegateFlowLayout
 
 /** item Size */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -529,7 +529,7 @@ static NSString *const footerId = @"footerId";
     return (CGSize){kMainScreenWidth,0};
 }
 
-#pragma mark ---- UICollectionView DataDelegate
+#pragma mark - UICollectionView DataDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
