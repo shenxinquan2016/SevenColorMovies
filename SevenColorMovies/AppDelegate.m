@@ -41,7 +41,7 @@
     // 5.自动登录xmpp
     [self xmppLogin];
     // 6.启动广告
-//    [self launchAdvertisement];
+//    [self setLaunchAdvertisement];
     
     
     return YES;
@@ -248,7 +248,7 @@
     
 }
 
-- (void)launchAdvertisement
+- (void)setLaunchAdvertisement
 {
     [requestDataManager getRequestJsonDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
         
