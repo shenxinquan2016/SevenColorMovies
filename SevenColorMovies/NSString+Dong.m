@@ -118,6 +118,12 @@
     return [self stringByTrimmingString:@"="];
 }
 
+// 去掉下划线
+- (instancetype)stringByTrimmingUnderline
+{
+   return [self stringByTrimmingString:@"_"];
+}
+
 - (instancetype)absoluteDateString {
     return [[[self stringByTrimmingString:@"-"] stringByTrimmingString:@":"] stringByTrimmingString:@" "];
 }

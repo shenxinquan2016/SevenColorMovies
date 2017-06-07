@@ -20,9 +20,6 @@
 @property (nonatomic, copy) NSArray *dataCollectionArray;
 
 
-
-
-
 + (instancetype)shareManager;
 
 /*
@@ -30,6 +27,6 @@
  *
  *  每满10条上传给服务器 删空数据
  */
-- (void)addCollectionDataWithDict:(NSDictionary *)dict;
+- (void)addCollectionDataWithType:(NSString *)type dict:(NSDictionary *)dict;
 
 @end

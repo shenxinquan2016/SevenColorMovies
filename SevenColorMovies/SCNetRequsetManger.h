@@ -56,6 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** json get通用请求方法 */
 - (void)getRequestJsonDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
 
+/** json post通用请求方法 */
+- (void)postRequestJsonDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
+
 
 @end
 

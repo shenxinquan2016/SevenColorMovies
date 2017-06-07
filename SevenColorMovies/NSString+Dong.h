@@ -47,6 +47,9 @@
 - (instancetype)stringByTrimmingColon;
 // 去掉等号
 - (instancetype)stringByTrimmingEqualMark;
+// 去掉下划线
+- (instancetype)stringByTrimmingUnderline;
+
 - (instancetype)absoluteDateString;
 // Base64
 - (instancetype)stringByBase64Encoding;

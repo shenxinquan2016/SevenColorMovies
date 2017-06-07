@@ -113,9 +113,11 @@ static NSString *const cellId = @"cellId";
         DONG_Log(@"newVideoUrl:%@",newVideoUrl);
         
         [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
-
-            //DONG_Log(@"responseObject:%@",responseObject);
-            [UserInfoManager addCollectionDataWithDict:responseObject];
+//            DONG_Log(@"responseObject:%@",responseObject);
+            // 数据采集
+            NSString *string = [[NSString stringWithFormat:@"%@", responseObject] stringByTrimmingUnderline];
+            NSDictionary *dict = (NSDictionary *)string;
+            [UserInfoManager addCollectionDataWithType:@"FilmClass" dict:dict];
             
             if (responseObject) {
                 

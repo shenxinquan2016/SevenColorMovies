@@ -2921,8 +2921,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.voole.HLJVideoAdHoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0f425728-e8ee-4993-8870-7bdc742774fa";
-				PROVISIONING_PROFILE_SPECIFIER = "黑广 Development yesdgq";
+				PROVISIONING_PROFILE = "fcfbdc60-9a35-4a47-adcb-88fc0582d4cb";
+				PROVISIONING_PROFILE_SPECIFIER = "黑广调试 yesdgq 20170607";
 			};
 			name = Debug;
 		};
@@ -3000,8 +3000,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.voole.HLJVideoAdHoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0f425728-e8ee-4993-8870-7bdc742774fa";
-				PROVISIONING_PROFILE_SPECIFIER = "黑广 Development yesdgq";
+				PROVISIONING_PROFILE = "fcfbdc60-9a35-4a47-adcb-88fc0582d4cb";
+				PROVISIONING_PROFILE_SPECIFIER = "黑广调试 yesdgq 20170607";
 			};
 			name = Release;
 		};
