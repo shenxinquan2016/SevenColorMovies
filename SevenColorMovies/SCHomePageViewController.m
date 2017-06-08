@@ -590,6 +590,9 @@ static NSString *const footerId = @"footerId";
         SCFilmModel *filmModel = classModel.filmArray[indexPath.row];
         
         if ([classModel._FilmClassName isEqualToString:@"专题"]) {
+            // 数据采集
+            NSString *keyValue = @"subjectcate";
+            [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:classModel._FilmClassName mid:keyValue];
             SCSpecialTopicDetailVC *vc = [[SCSpecialTopicDetailVC alloc] initWithWithTitle:filmModel.FilmName];
             vc.hidesBottomBarWhenPushed = YES;
             vc.urlString = filmModel.SourceUrl;
@@ -608,6 +611,30 @@ static NSString *const footerId = @"footerId";
                 alertView.delegate = self;
                 
             } else {
+                
+                // 数据采集
+                NSString *keyValue = nil;
+                if ([classModel._FilmClassName isEqualToString:@"直播"]) {
+                    keyValue = @"app";
+                } else if ([classModel._FilmClassName isEqualToString:@"电影"]) {
+                    keyValue = @"moviecate";
+                } else if ([classModel._FilmClassName isEqualToString:@"电视剧"]) {
+                    keyValue = @"TVcate";
+                } else if ([classModel._FilmClassName isEqualToString:@"综艺"]) {
+                    keyValue = @"varietycate";
+                } else if ([classModel._FilmClassName isEqualToString:@"少儿"]) {
+                    keyValue = @"kidcate";
+                } else if ([classModel._FilmClassName isEqualToString:@"纪录片"]) {
+                    keyValue = @"documecate";
+                } else if ([classModel._FilmClassName isEqualToString:@"潮生活"]) {
+                    keyValue = @"lifecate";
+                } else if ([classModel._FilmClassName isEqualToString:@"最精彩"]) {
+                    keyValue = @"HHLX";
+                } else if ([classModel._FilmClassName isEqualToString:@"专题"]) {
+                    keyValue = @"subjectcate";
+                }
+                
+                [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:classModel._FilmClassName mid:keyValue];
                 
                 SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
                 teleplayPlayer.filmModel = filmModel;
