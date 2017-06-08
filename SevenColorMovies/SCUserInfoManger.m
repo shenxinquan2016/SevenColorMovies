@@ -98,7 +98,7 @@
     NSMutableArray *newArr = [DONG_UserDefaults objectForKey:kDataCollectionArray];
     //        DONG_Log(@"newNewArr-->%@ \n newNewArr.count-->%lu", newArr, (unsigned long)newArr.count);
     
-    if (newArr.count >= 2) {
+    if (newArr.count >= 10) {
         const NSString *uuidStr = [HLJUUID getUUID];
         NSDictionary *parameters = @{@"param" : @{
                                              @"data" : newArr,

@@ -1839,7 +1839,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
             
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-                DONG_Log(@"====responseObject:::%@===",responseObject);
+                //DONG_Log(@"====responseObject:::%@===",responseObject);
                 if (responseObject) {
                     
                     NSString *mid = responseObject[@"Film"][@"_Mid"];
@@ -2048,8 +2048,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                             }
                         }
                         // 数据采集
-                        [UserInfoManager addCollectionDataWithType:@"Film" filmName:self.filmModel.FilmName mid:filmmidStr];
-                        
+                        [UserInfoManager addCollectionDataWithType:@"Film" filmName:[NSString stringWithFormat:@"%@ 第%lu集",_filmModel.FilmName , (unsigned long)_filmModel.jiIndex ] mid:filmmidStr];
                         
                         [CommonFunc dismiss];
                     } failure:^(id  _Nullable errorObject) {

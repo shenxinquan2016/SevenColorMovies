@@ -365,6 +365,8 @@
                     self.filmName = filmName;
                     //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
                     strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
+                    // 数据采集
+                    [UserInfoManager addCollectionDataWithType:@"Film" filmName:filmName mid:mid];
                     
                     [CommonFunc dismiss];
                     //[CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
@@ -513,6 +515,8 @@
                         
                         self.filmName = filmName;
                         strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
+                        // 数据采集
+                        [UserInfoManager addCollectionDataWithType:@"Film" filmName:filmName mid:mid];
                         
                         [CommonFunc dismiss];
                         
@@ -631,7 +635,8 @@
                         strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
                         
                         [CommonFunc dismiss];
-                        //[CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
+                        // 数据采集
+                        [UserInfoManager addCollectionDataWithType:@"Film" filmName:filmName mid:filmMidStr];
                         
                     } failure:^(NSError *error) {
                         [CommonFunc dismiss];
@@ -736,6 +741,9 @@
                 strongself.IJKPlayerViewController.isFullScreen = YES;
                 strongself.isProhibitRotate = YES;
                 
+                // 数据采集
+                [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:@"app"];
+                
                 [CommonFunc dismiss];
                 
             } failure:^(id  _Nullable errorObject) {
@@ -811,6 +819,9 @@
                 [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
                 self.IJKPlayerViewController.isFullScreen = YES;
                 self.isProhibitRotate = YES;
+                
+                // 数据采集
+                [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:@"app"];
                 
                 [CommonFunc dismiss];
             } failure:^(id  _Nullable errorObject) {
@@ -898,6 +909,9 @@
                 [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
                 self.IJKPlayerViewController.isFullScreen = YES;
                 self.isProhibitRotate = YES;
+                
+                // 数据采集
+                [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:@"app"];
                 
                 [CommonFunc dismiss];
             } failure:^(id  _Nullable errorObject) {

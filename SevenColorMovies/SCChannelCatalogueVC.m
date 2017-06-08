@@ -304,9 +304,10 @@ static NSString *const footerId = @"footerId";
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ljxfw.gov.cn/dyjy"]];
         
     } else if (indexPath.row == 2) {
+        DONG_Log(@"直播");
         // 数据采集
         NSString *keyValue = @"app";
-        [UserInfoManager addCollectionDataWithType:@"Film" filmName:@"直播" mid:keyValue];
+        [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:keyValue];
         
         SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
         [self.navigationController pushViewController:liveVC animated:YES];

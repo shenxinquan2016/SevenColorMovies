@@ -565,6 +565,10 @@ static NSString *const footerId = @"footerId";
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ljxfw.gov.cn/dyjy"]];
         } else if (indexPath.row == 2) { // 直播
+            // 数据采集
+            NSString *keyValue = @"app";
+            [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:keyValue];
+            
             SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
             liveView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:liveView animated:YES];
