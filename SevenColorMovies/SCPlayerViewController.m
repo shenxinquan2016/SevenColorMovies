@@ -876,7 +876,6 @@ static const CGFloat LabelWidth = 100.f;
     const NSString *uuidStr = [HLJUUID getUUID];
     filmModel.jiIndex = filmModel.jiIndex == 0 ? -1 : filmModel.jiIndex;
     
-    NSNumber *oemid    = [NSNumber numberWithInt:300126];
     NSNumber *mid      = [NSNumber numberWithInteger:[_mid integerValue]];
     NSNumber *mType    = [NSNumber numberWithInteger:[mTypeStr integerValue]];
     NSNumber *sid      = [NSNumber numberWithInteger:filmModel.jiIndex];//第几集
@@ -2043,7 +2042,6 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                                     [self.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
                                     
                                 }
-                                
                                 break;
                             }
                         }
