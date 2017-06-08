@@ -553,8 +553,16 @@ static NSString *const footerId = @"footerId";
             [self.navigationController pushViewController:moreView animated:YES];
             
         } else if (indexPath.row == 0) { // 政府
+            // 数据采集
+            NSString *keyValue = @"web";
+            [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"政府" mid:keyValue];
+            
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.hlj.gov.cn/szfsjz/index.shtml"]];
         } else if (indexPath.row == 1) { // 先锋网
+            // 数据采集
+            NSString *keyValue = @"web";
+            [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"先锋网" mid:keyValue];
+            
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ljxfw.gov.cn/dyjy"]];
         } else if (indexPath.row == 2) { // 直播
             SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
@@ -563,6 +571,10 @@ static NSString *const footerId = @"footerId";
             
         } else if (indexPath.row == 4) { // 掌厅
             DONG_Log(@"营业厅");
+            // 数据采集
+            NSString *keyValue = @"web";
+             [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"营业厅" mid:keyValue];
+            
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
             
         } else if (indexPath.row > 0 && indexPath.row < 4) { // 3
@@ -611,30 +623,6 @@ static NSString *const footerId = @"footerId";
                 alertView.delegate = self;
                 
             } else {
-                
-                // 数据采集
-                NSString *keyValue = nil;
-                if ([classModel._FilmClassName isEqualToString:@"直播"]) {
-                    keyValue = @"app";
-                } else if ([classModel._FilmClassName isEqualToString:@"电影"]) {
-                    keyValue = @"moviecate";
-                } else if ([classModel._FilmClassName isEqualToString:@"电视剧"]) {
-                    keyValue = @"TVcate";
-                } else if ([classModel._FilmClassName isEqualToString:@"综艺"]) {
-                    keyValue = @"varietycate";
-                } else if ([classModel._FilmClassName isEqualToString:@"少儿"]) {
-                    keyValue = @"kidcate";
-                } else if ([classModel._FilmClassName isEqualToString:@"纪录片"]) {
-                    keyValue = @"documecate";
-                } else if ([classModel._FilmClassName isEqualToString:@"潮生活"]) {
-                    keyValue = @"lifecate";
-                } else if ([classModel._FilmClassName isEqualToString:@"最精彩"]) {
-                    keyValue = @"HHLX";
-                } else if ([classModel._FilmClassName isEqualToString:@"专题"]) {
-                    keyValue = @"subjectcate";
-                }
-                
-                [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:classModel._FilmClassName mid:keyValue];
                 
                 SCPlayerViewController *teleplayPlayer = DONG_INSTANT_VC_WITH_ID(@"HomePage",@"SCTeleplayPlayerVC");
                 teleplayPlayer.filmModel = filmModel;

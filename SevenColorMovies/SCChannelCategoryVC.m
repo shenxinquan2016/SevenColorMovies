@@ -56,20 +56,23 @@ static NSString *const cellId = @"cellId";
 #pragma mark-  ViewLife Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
-    //1.筛选按钮
+    // 1.筛选按钮
     [self addFilterBtn];
     
-    //2.初始化数组
+    // 2.初始化数组
     self.titleArr = [NSMutableArray arrayWithCapacity:0];
     self.filmClassModelArr = [NSMutableArray arrayWithCapacity:0];
     self.filmModelArr = [NSMutableArray arrayWithCapacity:0];
     self.FilmClassUrlArr = [NSMutableArray arrayWithCapacity:0];
     self.pageCountArr = [NSMutableArray arrayWithCapacity:0];
     
-    //3.网络请求
+    // 3.网络请求
     [self getFilmClassData];
     
+    // 数据采集
+    [self collectCustomerBehaviorData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -102,7 +105,37 @@ static NSString *const cellId = @"cellId";
     _siftBtn = btn;
 }
 
-//
+#pragma mark - 数据采集埋点
+
+- (void)collectCustomerBehaviorData
+{
+    // 数据采集
+    NSString *keyValue = nil;
+    if ([_filmClassModel._FilmClassName isEqualToString:@"直播"]) {
+        keyValue = @"app";
+    } else if ([_filmClassModel._FilmClassName isEqualToString:@"电影"]) {
+        keyValue = @"moviecate";
+    } else if ([_filmClassModel._FilmClassName isEqualToString:@"电视剧"]) {
+        keyValue = @"TVcate";
+    } else if ([_filmClassModel._FilmClassName isEqualToString:@"综艺"]) {
+        keyValue = @"varietycate";
+    } else if ([_filmClassModel._FilmClassName isEqualToString:@"少儿"]) {
+        keyValue = @"kidcate";
+    } else if ([_filmClassModel._FilmClassName isEqualToString:@"纪录片"]) {
+        keyValue = @"documecate";
+    } else if ([_filmClassModel._FilmClassName isEqualToString:@"潮生活"]) {
+        keyValue = @"lifecate";
+    } else if ([_filmClassModel._FilmClassName isEqualToString:@"最精彩"]) {
+        keyValue = @"HHLX";
+    } else if ([_filmClassModel._FilmClassName isEqualToString:@"专题"]) {
+        keyValue = @"subjectcate";
+    }
+    
+    [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:_filmClassModel._FilmClassName mid:keyValue];
+}
+
+#pragma mark - 数据请求
+
 - (void)getFilmClassData
 {
     // 域名转换成IP
