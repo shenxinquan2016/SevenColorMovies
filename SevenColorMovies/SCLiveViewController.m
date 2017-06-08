@@ -237,19 +237,18 @@ static const CGFloat LabelWidth = 95.f;
         labelRight.scale = scaleRight;
     }
     
-    //下划线即时滑动
+    // 下划线即时滑动
     float modulus = scrollView.contentOffset.x/_contentScroll.contentSize.width;
     _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
 }
 
 #pragma mark- 网络请求
+
 - (void)getLiveClassListData
 {
     [CommonFunc showLoadingWithTips:@""];
-    
-    
-    
+
     // 域名获取
     [[[SCDomaintransformTool alloc] init] getNewDomainByUrlString:LivePageUrl key:@"sklivelist" success:^(id  _Nullable newUrlString) {
         

@@ -289,16 +289,36 @@ static NSString *const footerId = @"footerId";
 {
     if (indexPath.row == 0) {
         DONG_Log(@"政府");
+        // 数据采集
+        NSString *keyValue = @"web";
+        [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"政府" mid:keyValue];
+        
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.hlj.gov.cn/szfsjz/index.shtml"]];
+        
     } else if (indexPath.row == 1) {
         DONG_Log(@"先锋网");
+        // 数据采集
+        NSString *keyValue = @"web";
+        [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"先锋网" mid:keyValue];
+        
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ljxfw.gov.cn/dyjy"]];
+        
     } else if (indexPath.row == 2) {
+        // 数据采集
+        NSString *keyValue = @"app";
+        [UserInfoManager addCollectionDataWithType:@"Film" filmName:@"直播" mid:keyValue];
+        
         SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
         [self.navigationController pushViewController:liveVC animated:YES];
+        
     } else if (indexPath.row == 3) {
         DONG_Log(@"营业厅");
+        // 数据采集
+        NSString *keyValue = @"web";
+        [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"营业厅" mid:keyValue];
+        
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
+        
     } else {
     
         if (_filmClassArray.count != 0) {
@@ -312,7 +332,6 @@ static NSString *const footerId = @"footerId";
         }
     }
 }
-
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate
