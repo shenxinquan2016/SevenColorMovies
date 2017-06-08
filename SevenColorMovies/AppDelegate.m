@@ -219,7 +219,8 @@
     
 }
 
-- (void) logUser {
+- (void) logUser
+{
     // TODO: Use the current user's information
     // You can call any combination of these three methods
     [CrashlyticsKit setUserIdentifier:@"54321"];
