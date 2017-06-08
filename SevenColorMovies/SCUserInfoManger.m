@@ -71,88 +71,60 @@
  *
  *  每满10条上传给服务器 删空数据
  */
-- (void)addCollectionDataWithType:(NSString *)type dict:(NSDictionary *)dict
+- (void)addCollectionDataWithType:(NSString *)type filmName:(NSString *)fimlName mid:(NSString *)mid
 {
-    if (![dict isKindOfClass:[NSNull class]]) {
-        
-        // 格林尼治时间
-        NSDate *date = [NSDate date];
-        // 当前时间的时间戳
-        NSInteger nowTimeStap = [NSDate timeStampFromDate:date];
-        NSDictionary *paramDict = @{
-                                    @"time" : @(nowTimeStap),
-                                    @"type" : type,
-                                    @"value" : dict
-                                    };
-        
-        // NSUserDefaults 只能读取不可变对象 可变对象可以写入
-        NSArray *oldArray = [DONG_UserDefaults objectForKey:kDataCollectionArray];
-        NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:oldArray];
-        [mutableArray addObject:paramDict];
-        [DONG_UserDefaults setObject:mutableArray forKey:kDataCollectionArray];
-        [DONG_UserDefaults synchronize];
-        NSMutableArray *newArr = [DONG_UserDefaults objectForKey:kDataCollectionArray];
-//        DONG_Log(@"newNewArr-->%@ \n newNewArr.count-->%lu", newArr, (unsigned long)newArr.count);
-        
-        if (newArr.count >= 1) {
-            const NSString *uuidStr = [HLJUUID getUUID];
-            NSDictionary *parameters = @{@"param" : @{
-                                                 @"data" : newArr,
-                                                 @"user" : @{
-                                                         @"id" : @"6666699999" // 用户id主键
-                                                         },
-                                                 @"terminal" : @{
-                                                         @"id" : uuidStr, // 设备id
-                                                         @"mac" : uuidStr, // 设备uuid地址
-                                                         @"deviceType" : @"iOSMobile"
-                                                         }
-                                                 }};
+    // 格林尼治时间
+    NSDate *date = [NSDate date];
+    // 当前时间的时间戳
+    NSInteger nowTimeStap = [NSDate timeStampFromDate:date];
+    NSString *timeStr = [NSString stringWithFormat:@"%ld", (long)nowTimeStap];
+    NSDictionary *paramDict = @{@"type" : type,
+                                @"time" : timeStr,
+                                @"value" : @{@"data" : @{
+                                                     @"dataType" : @"yp",
+                                                     @"FilmName" : fimlName,
+                                                     @"Mid" : mid,
+                                                     }
+                                             
+                                             }
+                                };
+    
+    // NSUserDefaults 只能读取不可变对象 可变对象可以写入
+    NSArray *oldArray = [DONG_UserDefaults objectForKey:kDataCollectionArray];
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:oldArray];
+    [mutableArray addObject:paramDict];
+    [DONG_UserDefaults setObject:mutableArray forKey:kDataCollectionArray];
+    [DONG_UserDefaults synchronize];
+    NSMutableArray *newArr = [DONG_UserDefaults objectForKey:kDataCollectionArray];
+    //        DONG_Log(@"newNewArr-->%@ \n newNewArr.count-->%lu", newArr, (unsigned long)newArr.count);
+    
+    if (newArr.count >= 2) {
+        const NSString *uuidStr = [HLJUUID getUUID];
+        NSDictionary *parameters = @{@"param" : @{
+                                             @"data" : newArr,
+                                             @"user" : @{
+                                                     @"id" : @"6666699999" // 用户id主键
+                                                     },
+                                             @"terminal" : @{
+                                                     @"id" : uuidStr, // 设备id
+                                                     @"mac" : uuidStr, // 设备uuid地址
+                                                     @"deviceType" : @"iOSMobile"
+                                                     }
+                                             }};
+
+        NSString *urlStr = @"http://172.16.5.54:8090/mmserver/gather/addDatasIos.do";
+        //NSString *urlStr = @"http://192.167.1.6/appjh_mmserver/gather/addDatas.do";
+        [requestDataManager postRequestJsonDataWithUrl:urlStr parameters:parameters success:^(id  _Nullable responseObject) {
             
-            //        NSDictionary *parameters = @{@"data" : @[@{ @"time" : @"fasfasfsfd", // 设备id
-            //                                                  @"type" : @"11:11:11:18", // 设备mac地址
-            //                                                  @"value" : newNewArr
-            //                                                    }]};
-            //
-            NSString *urlStr = @"http://172.16.5.54:8090/mmserver/gather/addDatas.do";
-//                    NSString *urlStr = @"http://192.167.1.6/appjh_mmserver/gather/addDatas.do";
-                    [requestDataManager postRequestJsonDataWithUrl:urlStr parameters:parameters success:^(id  _Nullable responseObject) {
+            DONG_Log(@"responseObject-->%@", responseObject);
+            [DONG_UserDefaults removeObjectForKey:kDataCollectionArray];
             
-                        DONG_Log(@"responseObject-->%@", responseObject);
-                        [DONG_UserDefaults removeObjectForKey:kDataCollectionArray];
+        } failure:^(id  _Nullable errorObject) {
             
-                    } failure:^(id  _Nullable errorObject) {
-            
-                        DONG_Log(@"errorObject-->%@", errorObject);
-                    }];
-        }
+            DONG_Log(@"errorObject-->%@", errorObject);
+        }];
     }
 }
 
-
-- (NSString*)convertToJSONData:(id)array
-{
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array
-                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
-                                                         error:&error];
-    
-    NSString *jsonString = @"";
-    
-    if (! jsonData)
-    {
-        NSLog(@"Got an error: %@", error);
-    } else
-    {
-        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    }
-    
-    jsonString = [jsonString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];  // 去除掉首尾的空白字符和换行字符
-    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\n\\t" withString:@""];
-    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\t" withString:@""];
-    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\n" withString:@""];
-    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    
-    return jsonString;
-}
 
 @end

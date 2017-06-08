@@ -116,8 +116,17 @@ static NSString *const cellId = @"cellId";
 //            DONG_Log(@"responseObject:%@",responseObject);
             // 数据采集
             NSString *string = [[NSString stringWithFormat:@"%@", responseObject] stringByTrimmingUnderline];
+            string = [string stringByReplacingOccurrencesOfString:@";" withString:@","];
+            string = [string stringByReplacingOccurrencesOfString:@"(" withString:@"["];
+            string = [string stringByReplacingOccurrencesOfString:@")" withString:@"]"];
+            string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];  // 去除掉首尾的空白字符和换行字符
+            string = [string stringByReplacingOccurrencesOfString:@"\\n\\t" withString:@""];
+            string = [string stringByReplacingOccurrencesOfString:@"\\t" withString:@""];
+            string = [string stringByReplacingOccurrencesOfString:@"\\n" withString:@""];
+            string = [string stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+            
             NSDictionary *dict = (NSDictionary *)string;
-            [UserInfoManager addCollectionDataWithType:@"FilmClass" dict:dict];
+            [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"专题" mid:@"98909"];
             
             if (responseObject) {
                 
@@ -376,7 +385,8 @@ static NSString *const cellId = @"cellId";
 }
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate{
+- (BOOL)shouldAutorotate
+{
     return NO;
 }
 

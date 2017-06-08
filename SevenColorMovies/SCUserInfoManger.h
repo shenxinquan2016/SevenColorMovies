@@ -27,6 +27,6 @@
  *
  *  每满10条上传给服务器 删空数据
  */
-- (void)addCollectionDataWithType:(NSString *)type dict:(NSDictionary *)dict;
+- (void)addCollectionDataWithType:(NSString *)type filmName:(NSString *)fimlName mid:(NSString *)mid;
 
 @end
