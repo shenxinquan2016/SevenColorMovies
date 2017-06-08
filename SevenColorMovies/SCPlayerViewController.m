@@ -905,7 +905,7 @@ static const CGFloat LabelWidth = 100.f;
         
         DONG_Log(@"添加观看记录成功 parameters:%@ \nresponseObject:%@",parameters, responseObject);
         
-    }failure:^(id  _Nullable errorObject) {
+    } failure:^(id  _Nullable errorObject) {
         
     }];
 }

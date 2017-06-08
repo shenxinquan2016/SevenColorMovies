@@ -122,6 +122,7 @@
         } failure:^(id  _Nullable errorObject) {
             
             DONG_Log(@"errorObject-->%@", errorObject);
+            [DONG_UserDefaults removeObjectForKey:kDataCollectionArray];
         }];
     }
 }
