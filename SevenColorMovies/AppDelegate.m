@@ -270,9 +270,11 @@
                             // 点击广告回调
                             // adType:web-->打开网页 adType:app-->打开app
                             if ([launchAdModel.adType isEqualToString:@"web"]) {
+                                
                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:launchAdModel.webUrl]];
                                 
                             } else if ([launchAdModel.adType isEqualToString:@"app"]) {
+                                
                                 NSString *urlScheme = launchAdModel.openUrl[@"packageName"];
                                 NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@://",urlScheme]];
                                 DONG_Log(@"packId-->%@", url);

@@ -8,9 +8,8 @@
 
 #import "SCUserInfoManger.h"
 
-
-#define kIsLogin @"kIsLogin"// 登录状态
-#define kToken @"kToken" // token
+#define kIsLogin @"kIsLogin" // 登录状态
+#define kToken @"kToken"  // token
 #define kDataCollectionArray @"kDataCollectionArray" // 数据采集记录array
 
 @implementation SCUserInfoManger
