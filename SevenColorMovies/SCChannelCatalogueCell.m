@@ -35,6 +35,7 @@
 
 - (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath
 {
+    NSArray *filmClassTitleArray = model;
     if (model && [model isKindOfClass:[NSArray class]]) {
         if (indexPath.row == 0) {
             _channelNameLabel.text = @"政府";
@@ -48,8 +49,10 @@
         } else if (indexPath.row == 3) {
             _channelNameLabel.text = @"营业厅";
             _channelImg.image = [UIImage imageNamed:@"营业厅"];
+        } else if (indexPath.row == filmClassTitleArray.count+4) {
+            _channelNameLabel.text = @"萌宝";
+            _channelImg.image = [UIImage imageNamed:@"LovelyBaby"];
         } else {
-            NSArray *filmClassTitleArray = model;
             _channelNameLabel.text = filmClassTitleArray[indexPath.row-4];
             _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassTitleArray[indexPath.row-4]]];
             

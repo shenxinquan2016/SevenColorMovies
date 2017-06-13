@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -145,7 +145,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="emi-Hd-x64" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="873.5" y="947.5"/>
+            <point key="canvasLocation" x="1038" y="932"/>
+        </scene>
+        <!--Lovely Baby CenterVC-->
+        <scene sceneID="NSq-w2-Yiw">
+            <objects>
+                <viewController storyboardIdentifier="SCLovelyBabyCenterVC" id="sM9-PO-Rdq" customClass="SCLovelyBabyCenterVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hxf-4n-7IM"/>
+                        <viewControllerLayoutGuide type="bottom" id="F9l-5O-RPJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bgk-Yf-70d">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xlz-Dv-XDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1703" y="931"/>
         </scene>
         <!--Optional Video Table View-->
         <scene sceneID="U0t-KW-cYy">

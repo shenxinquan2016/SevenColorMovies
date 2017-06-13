@@ -13,6 +13,7 @@
 #import "SCFilmListModel.h"
 #import "SCFilmClassModel.h"
 #import "SCLiveViewController.h"
+#import "SCLovelyBabyCenterVC.h"
 
 
 
@@ -92,7 +93,6 @@ static NSString *const footerId = @"footerId";
     }
 }
 
-
 - (void)setFilmClassModelDictionary
 {
     self.filmClassModelDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
@@ -133,12 +133,10 @@ static NSString *const footerId = @"footerId";
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.filmClassArray.count + 4;
+    return self.filmClassArray.count + 5;
 }
-
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -152,7 +150,6 @@ static NSString *const footerId = @"footerId";
 /** 段头段尾设置 */
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    
     if([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
         UICollectionReusableView *headerView = [_collView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerId forIndexPath:indexPath];
@@ -188,10 +185,11 @@ static NSString *const footerId = @"footerId";
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_editBtn.selected == YES) {//编辑模式
-        if (indexPath.row == 0) return NO; // 🚫第一个单元格不让移动
-        if (indexPath.row == 1) return NO; // 🚫第二个单元格不让移动
-        if (indexPath.row == 2) return NO; // 🚫第三个单元格不让移动
-        if (indexPath.row == 3) return NO; // 🚫第四个单元格不让移动
+        if (indexPath.row == 0) return NO; // 🚫第1个单元格不让移动
+        if (indexPath.row == 1) return NO; // 🚫第2个单元格不让移动
+        if (indexPath.row == 2) return NO; // 🚫第3个单元格不让移动
+        if (indexPath.row == 3) return NO; // 🚫第4个单元格不让移动
+        if (indexPath.row == _filmClassTitleArray.count+5-1) return NO; // 🚫最后一个单元格不让移动
         return YES;
         
     } else {
@@ -275,10 +273,11 @@ static NSString *const footerId = @"footerId";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    if (toIndexPath.row == 0) return NO; // 🚫禁止移动到第一个cell
-    if (toIndexPath.row == 1) return NO; // 🚫禁止移动到第二个cell
-    if (toIndexPath.row == 2) return NO; // 🚫禁止移动到第三个cell
-    if (toIndexPath.row == 3) return NO; // 🚫禁止移动到第四个cell
+    if (toIndexPath.row == 0) return NO; // 🚫禁止移动到第1个cell
+    if (toIndexPath.row == 1) return NO; // 🚫禁止移动到第2个cell
+    if (toIndexPath.row == 2) return NO; // 🚫禁止移动到第3个cell
+    if (toIndexPath.row == 3) return NO; // 🚫禁止移动到第4个cell
+    if (toIndexPath.row == _filmClassTitleArray.count+5-1) return NO; // 🚫禁止移动到最后一个cell
     
     return YES;
 }
@@ -319,6 +318,11 @@ static NSString *const footerId = @"footerId";
         [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"营业厅" mid:keyValue];
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
+        
+    } else if (indexPath.row == _filmClassTitleArray.count+5-1) {
+        DONG_Log(@"萌宝");
+        SCLovelyBabyCenterVC *babyCenterVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCLovelyBabyCenterVC");
+        [self.navigationController pushViewController:babyCenterVC animated:YES];
         
     } else {
     
