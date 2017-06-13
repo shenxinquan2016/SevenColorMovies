@@ -191,6 +191,7 @@
 		11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831A1D3CBADF00886CF6 /* NavigationInteractiveTransition.m */; };
 		11BE831E1D3CBB3E00886CF6 /* NavigationPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */; };
 		11BF11971EBB20FF0091255E /* libiosagent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BF11961EBB20FF0091255E /* libiosagent.a */; };
+		11BF91BF1EEFF7A400EE2B57 /* SCLovelyBabyCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BF91BE1EEFF7A400EE2B57 /* SCLovelyBabyCenterVC.m */; };
 		11C1C1C11D8020A300CEE71C /* SCFliterOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C1C1BF1D8020A300CEE71C /* SCFliterOptionCell.m */; };
 		11C1C1C21D8020A300CEE71C /* SCFliterOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C1C1C01D8020A300CEE71C /* SCFliterOptionCell.xib */; };
 		11C636061EE52BA000B14B37 /* SCAdvertisementModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C636051EE52BA000B14B37 /* SCAdvertisementModel.m */; };
@@ -581,6 +582,8 @@
 		11BE831C1D3CBB3E00886CF6 /* NavigationPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationPopAnimation.h; sourceTree = "<group>"; };
 		11BE831D1D3CBB3E00886CF6 /* NavigationPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationPopAnimation.m; sourceTree = "<group>"; };
 		11BF11961EBB20FF0091255E /* libiosagent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiosagent.a; sourceTree = "<group>"; };
+		11BF91BD1EEFF7A400EE2B57 /* SCLovelyBabyCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLovelyBabyCenterVC.h; sourceTree = "<group>"; };
+		11BF91BE1EEFF7A400EE2B57 /* SCLovelyBabyCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLovelyBabyCenterVC.m; sourceTree = "<group>"; };
 		11C1C1BE1D8020A300CEE71C /* SCFliterOptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFliterOptionCell.h; sourceTree = "<group>"; };
 		11C1C1BF1D8020A300CEE71C /* SCFliterOptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFliterOptionCell.m; sourceTree = "<group>"; };
 		11C1C1C01D8020A300CEE71C /* SCFliterOptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCFliterOptionCell.xib; sourceTree = "<group>"; };
@@ -1840,6 +1843,8 @@
 				11EBC3F21D5C698600C1A338 /* SpecialTopic专题 */,
 				116E1D5B1D4B4D4600B488EC /* Filter筛选 */,
 				113E62E51D49F5FE00FB8F3A /* FilmModel */,
+				11BF91BD1EEFF7A400EE2B57 /* SCLovelyBabyCenterVC.h */,
+				11BF91BE1EEFF7A400EE2B57 /* SCLovelyBabyCenterVC.m */,
 			);
 			name = "HomePage 首页";
 			sourceTree = "<group>";
@@ -2705,6 +2710,7 @@
 				117D1E201E08C466001195F2 /* SCSoundRecordingTool.mm in Sources */,
 				115F024D1DDAFEC400DF911F /* SCDSJDownloadCell.m in Sources */,
 				11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */,
+				11BF91BF1EEFF7A400EE2B57 /* SCLovelyBabyCenterVC.m in Sources */,
 				11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */,
 				1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */,
 				11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */,
