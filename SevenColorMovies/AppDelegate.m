@@ -100,7 +100,7 @@
     [DONG_UserDefaults synchronize];
     
     // 数据采集启动行为
-//    [UserInfoManager addCollectionDataWithType:@"startUp" filmName:@"iOS启动" mid:@"startUp"];
+    [UserInfoManager addCollectionDataWithType:@"startUp" filmName:@"iOS启动" mid:@"startUp"];
     
 }
 
