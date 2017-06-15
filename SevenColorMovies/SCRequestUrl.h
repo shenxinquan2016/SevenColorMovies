@@ -91,7 +91,7 @@
 #define GetLiveNewTvId @""
 
 // 数据采集接口 黑网内网
-#define CollectCustomerBehaviorData @"http://10.177.4.81:8080/appjh_mmserver/gather/addDatasIos.do"
+#define CollectCustomerBehaviorData @"http://125.223.98.233:10013/appjh_mmserver/gather/addDatasIos.do"
 
 /***************************************云遥控器通信接口*****************************************/
 #define CloudRemoteControl @"192.168.31.224:9099"

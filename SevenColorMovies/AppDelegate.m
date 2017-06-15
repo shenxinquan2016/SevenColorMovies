@@ -99,6 +99,7 @@
     [DONG_UserDefaults setBool:mobileNetworkAlert forKey:kMobileNetworkAlert];
     [DONG_UserDefaults synchronize];
     
+    // 数据采集启动行为
 //    [UserInfoManager addCollectionDataWithType:@"startUp" filmName:@"iOS启动" mid:@"startUp"];
     
 }

@@ -8,16 +8,23 @@
 
 #import "SCLovelyBabyCenterVC.h"
 #import "SCSearchBarView.h"
+#import "SCLovelyBabyCell.h"
 
-@interface SCLovelyBabyCenterVC ()<UITextFieldDelegate>
+@interface SCLovelyBabyCenterVC ()<UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) UIView *searchHeaderView;
 /** 搜索textField */
 @property (nonatomic, strong) UITextField *searchTF;
 
+@property (nonatomic, strong) UICollectionView *collctionView;
+
 @end
 
 @implementation SCLovelyBabyCenterVC
+
+static NSString *const cellId = @"SCLovelyBabyCell";
+static NSString *const headerId = @"headerId";
+static NSString *const footerId = @"footerId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,6 +32,8 @@
     self.leftBBI.text = @"萌娃";
     // 添加搜索框
     [self addSearchBBI];
+    // 添加collectionView
+    [self setupCollectionView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -97,6 +106,113 @@
 {
     [_searchTF resignFirstResponder];
     _searchHeaderView.hidden = YES;
+}
+
+#pragma mark - UICollectionView
+
+- (void)setupCollectionView
+{
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    self.collctionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+    _collctionView.backgroundColor = [UIColor colorWithHex:@"#dddddd"];
+    _collctionView.alwaysBounceVertical = YES; // 设置当item较少时仍可以滑动
+    _collctionView.dataSource = self;
+    _collctionView.delegate = self;
+
+    // 综艺栏目cell
+    [_collctionView registerNib:[UINib nibWithNibName:@"SCLovelyBabyCell" bundle:nil] forCellWithReuseIdentifier:@"SCLovelyBabyCell"];
+    
+    [self.view addSubview:_collctionView];
+}
+
+#pragma mark ---- UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    SCLovelyBabyCell *cell = [SCLovelyBabyCell cellWithCollectionView:collectionView indexPath:indexPath];
+    
+    return cell;
+}
+
+/** 段头段尾设置 */
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        
+    } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+
+    }
+    
+    return nil;
+}
+
+
+#pragma mark ---- UICollectionViewDelegateFlowLayout
+
+/** item Size */
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return (CGSize){(kMainScreenWidth-45)/2, (kMainScreenWidth-45)/2};
+}
+
+/** Section EdgeInsets */
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(20, 15, 20, 15);
+}
+
+/** item水平间距 */
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 15.f;
+}
+
+/** item垂直间距 */
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 15.f;
+}
+
+/** section Header 尺寸 */
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+    return (CGSize){kMainScreenWidth,0};
+}
+
+/** section Footer 尺寸*/
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
+{
+    return (CGSize){kMainScreenWidth,0};
+}
+
+#pragma mark ---- UICollectionViewDelegate
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+// 点击某item
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+   
+
+}
+
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate
+{
+    return NO;
 }
 
 @end

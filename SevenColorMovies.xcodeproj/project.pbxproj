@@ -216,6 +216,8 @@
 		11DDB8841D5B15930074DFAB /* SCArtsFilmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DDB8831D5B15930074DFAB /* SCArtsFilmCell.xib */; };
 		11DE6B801EF22EFD00F8B07F /* SCCustomNavigationBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE6B7F1EF22EFD00F8B07F /* SCCustomNavigationBaseViewController.m */; };
 		11DE6B831EF2304700F8B07F /* SCLovelyBabyCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE6B821EF2304700F8B07F /* SCLovelyBabyCenterVC.m */; };
+		11DE6B8E1EF2628A00F8B07F /* SCLovelyBabyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE6B8C1EF2628A00F8B07F /* SCLovelyBabyCell.m */; };
+		11DE6B8F1EF2628A00F8B07F /* SCLovelyBabyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11DE6B8D1EF2628A00F8B07F /* SCLovelyBabyCell.xib */; };
 		11DF6DAE1E51AE4500710379 /* SCDomaintransformTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DF6DAD1E51AE4500710379 /* SCDomaintransformTool.m */; };
 		11E97A051D6320CA00512D10 /* PlayerViewRotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E97A041D6320CA00512D10 /* PlayerViewRotate.m */; };
 		11EB4A671DB4D5EB0032F2C4 /* SCWatchingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EB4A651DB4D5EB0032F2C4 /* SCWatchingHistoryCell.m */; };
@@ -628,6 +630,9 @@
 		11DE6B7F1EF22EFD00F8B07F /* SCCustomNavigationBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCustomNavigationBaseViewController.m; sourceTree = "<group>"; };
 		11DE6B811EF2304700F8B07F /* SCLovelyBabyCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLovelyBabyCenterVC.h; sourceTree = "<group>"; };
 		11DE6B821EF2304700F8B07F /* SCLovelyBabyCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLovelyBabyCenterVC.m; sourceTree = "<group>"; };
+		11DE6B8B1EF2628A00F8B07F /* SCLovelyBabyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLovelyBabyCell.h; sourceTree = "<group>"; };
+		11DE6B8C1EF2628A00F8B07F /* SCLovelyBabyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLovelyBabyCell.m; sourceTree = "<group>"; };
+		11DE6B8D1EF2628A00F8B07F /* SCLovelyBabyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCLovelyBabyCell.xib; sourceTree = "<group>"; };
 		11DF6DAC1E51AE4500710379 /* SCDomaintransformTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDomaintransformTool.h; sourceTree = "<group>"; };
 		11DF6DAD1E51AE4500710379 /* SCDomaintransformTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDomaintransformTool.m; sourceTree = "<group>"; };
 		11E97A031D6320CA00512D10 /* PlayerViewRotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewRotate.h; sourceTree = "<group>"; };
@@ -1177,6 +1182,10 @@
 			children = (
 				11DE6B811EF2304700F8B07F /* SCLovelyBabyCenterVC.h */,
 				11DE6B821EF2304700F8B07F /* SCLovelyBabyCenterVC.m */,
+				11DE6B8A1EF25FB100F8B07F /* View */,
+				11DE6B891EF25FAE00F8B07F /* New Group2 */,
+				11DE6B881EF25FAA00F8B07F /* New Group1 */,
+				11DE6B871EF25FA700F8B07F /* New Group */,
 			);
 			name = "LovelyBaby 萌娃";
 			sourceTree = "<group>";
@@ -2156,6 +2165,37 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		11DE6B871EF25FA700F8B07F /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
+		11DE6B881EF25FAA00F8B07F /* New Group1 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group1";
+			sourceTree = "<group>";
+		};
+		11DE6B891EF25FAE00F8B07F /* New Group2 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group2";
+			sourceTree = "<group>";
+		};
+		11DE6B8A1EF25FB100F8B07F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				11DE6B8B1EF2628A00F8B07F /* SCLovelyBabyCell.h */,
+				11DE6B8C1EF2628A00F8B07F /* SCLovelyBabyCell.m */,
+				11DE6B8D1EF2628A00F8B07F /* SCLovelyBabyCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		11DF6DAB1E51ADB400710379 /* 动态域名转换 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2396,6 +2436,7 @@
 				11853B471E1267DD0008E58E /* index1.js in Resources */,
 				119E6B7F1E61D6D00091C8A3 /* SCSettingCell.xib in Resources */,
 				11DA5EFB1E24742800B32E1B /* CodeScan.bundle in Resources */,
+				11DE6B8F1EF2628A00F8B07F /* SCLovelyBabyCell.xib in Resources */,
 				11458E981D45E0D500EBD16D /* SCDiscoveryTableViewCell.xib in Resources */,
 				1147FBB61DDE9D6000126F2E /* SCArtsDownloadCell.xib in Resources */,
 				115F024E1DDAFEC400DF911F /* SCDSJDownloadCell.xib in Resources */,
@@ -2661,6 +2702,7 @@
 				1190AC791D4A00D9004AAF23 /* SCFilmClassModel.m in Sources */,
 				118241621E23282D00B78E1A /* SCDLNAViewController.m in Sources */,
 				11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */,
+				11DE6B8E1EF2628A00F8B07F /* SCLovelyBabyCell.m in Sources */,
 				115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */,
 				11CAD9F41DED74AD009F3337 /* SCWatchHistoryModel.m in Sources */,
 				11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */,

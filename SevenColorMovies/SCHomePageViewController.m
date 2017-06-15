@@ -114,7 +114,7 @@ static NSString *const footerId = @"footerId";
 
 - (void)addCollView
 {
-    SCHomePageFlowLayout *layout = [[SCHomePageFlowLayout alloc]init]; // 布局对象
+    SCHomePageFlowLayout *layout = [[SCHomePageFlowLayout alloc] init]; // 布局对象
     layout.alternateDecorationViews = YES;
     // 读取xib背景
     layout.decorationViewOfKinds = @[@"SCHomePageSectionBGReusableView"];

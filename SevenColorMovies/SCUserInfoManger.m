@@ -110,9 +110,9 @@
                                                      }
                                              }};
 
-        NSString *urlStr = @"http://172.16.5.54:8090/appjh_mmserver/gather/addDatasIos.do"; // 吕本健
+//        NSString *urlStr = @"http://172.16.5.54:8090/appjh_mmserver/gather/addDatasIos.do"; // 吕本健
         //NSString *urlStr = @"http://10.177.4.81:8080/appjh_mmserver/gather/addDatasIos.do"; // 黑网内网
-        [requestDataManager postRequestJsonDataWithUrl:urlStr parameters:parameters success:^(id  _Nullable responseObject) {
+        [requestDataManager postRequestJsonDataWithUrl:CollectCustomerBehaviorData parameters:parameters success:^(id  _Nullable responseObject) {
             
             DONG_Log(@"responseObject-->%@", responseObject);
             [DONG_UserDefaults removeObjectForKey:kDataCollectionArray];
@@ -120,7 +120,9 @@
         } failure:^(id  _Nullable errorObject) {
             
             DONG_Log(@"errorObject-->%@", errorObject);
+            if (newArr.count >= 15) {
             [DONG_UserDefaults removeObjectForKey:kDataCollectionArray];
+            }
         }];
     }
 }
