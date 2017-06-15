@@ -126,7 +126,7 @@ static NSString *const footerId = @"footerId";
     _collView.dataSource = self;
     _collView.delegate = self;
     
-    _collView.contentInset = UIEdgeInsetsMake(165, 0, 49, 0);//留白添加banner
+    _collView.contentInset = UIEdgeInsetsMake(165, 0, 49, 0); // 留白添加banner
     // 无banner时的占位图
     UIView *noBannerView = [[UIView alloc] initWithFrame:CGRectMake(0, -157, kMainScreenWidth, 157)];
     UIImageView *NoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NoBanner"]];

@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UITextField *searchTF;
 
 @property (nonatomic, strong) UICollectionView *collctionView;
+@property (nonatomic, strong) UIButton *myVideoButton;
+@property (nonatomic, strong) UIButton *activityDetailButton;
 
 @end
 
@@ -123,6 +125,30 @@ static NSString *const footerId = @"footerId";
     [_collctionView registerNib:[UINib nibWithNibName:@"SCLovelyBabyCell" bundle:nil] forCellWithReuseIdentifier:@"SCLovelyBabyCell"];
     
     [self.view addSubview:_collctionView];
+    
+    _collctionView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0); // 留白添加按钮
+    UIButton *myVideoBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, -40, (kMainScreenWidth-60)/2, 40)];
+    [myVideoBtn setBackgroundImage:[UIImage imageNamed:@"BlueBtnBG"] forState:UIControlStateNormal];
+    [myVideoBtn setTitle:@"我的视频" forState:UIControlStateNormal];
+    [myVideoBtn addTarget:self action:@selector(clickMyVideoBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *activityDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(40+(kMainScreenWidth-60)/2, -40, (kMainScreenWidth-60)/2, 40)];
+    [activityDetailBtn setBackgroundImage:[UIImage imageNamed:@"OriginBtnBG"] forState:UIControlStateNormal];
+    [activityDetailBtn setTitle:@"活动详情" forState:UIControlStateNormal];
+    [activityDetailBtn addTarget:self action:@selector(clickActivityDetailBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_collctionView addSubview:myVideoBtn];
+    [_collctionView addSubview:activityDetailBtn];
+    
+}
+
+- (void)clickMyVideoBtn
+{
+    
+}
+- (void)clickActivityDetailBtn
+{
+    
 }
 
 #pragma mark ---- UICollectionViewDataSource
