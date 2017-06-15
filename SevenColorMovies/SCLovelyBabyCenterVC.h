@@ -2,9 +2,9 @@
 //  SCLovelyBabyCenterVC.h
 //  SevenColorMovies
 //
-//  Created by yesdgq on 2017/6/13.
+//  Created by yesdgq on 2017/6/15.
 //  Copyright © 2017年 yesdgq. All rights reserved.
-//  萌娃中心
+//
 
 #import "SCOtherBaseViewController.h"
 

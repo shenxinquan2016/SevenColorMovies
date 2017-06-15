@@ -70,19 +70,19 @@
  *
  *  每满10条上传给服务器 删空数据
  */
-- (void)addCollectionDataWithType:(NSString *)type filmName:(NSString *)fimlName mid:(NSString *)mid
+- (void)addCollectionDataWithType:(NSString *)type filmName:(NSString *)filmName mid:(NSString *)mid
 {
     // 格林尼治时间
     NSDate *date = [NSDate date];
     // 当前时间的时间戳
     NSInteger nowTimeStap = [NSDate timeStampFromDate:date];
     NSString *timeStr = [NSString stringWithFormat:@"%ld", (long)nowTimeStap];
-    NSDictionary *paramDict = @{@"type" : type,
+    NSDictionary *paramDict = @{@"type" : type? type : @"",
                                 @"time" : timeStr,
                                 @"value" : @{@"data" : @{
                                                      @"dataType" : @"yp",
-                                                     @"FilmName" : fimlName,
-                                                     @"Mid" : mid,
+                                                     @"FilmName" : filmName? filmName : @"",
+                                                     @"Mid" : mid? mid : @"",
                                                      }
                                              }
                                 };
@@ -96,7 +96,7 @@
     NSMutableArray *newArr = [DONG_UserDefaults objectForKey:kDataCollectionArray];
     //        DONG_Log(@"newNewArr-->%@ \n newNewArr.count-->%lu", newArr, (unsigned long)newArr.count);
     
-    if (newArr.count >= 10) {
+    if (newArr.count >= 1) {
         const NSString *uuidStr = [HLJUUID getUUID];
         NSDictionary *parameters = @{@"param" : @{
                                              @"data" : newArr,
@@ -110,9 +110,9 @@
                                                      }
                                              }};
 
-        //NSString *urlStr = @"http://172.16.5.54:8090/mmserver/gather/addDatasIos.do"; // 吕本健
+        NSString *urlStr = @"http://172.16.5.54:8090/appjh_mmserver/gather/addDatasIos.do"; // 吕本健
         //NSString *urlStr = @"http://10.177.4.81:8080/appjh_mmserver/gather/addDatasIos.do"; // 黑网内网
-        [requestDataManager postRequestJsonDataWithUrl:CollectCustomerBehaviorData parameters:parameters success:^(id  _Nullable responseObject) {
+        [requestDataManager postRequestJsonDataWithUrl:urlStr parameters:parameters success:^(id  _Nullable responseObject) {
             
             DONG_Log(@"responseObject-->%@", responseObject);
             [DONG_UserDefaults removeObjectForKey:kDataCollectionArray];

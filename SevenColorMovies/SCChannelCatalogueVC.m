@@ -16,7 +16,6 @@
 #import "SCLovelyBabyCenterVC.h"
 
 
-
 @interface SCChannelCatalogueVC ()<LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collView;/** collectionView */
@@ -323,6 +322,7 @@ static NSString *const footerId = @"footerId";
         DONG_Log(@"萌宝");
         SCLovelyBabyCenterVC *babyCenterVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCLovelyBabyCenterVC");
         [self.navigationController pushViewController:babyCenterVC animated:YES];
+
         
     } else {
     

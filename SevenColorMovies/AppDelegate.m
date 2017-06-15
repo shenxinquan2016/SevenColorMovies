@@ -99,6 +99,8 @@
     [DONG_UserDefaults setBool:mobileNetworkAlert forKey:kMobileNetworkAlert];
     [DONG_UserDefaults synchronize];
     
+//    [UserInfoManager addCollectionDataWithType:@"startUp" filmName:@"iOS启动" mid:@"startUp"];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

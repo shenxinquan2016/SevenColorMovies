@@ -39,8 +39,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)addLeftBBI {
-
+- (void)addLeftBBI
+{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 32)];
 //    view.backgroundColor = [UIColor redColor];
     // 返回箭头
@@ -79,7 +79,8 @@
     _leftBBI = titleLabel;
 }
 
-- (void)goBack {
+- (void)goBack
+{
     [self.navigationController popViewControllerAnimated:YES];
 }
 

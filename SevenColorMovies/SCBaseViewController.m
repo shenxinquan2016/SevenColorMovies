@@ -33,7 +33,9 @@
 
 
 #pragma mark- private methods
-- (void)addLeftBBI {
+
+- (void)addLeftBBI
+{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 105, 27);
     [btn setBackgroundImage:[UIImage imageNamed:@"BusinessLogo"] forState:UIControlStateNormal];
@@ -49,8 +51,8 @@
     _leftBBI = btn;
 }
 
-- (void)addSearchBBI {
-
+- (void)addSearchBBI
+{
     SCSearchBarView *searchView = [[SCSearchBarView alloc] initWithFrame:CGRectMake(0, 0, 190, 29)];
     searchView.searchTF.userInteractionEnabled = NO;
     UITapGestureRecognizer *searchTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickSearchBtn)];
@@ -66,10 +68,12 @@
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
     _SearchBBI = btn;
     
+    
+    
 }
 
-- (void)clickSearchBtn {
-    
+- (void)clickSearchBtn
+{
     SCSearchViewController *searchVC = [[SCSearchViewController alloc] initWithWithTitle:@"搜索"];
     searchVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchVC animated:YES];
