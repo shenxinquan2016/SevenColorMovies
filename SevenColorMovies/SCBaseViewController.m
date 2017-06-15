@@ -19,9 +19,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //1.添加商户商标
+    
+    // 1.添加商户商标
     [self addLeftBBI];
-    //2.添加搜索框
+    // 2.添加搜索框
     [self addSearchBBI];
 }
 

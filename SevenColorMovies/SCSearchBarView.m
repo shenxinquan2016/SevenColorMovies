@@ -15,10 +15,9 @@
 
 @implementation SCSearchBarView
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
         [self setViews];
     }
     
@@ -26,9 +25,9 @@
 }
 
 
-- (void)setViews{
-    
-    //搜索图标
+- (void)setViews
+{
+    // 搜索图标
     UIImageView *searchImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 7, 15, 15)];
     searchImageView.image = [UIImage imageNamed:@"SearchImg"];
     searchImageView.contentMode = UIViewContentModeCenter;
@@ -39,7 +38,7 @@
         make.size.mas_equalTo(searchImageView.image.size);
     }];
     
-    //搜索textField
+    // 搜索textField
     _searchTF = [[UITextField alloc] init];
     _searchTF.borderStyle = UITextBorderStyleNone;
     _searchTF.clearButtonMode = UITextFieldViewModeWhileEditing;

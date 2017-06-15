@@ -19,11 +19,16 @@ const CGFloat LabelWidth = 100;
 
 @interface SCSearchViewController ()<UIScrollViewDelegate, UITextFieldDelegate>
 
-@property (nonatomic, strong) UIScrollView *titleScroll;/** 标题栏scrollView */
-@property (nonatomic, strong) UIScrollView *contentScroll;/** 内容栏scrollView */
-@property (nonatomic, strong) NSArray *titleArr;/** 标题数组 */
-@property (nonatomic, strong) CALayer *bottomLine;/** 滑动短线 */
-@property (nonatomic, strong) UITextField *searchTF;/** 搜索textField */
+/** 标题栏scrollView */
+@property (nonatomic, strong) UIScrollView *titleScroll;
+/** 内容栏scrollView */
+@property (nonatomic, strong) UIScrollView *contentScroll;
+/** 标题数组 */
+@property (nonatomic, strong) NSArray *titleArr;
+/** 滑动短线 */
+@property (nonatomic, strong) CALayer *bottomLine;
+/** 搜索textField */
+@property (nonatomic, strong) UITextField *searchTF;
 
 
 @end
@@ -78,6 +83,7 @@ const CGFloat LabelWidth = 100;
 
 
 #pragma mark- private methods
+
 - (void)addSearchBBI
 {
     SCSearchBarView *searchView = [[SCSearchBarView alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];

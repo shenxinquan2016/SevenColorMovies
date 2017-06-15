@@ -10,6 +10,7 @@
 
 @interface SCSearchBarView : UIView
 
-@property(nonatomic,strong)  UITextField *searchTF;/** 搜索textField */
+/** 搜索textField */
+@property(nonatomic,strong)  UITextField *searchTF;
 
 @end

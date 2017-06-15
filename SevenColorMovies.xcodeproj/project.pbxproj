@@ -1169,6 +1169,15 @@
 			name = MainBody;
 			sourceTree = "<group>";
 		};
+		115A32BA1EF12EB200549E5F /* LovelyBaby 萌娃 */ = {
+			isa = PBXGroup;
+			children = (
+				11BF91BD1EEFF7A400EE2B57 /* SCLovelyBabyCenterVC.h */,
+				11BF91BE1EEFF7A400EE2B57 /* SCLovelyBabyCenterVC.m */,
+			);
+			name = "LovelyBaby 萌娃";
+			sourceTree = "<group>";
+		};
 		11622D681ECAA4A900A06C31 /* FunctionDescription 功能说明 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1843,8 +1852,7 @@
 				11EBC3F21D5C698600C1A338 /* SpecialTopic专题 */,
 				116E1D5B1D4B4D4600B488EC /* Filter筛选 */,
 				113E62E51D49F5FE00FB8F3A /* FilmModel */,
-				11BF91BD1EEFF7A400EE2B57 /* SCLovelyBabyCenterVC.h */,
-				11BF91BE1EEFF7A400EE2B57 /* SCLovelyBabyCenterVC.m */,
+				115A32BA1EF12EB200549E5F /* LovelyBaby 萌娃 */,
 			);
 			name = "HomePage 首页";
 			sourceTree = "<group>";
