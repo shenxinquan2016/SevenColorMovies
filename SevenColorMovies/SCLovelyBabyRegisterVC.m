@@ -100,7 +100,7 @@
                                  @"password" : _passWordTF.text? _passWordTF.text : @""
                                  };
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager getRequestJsonDataWithUrl:@"http://192.167.1.6/appjh_mmserver/member/addMember.do" parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager getRequestJsonDataWithUrl:LovelyBabyRegister parameters:parameters success:^(id  _Nullable responseObject) {
 //        DONG_Log(@"responseObject-->%@",responseObject);
         NSString *resultCode = responseObject[@"resultCode"];
         

@@ -8,6 +8,7 @@
 
 #import "SCActivityCenterVC.h"
 #import "SCLovelyBabyLoginVC.h"
+#import "SCMyLovelyBabyVC.h"
 
 @interface SCActivityCenterVC ()
 
@@ -64,8 +65,14 @@
 
 - (IBAction)joinTheActivity:(id)sender
 {
-    SCLovelyBabyLoginVC *loginVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyLoginVC");
-    [self.navigationController pushViewController:loginVC animated:YES];
+    if (UserInfoManager.lovelyBabyIsLogin) {
+        SCMyLovelyBabyVC *myVideoVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCMyLovelyBabyVC");
+        [self.navigationController pushViewController:myVideoVC animated:YES];
+    } else {
+        SCLovelyBabyLoginVC *loginVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyLoginVC");
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }
+    
 }
 
 
