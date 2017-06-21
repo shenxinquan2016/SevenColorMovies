@@ -1,0 +1,64 @@
+//
+//  SCActivityCenterVC.m
+//  SevenColorMovies
+//
+//  Created by yesdgq on 2017/6/21.
+//  Copyright © 2017年 yesdgq. All rights reserved.
+//
+
+#import "SCActivityCenterVC.h"
+#import "SCLovelyBabyLoginVC.h"
+
+@interface SCActivityCenterVC ()
+
+@property (weak, nonatomic) IBOutlet UILabel *signUpCondition;
+@property (weak, nonatomic) IBOutlet UILabel *singUpConditionLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *signUpTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *signUpTimeLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *uploadTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *uploadTimeLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *pullSupportTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pullSupportTimeLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *releaseTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *releaseTimeLabel2;
+
+@end
+
+@implementation SCActivityCenterVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    
+}
+
+- (IBAction)gobackClick:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (IBAction)joinTheActivity:(id)sender
+{
+    SCLovelyBabyLoginVC *loginVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyLoginVC");
+    [self.navigationController pushViewController:loginVC animated:YES];
+}
+
+
+@end

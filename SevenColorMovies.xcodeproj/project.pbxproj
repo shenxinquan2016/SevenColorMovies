@@ -197,6 +197,9 @@
 		11C868BB1EFA05B100C1F218 /* LovelyBaby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11C868BA1EFA05B100C1F218 /* LovelyBaby.storyboard */; };
 		11C868BE1EFA0B8700C1F218 /* SCBabyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C868BD1EFA0B8700C1F218 /* SCBabyVC.m */; };
 		11C868C11EFA1D5900C1F218 /* SCMyLovelyBabyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C868C01EFA1D5900C1F218 /* SCMyLovelyBabyVC.m */; };
+		11C868C71EFA225C00C1F218 /* SCLovelyBabyRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C868C61EFA225C00C1F218 /* SCLovelyBabyRegisterVC.m */; };
+		11C868CA1EFA227F00C1F218 /* SCLovelyBabyLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C868C91EFA227F00C1F218 /* SCLovelyBabyLoginVC.m */; };
+		11C868CD1EFA443000C1F218 /* SCActivityCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C868CC1EFA443000C1F218 /* SCActivityCenterVC.m */; };
 		11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */; };
 		11C8CFBC1D45157B00C04F38 /* SCCollectionViewPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */; };
 		11C905DF1D6C3BB9004D3749 /* NSDate+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C905DE1D6C3BB9004D3749 /* NSDate+Addition.m */; };
@@ -598,6 +601,12 @@
 		11C868BD1EFA0B8700C1F218 /* SCBabyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBabyVC.m; sourceTree = "<group>"; };
 		11C868BF1EFA1D5900C1F218 /* SCMyLovelyBabyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMyLovelyBabyVC.h; sourceTree = "<group>"; };
 		11C868C01EFA1D5900C1F218 /* SCMyLovelyBabyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMyLovelyBabyVC.m; sourceTree = "<group>"; };
+		11C868C51EFA225C00C1F218 /* SCLovelyBabyRegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLovelyBabyRegisterVC.h; sourceTree = "<group>"; };
+		11C868C61EFA225C00C1F218 /* SCLovelyBabyRegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLovelyBabyRegisterVC.m; sourceTree = "<group>"; };
+		11C868C81EFA227F00C1F218 /* SCLovelyBabyLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLovelyBabyLoginVC.h; sourceTree = "<group>"; };
+		11C868C91EFA227F00C1F218 /* SCLovelyBabyLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLovelyBabyLoginVC.m; sourceTree = "<group>"; };
+		11C868CB1EFA443000C1F218 /* SCActivityCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCActivityCenterVC.h; sourceTree = "<group>"; };
+		11C868CC1EFA443000C1F218 /* SCActivityCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCActivityCenterVC.m; sourceTree = "<group>"; };
 		11C8CFB61D45157B00C04F38 /* SCCollectionViewPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageCell.h; sourceTree = "<group>"; };
 		11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageCell.m; sourceTree = "<group>"; };
 		11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCCollectionViewPageCell.xib; sourceTree = "<group>"; };
@@ -1194,6 +1203,12 @@
 				11C868BD1EFA0B8700C1F218 /* SCBabyVC.m */,
 				11C868BF1EFA1D5900C1F218 /* SCMyLovelyBabyVC.h */,
 				11C868C01EFA1D5900C1F218 /* SCMyLovelyBabyVC.m */,
+				11C868C51EFA225C00C1F218 /* SCLovelyBabyRegisterVC.h */,
+				11C868C61EFA225C00C1F218 /* SCLovelyBabyRegisterVC.m */,
+				11C868C81EFA227F00C1F218 /* SCLovelyBabyLoginVC.h */,
+				11C868C91EFA227F00C1F218 /* SCLovelyBabyLoginVC.m */,
+				11C868CB1EFA443000C1F218 /* SCActivityCenterVC.h */,
+				11C868CC1EFA443000C1F218 /* SCActivityCenterVC.m */,
 				11DE6B8A1EF25FB100F8B07F /* View */,
 				11DE6B891EF25FAE00F8B07F /* New Group2 */,
 				11DE6B881EF25FAA00F8B07F /* New Group1 */,
@@ -2678,11 +2693,13 @@
 				113F8D8A1D3C6FE800B12D39 /* SCNewsViewController.m in Sources */,
 				11DC2BC41D3DCE6700012480 /* SCDemandChannelItemCell.m in Sources */,
 				11458E921D45D86800EBD16D /* SCHomePageSectionBGReusableView.m in Sources */,
+				11C868CD1EFA443000C1F218 /* SCActivityCenterVC.m in Sources */,
 				1129A6551DE567DC000328C9 /* SCMessageCenterVC.m in Sources */,
 				11458EA71D45FF2D00EBD16D /* SCMineOtherCell.m in Sources */,
 				116E0F551DB0872E00E280C6 /* SCMyProgramListVC.m in Sources */,
 				116E1D5E1D4B4E0200B488EC /* SCFilterViewController.m in Sources */,
 				11DF6DAE1E51AE4500710379 /* SCDomaintransformTool.m in Sources */,
+				11C868C71EFA225C00C1F218 /* SCLovelyBabyRegisterVC.m in Sources */,
 				116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */,
 				11622D741ECAAF4E00A06C31 /* SCFuncDescriptionCell.m in Sources */,
 				1111A41A1D48A71300C17B92 /* QIReachability.m in Sources */,
@@ -2741,6 +2758,7 @@
 				116E1D611D4B5A9E00B488EC /* SCRemoteControlVC.m in Sources */,
 				11FEEF1E1D93848300518029 /* HLJDomainNameModel.m in Sources */,
 				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
+				11C868CA1EFA227F00C1F218 /* SCLovelyBabyLoginVC.m in Sources */,
 				11C868C11EFA1D5900C1F218 /* SCMyLovelyBabyVC.m in Sources */,
 				110175071D54402D00E43773 /* FileManageCommon.m in Sources */,
 				11C1C1C11D8020A300CEE71C /* SCFliterOptionCell.m in Sources */,

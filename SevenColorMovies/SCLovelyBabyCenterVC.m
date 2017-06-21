@@ -11,6 +11,7 @@
 #import "SCLovelyBabyCell.h"
 #import "SCBabyVC.h"
 #import "SCMyLovelyBabyVC.h"
+#import "SCActivityCenterVC.h"
 
 @interface SCLovelyBabyCenterVC ()<UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -153,7 +154,8 @@ static NSString *const footerId = @"footerId";
 }
 - (void)clickActivityDetailBtn
 {
-    
+    SCActivityCenterVC *activityVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCActivityCenterVC");
+    [self.navigationController pushViewController:activityVC animated:YES];
 }
 
 #pragma mark ---- UICollectionViewDataSource
