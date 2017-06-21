@@ -30,7 +30,6 @@
     [super viewDidLoad];
     
     [self initializeLabelConfiguration];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -62,7 +61,6 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 - (IBAction)joinTheActivity:(id)sender
 {

@@ -14,8 +14,10 @@
 
 /** 用户是否登录 */
 @property (nonatomic, assign) BOOL isLogin;
-/** 用户是否登录 */
+/** 用户token */
 @property (nonatomic, copy) NSString *token;
+/** 萌娃是否登录 */
+@property (nonatomic, copy) NSString *lovelyBabyIsLogin;
 
 @property (nonatomic, copy) NSArray *dataCollectionArray;
 

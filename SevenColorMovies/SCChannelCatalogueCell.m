@@ -50,7 +50,7 @@
             _channelNameLabel.text = @"营业厅";
             _channelImg.image = [UIImage imageNamed:@"营业厅"];
         } else if (indexPath.row == filmClassTitleArray.count+4) {
-            _channelNameLabel.text = @"萌宝";
+            _channelNameLabel.text = @"萌娃";
             _channelImg.image = [UIImage imageNamed:@"LovelyBaby"];
         } else {
             _channelNameLabel.text = filmClassTitleArray[indexPath.row-4];

@@ -10,6 +10,8 @@
 
 #define kIsLogin @"kIsLogin" // 登录状态
 #define kToken @"kToken"  // token
+#define kLovelyBabyIsLogin @"lovelyBabyIsLogin" // 萌娃是否登录
+
 #define kDataCollectionArray @"kDataCollectionArray" // 数据采集记录array
 
 @implementation SCUserInfoManger
@@ -35,6 +37,12 @@
     return [DONG_UserDefaults objectForKey:kToken];
 }
 
+/** 萌娃是否登录 */
+- (NSString *)lovelyBabyIsLogin
+{
+   return [DONG_UserDefaults objectForKey:kLovelyBabyIsLogin];
+}
+
 - (NSArray *)dataCollectionArray
 {
     return [DONG_UserDefaults objectForKey:kDataCollectionArray];
@@ -54,6 +62,13 @@
         [DONG_UserDefaults setObject:token forKey:kToken];
         [DONG_UserDefaults synchronize];
     }
+}
+
+/** 萌娃是否登录 */
+- (void)setLovelyBabyIsLogin:(NSString *)lovelyBabyIsLogin
+{
+    [DONG_UserDefaults setBool:lovelyBabyIsLogin forKey:kLovelyBabyIsLogin];
+    [DONG_UserDefaults synchronize];
 }
 
 /** 保存数据采集Data */

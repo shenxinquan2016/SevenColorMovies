@@ -319,7 +319,7 @@ static NSString *const footerId = @"footerId";
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
         
     } else if (indexPath.row == _filmClassTitleArray.count+5-1) {
-        DONG_Log(@"萌宝");
+        DONG_Log(@"萌娃");
         SCLovelyBabyCenterVC *babyCenterVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyCenterVC");
         [self.navigationController pushViewController:babyCenterVC animated:YES];
 
