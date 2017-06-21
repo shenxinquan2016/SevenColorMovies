@@ -194,6 +194,8 @@
 		11C1C1C11D8020A300CEE71C /* SCFliterOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C1C1BF1D8020A300CEE71C /* SCFliterOptionCell.m */; };
 		11C1C1C21D8020A300CEE71C /* SCFliterOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C1C1C01D8020A300CEE71C /* SCFliterOptionCell.xib */; };
 		11C636061EE52BA000B14B37 /* SCAdvertisementModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C636051EE52BA000B14B37 /* SCAdvertisementModel.m */; };
+		11C868BB1EFA05B100C1F218 /* LovelyBaby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11C868BA1EFA05B100C1F218 /* LovelyBaby.storyboard */; };
+		11C868BE1EFA0B8700C1F218 /* SCBabyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C868BD1EFA0B8700C1F218 /* SCBabyVC.m */; };
 		11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */; };
 		11C8CFBC1D45157B00C04F38 /* SCCollectionViewPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */; };
 		11C905DF1D6C3BB9004D3749 /* NSDate+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C905DE1D6C3BB9004D3749 /* NSDate+Addition.m */; };
@@ -590,6 +592,9 @@
 		11C1C1C01D8020A300CEE71C /* SCFliterOptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCFliterOptionCell.xib; sourceTree = "<group>"; };
 		11C636041EE52BA000B14B37 /* SCAdvertisementModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdvertisementModel.h; sourceTree = "<group>"; };
 		11C636051EE52BA000B14B37 /* SCAdvertisementModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdvertisementModel.m; sourceTree = "<group>"; };
+		11C868BA1EFA05B100C1F218 /* LovelyBaby.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LovelyBaby.storyboard; sourceTree = "<group>"; };
+		11C868BC1EFA0B8700C1F218 /* SCBabyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBabyVC.h; sourceTree = "<group>"; };
+		11C868BD1EFA0B8700C1F218 /* SCBabyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBabyVC.m; sourceTree = "<group>"; };
 		11C8CFB61D45157B00C04F38 /* SCCollectionViewPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCollectionViewPageCell.h; sourceTree = "<group>"; };
 		11C8CFB71D45157B00C04F38 /* SCCollectionViewPageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCollectionViewPageCell.m; sourceTree = "<group>"; };
 		11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCCollectionViewPageCell.xib; sourceTree = "<group>"; };
@@ -1182,6 +1187,8 @@
 			children = (
 				11DE6B811EF2304700F8B07F /* SCLovelyBabyCenterVC.h */,
 				11DE6B821EF2304700F8B07F /* SCLovelyBabyCenterVC.m */,
+				11C868BC1EFA0B8700C1F218 /* SCBabyVC.h */,
+				11C868BD1EFA0B8700C1F218 /* SCBabyVC.m */,
 				11DE6B8A1EF25FB100F8B07F /* View */,
 				11DE6B891EF25FAE00F8B07F /* New Group2 */,
 				11DE6B881EF25FAA00F8B07F /* New Group1 */,
@@ -1922,6 +1929,7 @@
 				11BB37CF1D38E5C00002D487 /* Discovery.storyboard */,
 				11BB37D11D38E5C90002D487 /* News.storyboard */,
 				11BB37D31D38E5D10002D487 /* Mine.storyboard */,
+				11C868BA1EFA05B100C1F218 /* LovelyBaby.storyboard */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -2454,6 +2462,7 @@
 				11BA52F01DFC46D20036CF25 /* SCDevicesListView.xib in Resources */,
 				11588F741D6B079900C91E3A /* SCLivePageCell.xib in Resources */,
 				11458E931D45D86800EBD16D /* SCHomePageSectionBGReusableView.xib in Resources */,
+				11C868BB1EFA05B100C1F218 /* LovelyBaby.storyboard in Resources */,
 				1190EA361DEE7155002CA166 /*  提示 in Resources */,
 				116475FA1D4098EF00A3BC1C /* SCPastVideoTableViewCell.xib in Resources */,
 				11458EA81D45FF2D00EBD16D /* SCMineOtherCell.xib in Resources */,
@@ -2706,6 +2715,7 @@
 				115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */,
 				11CAD9F41DED74AD009F3337 /* SCWatchHistoryModel.m in Sources */,
 				11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */,
+				11C868BE1EFA0B8700C1F218 /* SCBabyVC.m in Sources */,
 				11B0722B1DD2BAD200DD3FED /* Dong_DownloadManager.m in Sources */,
 				11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */,
 				11BB37E01D38F0E00002D487 /* SCNetUrlManger.m in Sources */,

@@ -147,24 +147,6 @@
             </objects>
             <point key="canvasLocation" x="1038" y="932"/>
         </scene>
-        <!--Lovely Baby CenterVC-->
-        <scene sceneID="NSq-w2-Yiw">
-            <objects>
-                <viewController storyboardIdentifier="SCLovelyBabyCenterVC" id="sM9-PO-Rdq" customClass="SCLovelyBabyCenterVC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Hxf-4n-7IM"/>
-                        <viewControllerLayoutGuide type="bottom" id="F9l-5O-RPJ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bgk-Yf-70d">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xlz-Dv-XDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1703" y="931"/>
-        </scene>
         <!--Optional Video Table View-->
         <scene sceneID="U0t-KW-cYy">
             <objects>

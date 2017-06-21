@@ -320,7 +320,7 @@ static NSString *const footerId = @"footerId";
         
     } else if (indexPath.row == _filmClassTitleArray.count+5-1) {
         DONG_Log(@"萌宝");
-        SCLovelyBabyCenterVC *babyCenterVC = DONG_INSTANT_VC_WITH_ID(@"HomePage", @"SCLovelyBabyCenterVC");
+        SCLovelyBabyCenterVC *babyCenterVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyCenterVC");
         [self.navigationController pushViewController:babyCenterVC animated:YES];
 
         

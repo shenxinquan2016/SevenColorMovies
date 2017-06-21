@@ -4,11 +4,12 @@
 //
 //  Created by yesdgq on 2017/6/15.
 //  Copyright © 2017年 yesdgq. All rights reserved.
-//
+//  萌娃首页
 
 #import "SCLovelyBabyCenterVC.h"
 #import "SCSearchBarView.h"
 #import "SCLovelyBabyCell.h"
+#import "SCBabyVC.h"
 
 @interface SCLovelyBabyCenterVC ()<UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -85,7 +86,7 @@ static NSString *const footerId = @"footerId";
     
     UIButton *button = [[UIButton alloc] init];
     [button setTitleColor:[UIColor colorWithHex:@"#6798FC"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(clickBotton) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(clickCancelBotton) forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:@"取消" forState:UIControlStateNormal];
     [_searchHeaderView addSubview:button];
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -102,12 +103,14 @@ static NSString *const footerId = @"footerId";
     [self.navigationController.navigationBar bringSubviewToFront:_searchHeaderView];
     [_searchTF becomeFirstResponder];
     _searchHeaderView.hidden = NO;
+    self.view.alpha = 0.5f;
 }
 
-- (void)clickBotton
+- (void)clickCancelBotton
 {
     [_searchTF resignFirstResponder];
     _searchHeaderView.hidden = YES;
+    self.view.alpha = 1.f;
 }
 
 #pragma mark - UICollectionView
@@ -231,7 +234,8 @@ static NSString *const footerId = @"footerId";
 // 点击某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-   
+    SCBabyVC *babyVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCBabyVC");
+    [self.navigationController pushViewController:babyVC animated:YES];
 
 }
 
