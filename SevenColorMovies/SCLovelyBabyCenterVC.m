@@ -10,6 +10,7 @@
 #import "SCSearchBarView.h"
 #import "SCLovelyBabyCell.h"
 #import "SCBabyVC.h"
+#import "SCMyLovelyBabyVC.h"
 
 @interface SCLovelyBabyCenterVC ()<UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -147,7 +148,8 @@ static NSString *const footerId = @"footerId";
 
 - (void)clickMyVideoBtn
 {
-    
+    SCMyLovelyBabyVC *myVideoVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCMyLovelyBabyVC");
+    [self.navigationController pushViewController:myVideoVC animated:YES];
 }
 - (void)clickActivityDetailBtn
 {
