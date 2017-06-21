@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) UIButton *signOutBtn;
 
 @end
 
@@ -32,7 +33,8 @@
 
 
 #pragma mark- private methods
-- (void)setTableView {
+- (void)setTableView
+{
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -42,7 +44,34 @@
     
     [self.view addSubview:_tableView];
     
+    if (UserInfoManager.lovelyBabyIsLogin) {
+        UIButton *signOutBtn = [[UIButton alloc] init];
+        [signOutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
+        [signOutBtn setBackgroundImage:[UIImage imageNamed:@"LoginBtnBG"] forState:UIControlStateNormal];
+        [signOutBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [signOutBtn addTarget:self action:@selector(signOut) forControlEvents:UIControlEventTouchUpInside];
+        _signOutBtn = signOutBtn;
+        [self.view addSubview:signOutBtn];
+        [signOutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.view);
+            make.height.equalTo(@50);
+            
+        }];
+    }
+   
+}
+
+- (void)signOut
+{
+    UserInfoManager.lovelyBabyIsLogin = NO;
+    [UserInfoManager removeUserInfo];
     
+    [UIView animateWithDuration:1.f animations:^{
+        _signOutBtn.alpha = 0.f;
+        [_signOutBtn removeFromSuperview];
+        [MBProgressHUD showSuccess:@"萌娃退出成功！"];
+        
+    }];
 }
 
 #pragma mark- UITableViewDataSource

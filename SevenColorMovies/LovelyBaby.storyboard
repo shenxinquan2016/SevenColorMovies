@@ -288,6 +288,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="mobilePhoneTF" destination="HLc-1s-FVr" id="cKN-WV-l38"/>
+                        <outlet property="passWordAgainTF" destination="BQP-6n-Wz5" id="MQu-73-g14"/>
+                        <outlet property="passWordTF" destination="0F8-Fs-sUK" id="3fP-a7-bmH"/>
                         <outlet property="pullSupportTimeLabel" destination="6LT-U3-64h" id="BL4-IV-Lkx"/>
                         <outlet property="pullSupportTimeLabel2" destination="4hd-4G-AXO" id="DAU-aS-PlG"/>
                         <outlet property="releaseTimeLabel" destination="kpg-sg-klp" id="m3w-F1-j3a"/>
@@ -561,6 +564,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="mobilePhoneTF" destination="hZb-ht-wNn" id="S3k-Hy-SLR"/>
+                        <outlet property="passWordTF" destination="9oS-UG-SOb" id="fbH-xW-8xI"/>
                         <outlet property="pullSupportTimeLabel" destination="EKa-hJ-g96" id="Xyj-4O-FzG"/>
                         <outlet property="pullSupportTimeLabel2" destination="k3j-Vq-YGs" id="MPY-wO-Gi0"/>
                         <outlet property="releaseTimeLabel" destination="NEX-45-Cje" id="jnM-5I-oHt"/>

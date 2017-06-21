@@ -10,7 +10,8 @@
 
 #define kIsLogin @"kIsLogin" // 登录状态
 #define kToken @"kToken"  // token
-#define kLovelyBabyIsLogin @"lovelyBabyIsLogin" // 萌娃是否登录
+#define kLovelyBabyIsLogin @"kLovelyBabyIsLogin" // 萌娃是否登录
+#define kLovelyBabyToken @"kLovelyBabyToken"
 
 #define kDataCollectionArray @"kDataCollectionArray" // 数据采集记录array
 
@@ -38,9 +39,15 @@
 }
 
 /** 萌娃是否登录 */
-- (NSString *)lovelyBabyIsLogin
+- (BOOL)lovelyBabyIsLogin
 {
-   return [DONG_UserDefaults objectForKey:kLovelyBabyIsLogin];
+   return [DONG_UserDefaults boolForKey:kLovelyBabyIsLogin];
+}
+
+/** 萌娃token */
+- (NSString *)lovelyBabyToken
+{
+    return [DONG_UserDefaults objectForKey:kLovelyBabyToken];
 }
 
 - (NSArray *)dataCollectionArray
@@ -65,10 +72,19 @@
 }
 
 /** 萌娃是否登录 */
-- (void)setLovelyBabyIsLogin:(NSString *)lovelyBabyIsLogin
+- (void)setLovelyBabyIsLogin:(BOOL)lovelyBabyIsLogin
 {
     [DONG_UserDefaults setBool:lovelyBabyIsLogin forKey:kLovelyBabyIsLogin];
     [DONG_UserDefaults synchronize];
+}
+
+/** 萌娃token */
+- (void)setLovelyBabyToken:(NSString *)lovelyBabyToken
+{
+    if (![lovelyBabyToken isKindOfClass:[NSNull class]] && lovelyBabyToken.length > 0) { // 如果存在保存token
+        [DONG_UserDefaults setObject:lovelyBabyToken forKey:kLovelyBabyToken];
+        [DONG_UserDefaults synchronize];
+    }
 }
 
 /** 保存数据采集Data */
@@ -142,5 +158,14 @@
     }
 }
 
+
+// 移除本地用户信息
+- (void)removeUserInfo
+{
+    UserInfoManager.isLogin = NO;
+    [DONG_UserDefaults removeObjectForKey:kLovelyBabyToken];// 萌娃token
+    
+    
+}
 
 @end

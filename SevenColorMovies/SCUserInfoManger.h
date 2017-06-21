@@ -17,12 +17,17 @@
 /** 用户token */
 @property (nonatomic, copy) NSString *token;
 /** 萌娃是否登录 */
-@property (nonatomic, copy) NSString *lovelyBabyIsLogin;
+@property (nonatomic, assign) BOOL lovelyBabyIsLogin;
+/** 萌娃token */
+@property (nonatomic, copy) NSString *lovelyBabyToken;
 
 @property (nonatomic, copy) NSArray *dataCollectionArray;
 
 
 + (instancetype)shareManager;
+
+// 移除本地用户信息
+- (void)removeUserInfo;
 
 /*
  *  保存操作记录

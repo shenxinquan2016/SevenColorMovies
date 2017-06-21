@@ -12,6 +12,7 @@
 #import "SCBabyVC.h"
 #import "SCMyLovelyBabyVC.h"
 #import "SCActivityCenterVC.h"
+#import "SCLovelyBabyLoginVC.h"
 
 @interface SCLovelyBabyCenterVC ()<UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -115,6 +116,29 @@ static NSString *const footerId = @"footerId";
     self.view.alpha = 1.f;
 }
 
+#pragma mark - 我的视频 && 活动详情
+
+- (void)clickMyVideoBtn
+{
+    if (UserInfoManager.lovelyBabyIsLogin) { // 已登录
+        
+        SCMyLovelyBabyVC *myVideoVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCMyLovelyBabyVC");
+        [self.navigationController pushViewController:myVideoVC animated:YES];
+        
+    } else { // 未登录
+        
+        SCLovelyBabyLoginVC *loginVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyLoginVC");
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }
+    
+}
+
+- (void)clickActivityDetailBtn
+{
+    SCActivityCenterVC *activityVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCActivityCenterVC");
+    [self.navigationController pushViewController:activityVC animated:YES];
+}
+
 #pragma mark - UICollectionView
 
 - (void)setupCollectionView
@@ -147,16 +171,6 @@ static NSString *const footerId = @"footerId";
     
 }
 
-- (void)clickMyVideoBtn
-{
-    SCMyLovelyBabyVC *myVideoVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCMyLovelyBabyVC");
-    [self.navigationController pushViewController:myVideoVC animated:YES];
-}
-- (void)clickActivityDetailBtn
-{
-    SCActivityCenterVC *activityVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCActivityCenterVC");
-    [self.navigationController pushViewController:activityVC animated:YES];
-}
 
 #pragma mark ---- UICollectionViewDataSource
 
