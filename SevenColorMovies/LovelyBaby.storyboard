@@ -287,6 +287,18 @@
                             <constraint firstItem="zO1-jZ-11a" firstAttribute="top" secondItem="IfL-UB-RjC" secondAttribute="bottom" constant="2" id="xnK-TK-XiT"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pullSupportTimeLabel" destination="6LT-U3-64h" id="BL4-IV-Lkx"/>
+                        <outlet property="pullSupportTimeLabel2" destination="4hd-4G-AXO" id="DAU-aS-PlG"/>
+                        <outlet property="releaseTimeLabel" destination="kpg-sg-klp" id="m3w-F1-j3a"/>
+                        <outlet property="releaseTimeLabel2" destination="RW4-I2-uzJ" id="CxI-2d-Khb"/>
+                        <outlet property="signUpCondition" destination="ecl-gU-RnW" id="7Kz-Hi-pW4"/>
+                        <outlet property="signUpTimeLabel" destination="eFJ-fO-cxu" id="bVl-WT-zQV"/>
+                        <outlet property="signUpTimeLabel2" destination="dfW-UG-LLJ" id="Elh-Sw-UCo"/>
+                        <outlet property="singUpConditionLabel2" destination="8IB-Od-ZXN" id="x7c-Tf-ewa"/>
+                        <outlet property="uploadTimeLabel" destination="9Kf-nD-WlT" id="JX9-SM-xPV"/>
+                        <outlet property="uploadTimeLabel2" destination="Lif-9X-v8m" id="RWH-3Z-UNw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LN2-p4-sjP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -548,6 +560,18 @@
                             <constraint firstItem="Ax6-Y7-Ys9" firstAttribute="leading" secondItem="x61-MH-Dun" secondAttribute="leading" constant="2" id="vJ5-O4-RoN"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pullSupportTimeLabel" destination="EKa-hJ-g96" id="Xyj-4O-FzG"/>
+                        <outlet property="pullSupportTimeLabel2" destination="k3j-Vq-YGs" id="MPY-wO-Gi0"/>
+                        <outlet property="releaseTimeLabel" destination="NEX-45-Cje" id="jnM-5I-oHt"/>
+                        <outlet property="releaseTimeLabel2" destination="z5B-Up-hyk" id="gEk-r8-jqf"/>
+                        <outlet property="signUpCondition" destination="Ymq-8F-Gv7" id="5NY-SU-d13"/>
+                        <outlet property="signUpTimeLabel" destination="F1U-6e-6Oj" id="dxo-5D-B0f"/>
+                        <outlet property="signUpTimeLabel2" destination="Wez-Ey-TXl" id="djR-WB-Lal"/>
+                        <outlet property="singUpConditionLabel2" destination="iXg-i5-OTY" id="5E4-6Z-oVd"/>
+                        <outlet property="uploadTimeLabel" destination="AgH-Av-T0r" id="wQF-8e-bhA"/>
+                        <outlet property="uploadTimeLabel2" destination="iB1-Yp-les" id="Zbh-i6-Ppd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gIG-kt-xJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -11,12 +11,25 @@
 
 @interface SCLovelyBabyLoginVC ()
 
+@property (weak, nonatomic) IBOutlet UILabel *signUpCondition;
+@property (weak, nonatomic) IBOutlet UILabel *singUpConditionLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *signUpTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *signUpTimeLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *uploadTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *uploadTimeLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *pullSupportTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pullSupportTimeLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *releaseTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *releaseTimeLabel2;
+
 @end
 
 @implementation SCLovelyBabyLoginVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self initializeLabelConfiguration];
     
 }
 
@@ -32,6 +45,16 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+}
+
+- (void)initializeLabelConfiguration
+{
+    [_signUpCondition setFont :[UIFont fontWithName :@"Helvetica-Bold" size :13.f]];
+    [_signUpTimeLabel setFont :[UIFont fontWithName :@"Helvetica-Bold" size :13.f]];
+    [_uploadTimeLabel setFont :[UIFont fontWithName :@"Helvetica-Bold" size :13.f]];
+    [_pullSupportTimeLabel setFont :[UIFont fontWithName :@"Helvetica-Bold" size :13.f]];
+    [_releaseTimeLabel setFont :[UIFont fontWithName :@"Helvetica-Bold" size :13.f]];
     
 }
 
