@@ -105,12 +105,18 @@
         NSString *resultCode = responseObject[@"resultCode"];
         
         if ([resultCode isEqualToString:@"success"]) {
+            
             UserInfoManager.lovelyBabyToken = responseObject[@"data"][@"token"];
             UserInfoManager.lovelyBabyIsLogin = YES;
+            [MBProgressHUD showSuccess:responseObject[@"msg"]];
             
             SCMyLovelyBabyVC *myVideoVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCMyLovelyBabyVC");
             [self.navigationController pushViewController:myVideoVC animated:YES];
+            
+        }  else {
+            [MBProgressHUD showSuccess:responseObject[@"msg"]];
         }
+
         [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
