@@ -80,6 +80,8 @@
     [self requestRegisterData];
 }
 
+#pragma mark - NetRequest
+
 - (void)requestRegisterData
 {
     if (![self verificationPhoneNum:_mobilePhoneTF.text]) return;
@@ -107,6 +109,7 @@
         if ([resultCode isEqualToString:@"success"]) {
             
             UserInfoManager.lovelyBabyToken = responseObject[@"data"][@"token"];
+            UserInfoManager.lovelyBabyMemberId = responseObject[@"data"][@"memberCode"];
             UserInfoManager.lovelyBabyIsLogin = YES;
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
             
@@ -155,6 +158,12 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     return YES;
+}
+
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate
+{
+    return NO;
 }
 
 @end

@@ -94,6 +94,7 @@
 		11622D6F1ECAA9E800A06C31 /* SCGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11622D6E1ECAA9E800A06C31 /* SCGroupModel.m */; };
 		11622D741ECAAF4E00A06C31 /* SCFuncDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11622D721ECAAF4E00A06C31 /* SCFuncDescriptionCell.m */; };
 		11622D751ECAAF4E00A06C31 /* SCFuncDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11622D731ECAAF4E00A06C31 /* SCFuncDescriptionCell.xib */; };
+		1162E4141EFB740D00EF42D6 /* SCLovelyBabyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1162E4131EFB740D00EF42D6 /* SCLovelyBabyModel.m */; };
 		116475EE1D40977100A3BC1C /* SCOptionalVideoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */; };
 		116475F41D40988700A3BC1C /* SCOptionalVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116475F21D40988700A3BC1C /* SCOptionalVideoTableViewCell.m */; };
 		116475F51D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116475F31D40988700A3BC1C /* SCOptionalVideoTableViewCell.xib */; };
@@ -428,6 +429,8 @@
 		11622D711ECAAF4E00A06C31 /* SCFuncDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFuncDescriptionCell.h; sourceTree = "<group>"; };
 		11622D721ECAAF4E00A06C31 /* SCFuncDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFuncDescriptionCell.m; sourceTree = "<group>"; };
 		11622D731ECAAF4E00A06C31 /* SCFuncDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCFuncDescriptionCell.xib; sourceTree = "<group>"; };
+		1162E4121EFB740D00EF42D6 /* SCLovelyBabyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLovelyBabyModel.h; sourceTree = "<group>"; };
+		1162E4131EFB740D00EF42D6 /* SCLovelyBabyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLovelyBabyModel.m; sourceTree = "<group>"; };
 		116475EC1D40977100A3BC1C /* SCOptionalVideoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableView.h; sourceTree = "<group>"; };
 		116475ED1D40977100A3BC1C /* SCOptionalVideoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOptionalVideoTableView.m; sourceTree = "<group>"; };
 		116475F11D40988700A3BC1C /* SCOptionalVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionalVideoTableViewCell.h; sourceTree = "<group>"; };
@@ -1210,7 +1213,7 @@
 				11C868CB1EFA443000C1F218 /* SCActivityCenterVC.h */,
 				11C868CC1EFA443000C1F218 /* SCActivityCenterVC.m */,
 				11DE6B8A1EF25FB100F8B07F /* View */,
-				11DE6B891EF25FAE00F8B07F /* New Group2 */,
+				11DE6B891EF25FAE00F8B07F /* Model */,
 				11DE6B881EF25FAA00F8B07F /* New Group1 */,
 				11DE6B871EF25FA700F8B07F /* New Group */,
 			);
@@ -2207,11 +2210,13 @@
 			name = "New Group1";
 			sourceTree = "<group>";
 		};
-		11DE6B891EF25FAE00F8B07F /* New Group2 */ = {
+		11DE6B891EF25FAE00F8B07F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1162E4121EFB740D00EF42D6 /* SCLovelyBabyModel.h */,
+				1162E4131EFB740D00EF42D6 /* SCLovelyBabyModel.m */,
 			);
-			name = "New Group2";
+			name = Model;
 			sourceTree = "<group>";
 		};
 		11DE6B8A1EF25FB100F8B07F /* View */ = {
@@ -2718,6 +2723,7 @@
 				11051ED41D6D950100E920C1 /* SCLiveProgramListCell.m in Sources */,
 				1112D74B1D405D51009A5C35 /* SCSlideHeaderLabel.m in Sources */,
 				111448251D87D1CE00CB8FA9 /* HLJKeychainStore.m in Sources */,
+				1162E4141EFB740D00EF42D6 /* SCLovelyBabyModel.m in Sources */,
 				11BB37791D38B9A00002D487 /* main.m in Sources */,
 				11A1D0751D3F785600E2BA0D /* SCSearchViewController.m in Sources */,
 				1111A4191D48A71300C17B92 /* QINetReachabilityManager.m in Sources */,

@@ -13,6 +13,7 @@
 #import "SCMyLovelyBabyVC.h"
 #import "SCActivityCenterVC.h"
 #import "SCLovelyBabyLoginVC.h"
+#import "SCLovelyBabyModel.h"
 
 @interface SCLovelyBabyCenterVC ()<UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -23,6 +24,7 @@
 @property (nonatomic, strong) UICollectionView *collctionView;
 @property (nonatomic, strong) UIButton *myVideoButton;
 @property (nonatomic, strong) UIButton *activityDetailButton;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
 
@@ -38,8 +40,8 @@ static NSString *const footerId = @"footerId";
     self.leftBBI.text = @"萌娃";
     // 添加搜索框
     [self addSearchBBI];
-    // 添加collectionView
-    [self setupCollectionView];
+    
+    [self getVideoListDataNetRequest];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -181,13 +183,14 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 10;
+    return _dataArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SCLovelyBabyCell *cell = [SCLovelyBabyCell cellWithCollectionView:collectionView indexPath:indexPath];
-    
+    SCLovelyBabyModel *babyModel = _dataArray[indexPath.item];
+    cell.babyModel = babyModel;
     return cell;
 }
 
@@ -262,5 +265,49 @@ static NSString *const footerId = @"footerId";
 {
     return NO;
 }
+
+#pragma mark - NetRequest
+
+- (void)getVideoListDataNetRequest
+{
+    
+    NSDictionary *parameters = @{@"siteId"      : @"hlj_appjh",
+                                 @"memberId"    : @"",
+                                 @"searchName"  : @"",
+                                 @"searchType"  : @"paike",
+                                 @"pageYema"    : @"1",
+                                 @"pageSize"    : @"500",
+                                 @"token"       : @""
+                                 };
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager getRequestJsonDataWithUrl:LovelyBabyVideoList parameters:parameters success:^(id  _Nullable responseObject) {
+                DONG_Log(@"responseObject-->%@",responseObject);
+        NSString *resultCode = responseObject[@"resultCode"];
+        
+        if ([resultCode isEqualToString:@"success"]) {
+            
+            self.dataArray = [NSMutableArray arrayWithCapacity:0];
+            NSArray *array = responseObject[@"data"];
+            
+            for (NSDictionary *dict in array) {
+                SCLovelyBabyModel *model = [SCLovelyBabyModel mj_objectWithKeyValues:dict];
+                [_dataArray addObject:model];
+            }
+            
+        }  else {
+            [MBProgressHUD showSuccess:responseObject[@"msg"]];
+        }
+        // 添加collectionView
+        [self setupCollectionView];
+        
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+    
+}
+
 
 @end

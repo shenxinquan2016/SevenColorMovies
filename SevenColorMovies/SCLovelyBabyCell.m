@@ -25,4 +25,11 @@
     return cell;
 }
 
+- (void)setBabyModel:(SCLovelyBabyModel *)babyModel
+{
+    _babyModel = babyModel;
+    
+    DONG_Log(@"serialNumber-->%lu  id-->%@", babyModel.serialNumber, babyModel.id);
+}
+
 @end

@@ -20,6 +20,8 @@
 @property (nonatomic, assign) BOOL lovelyBabyIsLogin;
 /** 萌娃token */
 @property (nonatomic, copy) NSString *lovelyBabyToken;
+/** 萌娃用户id */
+@property (nonatomic, copy) NSString *lovelyBabyMemberId;
 
 @property (nonatomic, copy) NSArray *dataCollectionArray;
 

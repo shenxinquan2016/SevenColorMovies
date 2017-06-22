@@ -11,7 +11,8 @@
 #define kIsLogin @"kIsLogin" // 登录状态
 #define kToken @"kToken"  // token
 #define kLovelyBabyIsLogin @"kLovelyBabyIsLogin" // 萌娃是否登录
-#define kLovelyBabyToken @"kLovelyBabyToken"
+#define kLovelyBabyToken @"kLovelyBabyToken" // 萌娃token
+#define kLovelyBabyMemberId @"kLovelyBabyMemberId" // 萌娃用户id
 
 #define kDataCollectionArray @"kDataCollectionArray" // 数据采集记录array
 
@@ -41,13 +42,19 @@
 /** 萌娃是否登录 */
 - (BOOL)lovelyBabyIsLogin
 {
-   return [DONG_UserDefaults boolForKey:kLovelyBabyIsLogin];
+    return [DONG_UserDefaults boolForKey:kLovelyBabyIsLogin];
 }
 
 /** 萌娃token */
 - (NSString *)lovelyBabyToken
 {
     return [DONG_UserDefaults objectForKey:kLovelyBabyToken];
+}
+
+/** 萌娃用户id */
+- (NSString *)lovelyBabyMemberId
+{
+    return [DONG_UserDefaults objectForKey:kLovelyBabyMemberId];
 }
 
 - (NSArray *)dataCollectionArray
@@ -83,6 +90,15 @@
 {
     if (![lovelyBabyToken isKindOfClass:[NSNull class]] && lovelyBabyToken.length > 0) { // 如果存在保存token
         [DONG_UserDefaults setObject:lovelyBabyToken forKey:kLovelyBabyToken];
+        [DONG_UserDefaults synchronize];
+    }
+}
+
+/** 萌娃用户id */
+- (void)setLovelyBabyMemberId:(NSString *)lovelyBabyMemberId
+{
+    if (![lovelyBabyMemberId isKindOfClass:[NSNull class]] && lovelyBabyMemberId.length > 0) { // 如果存在保存
+        [DONG_UserDefaults setObject:lovelyBabyMemberId forKey:kLovelyBabyMemberId];
         [DONG_UserDefaults synchronize];
     }
 }
@@ -140,8 +156,8 @@
                                                      @"deviceType" : @"iOSMobile"
                                                      }
                                              }};
-
-//        NSString *urlStr = @"http://172.16.5.54:8090/appjh_mmserver/gather/addDatasIos.do"; // 吕本健
+        
+        //        NSString *urlStr = @"http://172.16.5.54:8090/appjh_mmserver/gather/addDatasIos.do"; // 吕本健
         //NSString *urlStr = @"http://10.177.4.81:8080/appjh_mmserver/gather/addDatasIos.do"; // 黑网内网
         [requestDataManager postRequestJsonDataWithUrl:CollectCustomerBehaviorData parameters:parameters success:^(id  _Nullable responseObject) {
             
@@ -152,7 +168,7 @@
             
             DONG_Log(@"errorObject-->%@", errorObject);
             if (newArr.count >= 15) {
-            [DONG_UserDefaults removeObjectForKey:kDataCollectionArray];
+                [DONG_UserDefaults removeObjectForKey:kDataCollectionArray];
             }
         }];
     }

@@ -83,6 +83,8 @@
     [self.navigationController pushViewController:registerVC animated:YES];
 }
 
+#pragma mark - NetRequest
+
 - (void)requestLoginData
 {
     if (![self verificationPhoneNum:_mobilePhoneTF.text]) return;
@@ -105,6 +107,7 @@
         if ([resultCode isEqualToString:@"success"]) {
             
             UserInfoManager.lovelyBabyToken = responseObject[@"data"][@"token"];
+            UserInfoManager.lovelyBabyMemberId = responseObject[@"data"][@"memberCode"];
             UserInfoManager.lovelyBabyIsLogin = YES;
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
             
@@ -145,6 +148,12 @@
     NSPredicate *phonePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     
     return [phonePredicate evaluateWithObject:input];
+}
+
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate
+{
+    return NO;
 }
 
 @end
