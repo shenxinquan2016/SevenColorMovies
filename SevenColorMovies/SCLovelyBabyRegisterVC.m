@@ -110,6 +110,7 @@
             
             UserInfoManager.lovelyBabyToken = responseObject[@"data"][@"token"];
             UserInfoManager.lovelyBabyMemberId = responseObject[@"data"][@"memberCode"];
+            UserInfoManager.lovelyBabyMobilePhone = _mobilePhoneTF.text;
             UserInfoManager.lovelyBabyIsLogin = YES;
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
             

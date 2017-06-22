@@ -10,6 +10,8 @@
 
 @interface SCLovelyBabyModel : NSObject
 
+/** 标题 */
+@property (nonatomic, copy) NSString *mzName;
 /** 状态码 */
 @property (nonatomic, assign) NSInteger status;
 /** 序号 */

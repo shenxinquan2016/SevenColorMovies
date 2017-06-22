@@ -8,7 +8,18 @@
 
 #import "SCLovelyBabyCell.h"
 
+@interface SCLovelyBabyCell ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *coverIV;
+@property (weak, nonatomic) IBOutlet UILabel *personalNoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalVoteLabel;
+
+
+@end
+
 @implementation SCLovelyBabyCell
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -29,7 +40,10 @@
 {
     _babyModel = babyModel;
     
-    DONG_Log(@"serialNumber-->%lu  id-->%@", babyModel.serialNumber, babyModel.id);
+    _personalNoLabel.text = babyModel.serialNumber;
+    _nameLabel.text = babyModel.mzName;
+    _totalVoteLabel.text = babyModel.voteNum;
+    [_coverIV sd_setImageWithURL:[NSURL URLWithString:babyModel.showUrl] placeholderImage:[UIImage imageNamed:@"Image-8"]];
 }
 
 @end

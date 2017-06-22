@@ -101,13 +101,14 @@
                                  };
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager getRequestJsonDataWithUrl:LovelyBabyLogin parameters:parameters success:^(id  _Nullable responseObject) {
-                DONG_Log(@"responseObject-->%@",responseObject);
+//                DONG_Log(@"responseObject-->%@",responseObject);
         NSString *resultCode = responseObject[@"resultCode"];
         
         if ([resultCode isEqualToString:@"success"]) {
             
             UserInfoManager.lovelyBabyToken = responseObject[@"data"][@"token"];
             UserInfoManager.lovelyBabyMemberId = responseObject[@"data"][@"memberCode"];
+            UserInfoManager.lovelyBabyMobilePhone = _mobilePhoneTF.text;
             UserInfoManager.lovelyBabyIsLogin = YES;
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
             

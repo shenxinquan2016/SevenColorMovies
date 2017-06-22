@@ -37,7 +37,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="萝莉" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6e-be-h4G">
                                 <rect key="frame" x="50.5" y="3" width="22.5" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="65" id="4fg-hz-lnh"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="4fg-hz-lnh"/>
                                     <constraint firstAttribute="height" constant="16" id="nGa-GC-BkO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -78,6 +78,12 @@
                 <constraint firstAttribute="trailing" secondItem="ytC-bQ-WCZ" secondAttribute="trailing" id="wW9-hJ-qyy"/>
             </constraints>
             <size key="customSize" width="186" height="183"/>
+            <connections>
+                <outlet property="coverIV" destination="ytC-bQ-WCZ" id="3hG-cl-s5F"/>
+                <outlet property="nameLabel" destination="b6e-be-h4G" id="jMN-vw-GwF"/>
+                <outlet property="personalNoLabel" destination="M1u-3Q-QZW" id="3U9-u5-F1o"/>
+                <outlet property="totalVoteLabel" destination="Cyy-Yv-HH0" id="zBD-xo-Qrr"/>
+            </connections>
             <point key="canvasLocation" x="-154" y="81.5"/>
         </collectionViewCell>
     </objects>

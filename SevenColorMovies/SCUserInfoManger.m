@@ -13,6 +13,7 @@
 #define kLovelyBabyIsLogin @"kLovelyBabyIsLogin" // 萌娃是否登录
 #define kLovelyBabyToken @"kLovelyBabyToken" // 萌娃token
 #define kLovelyBabyMemberId @"kLovelyBabyMemberId" // 萌娃用户id
+#define kLovelyBabyMobilePhone @"kLovelyBabyMobilePhone" // 萌娃用户手机
 
 #define kDataCollectionArray @"kDataCollectionArray" // 数据采集记录array
 
@@ -57,6 +58,12 @@
     return [DONG_UserDefaults objectForKey:kLovelyBabyMemberId];
 }
 
+/** 萌娃用户手机 */
+- (NSString *)lovelyBabyMobilePhone
+{
+   return [DONG_UserDefaults objectForKey:kLovelyBabyMobilePhone];
+}
+
 - (NSArray *)dataCollectionArray
 {
     return [DONG_UserDefaults objectForKey:kDataCollectionArray];
@@ -99,6 +106,15 @@
 {
     if (![lovelyBabyMemberId isKindOfClass:[NSNull class]] && lovelyBabyMemberId.length > 0) { // 如果存在保存
         [DONG_UserDefaults setObject:lovelyBabyMemberId forKey:kLovelyBabyMemberId];
+        [DONG_UserDefaults synchronize];
+    }
+}
+
+/** 萌娃用户手机 */
+- (void)setLovelyBabyMobilePhone:(NSString *)lovelyBabyMobilePhone
+{
+    if (![lovelyBabyMobilePhone isKindOfClass:[NSNull class]] && lovelyBabyMobilePhone.length > 0) { // 如果存在保存
+        [DONG_UserDefaults setObject:lovelyBabyMobilePhone forKey:kLovelyBabyMobilePhone];
         [DONG_UserDefaults synchronize];
     }
 }
@@ -179,7 +195,10 @@
 - (void)removeUserInfo
 {
     UserInfoManager.isLogin = NO;
-    [DONG_UserDefaults removeObjectForKey:kLovelyBabyToken];// 萌娃token
+    [DONG_UserDefaults removeObjectForKey:kLovelyBabyToken];
+    [DONG_UserDefaults removeObjectForKey:kLovelyBabyMemberId];
+    [DONG_UserDefaults removeObjectForKey:kLovelyBabyMobilePhone];
+    
     
     
 }

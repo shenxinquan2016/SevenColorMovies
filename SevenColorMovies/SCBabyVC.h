@@ -7,7 +7,10 @@
 //  萌娃个人页
 
 #import "SCOtherBaseViewController.h"
+#import "SCLovelyBabyModel.h"
 
 @interface SCBabyVC : SCOtherBaseViewController
+
+@property (nonatomic, strong) SCLovelyBabyModel *babyModel;
 
 @end

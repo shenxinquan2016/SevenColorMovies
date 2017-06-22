@@ -155,8 +155,6 @@ static NSString *const footerId = @"footerId";
     // 综艺栏目cell
     [_collctionView registerNib:[UINib nibWithNibName:@"SCLovelyBabyCell" bundle:nil] forCellWithReuseIdentifier:@"SCLovelyBabyCell"];
     
-    [self.view addSubview:_collctionView];
-    
     _collctionView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0); // 留白添加按钮
     UIButton *myVideoBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, -40, (kMainScreenWidth-60)/2, 40)];
     [myVideoBtn setBackgroundImage:[UIImage imageNamed:@"BlueBtnBG"] forState:UIControlStateNormal];
@@ -170,6 +168,7 @@ static NSString *const footerId = @"footerId";
     
     [_collctionView addSubview:myVideoBtn];
     [_collctionView addSubview:activityDetailBtn];
+    [self.view addSubview:_collctionView];
     
 }
 
@@ -255,9 +254,10 @@ static NSString *const footerId = @"footerId";
 // 点击某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    SCLovelyBabyModel *babyModel = _dataArray[indexPath.item];
     SCBabyVC *babyVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCBabyVC");
+    babyVC.babyModel = babyModel;
     [self.navigationController pushViewController:babyVC animated:YES];
-
 }
 
 // 禁止旋转屏幕

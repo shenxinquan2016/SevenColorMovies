@@ -22,6 +22,8 @@
 @property (nonatomic, copy) NSString *lovelyBabyToken;
 /** 萌娃用户id */
 @property (nonatomic, copy) NSString *lovelyBabyMemberId;
+/** 萌娃用户手机 */
+@property (nonatomic, copy) NSString *lovelyBabyMobilePhone;
 
 @property (nonatomic, copy) NSArray *dataCollectionArray;
 
