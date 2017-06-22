@@ -25,6 +25,8 @@
 + (instancetype)initPlayerWithTimeShiftWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel currentPlayTime:(NSString *)currentPlayTime;
 /** 播放本地文件 */
 + (instancetype)initPlayerWithFilePath:(NSString *)filePath;
+/** 播放URL视频 */
++ (instancetype)initPlayerWithUrlString:(NSString *)urlStr videoName:(NSString *)name;
 
 @end
 

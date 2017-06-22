@@ -7,6 +7,7 @@
 //  萌娃个人页
 
 #import "SCBabyVC.h"
+#import "SCHuikanPlayerViewController.h"
 
 @interface SCBabyVC ()
 
@@ -17,7 +18,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *shareBtn;
 @property (weak, nonatomic) IBOutlet UIButton *voteBtn;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTV;
+/** 视频播放地址 */
 @property (copy, nonatomic) NSString *playUrlString;
+/** 视频名称 */
+@property (copy, nonatomic) NSString *videoName;
 
 
 @end
@@ -78,6 +82,7 @@
             _totalVoteLabel.text = dict[@"voteNum"];
             _descriptionTV.text = dict[@"mzDesc"];
             _playUrlString = dict[@"bfUrl"];
+            _videoName = dict[@"mzName"];
             
         }  else {
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
@@ -89,14 +94,14 @@
         
         [CommonFunc dismiss];
     }];
- 
 }
 
 #pragma mark - 播放视频
 
 - (IBAction)playVideo:(id)sender
 {
-    
+    SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithUrlString:_playUrlString videoName:_videoName];
+    [self.navigationController pushViewController:playerVC animated:YES];
 }
 
 @end

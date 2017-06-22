@@ -39,6 +39,42 @@
 
 #pragma mark - Initialize
 
+/** 播放URL视频 */
++ (instancetype)initPlayerWithUrlString:(NSString *)urlStr videoName:(NSString *)name
+{
+    SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
+    
+    // 2.调用播放器播放
+    player.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:[NSURL URLWithString:urlStr]];
+    [player.IJKPlayerViewController.player setScalingMode:IJKMPMovieScalingModeAspectFit];
+    player.IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
+    player.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
+    player.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+    player.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
+    player.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
+    player.IJKPlayerViewController.isSinglePlayerView = YES;
+    player.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = name;//节目名称
+    [player.view addSubview:player.IJKPlayerViewController.view];
+    
+    // 3.播放器返回按钮的回调 刷新本页是否支持旋转状态
+    DONG_WeakSelf(player);
+    player.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
+        weakplayer.isProhibitRotate = isProhibitRotate;
+    };
+    // 4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
+    [player performSelector:@selector(automaticallyRotateTheScreen) withObject:nil afterDelay:1.5f];
+    
+    return player;
+}
+
+- (void)automaticallyRotateTheScreen
+{
+    // 4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
+    self.IJKPlayerViewController.isFullScreen = YES;
+    [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
+    self.isProhibitRotate = YES;
+}
+
 /** 直播拉屏 */
 + (instancetype)initPlayerWithLiveProgramModel:(SCLiveProgramModel *)liveProgramModel
 {
@@ -57,8 +93,8 @@
 }
 
 /** 由我的节目单/点播飞屏拉屏进入(点播) */
-+ (instancetype)initPlayerWithFilmModel:(SCFilmModel *)filmModel{
-    
++ (instancetype)initPlayerWithFilmModel:(SCFilmModel *)filmModel
+{
     NSString *mtype;
     if (filmModel._Mtype) {
         
@@ -88,7 +124,8 @@
 }
 
 /** 由回看搜索单进入(直播回看) */
-+ (instancetype)initPlayerWithProgramModel:(SCLiveProgramModel *)programModel{
++ (instancetype)initPlayerWithProgramModel:(SCLiveProgramModel *)programModel
+{
     SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
     player.programModel = programModel;
     [player playFilmWithProgramModel:programModel];
@@ -96,8 +133,8 @@
 }
 
 // 播放本地文件
-+ (instancetype)initPlayerWithFilePath:(NSString *)filePath {
-    
++ (instancetype)initPlayerWithFilePath:(NSString *)filePath
+{
     SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
     NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
     NSString *name = [[filePath componentsSeparatedByString:@"/"] lastObject];
@@ -151,7 +188,6 @@
 
 + (instancetype)initPlayerWithPullInFilmModel:(SCFilmModel *)filmModel
 {
-    
     SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
     [player playWithFilmModel:filmModel];
     return player;
