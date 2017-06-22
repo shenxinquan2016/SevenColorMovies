@@ -131,7 +131,8 @@ const CGFloat LabelWidth = 100;
 }
 
 /** 添加标题栏label */
-- (void)addLabel{
+- (void)addLabel
+{
     for (int i = 0; i < _titleArr.count; i++) {
         CGFloat lbW = LabelWidth;                //宽
         CGFloat lbH = TitleHeight;       //高
@@ -280,6 +281,7 @@ const CGFloat LabelWidth = 100;
 }
 
 #pragma mark - UITextFieldDelegate
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [_searchTF resignFirstResponder];

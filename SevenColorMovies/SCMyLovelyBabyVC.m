@@ -17,6 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.leftBBI.text = @"我的视频";
+    
+    [self getMyVideoDataRequest];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,5 +31,40 @@
 {
     return NO;
 }
+
+#pragma mark - NetworkRequest
+
+- (void)getMyVideoDataRequest
+{
+    NSDictionary *parameters = @{@"siteId"      : @"hlj_appjh",
+                                 @"memberId"    : UserInfoManager.lovelyBabyMemberId,
+                                 @"searchName"  : @"",
+                                 @"searchType"  : @"paike",
+                                 @"pageYema"    : @"1",
+                                 @"pageSize"    : @"500",
+                                 @"token"       : UserInfoManager.lovelyBabyToken
+                                 };
+    
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager getRequestJsonDataWithUrl:LovelyBabyVideoList parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@",responseObject);
+        NSString *resultCode = responseObject[@"resultCode"];
+        
+        if ([resultCode isEqualToString:@"true"]) {
+            
+            
+            
+        }  else {
+            [MBProgressHUD showSuccess:responseObject[@"msg"]];
+        }
+        
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+}
+
 
 @end

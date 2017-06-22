@@ -41,7 +41,20 @@ static NSString *const footerId = @"footerId";
     // 添加搜索框
     [self addSearchBBI];
     
-    [self getVideoListDataNetRequest];
+    self.dataArray = [NSMutableArray arrayWithCapacity:0];
+    // 添加collectionView
+    [self setupCollectionView];
+    
+    NSDictionary *parameters = @{@"siteId"      : @"hlj_appjh",
+                                 @"memberId"    : @"",
+                                 @"searchName"  : @"",
+                                 @"searchType"  : @"paike",
+                                 @"pageYema"    : @"1",
+                                 @"pageSize"    : @"500",
+                                 @"token"       : @""
+                                 };
+    [self getVideoListDataNetRequestWithParmeters:parameters];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -109,6 +122,7 @@ static NSString *const footerId = @"footerId";
     [_searchTF becomeFirstResponder];
     _searchHeaderView.hidden = NO;
     self.view.alpha = 0.5f;
+    self.collctionView.userInteractionEnabled = NO;
 }
 
 - (void)clickCancelBotton
@@ -116,6 +130,17 @@ static NSString *const footerId = @"footerId";
     [_searchTF resignFirstResponder];
     _searchHeaderView.hidden = YES;
     self.view.alpha = 1.f;
+    self.collctionView.userInteractionEnabled = YES;
+    NSDictionary *parameters = @{@"siteId"      : @"hlj_appjh",
+                                 @"memberId"    : @"",
+                                 @"searchName"  : @"",
+                                 @"searchType"  : @"paike",
+                                 @"pageYema"    : @"1",
+                                 @"pageSize"    : @"500",
+                                 @"token"       : @""
+                                 };
+    [_dataArray removeAllObjects];
+    [self getVideoListDataNetRequestWithParmeters:parameters];
 }
 
 #pragma mark - 我的视频 && 活动详情
@@ -266,19 +291,29 @@ static NSString *const footerId = @"footerId";
     return NO;
 }
 
-#pragma mark - NetRequest
+#pragma mark - UITextFieldDelegate
 
-- (void)getVideoListDataNetRequest
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    
     NSDictionary *parameters = @{@"siteId"      : @"hlj_appjh",
                                  @"memberId"    : @"",
-                                 @"searchName"  : @"",
+                                 @"searchName"  : _searchTF.text? _searchTF.text : @"",
                                  @"searchType"  : @"paike",
                                  @"pageYema"    : @"1",
                                  @"pageSize"    : @"500",
                                  @"token"       : @""
                                  };
+    [_dataArray removeAllObjects];
+    [_searchTF resignFirstResponder];
+    [self getVideoListDataNetRequestWithParmeters:parameters];
+    
+    return YES;
+}
+
+#pragma mark - NetRequest
+
+- (void)getVideoListDataNetRequestWithParmeters:(NSDictionary *)parameters
+{
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager getRequestJsonDataWithUrl:LovelyBabyVideoList parameters:parameters success:^(id  _Nullable responseObject) {
                 DONG_Log(@"responseObject-->%@",responseObject);
@@ -286,7 +321,6 @@ static NSString *const footerId = @"footerId";
         
         if ([resultCode isEqualToString:@"success"]) {
             
-            self.dataArray = [NSMutableArray arrayWithCapacity:0];
             NSArray *array = responseObject[@"data"];
             
             for (NSDictionary *dict in array) {
@@ -297,16 +331,15 @@ static NSString *const footerId = @"footerId";
         }  else {
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
         }
-        // 添加collectionView
-        [self setupCollectionView];
-        
+        _collctionView.userInteractionEnabled = YES;
+        _collctionView.alpha = 1.f;
+        [_collctionView reloadData];
         [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
     }];
-    
 }
 
 
