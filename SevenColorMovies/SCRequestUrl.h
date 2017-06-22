@@ -98,6 +98,7 @@
 #define LovelyBabyRegister @"http://192.167.1.6/appjh_mmserver/member/addMember.do"
 #define LovelyBabyVideoList @"http://192.167.1.6/appjh_mmserver/paikeInfo/searchInfo.do"
 #define LovelyBabyVideoDetailInfo @"http://192.167.1.6/appjh_mmserver/paikeInfo/searchDetails.do"
+#define LovelyBabyVote @"http://192.167.1.6/appjh_mmserver/vote/userVote.do"
 
 /***************************************语音控器通信接口*****************************************/
 #define CloudRemoteControl @"192.168.31.224:9099"

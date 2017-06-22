@@ -860,6 +860,9 @@
                                         <state key="normal" title="投票" backgroundImage="ShareBtnBG">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="goToVote:" destination="9IF-v5-hbR" eventType="touchUpInside" id="ceY-du-daE"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6k-ci-Etd">
                                         <rect key="frame" x="201" y="46" width="80" height="30"/>
@@ -870,6 +873,9 @@
                                         <state key="normal" title="分享" backgroundImage="ShareBtnBG">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="shareVideo:" destination="9IF-v5-hbR" eventType="touchUpInside" id="chu-Wl-X5j"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

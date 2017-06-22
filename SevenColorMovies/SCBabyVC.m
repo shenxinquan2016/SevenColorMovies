@@ -32,6 +32,7 @@
     [super viewDidLoad];
     self.leftBBI.text = @"萌娃";
     
+    // 数据请求
     [self getVideoDetailInfoNetRequest];
 }
 
@@ -49,6 +50,7 @@
 
 #pragma mark - NetRequest
 
+// 视频详情
 - (void)getVideoDetailInfoNetRequest
 {
     NSString *number;
@@ -96,12 +98,62 @@
     }];
 }
 
+// 投票
+- (void)voteNetworkRequest
+{
+    NSString *number;
+    if (UserInfoManager.lovelyBabyIsLogin) {
+        number = UserInfoManager.lovelyBabyMemberId;
+    } else {
+        number = [HLJUUID getUUID];
+    }
+    
+    NSDictionary *parameters = @{@"voteType"      : @"iPhone",
+                                 @"number"      : number,
+                                 @"assetId"     : _babyModel.id? _babyModel.id : @""
+                                 };
+    
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager getRequestJsonDataWithUrl:LovelyBabyVote parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@",responseObject);
+        NSString *resultCode = responseObject[@"resultCode"];
+        
+        if ([resultCode isEqualToString:@"true"]) {
+            _voteBtn.enabled = NO;
+            [MBProgressHUD showSuccess:responseObject[@"msg"]];
+            
+        }  else {
+            [MBProgressHUD showSuccess:responseObject[@"msg"]];
+        }
+        
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+}
+
 #pragma mark - 播放视频
 
 - (IBAction)playVideo:(id)sender
 {
     SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithUrlString:_playUrlString videoName:_videoName];
     [self.navigationController pushViewController:playerVC animated:YES];
+}
+
+#pragma mark - 投票
+
+- (IBAction)goToVote:(id)sender
+{
+    [self voteNetworkRequest];
+}
+
+#pragma mark - 分享
+
+- (IBAction)shareVideo:(id)sender
+{
+    
 }
 
 @end
