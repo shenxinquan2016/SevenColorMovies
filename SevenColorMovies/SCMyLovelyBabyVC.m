@@ -18,9 +18,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *personalNoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalVoteLabel0;
 @property (weak, nonatomic) IBOutlet UILabel *totoalVoteLabel;
-@property (weak, nonatomic) IBOutlet UIButton *leftBtn; 
+@property (weak, nonatomic) IBOutlet UIButton *leftBtn;
 @property (weak, nonatomic) IBOutlet UIButton *rightBtn;
-
+@property (nonatomic, assign) NSInteger statusCode;
 
 @end
 
@@ -88,7 +88,7 @@
             NSDictionary *dict = dataArray.firstObject;
             
             if (dataArray.count == 0) {
-                // 未上传
+                // 1.未上传
                 [_coverIV setImage:[UIImage imageNamed:@"UnUploadViedo"]];
                 _nameLabel.hidden = YES;
                 _personalLabel0.hidden = YES;
@@ -106,32 +106,63 @@
                 _nameLabel.text = dict[@"mzName"];
                 _personalNoLabel.text = dict[@"serialNumber"];
                 _totoalVoteLabel.text = [NSString stringWithFormat:@"%@票", dict[@"voteNum"]];
-                NSInteger statusCode = [dict[@"status"] integerValue];
-                switch (statusCode) {
+                _statusCode = [dict[@"status"] integerValue];
+                
+                switch (_statusCode) {
                     case 0: // 删除
                         
                         break;
-                    case 1: // 待审核
                         
+                    case 1: // 2.待审核
+                        _personalLabel0.hidden = YES;
+                        _personalNoLabel.hidden = YES;
+                        _totalVoteLabel0.hidden = YES;
+                        _totoalVoteLabel.hidden = YES;
+                        _leftBtn.hidden = YES;
+                        [_rightBtn setTitle:@"审核中" forState:UIControlStateNormal];
+                        [_rightBtn setBackgroundImage:[UIImage imageNamed:@"UnderReviewBtnBG"] forState:UIControlStateNormal];
+                        _rightBtn.userInteractionEnabled = NO;
+                        [_coverIV sd_setImageWithURL:[NSURL URLWithString:dict[@"showUrl"]] placeholderImage:[UIImage imageNamed:@"Image-4"]];
+
                         break;
+                        
                     case 2:
                         
                         break;
-                    case 3: // 驳回
+                        
+                    case 3: // 3.驳回
+                        _personalLabel0.hidden = YES;
+                        _personalNoLabel.hidden = YES;
+                        _totalVoteLabel0.hidden = YES;
+                        _totoalVoteLabel.hidden = YES;
+                        
+                        [_rightBtn setBackgroundImage:[UIImage imageNamed:@"RefusedBtnBG"] forState:UIControlStateNormal];
+                        _rightBtn.userInteractionEnabled = NO;
+                        [_coverIV sd_setImageWithURL:[NSURL URLWithString:dict[@"showUrl"]] placeholderImage:[UIImage imageNamed:@"Image-4"]];
                         
                         break;
+                        
                     case 4: // 等待注入
                         
                         break;
+                        
                     case 5: // 注入中
                         
                         break;
-                    case 6: // 上线
+                        
+                    case 6: // 4.上线
+                        _leftBtn.hidden = YES;
+                        [_rightBtn setTitle:@"审核通过" forState:UIControlStateNormal];
+                        [_rightBtn setBackgroundImage:[UIImage imageNamed:@"ShareBtnBG"] forState:UIControlStateNormal];
+                        _rightBtn.userInteractionEnabled = NO;
+                        [_coverIV sd_setImageWithURL:[NSURL URLWithString:dict[@"showUrl"]] placeholderImage:[UIImage imageNamed:@"Image-4"]];
                         
                         break;
+                        
                     case 7: // 下线
                         
                         break;
+                        
                     default:
                         break;
                 }
