@@ -57,6 +57,11 @@
     
 }
 
+// 录制视频
+- (void)recordVideo
+{
+    DONG_Log(@"录制视频");
+}
 
 // 禁止旋转屏幕
 - (BOOL)shouldAutorotate
@@ -100,6 +105,10 @@
                 [_rightBtn setTitle:@"未上传" forState:UIControlStateNormal];
                 [_rightBtn setBackgroundImage:[UIImage imageNamed:@"UnUploadBtnBG"] forState:UIControlStateNormal];
                 _rightBtn.userInteractionEnabled = NO;
+                
+                _coverIV.userInteractionEnabled = YES;
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recordVideo)];
+                [_coverIV addGestureRecognizer:tap];
                 
             } else {
                 
@@ -168,7 +177,6 @@
                 }
                 
             }
-            
             
         } else if ([resultCode isEqualToString:@"tokenInvalid"]) {
             
