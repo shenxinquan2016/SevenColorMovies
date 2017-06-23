@@ -17,9 +17,10 @@
 
 @interface SCLovelyBabyCenterVC ()<UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (nonatomic, strong) UIView *searchHeaderView;
 /** 搜索textField */
 @property (nonatomic, strong) UITextField *searchTF;
+/** 搜索后面的取消按钮 */
+@property (nonatomic, strong) UIButton *cancelBtn;
 
 @property (nonatomic, strong) UICollectionView *collctionView;
 @property (nonatomic, strong) UIButton *myVideoButton;
@@ -59,12 +60,11 @@ static NSString *const footerId = @"footerId";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    _searchHeaderView.hidden = YES;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,6 +74,7 @@ static NSString *const footerId = @"footerId";
 
 #pragma mark - 搜索框
 
+// 添加搜索视图
 - (void)addSearchBBI
 {
     SCSearchBarView *searchView = [[SCSearchBarView alloc] initWithFrame:CGRectMake(0, 0, 190, 29)];
@@ -83,7 +84,7 @@ static NSString *const footerId = @"footerId";
     [searchView addGestureRecognizer:searchTap];
     
     UIButton *btn = (UIButton *)searchView;
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     UIBarButtonItem *rightNegativeSpacer = [[UIBarButtonItem alloc]
                                             initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
@@ -91,44 +92,58 @@ static NSString *const footerId = @"footerId";
     rightNegativeSpacer.width = -4;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
 
-    _searchHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 44)];
-    _searchHeaderView.backgroundColor = [UIColor colorWithHex:@"#F1F1F1"];
-    [self.navigationController.navigationBar addSubview:_searchHeaderView];
+}
+
+// 点击搜索按钮
+- (void)clickSearchBtn
+{
+    // 1.先将右item置为空
+    self.navigationItem.rightBarButtonItems = nil;
     
-    SCSearchBarView *searchView2 = [[SCSearchBarView alloc] initWithFrame:CGRectMake(20, 7, kMainScreenWidth-80, 29)];
-    searchView2.searchTF.placeholder = @"请输入要搜索的人名";
-    self.searchTF = searchView2.searchTF;
+    // 2.再添加左item
+    UIView *searchHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 44)];
+    searchHeaderView.backgroundColor = [UIColor colorWithHex:@"#F1F1F1"];
+    [self.navigationController.navigationBar addSubview:searchHeaderView];
+    
+    SCSearchBarView *searchView = [[SCSearchBarView alloc] initWithFrame:CGRectMake(20, 7, kMainScreenWidth-80, 29)];
+    searchView.searchTF.placeholder = @"请输入要搜索的人名";
+    self.searchTF = searchView.searchTF;
     _searchTF.delegate = self;
     _searchTF.returnKeyType =  UIReturnKeySearch;
-    [_searchHeaderView addSubview:searchView2];
+    [searchHeaderView addSubview:searchView];
     
     UIButton *button = [[UIButton alloc] init];
     [button setTitleColor:[UIColor colorWithHex:@"#6798FC"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(clickCancelBotton) forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:@"取消" forState:UIControlStateNormal];
-    [_searchHeaderView addSubview:button];
+    _cancelBtn = button;
+    [searchHeaderView addSubview:button];
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(60, 30));
-        make.right.equalTo(_searchHeaderView).offset(0);
-        make.centerY.equalTo(_searchHeaderView.mas_centerY);
+        make.right.equalTo(searchHeaderView).offset(0);
+        make.centerY.equalTo(searchHeaderView.mas_centerY);
     }];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:searchHeaderView];
     
-    _searchHeaderView.hidden = YES;
-}
-
-- (void)clickSearchBtn
-{
-    [self.navigationController.navigationBar bringSubviewToFront:_searchHeaderView];
+    UIBarButtonItem *rightNegativeSpacer = [[UIBarButtonItem alloc]
+                                            initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                            target:nil action:nil];
+    rightNegativeSpacer.width = -14;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
+    
     [_searchTF becomeFirstResponder];
-    _searchHeaderView.hidden = NO;
     self.view.alpha = 0.5f;
     self.collctionView.userInteractionEnabled = NO;
 }
 
+// 点击取消按钮
 - (void)clickCancelBotton
 {
-    [_searchTF resignFirstResponder];
-    _searchHeaderView.hidden = YES;
+    // 1.添加右侧item
+    [self addSearchBBI];
+    // 2.重新添加左侧item
+    [self addNavigationBarLeftBarButtonItem];
+
     self.view.alpha = 1.f;
     self.collctionView.userInteractionEnabled = YES;
     NSDictionary *parameters = @{@"siteId"      : @"hlj_appjh",
@@ -141,6 +156,46 @@ static NSString *const footerId = @"footerId";
                                  };
     [_dataArray removeAllObjects];
     [self getVideoListDataNetRequestWithParmeters:parameters];
+}
+
+// 重新添加导航栏左item
+- (void)addNavigationBarLeftBarButtonItem
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 32)];
+    //    view.backgroundColor = [UIColor redColor];
+    // 返回箭头
+    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Back_Arrow"]];
+    [view addSubview:imgView];
+    //    imgView.backgroundColor = [UIColor grayColor];
+    [imgView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(view);
+        make.centerY.equalTo(view);
+        make.size.mas_equalTo(imgView.image.size);
+        
+    }];
+    // 返回标题
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 125, 22)];
+    //    titleLabel.backgroundColor = [UIColor greenColor];
+    titleLabel.text = @"萌娃";
+    titleLabel.textColor = [UIColor colorWithHex:@"#878889"];
+    titleLabel.font = [UIFont systemFontOfSize: 19.0];
+    titleLabel.textAlignment = NSTextAlignmentLeft;
+    [view addSubview:titleLabel];
+    [titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view);
+        make.left.equalTo(imgView.mas_right).offset(0);
+        make.size.mas_equalTo(CGSizeMake(125, 22));
+        
+    }];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goBack)];
+    [view addGestureRecognizer:tap];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:view];
+    UIBarButtonItem *leftNegativeSpacer = [[UIBarButtonItem alloc]
+                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                           target:nil action:nil];
+    leftNegativeSpacer.width = -6;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftNegativeSpacer,item, nil];
 }
 
 #pragma mark - 我的视频 && 活动详情
@@ -328,11 +383,20 @@ static NSString *const footerId = @"footerId";
                 [_dataArray addObject:model];
             }
             
-        }  else {
+        } else if ([resultCode isEqualToString:@"tokenInvalid"]) {
+            
+            UserInfoManager.lovelyBabyIsLogin = NO;
+            [UserInfoManager removeUserInfo];
+            SCLovelyBabyLoginVC *loginVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyLoginVC");
+            [self.navigationController pushViewController:loginVC animated:YES];
+            
+        } else {
+            
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
         }
+        [_cancelBtn setTitle:@"完成" forState:UIControlStateNormal];
         _collctionView.userInteractionEnabled = YES;
-        _collctionView.alpha = 1.f;
+        self.view.alpha = 1.f;
         [_collctionView reloadData];
         [CommonFunc dismiss];
         

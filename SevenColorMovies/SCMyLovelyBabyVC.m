@@ -7,6 +7,7 @@
 //  我的视频
 
 #import "SCMyLovelyBabyVC.h"
+#import "SCLovelyBabyLoginVC.h"
 
 @interface SCMyLovelyBabyVC ()
 
@@ -50,11 +51,18 @@
         DONG_Log(@"responseObject-->%@",responseObject);
         NSString *resultCode = responseObject[@"resultCode"];
         
-        if ([resultCode isEqualToString:@"true"]) {
+        if ([resultCode isEqualToString:@"success"]) {
             
             
             
-        }  else {
+        } else if ([resultCode isEqualToString:@"tokenInvalid"]) {
+            
+            UserInfoManager.lovelyBabyIsLogin = NO;
+            [UserInfoManager removeUserInfo];
+            SCLovelyBabyLoginVC *loginVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyLoginVC");
+            [self.navigationController pushViewController:loginVC animated:YES];
+            
+        } else {
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
         }
         

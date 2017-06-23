@@ -8,6 +8,7 @@
 
 #import "SCBabyVC.h"
 #import "SCHuikanPlayerViewController.h"
+#import "SCLovelyBabyLoginVC.h"
 
 @interface SCBabyVC ()
 
@@ -86,7 +87,14 @@
             _playUrlString = dict[@"bfUrl"];
             _videoName = dict[@"mzName"];
             
-        }  else {
+        } else if ([resultCode isEqualToString:@"tokenInvalid"]) {
+            
+            UserInfoManager.lovelyBabyIsLogin = NO;
+            [UserInfoManager removeUserInfo];
+            SCLovelyBabyLoginVC *loginVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyLoginVC");
+            [self.navigationController pushViewController:loginVC animated:YES];
+            
+        } else {
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
         }
       
@@ -122,7 +130,15 @@
             _voteBtn.enabled = NO;
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
             
-        }  else {
+        } else if ([resultCode isEqualToString:@"tokenInvalid"]) {
+            
+            UserInfoManager.lovelyBabyIsLogin = NO;
+            [UserInfoManager removeUserInfo];
+            SCLovelyBabyLoginVC *loginVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyLoginVC");
+            [self.navigationController pushViewController:loginVC animated:YES];
+            
+        } else {
+            
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
         }
         
