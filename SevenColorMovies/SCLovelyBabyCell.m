@@ -42,7 +42,7 @@
     
     _personalNoLabel.text = babyModel.serialNumber;
     _nameLabel.text = babyModel.mzName;
-    _totalVoteLabel.text = babyModel.voteNum;
+    _totalVoteLabel.text = [NSString stringWithFormat:@"%@票", babyModel.voteNum];
     [_coverIV sd_setImageWithURL:[NSURL URLWithString:babyModel.showUrl] placeholderImage:[UIImage imageNamed:@"Image-8"]];
 }
 

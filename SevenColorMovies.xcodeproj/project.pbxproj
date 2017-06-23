@@ -1200,22 +1200,11 @@
 		115A32BA1EF12EB200549E5F /* LovelyBaby 萌娃 */ = {
 			isa = PBXGroup;
 			children = (
-				11DE6B811EF2304700F8B07F /* SCLovelyBabyCenterVC.h */,
-				11DE6B821EF2304700F8B07F /* SCLovelyBabyCenterVC.m */,
-				11C868BC1EFA0B8700C1F218 /* SCBabyVC.h */,
-				11C868BD1EFA0B8700C1F218 /* SCBabyVC.m */,
-				11C868BF1EFA1D5900C1F218 /* SCMyLovelyBabyVC.h */,
-				11C868C01EFA1D5900C1F218 /* SCMyLovelyBabyVC.m */,
-				11C868C51EFA225C00C1F218 /* SCLovelyBabyRegisterVC.h */,
-				11C868C61EFA225C00C1F218 /* SCLovelyBabyRegisterVC.m */,
-				11C868C81EFA227F00C1F218 /* SCLovelyBabyLoginVC.h */,
-				11C868C91EFA227F00C1F218 /* SCLovelyBabyLoginVC.m */,
-				11C868CB1EFA443000C1F218 /* SCActivityCenterVC.h */,
-				11C868CC1EFA443000C1F218 /* SCActivityCenterVC.m */,
-				11DE6B8A1EF25FB100F8B07F /* View */,
-				11DE6B891EF25FAE00F8B07F /* Model */,
-				11DE6B881EF25FAA00F8B07F /* New Group1 */,
-				11DE6B871EF25FA700F8B07F /* New Group */,
+				11D58BC41EFCF8B3006F04A8 /* MainBody */,
+				11DE6B881EF25FAA00F8B07F /* 我的视频 */,
+				11D58BC61EFCF919006F04A8 /* 活动详情 */,
+				11D58BC51EFCF8FE006F04A8 /* 视频详情 */,
+				11DE6B871EF25FA700F8B07F /* 登录注册 */,
 			);
 			name = "LovelyBaby 萌娃";
 			sourceTree = "<group>";
@@ -2139,6 +2128,35 @@
 			name = XMLParser;
 			sourceTree = "<group>";
 		};
+		11D58BC41EFCF8B3006F04A8 /* MainBody */ = {
+			isa = PBXGroup;
+			children = (
+				11DE6B811EF2304700F8B07F /* SCLovelyBabyCenterVC.h */,
+				11DE6B821EF2304700F8B07F /* SCLovelyBabyCenterVC.m */,
+				11DE6B891EF25FAE00F8B07F /* Model */,
+				11DE6B8A1EF25FB100F8B07F /* View */,
+			);
+			name = MainBody;
+			sourceTree = "<group>";
+		};
+		11D58BC51EFCF8FE006F04A8 /* 视频详情 */ = {
+			isa = PBXGroup;
+			children = (
+				11C868BC1EFA0B8700C1F218 /* SCBabyVC.h */,
+				11C868BD1EFA0B8700C1F218 /* SCBabyVC.m */,
+			);
+			name = "视频详情";
+			sourceTree = "<group>";
+		};
+		11D58BC61EFCF919006F04A8 /* 活动详情 */ = {
+			isa = PBXGroup;
+			children = (
+				11C868CB1EFA443000C1F218 /* SCActivityCenterVC.h */,
+				11C868CC1EFA443000C1F218 /* SCActivityCenterVC.m */,
+			);
+			name = "活动详情";
+			sourceTree = "<group>";
+		};
 		11DC2BBE1D3DCD2900012480 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2196,18 +2214,24 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
-		11DE6B871EF25FA700F8B07F /* New Group */ = {
+		11DE6B871EF25FA700F8B07F /* 登录注册 */ = {
 			isa = PBXGroup;
 			children = (
+				11C868C51EFA225C00C1F218 /* SCLovelyBabyRegisterVC.h */,
+				11C868C61EFA225C00C1F218 /* SCLovelyBabyRegisterVC.m */,
+				11C868C81EFA227F00C1F218 /* SCLovelyBabyLoginVC.h */,
+				11C868C91EFA227F00C1F218 /* SCLovelyBabyLoginVC.m */,
 			);
-			name = "New Group";
+			name = "登录注册";
 			sourceTree = "<group>";
 		};
-		11DE6B881EF25FAA00F8B07F /* New Group1 */ = {
+		11DE6B881EF25FAA00F8B07F /* 我的视频 */ = {
 			isa = PBXGroup;
 			children = (
+				11C868BF1EFA1D5900C1F218 /* SCMyLovelyBabyVC.h */,
+				11C868C01EFA1D5900C1F218 /* SCMyLovelyBabyVC.m */,
 			);
-			name = "New Group1";
+			name = "我的视频";
 			sourceTree = "<group>";
 		};
 		11DE6B891EF25FAE00F8B07F /* Model */ = {

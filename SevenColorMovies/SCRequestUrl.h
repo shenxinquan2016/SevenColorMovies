@@ -94,11 +94,11 @@
 #define CollectCustomerBehaviorData @"http://scc.96396.cn:10013/appjh_mmserver/gather/addDatasIos.do"
 
 /***************************************萌娃*****************************************/
-#define LovelyBabyLogin @"http://192.167.1.6/appjh_mmserver/member/login.do"
-#define LovelyBabyRegister @"http://192.167.1.6/appjh_mmserver/member/addMember.do"
-#define LovelyBabyVideoList @"http://192.167.1.6/appjh_mmserver/paikeInfo/searchInfo.do"
-#define LovelyBabyVideoDetailInfo @"http://192.167.1.6/appjh_mmserver/paikeInfo/searchDetails.do"
-#define LovelyBabyVote @"http://192.167.1.6/appjh_mmserver/vote/userVote.do"
+#define LovelyBabyLogin @"http://192.167.1.6/appjh_mmserver/member/login.do" // 登录
+#define LovelyBabyRegister @"http://192.167.1.6/appjh_mmserver/member/addMember.do" // 注册
+#define LovelyBabyVideoList @"http://192.167.1.6/appjh_mmserver/paikeInfo/searchInfo.do" // 视频列表
+#define LovelyBabyVideoDetailInfo @"http://192.167.1.6/appjh_mmserver/paikeInfo/searchDetails.do" // 视频详情
+#define LovelyBabyVote @"http://192.167.1.6/appjh_mmserver/vote/userVote.do"  // 投票
 
 /***************************************语音控器通信接口*****************************************/
 #define CloudRemoteControl @"192.168.31.224:9099"

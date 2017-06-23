@@ -82,7 +82,7 @@
             [_coverIV sd_setImageWithURL:[NSURL URLWithString:dict[@"showUrl"]] placeholderImage:[UIImage imageNamed:@"Image-4"]];
             _nameLabel.text = dict[@"mzName"];
             _personalNoLabel.text = dict[@"serialNumber"];
-            _totalVoteLabel.text = dict[@"voteNum"];
+            _totalVoteLabel.text = [NSString stringWithFormat:@"%@票", dict[@"voteNum"]];
             _descriptionTV.text = dict[@"mzDesc"];
             _playUrlString = dict[@"bfUrl"];
             _videoName = dict[@"mzName"];
