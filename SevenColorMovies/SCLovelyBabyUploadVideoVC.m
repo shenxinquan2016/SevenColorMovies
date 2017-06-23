@@ -8,7 +8,13 @@
 
 #import "SCLovelyBabyUploadVideoVC.h"
 
-@interface SCLovelyBabyUploadVideoVC ()
+@interface SCLovelyBabyUploadVideoVC ()<UITextViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITextField *videoNameTF;
+@property (weak, nonatomic) IBOutlet UITextView *videoIntroductionTV;
+@property (weak, nonatomic) IBOutlet UILabel *placeHolderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *amountLabel;
+
 
 @end
 
@@ -16,22 +22,38 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    _videoIntroductionTV.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) { // 检测到“完成”
+        [textView resignFirstResponder]; // 释放键盘
+        return NO;
+    }
+    if (textView.text.length==0){ // textview长度为0
+        if ([text isEqualToString:@""]) { // 判断是否为删除键
+            _placeHolderLabel.hidden=NO; // 隐藏文字
+        } else {
+            _placeHolderLabel.hidden=YES;
+        }
+    } else { // textview长度不为0
+        if (textView.text.length == 1){ // textview长度为1时候
+            if ([text isEqualToString:@""]) { // 判断是否为删除键
+                _placeHolderLabel.hidden=NO;
+            } else { // 不是删除
+                _placeHolderLabel.hidden=YES;
+            }
+        } else { // 长度不为1时候
+            _placeHolderLabel.hidden=YES;
+        }
+    }
+    return YES;
 }
-*/
 
 @end

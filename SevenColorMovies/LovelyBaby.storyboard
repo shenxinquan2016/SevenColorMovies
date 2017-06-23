@@ -663,6 +663,16 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="SetCoverImage"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="对你的短片简单介绍下吧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAB-aH-XNq">
+                                <rect key="frame" x="7" y="280" width="158" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="A0Y-yA-E6v"/>
+                                    <constraint firstAttribute="width" constant="158" id="MBb-KV-ihV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -672,6 +682,7 @@
                             <constraint firstAttribute="trailing" secondItem="57x-ll-Xhb" secondAttribute="trailing" id="Ehc-d2-rH0"/>
                             <constraint firstItem="aR4-Ut-rWa" firstAttribute="top" secondItem="WKd-aj-fjI" secondAttribute="bottom" constant="-25" id="IaG-dD-qvq"/>
                             <constraint firstItem="gwU-QG-xHp" firstAttribute="top" secondItem="ABc-QU-mHR" secondAttribute="bottom" id="JgO-T4-H27"/>
+                            <constraint firstItem="pAB-aH-XNq" firstAttribute="top" secondItem="dDp-26-4Dj" secondAttribute="bottom" constant="14" id="PWp-ds-uqr"/>
                             <constraint firstItem="bXg-hh-4v1" firstAttribute="centerX" secondItem="BJo-b9-rah" secondAttribute="centerX" id="SlJ-zg-30N"/>
                             <constraint firstItem="bXg-hh-4v1" firstAttribute="top" secondItem="WKd-aj-fjI" secondAttribute="bottom" constant="20" id="X4h-l8-kcn"/>
                             <constraint firstAttribute="trailing" secondItem="dDp-26-4Dj" secondAttribute="trailing" id="aO9-em-C9o"/>
@@ -684,8 +695,15 @@
                             <constraint firstItem="tE2-NO-9sm" firstAttribute="centerX" secondItem="gwU-QG-xHp" secondAttribute="centerX" id="qVV-wz-cOi"/>
                             <constraint firstItem="dDp-26-4Dj" firstAttribute="top" secondItem="gwU-QG-xHp" secondAttribute="bottom" id="sG5-W2-kgg"/>
                             <constraint firstItem="WKd-aj-fjI" firstAttribute="top" secondItem="dDp-26-4Dj" secondAttribute="bottom" constant="6" id="zD9-fh-hqK"/>
+                            <constraint firstItem="pAB-aH-XNq" firstAttribute="leading" secondItem="BJo-b9-rah" secondAttribute="leading" constant="7" id="zYh-GN-gIF"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="amountLabel" destination="aR4-Ut-rWa" id="jPf-ww-slP"/>
+                        <outlet property="placeHolderLabel" destination="pAB-aH-XNq" id="MaX-u7-374"/>
+                        <outlet property="videoIntroductionTV" destination="WKd-aj-fjI" id="3U1-7G-yIL"/>
+                        <outlet property="videoNameTF" destination="VNk-in-5Jg" id="yYJ-gC-Ddy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4UD-7V-dLz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
