@@ -8,6 +8,7 @@
 
 #import "SCMyLovelyBabyVC.h"
 #import "SCLovelyBabyLoginVC.h"
+#import "SCLovelyBabyUploadVideoVC.h"
 
 @interface SCMyLovelyBabyVC ()
 
@@ -60,7 +61,8 @@
 // 录制视频
 - (void)recordVideo
 {
-    DONG_Log(@"录制视频");
+    SCLovelyBabyUploadVideoVC *videoUpdateVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyUploadVideoVC");
+    [self.navigationController pushViewController:videoUpdateVC animated:YES];
 }
 
 // 禁止旋转屏幕

@@ -210,6 +210,8 @@
 		11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422591D49A42800B4F9AE /* SCComonFunc.m */; };
 		11D4225C1D49A8EC00B4F9AE /* SCLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */; };
 		11D4225F1D49E83D00B4F9AE /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D4225E1D49E83D00B4F9AE /* XMLDictionary.m */; };
+		11D58BCC1EFD16DF006F04A8 /* SCLovelyBabyUploadVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D58BCB1EFD16DF006F04A8 /* SCLovelyBabyUploadVideoVC.m */; };
+		11D58BCF1EFD1709006F04A8 /* SCLovelyBabyRecordVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D58BCE1EFD1709006F04A8 /* SCLovelyBabyRecordVideoVC.m */; };
 		11DA5EFB1E24742800B32E1B /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11DA5EFA1E24742800B32E1B /* CodeScan.bundle */; };
 		11DA5EFE1E24DFB500B32E1B /* SCScanResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DA5EFD1E24DFB500B32E1B /* SCScanResultViewController.m */; };
 		11DC2BC11D3DCDEA00012480 /* SCDemandChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DC2BC01D3DCDEA00012480 /* SCDemandChannelCell.m */; };
@@ -627,6 +629,10 @@
 		11D4225B1D49A8EC00B4F9AE /* SCLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCLoadingView.xib; sourceTree = "<group>"; };
 		11D4225D1D49E83D00B4F9AE /* XMLDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDictionary.h; sourceTree = "<group>"; };
 		11D4225E1D49E83D00B4F9AE /* XMLDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLDictionary.m; sourceTree = "<group>"; };
+		11D58BCA1EFD16DF006F04A8 /* SCLovelyBabyUploadVideoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLovelyBabyUploadVideoVC.h; sourceTree = "<group>"; };
+		11D58BCB1EFD16DF006F04A8 /* SCLovelyBabyUploadVideoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLovelyBabyUploadVideoVC.m; sourceTree = "<group>"; };
+		11D58BCD1EFD1709006F04A8 /* SCLovelyBabyRecordVideoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLovelyBabyRecordVideoVC.h; sourceTree = "<group>"; };
+		11D58BCE1EFD1709006F04A8 /* SCLovelyBabyRecordVideoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLovelyBabyRecordVideoVC.m; sourceTree = "<group>"; };
 		11DA5EFA1E24742800B32E1B /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
 		11DA5EFC1E24DFB500B32E1B /* SCScanResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCScanResultViewController.h; sourceTree = "<group>"; };
 		11DA5EFD1E24DFB500B32E1B /* SCScanResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCScanResultViewController.m; sourceTree = "<group>"; };
@@ -2157,6 +2163,33 @@
 			name = "活动详情";
 			sourceTree = "<group>";
 		};
+		11D58BC71EFD1673006F04A8 /* MainBody */ = {
+			isa = PBXGroup;
+			children = (
+				11C868BF1EFA1D5900C1F218 /* SCMyLovelyBabyVC.h */,
+				11C868C01EFA1D5900C1F218 /* SCMyLovelyBabyVC.m */,
+			);
+			name = MainBody;
+			sourceTree = "<group>";
+		};
+		11D58BC81EFD169D006F04A8 /* 视频录制 */ = {
+			isa = PBXGroup;
+			children = (
+				11D58BCD1EFD1709006F04A8 /* SCLovelyBabyRecordVideoVC.h */,
+				11D58BCE1EFD1709006F04A8 /* SCLovelyBabyRecordVideoVC.m */,
+			);
+			name = "视频录制";
+			sourceTree = "<group>";
+		};
+		11D58BC91EFD16A7006F04A8 /* 视频上传 */ = {
+			isa = PBXGroup;
+			children = (
+				11D58BCA1EFD16DF006F04A8 /* SCLovelyBabyUploadVideoVC.h */,
+				11D58BCB1EFD16DF006F04A8 /* SCLovelyBabyUploadVideoVC.m */,
+			);
+			name = "视频上传";
+			sourceTree = "<group>";
+		};
 		11DC2BBE1D3DCD2900012480 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2228,8 +2261,9 @@
 		11DE6B881EF25FAA00F8B07F /* 我的视频 */ = {
 			isa = PBXGroup;
 			children = (
-				11C868BF1EFA1D5900C1F218 /* SCMyLovelyBabyVC.h */,
-				11C868C01EFA1D5900C1F218 /* SCMyLovelyBabyVC.m */,
+				11D58BC71EFD1673006F04A8 /* MainBody */,
+				11D58BC81EFD169D006F04A8 /* 视频录制 */,
+				11D58BC91EFD16A7006F04A8 /* 视频上传 */,
 			);
 			name = "我的视频";
 			sourceTree = "<group>";
@@ -2781,6 +2815,7 @@
 				11052AC21E10BFF300BF795B /* Dong_NullDataView.m in Sources */,
 				116476041D40BA3D00A3BC1C /* SCChannelCatalogueVC.m in Sources */,
 				11DC2BD81D3DFC6800012480 /* UIImageView+Addition.m in Sources */,
+				11D58BCF1EFD1709006F04A8 /* SCLovelyBabyRecordVideoVC.m in Sources */,
 				11DC2BCC1D3DD88600012480 /* IMB_DownImageView.m in Sources */,
 				11FF648F1E2767C4007DC954 /* SCAdMediaInfo.m in Sources */,
 				115A21071D41B9750097DE57 /* SCOtherBaseViewController.m in Sources */,
@@ -2826,6 +2861,7 @@
 				11EBC3F51D5C69F600C1A338 /* SCSpecialTopicDetailVC.m in Sources */,
 				1111A40F1D488D8A00C17B92 /* SCUserInfoManger.m in Sources */,
 				11BE831B1D3CBADF00886CF6 /* NavigationInteractiveTransition.m in Sources */,
+				11D58BCC1EFD16DF006F04A8 /* SCLovelyBabyUploadVideoVC.m in Sources */,
 				1118278E1D800C92005921D6 /* SCFliterOptionView.m in Sources */,
 				11FEEF1A1D93846E00518029 /* HLJRequest.m in Sources */,
 				117D1E201E08C466001195F2 /* SCSoundRecordingTool.mm in Sources */,
