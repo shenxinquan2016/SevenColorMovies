@@ -91,7 +91,7 @@
 #define GetLiveNewTvId @""
 
 // 数据采集接口 黑网内网
-#define CollectCustomerBehaviorData @"http://125.223.98.233:10013/appjh_mmserver/gather/addDatasIos.do"
+#define CollectCustomerBehaviorData @"http://scc.96396.cn:10013/appjh_mmserver/gather/addDatasIos.do"
 
 /***************************************萌娃*****************************************/
 #define LovelyBabyLogin @"http://192.167.1.6/appjh_mmserver/member/login.do"
