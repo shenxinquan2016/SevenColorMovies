@@ -95,7 +95,6 @@
     // 如果是正在播放时进入后台的 接着播放
     [DONG_NotificationCenter postNotificationName:AppDidBecomeActive object:nil];
     
-    
     // 移动网络环境下播放是否提醒  每次APP进入时，设置为yes
     BOOL mobileNetworkAlert = YES;
     [DONG_UserDefaults setBool:mobileNetworkAlert forKey:kMobileNetworkAlert];
