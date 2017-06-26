@@ -185,7 +185,7 @@
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
     //创建网页内容对象
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"七彩云(手机版)" descr:@"七彩云(手机版)是龙江网络打造的一款聚合型手机电视客户端，作为龙江网络智能机顶盒七彩云产品的延伸，用户可以在手机端同步收看直播、点播、回看、时移等各类精彩内容，并畅享电影、电视剧、少儿、综艺、潮生活、最精彩等各类热门资源。" thumImage:[UIImage imageNamed:@"AppIcon"]];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"七彩云(手机版)" descr:@"七彩云(手机版)是龙江网络打造的一款聚合型手机电视客户端，作为龙江网络智能机顶盒七彩云产品的延伸，用户可以在手机端同步收看直播、点播、回看、时移等各类精彩内容，并畅享电影、电视剧、少儿、综艺、潮生活、最精彩等各类热门资源。" thumImage:[UIImage imageNamed:@"Icon"]];
     //设置网页地址
     shareObject.webpageUrl =@"https://itunes.apple.com/cn/app/七彩云-手机版/id1215488821?l=en&mt=8";
     
