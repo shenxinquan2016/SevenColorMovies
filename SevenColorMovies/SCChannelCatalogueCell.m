@@ -38,23 +38,17 @@
     NSArray *filmClassTitleArray = model;
     if (model && [model isKindOfClass:[NSArray class]]) {
         if (indexPath.row == 0) {
-            _channelNameLabel.text = @"政府";
-            _channelImg.image = [UIImage imageNamed:@"Government"];
-        } else if (indexPath.row == 1) {
-            _channelNameLabel.text = @"先锋网";
-            _channelImg.image = [UIImage imageNamed:@"PioneerNet"];
-        } else if (indexPath.row == 2) {
             _channelNameLabel.text = @"直播";
             _channelImg.image = [UIImage imageNamed:@"直播"];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 1) {
             _channelNameLabel.text = @"营业厅";
             _channelImg.image = [UIImage imageNamed:@"营业厅"];
-        } else if (indexPath.row == filmClassTitleArray.count+4) {
+        } else if (indexPath.row == filmClassTitleArray.count+2) {
             _channelNameLabel.text = @"萌娃";
             _channelImg.image = [UIImage imageNamed:@"LovelyBaby"];
         } else {
-            _channelNameLabel.text = filmClassTitleArray[indexPath.row-4];
-            _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassTitleArray[indexPath.row-4]]];
+            _channelNameLabel.text = filmClassTitleArray[indexPath.row-2];
+            _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassTitleArray[indexPath.row-2]]];
             
             if (_channelImg.image == nil) {
                 _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];

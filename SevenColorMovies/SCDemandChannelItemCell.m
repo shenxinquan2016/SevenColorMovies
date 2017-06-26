@@ -26,12 +26,6 @@
 {
     NSArray *array = model;
     if (indexPath.row == 0) {
-        _channelImg.image = [UIImage imageNamed:@"Government"];
-        _channelNameLabel.text =  @"政府";
-    } else if (indexPath.row == 1) {
-        _channelImg.image = [UIImage imageNamed:@"PioneerNet"];
-        _channelNameLabel.text =  @"先锋网";
-    } else if (indexPath.row == 2) {
         _channelImg.image = [UIImage imageNamed:@"直播"];
         _channelNameLabel.text =  @"直播";
     } else if (indexPath.row == 4) {
@@ -41,17 +35,18 @@
         _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         _channelNameLabel.text =  @"更多";
     } else if (indexPath.row > 0 && indexPath.row < 4) {
-        _channelImg.image = [UIImage imageNamed:array[indexPath.row-3]];
+        _channelImg.image = [UIImage imageNamed:array[indexPath.row-1]];
         if (_channelImg.image == nil){
             _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         }
-        _channelNameLabel.text =  array[indexPath.row-3];
+        _channelNameLabel.text =  array[indexPath.row-1];
+        
     } else if (indexPath.row > 4 && indexPath.row < 7) {
-        _channelImg.image = [UIImage imageNamed:array[indexPath.row-4]];
+        _channelImg.image = [UIImage imageNamed:array[indexPath.row-2]];
         if (_channelImg.image == nil) {
             _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         }
-        _channelNameLabel.text =  array[indexPath.row-4];
+        _channelNameLabel.text =  array[indexPath.row-2];
     }
 }
 

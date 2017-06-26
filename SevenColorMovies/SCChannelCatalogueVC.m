@@ -134,7 +134,7 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.filmClassArray.count + 5;
+    return self.filmClassArray.count + 3;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -186,9 +186,7 @@ static NSString *const footerId = @"footerId";
     if (_editBtn.selected == YES) {//编辑模式
         if (indexPath.row == 0) return NO; // 🚫第1个单元格不让移动
         if (indexPath.row == 1) return NO; // 🚫第2个单元格不让移动
-        if (indexPath.row == 2) return NO; // 🚫第3个单元格不让移动
-        if (indexPath.row == 3) return NO; // 🚫第4个单元格不让移动
-        if (indexPath.row == _filmClassTitleArray.count+5-1) return NO; // 🚫最后一个单元格不让移动
+        if (indexPath.row == _filmClassTitleArray.count+2) return NO; // 🚫最后一个单元格不让移动
         return YES;
         
     } else {
@@ -261,11 +259,11 @@ static NSString *const footerId = @"footerId";
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    if (fromIndexPath.row-4 < self.filmClassTitleArray.count && toIndexPath.row-4 < self.filmClassTitleArray.count) {
+    if (fromIndexPath.row-2 < self.filmClassTitleArray.count && toIndexPath.row-2 < self.filmClassTitleArray.count) {
         
-        NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-4];
+        NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-2];
         [self.filmClassTitleArray removeObject:filmClassTitle];
-        [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row-4];
+        [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row-2];
     }
 }
 
@@ -274,9 +272,7 @@ static NSString *const footerId = @"footerId";
 {
     if (toIndexPath.row == 0) return NO; // 🚫禁止移动到第1个cell
     if (toIndexPath.row == 1) return NO; // 🚫禁止移动到第2个cell
-    if (toIndexPath.row == 2) return NO; // 🚫禁止移动到第3个cell
-    if (toIndexPath.row == 3) return NO; // 🚫禁止移动到第4个cell
-    if (toIndexPath.row == _filmClassTitleArray.count+5-1) return NO; // 🚫禁止移动到最后一个cell
+    if (toIndexPath.row == _filmClassTitleArray.count+2) return NO; // 🚫禁止移动到最后一个cell
     
     return YES;
 }
@@ -286,22 +282,6 @@ static NSString *const footerId = @"footerId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        DONG_Log(@"政府");
-        // 数据采集
-        NSString *keyValue = @"web";
-        [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"政府" mid:keyValue];
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.hlj.gov.cn/szfsjz/index.shtml"]];
-        
-    } else if (indexPath.row == 1) {
-        DONG_Log(@"先锋网");
-        // 数据采集
-        NSString *keyValue = @"web";
-        [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"先锋网" mid:keyValue];
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ljxfw.gov.cn/dyjy"]];
-        
-    } else if (indexPath.row == 2) {
         DONG_Log(@"直播");
         // 数据采集
         NSString *keyValue = @"app";
@@ -310,7 +290,7 @@ static NSString *const footerId = @"footerId";
         SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
         [self.navigationController pushViewController:liveVC animated:YES];
         
-    } else if (indexPath.row == 3) {
+    } else if (indexPath.row == 1) {
         DONG_Log(@"营业厅");
         // 数据采集
         NSString *keyValue = @"web";
@@ -318,19 +298,18 @@ static NSString *const footerId = @"footerId";
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
         
-    } else if (indexPath.row == _filmClassTitleArray.count+5-1) {
+    } else if (indexPath.row == _filmClassTitleArray.count+2) {
         DONG_Log(@"萌娃");
         SCLovelyBabyCenterVC *babyCenterVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyCenterVC");
         [self.navigationController pushViewController:babyCenterVC animated:YES];
 
-        
     } else {
     
         if (_filmClassArray.count != 0) {
-            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-4]];
+            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-2]];
             channelVC.bannerFilmModelArray = self.bannerFilmModelArray;
             
-            NSString *key = _filmClassTitleArray[indexPath.row-4];
+            NSString *key = _filmClassTitleArray[indexPath.row-2];
             channelVC.filmClassModel = _filmClassModelDictionary[key];
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];

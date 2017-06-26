@@ -533,18 +533,18 @@ static NSString *const footerId = @"footerId";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section ==0) {// 点播栏
+    if (indexPath.section ==0) { // 点播栏
         if (_filmClassArray.count == 0) {
             [MBProgressHUD showSuccess:@"暂无数据，请稍后再试"];
             return;
         }
         //设置返回键标题
-        if (indexPath.row == 7) {// 更多
+        if (indexPath.row == 7) { // 更多
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:@"更多"];
             moreView.filmClassArray = [NSMutableArray arrayWithArray:_filmClassArray];
             moreView.bannerFilmModelArray = _bannerFilmModelArr;
             
-            NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray];// NSUserDefaults 只能读取不可变对象
+            NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray]; // NSUserDefaults 只能读取不可变对象
             moreView.filmClassTitleArray = [NSMutableArray arrayWithArray:filmClassTitleArray];
             moreView.refreshHomePageBlock = ^{
                 [self setFilmClassTitleArray];//刷新section 0
@@ -552,19 +552,7 @@ static NSString *const footerId = @"footerId";
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
             
-        } else if (indexPath.row == 0) { // 政府
-            // 数据采集
-            NSString *keyValue = @"web";
-            [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"政府" mid:keyValue];
-            
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.hlj.gov.cn/szfsjz/index.shtml"]];
-        } else if (indexPath.row == 1) { // 先锋网
-            // 数据采集
-            NSString *keyValue = @"web";
-            [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"先锋网" mid:keyValue];
-            
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ljxfw.gov.cn/dyjy"]];
-        } else if (indexPath.row == 2) { // 直播
+        } else if (indexPath.row == 0) { // 直播
             // 数据采集
             NSString *keyValue = @"app";
             [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:keyValue];
@@ -583,7 +571,7 @@ static NSString *const footerId = @"footerId";
             
         } else if (indexPath.row > 0 && indexPath.row < 4) { // 3
             
-            NSString *key = _filmClassTitleArray[indexPath.row-3];
+            NSString *key = _filmClassTitleArray[indexPath.row-1];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
             channelVC.filmClassModel = _filmClassModelDictionary[key];
             channelVC.bannerFilmModelArray = _bannerFilmModelArr;
@@ -592,7 +580,7 @@ static NSString *const footerId = @"footerId";
             
         } else if (indexPath.row > 4 && indexPath.row < 7) {
             
-            NSString *key = _filmClassTitleArray[indexPath.row-4];
+            NSString *key = _filmClassTitleArray[indexPath.row-2];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
             channelVC.filmClassModel = _filmClassModelDictionary[key];
             channelVC.bannerFilmModelArray = _bannerFilmModelArr;
