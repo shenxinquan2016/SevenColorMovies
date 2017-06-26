@@ -45,7 +45,6 @@
     // 7.友盟分享
     [self initializeUMSocial];
     
-    
     return YES;
 }
 
