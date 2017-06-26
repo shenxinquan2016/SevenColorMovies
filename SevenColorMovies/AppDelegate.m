@@ -14,7 +14,6 @@
 #import "IQKeyboardManager.h"
 #import "HLJUUID.h"
 #import "ZFDownloadManager.h"// 第三方下载工具
-//#import "NSObject+LBLaunchImage.h"
 #import "DONG_LaunchAdView.h"
 #import <UMSocialCore/UMSocialCore.h>
 
@@ -41,8 +40,8 @@
     [self logUser];
     // 5.自动登录xmpp
     [self xmppLogin];
-    // 6.启动广告
-//    [self setLaunchAdvertisement];
+    // 6.启动
+    //[self setLaunchAdvertisement];
     // 7.友盟分享
     [self initializeUMSocial];
     
