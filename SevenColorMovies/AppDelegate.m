@@ -16,6 +16,7 @@
 #import "ZFDownloadManager.h"// 第三方下载工具
 //#import "NSObject+LBLaunchImage.h"
 #import "DONG_LaunchAdView.h"
+#import <UMSocialCore/UMSocialCore.h>
 
 @interface AppDelegate ()
 
@@ -42,6 +43,8 @@
     [self xmppLogin];
     // 6.启动广告
 //    [self setLaunchAdvertisement];
+    // 7.友盟分享
+    [self initializeUMSocial];
     
     
     return YES;
@@ -237,7 +240,6 @@
     const NSString *uuidStr = [HLJUUID getUUID];
     const char *uuid = [uuidStr UTF8String];
     
-    
     libagent_start(0, NULL, uuid, 5656);
     
     // 开代理日志
@@ -304,5 +306,44 @@
         DONG_Log(@"errorObject-->%@", errorObject);
     }];
 }
+
+- (void)initializeUMSocial
+{
+    /* 打开调试日志 */
+    [[UMSocialManager defaultManager] openLog:YES];
+    
+    /* 设置友盟appkey */
+    [[UMSocialManager defaultManager] setUmSocialAppkey:USHARE_APPKEY];
+    
+    [self configUSharePlatforms];
+    
+    [self confitUShareSettings];
+}
+
+- (void)confitUShareSettings
+{
+    /*
+     * 打开图片水印
+     */
+    [UMSocialGlobal shareInstance].isUsingWaterMark = YES;
+    
+    /*
+     * 关闭强制验证https，可允许http图片分享，但需要在info.plist设置安全域名
+     <key>NSAppTransportSecurity</key>
+     <dict>
+     <key>NSAllowsArbitraryLoads</key>
+     <true/>
+     </dict>
+     */
+    [UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
+    
+}
+
+- (void)configUSharePlatforms
+{
+    /* 设置微信的appKey和appSecret */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WECHAT_APPKEY appSecret:WECHAT_APPSECRET redirectURL:@"https://itunes.apple.com/cn/app/七彩云-手机版/id1215488821?l=en&mt=8"];
+}
+
 
 @end
