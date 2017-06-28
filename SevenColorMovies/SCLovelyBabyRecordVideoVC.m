@@ -23,9 +23,10 @@
     
     // 导航栏按钮
     [self addBBI];
-    
-   
-    
+    // 初始化摄像机
+    [self initializeCameraConfiguration];
+    // 录制按钮
+    [self addVideoRecordBtnView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -113,14 +114,55 @@
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer, switchCameraBarItem,rightNegativeSpacer2,  flashBtnBarItem,  nil];
 }
 
+// 闪光灯开关
 - (void)switchFlash
 {
     DONG_Log(@"闪光灯");
 }
 
+// 切换摄像头
 - (void)switchCamera
 {
     DONG_Log(@"摄像头");
+}
+
+// 开始录像
+- (void)beginVideoRecording
+{
+    
+}
+
+// 结束录像
+- (void)stopVideoRecording
+{
+    
+}
+
+- (void)addVideoRecordBtnView
+{
+    UIView *btnBG = [[UIView alloc] init];
+    btnBG.backgroundColor = [UIColor blackColor];
+    btnBG.alpha = 0.8f;
+    [self.view addSubview:btnBG];
+    [btnBG mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.height.equalTo(@150);
+    }];
+    
+    UIButton *videoRecordBtn = [[UIButton alloc] init];
+    [videoRecordBtn addTarget:self action:@selector(beginVideoRecording) forControlEvents:UIControlEventTouchDown];
+    [videoRecordBtn addTarget:self action:@selector(stopVideoRecording) forControlEvents:UIControlEventTouchUpOutside];
+    [videoRecordBtn setBackgroundImage:[UIImage imageNamed:@"VideoRecordBtnBG"] forState:UIControlStateNormal];
+    [btnBG addSubview:videoRecordBtn];
+    [videoRecordBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(btnBG);
+        make.size.mas_equalTo(CGSizeMake(80, 80));
+    }];
+}
+
+- (void)initializeCameraConfiguration
+{
+    
 }
 
 @end
