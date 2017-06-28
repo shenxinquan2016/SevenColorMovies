@@ -38,6 +38,7 @@
     
 }
 
+
 // 选择封面照片
 - (IBAction)pickCoverPhoto:(id)sender
 {

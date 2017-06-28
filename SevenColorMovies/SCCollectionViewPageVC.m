@@ -106,7 +106,7 @@ static NSString *const cellId = @"cellId";
                     
                     NSInteger filmCount = [responseObject[@"_Count"] integerValue];
                     
-                    if (_filmModelArr.count < filmCount) {
+                    if (_filmModelArr.count < filmCount) {// 判断所有视频是不已经获取完毕  _page此处失效
                         
                         if ([responseObject[@"FilmClass"] isKindOfClass:[NSArray class]]) {
                             NSArray *filmsArr = responseObject[@"FilmClass"];

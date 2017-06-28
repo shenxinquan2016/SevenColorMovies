@@ -9,6 +9,7 @@
 #import "SCMyLovelyBabyVC.h"
 #import "SCLovelyBabyLoginVC.h"
 #import "SCLovelyBabyUploadVideoVC.h"
+#import "SCLovelyBabyRecordVideoVC.h"
 
 @interface SCMyLovelyBabyVC ()
 
@@ -36,6 +37,8 @@
     
 }
 
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -44,14 +47,15 @@
 - (IBAction)playVideo:(id)sender
 {
     
-    
 }
+
+// 左按钮
 - (IBAction)clickLeftBtn:(id)sender
 {
     
 }
 
-
+// 右按钮
 - (IBAction)clickRightBtn:(id)sender
 {
     
@@ -61,8 +65,8 @@
 // 录制视频
 - (void)recordVideo
 {
-    SCLovelyBabyUploadVideoVC *videoUpdateVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyUploadVideoVC");
-    [self.navigationController pushViewController:videoUpdateVC animated:YES];
+    SCLovelyBabyRecordVideoVC *videoRecordVC = [[SCLovelyBabyRecordVideoVC alloc] initWithWithTitle:@""];
+    [self.navigationController pushViewController:videoRecordVC animated:YES];
 }
 
 // 禁止旋转屏幕
