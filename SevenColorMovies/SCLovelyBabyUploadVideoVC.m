@@ -4,29 +4,68 @@
 //
 //  Created by yesdgq on 2017/6/23.
 //  Copyright © 2017年 yesdgq. All rights reserved.
-//
+//  视频编辑上传
 
 #import "SCLovelyBabyUploadVideoVC.h"
 
-@interface SCLovelyBabyUploadVideoVC ()<UITextViewDelegate>
+@interface SCLovelyBabyUploadVideoVC ()<UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
+/** 标题 */
 @property (weak, nonatomic) IBOutlet UITextField *videoNameTF;
+/** 简介 */
 @property (weak, nonatomic) IBOutlet UITextView *videoIntroductionTV;
+/** 简介textView placeHolder */
 @property (weak, nonatomic) IBOutlet UILabel *placeHolderLabel;
+/** 字数 */
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
+/** 相册 */
+@property(nonatomic,strong)UIImagePickerController *imagePikcer;
 
 
 @end
 
 @implementation SCLovelyBabyUploadVideoVC
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     _videoIntroductionTV.delegate = self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
+    
+}
+
+// 选择封面照片
+- (IBAction)pickCoverPhoto:(id)sender
+{
+    _imagePikcer = [[UIImagePickerController alloc] init];
+    _imagePikcer.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    _imagePikcer.allowsEditing = YES;
+    _imagePikcer.delegate = self;
+    _imagePikcer.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:_imagePikcer animated:YES completion:nil];
+    
+}
+
+// 视频上传
+- (IBAction)uploadVideo:(id)sender
+{
+    
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+  
+    
+}
+
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
     
 }
 

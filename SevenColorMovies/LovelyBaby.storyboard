@@ -654,6 +654,9 @@
                                 <state key="normal" title="上传" backgroundImage="LoginBtnBG">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="uploadVideo:" destination="Ayq-ta-XV7" eventType="touchUpInside" id="mUo-1j-O4k"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXg-hh-4v1">
                                 <rect key="frame" x="51" y="362" width="273" height="164"/>
@@ -662,6 +665,9 @@
                                     <constraint firstAttribute="height" constant="164" id="yVh-7m-1lD"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="SetCoverImage"/>
+                                <connections>
+                                    <action selector="pickCoverPhoto:" destination="Ayq-ta-XV7" eventType="touchUpInside" id="hli-Ht-uwH"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="对你的短片简单介绍下吧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAB-aH-XNq">
                                 <rect key="frame" x="7" y="280" width="158" height="17"/>

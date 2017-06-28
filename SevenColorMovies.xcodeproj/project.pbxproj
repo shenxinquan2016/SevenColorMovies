@@ -921,6 +921,22 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		111C03891F037D49008E2DD1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				111C038A1F037D67008E2DD1 /* PhotographView */,
+				11A1D0761D3F7DD500E2BA0D /* SlideHeaderView */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		111C038A1F037D67008E2DD1 /* PhotographView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = PhotographView;
+			sourceTree = "<group>";
+		};
 		1122149A1DADDD9300277BD6 /* PastVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1401,7 +1417,7 @@
 				116476001D40B9C400A3BC1C /* Login */,
 				11BB37BF1D38DB220002D487 /* Tabbar */,
 				11A1D0691D3F4FEA00E2BA0D /* Search */,
-				11A1D0761D3F7DD500E2BA0D /* SlideHeaderView */,
+				111C03891F037D49008E2DD1 /* View */,
 			);
 			name = Main;
 			sourceTree = "<group>";
