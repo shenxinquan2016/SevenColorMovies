@@ -179,7 +179,7 @@ static NSString *const footerId = @"footerId";
             //DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:nil success:^(id  _Nullable responseObject) {
-                //                DONG_Log(@"==========dic:::%@========",responseObject);
+//                DONG_Log(@"==========dic:::%@========",responseObject);
                 [_titleArray removeAllObjects];
                 [_filmClassArray removeAllObjects];
                 [_bannerImageUrlArr removeAllObjects];
