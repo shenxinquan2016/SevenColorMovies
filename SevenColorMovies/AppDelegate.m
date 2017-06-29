@@ -236,7 +236,7 @@
 {
     const NSString *uuidStr = [HLJUUID getUUID];
     const char *uuid = [uuidStr UTF8String];
-    
+    DONG_Log(@"UUID--%@", uuidStr);
     libagent_start(0, NULL, uuid, 5656);
     
     // 开代理日志

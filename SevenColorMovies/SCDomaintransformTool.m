@@ -22,7 +22,7 @@
     
     NSDictionary *patameters = @{@"hid" : uuidStr};
     [requestDataManager requestDataWithUrl:DynamicDomainEntrance parameters:patameters success:^(id  _Nullable responseObject) {
-//        DONG_Log(@"responseObject:%@",responseObject);
+        //DONG_Log(@"responseObject:%@",responseObject);
         self.domainNameArray = [NSArray arrayWithArray:responseObject[@"Data"][@"UrlList"][@"Url"]];
         if (_domainNameArray.count) {
             for (NSDictionary *dic in _domainNameArray) {
