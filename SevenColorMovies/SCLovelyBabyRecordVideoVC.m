@@ -164,82 +164,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer, switchCameraBarItem,rightNegativeSpacer2,  flashBtnBarItem,  nil];
 }
 
-#pragma mark - 闪光灯开关
-
-- (void)switchFlash
-{
-    DONG_Log(@"闪光灯");
-    
-    [self setFlashModeButtonStatus];
-    
-    AVCaptureDevice *captureDevice = [self.videoCaptureDeviceInput device];
-    AVCaptureTorchMode flashMode=captureDevice.torchMode;
-    
-    if([captureDevice isTorchAvailable]){
-        
-        switch (flashMode) {
-            case AVCaptureTorchModeAuto:
-                
-                break;
-            case AVCaptureTorchModeOn:
-                [self setTorchMode:AVCaptureTorchModeOff];
-                break;
-            case AVCaptureTorchModeOff:
-                [self setTorchMode:AVCaptureTorchModeOn];
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-#pragma mark - 切换摄像头
-
-- (void)switchCamera
-{
-    DONG_Log(@"摄像头");
-    AVCaptureDevice *currentDevice=[self.videoCaptureDeviceInput device];
-    AVCaptureDevicePosition currentPosition=[currentDevice position];
-    AVCaptureDevice *toChangeDevice;
-    AVCaptureDevicePosition toChangePosition=AVCaptureDevicePositionFront;
-    if (currentPosition==AVCaptureDevicePositionUnspecified||currentPosition==AVCaptureDevicePositionFront) {
-        toChangePosition=AVCaptureDevicePositionBack;
-        
-    } else {
-        
-    }
-    toChangeDevice=[self getCameraDeviceWithPosition:toChangePosition];
-    //获得要调整的设备输入对象
-    AVCaptureDeviceInput *toChangeDeviceInput=[[AVCaptureDeviceInput alloc]initWithDevice:toChangeDevice error:nil];
-    
-    //改变会话的配置前一定要先开启配置，配置完成后提交配置改变
-    [self.captureSession beginConfiguration];
-    //移除原有输入对象
-    [self.captureSession removeInput:self.videoCaptureDeviceInput];
-    //添加新的输入对象
-    if ([self.captureSession canAddInput:toChangeDeviceInput]) {
-        [self.captureSession addInput:toChangeDeviceInput];
-        self.videoCaptureDeviceInput=toChangeDeviceInput;
-    }
-    // 提交会话配置
-    [self.captureSession commitConfiguration];
-    
-    // 关闭闪光灯
-    [self setTorchMode:AVCaptureTorchModeOff];
-}
-
-// 开始录像
-- (void)beginVideoRecording
-{
-    [_captureSession startRunning];
-}
-
-// 结束录像
-- (void)stopVideoRecording
-{
-    [self.captureSession stopRunning];
-}
-
+// 录制视频按钮
 - (void)addVideoRecordBtnView
 {
     UIView *btnBG = [[UIView alloc] init];
@@ -465,38 +390,6 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     }];
 }
 
-
-/**
- *  设置闪光灯按钮状态
- */
--(void)setFlashModeButtonStatus
-{
-    AVCaptureDevice *captureDevice = [self.videoCaptureDeviceInput device];
-    AVCaptureFlashMode flashMode=captureDevice.flashMode;
-    
-    if([captureDevice isFlashAvailable]){
-  
-        
-        switch (flashMode) {
-            case AVCaptureFlashModeAuto:
-                
-                break;
-            case AVCaptureFlashModeOn:
-                
-                break;
-            case AVCaptureFlashModeOff:
-                
-                break;
-            default:
-                break;
-        }
-    } else {
-
-        
-    }
-}
-
-
 // 设置聚焦模式
 -(void)setFocusMode:(AVCaptureFocusMode )focusMode{
     [self changeDeviceProperty:^(AVCaptureDevice *captureDevice) {
@@ -513,6 +406,82 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
             [captureDevice setExposureMode:exposureMode];
         }
     }];
+}
+
+#pragma mark - 闪光灯开关
+
+- (void)switchFlash
+{
+    AVCaptureDevice *captureDevice = [self.videoCaptureDeviceInput device];
+    AVCaptureTorchMode flashMode=captureDevice.torchMode;
+    
+    if ([captureDevice isTorchAvailable]) {
+        
+        switch (flashMode) {
+            case AVCaptureTorchModeAuto:
+                
+                break;
+            case AVCaptureTorchModeOn:
+                [self setTorchMode:AVCaptureTorchModeOff];
+                break;
+            case AVCaptureTorchModeOff:
+                [self setTorchMode:AVCaptureTorchModeOn];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+#pragma mark - 切换摄像头
+
+- (void)switchCamera
+{
+    AVCaptureDevice *currentDevice = [self.videoCaptureDeviceInput device];
+    AVCaptureDevicePosition currentPosition=[currentDevice position];
+    AVCaptureDevice *toChangeDevice;
+    AVCaptureDevicePosition toChangePosition=AVCaptureDevicePositionFront;
+    if (currentPosition == AVCaptureDevicePositionUnspecified||currentPosition ==AVCaptureDevicePositionFront) {
+        
+        toChangePosition = AVCaptureDevicePositionBack;
+        // 闪光灯按钮隐藏
+        
+    } else {
+        // 取消隐藏闪光灯按钮
+    }
+    
+    toChangeDevice = [self getCameraDeviceWithPosition:toChangePosition];
+    // 获得要调整的设备输入对象
+    AVCaptureDeviceInput *toChangeDeviceInput = [[AVCaptureDeviceInput alloc]initWithDevice:toChangeDevice error:nil];
+    
+    // 改变会话的配置前一定要先开启配置，配置完成后提交配置改变
+    [self.captureSession beginConfiguration];
+    // 移除原有输入对象
+    [self.captureSession removeInput:self.videoCaptureDeviceInput];
+    // 添加新的输入对象
+    if ([self.captureSession canAddInput:toChangeDeviceInput]) {
+        [self.captureSession addInput:toChangeDeviceInput];
+        self.videoCaptureDeviceInput=toChangeDeviceInput;
+    }
+    // 提交会话配置
+    [self.captureSession commitConfiguration];
+    
+    // 关闭闪光灯
+    [self setTorchMode:AVCaptureTorchModeOff];
+}
+
+#pragma mark - 开始录像
+
+- (void)beginVideoRecording
+{
+    
+}
+
+#pragma mark - 结束录像
+
+- (void)stopVideoRecording
+{
+    
 }
 
 #pragma mark - AVCaptureFileOutputRecordingDelegate
