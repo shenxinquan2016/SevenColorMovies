@@ -36,7 +36,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 /** 聚焦光标 */
 @property (nonatomic, strong) UIImageView *focusCursor;
 /** 存放临时视频片段 */
-@property (nonatomic, strong) NSMutableArray *videoClipsArray;
+@property (nonatomic, strong) NSMutableArray *videoClipsUrlArray;
 
 
 @end
@@ -49,6 +49,10 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     UIButton *finishBtn; // 录制结束按钮
     float currentTime; // 当前视频长度
     float progressStep; // 进度条每次变长的最小单位
+    
+    float preLayerWidth;//镜头宽
+    float preLayerHeight;//镜头高
+    float preLayerHWRate; //高，宽比
 }
 
 - (void)viewDidLoad {
@@ -57,7 +61,9 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     // 设置navigationBar上的title颜色和大小
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:18]}];
     self.title = @"00:01:00";
+    
     progressStep = kMainScreenWidth * TIMER_REPEAT_INTERVAL / MAXVIDEOTIME;
+    self.videoClipsUrlArray = [NSMutableArray arrayWithCapacity:0];
     
     // 导航栏按钮
     [self addBBI];
@@ -65,6 +71,8 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [self initializeCameraConfiguration];
     // 录制按钮
     [self addVideoRecordBtnView];
+    // 视频保存文件夹
+    [self createVideoFolder];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -490,14 +498,9 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     captureConnection.videoOrientation = [self.captureVideoPreviewLayer connection].videoOrientation;
     
     // 视频保存路径
-    NSString *outputFielPath = [NSTemporaryDirectory() stringByAppendingString:@"test.mp4"];
-    DONG_Log(@"outputFielPath-->%@", outputFielPath);
-    NSURL *fileUrl = [NSURL fileURLWithPath:outputFielPath];
-    
-    
-    // 往路径的 URL 开始写入录像 Buffer ,边录边写
+    NSURL *fileUrl = [NSURL fileURLWithPath:[self getVideoSaveFilePathString]];
+    // 往路径的 URL 开始写入录像 Buffer
     [self.caputureMovieFileOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
-    
     
 }
 
@@ -527,6 +530,8 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     currentTime += TIMER_REPEAT_INTERVAL;
     float progressWidth = progressView.frame.size.width+progressStep;
     [progressView setFrame:CGRectMake(0, 0, progressWidth, 4)];
+    int i = 0;
+    self.title = [NSString stringWithFormat:@"%d",i++];
     if (currentTime > MINVIDEOTIME) {
         finishBtn.hidden = NO;
     }
@@ -558,16 +563,19 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
     DONG_Log(@"---- 录制结束 ----");
-    DONG_Log(@"outputFileURL-->%@", outputFileURL);
+    [_videoClipsUrlArray addObject:outputFileURL];
+    //时间到了
+    if (currentTime >= MAXVIDEOTIME) {
+        [self mergeAndExportVideosAtFileURLs:_videoClipsUrlArray];
+    }
 }
 
 #pragma mark - 视频路径
 
+// 临时视频文件路径      /tmp/yyyyMMddHHmmss.mov
 - (NSString *)getVideoSaveFilePathString
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [paths objectAtIndex:0];
-    
+    NSString *path = [FileManageCommon GetTmpPath];
     path = [path stringByAppendingPathComponent:LOVELYBABY_VIDEO_FOLDER];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -579,11 +587,25 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     return fileName;
 }
 
+// 最后合成为 mp4
+- (NSString *)getVideoMergeFilePathString
+{
+    NSString *path = [FileManageCommon GetTmpPath];
+    path = [path stringByAppendingPathComponent:LOVELYBABY_VIDEO_FOLDER];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *nowTimeStr = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:0]];
+    
+    NSString *fileName = [[path stringByAppendingPathComponent:nowTimeStr] stringByAppendingString:@"lovelyBaby.mp4"];
+    
+    return fileName;
+}
+
+// 视频文件夹
 - (void)createVideoFolder
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [paths objectAtIndex:0];
-    
+    NSString *path = [FileManageCommon GetTmpPath];
     NSString *folderPath = [path stringByAppendingPathComponent:LOVELYBABY_VIDEO_FOLDER];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -597,6 +619,102 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
             DONG_Log(@"创建保存视频文件夹失败");
         }
     }
+}
+
+#pragma mark - 视频处理
+
+- (void)mergeAndExportVideosAtFileURLs:(NSArray *)fileURLArray
+{
+    NSError *error = nil;
+    
+    CGSize renderSize = CGSizeMake(0, 0);
+    
+    NSMutableArray *layerInstructionArray = [[NSMutableArray alloc] init];
+    
+    AVMutableComposition *mixComposition = [[AVMutableComposition alloc] init];
+    
+    CMTime totalDuration = kCMTimeZero;
+    
+    NSMutableArray *assetTrackArray = [[NSMutableArray alloc] init];
+    NSMutableArray *assetArray = [[NSMutableArray alloc] init];
+    for (NSURL *fileURL in fileURLArray) {
+        
+        AVAsset *asset = [AVAsset assetWithURL:fileURL];
+        [assetArray addObject:asset];
+        
+        NSArray* tmpAry =[asset tracksWithMediaType:AVMediaTypeVideo];
+        if (tmpAry.count>0) {
+            AVAssetTrack *assetTrack = [tmpAry objectAtIndex:0];
+            [assetTrackArray addObject:assetTrack];
+            renderSize.width = MAX(renderSize.width, assetTrack.naturalSize.height);
+            renderSize.height = MAX(renderSize.height, assetTrack.naturalSize.width);
+        }
+    }
+    
+    CGFloat renderW = MIN(renderSize.width, renderSize.height);
+    
+    for (int i = 0; i < [assetArray count] && i < [assetTrackArray count]; i++) {
+        
+        AVAsset *asset = [assetArray objectAtIndex:i];
+        AVAssetTrack *assetTrack = [assetTrackArray objectAtIndex:i];
+        
+        AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+        
+        NSArray*dataSourceArray= [asset tracksWithMediaType:AVMediaTypeAudio];
+        [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, asset.duration)
+                            ofTrack:([dataSourceArray count]>0)?[dataSourceArray objectAtIndex:0]:nil
+                             atTime:totalDuration
+                              error:nil];
+        
+        AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+        
+        [videoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, asset.duration)
+                            ofTrack:assetTrack
+                             atTime:totalDuration
+                              error:&error];
+        
+        AVMutableVideoCompositionLayerInstruction *layerInstruciton = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoTrack];
+        
+        totalDuration = CMTimeAdd(totalDuration, asset.duration);
+        
+        CGFloat rate;
+        rate = renderW / MIN(assetTrack.naturalSize.width, assetTrack.naturalSize.height);
+        
+        CGAffineTransform layerTransform = CGAffineTransformMake(assetTrack.preferredTransform.a, assetTrack.preferredTransform.b, assetTrack.preferredTransform.c, assetTrack.preferredTransform.d, assetTrack.preferredTransform.tx * rate, assetTrack.preferredTransform.ty * rate);
+        layerTransform = CGAffineTransformConcat(layerTransform, CGAffineTransformMake(1, 0, 0, 1, 0, -(assetTrack.naturalSize.width - assetTrack.naturalSize.height) / 2.0+preLayerHWRate*(preLayerHeight-preLayerWidth)/2));
+        layerTransform = CGAffineTransformScale(layerTransform, rate, rate);
+        
+        [layerInstruciton setTransform:layerTransform atTime:kCMTimeZero];
+        [layerInstruciton setOpacity:0.0 atTime:totalDuration];
+        
+        [layerInstructionArray addObject:layerInstruciton];
+    }
+    
+    NSString *path = [self getVideoMergeFilePathString];
+    NSURL *mergeFileURL = [NSURL fileURLWithPath:path];
+    
+    AVMutableVideoCompositionInstruction *mainInstruciton = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
+    mainInstruciton.timeRange = CMTimeRangeMake(kCMTimeZero, totalDuration);
+    mainInstruciton.layerInstructions = layerInstructionArray;
+    AVMutableVideoComposition *mainCompositionInst = [AVMutableVideoComposition videoComposition];
+    mainCompositionInst.instructions = @[mainInstruciton];
+    mainCompositionInst.frameDuration = CMTimeMake(1, 100);
+    mainCompositionInst.renderSize = CGSizeMake(renderW, renderW*preLayerHWRate);
+    
+    AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetMediumQuality];
+    exporter.videoComposition = mainCompositionInst;
+    exporter.outputURL = mergeFileURL;
+    exporter.outputFileType = AVFileTypeMPEG4;
+    exporter.shouldOptimizeForNetworkUse = YES;
+    [exporter exportAsynchronouslyWithCompletionHandler:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+           
+            
+            
+        });
+    }];
+    
 }
 
 @end
