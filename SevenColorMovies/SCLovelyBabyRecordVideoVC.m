@@ -36,6 +36,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 /** 存放临时视频片段 */
 @property (nonatomic, strong) NSMutableArray *videoClipsArray;
 
+
 @end
 
 @implementation SCLovelyBabyRecordVideoVC
@@ -43,6 +44,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 {
     UIView *progressView; // 进度条;
     NSTimer *countTimer; // 计时器
+    UIButton *finishBtn; // 录制结束按钮
 }
 
 - (void)viewDidLoad {
@@ -176,6 +178,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
         make.height.equalTo(@120);
     }];
     
+    // 录制按钮
     UIButton *videoRecordBtn = [[UIButton alloc] init];
     [videoRecordBtn addTarget:self action:@selector(beginVideoRecording) forControlEvents:UIControlEventTouchDown];
     [videoRecordBtn addTarget:self action:@selector(stopVideoRecording) forControlEvents:UIControlEventTouchUpInside];
@@ -184,6 +187,18 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [videoRecordBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(btnBG);
         make.size.mas_equalTo(CGSizeMake(80, 80));
+    }];
+    
+    // 录制完成按钮
+    finishBtn = [[UIButton alloc] init];
+    finishBtn.alpha = 0.8f;
+    [finishBtn addTarget:self action:@selector(VideoRecordingFinish) forControlEvents:UIControlEventTouchUpInside];
+    [finishBtn setBackgroundImage:[UIImage imageNamed:@"VideoRecordingFinish"] forState:UIControlStateNormal];
+    [btnBG addSubview:finishBtn];
+    [finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(btnBG.mas_right).offset(-25);
+        make.centerY.equalTo(btnBG);
+        make.size.mas_equalTo(CGSizeMake(30, 30));
     }];
 }
 
@@ -263,20 +278,23 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     // 9.进度条
     progressView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 4)];
-    progressView.backgroundColor = [UIColor colorWithHex:@"0xffc738"];
+    progressView.backgroundColor = [UIColor colorWithHex:@"#24D609"];
     [self.viewContainer addSubview:progressView];
-    
+//    UIProgressView *progressView2 = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 0)];
+//    [self.viewContainer addSubview:progressView2];
+//    progressView2.tintColor = [UIColor colorWithHex:@"0xffc738"];
+//    progressView2.trackTintColor = [UIColor redColor];
+//    self.progressView = progressView2;
+
     // 10.将设备输出添加到会话中
     if ([_captureSession canAddOutput:_caputureMovieFileOutput]) {
         [_captureSession addOutput:_caputureMovieFileOutput];
     }
 
-    
-    
     // 11.将捕获的音频或视频数据输出到指定文件
      AVCaptureConnection *captureConnection = [self.caputureMovieFileOutput connectionWithMediaType:AVMediaTypeVideo];
     
-    // 开启视频防抖模式
+    // 12.开启视频防抖模式
     AVCaptureVideoStabilizationMode stabilizationMode = AVCaptureVideoStabilizationModeCinematic;
     if ([self.videoCaptureDeviceInput.device.activeFormat isVideoStabilizationModeSupported:stabilizationMode]) {
         [captureConnection setPreferredVideoStabilizationMode:stabilizationMode];
@@ -480,6 +498,11 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 #pragma mark - 结束录像
 
 - (void)stopVideoRecording
+{
+    
+}
+
+- (void)VideoRecordingFinish
 {
     
 }
