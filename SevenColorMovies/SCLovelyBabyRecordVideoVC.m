@@ -9,20 +9,41 @@
 #import "SCLovelyBabyRecordVideoVC.h"
 #import <AVFoundation/AVFoundation.h>
 
+#define MAXVIDEOTIME 60 // 视频最大时间
+#define MINCIDEOTIME 20 // 视频最小时间
+
 typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 @interface SCLovelyBabyRecordVideoVC () <AVCaptureFileOutputRecordingDelegate>
 
+/**  */
 @property (nonatomic, strong) AVCaptureSession *captureSession;
-@property (nonatomic, strong) AVCaptureDevice *captureDeviceInput;
+/**  */
+
+/**  */
 @property (nonatomic, strong) AVCaptureDeviceInput *videoCaptureDeviceInput;
+/**  */
 @property (nonatomic, strong) AVCaptureDeviceInput *audioCaptureDeviceInput;
+/**  */
 @property (nonatomic, strong) AVCaptureMovieFileOutput *caputureMovieFileOutput;
+/** 视频预览图层 */
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
+
+/** 视频拍摄总容器 */
+@property (nonatomic, strong)  UIView *viewContainer;
+/** 聚焦光标 */
+@property (nonatomic, strong) UIImageView *focusCursor;
+/** 存放临时视频片段 */
+@property (nonatomic, strong) NSMutableArray *videoClipsArray;
 
 @end
 
 @implementation SCLovelyBabyRecordVideoVC
+
+{
+    UIView *progressView; // 进度条;
+    NSTimer *countTimer; // 计时器
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,10 +70,29 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.captureSession startRunning];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    
+    //还原数据-----------
+//    [self deleteAllVideos];
+//    currentTime = 0;
+//    [progressPreView setFrame:CGRectMake(0, preLayerHeight, 0, 4)];
+//    shootBt.backgroundColor = UIColorFromRGB(0xfa5f66);
+//    finishBt.hidden = YES;
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    
+    [self.captureSession stopRunning];
     
 }
 
@@ -124,18 +164,68 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer, switchCameraBarItem,rightNegativeSpacer2,  flashBtnBarItem,  nil];
 }
 
-// 闪光灯开关
+#pragma mark - 闪光灯开关
+
 - (void)switchFlash
 {
     DONG_Log(@"闪光灯");
-    [self setFlashMode:AVCaptureFlashModeOn];
-//    [self setFlashModeButtonStatus];
+    
+    [self setFlashModeButtonStatus];
+    
+    AVCaptureDevice *captureDevice = [self.videoCaptureDeviceInput device];
+    AVCaptureTorchMode flashMode=captureDevice.torchMode;
+    
+    if([captureDevice isTorchAvailable]){
+        
+        switch (flashMode) {
+            case AVCaptureTorchModeAuto:
+                
+                break;
+            case AVCaptureTorchModeOn:
+                [self setTorchMode:AVCaptureTorchModeOff];
+                break;
+            case AVCaptureTorchModeOff:
+                [self setTorchMode:AVCaptureTorchModeOn];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
-// 切换摄像头
+#pragma mark - 切换摄像头
+
 - (void)switchCamera
 {
     DONG_Log(@"摄像头");
+    AVCaptureDevice *currentDevice=[self.videoCaptureDeviceInput device];
+    AVCaptureDevicePosition currentPosition=[currentDevice position];
+    AVCaptureDevice *toChangeDevice;
+    AVCaptureDevicePosition toChangePosition=AVCaptureDevicePositionFront;
+    if (currentPosition==AVCaptureDevicePositionUnspecified||currentPosition==AVCaptureDevicePositionFront) {
+        toChangePosition=AVCaptureDevicePositionBack;
+        
+    } else {
+        
+    }
+    toChangeDevice=[self getCameraDeviceWithPosition:toChangePosition];
+    //获得要调整的设备输入对象
+    AVCaptureDeviceInput *toChangeDeviceInput=[[AVCaptureDeviceInput alloc]initWithDevice:toChangeDevice error:nil];
+    
+    //改变会话的配置前一定要先开启配置，配置完成后提交配置改变
+    [self.captureSession beginConfiguration];
+    //移除原有输入对象
+    [self.captureSession removeInput:self.videoCaptureDeviceInput];
+    //添加新的输入对象
+    if ([self.captureSession canAddInput:toChangeDeviceInput]) {
+        [self.captureSession addInput:toChangeDeviceInput];
+        self.videoCaptureDeviceInput=toChangeDeviceInput;
+    }
+    // 提交会话配置
+    [self.captureSession commitConfiguration];
+    
+    // 关闭闪光灯
+    [self setTorchMode:AVCaptureTorchModeOff];
 }
 
 // 开始录像
@@ -175,24 +265,24 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 // 初始化摄像机
 - (void)initializeCameraConfiguration
 {
-    // 1.创建会话 (AVCaptureSession) 对象。
+    // 1.创建视频拍摄总容器
+    self.viewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight-64)];
+    [self.view addSubview:_viewContainer];
+    
+    // 2.创建会话 (AVCaptureSession) 对象。
     self.captureSession = [[AVCaptureSession alloc] init];
     if ([_captureSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
         // 设置会话的 sessionPreset 属性, 这个属性影响视频的分辨率
         [_captureSession setSessionPreset:AVCaptureSessionPreset640x480];
     }
     
-    // 2.使用AVCaptureDevice的静态方法获得需要使用的设备 获取摄像头输入设备， 创建 AVCaptureDeviceInput 对象
-    // 在获取摄像头的时候，摄像头分为前后摄像头，我们创建了一个方法通过用摄像头的位置来获取摄像头
+    // 3.使用AVCaptureDevice的静态方法获得需要使用的设备 获取摄像头输入设备， 创建 AVCaptureDeviceInput 对象
     AVCaptureDevice *videoCaptureDevice = [self getCameraDeviceWithPosition:AVCaptureDevicePositionBack];
-    if (!videoCaptureDevice) {
-        DONG_Log(@"---- 取得后置摄像头时出现问题---- ");
-        return;
-    }
-    // 添加一个音频输入设备 直接可以拿数组中的数组中的第一个
+  
+    // 添加一个音频输入设备
     AVCaptureDevice *audioCaptureDevice = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio] firstObject];
 
-    // 3.利用输入设备AVCaptureDevice初始化AVCaptureDeviceInput对象。
+    // 4.利用输入设备AVCaptureDevice初始化AVCaptureDeviceInput对象。
     NSError *error;
     _videoCaptureDeviceInput = [[AVCaptureDeviceInput alloc] initWithDevice:videoCaptureDevice error:&error]; // 视频输入对象
     if (error) {
@@ -205,11 +295,11 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
         return;
     }
     
-    // 4.初始化输出数据管理对象，如果要拍照就初始化AVCaptureStillImageOutput对象；如果拍摄视频就初始化AVCaptureMovieFileOutput对象
+    // 5.初始化输出数据管理对象，如果要拍照就初始化AVCaptureStillImageOutput对象；如果拍摄视频就初始化AVCaptureMovieFileOutput对象
     _caputureMovieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
     
     
-    // 5.将视音频数据输入对象AVCcaptureFileOutput（对应子类）添加到媒体会话管理对象AVCaptureSession中
+    // 6.将视音频数据输入对象AVCcaptureFileOutput（对应子类）添加到媒体会话管理对象AVCaptureSession中
     if ([_captureSession canAddInput:_videoCaptureDeviceInput]) {
         [_captureSession addInput:_videoCaptureDeviceInput]; // 视频
     }
@@ -223,12 +313,12 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
         }
     }
     
-    // 6.创建视频预览图层AVCaptureVideoPreviewLayer并指定媒体会话，添加图层到显示容器中，调用AVCaptureSession的startRuning方法开始捕获。
+    // 7.创建视频预览图层AVCaptureVideoPreviewLayer并指定媒体会话，添加图层到显示容器中，调用AVCaptureSession的startRuning方法开始捕获。
     // 通过会话 (AVCaptureSession) 创建预览层
     _captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
     
     // 显示在视图表面的图层
-    CALayer *layer = self.view.layer;
+    CALayer *layer = self.viewContainer.layer;
     layer.masksToBounds = true;
     
     _captureVideoPreviewLayer.frame = layer.bounds;
@@ -239,18 +329,31 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     // 让会话（AVCaptureSession）勾搭好输入输出，然后把视图渲染到预览层上
     [_captureSession startRunning];
 
+    // 8.添加聚焦光标
+    self.focusCursor = [[UIImageView alloc]initWithFrame:CGRectMake(100, 100, 50, 50)];
+    [_focusCursor setImage:[UIImage imageNamed:@"FocusCursor"]];
+    _focusCursor.alpha = 0.f;
+    [_viewContainer addSubview:_focusCursor];
+    [self addFocusTapGenstureRecognizer];
     
-    //将设备输出添加到会话中
+    // 9.进度条
+    progressView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 4)];
+    progressView.backgroundColor = [UIColor colorWithHex:@"0xffc738"];
+    [self.viewContainer addSubview:progressView];
+    
+    // 10.将设备输出添加到会话中
     if ([_captureSession canAddOutput:_caputureMovieFileOutput]) {
         [_captureSession addOutput:_caputureMovieFileOutput];
     }
+
     
     
-    // 7.将捕获的音频或视频数据输出到指定文件
+    // 11.将捕获的音频或视频数据输出到指定文件
      AVCaptureConnection *captureConnection = [self.caputureMovieFileOutput connectionWithMediaType:AVMediaTypeVideo];
+    
     // 开启视频防抖模式
     AVCaptureVideoStabilizationMode stabilizationMode = AVCaptureVideoStabilizationModeCinematic;
-    if ([self.captureDeviceInput.activeFormat isVideoStabilizationModeSupported:stabilizationMode]) {
+    if ([self.videoCaptureDeviceInput.device.activeFormat isVideoStabilizationModeSupported:stabilizationMode]) {
         [captureConnection setPreferredVideoStabilizationMode:stabilizationMode];
     }
 
@@ -268,7 +371,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     NSURL *fileUrl = [NSURL fileURLWithPath:outputFielPath];
     
      // 往路径的 URL 开始写入录像 Buffer ,边录边写
-    [self.caputureMovieFileOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
+//    [self.caputureMovieFileOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
 
     // 取消视频拍摄
 //    [self.caputureMovieFileOutput stopRecording];
@@ -276,14 +379,56 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 //    [self completeHandle];
 }
 
+// 添加tap手势
+- (void)addFocusTapGenstureRecognizer
+{
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(focusTap:)];
+    [self.viewContainer addGestureRecognizer:tapGesture];
+}
 
-/**
- *  取得指定位置的摄像头
- *
- *  @param position 摄像头位置
- *
- *  @return 摄像头设备
- */
+- (void)focusTap:(UITapGestureRecognizer *)tapGesture
+{
+    CGPoint point = [tapGesture locationInView:self.viewContainer];
+    // 将UI坐标转化为摄像头坐标
+    CGPoint cameraPoint = [self.captureVideoPreviewLayer captureDevicePointOfInterestForPoint:point];
+    [self setFocusCursorWithPoint:point];
+    [self focusWithMode:AVCaptureFocusModeAutoFocus exposureMode:AVCaptureExposureModeAutoExpose atPoint:cameraPoint];
+}
+
+-(void)setFocusCursorWithPoint:(CGPoint)point
+{
+    self.focusCursor.center = point;
+    self.focusCursor.transform = CGAffineTransformMakeScale(1.5, 1.5);
+    self.focusCursor.alpha = 1.0;
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.focusCursor.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        self.focusCursor.alpha = 0;
+    }];
+}
+
+// 设置聚焦点
+- (void)focusWithMode:(AVCaptureFocusMode)focusMode exposureMode:(AVCaptureExposureMode)exposureMode atPoint:(CGPoint)point
+{
+    [self changeDeviceProperty:^(AVCaptureDevice *captureDevice) {
+        if ([captureDevice isFocusModeSupported:focusMode]) {
+            [captureDevice setFocusMode:AVCaptureFocusModeAutoFocus];
+        }
+        if ([captureDevice isFocusPointOfInterestSupported]) {
+            [captureDevice setFocusPointOfInterest:point];
+        }
+        if ([captureDevice isExposureModeSupported:exposureMode]) {
+            [captureDevice setExposureMode:AVCaptureExposureModeAutoExpose];
+        }
+        if ([captureDevice isExposurePointOfInterestSupported]) {
+            [captureDevice setExposurePointOfInterest:point];
+        }
+    }];
+}
+
+
+// 取得指定位置的摄像头
 -(AVCaptureDevice *)getCameraDeviceWithPosition:(AVCaptureDevicePosition )position
 {
     NSArray *cameras= [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
@@ -295,38 +440,80 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     return nil;
 }
 
-/**
- *  改变设备属性的统一操作方法
- *
- *  @param propertyChange 属性改变操作
- */
--(void)changeDeviceProperty:(PropertyChangeBlock)propertyChange
+// 改变设备属性的统一操作方法
+- (void)changeDeviceProperty:(PropertyChangeBlock)propertyChange
 {
-//    AVCaptureDevice *captureDevice= [self.captureDeviceInput device];
-//    NSError *error;
-//    //注意改变设备属性前一定要首先调用lockForConfiguration:调用完之后使用unlockForConfiguration方法解锁
-//    if ([captureDevice lockForConfiguration:&error]) {
-//        propertyChange(captureDevice);
-//        [captureDevice unlockForConfiguration];
-//    }else{
-//        NSLog(@"设置设备属性过程发生错误，错误信息：%@",error.localizedDescription);
-//    }
+    AVCaptureDevice *captureDevice = [self.videoCaptureDeviceInput device];
+    NSError *error;
+    // 改变设备属性前一定要首先调用lockForConfiguration:调用完之后使用unlockForConfiguration方法解锁
+    if ([captureDevice lockForConfiguration:&error]) {
+        propertyChange(captureDevice);
+        [captureDevice unlockForConfiguration];
+        
+    } else {
+        DONG_Log(@"设置设备属性过程发生错误，错误信息：%@",error.localizedDescription);
+    }
 }
 
-/**
- *  设置闪光灯模式
- *
- *  @param flashMode 闪光灯模式
- */
--(void)setFlashMode:(AVCaptureFlashMode)flashMode
+// 设置闪光灯模式
+-(void)setTorchMode:(AVCaptureTorchMode )torchMode
 {
     [self changeDeviceProperty:^(AVCaptureDevice *captureDevice) {
-        if ([captureDevice isFlashModeSupported:flashMode]) {
-            [captureDevice setFlashMode:flashMode];
+        if ([captureDevice isTorchModeSupported:torchMode]) {
+            [captureDevice setTorchMode:torchMode];
         }
     }];
 }
 
+
+/**
+ *  设置闪光灯按钮状态
+ */
+-(void)setFlashModeButtonStatus
+{
+    AVCaptureDevice *captureDevice = [self.videoCaptureDeviceInput device];
+    AVCaptureFlashMode flashMode=captureDevice.flashMode;
+    
+    if([captureDevice isFlashAvailable]){
+  
+        
+        switch (flashMode) {
+            case AVCaptureFlashModeAuto:
+                
+                break;
+            case AVCaptureFlashModeOn:
+                
+                break;
+            case AVCaptureFlashModeOff:
+                
+                break;
+            default:
+                break;
+        }
+    } else {
+
+        
+    }
+}
+
+
+// 设置聚焦模式
+-(void)setFocusMode:(AVCaptureFocusMode )focusMode{
+    [self changeDeviceProperty:^(AVCaptureDevice *captureDevice) {
+        if ([captureDevice isFocusModeSupported:focusMode]) {
+            [captureDevice setFocusMode:focusMode];
+        }
+    }];
+}
+
+// 设置曝光模式
+- (void)setExposureMode:(AVCaptureExposureMode)exposureMode{
+    [self changeDeviceProperty:^(AVCaptureDevice *captureDevice) {
+        if ([captureDevice isExposureModeSupported:exposureMode]) {
+            [captureDevice setExposureMode:exposureMode];
+        }
+    }];
+}
 
 #pragma mark - AVCaptureFileOutputRecordingDelegate
 
