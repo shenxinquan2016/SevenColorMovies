@@ -10,7 +10,9 @@
 #import <AVFoundation/AVFoundation.h>
 
 #define MAXVIDEOTIME 60 // 视频最大时间
-#define MINCIDEOTIME 20 // 视频最小时间
+#define MINVIDEOTIME 20 // 视频最小时间
+#define TIMER_REPEAT_INTERVAL 0.1 // Timer repeat时间
+#define LOVELYBABY_VIDEO_FOLDER @"mengwa"
 
 typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
@@ -45,6 +47,8 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     UIView *progressView; // 进度条;
     NSTimer *countTimer; // 计时器
     UIButton *finishBtn; // 录制结束按钮
+    float currentTime; // 当前视频长度
+    float progressStep; // 进度条每次变长的最小单位
 }
 
 - (void)viewDidLoad {
@@ -53,6 +57,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     // 设置navigationBar上的title颜色和大小
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:18]}];
     self.title = @"00:01:00";
+    progressStep = kMainScreenWidth * TIMER_REPEAT_INTERVAL / MAXVIDEOTIME;
     
     // 导航栏按钮
     [self addBBI];
@@ -82,11 +87,11 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     
     //还原数据-----------
-//    [self deleteAllVideos];
-//    currentTime = 0;
-//    [progressPreView setFrame:CGRectMake(0, preLayerHeight, 0, 4)];
-//    shootBt.backgroundColor = UIColorFromRGB(0xfa5f66);
-//    finishBt.hidden = YES;
+    //    [self deleteAllVideos];
+    //    currentTime = 0;
+    //    [progressPreView setFrame:CGRectMake(0, preLayerHeight, 0, 4)];
+    //    shootBt.backgroundColor = UIColorFromRGB(0xfa5f66);
+    //    finishBt.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -155,12 +160,12 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     UIBarButtonItem *switchCameraBarItem = [[UIBarButtonItem alloc] initWithCustomView:switchCameraBtn];
     
     UIBarButtonItem *rightNegativeSpacer = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                           target:nil action:nil];
-    rightNegativeSpacer.width = 5;
-    UIBarButtonItem *rightNegativeSpacer2 = [[UIBarButtonItem alloc]
                                             initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                             target:nil action:nil];
+    rightNegativeSpacer.width = 5;
+    UIBarButtonItem *rightNegativeSpacer2 = [[UIBarButtonItem alloc]
+                                             initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                             target:nil action:nil];
     rightNegativeSpacer2.width = 20;
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer, switchCameraBarItem,rightNegativeSpacer2,  flashBtnBarItem,  nil];
@@ -218,10 +223,10 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     // 3.使用AVCaptureDevice的静态方法获得需要使用的设备 获取摄像头输入设备， 创建 AVCaptureDeviceInput 对象
     AVCaptureDevice *videoCaptureDevice = [self getCameraDeviceWithPosition:AVCaptureDevicePositionBack];
-  
+    
     // 添加一个音频输入设备
     AVCaptureDevice *audioCaptureDevice = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio] firstObject];
-
+    
     // 4.利用输入设备AVCaptureDevice初始化AVCaptureDeviceInput对象。
     NSError *error;
     _videoCaptureDeviceInput = [[AVCaptureDeviceInput alloc] initWithDevice:videoCaptureDevice error:&error]; // 视频输入对象
@@ -268,7 +273,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     // 让会话（AVCaptureSession）勾搭好输入输出，然后把视图渲染到预览层上
     [_captureSession startRunning];
-
+    
     // 8.添加聚焦光标
     self.focusCursor = [[UIImageView alloc]initWithFrame:CGRectMake(100, 100, 50, 50)];
     [_focusCursor setImage:[UIImage imageNamed:@"FocusCursor"]];
@@ -277,49 +282,25 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [self addFocusTapGenstureRecognizer];
     
     // 9.进度条
-    progressView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 4)];
+    progressView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 4)];
     progressView.backgroundColor = [UIColor colorWithHex:@"#24D609"];
     [self.viewContainer addSubview:progressView];
-//    UIProgressView *progressView2 = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 0)];
-//    [self.viewContainer addSubview:progressView2];
-//    progressView2.tintColor = [UIColor colorWithHex:@"0xffc738"];
-//    progressView2.trackTintColor = [UIColor redColor];
-//    self.progressView = progressView2;
-
+    //    UIProgressView *progressView2 = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 0)];
+    //    [self.viewContainer addSubview:progressView2];
+    //    progressView2.tintColor = [UIColor colorWithHex:@"0xffc738"];
+    //    progressView2.trackTintColor = [UIColor redColor];
+    //    self.progressView = progressView2;
+    
     // 10.将设备输出添加到会话中
     if ([_captureSession canAddOutput:_caputureMovieFileOutput]) {
         [_captureSession addOutput:_caputureMovieFileOutput];
     }
-
-    // 11.将捕获的音频或视频数据输出到指定文件
-     AVCaptureConnection *captureConnection = [self.caputureMovieFileOutput connectionWithMediaType:AVMediaTypeVideo];
     
-    // 12.开启视频防抖模式
-    AVCaptureVideoStabilizationMode stabilizationMode = AVCaptureVideoStabilizationModeCinematic;
-    if ([self.videoCaptureDeviceInput.device.activeFormat isVideoStabilizationModeSupported:stabilizationMode]) {
-        [captureConnection setPreferredVideoStabilizationMode:stabilizationMode];
-    }
-
-    // 如果支持多任务则则开始多任务
-    if ([[UIDevice currentDevice] isMultitaskingSupported]) {
-//        self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
-    }
-    // 预览图层和视频方向保持一致,这个属性设置很重要，如果不设置，那么出来的视频图像可以是倒向左边的。
-    captureConnection.videoOrientation = [self.captureVideoPreviewLayer connection].videoOrientation;
     
-    // 设置视频输出的文件路径，这里设置为 temp 文件
-    NSString *outputFielPath = [NSTemporaryDirectory() stringByAppendingString:@"test.mp4"];
-    DONG_Log(@"outputFielPath-->%@", outputFielPath);
-    // 路径转换成 URL 要用这个方法，用 NSBundle 方法转换成 URL 的话可能会出现读取不到路径的错误
-    NSURL *fileUrl = [NSURL fileURLWithPath:outputFielPath];
-    
-     // 往路径的 URL 开始写入录像 Buffer ,边录边写
-//    [self.caputureMovieFileOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
-
     // 取消视频拍摄
-//    [self.caputureMovieFileOutput stopRecording];
-//    [self.captureSession stopRunning];
-//    [self completeHandle];
+    //    [self.caputureMovieFileOutput stopRecording];
+    //    [self.captureSession stopRunning];
+    //    [self completeHandle];
 }
 
 // 添加tap手势
@@ -492,6 +473,31 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 - (void)beginVideoRecording
 {
+    // 11.将捕获的音频或视频数据输出到指定文件
+    AVCaptureConnection *captureConnection = [self.caputureMovieFileOutput connectionWithMediaType:AVMediaTypeVideo];
+    
+    // 12.开启视频防抖模式
+    AVCaptureVideoStabilizationMode stabilizationMode = AVCaptureVideoStabilizationModeCinematic;
+    if ([self.videoCaptureDeviceInput.device.activeFormat isVideoStabilizationModeSupported:stabilizationMode]) {
+        [captureConnection setPreferredVideoStabilizationMode:stabilizationMode];
+    }
+    
+    // 13.如果支持多任务则则开始多任务
+    if ([[UIDevice currentDevice] isMultitaskingSupported]) {
+        //        self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+    }
+    // 14.预览图层和视频方向保持一致
+    captureConnection.videoOrientation = [self.captureVideoPreviewLayer connection].videoOrientation;
+    
+    // 视频保存路径
+    NSString *outputFielPath = [NSTemporaryDirectory() stringByAppendingString:@"test.mp4"];
+    DONG_Log(@"outputFielPath-->%@", outputFielPath);
+    NSURL *fileUrl = [NSURL fileURLWithPath:outputFielPath];
+    
+    
+    // 往路径的 URL 开始写入录像 Buffer ,边录边写
+    [self.caputureMovieFileOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
+    
     
 }
 
@@ -499,11 +505,44 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 - (void)stopVideoRecording
 {
-    
+    [_caputureMovieFileOutput stopRecording];
+    [self stopTimer];
 }
 
 - (void)VideoRecordingFinish
 {
+    [_caputureMovieFileOutput stopRecording];
+}
+
+#pragma mark - Timer
+
+- (void)startTimer
+{
+    countTimer = [NSTimer scheduledTimerWithTimeInterval:TIMER_REPEAT_INTERVAL target:self selector:@selector(onTimer:) userInfo:nil repeats:YES];
+    [countTimer fire];
+}
+
+- (void)onTimer:(NSTimer *)timer
+{
+    currentTime += TIMER_REPEAT_INTERVAL;
+    float progressWidth = progressView.frame.size.width+progressStep;
+    [progressView setFrame:CGRectMake(0, 0, progressWidth, 4)];
+    if (currentTime > MINVIDEOTIME) {
+        finishBtn.hidden = NO;
+    }
+    
+    // 时间到了停止录制视频
+    if (currentTime >= MAXVIDEOTIME) {
+        [countTimer invalidate];
+        countTimer = nil;
+        [_caputureMovieFileOutput stopRecording];
+    }
+}
+
+-(void)stopTimer
+{
+    [countTimer invalidate];
+    countTimer = nil;
     
 }
 
@@ -512,11 +551,52 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
     DONG_Log(@"---- 开始录制 ----");
+    [self startTimer];
+    DONG_Log(@"fileURL-->%@", fileURL);
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
     DONG_Log(@"---- 录制结束 ----");
+    DONG_Log(@"outputFileURL-->%@", outputFileURL);
+}
+
+#pragma mark - 视频路径
+
+- (NSString *)getVideoSaveFilePathString
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    
+    path = [path stringByAppendingPathComponent:LOVELYBABY_VIDEO_FOLDER];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *nowTimeStr = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:0]];
+    // 录制保存的时候要保存为mov
+    NSString *fileName = [[path stringByAppendingPathComponent:nowTimeStr] stringByAppendingString:@".mov"];
+    
+    return fileName;
+}
+
+- (void)createVideoFolder
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    
+    NSString *folderPath = [path stringByAppendingPathComponent:LOVELYBABY_VIDEO_FOLDER];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir = NO;
+    BOOL isDirExist = [fileManager fileExistsAtPath:folderPath isDirectory:&isDir];
+    
+    if(!(isDirExist && isDir))
+    {
+        BOOL bCreateDir = [fileManager createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
+        if(!bCreateDir){
+            DONG_Log(@"创建保存视频文件夹失败");
+        }
+    }
 }
 
 @end
