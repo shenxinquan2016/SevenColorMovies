@@ -9,8 +9,8 @@
 #import "SCLovelyBabyRecordVideoVC.h"
 #import <AVFoundation/AVFoundation.h>
 
-#define MAXVIDEOTIME 60 // 视频最大时间
-#define MINVIDEOTIME 20 // 视频最小时间
+#define MAXVIDEOTIME 10 // 视频最大时间
+#define MINVIDEOTIME 3 // 视频最小时间
 #define TIMER_REPEAT_INTERVAL 0.1 // Timer repeat时间
 #define LOVELYBABY_VIDEO_FOLDER @"mengwa"
 
@@ -27,7 +27,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 /**  */
 @property (nonatomic, strong) AVCaptureDeviceInput *audioCaptureDeviceInput;
 /**  */
-@property (nonatomic, strong) AVCaptureMovieFileOutput *caputureMovieFileOutput;
+@property (nonatomic, strong) AVCaptureMovieFileOutput *captureMovieFileOutput;
 /** 视频预览图层 */
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
@@ -50,9 +50,9 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     float currentTime; // 当前视频长度
     float progressStep; // 进度条每次变长的最小单位
     
-    float preLayerWidth;//镜头宽
-    float preLayerHeight;//镜头高
-    float preLayerHWRate; //高，宽比
+    float videoLayerWidth; // 镜头宽
+    float videoLayerHeight; // 镜头高
+    float videoLayerHWRate; // 高，宽比
 }
 
 - (void)viewDidLoad {
@@ -62,8 +62,13 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:18]}];
     self.title = @"00:01:00";
     
-    progressStep = kMainScreenWidth * TIMER_REPEAT_INTERVAL / MAXVIDEOTIME;
     self.videoClipsUrlArray = [NSMutableArray arrayWithCapacity:0];
+    
+    videoLayerWidth = kMainScreenWidth;
+    videoLayerHeight = kMainScreenHeight - 64;
+    videoLayerHWRate = videoLayerHeight / videoLayerWidth;
+    progressStep = kMainScreenWidth * TIMER_REPEAT_INTERVAL / MAXVIDEOTIME;
+    
     
     // 导航栏按钮
     [self addBBI];
@@ -85,18 +90,18 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
 }
 
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.captureSession startRunning];
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+-(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
     
     //还原数据-----------
     //    [self deleteAllVideos];
-    //    currentTime = 0;
+    //        currentTime = 0;
     //    [progressPreView setFrame:CGRectMake(0, preLayerHeight, 0, 4)];
     //    shootBt.backgroundColor = UIColorFromRGB(0xfa5f66);
     //    finishBt.hidden = YES;
@@ -204,7 +209,8 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     // 录制完成按钮
     finishBtn = [[UIButton alloc] init];
-    finishBtn.alpha = 0.8f;
+    finishBtn.alpha = 1.f;
+    finishBtn.hidden = YES;
     [finishBtn addTarget:self action:@selector(VideoRecordingFinish) forControlEvents:UIControlEventTouchUpInside];
     [finishBtn setBackgroundImage:[UIImage imageNamed:@"VideoRecordingFinish"] forState:UIControlStateNormal];
     [btnBG addSubview:finishBtn];
@@ -219,7 +225,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 - (void)initializeCameraConfiguration
 {
     // 1.创建视频拍摄总容器
-    self.viewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight-64)];
+    self.viewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, videoLayerWidth, videoLayerHeight)];
     [self.view addSubview:_viewContainer];
     
     // 2.创建会话 (AVCaptureSession) 对象。
@@ -249,7 +255,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     }
     
     // 5.初始化输出数据管理对象，如果要拍照就初始化AVCaptureStillImageOutput对象；如果拍摄视频就初始化AVCaptureMovieFileOutput对象
-    _caputureMovieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
+    _captureMovieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
     
     
     // 6.将视音频数据输入对象AVCcaptureFileOutput（对应子类）添加到媒体会话管理对象AVCaptureSession中
@@ -259,7 +265,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     if ([_captureSession canAddInput:_audioCaptureDeviceInput]) {
         [_captureSession addInput:_audioCaptureDeviceInput]; // 音频
         // 建立连接
-        AVCaptureConnection *captureConnection = [_caputureMovieFileOutput connectionWithMediaType:AVMediaTypeVideo];
+        AVCaptureConnection *captureConnection = [_captureMovieFileOutput connectionWithMediaType:AVMediaTypeVideo];
         // 标识视频录入时稳定音频流的接受，这里设置为自动
         if ([captureConnection isVideoStabilizationSupported]) {
             captureConnection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
@@ -300,8 +306,8 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     //    self.progressView = progressView2;
     
     // 10.将设备输出添加到会话中
-    if ([_captureSession canAddOutput:_caputureMovieFileOutput]) {
-        [_captureSession addOutput:_caputureMovieFileOutput];
+    if ([_captureSession canAddOutput:_captureMovieFileOutput]) {
+        [_captureSession addOutput:_captureMovieFileOutput];
     }
     
     
@@ -482,7 +488,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 - (void)beginVideoRecording
 {
     // 11.将捕获的音频或视频数据输出到指定文件
-    AVCaptureConnection *captureConnection = [self.caputureMovieFileOutput connectionWithMediaType:AVMediaTypeVideo];
+    AVCaptureConnection *captureConnection = [self.captureMovieFileOutput connectionWithMediaType:AVMediaTypeVideo];
     
     // 12.开启视频防抖模式
     AVCaptureVideoStabilizationMode stabilizationMode = AVCaptureVideoStabilizationModeCinematic;
@@ -500,7 +506,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     // 视频保存路径
     NSURL *fileUrl = [NSURL fileURLWithPath:[self getVideoSaveFilePathString]];
     // 往路径的 URL 开始写入录像 Buffer
-    [self.caputureMovieFileOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
+    [self.captureMovieFileOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
     
 }
 
@@ -508,13 +514,22 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 - (void)stopVideoRecording
 {
-    [_caputureMovieFileOutput stopRecording];
+    [_captureMovieFileOutput stopRecording];
     [self stopTimer];
 }
 
 - (void)VideoRecordingFinish
 {
-    [_caputureMovieFileOutput stopRecording];
+    currentTime = MAXVIDEOTIME+10;
+    [countTimer invalidate];
+    countTimer = nil;
+    
+    // 正在拍摄
+    if (_captureMovieFileOutput.isRecording) {
+        [_captureMovieFileOutput stopRecording];
+    } else { // 已经暂停了
+        [self mergeAndExportVideosAtFileURLs:_videoClipsUrlArray];
+    }
 }
 
 #pragma mark - Timer
@@ -528,10 +543,13 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 - (void)onTimer:(NSTimer *)timer
 {
     currentTime += TIMER_REPEAT_INTERVAL;
+    
+    self.title = [NSString stringWithFormat:@"%02ld:%02ld", ((NSInteger)currentTime)/60, ((NSInteger)currentTime)%60];
+    //    DONG_Log(@"currentTime-->%ld", ((NSInteger)currentTime)%60);
+    
     float progressWidth = progressView.frame.size.width+progressStep;
     [progressView setFrame:CGRectMake(0, 0, progressWidth, 4)];
-    int i = 0;
-    self.title = [NSString stringWithFormat:@"%d",i++];
+    
     if (currentTime > MINVIDEOTIME) {
         finishBtn.hidden = NO;
     }
@@ -540,7 +558,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     if (currentTime >= MAXVIDEOTIME) {
         [countTimer invalidate];
         countTimer = nil;
-        [_caputureMovieFileOutput stopRecording];
+        [_captureMovieFileOutput stopRecording];
     }
 }
 
@@ -564,7 +582,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 {
     DONG_Log(@"---- 录制结束 ----");
     [_videoClipsUrlArray addObject:outputFileURL];
-    //时间到了
+    // 时间到了
     if (currentTime >= MAXVIDEOTIME) {
         [self mergeAndExportVideosAtFileURLs:_videoClipsUrlArray];
     }
@@ -621,6 +639,14 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     }
 }
 
+- (CGFloat)getfileSize:(NSString *)path
+{
+    NSDictionary *outputFileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+    DONG_Log(@"file size: %f", (unsigned long long)[outputFileAttributes fileSize]/1024.00 /1024.00);
+    return (CGFloat)[outputFileAttributes fileSize]/1024.00 /1024.00;
+}
+
+
 #pragma mark - 视频处理
 
 - (void)mergeAndExportVideosAtFileURLs:(NSArray *)fileURLArray
@@ -637,13 +663,14 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     NSMutableArray *assetTrackArray = [[NSMutableArray alloc] init];
     NSMutableArray *assetArray = [[NSMutableArray alloc] init];
+    
     for (NSURL *fileURL in fileURLArray) {
         
         AVAsset *asset = [AVAsset assetWithURL:fileURL];
         [assetArray addObject:asset];
         
-        NSArray* tmpAry =[asset tracksWithMediaType:AVMediaTypeVideo];
-        if (tmpAry.count>0) {
+        NSArray* tmpAry = [asset tracksWithMediaType:AVMediaTypeVideo];
+        if (tmpAry.count > 0) {
             AVAssetTrack *assetTrack = [tmpAry objectAtIndex:0];
             [assetTrackArray addObject:assetTrack];
             renderSize.width = MAX(renderSize.width, assetTrack.naturalSize.height);
@@ -681,7 +708,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
         rate = renderW / MIN(assetTrack.naturalSize.width, assetTrack.naturalSize.height);
         
         CGAffineTransform layerTransform = CGAffineTransformMake(assetTrack.preferredTransform.a, assetTrack.preferredTransform.b, assetTrack.preferredTransform.c, assetTrack.preferredTransform.d, assetTrack.preferredTransform.tx * rate, assetTrack.preferredTransform.ty * rate);
-        layerTransform = CGAffineTransformConcat(layerTransform, CGAffineTransformMake(1, 0, 0, 1, 0, -(assetTrack.naturalSize.width - assetTrack.naturalSize.height) / 2.0+preLayerHWRate*(preLayerHeight-preLayerWidth)/2));
+        layerTransform = CGAffineTransformConcat(layerTransform, CGAffineTransformMake(1, 0, 0, 1, 0, -(assetTrack.naturalSize.width - assetTrack.naturalSize.height) / 2.0+videoLayerHWRate*(videoLayerHeight-videoLayerWidth)/2));
         layerTransform = CGAffineTransformScale(layerTransform, rate, rate);
         
         [layerInstruciton setTransform:layerTransform atTime:kCMTimeZero];
@@ -699,20 +726,28 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     AVMutableVideoComposition *mainCompositionInst = [AVMutableVideoComposition videoComposition];
     mainCompositionInst.instructions = @[mainInstruciton];
     mainCompositionInst.frameDuration = CMTimeMake(1, 100);
-    mainCompositionInst.renderSize = CGSizeMake(renderW, renderW*preLayerHWRate);
+    mainCompositionInst.renderSize = CGSizeMake(renderW, renderW * videoLayerHWRate);
     
+    // 通过资源（AVURLAsset）来定义 AVAssetExportSession，得到资源属性来重新打包资源 （AVURLAsset, 将某一些属性重新定义
     AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetMediumQuality];
     exporter.videoComposition = mainCompositionInst;
+    // 设置导出文件的存放路径
     exporter.outputURL = mergeFileURL;
+    // 转换成MP4格式
     exporter.outputFileType = AVFileTypeMPEG4;
+    // 是否对网络进行优化
     exporter.shouldOptimizeForNetworkUse = YES;
+    // 开始导出,导出后执行完成的block
     [exporter exportAsynchronouslyWithCompletionHandler:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-           
-            
-            
-        });
+        
+            // 如果导出的状态为完成
+            if ([exporter status] == AVAssetExportSessionStatusCompleted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    DONG_Log(@"fileSize-->%f", [self getfileSize:path]);
+                    });
+            }
+        
     }];
     
 }
