@@ -11,6 +11,8 @@
 
 @interface SCLovelyBabyUploadVideoVC ()<UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
+/** 视频封面 */
+@property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
 /** 标题 */
 @property (weak, nonatomic) IBOutlet UITextField *videoNameTF;
 /** 简介 */
@@ -31,6 +33,7 @@
 {
     [super viewDidLoad];
     _videoIntroductionTV.delegate = self;
+    [_coverImageView setImage:_videoCoverImage];
 }
 
 - (void)didReceiveMemoryWarning
@@ -140,5 +143,7 @@
     
     return YES;
 }
+
+
 
 @end

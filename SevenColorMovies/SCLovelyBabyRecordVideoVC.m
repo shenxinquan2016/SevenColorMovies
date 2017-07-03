@@ -66,10 +66,9 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     self.videoClipsUrlArray = [NSMutableArray arrayWithCapacity:0];
     
     videoLayerWidth = kMainScreenWidth;
-    videoLayerHeight = kMainScreenHeight - 64;
+    videoLayerHeight = kMainScreenWidth * 9 / 16;
     videoLayerHWRate = videoLayerHeight / videoLayerWidth;
     progressStep = kMainScreenWidth * TIMER_REPEAT_INTERVAL / MAXVIDEOTIME;
-    
     
     // 导航栏按钮
     [self addBBI];
@@ -88,6 +87,13 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.edgesForExtendedLayout = 0;
+    
+    // 还原数据
+    [self deleteAllVideos];
+    currentTime = 0;
+    self.title = @"00:00";
+    [progressView setFrame:CGRectMake(0, 0, 0, 4)];
+    finishBtn.hidden = YES;
     
 }
 
@@ -114,6 +120,10 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     
     [self.captureSession stopRunning];
+    
+}
+
+- (void)dealloc {
     
 }
 
@@ -616,7 +626,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     formatter.dateFormat = @"yyyyMMddHHmmss";
     NSString *nowTimeStr = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:0]];
     
-    NSString *fileName = [[[path stringByAppendingPathComponent:@"lovelyBaby"] stringByAppendingString:nowTimeStr] stringByAppendingString:@".mp4"];
+    NSString *fileName = [[[path stringByAppendingPathComponent:@"lovelyBaby_"] stringByAppendingString:nowTimeStr] stringByAppendingString:@".mp4"];
     
     return fileName;
 }
@@ -631,10 +641,9 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     BOOL isDir = NO;
     BOOL isDirExist = [fileManager fileExistsAtPath:folderPath isDirectory:&isDir];
     
-    if(!(isDirExist && isDir))
-    {
+    if(!(isDirExist && isDir)) {
         BOOL bCreateDir = [fileManager createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
-        if(!bCreateDir){
+        if(!bCreateDir) {
             DONG_Log(@"创建保存视频文件夹失败");
         }
     }
@@ -643,8 +652,28 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 - (CGFloat)getfileSize:(NSString *)path
 {
     NSDictionary *outputFileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
-//    DONG_Log(@"file size: %f", (unsigned long long)[outputFileAttributes fileSize]/1024.00 /1024.00);
+    //    DONG_Log(@"file size: %f", (unsigned long long)[outputFileAttributes fileSize]/1024.00 /1024.00);
     return (CGFloat)[outputFileAttributes fileSize]/1024.00 /1024.00;
+}
+
+// 删除视频文件
+- (void)deleteAllVideos
+{
+    for (NSURL *videoFileURL in _videoClipsUrlArray) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSString *filePath = [[videoFileURL absoluteString] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            if ([fileManager fileExistsAtPath:filePath]) {
+                NSError *error = nil;
+                [fileManager removeItemAtPath:filePath error:&error];
+                
+                if (error) {
+                    DONG_Log(@"delete All Video 删除视频文件出错:%@", error);
+                }
+            }
+        });
+    }
+    [_videoClipsUrlArray removeAllObjects];
 }
 
 
@@ -741,20 +770,41 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     // 开始导出,导出后执行完成的block
     [exporter exportAsynchronouslyWithCompletionHandler:^{
         
-            // 如果导出的状态为完成
-            if ([exporter status] == AVAssetExportSessionStatusCompleted) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    DONG_Log(@"path-->%@ fileSize-->%f", path, [self getfileSize:path]);
-                    
-                    SCLovelyBabyUploadVideoVC *uploadVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyUploadVideoVC");
-                    uploadVC.videoFilePath = path;
-                    [self.navigationController pushViewController:uploadVC animated:YES];
-                    });
-            }
-        
+        // 如果导出的状态为完成
+        if ([exporter status] == AVAssetExportSessionStatusCompleted) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                DONG_Log(@"path-->%@ fileSize-->%f", path, [self getfileSize:path]);
+                // 获取视频第一帧图片
+                UIImage *coverImage = [self getVideoPreViewImage:mergeFileURL];
+                
+                SCLovelyBabyUploadVideoVC *uploadVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyUploadVideoVC");
+                uploadVC.videoFilePath = path;
+                uploadVC.videoCoverImage = coverImage;
+                [self.navigationController pushViewController:uploadVC animated:YES];
+            });
+        }
     }];
     
+}
+
+#pragma mark - 获取视频第一帧图片
+
+- (UIImage*) getVideoPreViewImage:(NSURL *)videoPath
+{
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoPath options:nil];
+    AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    gen.requestedTimeToleranceAfter = kCMTimeZero;
+    gen.requestedTimeToleranceBefore = kCMTimeZero;
+    gen.appliesPreferredTrackTransform = YES;
+    CMTime time = CMTimeMakeWithSeconds(0.0, 600);
+    NSError *error = nil;
+    CMTime actualTime;
+    CGImageRef image = [gen copyCGImageAtTime:time actualTime:&actualTime error:&error];
+    UIImage *img = [[UIImage alloc] initWithCGImage:image];
+    CGImageRelease(image);
+    
+    return img;
 }
 
 @end

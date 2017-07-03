@@ -710,6 +710,7 @@
                     </view>
                     <connections>
                         <outlet property="amountLabel" destination="aR4-Ut-rWa" id="jPf-ww-slP"/>
+                        <outlet property="coverImageView" destination="gwU-QG-xHp" id="wWD-Ks-X6b"/>
                         <outlet property="placeHolderLabel" destination="pAB-aH-XNq" id="MaX-u7-374"/>
                         <outlet property="videoIntroductionTV" destination="WKd-aj-fjI" id="3U1-7G-yIL"/>
                         <outlet property="videoNameTF" destination="VNk-in-5Jg" id="yYJ-gC-Ddy"/>

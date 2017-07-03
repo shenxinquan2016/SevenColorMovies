@@ -10,6 +10,7 @@
 
 @interface SCLovelyBabyUploadVideoVC : SCOtherBaseViewController
 
-@property (nonatomic, copy) NSString *videoFilePath;
+@property (nonatomic, copy) NSString *videoFilePath; // 视频路径
+@property (nonatomic, strong) UIImage *videoCoverImage; // 视频封面照片
 
 @end
