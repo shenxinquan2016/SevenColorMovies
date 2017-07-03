@@ -218,6 +218,7 @@
 		11C8CFBC1D45157B00C04F38 /* SCCollectionViewPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C8CFB81D45157B00C04F38 /* SCCollectionViewPageCell.xib */; };
 		11C905DF1D6C3BB9004D3749 /* NSDate+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C905DE1D6C3BB9004D3749 /* NSDate+Addition.m */; };
 		11CAD9F41DED74AD009F3337 /* SCWatchHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CAD9F31DED74AD009F3337 /* SCWatchHistoryModel.m */; };
+		11CAE45F1F0A4067009EE474 /* UIImage+IMB.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CAE45E1F0A4067009EE474 /* UIImage+IMB.m */; };
 		11D422541D49A1A400B4F9AE /* DONG_RefreshGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422531D49A1A400B4F9AE /* DONG_RefreshGifHeader.m */; };
 		11D422571D49A20800B4F9AE /* DONG_RefreshGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422561D49A20800B4F9AE /* DONG_RefreshGifFooter.m */; };
 		11D4225A1D49A42800B4F9AE /* SCComonFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D422591D49A42800B4F9AE /* SCComonFunc.m */; };
@@ -649,6 +650,8 @@
 		11C905DE1D6C3BB9004D3749 /* NSDate+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Addition.m"; sourceTree = "<group>"; };
 		11CAD9F21DED74AD009F3337 /* SCWatchHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWatchHistoryModel.h; sourceTree = "<group>"; };
 		11CAD9F31DED74AD009F3337 /* SCWatchHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWatchHistoryModel.m; sourceTree = "<group>"; };
+		11CAE45D1F0A4067009EE474 /* UIImage+IMB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+IMB.h"; sourceTree = "<group>"; };
+		11CAE45E1F0A4067009EE474 /* UIImage+IMB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+IMB.m"; sourceTree = "<group>"; };
 		11D422521D49A1A400B4F9AE /* DONG_RefreshGifHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_RefreshGifHeader.h; sourceTree = "<group>"; };
 		11D422531D49A1A400B4F9AE /* DONG_RefreshGifHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_RefreshGifHeader.m; sourceTree = "<group>"; };
 		11D422551D49A20800B4F9AE /* DONG_RefreshGifFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_RefreshGifFooter.h; sourceTree = "<group>"; };
@@ -2159,6 +2162,8 @@
 			children = (
 				113F8D9C1D3C86EF00B12D39 /* UIImage+Addition.h */,
 				113F8D9D1D3C86EF00B12D39 /* UIImage+Addition.m */,
+				11CAE45D1F0A4067009EE474 /* UIImage+IMB.h */,
+				11CAE45E1F0A4067009EE474 /* UIImage+IMB.m */,
 				113F8D9F1D3CAAC200B12D39 /* UIColor+Addition.h */,
 				113F8DA01D3CAAC200B12D39 /* UIColor+Addition.m */,
 				11DC2BD61D3DFC6800012480 /* UIImageView+Addition.h */,
@@ -2858,6 +2863,7 @@
 				11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */,
 				11E97A051D6320CA00512D10 /* PlayerViewRotate.m in Sources */,
 				1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */,
+				11CAE45F1F0A4067009EE474 /* UIImage+IMB.m in Sources */,
 				11458E971D45E0D500EBD16D /* SCDiscoveryTableViewCell.m in Sources */,
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
 				11BA52DF1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m in Sources */,

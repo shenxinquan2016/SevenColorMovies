@@ -594,7 +594,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image-4" translatesAutoresizingMaskIntoConstraints="NO" id="gwU-QG-xHp">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image-4" translatesAutoresizingMaskIntoConstraints="NO" id="gwU-QG-xHp">
                                 <rect key="frame" x="0.0" y="20" width="375" height="211"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="211" id="gEW-OR-Nb8"/>
@@ -711,6 +711,7 @@
                     <connections>
                         <outlet property="amountLabel" destination="aR4-Ut-rWa" id="jPf-ww-slP"/>
                         <outlet property="coverImageView" destination="gwU-QG-xHp" id="wWD-Ks-X6b"/>
+                        <outlet property="imagePickerButton" destination="bXg-hh-4v1" id="J1J-hg-gnq"/>
                         <outlet property="placeHolderLabel" destination="pAB-aH-XNq" id="MaX-u7-374"/>
                         <outlet property="videoIntroductionTV" destination="WKd-aj-fjI" id="3U1-7G-yIL"/>
                         <outlet property="videoNameTF" destination="VNk-in-5Jg" id="yYJ-gC-Ddy"/>

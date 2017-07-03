@@ -99,6 +99,7 @@
 #define LovelyBabyVideoList @"http://192.167.1.6/appjh_mmserver/paikeInfo/searchInfo.do" // 视频列表
 #define LovelyBabyVideoDetailInfo @"http://192.167.1.6/appjh_mmserver/paikeInfo/searchDetails.do" // 视频详情
 #define LovelyBabyVote @"http://192.167.1.6/appjh_mmserver/vote/userVote.do"  // 投票
+#define LovelyBabyVideoUpload @"http://192.167.1.6/upload/makingUpload.do?" // 视频上传
 
 /***************************************语音控器通信接口*****************************************/
 #define CloudRemoteControl @"192.168.31.224:9099"

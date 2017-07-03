@@ -58,7 +58,6 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // 设置navigationBar上的title颜色和大小
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:18]}];
     self.title = @"00:01:00";
@@ -67,7 +66,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     // 0.视频拍摄窗口设置
     videoLayerWidth = kMainScreenWidth;
-    videoLayerHeight = kMainScreenWidth * 9 / 16;
+    videoLayerHeight = kMainScreenWidth * 3 / 4;
     videoLayerHWRate = videoLayerHeight / videoLayerWidth;
     progressStep = kMainScreenWidth * TIMER_REPEAT_INTERVAL / MAXVIDEOTIME;
     
@@ -103,11 +102,6 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [self.captureSession startRunning];
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
@@ -118,7 +112,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 }
 
 - (void)dealloc {
-    
+    [self deleteAllVideos];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -198,7 +192,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [self.view addSubview:btnBG];
     [btnBG mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
-        make.height.equalTo(@120);
+        make.top.equalTo(_viewContainer.mas_bottom);
     }];
     
     // 录制按钮
@@ -294,7 +288,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [_captureSession startRunning];
     
     // 8.添加聚焦光标
-    self.focusCursor = [[UIImageView alloc]initWithFrame:CGRectMake(100, 100, 50, 50)];
+    self.focusCursor = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
     [_focusCursor setImage:[UIImage imageNamed:@"FocusCursor"]];
     _focusCursor.alpha = 0.f;
     [_viewContainer addSubview:_focusCursor];
@@ -775,6 +769,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
                 SCLovelyBabyUploadVideoVC *uploadVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyUploadVideoVC");
                 uploadVC.videoFilePath = path;
                 uploadVC.videoCoverImage = coverImage;
+                uploadVC.videoLength = (NSInteger)currentTime;
                 [self.navigationController pushViewController:uploadVC animated:YES];
             });
         }

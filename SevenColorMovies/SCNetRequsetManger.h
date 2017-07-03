@@ -59,6 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 /** json post通用请求方法 */
 - (void)postRequestJsonDataWithUrl:(nullable NSString *)urlString parameters:(nullable NSDictionary *)parameters success:(nullable void(^)(id _Nullable responseObject))success failure:(nullable void(^)(id _Nullable errorObject))faild;
 
+/** 文件上传 */
+- (void)postUploadDataWithUrl:(nullable NSString *)urlStr video:(nullable NSData *)videoData imgData:(nullable NSData *)imgData  parameters:(NSDictionary *)parameters success:(nullable void (^)(id _Nullable responseObject))success fail:(nullable void (^)(id _Nullable errorObject))fail;
 
 @end
 

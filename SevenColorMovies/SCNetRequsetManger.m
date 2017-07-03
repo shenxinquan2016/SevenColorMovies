@@ -224,6 +224,44 @@
     
 }
 
+/** 文件上传 */
+- (void)postUploadDataWithUrl:(nullable NSString *)urlStr video:(nullable NSData *)videoData imgData:(nullable NSData *)imgData  parameters:(NSDictionary *)parameters success:(nullable void (^)(id _Nullable responseObject))success fail:(nullable void (^)(id _Nullable errorObject))fail
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    
+    [manager POST:urlStr parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        [formData appendPartWithFileData:imgData name:@"pick" fileName:@"upload.png" mimeType:@"image/png"];
+        [formData appendPartWithFileData:videoData name:@"video" fileName:@"video.mp4" mimeType:@"video/mp4"];
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DONG_Log(@"==============%@===============",operation.responseString);
+        if (success) {
+            NSError *myError;
+            id dic = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:&myError];
+            success(dic);
+            //success(responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        //数据请求失败
+        if (![SCNetHelper isNetConnect]) {
+            fail(@"网络异常，请检查网络设置!");
+            [MBProgressHUD showError:@"网络异常，请检查网络设置!"];
+        } else {
+            fail(@"获取数据失败!");
+            [MBProgressHUD showError:@"提交失败，请重试!"];
+        }
+        
+    }];
+    
+    
+    
+    
+}
+
 
 
 
