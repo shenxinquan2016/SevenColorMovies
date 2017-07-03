@@ -7,6 +7,7 @@
 //  视频编辑上传
 
 #import "SCLovelyBabyUploadVideoVC.h"
+#import "SCHuikanPlayerViewController.h"
 
 @interface SCLovelyBabyUploadVideoVC ()<UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -55,6 +56,12 @@
 - (IBAction)uploadVideo:(id)sender
 {
     
+}
+
+- (IBAction)playVideo:(id)sender
+{
+    SCHuikanPlayerViewController *player = [SCHuikanPlayerViewController initPlayerWithFilePath:_videoFilePath];
+    [self.navigationController pushViewController:player animated:YES];
 }
 
 #pragma mark - UIImagePickerControllerDelegate

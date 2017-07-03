@@ -8,7 +8,6 @@
 
 #import "SCMyLovelyBabyVC.h"
 #import "SCLovelyBabyLoginVC.h"
-#import "SCLovelyBabyUploadVideoVC.h"
 #import "SCLovelyBabyRecordVideoVC.h"
 
 @interface SCMyLovelyBabyVC ()

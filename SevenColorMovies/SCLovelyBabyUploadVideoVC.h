@@ -10,4 +10,6 @@
 
 @interface SCLovelyBabyUploadVideoVC : SCOtherBaseViewController
 
+@property (nonatomic, copy) NSString *videoFilePath;
+
 @end

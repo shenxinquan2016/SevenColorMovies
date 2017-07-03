@@ -8,6 +8,7 @@
 
 #import "SCLovelyBabyRecordVideoVC.h"
 #import <AVFoundation/AVFoundation.h>
+#import "SCLovelyBabyUploadVideoVC.h"
 
 #define MAXVIDEOTIME 10 // 视频最大时间
 #define MINVIDEOTIME 3 // 视频最小时间
@@ -615,7 +616,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     formatter.dateFormat = @"yyyyMMddHHmmss";
     NSString *nowTimeStr = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:0]];
     
-    NSString *fileName = [[path stringByAppendingPathComponent:nowTimeStr] stringByAppendingString:@"lovelyBaby.mp4"];
+    NSString *fileName = [[[path stringByAppendingPathComponent:@"lovelyBaby"] stringByAppendingString:nowTimeStr] stringByAppendingString:@".mp4"];
     
     return fileName;
 }
@@ -642,7 +643,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 - (CGFloat)getfileSize:(NSString *)path
 {
     NSDictionary *outputFileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
-    DONG_Log(@"file size: %f", (unsigned long long)[outputFileAttributes fileSize]/1024.00 /1024.00);
+//    DONG_Log(@"file size: %f", (unsigned long long)[outputFileAttributes fileSize]/1024.00 /1024.00);
     return (CGFloat)[outputFileAttributes fileSize]/1024.00 /1024.00;
 }
 
@@ -744,7 +745,11 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
             if ([exporter status] == AVAssetExportSessionStatusCompleted) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    DONG_Log(@"fileSize-->%f", [self getfileSize:path]);
+                    DONG_Log(@"path-->%@ fileSize-->%f", path, [self getfileSize:path]);
+                    
+                    SCLovelyBabyUploadVideoVC *uploadVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyUploadVideoVC");
+                    uploadVC.videoFilePath = path;
+                    [self.navigationController pushViewController:uploadVC animated:YES];
                     });
             }
         
