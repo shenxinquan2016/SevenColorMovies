@@ -65,18 +65,19 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     self.videoClipsUrlArray = [NSMutableArray arrayWithCapacity:0];
     
+    // 0.视频拍摄窗口设置
     videoLayerWidth = kMainScreenWidth;
     videoLayerHeight = kMainScreenWidth * 9 / 16;
     videoLayerHWRate = videoLayerHeight / videoLayerWidth;
     progressStep = kMainScreenWidth * TIMER_REPEAT_INTERVAL / MAXVIDEOTIME;
     
-    // 导航栏按钮
+    // 1.导航栏按钮
     [self addBBI];
-    // 初始化摄像机
+    // 2.初始化摄像机
     [self initializeCameraConfiguration];
-    // 录制按钮
+    // 3.录制按钮
     [self addVideoRecordBtnView];
-    // 视频保存文件夹
+    // 4.视频保存文件夹
     [self createVideoFolder];
 }
 
@@ -104,14 +105,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
-    
-    //还原数据-----------
-    //    [self deleteAllVideos];
-    //        currentTime = 0;
-    //    [progressPreView setFrame:CGRectMake(0, preLayerHeight, 0, 4)];
-    //    shootBt.backgroundColor = UIColorFromRGB(0xfa5f66);
-    //    finishBt.hidden = YES;
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
