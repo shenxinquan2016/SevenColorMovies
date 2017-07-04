@@ -11,6 +11,8 @@
 
 @interface SCLovelyBabyRegisterVC () <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UIView *activityRulesView; // 底部视图
+
 @property (weak, nonatomic) IBOutlet UILabel *signUpCondition;
 @property (weak, nonatomic) IBOutlet UILabel *singUpConditionLabel2;
 @property (weak, nonatomic) IBOutlet UILabel *signUpTimeLabel;
@@ -34,6 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _activityRulesView.hidden = YES;
+    // 活动规则label属性设置
     [self initializeLabelConfiguration];
     _mobilePhoneTF.delegate = self;
     _mobilePhoneTF.keyboardType = UIKeyboardTypePhonePad;

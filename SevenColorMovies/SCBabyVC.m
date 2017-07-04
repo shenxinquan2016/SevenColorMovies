@@ -43,13 +43,6 @@
     
 }
 
-// 禁止旋转屏幕
-- (BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-
 #pragma mark - NetRequest
 
 // 视频详情
@@ -200,6 +193,12 @@
             NSLog(@"response data is %@",data);
         }
     }];
+}
+
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate
+{
+    return NO;
 }
 
 @end

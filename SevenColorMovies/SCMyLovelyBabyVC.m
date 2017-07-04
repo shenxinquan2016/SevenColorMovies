@@ -77,12 +77,6 @@
     [self.navigationController pushViewController:videoRecordVC animated:YES];
 }
 
-// 禁止旋转屏幕
-- (BOOL)shouldAutorotate
-{
-    return NO;
-}
-
 #pragma mark - NetworkRequest
 
 - (void)getMyVideoDataRequest
@@ -235,5 +229,12 @@
         [CommonFunc dismiss];
     }];
 }
+
+// 禁止旋转屏幕
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
 
 @end

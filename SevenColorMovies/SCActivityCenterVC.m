@@ -38,8 +38,9 @@
     
     _backGroundIV.hidden = YES;
     _activityRulesView.hidden = YES;
-    
+    // 活动规则label属性设置
     [self initializeLabelConfiguration];
+    // 获取任务列表
     [self getVideoTaskData];
 }
 
