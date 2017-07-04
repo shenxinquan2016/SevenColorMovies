@@ -175,7 +175,7 @@
                         break;
                         
                     case 6: // 4.上线
-//                        _leftBtn.hidden = YES;
+                        _leftBtn.hidden = YES;
                         [_rightBtn setTitle:@"审核通过" forState:UIControlStateNormal];
                         [_rightBtn setBackgroundImage:[UIImage imageNamed:@"ShareBtnBG"] forState:UIControlStateNormal];
                         _rightBtn.userInteractionEnabled = NO;

@@ -1169,9 +1169,8 @@
     [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
     self.IJKPlayerViewController.isFullScreen = YES;
     self.isProhibitRotate = YES;
-    
-    
 }
+
 #pragma mark - IJK完成加载即将播放的通知
 
 - (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification
@@ -1205,7 +1204,6 @@
         self.IJKPlayerViewController.player.currentPlaybackTime = _programModel.currentPlayTime / 1000;
         _programModel.currentPlayTime = 0.f;
     }
-    
 }
 
 - (void)hideIJKPlayerMediaControlView

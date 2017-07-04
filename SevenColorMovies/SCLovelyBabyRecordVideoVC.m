@@ -210,11 +210,12 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     finishBtn = [[UIButton alloc] init];
     finishBtn.alpha = 1.f;
     finishBtn.hidden = YES;
-    [finishBtn addTarget:self action:@selector(VideoRecordingFinish) forControlEvents:UIControlEventTouchUpInside];
+    finishBtn.enlargedEdge = 15.f;
+    [finishBtn addTarget:self action:@selector(videoRecordingFinish) forControlEvents:UIControlEventTouchUpInside];
     [finishBtn setBackgroundImage:[UIImage imageNamed:@"VideoRecordingFinish"] forState:UIControlStateNormal];
     [btnBG addSubview:finishBtn];
     [finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(btnBG.mas_right).offset(-25);
+        make.right.equalTo(btnBG.mas_right).offset(-50);
         make.centerY.equalTo(btnBG);
         make.size.mas_equalTo(CGSizeMake(30, 30));
     }];
@@ -517,7 +518,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [self stopTimer];
 }
 
-- (void)VideoRecordingFinish
+- (void)videoRecordingFinish
 {
     currentTime = MAXVIDEOTIME+10;
     [countTimer invalidate];
@@ -582,9 +583,9 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     DONG_Log(@"---- 录制结束 ----");
     [_videoClipsUrlArray addObject:outputFileURL];
     // 时间到了
-    if (currentTime >= MAXVIDEOTIME) {
-        [self mergeAndExportVideosAtFileURLs:_videoClipsUrlArray];
-    }
+//    if (currentTime >= MAXVIDEOTIME) {
+//        [self mergeAndExportVideosAtFileURLs:_videoClipsUrlArray];
+//    }
 }
 
 #pragma mark - 视频路径
@@ -669,6 +670,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 - (void)mergeAndExportVideosAtFileURLs:(NSArray *)fileURLArray
 {
+    [CommonFunc showLoadingWithTips:@"视频处理中..."];
     NSError *error = nil;
     
     CGSize renderSize = CGSizeMake(0, 0);
@@ -763,6 +765,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 DONG_Log(@"path-->%@ fileSize-->%f", path, [self getfileSize:path]);
+                [CommonFunc dismiss];
                 // 获取视频第一帧图片
                 UIImage *coverImage = [self getVideoPreViewImage:mergeFileURL];
                 
