@@ -11,7 +11,7 @@
 #import "SCLovelyBabyUploadVideoVC.h"
 
 #define MAXVIDEOTIME 70 // 视频最大时间
-#define MINVIDEOTIME 10 // 视频最小时间
+#define MINVIDEOTIME 5 // 视频最小时间
 #define TIMER_REPEAT_INTERVAL 0.1 // Timer repeat时间
 #define LOVELYBABY_VIDEO_FOLDER @"mengwa"
 
@@ -39,7 +39,6 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 /** 存放临时视频片段 */
 @property (nonatomic, strong) NSMutableArray *videoClipsUrlArray;
 
-
 @end
 
 @implementation SCLovelyBabyRecordVideoVC
@@ -61,7 +60,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     // 设置navigationBar上的title颜色和大小
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:18]}];
     self.title = @"00:01:00";
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.videoClipsUrlArray = [NSMutableArray arrayWithCapacity:0];
     
     // 0.视频拍摄窗口设置
@@ -192,7 +191,8 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [self.view addSubview:btnBG];
     [btnBG mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
-        make.top.equalTo(_viewContainer.mas_bottom);
+//        make.top.equalTo(_viewContainer.mas_bottom);
+        make.height.equalTo(@150);
     }];
     
     // 录制按钮
