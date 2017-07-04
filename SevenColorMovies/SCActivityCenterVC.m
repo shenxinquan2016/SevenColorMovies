@@ -31,6 +31,7 @@
     [super viewDidLoad];
     
     [self initializeLabelConfiguration];
+    [self getVideoTaskData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -72,6 +73,31 @@
         SCLovelyBabyLoginVC *loginVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyLoginVC");
         [self.navigationController pushViewController:loginVC animated:YES];
     }
+    
+}
+
+#pragma mark - Network Request
+
+// 获取任务列表
+- (void)getVideoTaskData
+{
+    NSDictionary *parameters = @{@"siteId"      : @"hlj_appjh",
+                                 @"ljwl"        : @"",
+                                 @"pageYema"    : @"1",
+                                 @"pageSize"    : @"1000"
+                                 };
+    
+    [CommonFunc showLoadingWithTips:@""];
+    
+    [requestDataManager getRequestJsonDataWithUrl:LovelyBabyVideoTask parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        DONG_Log(@"responseObject-->%@", responseObject);
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
     
 }
 

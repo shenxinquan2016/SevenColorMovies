@@ -26,6 +26,9 @@
 @end
 
 @implementation SCMyLovelyBabyVC
+{
+    NSString *makingId; // 视频id
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -96,6 +99,7 @@
             
             NSArray *dataArray = responseObject[@"data"];
             NSDictionary *dict = dataArray.firstObject;
+            makingId = dict[@"id"];
             
             if (dataArray.count == 0) {
                 // 1.未上传
@@ -153,6 +157,7 @@
                         [_rightBtn setBackgroundImage:[UIImage imageNamed:@"RefusedBtnBG"] forState:UIControlStateNormal];
                         _rightBtn.userInteractionEnabled = NO;
                         [_coverIV sd_setImageWithURL:[NSURL URLWithString:dict[@"showUrl"]] placeholderImage:[UIImage imageNamed:@"Image-4"]];
+                        [_leftBtn addTarget:self action:@selector(deleteMyVideoData) forControlEvents:UIControlEventTouchUpInside];
                         
                         break;
                         
@@ -203,5 +208,24 @@
     }];
 }
 
+// 删除视频
+- (void)deleteMyVideoData
+{
+    NSDictionary *parameters = @{@"makingId"      : makingId? makingId : @"",
+                                 @"token"        : UserInfoManager.lovelyBabyToken? UserInfoManager.lovelyBabyToken : @""
+                                 };
+    
+    [CommonFunc showLoadingWithTips:@"删除中..."];
+    
+    [requestDataManager getRequestJsonDataWithUrl:LovelyBabyDeleteVideo parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        [MBProgressHUD showError:responseObject[@"msg"]];
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+}
 
 @end

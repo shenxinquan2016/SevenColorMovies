@@ -234,15 +234,14 @@
     [manager POST:urlStr parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
         [formData appendPartWithFileData:imgData name:@"pick" fileName:@"upload.png" mimeType:@"image/png"];
-        [formData appendPartWithFileData:videoData name:@"video" fileName:@"video.mp4" mimeType:@"video/mp4"];
+        [formData appendPartWithFileData:videoData name:@"video" fileName:@"upload.mp4" mimeType:@"video/mp4"];
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DONG_Log(@"==============%@===============",operation.responseString);
+
         if (success) {
             NSError *myError;
             id dic = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:&myError];
             success(dic);
-            //success(responseObject);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         

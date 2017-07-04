@@ -217,7 +217,7 @@ static NSString *const footerId = @"footerId";
                             AppDelegate *app = (AppDelegate *)[[UIApplication  sharedApplication] delegate];
                             app.bannerFilmModelArray = _bannerFilmModelArr;
                             
-                            //添加banner
+                            // 添加banner
                             if (_bannerImageUrlArr.count > 0) {
                                 
                                 [self addBannerView];

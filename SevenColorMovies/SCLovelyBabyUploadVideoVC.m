@@ -23,6 +23,8 @@
 @property (nonatomic, strong) UIImagePickerController *imagePicker; // 照片选择器
 @property (nonatomic, strong) UIImage *pickedImage; // 所选取相册照片
 
+@property (nonatomic, strong) NSString *taskId; // 任务ID
+
 @end
 
 @implementation SCLovelyBabyUploadVideoVC
@@ -34,7 +36,10 @@
     [self addBBI];
     self.title = [NSString stringWithFormat:@"%02ld:%02ld", _videoLength/60, _videoLength%60];
     _videoIntroductionTV.delegate = self;
+    // 设置视频第一帧图片
     [_coverImageView setImage:_videoCoverImage];
+    // 获取任务id
+    [self getVideoTaskData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -206,31 +211,52 @@
     return YES;
 }
 
+#pragma mark - Network Request
+
+// 上传数据
 - (void)uploadVideoDataRequest
 {
-    NSDictionary *parameters = @{@"title"      : @"hlj_appjh",
-                                 @"siteCode"    : UserInfoManager.lovelyBabyMemberId,
+    // 封面图片文件
+    NSData *coverImageData = UIImagePNGRepresentation(_pickedImage);
+    // 视频文件
+    NSData *videoData = [NSData dataWithContentsOfFile:_videoFilePath];
+    
+    if (videoData.length <= 0) {
+        [MBProgressHUD showError:@"视频保存失败，请重新拍摄"];
+        return;
+    }
+    
+    if (coverImageData.length <= 0) {
+        [MBProgressHUD showError:@"请选择封面图片"];
+        return;
+    }
+    
+    if (_videoNameTF.text.length <= 0) {
+        [MBProgressHUD showError:@"请填写视频标题"];
+        return;
+    }
+    
+    if (_taskId.length <= 0) {
+        [MBProgressHUD showError:@"数据错误，请稍后再试"];
+        return;
+    }
+    
+    NSDictionary *parameters = @{@"title"       : _videoNameTF.text? _videoNameTF.text : @"", // 标题
+                                 @"siteCode"    : @"hlj_appjh",
                                  @"memberCode"  : UserInfoManager.lovelyBabyMemberId,
-                                 @"remark"  : @"paike", // 视频描述
-                                 @"taskName"    : @"1", // 任务名称
-                                 @"taskId"    : @"500", // 任务id
+                                 @"remark"      : _videoIntroductionTV.text? _videoIntroductionTV.text : @"", // 视频描述
+                                 @"taskName"    : @"萌娃", // 任务名称
+                                 @"taskId"      : _taskId? _taskId : @"", // 任务id
                                  @"token"       : UserInfoManager.lovelyBabyToken
                                  };
     
-    // 拼接头像的二进制数据
-    NSData *coverImageData = UIImagePNGRepresentation(_pickedImage);
-    // 先导入证书到项目
-//    NSString *videoPath = [[NSBundle mainBundle] pathForResource:_videoFilePath ofType:@"mp4"]; //
-    NSData *videoData = [NSData dataWithContentsOfFile:_videoFilePath];
     [CommonFunc showLoadingWithTips:@"数据上传中..."];
-    
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:LovelyBabyVideoUpload] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30];
-    
     
     [requestDataManager postUploadDataWithUrl:LovelyBabyVideoUpload video:videoData imgData:coverImageData parameters:parameters success:^(id  _Nullable responseObject) {
         
         DONG_Log(@"responseObject--%@", responseObject);
+        
+        [MBProgressHUD showSuccess:responseObject[@"msg"]];
         
         [CommonFunc dismiss];
         
@@ -242,5 +268,37 @@
 
 }
 
+// 获取任务列表
+- (void)getVideoTaskData
+{
+    NSDictionary *parameters = @{@"siteId"      : @"hlj_appjh",
+                                 @"ljwl"        : @"",
+                                 @"pageYema"    : @"1",
+                                 @"pageSize"    : @"1000"
+                                 };
+    
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager getRequestJsonDataWithUrl:LovelyBabyVideoTask parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+        NSString *resultCode = responseObject[@"resultCode"];
+        if ([resultCode isEqualToString:@"success"]) {
+            
+            NSArray *taskArray = responseObject[@"data"];
+            _taskId = taskArray.firstObject[@"id"];
+            
+        } else {
+            [MBProgressHUD showError:responseObject[@"msg"]];
+        }
+        
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+    }];
+    
+}
 
 @end
