@@ -66,7 +66,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     // 0.视频拍摄窗口设置
     videoLayerWidth = kMainScreenWidth;
-    videoLayerHeight = kMainScreenWidth * 3 / 4;
+    videoLayerHeight = kMainScreenWidth * 40 / 71;
     videoLayerHWRate = videoLayerHeight / videoLayerWidth;
     progressStep = kMainScreenWidth * TIMER_REPEAT_INTERVAL / MAXVIDEOTIME;
     

@@ -106,7 +106,7 @@
             
             NSArray *taskArr = responseObject[@"data"];
             NSURL *bannerUrl = [NSURL URLWithString:taskArr.firstObject[@"bannerImg"]];
-            [_bannerIV sd_setImageWithURL:bannerUrl placeholderImage:[UIImage imageNamed:@""]];
+            [_bannerIV sd_setImageWithURL:bannerUrl placeholderImage:[UIImage imageNamed:@"PlaceholderImage"]];
             
         } else {
             [MBProgressHUD showError:responseObject[@"msg"]];

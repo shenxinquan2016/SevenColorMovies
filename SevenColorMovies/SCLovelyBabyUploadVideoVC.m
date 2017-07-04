@@ -136,7 +136,7 @@
 {
     UIImage *image = info[UIImagePickerControllerEditedImage];
     // 等比压缩图片
-    UIImage *clipImage = [image imageCompressForSize:image targetSize:CGSizeMake(273, 164)];
+    UIImage *clipImage = [image imageCompressForSize:image targetSize:CGSizeMake(284, 160)];
     _pickedImage = clipImage;
     [_imagePickerButton setBackgroundImage:clipImage forState:UIControlStateNormal];
     [self dismissViewControllerAnimated:YES completion:nil];

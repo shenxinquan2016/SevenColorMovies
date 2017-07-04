@@ -9,6 +9,7 @@
 #import "SCMyLovelyBabyVC.h"
 #import "SCLovelyBabyLoginVC.h"
 #import "SCLovelyBabyRecordVideoVC.h"
+#import "SCHuikanPlayerViewController.h"
 
 @interface SCMyLovelyBabyVC ()
 
@@ -28,6 +29,8 @@
 @implementation SCMyLovelyBabyVC
 {
     NSString *makingId; // 视频id
+    NSString *videoUrl; // 视频播放地址
+    NSString *videoName; // 视频标题
 }
 
 - (void)viewDidLoad {
@@ -46,15 +49,18 @@
     
 }
 
+// 播放视频
 - (IBAction)playVideo:(id)sender
 {
-    
+    SCHuikanPlayerViewController *playerVC = [SCHuikanPlayerViewController initPlayerWithUrlString:videoUrl videoName:videoName];
+    [self.navigationController pushViewController:playerVC animated:YES];
+ 
 }
 
-// 左按钮
+// 左按钮 删除视频
 - (IBAction)clickLeftBtn:(id)sender
 {
-    
+    [self deleteMyVideoData];
 }
 
 // 右按钮
@@ -125,6 +131,8 @@
                 _personalNoLabel.text = dict[@"serialNumber"];
                 _totoalVoteLabel.text = [NSString stringWithFormat:@"%@票", dict[@"voteNum"]];
                 _statusCode = [dict[@"status"] integerValue];
+                videoUrl = dict[@"bfUrl"];
+                videoName = dict[@"mzName"];
                 
                 switch (_statusCode) {
                     case 0: // 删除
@@ -136,7 +144,7 @@
                         _personalNoLabel.hidden = YES;
                         _totalVoteLabel0.hidden = YES;
                         _totoalVoteLabel.hidden = YES;
-                        _leftBtn.hidden = YES;
+//                        _leftBtn.hidden = YES;
                         [_rightBtn setTitle:@"审核中" forState:UIControlStateNormal];
                         [_rightBtn setBackgroundImage:[UIImage imageNamed:@"UnderReviewBtnBG"] forState:UIControlStateNormal];
                         _rightBtn.userInteractionEnabled = NO;
@@ -157,7 +165,7 @@
                         [_rightBtn setBackgroundImage:[UIImage imageNamed:@"RefusedBtnBG"] forState:UIControlStateNormal];
                         _rightBtn.userInteractionEnabled = NO;
                         [_coverIV sd_setImageWithURL:[NSURL URLWithString:dict[@"showUrl"]] placeholderImage:[UIImage imageNamed:@"Image-4"]];
-                        [_leftBtn addTarget:self action:@selector(deleteMyVideoData) forControlEvents:UIControlEventTouchUpInside];
+                        
                         
                         break;
                         
@@ -170,7 +178,7 @@
                         break;
                         
                     case 6: // 4.上线
-                        _leftBtn.hidden = YES;
+//                        _leftBtn.hidden = YES;
                         [_rightBtn setTitle:@"审核通过" forState:UIControlStateNormal];
                         [_rightBtn setBackgroundImage:[UIImage imageNamed:@"ShareBtnBG"] forState:UIControlStateNormal];
                         _rightBtn.userInteractionEnabled = NO;
