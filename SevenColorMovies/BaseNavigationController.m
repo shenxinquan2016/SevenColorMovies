@@ -54,13 +54,13 @@
     return self.viewControllers.count > 1 && ![[self valueForKey:@"_isTransitioning"] boolValue] && [gestureRecognizer translationInView:gestureRecognizer.view].x > 0 && !([self.childViewControllers[self.viewControllers.count-2] isKindOfClass:[SCLovelyBabyRegisterVC class]]) && !([self.childViewControllers[self.viewControllers.count-2] isKindOfClass:[SCLovelyBabyLoginVC class]]);
 }
 
-//支持横竖屏显示
+// 支持横竖屏显示
 - (BOOL)shouldAutorotate
 {
     return [self.viewControllers.lastObject shouldAutorotate];
 }
 
-//支持设备自动旋转
+// 支持设备自动旋转
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return [self.viewControllers.lastObject supportedInterfaceOrientations];

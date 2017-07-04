@@ -597,7 +597,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="gwU-QG-xHp">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoBanner" translatesAutoresizingMaskIntoConstraints="NO" id="gwU-QG-xHp">
                                 <rect key="frame" x="0.0" y="20" width="375" height="211.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gwU-QG-xHp" secondAttribute="height" multiplier="71:40" id="LcO-td-bJ8"/>
@@ -894,7 +894,7 @@
                                     <constraint firstItem="PYm-dT-DGc" firstAttribute="leading" secondItem="mDe-Cb-mna" secondAttribute="leading" id="zRr-mR-m6H"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Zi-O9-CRG">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoBanner" translatesAutoresizingMaskIntoConstraints="NO" id="0Zi-O9-CRG">
                                 <rect key="frame" x="15" y="114" width="345" height="216"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="0Zi-O9-CRG" secondAttribute="height" multiplier="115:72" id="6EF-Nf-fJo"/>
@@ -951,7 +951,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="2iV-z7-hI3">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoBanner" translatesAutoresizingMaskIntoConstraints="NO" id="2iV-z7-hI3">
                                 <rect key="frame" x="0.0" y="20" width="375" height="211.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="2iV-z7-hI3" secondAttribute="height" multiplier="71:40" id="ONY-GB-WXG"/>
@@ -1117,7 +1117,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="as0-Gp-82D">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoBanner" translatesAutoresizingMaskIntoConstraints="NO" id="as0-Gp-82D">
                                 <rect key="frame" x="30" y="40" width="315" height="177.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="as0-Gp-82D" secondAttribute="height" multiplier="71:40" id="kSm-0c-dWc"/>
@@ -1256,7 +1256,7 @@
         <image name="DeleteBtnBG" width="125" height="42"/>
         <image name="LoginBG" width="540" height="933"/>
         <image name="LoginBtnBG" width="384" height="60"/>
-        <image name="PlaceholderImage" width="150" height="150"/>
+        <image name="NoBanner" width="100" height="100"/>
         <image name="PlayIcon" width="65" height="65"/>
         <image name="RefusedBtnBG" width="125" height="42"/>
         <image name="SetCoverImage" width="420" height="237"/>

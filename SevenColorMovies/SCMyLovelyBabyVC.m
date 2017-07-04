@@ -224,8 +224,17 @@
     
     [requestDataManager getRequestJsonDataWithUrl:LovelyBabyDeleteVideo parameters:parameters success:^(id  _Nullable responseObject) {
         
-        // 刷新我的视频
-        DONG_MAIN_AFTER(1, [self getMyVideoDataRequest];);
+        if ([responseObject[@"resultCode"] isEqualToString:@"success"]) {
+            
+            // 刷新我的视频
+            DONG_MAIN_AFTER(1, [self getMyVideoDataRequest];);
+            
+        } else {
+          
+            [MBProgressHUD showError:responseObject[@"msg"]];
+            [CommonFunc dismiss];
+            
+        }
         
     } failure:^(id  _Nullable errorObject) {
         

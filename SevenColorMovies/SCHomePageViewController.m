@@ -138,7 +138,7 @@ static NSString *const footerId = @"footerId";
     [_collView addSubview:noBannerView];
     
     // 注册cell、sectionHeader、sectionFooter
-    //点播栏cell
+    // 点播栏cell
     [_collView registerNib:[UINib nibWithNibName:@"SCDemandChannelItemCell" bundle:nil] forCellWithReuseIdentifier:@"SCDemandChannelItemCell"];
     // 普通栏目cell
     [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:@"SCCollectionViewPageCell"];
@@ -150,7 +150,7 @@ static NSString *const footerId = @"footerId";
     
     [self.view addSubview:self.collView];
     
-    //2.集成刷新
+    // 2.集成刷新
     [self setCollectionViewRefresh];
     
 }
