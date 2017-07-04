@@ -141,7 +141,7 @@
                         _personalNoLabel.hidden = YES;
                         _totalVoteLabel0.hidden = YES;
                         _totoalVoteLabel.hidden = YES;
-                        _leftBtn.hidden = YES;
+//                        _leftBtn.hidden = YES;
                         [_rightBtn setTitle:@"审核中" forState:UIControlStateNormal];
                         [_rightBtn setBackgroundImage:[UIImage imageNamed:@"UnderReviewBtnBG"] forState:UIControlStateNormal];
                         _rightBtn.userInteractionEnabled = NO;
@@ -224,8 +224,7 @@
     
     [requestDataManager getRequestJsonDataWithUrl:LovelyBabyDeleteVideo parameters:parameters success:^(id  _Nullable responseObject) {
         
-        if ([responseObject[@"resultCode"] isEqualToString:@"success"]) {
-            
+        if ([responseObject[@"resultCode"] isEqualToString:@"true"]) {
             // 刷新我的视频
             DONG_MAIN_AFTER(1, [self getMyVideoDataRequest];);
             

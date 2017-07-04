@@ -257,12 +257,19 @@
         
         DONG_Log(@"responseObject--%@", responseObject);
         
-        DONG_MAIN_AFTER(1,
-                        [CommonFunc dismiss];
-                        [MBProgressHUD showSuccess:responseObject[@"msg"]];
-                        SCMyLovelyBabyVC *myVideoVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCMyLovelyBabyVC");
-                        [self.navigationController pushViewController:myVideoVC animated:YES];
-                        );
+        if ([responseObject[@"resultCode"] isEqualToString:@"success"]) {
+            DONG_MAIN_AFTER(1,
+                            [CommonFunc dismiss];
+                            [MBProgressHUD showSuccess:responseObject[@"msg"]];
+                            SCMyLovelyBabyVC *myVideoVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCMyLovelyBabyVC");
+                            [self.navigationController pushViewController:myVideoVC animated:YES];
+                            );
+            
+        } else {
+            
+            [CommonFunc dismiss];
+            [MBProgressHUD showSuccess:responseObject[@"msg"]];
+        }
         
     } fail:^(id  _Nullable errorObject) {
         
