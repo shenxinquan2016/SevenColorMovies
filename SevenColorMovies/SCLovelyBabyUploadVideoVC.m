@@ -9,6 +9,7 @@
 #import "SCLovelyBabyUploadVideoVC.h"
 #import "SCHuikanPlayerViewController.h"
 #import "UIImage+IMB.h"
+#import "SCMyLovelyBabyVC.h"
 
 @interface SCLovelyBabyUploadVideoVC ()<UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -163,27 +164,27 @@
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-//    if ([text isEqualToString:@"\n"]) { // 检测到“完成”
-//        [textView resignFirstResponder]; // 释放键盘
-//        return NO;
-//    }
-//    if (textView.text.length == 0){ // textview长度为0
-//        if ([text isEqualToString:@""]) { // 判断是否为删除键
-//            _placeHolderLabel.hidden = NO; // 隐藏文字
-//        } else {
-//            _placeHolderLabel.hidden = YES;
-//        }
-//    } else { // textview长度不为0
-//        if (textView.text.length == 1){ // textview长度为1时候
-//            if ([text isEqualToString:@""]) { // 判断是否为删除键
-//                _placeHolderLabel.hidden=NO;
-//            } else { // 不是删除
-//                _placeHolderLabel.hidden = YES;
-//            }
-//        } else { // 长度不为1时候
-//            _placeHolderLabel.hidden = YES;
-//        }
-//    }
+    //    if ([text isEqualToString:@"\n"]) { // 检测到“完成”
+    //        [textView resignFirstResponder]; // 释放键盘
+    //        return NO;
+    //    }
+    //    if (textView.text.length == 0){ // textview长度为0
+    //        if ([text isEqualToString:@""]) { // 判断是否为删除键
+    //            _placeHolderLabel.hidden = NO; // 隐藏文字
+    //        } else {
+    //            _placeHolderLabel.hidden = YES;
+    //        }
+    //    } else { // textview长度不为0
+    //        if (textView.text.length == 1){ // textview长度为1时候
+    //            if ([text isEqualToString:@""]) { // 判断是否为删除键
+    //                _placeHolderLabel.hidden=NO;
+    //            } else { // 不是删除
+    //                _placeHolderLabel.hidden = YES;
+    //            }
+    //        } else { // 长度不为1时候
+    //            _placeHolderLabel.hidden = YES;
+    //        }
+    //    }
     
     if (![text isEqualToString:@""]) {
         _placeHolderLabel.hidden = YES;
@@ -192,21 +193,21 @@
         _placeHolderLabel.hidden = NO;
     }
     
-//    NSString *new = [textView.text stringByReplacingCharactersInRange:range withString:text];
-//    NSInteger res = 60 - [new length];
-//    
-//    _amountLabel.text = [NSString stringWithFormat:@"%ld/60", (long)res];
-//    
-//    if (res < 0) {
-//        _amountLabel.text = @"0/60";
-//    }
-//    
-//    NSString *temp = [textView.text stringByReplacingCharactersInRange:range withString:text];
-//    if (temp.length > 60) {
-//        textView.text = [temp substringToIndex:60];
-//        [MBProgressHUD showError:@"最多输入60个字"];
-//        return NO;
-//    }
+    //    NSString *new = [textView.text stringByReplacingCharactersInRange:range withString:text];
+    //    NSInteger res = 60 - [new length];
+    //
+    //    _amountLabel.text = [NSString stringWithFormat:@"%ld/60", (long)res];
+    //
+    //    if (res < 0) {
+    //        _amountLabel.text = @"0/60";
+    //    }
+    //
+    //    NSString *temp = [textView.text stringByReplacingCharactersInRange:range withString:text];
+    //    if (temp.length > 60) {
+    //        textView.text = [temp substringToIndex:60];
+    //        [MBProgressHUD showError:@"最多输入60个字"];
+    //        return NO;
+    //    }
     
     return YES;
 }
@@ -256,16 +257,19 @@
         
         DONG_Log(@"responseObject--%@", responseObject);
         
-        [MBProgressHUD showSuccess:responseObject[@"msg"]];
-        
-        [CommonFunc dismiss];
+        DONG_MAIN_AFTER(1,
+                        [CommonFunc dismiss];
+                        [MBProgressHUD showSuccess:responseObject[@"msg"]];
+                        SCMyLovelyBabyVC *myVideoVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCMyLovelyBabyVC");
+                        [self.navigationController pushViewController:myVideoVC animated:YES];
+                        );
         
     } fail:^(id  _Nullable errorObject) {
-       
+        
         [CommonFunc dismiss];
         
     }];
-
+    
 }
 
 // 获取任务列表

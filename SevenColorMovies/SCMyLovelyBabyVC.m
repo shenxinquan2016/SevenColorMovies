@@ -10,6 +10,9 @@
 #import "SCLovelyBabyLoginVC.h"
 #import "SCLovelyBabyRecordVideoVC.h"
 #import "SCHuikanPlayerViewController.h"
+#import "SCActivityCenterVC.h"
+#import "SCLovelyBabyCenterVC.h"
+
 
 @interface SCMyLovelyBabyVC ()
 
@@ -221,8 +224,8 @@
     
     [requestDataManager getRequestJsonDataWithUrl:LovelyBabyDeleteVideo parameters:parameters success:^(id  _Nullable responseObject) {
         
-        [MBProgressHUD showError:responseObject[@"msg"]];
-        [CommonFunc dismiss];
+        // 刷新我的视频
+        DONG_MAIN_AFTER(1, [self getMyVideoDataRequest];);
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -230,7 +233,33 @@
     }];
 }
 
-// 禁止旋转屏幕
+#pragma mark - 重写goback
+
+- (void)goBack
+{
+    // 取出当前的导航控制器
+    UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    // 当前选择的导航控制器
+    UINavigationController *navController = (UINavigationController *)tabBarVC.selectedViewController;
+    
+    for (int i = 0; i < navController.viewControllers.count ; i++) {
+        
+        unsigned long index = navController.viewControllers.count - i;
+        UIViewController* controller = navController.viewControllers[index-1];
+        
+        if ([controller isKindOfClass:[SCActivityCenterVC class]]) {
+            
+            [self.navigationController popToViewController:controller animated:YES];
+            
+        } else if ([controller isKindOfClass:[SCLovelyBabyCenterVC class]]) {
+            
+            [self.navigationController popToViewController:controller animated:YES];
+        }
+    }
+}
+
+#pragma mark - 屏幕旋转开关
+
 - (BOOL)shouldAutorotate
 {
     return NO;
