@@ -615,7 +615,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dDp-26-4Dj">
-                                <rect key="frame" x="0.0" y="231.5" width="375" height="35"/>
+                                <rect key="frame" x="0.0" y="236.5" width="375" height="35"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="宝宝名字" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VNk-in-5Jg">
                                         <rect key="frame" x="8" y="0.0" width="367" height="35"/>
@@ -634,7 +634,7 @@
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WKd-aj-fjI">
-                                <rect key="frame" x="0.0" y="272.5" width="375" height="70"/>
+                                <rect key="frame" x="0.0" y="277.5" width="375" height="70"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="ay5-42-Z6g"/>
@@ -643,7 +643,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60/60" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aR4-Ut-rWa">
-                                <rect key="frame" x="330" y="317.5" width="40" height="17"/>
+                                <rect key="frame" x="330" y="322.5" width="40" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="Mf3-CP-jB3"/>
                                     <constraint firstAttribute="width" constant="40" id="g57-Nj-y3o"/>
@@ -666,7 +666,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXg-hh-4v1">
-                                <rect key="frame" x="51" y="362.5" width="273" height="154"/>
+                                <rect key="frame" x="51" y="367.5" width="273" height="154"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="bXg-hh-4v1" secondAttribute="height" multiplier="71:40" id="20i-9y-UFv"/>
                                     <constraint firstAttribute="width" constant="273" id="fBG-U0-hnw"/>
@@ -677,7 +677,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="对你的短片简单介绍下吧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAB-aH-XNq">
-                                <rect key="frame" x="7" y="280.5" width="158" height="17"/>
+                                <rect key="frame" x="7" y="285.5" width="158" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="A0Y-yA-E6v"/>
                                     <constraint firstAttribute="width" constant="158" id="MBb-KV-ihV"/>
@@ -687,7 +687,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="gwU-QG-xHp" secondAttribute="trailing" id="2ma-ef-7l8"/>
                             <constraint firstItem="hwF-9f-dbh" firstAttribute="centerX" secondItem="gwU-QG-xHp" secondAttribute="centerX" id="4RD-FV-w82"/>
@@ -706,7 +706,7 @@
                             <constraint firstAttribute="trailing" secondItem="aR4-Ut-rWa" secondAttribute="trailing" constant="5" id="g80-MM-eiO"/>
                             <constraint firstItem="X5F-av-kgE" firstAttribute="top" secondItem="57x-ll-Xhb" secondAttribute="bottom" id="jBi-Da-Wt9"/>
                             <constraint firstAttribute="trailing" secondItem="WKd-aj-fjI" secondAttribute="trailing" id="pXX-Bd-rRq"/>
-                            <constraint firstItem="dDp-26-4Dj" firstAttribute="top" secondItem="gwU-QG-xHp" secondAttribute="bottom" id="sG5-W2-kgg"/>
+                            <constraint firstItem="dDp-26-4Dj" firstAttribute="top" secondItem="gwU-QG-xHp" secondAttribute="bottom" constant="5" id="sG5-W2-kgg"/>
                             <constraint firstItem="WKd-aj-fjI" firstAttribute="top" secondItem="dDp-26-4Dj" secondAttribute="bottom" constant="6" id="zD9-fh-hqK"/>
                             <constraint firstItem="pAB-aH-XNq" firstAttribute="leading" secondItem="BJo-b9-rah" secondAttribute="leading" constant="7" id="zYh-GN-gIF"/>
                         </constraints>

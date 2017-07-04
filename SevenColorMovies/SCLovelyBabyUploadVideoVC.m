@@ -307,9 +307,9 @@
 
 
 // 禁止旋转屏幕
-- (BOOL)shouldAutorotate
-{
-    return NO;
-}
+//- (BOOL)shouldAutorotate
+//{
+//    return NO;
+//}
 
 @end

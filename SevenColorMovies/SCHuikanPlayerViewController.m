@@ -145,6 +145,8 @@
     player.IJKPlayerViewController.view.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
     player.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenHeight, kMainScreenWidth);
     player.IJKPlayerViewController.mediaControl.fullScreenButton.hidden = YES;
+    player.IJKPlayerViewController.mediaControl.pushScreenButton.hidden = YES;
+    player.IJKPlayerViewController.mediaControl.totalDurationLabelTrailingSpaceConstraint.constant = -60;
     player.IJKPlayerViewController.isSinglePlayerView = YES;
     player.isProhibitRotate = YES;
     // 3.播放器返回按钮的回调 刷新本页是否支持旋转状态
@@ -156,7 +158,6 @@
     // player.IJKPlayerViewController.mediaControl.programNameLabel.text = name;//节目名称
     player.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = name;//节目名称
     [player.view addSubview:player.IJKPlayerViewController.view];
-    
     
     // 4.强制旋转进入全屏 旋转后使该控制器不支持旋转 达到锁定全屏的功能
     [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
