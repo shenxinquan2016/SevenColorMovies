@@ -141,7 +141,7 @@
                         _personalNoLabel.hidden = YES;
                         _totalVoteLabel0.hidden = YES;
                         _totoalVoteLabel.hidden = YES;
-//                        _leftBtn.hidden = YES;
+                        _leftBtn.hidden = YES;
                         [_rightBtn setTitle:@"审核中" forState:UIControlStateNormal];
                         [_rightBtn setBackgroundImage:[UIImage imageNamed:@"UnderReviewBtnBG"] forState:UIControlStateNormal];
                         _rightBtn.userInteractionEnabled = NO;

@@ -10,8 +10,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "SCLovelyBabyUploadVideoVC.h"
 
-#define MAXVIDEOTIME 10 // 视频最大时间
-#define MINVIDEOTIME 3 // 视频最小时间
+#define MAXVIDEOTIME 70 // 视频最大时间
+#define MINVIDEOTIME 60 // 视频最小时间
 #define TIMER_REPEAT_INTERVAL 0.1 // Timer repeat时间
 #define LOVELYBABY_VIDEO_FOLDER @"mengwa"
 
@@ -520,7 +520,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 - (void)videoRecordingFinish
 {
-    currentTime = MAXVIDEOTIME+10;
+//    currentTime = MAXVIDEOTIME+10;
     [countTimer invalidate];
     countTimer = nil;
     
