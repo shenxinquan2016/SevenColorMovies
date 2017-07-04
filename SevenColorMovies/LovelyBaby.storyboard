@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -736,9 +737,12 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoginBG" translatesAutoresizingMaskIntoConstraints="NO" id="kuW-Uw-goq">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jkp-nl-qiT">
-                                <rect key="frame" x="69" y="352" width="237" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jkp-nl-qiT">
+                                <rect key="frame" x="69" y="414" width="237" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="SOr-Ln-Efg"/>
+                                    <constraint firstAttribute="width" constant="237" id="vdd-9v-X3t"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="我要报名" backgroundImage="LoginBtnBG">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -888,13 +892,24 @@
                                     <constraint firstItem="PYm-dT-DGc" firstAttribute="leading" secondItem="mDe-Cb-mna" secondAttribute="leading" id="zRr-mR-m6H"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Zi-O9-CRG">
+                                <rect key="frame" x="15" y="114" width="345" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="0Zi-O9-CRG" secondAttribute="height" multiplier="115:72" id="6EF-Nf-fJo"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="0Zi-O9-CRG" firstAttribute="leading" secondItem="wAy-Ka-pDu" secondAttribute="leading" constant="15" id="0N2-es-F8D"/>
                             <constraint firstItem="kuW-Uw-goq" firstAttribute="leading" secondItem="wAy-Ka-pDu" secondAttribute="leading" id="8Ac-iw-bsp"/>
                             <constraint firstItem="x7e-XZ-YHE" firstAttribute="top" secondItem="JMU-p3-XgX" secondAttribute="bottom" id="8lb-hf-12f"/>
+                            <constraint firstItem="Jkp-nl-qiT" firstAttribute="centerX" secondItem="0Zi-O9-CRG" secondAttribute="centerX" id="N8K-2A-j3b"/>
+                            <constraint firstItem="Jkp-nl-qiT" firstAttribute="top" secondItem="0Zi-O9-CRG" secondAttribute="bottom" constant="84" id="NaD-zQ-Aeo"/>
                             <constraint firstItem="6Nd-pU-1Aa" firstAttribute="top" secondItem="K6T-wc-u1k" secondAttribute="bottom" constant="2" id="Ptd-CJ-QM8"/>
                             <constraint firstAttribute="trailing" secondItem="JMU-p3-XgX" secondAttribute="trailing" id="Px5-Yp-IH5"/>
+                            <constraint firstAttribute="trailing" secondItem="0Zi-O9-CRG" secondAttribute="trailing" constant="15" id="RwC-v4-Qv9"/>
+                            <constraint firstItem="0Zi-O9-CRG" firstAttribute="top" secondItem="K6T-wc-u1k" secondAttribute="bottom" constant="94" id="Wik-hc-G1z"/>
                             <constraint firstAttribute="trailing" secondItem="kuW-Uw-goq" secondAttribute="trailing" id="dn2-0k-jQp"/>
                             <constraint firstItem="JMU-p3-XgX" firstAttribute="leading" secondItem="wAy-Ka-pDu" secondAttribute="leading" id="kKt-oE-3gN"/>
                             <constraint firstItem="6Nd-pU-1Aa" firstAttribute="leading" secondItem="wAy-Ka-pDu" secondAttribute="leading" constant="2" id="r2H-OD-8eG"/>
@@ -903,6 +918,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityRulesView" destination="JMU-p3-XgX" id="rrY-qX-q2A"/>
+                        <outlet property="backGroundIV" destination="kuW-Uw-goq" id="tSa-BJ-YR5"/>
+                        <outlet property="bannerIV" destination="0Zi-O9-CRG" id="rko-YF-dkX"/>
                         <outlet property="pullSupportTimeLabel" destination="ZrD-6d-5Qt" id="FAZ-fu-VVy"/>
                         <outlet property="pullSupportTimeLabel2" destination="t73-Lg-Gx4" id="hhI-cP-Okj"/>
                         <outlet property="releaseTimeLabel" destination="d4u-Bg-teD" id="kOQ-bh-su6"/>

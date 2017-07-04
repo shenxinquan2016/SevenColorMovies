@@ -4,13 +4,17 @@
 //
 //  Created by yesdgq on 2017/6/21.
 //  Copyright © 2017年 yesdgq. All rights reserved.
-//
+//  活动详情
 
 #import "SCActivityCenterVC.h"
 #import "SCLovelyBabyLoginVC.h"
 #import "SCMyLovelyBabyVC.h"
 
 @interface SCActivityCenterVC ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *backGroundIV; // 大背景
+@property (weak, nonatomic) IBOutlet UIImageView *bannerIV; // 活动详情图片
+@property (weak, nonatomic) IBOutlet UIView *activityRulesView; // 底部视图
 
 @property (weak, nonatomic) IBOutlet UILabel *signUpCondition;
 @property (weak, nonatomic) IBOutlet UILabel *singUpConditionLabel2;
@@ -23,12 +27,17 @@
 @property (weak, nonatomic) IBOutlet UILabel *releaseTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *releaseTimeLabel2;
 
+
+
 @end
 
 @implementation SCActivityCenterVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _backGroundIV.hidden = YES;
+    _activityRulesView.hidden = YES;
     
     [self initializeLabelConfiguration];
     [self getVideoTaskData];
@@ -92,6 +101,17 @@
     [requestDataManager getRequestJsonDataWithUrl:LovelyBabyVideoTask parameters:parameters success:^(id  _Nullable responseObject) {
         
         DONG_Log(@"responseObject-->%@", responseObject);
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"success"]) {
+            
+            NSArray *taskArr = responseObject[@"data"];
+            NSURL *bannerUrl = [NSURL URLWithString:taskArr.firstObject[@"bannerImg"]];
+            [_bannerIV sd_setImageWithURL:bannerUrl placeholderImage:[UIImage imageNamed:@""]];
+            
+        } else {
+            [MBProgressHUD showError:responseObject[@"msg"]];
+        }
+        
         [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
