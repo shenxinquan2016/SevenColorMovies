@@ -11,7 +11,7 @@
 #import "SCLovelyBabyUploadVideoVC.h"
 
 #define MAXVIDEOTIME 70 // 视频最大时间
-#define MINVIDEOTIME 5 // 视频最小时间
+#define MINVIDEOTIME 60 // 视频最小时间
 #define TIMER_REPEAT_INTERVAL 0.1 // Timer repeat时间
 #define LOVELYBABY_VIDEO_FOLDER @"mengwa"
 
@@ -19,25 +19,15 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 @interface SCLovelyBabyRecordVideoVC () <AVCaptureFileOutputRecordingDelegate>
 
-/**  */
-@property (nonatomic, strong) AVCaptureSession *captureSession;
-/**  */
+@property (nonatomic, strong) AVCaptureSession *captureSession; // 媒体捕获会话
+@property (nonatomic, strong) AVCaptureDeviceInput *videoCaptureDeviceInput; // 视频设备输入数据管理对象
+@property (nonatomic, strong) AVCaptureDeviceInput *audioCaptureDeviceInput; // 音频设备输入数据管理对象
+@property (nonatomic, strong) AVCaptureMovieFileOutput *captureMovieFileOutput; // 输出数据管理对象
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer; // 相机拍摄预览图层
 
-/**  */
-@property (nonatomic, strong) AVCaptureDeviceInput *videoCaptureDeviceInput;
-/**  */
-@property (nonatomic, strong) AVCaptureDeviceInput *audioCaptureDeviceInput;
-/**  */
-@property (nonatomic, strong) AVCaptureMovieFileOutput *captureMovieFileOutput;
-/** 视频预览图层 */
-@property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
-
-/** 视频拍摄总容器 */
-@property (nonatomic, strong)  UIView *viewContainer;
-/** 聚焦光标 */
-@property (nonatomic, strong) UIImageView *focusCursor;
-/** 存放临时视频片段 */
-@property (nonatomic, strong) NSMutableArray *videoClipsUrlArray;
+@property (nonatomic, strong)  UIView *viewContainer; // 视频拍摄视图容器
+@property (nonatomic, strong) UIImageView *focusCursor; // 聚焦光标
+@property (nonatomic, strong) NSMutableArray *videoClipsUrlArray; // 存放临时视频片段
 
 @end
 
@@ -191,8 +181,8 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [self.view addSubview:btnBG];
     [btnBG mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
-//        make.top.equalTo(_viewContainer.mas_bottom);
-        make.height.equalTo(@150);
+        make.top.equalTo(_viewContainer.mas_bottom);
+        //make.height.equalTo(@150);
     }];
     
     // 录制按钮
@@ -520,7 +510,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 - (void)videoRecordingFinish
 {
-//    currentTime = MAXVIDEOTIME+10;
+    //    currentTime = MAXVIDEOTIME+10;
     [countTimer invalidate];
     countTimer = nil;
     
@@ -583,9 +573,9 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     DONG_Log(@"---- 录制结束 ----");
     [_videoClipsUrlArray addObject:outputFileURL];
     // 时间到了
-//    if (currentTime >= MAXVIDEOTIME) {
-//        [self mergeAndExportVideosAtFileURLs:_videoClipsUrlArray];
-//    }
+    //    if (currentTime >= MAXVIDEOTIME) {
+    //        [self mergeAndExportVideosAtFileURLs:_videoClipsUrlArray];
+    //    }
 }
 
 #pragma mark - 视频路径
@@ -727,8 +717,9 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
         CGFloat rate;
         rate = renderW / MIN(assetTrack.naturalSize.width, assetTrack.naturalSize.height);
         
+        // CGAffineTransform决定视频的取景位置 有没有上下偏移等 可手动微调
         CGAffineTransform layerTransform = CGAffineTransformMake(assetTrack.preferredTransform.a, assetTrack.preferredTransform.b, assetTrack.preferredTransform.c, assetTrack.preferredTransform.d, assetTrack.preferredTransform.tx * rate, assetTrack.preferredTransform.ty * rate);
-        layerTransform = CGAffineTransformConcat(layerTransform, CGAffineTransformMake(1, 0, 0, 1, 0, -(assetTrack.naturalSize.width - assetTrack.naturalSize.height) / 2.0+videoLayerHWRate*(videoLayerHeight-videoLayerWidth)/2));
+        layerTransform = CGAffineTransformConcat(layerTransform, CGAffineTransformMake(1, 0, 0, 1, 0, -(assetTrack.naturalSize.width - assetTrack.naturalSize.height) / 2.0 + videoLayerHWRate*(videoLayerHeight-videoLayerWidth)/2 - 60));
         layerTransform = CGAffineTransformScale(layerTransform, rate, rate);
         
         [layerInstruciton setTransform:layerTransform atTime:kCMTimeZero];
@@ -764,7 +755,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
         if ([exporter status] == AVAssetExportSessionStatusCompleted) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                DONG_Log(@"path-->%@ fileSize-->%f", path, [self getfileSize:path]);
+                DONG_Log(@"path-->%@\n fileSize-->%f", path, [self getfileSize:path]);
                 [CommonFunc dismiss];
                 // 获取视频第一帧图片
                 UIImage *coverImage = [self getVideoPreViewImage:mergeFileURL];
@@ -777,7 +768,6 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
             });
         }
     }];
-    
 }
 
 #pragma mark - 获取视频第一帧图片
