@@ -257,8 +257,6 @@ typedef NS_ENUM (NSUInteger, Direction) {
     self.totalDurationLabel.text = dateString;
     self.currentTimeLabel.text   = currentLabelString;
     
-    
-    
     NSTimeInterval position;
     
     if (_isMediaSliderBeingDragged) {

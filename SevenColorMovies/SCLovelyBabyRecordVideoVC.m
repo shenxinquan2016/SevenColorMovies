@@ -11,8 +11,8 @@
 #import "SCLovelyBabyUploadVideoVC.h"
 
 #define MAXVIDEOTIME 70 // 视频最大时间
-#define MINVIDEOTIME 60 // 视频最小时间
-#define TIMER_REPEAT_INTERVAL 0.1 // Timer repeat时间
+#define MINVIDEOTIME 1 // 视频最小时间
+#define TIMER_REPEAT_INTERVAL 0.1 // Timer repeat 时间
 #define LOVELYBABY_VIDEO_FOLDER @"mengwa"
 
 typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
@@ -505,7 +505,6 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 - (void)stopVideoRecording
 {
     [_captureMovieFileOutput stopRecording];
-    [self stopTimer];
 }
 
 - (void)videoRecordingFinish
@@ -532,6 +531,8 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 - (void)onTimer:(NSTimer *)timer
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onTimer:) object:nil];
+    
     currentTime += TIMER_REPEAT_INTERVAL;
     
     self.title = [NSString stringWithFormat:@"%02ld:%02ld", ((NSInteger)currentTime)/60, ((NSInteger)currentTime)%60];
@@ -556,6 +557,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 {
     [countTimer invalidate];
     countTimer = nil;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onTimer:) object:nil];
     
 }
 
@@ -571,6 +573,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
     DONG_Log(@"---- 录制结束 ----");
+    [self stopTimer];
     [_videoClipsUrlArray addObject:outputFileURL];
     // 时间到了
     //    if (currentTime >= MAXVIDEOTIME) {
@@ -697,7 +700,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
         AVAssetTrack *assetTrack = [assetTrackArray objectAtIndex:i];
         
         AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
-       
+        
         // [asset tracksWithMediaType:AVMediaTypeAudio]取出的数组可能为空 这段视频没有音频
         NSArray*dataSourceArray= [asset tracksWithMediaType:AVMediaTypeAudio];
         [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, asset.duration)
@@ -770,6 +773,13 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
                 uploadVC.videoCoverImage = coverImage;
                 uploadVC.videoLength = (NSInteger)currentTime;
                 [self.navigationController pushViewController:uploadVC animated:YES];
+            });
+            
+        } else if ([exporter status] == AVAssetExportSessionStatusFailed) {
+            
+            DONG_MAIN(^{
+                [CommonFunc dismiss];
+                [MBProgressHUD showError:@"视频合成失败，请重试"];
             });
         }
     }];
