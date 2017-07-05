@@ -46,6 +46,12 @@ static NSString *const footerId = @"footerId";
     // 添加collectionView
     [self setupCollectionView];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // 数据请求
     NSDictionary *parameters = @{@"siteId"      : @"hlj_appjh",
                                  @"memberId"    : @"",
                                  @"searchName"  : @"",
@@ -55,11 +61,6 @@ static NSString *const footerId = @"footerId";
                                  @"token"       : @""
                                  };
     [self getVideoListDataNetRequestWithParmeters:parameters];
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

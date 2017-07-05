@@ -34,7 +34,7 @@
     [super viewDidLoad];
     self.leftBBI.text = @"萌娃";
     
-    // 数据请求
+    // 请求视频详情数据
     [self getVideoDetailInfoNetRequest];
 }
 
@@ -123,6 +123,10 @@
         if ([resultCode isEqualToString:@"true"]) {
             _voteBtn.enabled = NO;
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
+            
+            DONG_MAIN(^{
+                [self getVideoDetailInfoNetRequest];
+            });
             
         } else if ([resultCode isEqualToString:@"tokenInvalid"]) {
             
