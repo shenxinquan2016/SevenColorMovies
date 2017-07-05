@@ -735,6 +735,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     NSString *path = [self getVideoMergeFilePathString];
     NSURL *mergeFileURL = [NSURL fileURLWithPath:path];
     
+    // 导出合并的视频
     AVMutableVideoCompositionInstruction *mainInstruciton = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
     mainInstruciton.timeRange = CMTimeRangeMake(kCMTimeZero, totalDuration);
     mainInstruciton.layerInstructions = layerInstructionArray;
@@ -743,7 +744,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     mainCompositionInst.frameDuration = CMTimeMake(1, 100);
     mainCompositionInst.renderSize = CGSizeMake(renderW, renderW * videoLayerHWRate);
     
-    // 通过资源（AVURLAsset）来定义 AVAssetExportSession，得到资源属性来重新打包资源 （AVURLAsset, 将某一些属性重新定义
+    // 通过资源（AVURLAsset）来定义 AVAssetExportSession，得到资源属性来重新打包资源 （AVURLAsset, 将某一些属性重新定义） 设置视频压缩质量
     AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetMediumQuality];
     exporter.videoComposition = mainCompositionInst;
     // 设置导出文件的存放路径
