@@ -671,6 +671,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     CMTime totalDuration = kCMTimeZero;
     
+    // 先去assetTrack 也为了取renderSize
     NSMutableArray *assetTrackArray = [[NSMutableArray alloc] init];
     NSMutableArray *assetArray = [[NSMutableArray alloc] init];
     
@@ -696,7 +697,8 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
         AVAssetTrack *assetTrack = [assetTrackArray objectAtIndex:i];
         
         AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
-        
+       
+        // [asset tracksWithMediaType:AVMediaTypeAudio]取出的数组可能为空 这段视频没有音频
         NSArray*dataSourceArray= [asset tracksWithMediaType:AVMediaTypeAudio];
         [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, asset.duration)
                             ofTrack:([dataSourceArray count]>0)?[dataSourceArray objectAtIndex:0]:nil
@@ -710,6 +712,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
                              atTime:totalDuration
                               error:&error];
         
+        // 视频轨道中的一个视频，可以缩放、旋转等
         AVMutableVideoCompositionLayerInstruction *layerInstruciton = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoTrack];
         
         totalDuration = CMTimeAdd(totalDuration, asset.duration);
@@ -720,6 +723,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
         // CGAffineTransform决定视频的取景位置 有没有上下偏移等 可手动微调
         CGAffineTransform layerTransform = CGAffineTransformMake(assetTrack.preferredTransform.a, assetTrack.preferredTransform.b, assetTrack.preferredTransform.c, assetTrack.preferredTransform.d, assetTrack.preferredTransform.tx * rate, assetTrack.preferredTransform.ty * rate);
         layerTransform = CGAffineTransformConcat(layerTransform, CGAffineTransformMake(1, 0, 0, 1, 0, -(assetTrack.naturalSize.width - assetTrack.naturalSize.height) / 2.0 + videoLayerHWRate*(videoLayerHeight-videoLayerWidth)/2 - 60));
+        // 放缩，解决前后摄像结果大小不对称
         layerTransform = CGAffineTransformScale(layerTransform, rate, rate);
         
         [layerInstruciton setTransform:layerTransform atTime:kCMTimeZero];
