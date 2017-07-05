@@ -169,6 +169,8 @@
 {
     // 显示分享面板
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        DONG_Log(@"platformType-->%ld", (long)platformType);
+        
         // 根据获取的platformType确定所选平台进行下一步操作
         [self shareWebPageToPlatformType:platformType];
 
