@@ -94,14 +94,14 @@
 #define CollectCustomerBehaviorData @"http://scc.96396.cn:10013/appjh_mmserver/gather/addDatasIos.do"
 
 /***************************************萌娃*****************************************/
-#define LovelyBabyLogin @"http://192.167.1.6/appjh_mmserver/member/login.do" // 登录
-#define LovelyBabyRegister @"http://192.167.1.6/appjh_mmserver/member/addMember.do" // 注册
-#define LovelyBabyVideoList @"http://192.167.1.6/appjh_mmserver/paikeInfo/searchInfo.do" // 视频列表
-#define LovelyBabyVideoDetailInfo @"http://192.167.1.6/appjh_mmserver/paikeInfo/searchDetails.do" // 视频详情
-#define LovelyBabyVote @"http://192.167.1.6/appjh_mmserver/vote/userVote.do"  // 投票
-#define LovelyBabyVideoUpload @"http://192.167.1.6/appjh_mmserver/upload/makingUpload.do?" // 视频上传
-#define LovelyBabyVideoTask @"http://192.167.1.6/appjh_mmserver/paikeInfo/searchTask.do?" // 拍客任务列表
-#define LovelyBabyDeleteVideo @"http://192.167.1.6/appjh_mmserver/paikeInfo/delPaikeData.do?" // 删除视频
+#define LovelyBabyLogin @"http://125.223.98.233:10013/appjh_mmserver/member/login.do" // 登录
+#define LovelyBabyRegister @"http://125.223.98.233:10013/appjh_mmserver/member/addMember.do" // 注册
+#define LovelyBabyVideoList @"http://125.223.98.233:10013/appjh_mmserver/paikeInfo/searchInfo.do" // 视频列表
+#define LovelyBabyVideoDetailInfo @"http://125.223.98.233:10013/appjh_mmserver/paikeInfo/searchDetails.do" // 视频详情
+#define LovelyBabyVote @"http://125.223.98.233:10013/appjh_mmserver/vote/userVote.do"  // 投票
+#define LovelyBabyVideoUpload @"http://125.223.98.233:10013/appjh_mmserver/upload/makingUpload.do?" // 视频上传
+#define LovelyBabyVideoTask @"http://125.223.98.233:10013/appjh_mmserver/paikeInfo/searchTask.do?" // 拍客任务列表
+#define LovelyBabyDeleteVideo @"http://125.223.98.233:10013/appjh_mmserver/paikeInfo/delPaikeData.do?" // 删除视频
 
 /***************************************语音控器通信接口*****************************************/
 #define CloudRemoteControl @"192.168.31.224:9099"

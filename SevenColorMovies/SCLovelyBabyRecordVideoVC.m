@@ -49,7 +49,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [super viewDidLoad];
     // 设置navigationBar上的title颜色和大小
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:18]}];
-    self.title = @"00:01:00";
+    self.title = @"00:00";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.videoClipsUrlArray = [NSMutableArray arrayWithCapacity:0];
     
