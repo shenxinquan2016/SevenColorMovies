@@ -60,6 +60,7 @@ static NSString *const footerId = @"footerId";
                                  @"pageSize"    : @"500",
                                  @"token"       : @""
                                  };
+    [_dataArray removeAllObjects];
     [self getVideoListDataNetRequestWithParmeters:parameters];
 }
 
