@@ -159,10 +159,10 @@
 - (void)initKeyboardManager
 {
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
-    manager.enable = YES;//enable控制整个功能是否启用。
-    manager.shouldResignOnTouchOutside = YES;//控制点击背景是否收起键盘。
-    manager.shouldToolbarUsesTextFieldTintColor = YES;//控制键盘上的工具条文字颜色是否用户自定义
-    manager.enableAutoToolbar = NO;//控制是否显示键盘上的工具条。
+    manager.enable = YES; // enable控制整个功能是否启用。
+    manager.shouldResignOnTouchOutside = YES; // 控制点击背景是否收起键盘。
+    manager.shouldToolbarUsesTextFieldTintColor = YES; // 控制键盘上的工具条文字颜色是否用户自定义
+    manager.enableAutoToolbar = NO; // 控制是否显示键盘上的工具条。
 }
 
 - (void)checkNetworkEnvironment
@@ -319,6 +319,5 @@
     /* 设置微信的appKey和appSecret */
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WECHAT_APPKEY appSecret:WECHAT_APPSECRET redirectURL:@"https://itunes.apple.com/cn/app/七彩云-手机版/id1215488821?l=en&mt=8"];
 }
-
 
 @end
