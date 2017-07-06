@@ -1,4 +1,4 @@
-//
+//  聚合版
 //  AppDelegate.h
 //  SevenColorMovies
 //
