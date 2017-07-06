@@ -48,19 +48,15 @@
     return YES;
 }
 
-// 禁用横屏
-//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
-//{
-//    if (self.lanscape == YES) {
-//        //        return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskPortrait;
-//        return UIInterfaceOrientationMaskLandscapeRight;
-//
-//    }
-//    else
-//    {
-//        return UIInterfaceOrientationMaskPortrait;
-//    }
-//}
+// 旋转支持
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    if (self.landscape) {
+        return UIInterfaceOrientationMaskPortrait;
+    } else {
+        return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskPortrait;
+    }
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     
@@ -108,20 +104,6 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:
     
 }
-
-////禁用横屏
-//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
-//{
-//    if (self.lanscape == YES) {
-////                return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskPortrait;
-//        return UIInterfaceOrientationMaskLandscapeRight;
-//
-//    }
-//    else
-//    {
-//        return UIInterfaceOrientationMaskPortrait;
-//    }
-//}
 
 - (void)setSelectedInitialIndex
 {
@@ -297,7 +279,7 @@
                 [self.window addSubview: self.launchAdView];
             }
         }
-   
+        
     } failure:^(id  _Nullable errorObject) {
         
         DONG_Log(@"errorObject-->%@", errorObject);
