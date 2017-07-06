@@ -40,8 +40,8 @@
     [self logUser];
     // 5.自动登录xmpp
     [self xmppLogin];
-    // 6.启动
-    //[self setLaunchAdvertisement];
+    // 6.启动广告
+//    [self setLaunchAdvertisement];
     // 7.友盟分享
     [self initializeUMSocial];
     
