@@ -779,7 +779,13 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
             
             DONG_MAIN(^{
                 [CommonFunc dismiss];
-                [MBProgressHUD showError:@"视频合成失败，请重试"];
+                [MBProgressHUD showError:@"视频提交失败，请重新拍摄"];
+                // 还原数据
+                [self deleteAllVideos];
+                currentTime = 0;
+                self.title = @"00:00";
+                [progressView setFrame:CGRectMake(0, 0, 0, 4)];
+                finishBtn.hidden = YES;
             });
         }
     }];
