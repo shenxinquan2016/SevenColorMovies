@@ -189,6 +189,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     UIButton *videoRecordBtn = [[UIButton alloc] init];
     [videoRecordBtn addTarget:self action:@selector(beginVideoRecording) forControlEvents:UIControlEventTouchDown];
     [videoRecordBtn addTarget:self action:@selector(stopVideoRecording) forControlEvents:UIControlEventTouchUpInside];
+    [videoRecordBtn addTarget:self action:@selector(stopVideoRecording) forControlEvents:UIControlEventTouchDragExit];
     [videoRecordBtn setBackgroundImage:[UIImage imageNamed:@"VideoRecordBtnBG"] forState:UIControlStateNormal];
     [btnBG addSubview:videoRecordBtn];
     [videoRecordBtn mas_makeConstraints:^(MASConstraintMaker *make) {

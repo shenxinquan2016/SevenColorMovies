@@ -86,7 +86,7 @@ static NSString *const footerId = @"footerId";
     
     // 3.添加collectionView
     [self addCollView];
-    // 4.符窗广告
+    // 4.浮窗广告
 //    [self setFloatingAdvertisement];
     
 }

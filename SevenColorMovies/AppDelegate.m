@@ -51,11 +51,7 @@
 // 旋转支持
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
-    if (self.landscape) {
-        return UIInterfaceOrientationMaskPortrait;
-    } else {
-        return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskPortrait;
-    }
+    return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskPortrait;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

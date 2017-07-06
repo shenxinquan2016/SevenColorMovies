@@ -12,6 +12,7 @@
 #import "SCLovelyBabyRegisterVC.h"
 #import "SCLovelyBabyLoginVC.h"
 #import "SCLovelyBabyUploadVideoVC.h"
+#import "SCMyLovelyBabyVC.h"
 
 @interface BaseNavigationController () <UIGestureRecognizerDelegate>
 
@@ -52,7 +53,7 @@
     // 当要popto的页面为登录或注册页时 不返回
     //    DONG_Log(@"viewControllers -->%@",self.viewControllers);
     //    DONG_Log(@"即将返回到的页面VC-->%@",self.childViewControllers[self.viewControllers.count-2]);
-    return self.viewControllers.count > 1 && ![[self valueForKey:@"_isTransitioning"] boolValue] && [gestureRecognizer translationInView:gestureRecognizer.view].x > 0 && !([self.childViewControllers[self.viewControllers.count-2] isKindOfClass:[SCLovelyBabyRegisterVC class]]) && !([self.childViewControllers[self.viewControllers.count-2] isKindOfClass:[SCLovelyBabyLoginVC class]] )&& !([self.childViewControllers[self.viewControllers.count-2] isKindOfClass:[SCLovelyBabyUploadVideoVC class]]);
+    return self.viewControllers.count > 1 && ![[self valueForKey:@"_isTransitioning"] boolValue] && [gestureRecognizer translationInView:gestureRecognizer.view].x > 0 && !([self.childViewControllers[self.viewControllers.count-2] isKindOfClass:[SCLovelyBabyRegisterVC class]]) && !([self.childViewControllers[self.viewControllers.count-2] isKindOfClass:[SCLovelyBabyLoginVC class]] )&& !([self.childViewControllers[self.viewControllers.count-2] isKindOfClass:[SCLovelyBabyUploadVideoVC class]]) && !([self.childViewControllers[self.viewControllers.count-2] isKindOfClass:[SCMyLovelyBabyVC class]]);
 }
 
 // 支持横竖屏显示
