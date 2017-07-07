@@ -292,10 +292,10 @@
     
     [self configUSharePlatforms];
     
-    [self confitUShareSettings];
+    [self configUShareSettings];
 }
 
-- (void)confitUShareSettings
+- (void)configUShareSettings
 {
     /*
      * 打开图片水印
