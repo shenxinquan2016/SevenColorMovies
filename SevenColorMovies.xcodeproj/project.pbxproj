@@ -2618,6 +2618,11 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = E4JVN9NT9D;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 0;
+							};
+						};
 					};
 					11BB378C1D38B9A00002D487 = {
 						CreatedOnToolsVersion = 7.3;
