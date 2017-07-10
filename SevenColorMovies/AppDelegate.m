@@ -41,7 +41,7 @@
     // 5.自动登录xmpp
     [self xmppLogin];
     // 6.启动广告
-//    [self setLaunchAdvertisement];
+    //    [self setLaunchAdvertisement];
     // 7.友盟分享
     [self initializeUMSocial];
     
@@ -98,6 +98,14 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:
+    
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    NSString *urlString = [url absoluteString];
+    DONG_Log(@"urlString-->%@", urlString);
+    return YES;
     
 }
 
