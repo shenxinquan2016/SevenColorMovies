@@ -384,10 +384,10 @@ static NSString *const footerId = @"footerId";
             
         } else {
             
-            if (filmClassModel.filmArray.count < 6) {
+            if (filmClassModel.filmArray.count < 9) {
                 return filmClassModel.filmArray.count;
             } else {
-                return 6;
+                return 9;
             }
         }
     }
