@@ -277,7 +277,6 @@ static NSString *const footerId = @"footerId";
         
         self.filmClassTitleArray = self.titleArray;
         [_collView reloadData];
-        NSLog(@">*******************************<");
         
     } else {
         
@@ -393,19 +392,22 @@ static NSString *const footerId = @"footerId";
         return 8;
     } else {
         
+        SCFilmClassModel *filmClassModel = _filmClassArray[section-1];
         if ([_titleArray[section-1] isEqualToString:@"综艺"] || [_titleArray[section-1] isEqualToString:@"潮生活"] || [_titleArray[section-1] isEqualToString:@"专题"])  {
-            
-            SCFilmClassModel *model = _filmClassArray[section-1];
-            if (model.filmArray.count < 6) {
-                return model.filmArray.count;
+            // 横版6个cell
+            if (filmClassModel.filmArray.count < 6) {
+                return filmClassModel.filmArray.count;
             } else {
                 return 6;
             }
             
         } else {
-            
-            SCFilmClassModel *model = _filmClassArray[section-1];
-            return model.filmArray.count;
+            // 竖版9个cell
+            if (filmClassModel.filmArray.count < 9) {
+                return filmClassModel.filmArray.count;
+            } else {
+                return 9;
+            }
         }
     }
 }
@@ -481,7 +483,7 @@ static NSString *const footerId = @"footerId";
         if ([classModel._FilmClassName isEqualToString:@"综艺"] || [classModel._FilmClassName isEqualToString:@"潮生活"] || [classModel._FilmClassName isEqualToString:@"专题"]) {
             return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
             
-        }else{
+        } else {
             return (CGSize){(kMainScreenWidth-24-30)/3,(kMainScreenWidth-24-30)*33/3/24+30};//竖版尺寸
         }
     }
@@ -490,9 +492,9 @@ static NSString *const footerId = @"footerId";
 /** Section 四周间距 EdgeInsets */
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    if (section == 0){
+    if (section == 0) {
         return UIEdgeInsetsMake(5, 5, 5, 5);
-    }else{
+    } else {
         return UIEdgeInsetsMake(5, 12, 5, 12);
     }
 }
