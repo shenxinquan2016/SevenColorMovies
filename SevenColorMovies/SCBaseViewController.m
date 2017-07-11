@@ -68,8 +68,6 @@
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightNegativeSpacer,item, nil];
     _SearchBBI = btn;
     
-    
-    
 }
 
 - (void)clickSearchBtn

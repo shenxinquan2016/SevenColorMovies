@@ -373,7 +373,7 @@ static NSString *const footerId = @"footerId";
 {
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager getRequestJsonDataWithUrl:LovelyBabyVideoList parameters:parameters success:^(id  _Nullable responseObject) {
-                DONG_Log(@"responseObject-->%@",responseObject);
+               // DONG_Log(@"responseObject-->%@",responseObject);
         NSString *resultCode = responseObject[@"resultCode"];
         
         if ([resultCode isEqualToString:@"success"]) {

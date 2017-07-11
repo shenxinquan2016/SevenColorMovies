@@ -183,7 +183,7 @@
         } failure:^(id  _Nullable errorObject) {
             
             DONG_Log(@"errorObject-->%@", errorObject);
-            if (newArr.count >= 15) {
+            if (newArr.count >= 12) {
                 [DONG_UserDefaults removeObjectForKey:kDataCollectionArray];
             }
         }];
