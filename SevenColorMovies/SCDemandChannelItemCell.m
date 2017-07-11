@@ -25,28 +25,15 @@
 - (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath
 {
     NSArray *array = model;
-    if (indexPath.row == 0) {
-        _channelImg.image = [UIImage imageNamed:@"直播"];
-        _channelNameLabel.text =  @"直播";
-    } else if (indexPath.row == 4) {
-        _channelImg.image = [UIImage imageNamed:@"营业厅"];
-        _channelNameLabel.text =  @"营业厅";
-    } else if (indexPath.row == 7) {
+    if (indexPath.row == 7) {
         _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         _channelNameLabel.text =  @"更多";
-    } else if (indexPath.row > 0 && indexPath.row < 4) {
-        _channelImg.image = [UIImage imageNamed:array[indexPath.row-1]];
+    } else {
+        _channelImg.image = [UIImage imageNamed:array[indexPath.row]];
         if (_channelImg.image == nil){
             _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         }
-        _channelNameLabel.text =  array[indexPath.row-1];
-        
-    } else if (indexPath.row > 4 && indexPath.row < 7) {
-        _channelImg.image = [UIImage imageNamed:array[indexPath.row-2]];
-        if (_channelImg.image == nil) {
-            _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
-        }
-        _channelNameLabel.text =  array[indexPath.row-2];
+        _channelNameLabel.text =  array[indexPath.row];   
     }
 }
 

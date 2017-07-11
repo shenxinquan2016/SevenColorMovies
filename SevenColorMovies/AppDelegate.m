@@ -45,6 +45,12 @@
     // 7.友盟分享
     [self initializeUMSocial];
     
+    // icon徽章测试
+//    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
+//    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+//
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = 8;
+    
     return YES;
 }
 
