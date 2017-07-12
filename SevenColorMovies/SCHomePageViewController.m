@@ -423,10 +423,10 @@ static NSString *const footerId = @"footerId";
 // section header view
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    if([kind isEqualToString:UICollectionElementKindSectionHeader])
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
         UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerId forIndexPath:indexPath];
-        if(headerView == nil)
+        if (headerView == nil)
         {
             headerView = [[UICollectionReusableView alloc] init];
         }
@@ -436,10 +436,10 @@ static NSString *const footerId = @"footerId";
         [headerView addSubview:view];
         return headerView;
     }
-    else if([kind isEqualToString:UICollectionElementKindSectionFooter])
+    else if ([kind isEqualToString:UICollectionElementKindSectionFooter])
     {
         UICollectionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:footerId forIndexPath:indexPath];
-        if(footerView == nil)
+        if (footerView == nil)
         {
             footerView = [[UICollectionReusableView alloc] init];
         }
@@ -475,9 +475,9 @@ static NSString *const footerId = @"footerId";
 /** Section 四周间距 EdgeInsets */
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    if (section == 0){
+    if (section == 0) {
         return UIEdgeInsetsMake(5, 5, 5, 5);
-    }else{
+    } else {
         return UIEdgeInsetsMake(5, 12, 5, 12);
     }
 }
