@@ -49,7 +49,7 @@
 //    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
 //    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
 //
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 8;
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     return YES;
 }
