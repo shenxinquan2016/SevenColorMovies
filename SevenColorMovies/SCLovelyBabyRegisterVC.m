@@ -26,7 +26,15 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *mobilePhoneTF;
 @property (weak, nonatomic) IBOutlet UITextField *passWordTF;
-@property (weak, nonatomic) IBOutlet UITextField *passWordAgainTF;
+@property (weak, nonatomic) IBOutlet UITextField *nameTF;
+@property (weak, nonatomic) IBOutlet UIButton *maleBtn;
+@property (weak, nonatomic) IBOutlet UIButton *femaleBtn;
+@property (weak, nonatomic) IBOutlet UITextField *ageTF;
+@property (weak, nonatomic) IBOutlet UITextField *cityTF; // 市
+@property (weak, nonatomic) IBOutlet UITextField *countyTF; // 县
+@property (weak, nonatomic) IBOutlet UITextField *schoolTF;
+@property (weak, nonatomic) IBOutlet UITextField *spareInfo; // 备用联系方式
+
 
 
 @end
@@ -39,12 +47,15 @@
     _activityRulesView.hidden = YES;
     // 活动规则label属性设置
     [self initializeLabelConfiguration];
+    
     _mobilePhoneTF.delegate = self;
     _mobilePhoneTF.keyboardType = UIKeyboardTypePhonePad;
     _passWordTF.keyboardType = UIKeyboardTypeEmailAddress;
     _passWordTF.secureTextEntry = YES;
-    _passWordAgainTF.keyboardType = UIKeyboardTypeEmailAddress;
-    _passWordAgainTF.secureTextEntry = YES;
+    _ageTF.keyboardType = UIKeyboardTypeNumberPad;
+    _spareInfo.keyboardType = UIKeyboardTypeNumberPad;
+    
+   
     
 }
 
@@ -71,11 +82,31 @@
     [_pullSupportTimeLabel setFont :[UIFont fontWithName :@"Helvetica-Bold" size :13.f]];
     [_releaseTimeLabel setFont :[UIFont fontWithName :@"Helvetica-Bold" size :13.f]];
     
+    
+    [_maleBtn setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateSelected];
+    [_maleBtn setImage:[UIImage imageNamed:@"Unselect"] forState:UIControlStateNormal];
+    [_femaleBtn setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateSelected];
+    [_femaleBtn setImage:[UIImage imageNamed:@"Unselect"] forState:UIControlStateNormal];
+
+    _maleBtn.selected = YES;
+    _femaleBtn.selected = NO;
 }
 
 - (IBAction)gobackClick:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)selectMale:(id)sender
+{
+    _maleBtn.selected = YES;
+    _femaleBtn.selected = NO;
+}
+
+- (IBAction)selectFemale:(id)sender
+{
+    _maleBtn.selected = NO;
+    _femaleBtn.selected = YES;
 }
 
 // 注册
@@ -93,14 +124,10 @@
         [MBProgressHUD showError:@"请输入密码！"];
         return;
     }
-    if (![_passWordTF.text isEqualToString:_passWordAgainTF.text]) {
-        [MBProgressHUD showError:@"两次输入的密码不一致！"];
-        return;
-    }
+
     
-    [_mobilePhoneTF resignFirstResponder];
-    [_passWordTF resignFirstResponder];
-    [_passWordAgainTF resignFirstResponder];
+   
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     
     NSDictionary *parameters = @{@"number" : _mobilePhoneTF.text? _mobilePhoneTF.text : @"",
                                  @"password" : _passWordTF.text? _passWordTF.text : @""

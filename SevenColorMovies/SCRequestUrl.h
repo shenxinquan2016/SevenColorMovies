@@ -94,6 +94,8 @@
 #define CollectCustomerBehaviorData @"http://scc.96396.cn:10013/appjh_mmserver/gather/addDatasIos.do"
 
 /***************************************萌娃*****************************************/
+//#define LovelyBabyDomainName @"http://192.167.1.6" // 测试
+#define LovelyBabyDomainName @"http://scc.96396.cn:10013" // 正式
 #define LovelyBabyLogin @"http://scc.96396.cn:10013/appjh_mmserver/member/login.do" // 登录
 #define LovelyBabyRegister @"http://scc.96396.cn:10013/appjh_mmserver/member/addMember.do" // 注册
 #define LovelyBabyVideoList @"http://scc.96396.cn:10013/appjh_mmserver/paikeInfo/searchInfo.do" // 视频列表
@@ -105,10 +107,6 @@
 
 /***************************************语音控器通信接口*****************************************/
 #define CloudRemoteControl @"192.168.31.224:9099"
-
-
-
-
 
 
 
