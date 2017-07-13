@@ -44,8 +44,8 @@
             _channelNameLabel.text = @"营业厅";
             _channelImg.image = [UIImage imageNamed:@"营业厅"];
         } else if (indexPath.row == filmClassTitleArray.count+2) {
-            _channelNameLabel.text = @"萌娃";
-            _channelImg.image = [UIImage imageNamed:@"LovelyBaby"];
+            _channelNameLabel.text = @"主持人大赛";
+            _channelImg.image = [UIImage imageNamed:@"host"];
         } else {
             _channelNameLabel.text = filmClassTitleArray[indexPath.row-2];
             _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassTitleArray[indexPath.row-2]]];

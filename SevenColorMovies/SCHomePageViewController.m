@@ -23,6 +23,7 @@
 #import "SCFilmModel.h"
 #import "SCSpecialTopicDetailVC.h"
 #import "SCAdvertisementModel.h"
+#import "SCLovelyBabyCenterVC.h"
 
 
 @interface SCHomePageViewController ()<UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, SDCycleScrollViewDelegate, UIAlertViewDelegate>
@@ -571,6 +572,16 @@ static NSString *const footerId = @"footerId";
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
             
+        } else if (indexPath.row == 6) { // 主持人大赛
+            DONG_Log(@"主持人大赛");
+            // 主持人大赛
+            NSString *keyValue = @"app";
+            [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"主持人大赛" mid:keyValue];
+            
+            SCLovelyBabyCenterVC *babyCenterVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyCenterVC");
+            babyCenterVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:babyCenterVC animated:YES];
+            
         } else if (indexPath.row > 0 && indexPath.row < 4) { // 3
             
             NSString *key = _filmClassTitleArray[indexPath.row-1];
@@ -580,7 +591,7 @@ static NSString *const footerId = @"footerId";
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
             
-        } else if (indexPath.row > 4 && indexPath.row < 7) {
+        } else if (indexPath.row > 4 && indexPath.row < 6) {
             
             NSString *key = _filmClassTitleArray[indexPath.row-2];
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
