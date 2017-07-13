@@ -10,8 +10,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "SCLovelyBabyUploadVideoVC.h"
 
-#define MAXVIDEOTIME 70 // 视频最大时间
-#define MINVIDEOTIME 60 // 视频最小时间
+#define MAXVIDEOTIME 120 // 视频最大时间
+#define MINVIDEOTIME 120 // 视频最小时间
 #define TIMER_REPEAT_INTERVAL 0.1 // Timer repeat 时间
 #define LOVELYBABY_VIDEO_FOLDER @"mengwa"
 

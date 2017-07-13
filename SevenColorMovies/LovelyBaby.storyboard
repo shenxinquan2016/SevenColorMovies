@@ -345,13 +345,13 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g1D-Id-4GG">
-                                        <rect key="frame" x="54.5" y="304" width="237" height="40"/>
+                                        <rect key="frame" x="54" y="304" width="237" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="ZAg-BC-3Cu"/>
                                             <constraint firstAttribute="width" constant="237" id="wII-at-9is"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="我要报名" backgroundImage="LoginBtnBG">
+                                        <state key="normal" title="报名" backgroundImage="LoginBtnBG">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
