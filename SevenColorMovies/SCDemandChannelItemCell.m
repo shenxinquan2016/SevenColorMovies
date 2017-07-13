@@ -31,6 +31,9 @@
     } else if (indexPath.row == 4) {
         _channelImg.image = [UIImage imageNamed:@"营业厅"];
         _channelNameLabel.text =  @"营业厅";
+    } else if (indexPath.row == 6) {
+        _channelImg.image = [UIImage imageNamed:@"host"];
+        _channelNameLabel.text =  @"主持人大赛";
     } else if (indexPath.row == 7) {
         _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         _channelNameLabel.text =  @"更多";
@@ -41,7 +44,7 @@
         }
         _channelNameLabel.text =  array[indexPath.row-1];
         
-    } else if (indexPath.row > 4 && indexPath.row < 7) {
+    } else if (indexPath.row > 4 && indexPath.row < 6) {
         _channelImg.image = [UIImage imageNamed:array[indexPath.row-2]];
         if (_channelImg.image == nil) {
             _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
