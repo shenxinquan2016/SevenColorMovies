@@ -345,13 +345,13 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g1D-Id-4GG">
-                                        <rect key="frame" x="54" y="304" width="237" height="40"/>
+                                        <rect key="frame" x="54.5" y="304" width="237" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="ZAg-BC-3Cu"/>
                                             <constraint firstAttribute="width" constant="237" id="wII-at-9is"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="注册" backgroundImage="LoginBtnBG">
+                                        <state key="normal" title="我要报名" backgroundImage="LoginBtnBG">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -531,7 +531,7 @@
                                             <constraint firstAttribute="height" constant="40" id="jhE-lP-am7"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="注册" backgroundImage="LoginBtnBG">
+                                        <state key="normal" title="我要报名" backgroundImage="LoginBtnBG">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -900,20 +900,9 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoginBG" translatesAutoresizingMaskIntoConstraints="NO" id="kuW-Uw-goq">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jkp-nl-qiT">
-                                <rect key="frame" x="69" y="414" width="237" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="SOr-Ln-Efg"/>
-                                    <constraint firstAttribute="width" constant="237" id="vdd-9v-X3t"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="我要报名" backgroundImage="LoginBtnBG">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="joinTheActivity:" destination="fWj-MJ-Ph9" eventType="touchUpInside" id="FzR-rr-WZd"/>
-                                </connections>
-                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoBanner" translatesAutoresizingMaskIntoConstraints="NO" id="0Zi-O9-CRG">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Nd-pU-1Aa">
                                 <rect key="frame" x="2" y="22" width="50" height="50"/>
                                 <constraints>
@@ -923,6 +912,20 @@
                                 <state key="normal" image="Back_Arrow"/>
                                 <connections>
                                     <action selector="gobackClick:" destination="fWj-MJ-Ph9" eventType="touchUpInside" id="c6W-Wr-TrZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jkp-nl-qiT">
+                                <rect key="frame" x="69" y="597" width="237" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="237" id="YRe-2O-XYq"/>
+                                    <constraint firstAttribute="height" constant="40" id="bNd-Sw-IF4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="我要报名" backgroundImage="LoginBtnBG">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="joinTheActivity:" destination="fWj-MJ-Ph9" eventType="touchUpInside" id="FzR-rr-WZd"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMU-p3-XgX">
@@ -1055,29 +1058,24 @@
                                     <constraint firstItem="PYm-dT-DGc" firstAttribute="leading" secondItem="mDe-Cb-mna" secondAttribute="leading" id="zRr-mR-m6H"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoBanner" translatesAutoresizingMaskIntoConstraints="NO" id="0Zi-O9-CRG">
-                                <rect key="frame" x="15" y="114" width="345" height="216"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="0Zi-O9-CRG" secondAttribute="height" multiplier="115:72" id="6EF-Nf-fJo"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="0Zi-O9-CRG" firstAttribute="leading" secondItem="wAy-Ka-pDu" secondAttribute="leading" constant="15" id="0N2-es-F8D"/>
+                            <constraint firstItem="0Zi-O9-CRG" firstAttribute="leading" secondItem="wAy-Ka-pDu" secondAttribute="leading" id="34b-8r-gWZ"/>
                             <constraint firstItem="kuW-Uw-goq" firstAttribute="leading" secondItem="wAy-Ka-pDu" secondAttribute="leading" id="8Ac-iw-bsp"/>
                             <constraint firstItem="x7e-XZ-YHE" firstAttribute="top" secondItem="JMU-p3-XgX" secondAttribute="bottom" id="8lb-hf-12f"/>
-                            <constraint firstItem="Jkp-nl-qiT" firstAttribute="centerX" secondItem="0Zi-O9-CRG" secondAttribute="centerX" id="N8K-2A-j3b"/>
-                            <constraint firstItem="Jkp-nl-qiT" firstAttribute="top" secondItem="0Zi-O9-CRG" secondAttribute="bottom" constant="84" id="NaD-zQ-Aeo"/>
                             <constraint firstItem="6Nd-pU-1Aa" firstAttribute="top" secondItem="K6T-wc-u1k" secondAttribute="bottom" constant="2" id="Ptd-CJ-QM8"/>
                             <constraint firstAttribute="trailing" secondItem="JMU-p3-XgX" secondAttribute="trailing" id="Px5-Yp-IH5"/>
-                            <constraint firstAttribute="trailing" secondItem="0Zi-O9-CRG" secondAttribute="trailing" constant="15" id="RwC-v4-Qv9"/>
-                            <constraint firstItem="0Zi-O9-CRG" firstAttribute="top" secondItem="K6T-wc-u1k" secondAttribute="bottom" constant="94" id="Wik-hc-G1z"/>
+                            <constraint firstItem="Jkp-nl-qiT" firstAttribute="centerX" secondItem="wAy-Ka-pDu" secondAttribute="centerX" id="Syt-Wj-mxT"/>
+                            <constraint firstItem="0Zi-O9-CRG" firstAttribute="top" secondItem="K6T-wc-u1k" secondAttribute="bottom" constant="-20" id="ZcN-rf-blS"/>
+                            <constraint firstAttribute="trailing" secondItem="0Zi-O9-CRG" secondAttribute="trailing" id="abT-wh-CFb"/>
                             <constraint firstAttribute="trailing" secondItem="kuW-Uw-goq" secondAttribute="trailing" id="dn2-0k-jQp"/>
                             <constraint firstItem="JMU-p3-XgX" firstAttribute="leading" secondItem="wAy-Ka-pDu" secondAttribute="leading" id="kKt-oE-3gN"/>
+                            <constraint firstItem="x7e-XZ-YHE" firstAttribute="top" secondItem="0Zi-O9-CRG" secondAttribute="bottom" id="pI1-G7-GOG"/>
                             <constraint firstItem="6Nd-pU-1Aa" firstAttribute="leading" secondItem="wAy-Ka-pDu" secondAttribute="leading" constant="2" id="r2H-OD-8eG"/>
                             <constraint firstItem="kuW-Uw-goq" firstAttribute="top" secondItem="K6T-wc-u1k" secondAttribute="bottom" constant="-20" id="rbE-p0-FWo"/>
                             <constraint firstItem="x7e-XZ-YHE" firstAttribute="top" secondItem="kuW-Uw-goq" secondAttribute="bottom" id="sga-Lz-1il"/>
+                            <constraint firstItem="x7e-XZ-YHE" firstAttribute="top" secondItem="Jkp-nl-qiT" secondAttribute="bottom" constant="30" id="zfY-We-nRA"/>
                         </constraints>
                     </view>
                     <connections>
