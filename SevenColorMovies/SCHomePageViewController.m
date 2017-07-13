@@ -184,7 +184,7 @@ static NSString *const footerId = @"footerId";
                 [_titleArray addObject:classModel._FilmClassName];
                 
                 if (![classModel._FilmClassName hasSuffix:@"直播"] && ![classModel._FilmClassName hasSuffix:@"省政府"] && ![classModel._FilmClassName hasSuffix:@"营业厅"] && ![classModel._FilmClassName hasSuffix:@"先锋网"] && ![classModel._FilmClassName hasSuffix:@"旅游网"] && ![classModel._FilmClassName hasSuffix:@"图片链接"] && ![classModel._FilmClassName hasSuffix:@"龙江网络"] && ![classModel._FilmClassName hasSuffix:@"下载链接"]) {
-                    
+                
                     [_filmClassArray addObject:classModel];
                 }
                 
@@ -532,7 +532,7 @@ static NSString *const footerId = @"footerId";
             NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray]; // NSUserDefaults 只能读取不可变对象
             moreView.filmClassTitleArray = [NSMutableArray arrayWithArray:filmClassTitleArray];
             moreView.refreshHomePageBlock = ^{
-                [self setFilmClassTitleArray];//刷新section 0
+                [self setFilmClassTitleArray]; // 刷新section 0
             };
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
