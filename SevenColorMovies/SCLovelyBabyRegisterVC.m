@@ -171,7 +171,8 @@
                                  @"terminalName" : _nameTF.text, // 姓名
                                  @"terminalType" : gender, // 性别
                                  @"terminalAddress" : schoolName, // 学校
-                                 @"field1" : _ageTF.text // 年龄
+                                 @"field1" : _ageTF.text, // 年龄
+                                 @"remark" : _spareInfo.text // 备用电话
                                  };
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager getRequestJsonDataWithUrl:LovelyBabyRegister parameters:parameters success:^(id  _Nullable responseObject) {
