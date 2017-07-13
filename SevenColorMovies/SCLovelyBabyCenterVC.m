@@ -38,7 +38,7 @@ static NSString *const footerId = @"footerId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.leftBBI.text = @"萌娃";
+    self.leftBBI.text = @"主持人大赛";
     // 添加搜索框
     [self addSearchBBI];
     
