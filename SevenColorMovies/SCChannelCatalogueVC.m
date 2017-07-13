@@ -134,7 +134,7 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.filmClassArray.count + 3;
+    return self.filmClassTitleArray.count + 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

@@ -29,33 +29,21 @@
 
 @property (nonatomic, strong) UICollectionView *collView;
 
-/** tableView数据源 */
-@property (nonatomic, copy) NSArray *dataSource;
-/** tableView数据源 */
-@property (nonatomic, strong) NSMutableArray *sectionArr;
-/** 点播栏所有item */
-@property (nonatomic, strong) NSMutableArray *allItemsArr;
+@property (nonatomic, copy) NSArray *dataSource; // tableView数据源
+@property (nonatomic, strong) NSMutableArray *sectionArr; // tableView数据源
+@property (nonatomic, strong) NSMutableArray *allItemsArr; // 点播栏所有item
 @property (nonatomic, strong) SCSycleBanner *bannerView;
-/** banner页图片地址数组 */
-@property (nonatomic, strong) NSMutableArray *bannerImageUrlArr;
-/** banner filmModel数组 */
-@property (nonatomic, strong) NSMutableArray *bannerFilmModelArr;
-/** 存储filmList中的filmClass模型（第二层数据）*/
-@property (nonatomic, strong) NSMutableArray *filmClassArray;
-/** section标题 */
-@property (nonatomic, strong) NSMutableArray *titleArray;
-/** 将filmClassModel放入字典 */
-@property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary;
-/** 将filmClass的标题存到本地 */
-@property (nonatomic, copy) NSArray *filmClassTitleArray;
-/** ip转换 */
-@property (nonatomic, strong) HLJRequest *hljRequest;
-/** 非wifi弹出alert时存储filmModel */
-@property (nonatomic, strong) SCFilmModel *alertViewClickFilmModel;
-/** 浮窗广告 */
-@property (nonatomic, strong) UIImageView *adImageView;
-/** 浮窗广告model */
-@property (nonatomic, strong) SCAdvertisementModel *floatingAdModel;
+@property (nonatomic, strong) NSMutableArray *bannerImageUrlArr; // banner页图片地址数组
+@property (nonatomic, strong) NSMutableArray *bannerFilmModelArr; // banner filmModel数组
+@property (nonatomic, strong) NSMutableArray *filmClassArray; // 首页展示
+@property (nonatomic, strong) NSMutableArray *allFilmClassArray; // 全部数据
+@property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary; // 将filmClassModel放入字典
+@property (nonatomic, copy) NSArray *filmClassTitleArray; // 将filmClass的标题存到本地
+@property (nonatomic, strong) HLJRequest *hljRequest; // ip转换
+@property (nonatomic, strong) SCFilmModel *alertViewClickFilmModel; // 非wifi弹出alert时存储filmModel
+
+@property (nonatomic, strong) UIImageView *adImageView; // 浮窗广告
+@property (nonatomic, strong) SCAdvertisementModel *floatingAdModel; // 浮窗广告model
 
 @end
 
@@ -75,10 +63,10 @@ static NSString *const footerId = @"footerId";
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHex:@"#F0F1F2"]];
     
     // 1.初始化数组
-    self.titleArray = [NSMutableArray arrayWithCapacity:0];
     self.filmClassArray = [NSMutableArray arrayWithCapacity:0];
     self.bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
     self.bannerFilmModelArr = [NSMutableArray arrayWithCapacity:0];
+    self.allFilmClassArray = [NSMutableArray arrayWithCapacity:0];
     
     // 2.设置导航栏的颜色（效果作用到所有页面）
     UINavigationBar *navBar = [UINavigationBar appearance];
@@ -155,6 +143,25 @@ static NSString *const footerId = @"footerId";
     
 }
 
+// json格式字符串转字典：
+- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString
+{
+    if (jsonString == nil) {
+        return nil;
+    }
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if(err) {
+        DONG_Log(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dict;
+}
+
 #pragma mark - 集成刷新
 - (void)setCollectionViewRefresh
 {
@@ -170,21 +177,23 @@ static NSString *const footerId = @"footerId";
 {
     [requestDataManager requestDataWithUrl:JuHeEntrance parameters:nil success:^(id  _Nullable responseObject) {
         //                DONG_Log(@"==========dic:::%@========",responseObject);
-        [_titleArray removeAllObjects];
         [_filmClassArray removeAllObjects];
         [_bannerImageUrlArr removeAllObjects];
         [_bannerFilmModelArr removeAllObjects];
-        //1.第一层 filmList
+        [_allFilmClassArray removeAllObjects];
+        
+        // 1.第一层 filmList
         SCFilmListModel *filmListModel = [SCFilmListModel mj_objectWithKeyValues:responseObject];
         
         for (SCFilmClassModel *classModel in filmListModel.filmClassArray) {
             
             if (![classModel._FilmClassName hasSuffix:@"今日推荐"]) {
                 
-                [_titleArray addObject:classModel._FilmClassName];
+                // 全部数据
+                [_allFilmClassArray addObject:classModel];
                 
                 if (![classModel._FilmClassName hasSuffix:@"直播"] && ![classModel._FilmClassName hasSuffix:@"省政府"] && ![classModel._FilmClassName hasSuffix:@"营业厅"] && ![classModel._FilmClassName hasSuffix:@"先锋网"] && ![classModel._FilmClassName hasSuffix:@"旅游网"] && ![classModel._FilmClassName hasSuffix:@"图片链接"] && ![classModel._FilmClassName hasSuffix:@"龙江网络"] && ![classModel._FilmClassName hasSuffix:@"下载链接"]) {
-                
+                    // 首页展示数据
                     [_filmClassArray addObject:classModel];
                 }
                 
@@ -248,40 +257,40 @@ static NSString *const footerId = @"footerId";
 {
     // 将self.titleArray存到本地，每次点击时先取本地的数组：1、如果本地数组与self.titleArray元素相同，则使用本地数组 2.如果本地数组与self.filmClassArray元素不同，则使用self.titleArray
     
-    NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray]; // NSUserDefaults 只能读取不可变对象
-    if (filmClassTitleArray.count == 0) {
-        
-        NSArray *array = [NSArray arrayWithArray:self.titleArray]; // NSUserDefaults 只能读取不可变对象
-        [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        self.filmClassTitleArray = self.titleArray;
-        [_collView reloadData];
-        
-    } else {
-        
-        //谓词判断：A中元素不包含在B中的个数为0切B中元素不包含在A中的个数为0，则两个数组元素相同
-        if ([filmClassTitleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", self.titleArray]].count == 0 && [self.titleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", filmClassTitleArray]].count == 0) {//本地保存的和新请求到的相同时
-            
-            self.filmClassTitleArray = filmClassTitleArray;
-            [_collView reloadData];
-            
-        } else {
-            // 本地保存的和新请求到的不同时
-            NSArray *array = [NSArray arrayWithArray:self.titleArray];
-            [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            self.filmClassTitleArray = self.titleArray;
-            [_collView reloadData];
-        }
-    }
-    
-    self.filmClassModelDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
-    for (SCFilmClassModel *filmClassModel in self.filmClassArray) {
-        NSString *key = filmClassModel._FilmClassName;
-        [_filmClassModelDictionary setObject:filmClassModel forKey:key];
-    }
+//    NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray]; // NSUserDefaults 只能读取不可变对象
+//    if (filmClassTitleArray.count == 0) {
+//        
+//        NSArray *array = [NSArray arrayWithArray:self.titleArray]; // NSUserDefaults 只能读取不可变对象
+//        [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        
+//        self.filmClassTitleArray = self.titleArray;
+//        [_collView reloadData];
+//        
+//    } else {
+//        
+//        //谓词判断：A中元素不包含在B中的个数为0切B中元素不包含在A中的个数为0，则两个数组元素相同
+//        if ([filmClassTitleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", self.titleArray]].count == 0 && [self.titleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", filmClassTitleArray]].count == 0) {//本地保存的和新请求到的相同时
+//            
+//            self.filmClassTitleArray = filmClassTitleArray;
+//            [_collView reloadData];
+//            
+//        } else {
+//            // 本地保存的和新请求到的不同时
+//            NSArray *array = [NSArray arrayWithArray:self.titleArray];
+//            [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
+//            [[NSUserDefaults standardUserDefaults] synchronize];
+//            
+//            self.filmClassTitleArray = self.titleArray;
+//            [_collView reloadData];
+//        }
+//    }
+//    
+//    self.filmClassModelDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
+//    for (SCFilmClassModel *filmClassModel in self.filmClassArray) {
+//        NSString *key = filmClassModel._FilmClassName;
+//        [_filmClassModelDictionary setObject:filmClassModel forKey:key];
+//    }
 }
 
 // section header
@@ -369,7 +378,11 @@ static NSString *const footerId = @"footerId";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 8;
+        if (_filmClassArray.count > 8) {
+            return 8;
+        } else {
+            return _filmClassArray.count;
+        }
         
     } else {
         
@@ -400,7 +413,7 @@ static NSString *const footerId = @"footerId";
     
     if (indexPath.section == 0) {
         
-        NSArray *array = self.filmClassTitleArray? self.filmClassTitleArray : self.allItemsArr;
+        NSArray *array = self.allFilmClassArray;
         [cell setModel:array IndexPath:indexPath];
         return cell;
         
@@ -523,8 +536,11 @@ static NSString *const footerId = @"footerId";
             [MBProgressHUD showSuccess:@"暂无数据，请稍后再试"];
             return;
         }
-        //设置返回键标题
+        
+        SCFilmClassModel *filmClassModel = _allFilmClassArray[indexPath.row];
+        
         if (indexPath.row == 7) { // 更多
+            
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:@"更多"];
             moreView.filmClassArray = [NSMutableArray arrayWithArray:_filmClassArray];
             moreView.bannerFilmModelArray = _bannerFilmModelArr;
@@ -537,7 +553,9 @@ static NSString *const footerId = @"footerId";
             moreView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreView animated:YES];
             
-        } else if (indexPath.row == 0) { // 直播
+        } else if ([filmClassModel._dataType isEqualToString:@"app"]) {
+            
+            // 直播
             // 数据采集
             NSString *keyValue = @"app";
             [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:keyValue];
@@ -545,33 +563,28 @@ static NSString *const footerId = @"footerId";
             SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
             liveView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:liveView animated:YES];
+
+        } else if ([filmClassModel._dataType isEqualToString:@"web"]) {
             
-        } else if (indexPath.row == 4) { // 掌厅
-            DONG_Log(@"营业厅");
+            // web网页
+            if (filmClassModel.FilmClassUrl == nil) return;
+            NSDictionary *dict = [self dictionaryWithJsonString:filmClassModel.FilmClassUrl];
             // 数据采集
             NSString *keyValue = @"web";
-            [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"营业厅" mid:keyValue];
+            [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:filmClassModel._FilmClassName mid:keyValue];
             
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dict[@"webUrl"]]];
+
+        } else if ([filmClassModel._dataType isEqualToString:@""]) {
             
-        } else if (indexPath.row > 0 && indexPath.row < 4) { // 3
-            
-            NSString *key = _filmClassTitleArray[indexPath.row-1];
-            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
-            channelVC.filmClassModel = _filmClassModelDictionary[key];
+            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
+            channelVC.filmClassModel = filmClassModel;
             channelVC.bannerFilmModelArray = _bannerFilmModelArr;
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
-            
-        } else if (indexPath.row > 4 && indexPath.row < 7) {
-            
-            NSString *key = _filmClassTitleArray[indexPath.row-2];
-            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:key];
-            channelVC.filmClassModel = _filmClassModelDictionary[key];
-            channelVC.bannerFilmModelArray = _bannerFilmModelArr;
-            channelVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:channelVC animated:YES];
+
         }
+        
         
     } else {
         
@@ -670,7 +683,7 @@ static NSString *const footerId = @"footerId";
 - (NSMutableArray *)allItemsArr
 {
     if (!_allItemsArr) {
-        NSArray *array =@[@"电影", @"电视剧",  @"少儿", @"纪录片", @"潮生活", @"更多", @"二人转", @"动漫", @"生活", @"游戏", @"音乐", @"专题", @"营业厅"];
+        NSArray *array =@[@"电影", @"电视剧",  @"少儿", @"纪录片", @"潮生活", @"动漫", @"生活", @"游戏", @"音乐", @"专题", @"营业厅"];
         
         _allItemsArr = [NSMutableArray arrayWithCapacity:0];
         [_allItemsArr addObjectsFromArray:array];

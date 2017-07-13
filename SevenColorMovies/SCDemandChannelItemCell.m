@@ -7,6 +7,7 @@
 //
 
 #import "SCDemandChannelItemCell.h"
+#import "SCFilmClassModel.h"
 
 @interface SCDemandChannelItemCell()
 
@@ -25,15 +26,17 @@
 - (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath
 {
     NSArray *array = model;
+    SCFilmClassModel *filmClassModel = array[indexPath.row];
+    
     if (indexPath.row == 7) {
+        
         _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
         _channelNameLabel.text =  @"更多";
+        
     } else {
-        _channelImg.image = [UIImage imageNamed:array[indexPath.row]];
-        if (_channelImg.image == nil){
-            _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
-        }
-        _channelNameLabel.text =  array[indexPath.row];   
+        
+        [_channelImg sd_setImageWithURL:[NSURL URLWithString:filmClassModel._IconUrl] placeholderImage:[UIImage imageNamed:@"GeneralChannel"]];
+        _channelNameLabel.text =  filmClassModel._FilmClassName;
     }
 }
 
