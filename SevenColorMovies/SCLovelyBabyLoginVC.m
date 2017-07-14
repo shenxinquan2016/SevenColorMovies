@@ -9,6 +9,7 @@
 #import "SCLovelyBabyLoginVC.h"
 #import "SCLovelyBabyRegisterVC.h"
 #import "SCMyLovelyBabyVC.h"
+#import "SCForgetPasswordVC.h"
 
 @interface SCLovelyBabyLoginVC ()
 
@@ -85,6 +86,13 @@
 {
     SCLovelyBabyRegisterVC *registerVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyRegisterVC");
     [self.navigationController pushViewController:registerVC animated:YES];
+}
+
+// 忘记密码
+- (IBAction)forgetPassword:(id)sender
+{
+    SCForgetPasswordVC *forgetPasswordVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCForgetPasswordVC");
+    [self.navigationController pushViewController:forgetPasswordVC animated:YES];
 }
 
 #pragma mark - NetRequest

@@ -91,6 +91,7 @@
 		1147FBB61DDE9D6000126F2E /* SCArtsDownloadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1147FBB41DDE9D5F00126F2E /* SCArtsDownloadCell.xib */; };
 		114AE1A11D81100F00BED623 /* SCFilterOptionTabModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 114AE1A01D81100F00BED623 /* SCFilterOptionTabModel.m */; };
 		114BC8091D51D70D0091ECE0 /* UIButton+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */; };
+		114C5E551F18F5D600EEA0C8 /* SCForgetPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 114C5E541F18F5D600EEA0C8 /* SCForgetPasswordVC.m */; };
 		11588F6A1D6AEA3700C91E3A /* SCLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11588F691D6AEA3700C91E3A /* SCLiveViewController.m */; };
 		11588F6E1D6AECDF00C91E3A /* SCLivePageCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11588F6D1D6AECDF00C91E3A /* SCLivePageCollectionVC.m */; };
 		11588F731D6B079900C91E3A /* SCLivePageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11588F711D6B079900C91E3A /* SCLivePageCell.m */; };
@@ -432,6 +433,8 @@
 		114AE1A01D81100F00BED623 /* SCFilterOptionTabModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilterOptionTabModel.m; sourceTree = "<group>"; };
 		114BC8071D51D70D0091ECE0 /* UIButton+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Addition.h"; sourceTree = "<group>"; };
 		114BC8081D51D70D0091ECE0 /* UIButton+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Addition.m"; sourceTree = "<group>"; };
+		114C5E531F18F5D600EEA0C8 /* SCForgetPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCForgetPasswordVC.h; sourceTree = "<group>"; };
+		114C5E541F18F5D600EEA0C8 /* SCForgetPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCForgetPasswordVC.m; sourceTree = "<group>"; };
 		11588F681D6AEA3700C91E3A /* SCLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLiveViewController.h; sourceTree = "<group>"; };
 		11588F691D6AEA3700C91E3A /* SCLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLiveViewController.m; sourceTree = "<group>"; };
 		11588F6C1D6AECDF00C91E3A /* SCLivePageCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLivePageCollectionVC.h; sourceTree = "<group>"; };
@@ -2383,6 +2386,8 @@
 				11C868C61EFA225C00C1F218 /* SCLovelyBabyRegisterVC.m */,
 				11C868C81EFA227F00C1F218 /* SCLovelyBabyLoginVC.h */,
 				11C868C91EFA227F00C1F218 /* SCLovelyBabyLoginVC.m */,
+				114C5E531F18F5D600EEA0C8 /* SCForgetPasswordVC.h */,
+				114C5E541F18F5D600EEA0C8 /* SCForgetPasswordVC.m */,
 			);
 			name = "登录注册";
 			sourceTree = "<group>";
@@ -2988,6 +2993,7 @@
 				11759F621E0A5F05000B9440 /* amrFileCodec.mm in Sources */,
 				1101750D1D54A40000E43773 /* NSString+Dong.m in Sources */,
 				113E62E81D49F63100FB8F3A /* SCFilmModel.m in Sources */,
+				114C5E551F18F5D600EEA0C8 /* SCForgetPasswordVC.m in Sources */,
 				11FACB491D3F16E100AAC216 /* SCBaseViewController.m in Sources */,
 				1192BC491EE45EE800A7DD09 /* DONG_LaunchAdView.m in Sources */,
 				11FF648C1E276799007DC954 /* SCAdvertisemetPosModel.m in Sources */,
