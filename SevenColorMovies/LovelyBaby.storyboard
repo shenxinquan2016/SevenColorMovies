@@ -953,7 +953,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qOS-KB-QYQ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qOS-KB-QYQ">
                                 <rect key="frame" x="117" y="125" width="198" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -963,7 +963,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gbu-Jd-Nm8">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Gbu-Jd-Nm8">
                                 <rect key="frame" x="117" y="164.5" width="198" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -973,7 +973,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QPk-HK-tWw">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QPk-HK-tWw">
                                 <rect key="frame" x="117" y="203.5" width="198" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -983,7 +983,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HB0-EE-Jjq">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="HB0-EE-Jjq">
                                 <rect key="frame" x="117" y="242.5" width="198" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1005,6 +1005,7 @@
                                 </state>
                                 <connections>
                                     <action selector="SubmitRegistration:" destination="aec-2S-ivq" eventType="touchUpInside" id="vGb-qv-2G8"/>
+                                    <action selector="findBackPassword:" destination="9Sd-fa-ZTM" eventType="touchUpInside" id="pC9-kJ-BOq"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1034,6 +1035,12 @@
                             <constraint firstItem="qOS-KB-QYQ" firstAttribute="leading" secondItem="xW9-iT-evU" secondAttribute="trailing" id="zRB-fT-Pee"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mobilePhoneTF" destination="qOS-KB-QYQ" id="kEI-qg-YM2"/>
+                        <outlet property="nameTF" destination="Gbu-Jd-Nm8" id="0cw-Xy-FnW"/>
+                        <outlet property="passwordAgainTF" destination="HB0-EE-Jjq" id="8Vw-Ws-IMm"/>
+                        <outlet property="passwordTF" destination="QPk-HK-tWw" id="zzO-zq-B8c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SVf-Mq-6xm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

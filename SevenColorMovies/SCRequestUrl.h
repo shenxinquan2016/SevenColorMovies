@@ -105,6 +105,7 @@
 #define LovelyBabyVideoUpload @"http://scc.96396.cn:10013/appjh_mmserver/upload/makingUpload.do?" // 视频上传
 #define LovelyBabyVideoTask @"http://scc.96396.cn:10013/appjh_mmserver/paikeInfo/searchTask.do?" // 拍客任务列表
 #define LovelyBabyDeleteVideo @"http://scc.96396.cn:10013/appjh_mmserver/paikeInfo/delPaikeData.do?" // 删除视频
+#define LovelyBabyForgetPassword @"http://scc.96396.cn:10013/appjh_mmserver/member/forgotPwd.do?" // 找回密码
 
 /***************************************语音控器通信接口*****************************************/
 #define CloudRemoteControl @"192.168.31.224:9099"
