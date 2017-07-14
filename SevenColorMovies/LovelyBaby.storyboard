@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -837,7 +838,7 @@
                                     <action selector="pickCoverPhoto:" destination="Ayq-ta-XV7" eventType="touchUpInside" id="hli-Ht-uwH"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="对你的短片简单介绍下吧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAB-aH-XNq">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="参赛者特长、参赛愿望" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAB-aH-XNq">
                                 <rect key="frame" x="7" y="285.5" width="158" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="A0Y-yA-E6v"/>
@@ -1368,22 +1369,47 @@
                                     <action selector="playVideo:" destination="vMh-PZ-iKd" eventType="touchUpInside" id="1RS-yp-mUR"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的特长" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbJ-wh-Uss">
+                                <rect key="frame" x="30" y="416.5" width="315" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="N7g-4u-3tz"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="SUV-bM-XtR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您的审核未通过，如需咨询请拨打13091876387，13091875869。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFL-Vt-1pe">
+                                <rect key="frame" x="30" y="368" width="263" height="38.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="zAf-GM-oHF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iyT-69-jU9" firstAttribute="centerY" secondItem="ukv-O3-qHJ" secondAttribute="centerY" id="2KR-6q-rNU"/>
                             <constraint firstItem="iCA-xx-5tI" firstAttribute="leading" secondItem="tgp-SI-cjV" secondAttribute="leading" constant="30" id="3hZ-Gy-Pxu"/>
                             <constraint firstItem="as0-Gp-82D" firstAttribute="top" secondItem="D29-Ig-IcP" secondAttribute="bottom" constant="20" id="4wG-hm-mEe"/>
+                            <constraint firstItem="DbJ-wh-Uss" firstAttribute="leading" secondItem="YFL-Vt-1pe" secondAttribute="leading" id="DZw-DG-WA8"/>
+                            <constraint firstAttribute="trailing" secondItem="DbJ-wh-Uss" secondAttribute="trailing" constant="30" id="DtD-Hf-PjN"/>
                             <constraint firstItem="BMI-OY-KHz" firstAttribute="centerY" secondItem="WxV-Bc-MRk" secondAttribute="centerY" id="EoO-3I-dDA"/>
                             <constraint firstItem="BMI-OY-KHz" firstAttribute="leading" secondItem="WxV-Bc-MRk" secondAttribute="trailing" id="GTh-m9-Un2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YFL-Vt-1pe" secondAttribute="trailing" constant="66" id="I9j-g3-BT9"/>
                             <constraint firstAttribute="trailing" secondItem="as0-Gp-82D" secondAttribute="trailing" constant="30" id="K91-oL-o6C"/>
                             <constraint firstItem="ZIv-Bs-8UO" firstAttribute="top" secondItem="iCA-xx-5tI" secondAttribute="bottom" constant="8" id="Mkt-uC-GbF"/>
                             <constraint firstItem="iyT-69-jU9" firstAttribute="top" secondItem="as0-Gp-82D" secondAttribute="bottom" constant="20" id="P5N-dY-mmt"/>
                             <constraint firstItem="WxV-Bc-MRk" firstAttribute="top" secondItem="ZIv-Bs-8UO" secondAttribute="bottom" constant="4" id="P5T-zP-Mv2"/>
+                            <constraint firstItem="YFL-Vt-1pe" firstAttribute="top" secondItem="iCA-xx-5tI" secondAttribute="bottom" constant="53.5" id="Pbh-mR-Cyp"/>
                             <constraint firstItem="6kV-4p-6st" firstAttribute="centerY" secondItem="as0-Gp-82D" secondAttribute="centerY" id="SWL-q4-jYd"/>
                             <constraint firstItem="ZIv-Bs-8UO" firstAttribute="leading" secondItem="iCA-xx-5tI" secondAttribute="leading" id="Xoj-lS-gtM"/>
                             <constraint firstItem="iyT-69-jU9" firstAttribute="leading" secondItem="ukv-O3-qHJ" secondAttribute="trailing" constant="13" id="Zan-Gf-xQF"/>
+                            <constraint firstItem="YFL-Vt-1pe" firstAttribute="leading" secondItem="WxV-Bc-MRk" secondAttribute="leading" id="c4G-nh-EIT"/>
                             <constraint firstItem="6kV-4p-6st" firstAttribute="centerX" secondItem="as0-Gp-82D" secondAttribute="centerX" id="eTk-dW-P68"/>
+                            <constraint firstItem="DbJ-wh-Uss" firstAttribute="top" secondItem="YFL-Vt-1pe" secondAttribute="bottom" constant="10" id="g7i-Lo-X0n"/>
                             <constraint firstItem="iCA-xx-5tI" firstAttribute="top" secondItem="ukv-O3-qHJ" secondAttribute="bottom" constant="18" id="hKo-vM-6I9"/>
                             <constraint firstItem="WxV-Bc-MRk" firstAttribute="leading" secondItem="ZIv-Bs-8UO" secondAttribute="leading" id="i6h-4s-MiW"/>
                             <constraint firstItem="3RB-f0-BZy" firstAttribute="leading" secondItem="ZIv-Bs-8UO" secondAttribute="trailing" id="jVf-bw-nDI"/>
@@ -1402,11 +1428,14 @@
                         <outlet property="rightBtn" destination="iyT-69-jU9" id="ahP-DC-IWm"/>
                         <outlet property="totalVoteLabel0" destination="WxV-Bc-MRk" id="ZwH-zb-nOf"/>
                         <outlet property="totoalVoteLabel" destination="BMI-OY-KHz" id="2zW-Iy-HzN"/>
+                        <outlet property="videoIntroductionLabel" destination="DbJ-wh-Uss" id="AP0-D5-bf3"/>
+                        <outlet property="videoStatusTipLabelTopLayout" destination="Pbh-mR-Cyp" id="Jgs-ka-uzV"/>
+                        <outlet property="videoStatusTipsLabel" destination="YFL-Vt-1pe" id="eot-Gf-SUM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcE-Vo-dFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="802" y="32"/>
+            <point key="canvasLocation" x="800.79999999999995" y="31.934032983508249"/>
         </scene>
     </scenes>
     <resources>

@@ -18,13 +18,21 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverIV;
 @property (weak, nonatomic) IBOutlet UIButton *playBtn;
+
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *personalLabel0;
 @property (weak, nonatomic) IBOutlet UILabel *personalNoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalVoteLabel0;
 @property (weak, nonatomic) IBOutlet UILabel *totoalVoteLabel;
+
 @property (weak, nonatomic) IBOutlet UIButton *leftBtn;
 @property (weak, nonatomic) IBOutlet UIButton *rightBtn;
+
+@property (weak, nonatomic) IBOutlet UILabel *videoStatusTipsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *videoIntroductionLabel; // 视频介绍
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoStatusTipLabelTopLayout; // 视频状态label上约束
+
 @property (nonatomic, assign) NSInteger statusCode;
 
 @end
@@ -112,6 +120,8 @@
                 _personalNoLabel.hidden = YES;
                 _totalVoteLabel0.hidden = YES;
                 _totoalVoteLabel.hidden = YES;
+                _videoStatusTipsLabel.hidden = YES;
+                _videoIntroductionLabel.hidden = YES;
                 _playBtn.hidden = YES;
                 _leftBtn.hidden = YES;
                 [_rightBtn setTitle:@"未上传" forState:UIControlStateNormal];
@@ -130,6 +140,7 @@
                 _statusCode = [dict[@"status"] integerValue];
                 videoUrl = dict[@"bfUrl"];
                 videoName = dict[@"mzName"];
+                _videoIntroductionLabel.text = dict[@"mzDesc"];
                 
                 switch (_statusCode) {
                     case 0: // 删除
@@ -142,6 +153,8 @@
                         _totalVoteLabel0.hidden = YES;
                         _totoalVoteLabel.hidden = YES;
 //                        _leftBtn.hidden = YES;
+                        _videoStatusTipLabelTopLayout.constant = 5;
+                        _videoStatusTipsLabel.text = @"您上传的视频将在24小时之内审核，审核通过后会在平台上展示.";
                         [_rightBtn setTitle:@"审核中" forState:UIControlStateNormal];
                         [_rightBtn setBackgroundImage:[UIImage imageNamed:@"UnderReviewBtnBG"] forState:UIControlStateNormal];
                         _rightBtn.userInteractionEnabled = NO;
@@ -158,7 +171,8 @@
                         _personalNoLabel.hidden = YES;
                         _totalVoteLabel0.hidden = YES;
                         _totoalVoteLabel.hidden = YES;
-                        
+                        _videoStatusTipLabelTopLayout.constant = 5;
+                        _videoStatusTipsLabel.text = @"您的审核未通过，如需咨询请拨打13091876387，13091875869。";
                         [_rightBtn setBackgroundImage:[UIImage imageNamed:@"RefusedBtnBG"] forState:UIControlStateNormal];
                         _rightBtn.userInteractionEnabled = NO;
                         [_coverIV sd_setImageWithURL:[NSURL URLWithString:dict[@"showUrl"]] placeholderImage:[UIImage imageNamed:@"Image-4"]];
@@ -176,6 +190,8 @@
                         
                     case 6: // 4.上线
                         _leftBtn.hidden = YES;
+                        _videoStatusTipsLabel.text = @"";
+                        _videoStatusTipLabelTopLayout.constant = 53;
                         [_rightBtn setTitle:@"审核通过" forState:UIControlStateNormal];
                         [_rightBtn setBackgroundImage:[UIImage imageNamed:@"ShareBtnBG"] forState:UIControlStateNormal];
                         _rightBtn.userInteractionEnabled = NO;
