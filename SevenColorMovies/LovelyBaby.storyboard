@@ -838,11 +838,11 @@
                                     <action selector="pickCoverPhoto:" destination="Ayq-ta-XV7" eventType="touchUpInside" id="hli-Ht-uwH"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="参赛者特长、参赛愿望" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAB-aH-XNq">
-                                <rect key="frame" x="7" y="285.5" width="158" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请描述参赛者特长、参赛愿望等" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAB-aH-XNq">
+                                <rect key="frame" x="7" y="285.5" width="200" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="A0Y-yA-E6v"/>
-                                    <constraint firstAttribute="width" constant="158" id="MBb-KV-ihV"/>
+                                    <constraint firstAttribute="width" constant="200" id="MBb-KV-ihV"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
