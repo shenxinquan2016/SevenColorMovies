@@ -9,13 +9,13 @@
 #import "SCHomePageViewController.h"
 #import "AppDelegate.h"
 #import "SCSycleBanner.h"
-#import "SCDemandChannelItemCell.h"//section 0 cell
-#import "SCCollectionViewPageCell.h"//其他cell
+#import "SCDemandChannelItemCell.h" // section 0 cell
+#import "SCCollectionViewPageCell.h" // 其他cell
 #import "SCHomePageFlowLayout.h"
-#import "SCHomePageSectionBGReusableView.h"//senction header
-#import "SCChannelCatalogueVC.h"//点播栏目更多
-#import "SCChannelCategoryVC.h"//节目频道分类
-#import "SCLiveViewController.h"//直播首页面
+#import "SCHomePageSectionBGReusableView.h" // senction header
+#import "SCChannelCatalogueVC.h" // 点播栏目更多
+#import "SCChannelCategoryVC.h" // 节目频道分类
+#import "SCLiveViewController.h" // 直播首页面
 #import "SCPlayerViewController.h"
 #import "SCBannerModel.h"
 #import "SCFilmListModel.h"
@@ -37,6 +37,7 @@
 @property (nonatomic, strong) NSMutableArray *bannerFilmModelArr; // banner filmModel数组
 @property (nonatomic, strong) NSMutableArray *filmClassArray; // 首页展示
 @property (nonatomic, strong) NSMutableArray *allFilmClassArray; // 全部数据
+@property (nonatomic, strong) NSMutableArray *titleArray; // 由filmClass剥离出的标题
 @property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary; // 将filmClassModel放入字典
 @property (nonatomic, copy) NSArray *filmClassTitleArray; // 将filmClass的标题存到本地
 @property (nonatomic, strong) HLJRequest *hljRequest; // ip转换
@@ -67,6 +68,7 @@ static NSString *const footerId = @"footerId";
     self.bannerImageUrlArr = [NSMutableArray arrayWithCapacity:0];
     self.bannerFilmModelArr = [NSMutableArray arrayWithCapacity:0];
     self.allFilmClassArray = [NSMutableArray arrayWithCapacity:0];
+    self.titleArray = [NSMutableArray arrayWithCapacity:0];
     
     // 2.设置导航栏的颜色（效果作用到所有页面）
     UINavigationBar *navBar = [UINavigationBar appearance];
@@ -163,6 +165,7 @@ static NSString *const footerId = @"footerId";
 }
 
 #pragma mark - 集成刷新
+
 - (void)setCollectionViewRefresh
 {
     [CommonFunc setupRefreshWithCollectionViewWithBanner:_collView withSelf:self headerFunc:@selector(headerRefresh) headerFuncFirst:YES footerFunc:nil];
@@ -202,7 +205,7 @@ static NSString *const footerId = @"footerId";
                 
             } else if ([classModel._FilmClassName hasSuffix:@"今日推荐"]) {
                 
-                //添加banner
+                // 添加banner
                 NSArray *dataArr = responseObject[@"FilmClass"];
                 NSDictionary *dic = [dataArr firstObject];
                 NSArray *array = dic[@"Film"];
@@ -257,40 +260,40 @@ static NSString *const footerId = @"footerId";
 {
     // 将self.titleArray存到本地，每次点击时先取本地的数组：1、如果本地数组与self.titleArray元素相同，则使用本地数组 2.如果本地数组与self.filmClassArray元素不同，则使用self.titleArray
     
-//    NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray]; // NSUserDefaults 只能读取不可变对象
-//    if (filmClassTitleArray.count == 0) {
-//        
-//        NSArray *array = [NSArray arrayWithArray:self.titleArray]; // NSUserDefaults 只能读取不可变对象
-//        [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        
-//        self.filmClassTitleArray = self.titleArray;
-//        [_collView reloadData];
-//        
-//    } else {
-//        
-//        //谓词判断：A中元素不包含在B中的个数为0切B中元素不包含在A中的个数为0，则两个数组元素相同
-//        if ([filmClassTitleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", self.titleArray]].count == 0 && [self.titleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", filmClassTitleArray]].count == 0) {//本地保存的和新请求到的相同时
-//            
-//            self.filmClassTitleArray = filmClassTitleArray;
-//            [_collView reloadData];
-//            
-//        } else {
-//            // 本地保存的和新请求到的不同时
-//            NSArray *array = [NSArray arrayWithArray:self.titleArray];
-//            [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
-//            [[NSUserDefaults standardUserDefaults] synchronize];
-//            
-//            self.filmClassTitleArray = self.titleArray;
-//            [_collView reloadData];
-//        }
-//    }
-//    
-//    self.filmClassModelDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
-//    for (SCFilmClassModel *filmClassModel in self.filmClassArray) {
-//        NSString *key = filmClassModel._FilmClassName;
-//        [_filmClassModelDictionary setObject:filmClassModel forKey:key];
-//    }
+    NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray]; // NSUserDefaults 只能读取不可变对象
+    if (filmClassTitleArray.count == 0) {
+        
+        NSArray *array = [NSArray arrayWithArray:self.titleArray]; // NSUserDefaults 只能读取不可变对象
+        [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        self.filmClassTitleArray = self.titleArray;
+        [_collView reloadData];
+        
+    } else {
+        
+        // 谓词判断：A中元素不包含在B中的个数为0切B中元素不包含在A中的个数为0，则两个数组元素相同
+        if ([filmClassTitleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", self.titleArray]].count == 0 && [self.titleArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (SELF in %@)", filmClassTitleArray]].count == 0) {//本地保存的和新请求到的相同时
+            
+            self.filmClassTitleArray = filmClassTitleArray;
+            [_collView reloadData];
+            
+        } else {
+            // 本地保存的和新请求到的不同时
+            NSArray *array = [NSArray arrayWithArray:self.titleArray];
+            [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            self.filmClassTitleArray = self.titleArray;
+            [_collView reloadData];
+        }
+    }
+    
+    self.filmClassModelDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
+    for (SCFilmClassModel *filmClassModel in self.filmClassArray) {
+        NSString *key = filmClassModel._FilmClassName;
+        [_filmClassModelDictionary setObject:filmClassModel forKey:key];
+    }
 }
 
 // section header
@@ -542,11 +545,11 @@ static NSString *const footerId = @"footerId";
         if (indexPath.row == 7) { // 更多
             
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:@"更多"];
-            moreView.filmClassArray = [NSMutableArray arrayWithArray:_filmClassArray];
+            moreView.filmClassArray = _allFilmClassArray;
             moreView.bannerFilmModelArray = _bannerFilmModelArr;
             
-            NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray]; // NSUserDefaults 只能读取不可变对象
-            moreView.filmClassTitleArray = [NSMutableArray arrayWithArray:filmClassTitleArray];
+//            NSArray *filmClassTitleArray = [[NSUserDefaults standardUserDefaults] objectForKey:kFilmClassTitleArray]; // NSUserDefaults 只能读取不可变对象
+//            moreView.filmClassTitleArray = [NSMutableArray arrayWithArray:filmClassTitleArray];
             moreView.refreshHomePageBlock = ^{
                 [self setFilmClassTitleArray]; // 刷新section 0
             };

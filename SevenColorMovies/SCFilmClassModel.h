@@ -30,7 +30,7 @@
 @property (nonatomic, copy) NSArray *filmArray;
 @property (nonatomic, strong) SCFilmClassModel *filmClassModel; // FilmClass模型
 
-@property (nonatomic, copy) NSString *_dataType; //聚合版字段 区分打开类型
+@property (nonatomic, copy) NSString *_dataType; // 聚合版字段 区分打开类型
 @property (nonatomic, copy) NSString *_IconUrl; // icon图标
 
 @end

@@ -18,9 +18,9 @@
 
 @interface SCChannelCatalogueVC ()<LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 
-@property (nonatomic, strong) UICollectionView *collView;/** collectionView */
-@property (nonatomic, strong) UIButton *editBtn;/** 编辑按钮 */
-@property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary;/** 将filmClassModel放入字典 */
+@property (nonatomic, strong) UICollectionView *collView; // collectionView
+@property (nonatomic, strong) UIButton *editBtn; // 编辑按钮
+@property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary; // 将filmClassModel放入字典
 
 @end
 
@@ -34,13 +34,13 @@ static NSString *const footerId = @"footerId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    //-1.组建filmClassModelDictionary
+    // -1.组建filmClassModelDictionary
     [self setFilmClassModelDictionary];
     
-    //0.编辑按钮
+    // 0.编辑按钮
     [self addRightBBI];
     
-    //2.添加cellectionView
+    // 2.添加cellectionView
     [self loadCollectionView];
     
 }
@@ -80,15 +80,15 @@ static NSString *const footerId = @"footerId";
         _editBtn.selected = YES;
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
         
-    }else if (_editBtn.selected != NO){
+    } else if (_editBtn.selected != NO) {
         _editBtn.selected = NO;
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         
         NSArray *array = [NSArray arrayWithArray:self.filmClassTitleArray];
         [[NSUserDefaults standardUserDefaults] setObject:array forKey:kFilmClassTitleArray];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        self.refreshHomePageBlock();//调整后刷新首页
-        NSLog(@">>>>>>>>>>完成编辑>>>>>>>>>>>>");
+        self.refreshHomePageBlock(); // 调整后刷新首页
+        DONG_Log(@">>>>>>>>>>完成编辑>>>>>>>>>>>>");
     }
 }
 
@@ -183,7 +183,7 @@ static NSString *const footerId = @"footerId";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_editBtn.selected == YES) {//编辑模式
+    if (_editBtn.selected == YES) { // 编辑模式
         if (indexPath.row == 0) return NO; // 🚫第1个单元格不让移动
         if (indexPath.row == 1) return NO; // 🚫第2个单元格不让移动
         if (indexPath.row == _filmClassTitleArray.count+2) return NO; // 🚫最后一个单元格不让移动
