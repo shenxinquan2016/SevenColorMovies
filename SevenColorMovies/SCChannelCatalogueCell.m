@@ -36,33 +36,33 @@
 - (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath
 {
     NSArray *filmClassTitleArray = model;
+    NSString *title = filmClassTitleArray[indexPath.row];
+    SCFilmClassModel *filmClassModel = [_filmClassModelDictionary objectForKey:title];
+    
     if (model && [model isKindOfClass:[NSArray class]]) {
         
         if (indexPath.row == filmClassTitleArray.count) {
             _channelNameLabel.text = @"萌娃";
             _channelImg.image = [UIImage imageNamed:@"LovelyBaby"];
-        } else {
-            _channelNameLabel.text = filmClassTitleArray[indexPath.row];
-            _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassTitleArray[indexPath.row]]];
             
-            if (_channelImg.image == nil) {
-                _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
-            }
+        } else {
+            
+            _channelNameLabel.text = title;
+            [_channelImg sd_setImageWithURL:[NSURL URLWithString:filmClassModel._IconUrl] placeholderImage:[UIImage imageNamed:@"GeneralChannel"]];
+       
         }
     }
 }
 
-- (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel{
-    
+- (void)setFilmClassModel:(SCFilmClassModel *)filmClassModel
+{
     _channelNameLabel.text = filmClassModel._FilmClassName;
     _channelImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",filmClassModel._FilmClassName]];
     
     if (_channelImg.image == nil) {
         _channelImg.image = [UIImage imageNamed:@"GeneralChannel"];
     }
-    
-    
-    
+
 }
 
 

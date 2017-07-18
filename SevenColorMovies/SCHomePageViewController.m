@@ -539,17 +539,16 @@ static NSString *const footerId = @"footerId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) { // 点播栏
-        if (_filmClassArray.count == 0) {
+        if (_filmClassTitleArray.count == 0) {
             [MBProgressHUD showSuccess:@"暂无数据，请稍后再试"];
             return;
         }
-        
-        SCFilmClassModel *filmClassModel = _allFilmClassArray[indexPath.row];
+        NSString *titleString = _filmClassTitleArray[indexPath.row];
+        SCFilmClassModel *filmClassModel = [_filmClassModelDictionary objectForKey:titleString];
         
         if (indexPath.row == 7) { // 更多
             
             SCChannelCatalogueVC *moreView = [[SCChannelCatalogueVC alloc] initWithWithTitle:@"更多"];
-            moreView.filmClassArray = _allFilmClassArray;
             moreView.bannerFilmModelArray = _bannerFilmModelArr;
             moreView.filmClassModelDictionary = _filmClassModelDictionary;
             
@@ -592,7 +591,6 @@ static NSString *const footerId = @"footerId";
             [self.navigationController pushViewController:channelVC animated:YES];
 
         }
-        
         
     } else {
         

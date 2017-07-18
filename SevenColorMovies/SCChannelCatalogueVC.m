@@ -113,6 +113,25 @@ static NSString *const footerId = @"footerId";
     
 }
 
+// json格式字符串转字典：
+- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString
+{
+    if (jsonString == nil) {
+        return nil;
+    }
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&err];
+    if(err) {
+        DONG_Log(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dict;
+}
+
 
 #pragma mark ---- UICollectionViewDataSource
 
@@ -129,7 +148,7 @@ static NSString *const footerId = @"footerId";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SCChannelCatalogueCell *cell = [_collView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    
+    cell.filmClassModelDictionary = _filmClassModelDictionary;
     [cell setModel:self.filmClassTitleArray IndexPath:indexPath];
     
     return cell;
@@ -267,8 +286,11 @@ static NSString *const footerId = @"footerId";
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        DONG_Log(@"直播");
+    NSString *titleString = _filmClassTitleArray[indexPath.row];
+    SCFilmClassModel *filmClassModel = [_filmClassModelDictionary objectForKey:titleString];
+    
+    if ([filmClassModel._dataType isEqualToString:@"app"]) {
+        // 直播
         // 数据采集
         NSString *keyValue = @"app";
         [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:keyValue];
@@ -276,30 +298,25 @@ static NSString *const footerId = @"footerId";
         SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
         [self.navigationController pushViewController:liveVC animated:YES];
         
-    } else if (indexPath.row == 1) {
-        DONG_Log(@"营业厅");
+    } else if ([filmClassModel._dataType isEqualToString:@"web"]) {
+        
+        // web网页
+        if (filmClassModel.FilmClassUrl == nil) return;
+        NSDictionary *dict = [self dictionaryWithJsonString:filmClassModel.FilmClassUrl];
         // 数据采集
         NSString *keyValue = @"web";
-        [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"营业厅" mid:keyValue];
+        [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:filmClassModel._FilmClassName mid:keyValue];
         
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.96396.cn/mobile/"]];
-        
-    } else if (indexPath.row == _filmClassTitleArray.count+2) {
-        DONG_Log(@"萌娃");
-        SCLovelyBabyCenterVC *babyCenterVC = DONG_INSTANT_VC_WITH_ID(@"LovelyBaby", @"SCLovelyBabyCenterVC");
-        [self.navigationController pushViewController:babyCenterVC animated:YES];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dict[@"webUrl"]]];
 
-    } else {
-    
-        if (_filmClassArray.count != 0) {
-            SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:_filmClassTitleArray[indexPath.row-2]];
-            channelVC.bannerFilmModelArray = self.bannerFilmModelArray;
-            
-            NSString *key = _filmClassTitleArray[indexPath.row-2];
-            channelVC.filmClassModel = _filmClassModelDictionary[key];
-            channelVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:channelVC animated:YES];
-        }
+    } else if ([filmClassModel._dataType isEqualToString:@""]) {
+        
+        SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
+        channelVC.filmClassModel = filmClassModel;
+        channelVC.bannerFilmModelArray = _bannerFilmModelArray;
+        channelVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:channelVC animated:YES];
+        
     }
 }
 
