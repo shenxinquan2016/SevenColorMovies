@@ -11,6 +11,8 @@
 
 @interface SCDemandChannelItemCell : UICollectionViewCell
 
+@property (nonatomic, strong) NSMutableDictionary * _Nullable filmClassModelDictionary; // 标题&filmClassModel字典
+
 + (nonnull instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView indexPath:(nonnull NSIndexPath *)indexPath;
 - (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath;
 

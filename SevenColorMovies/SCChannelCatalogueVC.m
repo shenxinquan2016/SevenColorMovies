@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) UICollectionView *collView; // collectionView
 @property (nonatomic, strong) UIButton *editBtn; // 编辑按钮
-@property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary; // 将filmClassModel放入字典
+
 
 @end
 
@@ -34,8 +34,6 @@ static NSString *const footerId = @"footerId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    // -1.组建filmClassModelDictionary
-    [self setFilmClassModelDictionary];
     
     // 0.编辑按钮
     [self addRightBBI];
@@ -92,15 +90,6 @@ static NSString *const footerId = @"footerId";
     }
 }
 
-- (void)setFilmClassModelDictionary
-{
-    self.filmClassModelDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
-    for (SCFilmClassModel *filmClassModel in self.filmClassArray) {
-        NSString *key = filmClassModel._FilmClassName;
-        [_filmClassModelDictionary setObject:filmClassModel forKey:key];
-    }
-}
-
 - (void)loadCollectionView
 {
     //        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];// 布局对象
@@ -134,7 +123,7 @@ static NSString *const footerId = @"footerId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.filmClassTitleArray.count + 1;
+    return self.filmClassTitleArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -185,8 +174,7 @@ static NSString *const footerId = @"footerId";
 {
     if (_editBtn.selected == YES) { // 编辑模式
         if (indexPath.row == 0) return NO; // 🚫第1个单元格不让移动
-        if (indexPath.row == 1) return NO; // 🚫第2个单元格不让移动
-        if (indexPath.row == _filmClassTitleArray.count+2) return NO; // 🚫最后一个单元格不让移动
+    
         return YES;
         
     } else {
@@ -259,11 +247,11 @@ static NSString *const footerId = @"footerId";
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    if (fromIndexPath.row-2 < self.filmClassTitleArray.count && toIndexPath.row-2 < self.filmClassTitleArray.count) {
+    if (fromIndexPath.row < self.filmClassTitleArray.count && toIndexPath.row < self.filmClassTitleArray.count) {
         
-        NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row-2];
+        NSString *filmClassTitle = self.filmClassTitleArray[fromIndexPath.row];
         [self.filmClassTitleArray removeObject:filmClassTitle];
-        [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row-2];
+        [self.filmClassTitleArray insertObject:filmClassTitle atIndex:toIndexPath.row];
     }
 }
 
@@ -271,8 +259,6 @@ static NSString *const footerId = @"footerId";
 - (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
     if (toIndexPath.row == 0) return NO; // 🚫禁止移动到第1个cell
-    if (toIndexPath.row == 1) return NO; // 🚫禁止移动到第2个cell
-    if (toIndexPath.row == _filmClassTitleArray.count+2) return NO; // 🚫禁止移动到最后一个cell
     
     return YES;
 }

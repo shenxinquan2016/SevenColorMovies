@@ -26,7 +26,6 @@
 - (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath
 {
     NSArray *array = model;
-    SCFilmClassModel *filmClassModel = array[indexPath.row];
     
     if (indexPath.row == 7) {
         
@@ -35,13 +34,15 @@
         
     } else {
         
+        NSString *title = array[indexPath.row];
+        SCFilmClassModel *filmClassModel = [_filmClassModelDictionary objectForKey:title];
         [_channelImg sd_setImageWithURL:[NSURL URLWithString:filmClassModel._IconUrl] placeholderImage:[UIImage imageNamed:@"GeneralChannel"]];
-        _channelNameLabel.text =  filmClassModel._FilmClassName;
+        _channelNameLabel.text =  title;
     }
 }
 
-+ (instancetype)cellWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
-    
++ (instancetype)cellWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
+{
     static NSString *ID;
     ID = @"SCDemandChannelItemCell";
     

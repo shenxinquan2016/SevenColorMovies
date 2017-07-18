@@ -18,5 +18,6 @@ typedef void(^RefreshHomePageBlock)();
 @property (nonatomic, strong) NSMutableArray *allItemsArr;/** 所有选项数组 */
 @property (nonatomic, copy) RefreshHomePageBlock refreshHomePageBlock;/** 编辑排序刷新首页对应视图 */
 @property (nonatomic, copy) NSArray *bannerFilmModelArray;/** 当精彩推荐没有推荐数据时显示banner内容 */
+@property (nonatomic, strong) NSMutableDictionary *filmClassModelDictionary; // 标题&filmClassModel字典
 
 @end
