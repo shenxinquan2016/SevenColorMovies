@@ -91,7 +91,7 @@ static NSString *const cellId = @"cellId";
 {
     NSDictionary *parameters = @{@"page" : [NSString stringWithFormat:@"%zd",page]};
     
-    //域名转IP
+    // 域名转IP
     self.hljRequest = [HLJRequest requestWithPlayVideoURL:_urlString];
     [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
         [requestDataManager requestFilmClassDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
@@ -102,11 +102,11 @@ static NSString *const cellId = @"cellId";
             }
             
             if (responseObject) {
-                if (responseObject[@"FilmClass"]) {// 专题页面(比其他多一层)
+                if (responseObject[@"FilmClass"]) { // 专题页面(比其他多一层)
                     
                     NSInteger filmCount = [responseObject[@"_Count"] integerValue];
                     
-                    if (_filmModelArr.count < filmCount) {// 判断所有视频是不已经获取完毕  _page此处失效
+                    if (_filmModelArr.count < filmCount) { // 判断所有视频是不已经获取完毕  _page此处失效
                         
                         if ([responseObject[@"FilmClass"] isKindOfClass:[NSArray class]]) {
                             NSArray *filmsArr = responseObject[@"FilmClass"];
@@ -136,6 +136,7 @@ static NSString *const cellId = @"cellId";
                         
                     } else {
                         [self.collectionView.mj_footer endRefreshing];
+                        [CommonFunc dismiss];
                     }
                     
                 } else { // 其他电影 电视剧等
@@ -159,10 +160,6 @@ static NSString *const cellId = @"cellId";
                     [CommonFunc dismiss];
                 }
             }
-            // 将mtype回传给上个控制器  （发现传不传没有影响 传时因数据结构缺陷还会有bug）
-            //        SCFilmModel *filmModel = [_filmModelArr firstObject];
-            //        NSString *mType = filmModel.mtype? filmModel.mtype : filmModel._Mtype;
-            //        self.getMtype(mType);
             
         } failure:^(id  _Nullable errorObject) {
             
