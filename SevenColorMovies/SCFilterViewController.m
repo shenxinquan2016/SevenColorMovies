@@ -123,17 +123,19 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     // 注册cell、sectionHeader、sectionFooter
     [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:cellId];
     
-    //集成上拉加载更多
+    // 集成上拉加载更多
     [self setTableViewRefresh];
 }
 
 
 #pragma mark - 集成刷新
-- (void)setTableViewRefresh {
+- (void)setTableViewRefresh
+{
     [CommonFunc setupRefreshWithView:_collView withSelf:self headerFunc:nil headerFuncFirst:YES footerFunc:@selector(footerRefresh)];
 }
 
-- (void)footerRefresh{
+- (void)footerRefresh
+{
     [self requestFilterDataWithTypeAndAreaAndTimeAndPage:_page++];
 }
 
@@ -316,8 +318,8 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
         [self.domainTransformTool getNewDomainByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj2" success:^(id  _Nullable newUrlString) {
             DONG_Log(@"newUrlString:%@",newUrlString);
             // ip转换
-            _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-            [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+            HLJRequest *domainTool = [HLJRequest requestWithPlayVideoURL:newUrlString];
+            [domainTool getNewVideoURLSuccess:^(NSString *newVideoUrl) {
                 
                 DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                 
@@ -394,10 +396,8 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                                  @"mtype" : _mtype? _mtype : @"",
                                  @"column" : _filmClassModel._FilmClassID? _filmClassModel._FilmClassID : @""};
     // 域名获取
-    _domainTransformTool = [[SCDomaintransformTool alloc] init];
-    [_domainTransformTool getNewDomainByUrlString:FilterUrl key:@"FullTextSearch" success:^(id  _Nullable newUrlString) {
-        
-        DONG_Log(@"newUrlString:%@",newUrlString);
+    NSString *newUrlString = [_domainTransformTool getNewViedoURLByUrlString:FilterUrl key:@"FullTextSearch"];
+    
         // ip转换
         _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
         [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
@@ -427,7 +427,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                 
                 if (_dataArray.count == 0) {
                     [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.collView];
-                }else{
+                } else {
                     [CommonFunc hideTipsViews:self.collView];
                 }
                 
@@ -443,12 +443,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             [CommonFunc dismiss];
             
         }];
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        [CommonFunc dismiss];
-        
-    }];
+
 }
 
 @end
