@@ -22,7 +22,5 @@ typedef void(^GetMtypeBlock)(NSString *mType);
 @property (nonatomic, copy) GetMtypeBlock getMtype;
 /** 当精彩推荐没有推荐数据时显示banner内容 */
 @property (nonatomic, copy) NSArray *bannerFilmModelArray;
-/** 分页数量 */
-@property (nonatomic, copy) NSString *pageCount;
 
 @end

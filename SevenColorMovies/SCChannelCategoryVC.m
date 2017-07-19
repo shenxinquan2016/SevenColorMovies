@@ -30,8 +30,6 @@ static const CGFloat LabelWidth = 95.f;
 @property (nonatomic, strong) NSMutableArray *titleArr;
 /** ... */
 @property (nonatomic, strong) NSMutableArray *filmClassModelArr;
-/** 存储如推荐的pageCount给下一级目录用 */
-@property (nonatomic, strong) NSMutableArray *pageCountArr;
 /** filmClassUrl数组 */
 @property (nonatomic, strong) NSMutableArray *FilmClassUrlArr;
 /** ... */
@@ -66,7 +64,6 @@ static NSString *const cellId = @"cellId";
     self.filmClassModelArr = [NSMutableArray arrayWithCapacity:0];
     self.filmModelArr = [NSMutableArray arrayWithCapacity:0];
     self.FilmClassUrlArr = [NSMutableArray arrayWithCapacity:0];
-    self.pageCountArr = [NSMutableArray arrayWithCapacity:0];
     
     // 3.网络请求
     [self getFilmClassData];
@@ -157,7 +154,6 @@ static NSString *const cellId = @"cellId";
                         
                         [_titleArr addObject:dic[@"_FilmClassName"]];
                         [_FilmClassUrlArr addObject:dic[@"_FilmClassUrl"]];
-                        [_pageCountArr addObject:dic[@"_PageCount"]];
                     }
                 }
                 
@@ -264,8 +260,7 @@ static NSString *const cellId = @"cellId";
             NSString *urlStr = _FilmClassUrlArr[i];
             NSString *url = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             vc.urlString = url;
-            vc.FilmClassModel = _filmClassModel;// 用于判断cell的显示类型
-            vc.pageCount = _pageCountArr[i];// 分页数量
+            vc.FilmClassModel = _filmClassModel; // 用于判断cell的显示类型
         }
     
         [self addChildViewController:vc];

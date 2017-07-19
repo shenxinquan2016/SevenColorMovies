@@ -29,6 +29,10 @@
 @end
 
 @implementation SCCollectionViewPageVC
+{
+    NSInteger _pageCount; // 总页数
+    NSString *_nextPageUrl; // 后一页url
+}
 
 static NSString *const cellId = @"cellId";
 
@@ -66,18 +70,18 @@ static NSString *const cellId = @"cellId";
 - (void)headerRefresh
 {
     _page = 1;
-    [self requestDataWithPage:_page];
+    [self requestDataWithPage:_page urlString:_urlString];
 }
 
 - (void)loadMoreData
 {
     _page++;
     
-    DONG_Log(@"_PageCount:%@ page:%ld",_pageCount, (long)_page);
+    DONG_Log(@"_PageCount:%ld page:%ld",(long)_pageCount, (long)_page);
     
-    if (_page <= [_pageCount intValue] ) {
+    if (_page <= _pageCount && _nextPageUrl) {
         
-        [self requestDataWithPage:_page];
+        [self requestDataWithPage:_page urlString:_nextPageUrl];
         
     } else {
         
@@ -87,88 +91,71 @@ static NSString *const cellId = @"cellId";
     
 }
 
-- (void)requestDataWithPage:(NSInteger)page
+- (void)requestDataWithPage:(NSInteger)page urlString:(NSString *)urlStr
 {
-    NSDictionary *parameters = @{@"page" : [NSString stringWithFormat:@"%zd",page]};
-    
-    // 域名转IP
-    self.hljRequest = [HLJRequest requestWithPlayVideoURL:_urlString];
-    [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
-        [requestDataManager requestFilmClassDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
-            DONG_Log(@">>>>>>>>>>>>responseObject::::%@",responseObject);
-            
-            if (page == 1) {
-                [_filmModelArr removeAllObjects];
-            }
-            
-            if (responseObject) {
-                if (responseObject[@"FilmClass"]) { // 专题页面(比其他多一层)
+    [requestDataManager requestFilmClassDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
+        DONG_Log(@">>>>>>>>>>>>responseObject::::%@",responseObject);
+        
+        _pageCount = [responseObject[@"_PageCount"] integerValue];
+        _nextPageUrl = responseObject[@"_NextPageUrl"];
+        
+        if (page == 1) {
+            [_filmModelArr removeAllObjects];
+        }
+        
+        if (responseObject) {
+            if (responseObject[@"FilmClass"]) { // 专题页面(比其他多一层)
+                
+                // 专题第一级不支持分页
+                if ([responseObject[@"FilmClass"] isKindOfClass:[NSArray class]]) {
+                    NSArray *filmsArr = responseObject[@"FilmClass"];
                     
-                    NSInteger filmCount = [responseObject[@"_Count"] integerValue];
-                    
-                    if (_filmModelArr.count < filmCount) { // 判断所有视频是不已经获取完毕  _page此处失效
-                        
-                        if ([responseObject[@"FilmClass"] isKindOfClass:[NSArray class]]) {
-                            NSArray *filmsArr = responseObject[@"FilmClass"];
-                            
-                            for (NSDictionary *dic in filmsArr) {
-                                SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
-                                [_filmModelArr addObject:filmClassModel];
-                            }
-                            [self.collectionView reloadData];
-                            [self.collectionView.mj_header endRefreshing];
-                            [self.collectionView.mj_footer endRefreshing];
-                            
-                            [CommonFunc dismiss];
-                            
-                        } else if ([responseObject[@"FilmClass"] isKindOfClass:[NSDictionary class]]) {
-                            
-                            SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:responseObject[@"FilmClass"]];
-                            [_filmModelArr addObject:filmClassModel];
-                            
-                            [self.collectionView reloadData];
-                            [self.collectionView.mj_header endRefreshing];
-                            [self.collectionView.mj_footer endRefreshing];
-                            
-                            [CommonFunc dismiss];
-                            
-                        }
-                        
-                    } else {
-                        [self.collectionView.mj_footer endRefreshing];
-                        [CommonFunc dismiss];
-                    }
-                    
-                } else { // 其他电影 电视剧等
-                    
-                    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-                    [array removeAllObjects];
-                    [array addObjectsFromArray:responseObject[@"Film"]];
-                    
-                    //                    NSArray *filmsArr = responseObject[@"Film"];
-                    
-                    for (NSDictionary *dic in array) {
-                        SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
-                        // filmModel偶尔为nil
-                        if (filmModel) {
-                            [_filmModelArr addObject:filmModel];
-                        }
+                    for (NSDictionary *dic in filmsArr) {
+                        SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:dic];
+                        [_filmModelArr addObject:filmClassModel];
                     }
                     [self.collectionView reloadData];
                     [self.collectionView.mj_header endRefreshing];
                     [self.collectionView.mj_footer endRefreshing];
-                    [CommonFunc dismiss];
+                    
+                } else if ([responseObject[@"FilmClass"] isKindOfClass:[NSDictionary class]]) {
+                    
+                    SCFilmClassModel *filmClassModel = [SCFilmClassModel mj_objectWithKeyValues:responseObject[@"FilmClass"]];
+                    [_filmModelArr addObject:filmClassModel];
+                    
+                    [self.collectionView reloadData];
+                    [self.collectionView.mj_header endRefreshing];
+                    [self.collectionView.mj_footer endRefreshing];
+                    
                 }
+                [CommonFunc dismiss];
+                
+            } else { // 其他电影 电视剧等
+                
+                NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+                [array removeAllObjects];
+                [array addObjectsFromArray:responseObject[@"Film"]];
+                
+                //                    NSArray *filmsArr = responseObject[@"Film"];
+                
+                for (NSDictionary *dic in array) {
+                    SCFilmModel *filmModel = [SCFilmModel mj_objectWithKeyValues:dic];
+                    // filmModel偶尔为nil
+                    if (filmModel) {
+                        [_filmModelArr addObject:filmModel];
+                    }
+                }
+                [self.collectionView reloadData];
+                [self.collectionView.mj_header endRefreshing];
+                [self.collectionView.mj_footer endRefreshing];
+                [CommonFunc dismiss];
             }
-            
-        } failure:^(id  _Nullable errorObject) {
-            
-            [self.collectionView.mj_header endRefreshing];
-            [self.collectionView.mj_footer endRefreshing];
-            [CommonFunc dismiss];
-        }];
+        }
         
-    } failure:^(NSError *error) {
+    } failure:^(id  _Nullable errorObject) {
+        
+        [self.collectionView.mj_header endRefreshing];
+        [self.collectionView.mj_footer endRefreshing];
         [CommonFunc dismiss];
     }];
 }
