@@ -10,20 +10,28 @@
 
 @interface SCDomaintransformTool ()
 
-@property (nonatomic, copy) NSArray *domainNameArray;
+@property (nonatomic, strong) NSMutableArray *domainNameArray;
 
 @end
 
 @implementation SCDomaintransformTool
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self.domainNameArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return self;
+}
 
 - (void)getNewDomainByUrlString:(nullable NSString *)urlString key:(nullable NSString *)key success:(nullable void(^)(id _Nullable newUrlString))success failure:(nullable void(^)(id _Nullable errorObject))faild
 {
     const NSString *uuidStr = [HLJUUID getUUID];
     
     NSDictionary *patameters = @{@"hid" : uuidStr};
-    [requestDataManager requestDataWithUrl:DynamicDomainEntrance parameters:patameters success:^(id  _Nullable responseObject) {
-        //DONG_Log(@"responseObject:%@",responseObject);
-        self.domainNameArray = [NSArray arrayWithArray:responseObject[@"Data"][@"UrlList"][@"Url"]];
+    [[[SCNetRequsetManger alloc] init] requestDataWithUrl:DynamicDomainEntrance parameters:patameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject:%@",responseObject);
+        [_domainNameArray removeAllObjects];
+        [_domainNameArray addObjectsFromArray:responseObject[@"Data"][@"UrlList"][@"Url"]];
         if (_domainNameArray.count) {
             for (NSDictionary *dic in _domainNameArray) {
                 
