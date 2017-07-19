@@ -17,22 +17,20 @@
 
 @property (nonatomic, strong) UICollectionView *collView;
 
-@property (weak, nonatomic) IBOutlet UIView *filterTitleView;/* 筛选项背景 */
-@property (nonatomic, strong) SCFliterOptionView *typeOptionView;/* 类型选项卡 */
-@property (nonatomic, strong) SCFliterOptionView *areaOptionView;/* 地区选项卡 */
-@property (nonatomic, strong) SCFliterOptionView *timeOptionView;/* 时间选项卡 */
-@property (nonatomic, strong) NSMutableArray *typeArray;/* 类型 */
-@property (nonatomic, strong) NSMutableArray *areaArray;/* 区域 */
-@property (nonatomic, strong) NSMutableArray *timeArray;/* 时间 */
-@property (nonatomic, copy) NSString *type;/* 筛选参数 */
-@property (nonatomic, copy) NSString *area;/* 筛选参数 */
-@property (nonatomic, copy) NSString *time;/* 筛选参数 */
+@property (weak, nonatomic) IBOutlet UIView *filterTitleView; //筛选项背景
+@property (nonatomic, strong) SCFliterOptionView *typeOptionView; // 类型选项卡
+@property (nonatomic, strong) SCFliterOptionView *areaOptionView; // 地区选项卡
+@property (nonatomic, strong) SCFliterOptionView *timeOptionView; // 时间选项卡
+@property (nonatomic, strong) NSMutableArray *typeArray; // 类型
+@property (nonatomic, strong) NSMutableArray *areaArray; //区域
+@property (nonatomic, strong) NSMutableArray *timeArray; // 时间
+@property (nonatomic, copy) NSString *type; // 筛选参数
+@property (nonatomic, copy) NSString *area; // 筛选参数
+@property (nonatomic, copy) NSString *time; //筛选参数 */
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, assign) NSInteger page;
-/** ip转换工具 */
-@property (nonatomic, strong) HLJRequest *hljRequest;
-/** 动态域名获取工具 */
-@property (nonatomic, strong) SCDomaintransformTool *domainTransformTool;
+@property (nonatomic, strong) HLJRequest *hljRequest; // ip转换工具
+@property (nonatomic, strong) SCDomaintransformTool *domainTransformTool; // 动态域名获取工具
 
 @end
 
