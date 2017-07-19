@@ -29,7 +29,7 @@
     
     NSDictionary *patameters = @{@"hid" : uuidStr};
     [[[SCNetRequsetManger alloc] init] requestDataWithUrl:DynamicDomainEntrance parameters:patameters success:^(id  _Nullable responseObject) {
-        DONG_Log(@"responseObject:%@",responseObject);
+        //DONG_Log(@"responseObject:%@",responseObject);
         [_domainNameArray removeAllObjects];
         [_domainNameArray addObjectsFromArray:responseObject[@"Data"][@"UrlList"][@"Url"]];
         if (_domainNameArray.count) {
