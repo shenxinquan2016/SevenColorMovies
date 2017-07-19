@@ -17,22 +17,20 @@
 
 @property (nonatomic, strong) UICollectionView *collView;
 
-@property (weak, nonatomic) IBOutlet UIView *filterTitleView;/* 筛选项背景 */
-@property (nonatomic, strong) SCFliterOptionView *typeOptionView;/* 类型选项卡 */
-@property (nonatomic, strong) SCFliterOptionView *areaOptionView;/* 地区选项卡 */
-@property (nonatomic, strong) SCFliterOptionView *timeOptionView;/* 时间选项卡 */
-@property (nonatomic, strong) NSMutableArray *typeArray;/* 类型 */
-@property (nonatomic, strong) NSMutableArray *areaArray;/* 区域 */
-@property (nonatomic, strong) NSMutableArray *timeArray;/* 时间 */
-@property (nonatomic, copy) NSString *type;/* 筛选参数 */
-@property (nonatomic, copy) NSString *area;/* 筛选参数 */
-@property (nonatomic, copy) NSString *time;/* 筛选参数 */
+@property (weak, nonatomic) IBOutlet UIView *filterTitleView; // 筛选项背景
+@property (nonatomic, strong) SCFliterOptionView *typeOptionView; // 类型选项卡
+@property (nonatomic, strong) SCFliterOptionView *areaOptionView; // 地区选项卡
+@property (nonatomic, strong) SCFliterOptionView *timeOptionView; // 时间选项卡
+@property (nonatomic, strong) NSMutableArray *typeArray; // 类型
+@property (nonatomic, strong) NSMutableArray *areaArray; // 区域
+@property (nonatomic, strong) NSMutableArray *timeArray; // 时间
+@property (nonatomic, copy) NSString *type; // 筛选参数
+@property (nonatomic, copy) NSString *area; // 筛选参数
+@property (nonatomic, copy) NSString *time; // 筛选参数 */
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, assign) NSInteger page;
-/** ip转换工具 */
-@property (nonatomic, strong) HLJRequest *hljRequest;
-/** 动态域名获取工具 */
-@property (nonatomic, strong) SCDomaintransformTool *domainTransformTool;
+@property (nonatomic, strong) HLJRequest *hljRequest; // ip转换工具
+@property (nonatomic, strong) SCDomaintransformTool *domainTransformTool; // 动态域名获取工具
 
 @end
 
@@ -45,22 +43,22 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
-    //1.标题
+    // 1.标题
     self.leftBBI.text = @"筛选";
     
-    //2.初始化数组
+    // 2.初始化数组
     self.typeArray = [NSMutableArray arrayWithCapacity:0];
     self.areaArray = [NSMutableArray arrayWithCapacity:0];
     self.timeArray = [NSMutableArray arrayWithCapacity:0];
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
-    //3.初始化page
+    // 3.初始化page
     self.page = 2;
-    //4.添加筛选选项卡
+    // 4.添加筛选选项卡
     [self getFilterOptionTabData];
-    //5.添加collectionView
+    // 5.添加collectionView
     [self loadCollectionView];
-    //6.进入页面先请求全局筛选数据一次
+    // 6.进入页面先请求全局筛选数据一次
     [self requestFilterDataWithTypeAndAreaAndTimeAndPage:1];
     
 }
@@ -123,17 +121,19 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     // 注册cell、sectionHeader、sectionFooter
     [_collView registerNib:[UINib nibWithNibName:@"SCCollectionViewPageCell" bundle:nil] forCellWithReuseIdentifier:cellId];
     
-    //集成上拉加载更多
+    // 集成上拉加载更多
     [self setTableViewRefresh];
 }
 
 
 #pragma mark - 集成刷新
-- (void)setTableViewRefresh {
+- (void)setTableViewRefresh
+{
     [CommonFunc setupRefreshWithView:_collView withSelf:self headerFunc:nil headerFuncFirst:YES footerFunc:@selector(footerRefresh)];
 }
 
-- (void)footerRefresh{
+- (void)footerRefresh
+{
     [self requestFilterDataWithTypeAndAreaAndTimeAndPage:_page++];
 }
 
@@ -313,11 +313,12 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     dispatch_group_async(group, queue, ^{
         dispatch_group_enter(group);
         
-        [self.domainTransformTool getNewDomainByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj2" success:^(id  _Nullable newUrlString) {
+        SCDomaintransformTool *domainTool = [[SCDomaintransformTool alloc] init];
+        [domainTool getNewDomainByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj2" success:^(id  _Nullable newUrlString) {
             DONG_Log(@"newUrlString:%@",newUrlString);
             // ip转换
-            _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-            [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+            HLJRequest *domainTool = [HLJRequest requestWithPlayVideoURL:newUrlString];
+            [domainTool getNewVideoURLSuccess:^(NSString *newVideoUrl) {
                 
                 DONG_Log(@"newVideoUrl:%@",newVideoUrl);
                 
@@ -394,13 +395,13 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                                  @"mtype" : _mtype? _mtype : @"",
                                  @"column" : _filmClassModel._FilmClassID? _filmClassModel._FilmClassID : @""};
     // 域名获取
-    _domainTransformTool = [[SCDomaintransformTool alloc] init];
-    [_domainTransformTool getNewDomainByUrlString:FilterUrl key:@"FullTextSearch" success:^(id  _Nullable newUrlString) {
+    SCDomaintransformTool *domainTool = [[SCDomaintransformTool alloc] init];
+    [domainTool getNewDomainByUrlString:FilterUrl key:@"FullTextSearch" success:^(id  _Nullable newUrlString) {
         
         DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        HLJRequest *ipTool = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [ipTool getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
             DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
@@ -427,7 +428,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                 
                 if (_dataArray.count == 0) {
                     [CommonFunc noDataOrNoNetTipsString:@"暂无结果" addView:self.collView];
-                }else{
+                } else {
                     [CommonFunc hideTipsViews:self.collView];
                 }
                 
