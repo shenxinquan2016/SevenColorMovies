@@ -215,6 +215,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
 }
 
 #pragma mark- Event reponse
+
 - (void)doFilterAction:(NSNotification *)notification
 {
     NSDictionary *dic = notification.object;
@@ -222,17 +223,17 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     switch ([dic[@"type"] integerValue]) {
         case FilmType:
             _type = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
-            NSLog(@">>>>>>>>>%@>>>>>>>>",_type);
+            DONG_Log(@">>>>>>>>>%@>>>>>>>>",_type);
             break;
             
         case FilmArea:
             _area = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
-            NSLog(@">>>>>>>>>%@>>>>>>>>",_area);
+            DONG_Log(@">>>>>>>>>%@>>>>>>>>",_area);
             break;
             
         case FilmTime:
             _time = [dic[@"tabText"] isEqualToString:@"全部"]? @"" : dic[@"tabText"];
-            NSLog(@">>>>>>>>>%@>>>>>>>>",_time);
+            DONG_Log(@">>>>>>>>>%@>>>>>>>>",_time);
             break;
             
         default:
