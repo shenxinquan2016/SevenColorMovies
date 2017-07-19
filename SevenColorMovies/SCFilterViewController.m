@@ -45,22 +45,22 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor colorWithHex:@"#f1f1f1"];
-    //1.标题
+    // 1.标题
     self.leftBBI.text = @"筛选";
     
-    //2.初始化数组
+    // 2.初始化数组
     self.typeArray = [NSMutableArray arrayWithCapacity:0];
     self.areaArray = [NSMutableArray arrayWithCapacity:0];
     self.timeArray = [NSMutableArray arrayWithCapacity:0];
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     
-    //3.初始化page
+    // 3.初始化page
     self.page = 2;
-    //4.添加筛选选项卡
+    // 4.添加筛选选项卡
     [self getFilterOptionTabData];
-    //5.添加collectionView
+    // 5.添加collectionView
     [self loadCollectionView];
-    //6.进入页面先请求全局筛选数据一次
+    // 6.进入页面先请求全局筛选数据一次
     [self requestFilterDataWithTypeAndAreaAndTimeAndPage:1];
     
 }
