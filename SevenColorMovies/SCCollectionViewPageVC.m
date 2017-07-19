@@ -225,8 +225,7 @@ static NSString *const cellId = @"cellId";
                 
                 return (CGSize){(kMainScreenWidth-24-30)/3,(kMainScreenWidth-24-30)*33/3/24+30};//竖版尺寸
                 
-            }
-            
+            } 
         }
         
     } else { // 专题

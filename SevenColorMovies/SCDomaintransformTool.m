@@ -23,19 +23,22 @@
     NSDictionary *patameters = @{@"hid" : uuidStr};
     [requestDataManager requestDataWithUrl:DynamicDomainEntrance parameters:patameters success:^(id  _Nullable responseObject) {
         //DONG_Log(@"responseObject:%@",responseObject);
-        self.domainNameArray = [NSArray arrayWithArray:responseObject[@"Data"][@"UrlList"][@"Url"]];
-        if (_domainNameArray.count) {
-            for (NSDictionary *dic in _domainNameArray) {
-                
-                if ([key isEqualToString:dic[@"_Key"]]) {
-                    //DONG_Log(@"urlString:%@",urlString);
-                    NSString *tempString = dic[@"SourceUrl"];
+        if (responseObject) {
+            
+            self.domainNameArray = [NSArray arrayWithArray:responseObject[@"Data"][@"UrlList"][@"Url"]];
+            if (_domainNameArray.count) {
+                for (NSDictionary *dic in _domainNameArray) {
                     
-                    NSString *newUrlString = [tempString stringByAppendingString:urlString];
-                    //DONG_Log(@"newUrlString:%@",newUrlString);
-                    
-                    success(newUrlString);
-                    break;
+                    if ([key isEqualToString:dic[@"_Key"]]) {
+                        //DONG_Log(@"urlString:%@",urlString);
+                        NSString *tempString = dic[@"SourceUrl"];
+                        
+                        NSString *newUrlString = [tempString stringByAppendingString:urlString];
+                        //DONG_Log(@"newUrlString:%@",newUrlString);
+                        
+                        success(newUrlString);
+                        break;
+                    }
                 }
             }
         }
