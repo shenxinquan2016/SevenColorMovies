@@ -17,18 +17,20 @@
 
 @property (nonatomic, strong) UICollectionView *collView;
 
-@property (weak, nonatomic) IBOutlet UIView *filterTitleView; //筛选项背景
+@property (weak, nonatomic) IBOutlet UIView *filterTitleView; // 筛选项背景
 @property (nonatomic, strong) SCFliterOptionView *typeOptionView; // 类型选项卡
 @property (nonatomic, strong) SCFliterOptionView *areaOptionView; // 地区选项卡
 @property (nonatomic, strong) SCFliterOptionView *timeOptionView; // 时间选项卡
+
 @property (nonatomic, strong) NSMutableArray *typeArray; // 类型
-@property (nonatomic, strong) NSMutableArray *areaArray; //区域
+@property (nonatomic, strong) NSMutableArray *areaArray; // 区域
 @property (nonatomic, strong) NSMutableArray *timeArray; // 时间
 @property (nonatomic, copy) NSString *type; // 筛选参数
 @property (nonatomic, copy) NSString *area; // 筛选参数
-@property (nonatomic, copy) NSString *time; //筛选参数 */
+@property (nonatomic, copy) NSString *time; // 筛选参数
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, assign) NSInteger page;
+
 @property (nonatomic, strong) HLJRequest *hljRequest; // ip转换工具
 @property (nonatomic, strong) SCDomaintransformTool *domainTransformTool; // 动态域名获取工具
 
@@ -313,7 +315,8 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
     dispatch_group_async(group, queue, ^{
         dispatch_group_enter(group);
         
-        [self.domainTransformTool getNewDomainByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj2" success:^(id  _Nullable newUrlString) {
+        SCDomaintransformTool *domainTool = [[SCDomaintransformTool alloc] init];
+        [domainTool getNewDomainByUrlString:FilterOptionAreaAndTimeTab2Url key:@"skdqsj2" success:^(id  _Nullable newUrlString) {
             DONG_Log(@"newUrlString:%@",newUrlString);
             // ip转换
             HLJRequest *domainTool = [HLJRequest requestWithPlayVideoURL:newUrlString];
@@ -394,11 +397,13 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                                  @"mtype" : _mtype? _mtype : @"",
                                  @"column" : _filmClassModel._FilmClassID? _filmClassModel._FilmClassID : @""};
     // 域名获取
-    NSString *newUrlString = [_domainTransformTool getNewViedoURLByUrlString:FilterUrl key:@"FullTextSearch"];
-    
+    SCDomaintransformTool *domainTool = [[SCDomaintransformTool alloc] init];
+    [domainTool getNewDomainByUrlString:FilterUrl key:@"FullTextSearch" success:^(id  _Nullable newUrlString) {
+        
+        DONG_Log(@"newUrlString:%@",newUrlString);
         // ip转换
-        _hljRequest = [HLJRequest requestWithPlayVideoURL:newUrlString];
-        [_hljRequest getNewVideoURLSuccess:^(NSString *newVideoUrl) {
+        HLJRequest *ipTool = [HLJRequest requestWithPlayVideoURL:newUrlString];
+        [ipTool getNewVideoURLSuccess:^(NSString *newVideoUrl) {
             
             DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
@@ -408,7 +413,7 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
                 if (page == 1) {
                     [_dataArray removeAllObjects];
                 }
-  
+                
                 if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]) {
                     
                     for (NSDictionary *dic in responseObject[@"Film"]) {
@@ -441,7 +446,14 @@ static NSString *const cellId = @"SCCollectionViewPageCell";
             [CommonFunc dismiss];
             
         }];
-
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        [CommonFunc dismiss];
+        
+    }];
 }
+
+
 
 @end
