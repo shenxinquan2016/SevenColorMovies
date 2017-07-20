@@ -318,18 +318,24 @@ static const CGFloat LabelWidth = 100.f;
 // 分享网页
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
 {
-    //创建分享消息对象
+    // 创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     NSString *descrStr = @"七彩云(手机版)是龙江网络打造的一款聚合型手机电视客户端，作为龙江网络智能机顶盒七彩云产品的延伸，用户可以在手机端同步收看直播、点播、回看、时移等各类精彩内容，并畅享电影、电视剧、少儿、综艺、潮生活、最精彩等各类热门资源。";
-    //创建网页内容对象
+    // 创建网页内容对象
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"七彩云(手机版)" descr:descrStr thumImage:[UIImage imageNamed:@"Icon"]];
-    //设置网页地址
-    shareObject.webpageUrl =@"https://itunes.apple.com/cn/app/七彩云-手机版/id1215488821?l=en&mt=8";
+    // 设置网页地址
+    if (_filmModel._Mid) {
+        _mid = _filmModel._Mid;
+    }else if (_filmModel.mid){
+        _mid = _filmModel.mid;
+    }
     
-    //分享消息对象设置分享内容对象
+    shareObject.webpageUrl = [NSString stringWithFormat:@"http://172.16.5.117:8088/video/index.html?filmmid=%@&ctype=%@", _mid, @"4"];
+    
+    // 分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
     
-    //调用分享接口
+    // 调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
         if (error) {
             NSLog(@"************Share fail with error %@*********",error);
