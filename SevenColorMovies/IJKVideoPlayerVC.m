@@ -40,18 +40,20 @@
 
 #pragma mark- Initialize
 
-+ (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void (^)())completion {
-    
++ (void)presentFromViewController:(UIViewController *)viewController withTitle:(NSString *)title URL:(NSURL *)url completion:(void (^)())completion
+{
     [viewController presentViewController:[[IJKVideoPlayerVC alloc] initWithURL:url] animated:YES completion:completion];
 }
 
-+ (instancetype)initIJKPlayerWithURL:(NSURL *)url{
++ (instancetype)initIJKPlayerWithURL:(NSURL *)url
+{
     IJKVideoPlayerVC *IJKPlayer = [[IJKVideoPlayerVC alloc] initWithURL:url];
     
     return IJKPlayer;
 }
 
-- (instancetype)initWithURL:(NSURL *)url{
+- (instancetype)initWithURL:(NSURL *)url
+{
     self = [self initWithNibName:@"IJKVideoPlayerVC" bundle:nil];
     if (self) {
         self.url = url;
@@ -87,7 +89,7 @@
     
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
 }
 
@@ -702,8 +704,9 @@
 }
 
 #pragma mark - 屏幕旋转  该段代码该工程不使用
-- (void)prepareForFullScreen {
-    
+
+- (void)prepareForFullScreen
+{
     [_player setScalingMode:IJKMPMovieScalingModeAspectFit];
     
     self.view.frame = [[UIScreen mainScreen] bounds];
@@ -714,7 +717,8 @@
     
 }
 
-- (void)prepareForSmallScreen {
+- (void)prepareForSmallScreen
+{
     [_player setScalingMode:IJKMPMovieScalingModeAspectFit];
     self.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
     self.player.view.frame = self.view.bounds;
