@@ -8,7 +8,7 @@
 
 #import "IJKVideoPlayerVC.h"
 #import "IJKMediaControl.h"
-#import "PlayerViewRotate.h"//横竖屏强制转换
+#import "PlayerViewRotate.h" // 横竖屏强制转换
 #import "SCVideoLoadingView.h"
 #import "SCChannelCategoryVC.h"
 #import "SCFilterViewController.h"
@@ -21,7 +21,7 @@
 #import "SCMyWatchingHistoryVC.h"
 #import "SCRemoteControlVC.h"
 #import "SCXMPPManager.h"
-#import "ZFDownloadManager.h" //第三方下载工具
+#import "ZFDownloadManager.h" // 第三方下载工具
 
 @interface IJKVideoPlayerVC ()
 
@@ -97,7 +97,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     [self.player shutdown];
     [self removeMovieNotificationObservers];
-    //注销全屏通知
+    // 注销全屏通知
     [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToFullScreen object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:SwitchToSmallScreen object:nil];
 }
@@ -110,7 +110,7 @@
     
 }
 
-//xib的awakeFromNib方法中设置UIViewAutoresizingNone进行清空
+// xib的awakeFromNib方法中设置UIViewAutoresizingNone进行清空
 - (void)awakeFromNib {
     [super awakeFromNib];
     
@@ -578,7 +578,7 @@
     
     if ((loadState & IJKMPMovieLoadStatePlaythroughOK) != 0) {
         NSLog(@"loadStateDidChange: IJKMPMovieLoadStatePlaythroughOK: %d\n", (int)loadState);
-        //结束加载 取消隐藏播放按钮
+        // 结束加载 取消隐藏播放按钮
         [_loadView endAnimating];
 //        self.mediaControl.playButton.hidden = NO;
         
