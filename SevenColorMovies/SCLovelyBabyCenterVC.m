@@ -81,7 +81,7 @@ static NSString *const footerId = @"footerId";
 {
     SCSearchBarView *searchView = [[SCSearchBarView alloc] initWithFrame:CGRectMake(0, 0, 190, 29)];
     searchView.searchTF.userInteractionEnabled = NO;
-    searchView.searchTF.placeholder = @"请输入要搜索的人名";
+    searchView.searchTF.placeholder = @"请输入要搜索的名字或编号";
     UITapGestureRecognizer *searchTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickSearchBtn)];
     [searchView addGestureRecognizer:searchTap];
     
@@ -108,7 +108,7 @@ static NSString *const footerId = @"footerId";
     [self.navigationController.navigationBar addSubview:searchHeaderView];
     
     SCSearchBarView *searchView = [[SCSearchBarView alloc] initWithFrame:CGRectMake(20, 7, kMainScreenWidth-80, 29)];
-    searchView.searchTF.placeholder = @"请输入要搜索的人名";
+    searchView.searchTF.placeholder = @"请输入要搜索的名字或编号";
     self.searchTF = searchView.searchTF;
     _searchTF.delegate = self;
     _searchTF.returnKeyType =  UIReturnKeySearch;

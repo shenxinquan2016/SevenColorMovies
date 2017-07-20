@@ -20,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *playBtn;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *rankingLabel0;
+@property (weak, nonatomic) IBOutlet UILabel *rankingLabel1;
 @property (weak, nonatomic) IBOutlet UILabel *personalLabel0;
 @property (weak, nonatomic) IBOutlet UILabel *personalNoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalVoteLabel0;
@@ -117,6 +120,8 @@
                 [_coverIV setImage:[UIImage imageNamed:@"UnUploadViedo"]];
                 _nameLabel.hidden = YES;
                 _personalLabel0.hidden = YES;
+                _rankingLabel0.hidden = YES;
+                _rankingLabel1.hidden = YES;
                 _personalNoLabel.hidden = YES;
                 _totalVoteLabel0.hidden = YES;
                 _totoalVoteLabel.hidden = YES;
@@ -141,6 +146,7 @@
                 videoUrl = dict[@"bfUrl"];
                 videoName = dict[@"mzName"];
                 _videoIntroductionLabel.text = dict[@"mzDesc"];
+                _rankingLabel1.text = dict[@"userNum"];
                 
                 switch (_statusCode) {
                     case 0: // 删除
@@ -149,6 +155,8 @@
                         
                     case 1: // 2.待审核
                         _personalLabel0.hidden = YES;
+                        _rankingLabel0.hidden = YES;
+                        _rankingLabel1.hidden = YES;
                         _personalNoLabel.hidden = YES;
                         _totalVoteLabel0.hidden = YES;
                         _totoalVoteLabel.hidden = YES;
@@ -168,6 +176,8 @@
                         
                     case 3: // 3.驳回
                         _personalLabel0.hidden = YES;
+                        _rankingLabel0.hidden = YES;
+                        _rankingLabel1.hidden = YES;
                         _personalNoLabel.hidden = YES;
                         _totalVoteLabel0.hidden = YES;
                         _totoalVoteLabel.hidden = YES;
@@ -191,7 +201,7 @@
                     case 6: // 4.上线
                         _leftBtn.hidden = YES;
                         _videoStatusTipsLabel.text = @"";
-                        _videoStatusTipLabelTopLayout.constant = 53;
+//                        _videoStatusTipLabelTopLayout.constant = 53;
                         [_rightBtn setTitle:@"审核通过" forState:UIControlStateNormal];
                         [_rightBtn setBackgroundImage:[UIImage imageNamed:@"ShareBtnBG"] forState:UIControlStateNormal];
                         _rightBtn.userInteractionEnabled = NO;

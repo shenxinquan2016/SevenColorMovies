@@ -20,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *shareBtn;
 @property (weak, nonatomic) IBOutlet UIButton *voteBtn;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTV;
+@property (weak, nonatomic) IBOutlet UILabel *rankingLabel;
+
+
 /** 视频播放地址 */
 @property (copy, nonatomic) NSString *playUrlString;
 /** 视频名称 */
@@ -76,6 +79,7 @@
             [_coverIV sd_setImageWithURL:[NSURL URLWithString:dict[@"showUrl"]] placeholderImage:[UIImage imageNamed:@"Image-4"]];
             _nameLabel.text = dict[@"mzName"];
             _personalNoLabel.text = dict[@"serialNumber"];
+            _rankingLabel.text = dict[@"userNum"];
             _totalVoteLabel.text = [NSString stringWithFormat:@"%@票", dict[@"voteNum"]];
             _descriptionTV.text = dict[@"mzDesc"];
             _playUrlString = dict[@"bfUrl"];
