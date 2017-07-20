@@ -290,13 +290,23 @@ static NSString *const footerId = @"footerId";
     SCFilmClassModel *filmClassModel = [_filmClassModelDictionary objectForKey:titleString];
     
     if ([filmClassModel._dataType isEqualToString:@"app"]) {
-        // 直播
         // 数据采集
-        NSString *keyValue = @"app";
-        [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:keyValue];
+        [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:filmClassModel._FilmClassName mid:@"app"];
         
-        SCLiveViewController *liveVC = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
-        [self.navigationController pushViewController:liveVC animated:YES];
+        NSDictionary *dict = [self dictionaryWithJsonString:filmClassModel.FilmClassUrl];
+        NSString *urlSchemes = dict[@"packageName"];
+        
+        //            if ([urlSchemes isEqualToString:@"SevenColorMovies"] && [filmClassModel._FilmClassName isEqualToString:@"直播"]) {
+        
+        SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
+        liveView.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:liveView animated:YES];
+        
+        //            } else { // 其他APP
+        //
+        //               [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlSchemes]];
+        //            }
+
         
     } else if ([filmClassModel._dataType isEqualToString:@"web"]) {
         
