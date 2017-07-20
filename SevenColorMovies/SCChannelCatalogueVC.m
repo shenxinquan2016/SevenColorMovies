@@ -193,7 +193,7 @@ static NSString *const footerId = @"footerId";
 {
     if (_editBtn.selected == YES) { // 编辑模式
         if (indexPath.row == 0) return NO; // 🚫第1个单元格不让移动
-    
+        
         return YES;
         
     } else {
@@ -294,19 +294,19 @@ static NSString *const footerId = @"footerId";
         [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:filmClassModel._FilmClassName mid:@"app"];
         
         NSDictionary *dict = [self dictionaryWithJsonString:filmClassModel.FilmClassUrl];
-        NSString *urlSchemes = dict[@"packageName"];
+        NSString *urlSchemes = dict[@"openUrl"][@"urlSchemes"];
         
-        //            if ([urlSchemes isEqualToString:@"SevenColorMovies"] && [filmClassModel._FilmClassName isEqualToString:@"直播"]) {
+        if ([urlSchemes isEqualToString:@"SevenColorMovies"] && [filmClassModel._FilmClassName isEqualToString:@"直播"]) {
+            
+            SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
+            liveView.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:liveView animated:YES];
+            
+        } else { // 其他APP
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlSchemes]];
+        }
         
-        SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
-        liveView.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:liveView animated:YES];
-        
-        //            } else { // 其他APP
-        //
-        //               [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlSchemes]];
-        //            }
-
         
     } else if ([filmClassModel._dataType isEqualToString:@"web"]) {
         
@@ -318,7 +318,7 @@ static NSString *const footerId = @"footerId";
         [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:filmClassModel._FilmClassName mid:keyValue];
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dict[@"webUrl"]]];
-
+        
     } else if ([filmClassModel._dataType isEqualToString:@""]) {
         
         SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];

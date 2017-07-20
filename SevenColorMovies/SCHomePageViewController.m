@@ -158,8 +158,8 @@ static NSString *const footerId = @"footerId";
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *err;
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                        options:NSJSONReadingMutableContainers
-                                                          error:&err];
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&err];
     if(err) {
         DONG_Log(@"json解析失败：%@",err);
         return nil;
@@ -295,7 +295,7 @@ static NSString *const footerId = @"footerId";
             [_collView reloadData];
         }
     }
-
+    
 }
 
 // section header
@@ -566,19 +566,19 @@ static NSString *const footerId = @"footerId";
             [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:filmClassModel._FilmClassName mid:@"app"];
             
             NSDictionary *dict = [self dictionaryWithJsonString:filmClassModel.FilmClassUrl];
-            NSString *urlSchemes = dict[@"packageName"];
+            NSString *urlSchemes = dict[@"openUrl"][@"urlSchemes"];
             
-//            if ([urlSchemes isEqualToString:@"SevenColorMovies"] && [filmClassModel._FilmClassName isEqualToString:@"直播"]) {
-            
+            if ([urlSchemes isEqualToString:@"SevenColorMovies"] && [filmClassModel._FilmClassName isEqualToString:@"直播"]) {
+                
                 SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
                 liveView.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:liveView animated:YES];
                 
-//            } else { // 其他APP
-//                
-//               [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlSchemes]];
-//            }
-
+            } else { // 其他APP
+                
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlSchemes]];
+            }
+            
         } else if ([filmClassModel._dataType isEqualToString:@"web"]) {
             
             // web网页
@@ -589,7 +589,7 @@ static NSString *const footerId = @"footerId";
             [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:filmClassModel._FilmClassName mid:keyValue];
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dict[@"webUrl"]]];
-
+            
         } else if ([filmClassModel._dataType isEqualToString:@""]) {
             
             SCChannelCategoryVC *channelVC  = [[SCChannelCategoryVC alloc] initWithWithTitle:filmClassModel._FilmClassName];
@@ -597,7 +597,7 @@ static NSString *const footerId = @"footerId";
             channelVC.bannerFilmModelArray = _bannerFilmModelArr;
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
-
+            
         }
         
     } else {
@@ -715,7 +715,7 @@ static NSString *const footerId = @"footerId";
 // 添加广告
 - (void)setFloatingAdvertisement
 {
-    [requestDataManager getRequestJsonDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
+    [requestDataManager getRequestJsonDataWithUrl:AdvertisementUrl parameters:nil success:^(id  _Nullable responseObject) {
         
         DONG_Log(@"responseObject-->%@", responseObject);
         NSArray *dataArr = (NSArray *)responseObject;
@@ -767,12 +767,14 @@ static NSString *const footerId = @"footerId";
     
     // adType:web-->打开网页 adType:app-->打开app
     if ([_floatingAdModel.adType isEqualToString:@"web"]) {
+        
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_floatingAdModel.webUrl]];
         
     } else if ([_floatingAdModel.adType isEqualToString:@"app"]) {
-        NSString *urlScheme = _floatingAdModel.openUrl[@"packageName"];
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@://",urlScheme]];
-        DONG_Log(@"packId-->%@", url);
+        
+        NSString *urlSchemes = _floatingAdModel.openUrl[@"urlSchemes"];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",urlSchemes]];
+        DONG_Log(@"urlSchemes-->%@", url);
         [[UIApplication sharedApplication] openURL:url];
     }
 }

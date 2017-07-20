@@ -19,7 +19,7 @@
 
 /******************************************首页接口*******************************************/
 // 聚合版接口
-#define JuHeEntrance @"http://scc.96396.cn:10014//html/hlj_appjh/index.xml"
+#define JuHeEntrance @"http://scc.96396.cn:10014/html/hlj_appjh/index.xml"
 
 // 动态域名接口  内网
 //#define DynamicDomainEntrance @"http://10.177.1.222:8050/entry?uid=21&oemid=30050&hid=741e93d05fc2&app_version=sksjd_1.0"
@@ -64,6 +64,7 @@
 #define FilterUrl @""  //  /b2b/itvservice/search.php?pagesize=15&epgid=909191&spid=20151103&typekey=5&ctype=2&category=&search=&v=3.0
 
 
+#define AdvertisementUrl @"http://scc.96396.cn:10014/html/hlj_appjh/appad.txt"
 
 
 #define testUrl @"http://interfaceclientzhibosy.voole.com/usrarea_2400/level_0/b2b/livetv/service.php?ctype=4&oemid=30050&uid=21&hid=001e4fed8159"

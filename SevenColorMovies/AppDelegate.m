@@ -245,13 +245,15 @@
 
 - (void)setLaunchAdvertisement
 {
-    [requestDataManager getRequestJsonDataWithUrl:@"http://192.167.1.6:15414/html/hlj_appjh/appad.txt" parameters:nil success:^(id  _Nullable responseObject) {
+    [requestDataManager getRequestJsonDataWithUrl:AdvertisementUrl parameters:nil success:^(id  _Nullable responseObject) {
         
         //DONG_Log(@"responseObject-->%@", responseObject);
         NSArray *dataArr = (NSArray *)responseObject;
         
         for (NSDictionary *dict in dataArr) {
+            
             if ([dict[@"adId"] isEqualToString:@"start-ad"]) {
+                
                 SCAdvertisementModel *launchAdModel = [SCAdvertisementModel mj_objectWithKeyValues:dict];
                 [self.window makeKeyAndVisible];
                 self.launchAdView = [[DONG_LaunchAdView alloc] init];
@@ -269,9 +271,9 @@
                                 
                             } else if ([launchAdModel.adType isEqualToString:@"app"]) {
                                 
-                                NSString *urlScheme = launchAdModel.openUrl[@"packageName"];
-                                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@://",urlScheme]];
-                                DONG_Log(@"packId-->%@", url);
+                                NSString *urlScheme = launchAdModel.openUrl[@"urlSchemes"];
+                                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@:",urlScheme]];
+                                DONG_Log(@"urlSchemes-->%@", url);
                                 [[UIApplication sharedApplication] openURL:url];
                             }
                         }
