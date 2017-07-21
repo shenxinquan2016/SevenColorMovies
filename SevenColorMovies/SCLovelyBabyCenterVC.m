@@ -178,7 +178,7 @@ static NSString *const footerId = @"footerId";
     // 返回标题
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 125, 22)];
     //    titleLabel.backgroundColor = [UIColor greenColor];
-    titleLabel.text = @"萌娃";
+    titleLabel.text = @"主持人大赛";
     titleLabel.textColor = [UIColor colorWithHex:@"#878889"];
     titleLabel.font = [UIFont systemFontOfSize: 19.0];
     titleLabel.textAlignment = NSTextAlignmentLeft;
