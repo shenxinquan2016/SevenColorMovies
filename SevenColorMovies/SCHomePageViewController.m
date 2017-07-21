@@ -588,7 +588,17 @@ static NSString *const footerId = @"footerId";
             NSString *keyValue = @"web";
             [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:filmClassModel._FilmClassName mid:keyValue];
             
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dict[@"webUrl"]]];
+            NSString *urlString = dict[@"webUrl"];
+            NSURL *url = [NSURL URLWithString:urlString];
+            
+            if([[UIApplication sharedApplication] canOpenURL:url]) {
+                
+                [[UIApplication sharedApplication] openURL:url];
+                
+            } else {
+                
+                DONG_Log(@"can not open");
+            }
             
         } else if ([filmClassModel._dataType isEqualToString:@""]) {
             
