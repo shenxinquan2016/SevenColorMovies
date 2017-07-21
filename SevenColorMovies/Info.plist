@@ -33,7 +33,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>SevenColorMovies</string>
+				<string>sevencolormovies</string>
 			</array>
 		</dict>
 	</array>

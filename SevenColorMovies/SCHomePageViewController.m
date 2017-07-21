@@ -80,7 +80,7 @@ static NSString *const footerId = @"footerId";
     // 3.添加collectionView
     [self addCollView];
     // 4.浮窗广告
-//    [self setFloatingAdvertisement];
+    [self setFloatingAdvertisement];
     
 }
 
@@ -768,7 +768,7 @@ static NSString *const footerId = @"footerId";
 // 点击广告
 - (void)clickAd
 {
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         self.adImageView.alpha = 0.0;
     } completion:^(BOOL finished) {
         [self.adImageView removeFromSuperview];
