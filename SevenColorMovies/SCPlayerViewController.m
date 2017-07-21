@@ -333,7 +333,7 @@ static const CGFloat LabelWidth = 100.f;
         _mid = _filmModel.mid;
     }
     
-    shareObject.webpageUrl = [NSString stringWithFormat:@"http://172.16.5.117:8088/video/index.html?filmmid=%@&ctype=%@&jiIndex=%ld", _mid, _ctype, _filmModel.jiIndex];
+    shareObject.webpageUrl = [NSString stringWithFormat:@"http://172.16.5.117:8088/video/index.html?filmmid=%@&ctype=%@&jiIndex=%ld", _mid, @"4", _filmModel.jiIndex];
     DONG_Log(@"分享--%@", shareObject.webpageUrl);
     
     // 分享消息对象设置分享内容对象
