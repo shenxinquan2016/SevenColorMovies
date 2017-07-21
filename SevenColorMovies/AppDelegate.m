@@ -316,7 +316,7 @@
     /*
      * 打开图片水印
      */
-    [UMSocialGlobal shareInstance].isUsingWaterMark = YES;
+    [UMSocialGlobal shareInstance].isUsingWaterMark = NO;
     
     /*
      * 关闭强制验证https，可允许http图片分享，但需要在info.plist设置安全域名

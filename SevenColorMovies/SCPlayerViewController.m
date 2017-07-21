@@ -17,11 +17,11 @@
 #import "SCMoiveRecommendationCollectionVC.h"
 #import "SCFilmIntroduceModel.h"
 #import "SCArtsFilmsCollectionVC.h"
-#import "IJKVideoPlayerVC.h"// 播放器
-#import <Realm/Realm.h>// 数据库
+#import "IJKVideoPlayerVC.h" // 播放器
+#import <Realm/Realm.h> // 数据库
 #import "Dong_DownloadManager.h"
 #import "Dong_DownloadModel.h"
-#import "ZFDownloadManager.h"// 第三方下载工具
+#import "ZFDownloadManager.h" // 第三方下载工具
 #import "SCDSJDownloadView.h"
 #import "SCArtsDownloadView.h"
 #import "HLJUUID.h"
@@ -108,6 +108,8 @@ static const CGFloat LabelWidth = 100.f;
     SCDSJDownloadView *_dsjdownloadView;
     SCArtsDownloadView *_artsDownloadView;
     NSString *_mid;
+    NSString *_ctype; // 分享字段
+    NSString *_jiIndex; // 分享字段
 }
 
 #pragma mark - Initialize
@@ -271,7 +273,7 @@ static const CGFloat LabelWidth = 100.f;
         }];
         [MBProgressHUD showSuccess:@"从节目单移除"];
         
-    } else {// 未添加 添加到数据库
+    } else { // 未添加 添加到数据库
         // 更新UI
         [_addProgramListBtn setImage:[UIImage imageNamed:@"AddToPlayList_Click"] forState:UIControlStateNormal];
         //保存到数据库
@@ -304,7 +306,6 @@ static const CGFloat LabelWidth = 100.f;
 
 - (IBAction)shareVideo:(id)sender
 {
-    
     // 显示分享面板
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
         DONG_Log(@"platformType-->%ld", (long)platformType);
@@ -320,9 +321,11 @@ static const CGFloat LabelWidth = 100.f;
 {
     // 创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    NSString *descrStr = @"七彩云(手机版)是龙江网络打造的一款聚合型手机电视客户端，作为龙江网络智能机顶盒七彩云产品的延伸，用户可以在手机端同步收看直播、点播、回看、时移等各类精彩内容，并畅享电影、电视剧、少儿、综艺、潮生活、最精彩等各类热门资源。";
+    NSString *descrStr = _filmModel.Introduction;
+    
     // 创建网页内容对象
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"七彩云(手机版)" descr:descrStr thumImage:[UIImage imageNamed:@"Icon"]];
+    
     // 设置网页地址
     if (_filmModel._Mid) {
         _mid = _filmModel._Mid;
@@ -330,7 +333,8 @@ static const CGFloat LabelWidth = 100.f;
         _mid = _filmModel.mid;
     }
     
-    shareObject.webpageUrl = [NSString stringWithFormat:@"http://172.16.5.117:8088/video/index.html?filmmid=%@&ctype=%@", _mid, @"4"];
+    shareObject.webpageUrl = [NSString stringWithFormat:@"http://172.16.5.117:8088/video/index.html?filmmid=%@&ctype=%@&jiIndex=%ld", _mid, _ctype, _filmModel.jiIndex];
+    DONG_Log(@"分享--%@", shareObject.webpageUrl);
     
     // 分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
@@ -364,7 +368,7 @@ static const CGFloat LabelWidth = 100.f;
         [_addMyCollectionBtn setImage:[UIImage imageNamed:@"Collection"] forState:UIControlStateNormal];
         SCFilmModel *filmModel = results.firstObject;
         [realm transactionWithBlock:^{
-            //若只删除filmModel 数据库中的filmSetModel不会被删除 故要先删除filmModel.filmSetModel
+            // 若只删除filmModel 数据库中的filmSetModel不会被删除 故要先删除filmModel.filmSetModel
             if (filmModel.filmSetModel) {//不能删除空对象
                 [realm deleteObject:filmModel.filmSetModel];
             }
@@ -899,7 +903,7 @@ static const CGFloat LabelWidth = 100.f;
     lable.scale = 1.0;
 }
 
-//添加观看记录
+// 添加观看记录
 - (void)addWatchHistoryWithFilmModel:(SCFilmModel *)filmModel
 {
     NSString *titleStr;
@@ -1061,7 +1065,7 @@ static const CGFloat LabelWidth = 100.f;
         [self.contentScroll addSubview:vc.view];
         //    self.needScrollToTopPage = self.childViewControllers[0];
         
-    }else if ([_identifier isEqualToString:@"综艺"]){
+    } else if ([_identifier isEqualToString:@"综艺"]){
         
         for (int i=0; i<_titleArr.count ;i++){
             switch (i) {
@@ -1777,8 +1781,8 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                     [strongself.view addSubview:strongself.IJKPlayerViewController.view];
                     
                 } else {
-                    // 竖屏时
                     
+                    // 竖屏时
                     strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                     strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
                     //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = strongself.filmModel.FilmName;//节目名称
@@ -1867,6 +1871,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
     }
     
     NSString *filmmidStr = _mid ? _mid : @"";
+    _ctype = @"4";
     //请求播放资源
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"pagesize" : @"1000",
@@ -1918,8 +1923,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                         //NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>>%@",model.VODStreamingUrl);
                         [_filmSetsArr addObject:model];
                         
-                    } else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
-                        
+                    } else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
                         
                         for (NSDictionary *dic in responseObject[@"ContentSet"][@"Content"]) {
                             
@@ -1990,7 +1994,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                              * 此时_filmModel.filmSetModel为空 需要赋值
                              */
                             VODIndex = _filmModel.jiIndex - 1;
-                            //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
+                            // 将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
                             _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
                             
                         }
@@ -2129,6 +2133,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
     }
     
     NSString *filmMidStr = _mid ? _mid : @"";
+    _ctype = @"102";
     
     DONG_Log(@"filmMidStr:%@",filmMidStr);
     
@@ -2154,6 +2159,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                 DONG_StrongSelf(self);
                 //                            DONG_Log(@"====responseObject======%@===",responseObject);
                 [strongself.filmsArr removeAllObjects];
+                
                 if (responseObject) {
                     
                     // 介绍页model
@@ -2181,7 +2187,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                 strongself.titleArr = @[@"剧情", @"详情"];
                 strongself.identifier = @"综艺";
                 
-                //4.添加滑动headerView
+                // 4.添加滑动headerView
                 [strongself constructSlideHeaderView];
                 [strongself constructContentView];
                 
@@ -2225,11 +2231,10 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                     _filmModel.jiIndex = 1;
                 }
                 
-                //请求播放地址
+                // 请求播放地址
                 NSString *urlStr = [artsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                //获取downLoadUrl
+                // 获取downLoadUrl
                 [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
-                    
                     
                     //DONG_Log(@"responseObject:%@", responseObject[@"ContentSet"][@"Content"]);
                     
@@ -2244,17 +2249,17 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                         downLoadUrl  = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
                         
                     }
-                    //获取fid
+                    // 获取fid
                     NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
-                    //base64编码downloadUrl
+                    // base64编码downloadUrl
                     NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
-                    //这只是个请求视频播放流的url地址
+                    // 这只是个请求视频播放流的url地址
                     NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                     DONG_Log(@"domainUrl:%@",domainUrl);
-                    //视频播放url
+                    // 视频播放url
                     NSString *replacedUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                     NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:artsFilmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
-                    //获取play_url
+                    // 获取play_url
                     [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                         //            NSLog(@"====responseObject:::%@===",responseObject);
                         NSString *play_url = responseObject[@"play_url"];
@@ -2382,7 +2387,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
     
     _filmModel.jiIndex = -1;
     NSString *filmmidStr = _mid ? _mid : @"";
-    
+    _ctype = @"4";
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"ctype"    : @"4",
                                  @"filmmid"  : filmmidStr};
@@ -2420,15 +2425,14 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                     downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
                 }
                 
-                //base64编码downloadUrl
+                // base64编码downloadUrl
                 NSString *downloadBase64Url = [downloadUrl stringByBase64Encoding];
                 
                 DONG_Log(@">>>>>>>>>>>>filmmid>>>>>>>>>>%@",filmmidStr);
                 DONG_Log(@">>>>>>>>>>>>downloadUrl>>>>>>>>>>%@",downloadUrl);
                 DONG_Log(@">>>>>>>>>>>>downloadBase64Url>>>>>>>>>>%@",downloadBase64Url);
                 
-                
-                //获取fid
+                // 获取fid
                 NSString *fidString = [[[[downloadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
                 
                 //这只是个请求视频播放流的url地址
@@ -2458,7 +2462,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                 [strongself constructContentView];
                 
                 
-                //请求播放地址
+                // 请求播放地址
                 [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                     //DONG_Log(@"====responseObject:::%@===",responseObject);
                     
@@ -2492,17 +2496,17 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                     
                     NSString *play_url = responseObject[@"play_url"];
                     DONG_Log(@"play_url:%@",play_url);
-                    //请求将播放地址域名转换  并拼接最终的播放地址
+                    // 请求将播放地址域名转换  并拼接最终的播放地址
                     NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
                     
                     DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-                    //1.拼接新地址
+                    // 1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                     strongself.url = [NSURL URLWithString:playUrl];
                     
                     if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
                         
-                        //2.调用播放器播放
+                        // 2.调用播放器播放
                         strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
                         strongself.view.frame = [[UIScreen mainScreen] bounds];
                         strongself.IJKPlayerViewController.view.frame = strongself.view.bounds;

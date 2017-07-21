@@ -607,7 +607,6 @@ static NSString *const footerId = @"footerId";
             channelVC.bannerFilmModelArray = _bannerFilmModelArr;
             channelVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:channelVC animated:YES];
-            
         }
         
     } else {
