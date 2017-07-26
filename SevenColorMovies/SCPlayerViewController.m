@@ -1614,13 +1614,13 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
         NSString *play_url = responseObject[@"play_url"];
         //-1.请求将播放地址域名转换  并拼接最终的播放地址
         NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:play_url];
-        //拼接新地址
+        // 拼接新地址
         NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
         self.url = [NSURL URLWithString:playUrl];
         //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-        //1.移除当前的播放器
+        // 1.移除当前的播放器
         [self.IJKPlayerViewController closePlayer];
-        //2.调用播放器播放
+        // 2.调用播放器播放
         if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
             
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
@@ -1633,8 +1633,8 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
             [self.view addSubview:_IJKPlayerViewController.view];
             
         } else {
-            // 竖屏时
             
+            // 竖屏时
             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
             //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;//节目名称
@@ -1704,7 +1704,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
         [CommonFunc dismiss];
     }];
     
-    timesIndexOfVOD = 0;//每次点击后将index复位为0
+    timesIndexOfVOD = 0; //每次点击后将index复位为0
 }
 
 #pragma mark - 综艺播放列表点击事件
