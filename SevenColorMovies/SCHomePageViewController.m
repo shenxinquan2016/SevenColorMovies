@@ -568,7 +568,7 @@ static NSString *const footerId = @"footerId";
             NSDictionary *dict = [self dictionaryWithJsonString:filmClassModel.FilmClassUrl];
             NSString *urlSchemes = dict[@"openUrl"][@"urlSchemes"];
             
-            if ([urlSchemes isEqualToString:@"SevenColorMovies"] && [filmClassModel._FilmClassName isEqualToString:@"直播"]) {
+            if ([urlSchemes isEqualToString:@"sevencolormovies"] && [filmClassModel._FilmClassName isEqualToString:@"直播"]) {
                 
                 SCLiveViewController *liveView = [[SCLiveViewController alloc] initWithWithTitle:@"直播"];
                 liveView.hidesBottomBarWhenPushed = YES;
