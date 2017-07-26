@@ -1872,7 +1872,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
     
     NSString *filmmidStr = _mid ? _mid : @"";
     _ctype = @"4";
-    //请求播放资源
+    // 请求播放资源
     [CommonFunc showLoadingWithTips:@""];
     NSDictionary *parameters = @{@"pagesize" : @"1000",
                                  @"ctype"    : @"4",
@@ -2032,8 +2032,16 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                             self.view.frame = [[UIScreen mainScreen] bounds];
                             self.IJKPlayerViewController.view.frame = self.view.bounds;
                             self.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                            
+                            NSString *filmName = nil;
+                            if (_filmModel.FilmName) {
+                                filmName = _filmModel.FilmName;
+                            } else {
+                                filmName = _filmModel.cnname;
+                            }
+                            
                             self.IJKPlayerViewController.mediaControl.frame = self.view.frame;
-                            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = [NSString stringWithFormat:@"%@第%lu集",_filmModel.FilmName , (unsigned long)_filmModel.jiIndex ]; // 节目名称
+                            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = [NSString stringWithFormat:@"%@第%lu集",filmName , (unsigned long)_filmModel.jiIndex ]; // 节目名称
                             [self.view addSubview:_IJKPlayerViewController.view];
                             
                         } else {
@@ -2041,8 +2049,16 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                             
                             self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
                             _IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                            //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName;// 节目名称
-                            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = [NSString stringWithFormat:@"%@ 第%lu集",_filmModel.FilmName , (unsigned long)_filmModel.jiIndex ]; // 节目名称
+                            //_IJKPlayerViewController.mediaControl.programNameLabel.text = _filmModel.FilmName; // 节目名称
+                            
+                            NSString *filmName = nil;
+                            if (_filmModel.FilmName) {
+                                filmName = _filmModel.FilmName;
+                            } else {
+                                filmName = _filmModel.cnname;
+                            }
+                            
+                            _IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = [NSString stringWithFormat:@"%@ 第%lu集",filmName , (unsigned long)_filmModel.jiIndex ]; // 节目名称
                             [self.view addSubview:_IJKPlayerViewController.view];
                             
                         }
