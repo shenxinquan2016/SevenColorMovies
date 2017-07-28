@@ -18,8 +18,7 @@
 
 @interface SCMineViewController ()
 
-/** leftBarItem 商标 */
-@property (nonatomic,strong) UIButton *leftBBI;
+@property (nonatomic,strong) UIButton *leftBBI; // leftBarItem 商标
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataSource;
 
@@ -33,7 +32,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self setTableView];
-    //1.商标
+    // 1.商标
     [self addLeftBBI];
     
 }
@@ -44,7 +43,9 @@
 }
 
 #pragma mark- private methods
-- (void)addLeftBBI {
+
+- (void)addLeftBBI
+{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 105, 27);
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
@@ -59,19 +60,23 @@
 }
 
 #pragma mark- private methods
-- (void)setTableView {
+
+- (void)setTableView
+{
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor colorWithHex:@"#F0F1F2"];
-//    _tableView.scrollEnabled = NO;
+    //    _tableView.scrollEnabled = NO;
     
 }
 
 #pragma mark- UITableViewDataSource
--(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tableView{
+-(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tableView
+{
     return self.dataSource.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (self.dataSource.count > section) {
         NSArray *array = self.dataSource[section];
         return array.count;
@@ -79,37 +84,47 @@
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section < self.dataSource.count) {
         NSArray *array = self.dataSource[indexPath.section];
         if (indexPath.row < array.count) {
             NSDictionary *dict = [array objectAtIndex:indexPath.row];
-//            if (indexPath.section == 0) {
-//                SCMineTopCell *cell = [SCMineTopCell cellWithTableView:tableView];
-//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//                return cell;
-//                
-//            }else{
             
+            if (indexPath.section == 0) {
+                
+                SCMineTopCell *cell = [SCMineTopCell cellWithTableView:tableView];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
+                
+            } else {
+                
                 SCMineOtherCell *cell = [SCMineOtherCell cellWithTableView:tableView];
                 [cell setModel:dict IndexPath:indexPath];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
-//            }
+            }
         }
     }
     return nil;
 }
 
 #pragma mark -  UITableViewDataDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (indexPath.section == 0) return 90.f;
-//    else return 56.f;
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) return 90.f;
     return 56.f;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 ) {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        
+        
+        
+    } else if (indexPath.section == 1 ) {
+        
         switch (indexPath.row) {
             case 0:{
                 SCMyProgramListVC *programListVC = [[SCMyProgramListVC alloc] initWithWithTitle:@"我的节目单"];
@@ -136,19 +151,19 @@
                 break;
         }
         
-    } else if (indexPath.section == 1) {
+    } else if (indexPath.section == 2) {
         
         SCMyDownloadManagerVC *downloadManangerVC = [[SCMyDownloadManagerVC alloc] initWithWithTitle:@"下载管理"];
         [downloadManangerVC setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:downloadManangerVC animated:YES];
         
-//    } else if (indexPath.section == 2) {
-//        
-//        SCMessageCenterVC *messageVC = [[SCMessageCenterVC alloc] initWithWithTitle:@"消息"];
-//        [messageVC setHidesBottomBarWhenPushed:YES];
-//        [self.navigationController pushViewController:messageVC animated:YES];
-//        
-    } else if (indexPath.section == 2) {
+        //    } else if (indexPath.section == 1) {
+        //
+        //        SCMessageCenterVC *messageVC = [[SCMessageCenterVC alloc] initWithWithTitle:@"消息"];
+        //        [messageVC setHidesBottomBarWhenPushed:YES];
+        //        [self.navigationController pushViewController:messageVC animated:YES];
+        //
+    } else if (indexPath.section == 3) {
         
         SCSettingVC *settingVC = [[SCSettingVC alloc] initWithWithTitle:@"设置"];
         [settingVC setHidesBottomBarWhenPushed:YES];
@@ -156,21 +171,25 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     
     return 10.f;
 }
 
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     
     return nil;
 }
 
 #pragma mark- Getters and Setters
-- (NSArray *)dataSource{
+
+- (NSArray *)dataSource
+{
     if (!_dataSource) {
-        NSArray *array = @[/*@[@{@"Default_Avatar" : @"Hi,您好"}],
-                           @[@{@"Associator" : @"会员中心"}],*/
+        NSArray *array = @[@[@{@"Default_Avatar" : @"Hi,您好"}],
+                           /* @[@{@"Associator" : @"会员中心"}],*/
                            @[@{@"Moive_list" : @"我的节目单"}, @{@"Watch_Record" : @"观看记录"}, @{@"Collection_1" : @"我的收藏"}],
                            @[@{@"Download" : @"下载管理"}],
                            /*@[@{@"Message" : @"消息"}],*/

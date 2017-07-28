@@ -41,7 +41,7 @@
     // 5.自动登录xmpp
     [self xmppLogin];
     // 6.启动广告
-    [self setLaunchAdvertisement];
+    //[self setLaunchAdvertisement];
     // 7.友盟分享
     [self initializeUMSocial];
     
