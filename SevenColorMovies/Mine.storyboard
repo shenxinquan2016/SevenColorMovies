@@ -242,6 +242,9 @@
                                                 <state key="normal" title="注册">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="submitRegistration:" destination="duP-6j-Vt2" eventType="touchUpInside" id="1Ea-j1-aHr"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4z0-BG-sBB">
                                                 <rect key="frame" x="82" y="298" width="273" height="30"/>
@@ -298,6 +301,9 @@
                                                 <state key="normal" title="发送验证码">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="sendShortMessage:" destination="duP-6j-Vt2" eventType="touchUpInside" id="9kz-BJ-QsS"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iNi-1C-ooC">
                                                 <rect key="frame" x="92" y="454" width="263" height="30"/>
@@ -393,6 +399,14 @@
                             <constraint firstItem="MYz-9T-O9P" firstAttribute="top" secondItem="rca-2o-e4Y" secondAttribute="bottom" id="uVy-W6-WtU"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="caNoTF" destination="ksu-PX-ZuN" id="d7m-Q0-RLv"/>
+                        <outlet property="confirmPasswordTF" destination="4z0-BG-sBB" id="ueP-VR-OIb"/>
+                        <outlet property="documentNoTF" destination="iNi-1C-ooC" id="9QA-8k-AJS"/>
+                        <outlet property="mobilePhoneTF" destination="V9C-yo-rQG" id="SVE-VM-boY"/>
+                        <outlet property="passwordTF" destination="iKs-SN-K9e" id="1YU-kB-6UU"/>
+                        <outlet property="verificationCodeTF" destination="xb5-4S-RKH" id="Exq-hU-9eq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aKb-mp-lHZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -523,6 +537,9 @@
                                 <state key="normal" title="发送验证码">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="sendShortMessage:" destination="a3s-eQ-P6y" eventType="touchUpInside" id="PfQ-ib-93G"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Qt-oa-9sN">
                                 <rect key="frame" x="50" y="313" width="275" height="40"/>
@@ -533,6 +550,9 @@
                                 <state key="normal" title="注册">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitInfo:" destination="a3s-eQ-P6y" eventType="touchUpInside" id="Hfm-fu-fUj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -577,10 +597,16 @@
                             <constraint firstItem="ydX-mA-1LD" firstAttribute="top" secondItem="Dyo-wr-Pfj" secondAttribute="bottom" constant="30" id="ws6-Dq-WYr"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="confirmPasswordTF" destination="lRm-ZK-G8V" id="kQ6-57-QD3"/>
+                        <outlet property="mobilePhoneTF" destination="Ocn-k1-bso" id="RLL-8r-uRu"/>
+                        <outlet property="password" destination="xcr-n9-iZU" id="Sgs-qx-iPW"/>
+                        <outlet property="verificationCode" destination="xvU-ch-cN2" id="fOL-9R-Krm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TQ8-e5-cmp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-39.200000000000003" y="1000.7496251874064"/>
+            <point key="canvasLocation" x="4" y="945"/>
         </scene>
         <!--About View Controller-->
         <scene sceneID="j4a-kr-ile">

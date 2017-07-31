@@ -10,6 +10,13 @@
 
 @interface SCRegisterVC ()
 
+@property (weak, nonatomic) IBOutlet UITextField *mobilePhoneTF;
+@property (weak, nonatomic) IBOutlet UITextField *verificationCodeTF;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTF;
+@property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTF;
+@property (weak, nonatomic) IBOutlet UITextField *caNoTF; // 智能卡号
+@property (weak, nonatomic) IBOutlet UITextField *documentNoTF; // 证件号码
+
 @end
 
 @implementation SCRegisterVC
@@ -17,12 +24,12 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    DONG_Log(@"🔴%s 第%d行\n\n",__func__, __LINE__);
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    DONG_Log(@"🔴%s 第%d行\n\n",__func__, __LINE__);
+    
     self.leftBBI.text = @"注册";
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -34,5 +41,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+// 下发短验
+- (IBAction)sendShortMessage:(id)sender
+{
+    
+    
+}
+
+// 注册
+- (IBAction)submitRegistration:(id)sender
+{
+    
+}
 
 @end
