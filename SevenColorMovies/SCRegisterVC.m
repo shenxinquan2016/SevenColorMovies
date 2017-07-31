@@ -34,11 +34,22 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
+    [self configKeyboardType];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)configKeyboardType
+{
+    _mobilePhoneTF.keyboardType = UIKeyboardTypePhonePad;
+    _verificationCodeTF.keyboardType = UIKeyboardTypeNumberPad;
+    _passwordTF.keyboardType = UIKeyboardTypeEmailAddress;
+    _confirmPasswordTF.keyboardType = UIKeyboardTypeEmailAddress;
+    _caNoTF.keyboardType = UIKeyboardTypeEmailAddress;
+    _documentNoTF.keyboardType = UIKeyboardTypeEmailAddress;
 }
 
 // 下发短验

@@ -19,14 +19,28 @@
 
 @implementation SCForgetPasswordVC
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self configKeyboardType];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+
+- (void)configKeyboardType
+{
+    _mobilePhoneTF.keyboardType = UIKeyboardTypePhonePad;
+    _password.keyboardType = UIKeyboardTypeEmailAddress;
+    _confirmPasswordTF.keyboardType = UIKeyboardTypeEmailAddress;
+    _verificationCode.keyboardType = UIKeyboardTypeNumberPad;
+ 
 }
 
 // 下发短验
