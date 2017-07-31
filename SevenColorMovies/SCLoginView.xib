@@ -51,14 +51,6 @@
                                 <constraint firstAttribute="height" constant="1" id="xOs-le-hyt"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CJ-7b-hpO">
-                            <rect key="frame" x="253" y="215" width="67" height="28"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="67" id="pQG-zl-4Ok"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <state key="normal" title="忘记密码？"/>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密    码：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lim-46-5gY">
                             <rect key="frame" x="20" y="188" width="62" height="18"/>
                             <constraints>
@@ -87,7 +79,7 @@
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MyK-Rr-SEV">
                             <rect key="frame" x="20" y="274" width="140" height="50"/>
-                            <color key="backgroundColor" red="0.060097620980936503" green="0.32952654403214193" blue="0.91047350888324874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" red="0.082352941176470587" green="0.49411764705882355" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="L6J-2e-Zd1"/>
                             </constraints>
@@ -117,6 +109,17 @@
                             <state key="normal" backgroundImage="Delete"/>
                             <connections>
                                 <action selector="hideLoginView:" destination="-1" eventType="touchUpInside" id="yZ6-aB-eRa"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CJ-7b-hpO">
+                            <rect key="frame" x="253" y="215" width="67" height="28"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="67" id="pQG-zl-4Ok"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <state key="normal" title="忘记密码？"/>
+                            <connections>
+                                <action selector="findBackPassword:" destination="-1" eventType="touchUpInside" id="VH2-Wg-YPd"/>
                             </connections>
                         </button>
                     </subviews>
@@ -163,6 +166,11 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="deleteButton" destination="tIB-IZ-vOw" id="qNF-vr-qzL"/>
+                <outlet property="mobileTF" destination="ScD-rO-H5P" id="2Nr-xe-Hrm"/>
+                <outlet property="passwordTF" destination="KMc-9u-A9M" id="pCS-XG-4IF"/>
+            </connections>
         </view>
     </objects>
     <resources>

@@ -8,12 +8,20 @@
 
 #import "SCLoginView.h"
 
+
+@interface SCLoginView ()
+
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+
+@end
+
 @implementation SCLoginView
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     self.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.7];
+    _deleteButton.enlargedEdge = 10.f;
 }
 
 @end

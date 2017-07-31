@@ -16,6 +16,7 @@
 #import "SCMessageCenterVC.h"
 #import "SCSettingVC.h"
 #import "SCLoginView.h"
+#import "SCRegisterVC.h"
 
 @interface SCMineViewController ()
 
@@ -41,6 +42,11 @@
     // 3.登录页
     [self loadLoginView];
     
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    _loginView.alpha = 0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,7 +85,7 @@
 {
     _loginView = [[NSBundle mainBundle] loadNibNamed:@"SCLoginView" owner:nil options:nil][0];
     [self.view addSubview:_loginView];
-    _loginView.hidden = YES;
+    _loginView.alpha = 0;
     [_loginView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.bottom.equalTo(self.view);
     }];
@@ -87,24 +93,34 @@
 
 #pragma mark - Login and Register
 
-
+// 隐藏
 - (IBAction)hideLoginView:(id)sender
 {
-    _loginView.hidden = YES;
-    self.view.alpha = 1.0;
-    
-    
+    [UIView animateWithDuration:0.2 animations:^{
+        _loginView.alpha = 0;
+    }];
 }
 
+// 登录
 - (IBAction)login:(id)sender
 {
     
    DONG_Log(@"登录");
 }
 
+// 注册
 - (IBAction)registerUserInfo:(id)sender
 {
-   DONG_Log(@"注册");
+    SCRegisterVC *registerVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCRegisterVC");
+    registerVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:registerVC animated:YES];
+}
+
+
+// 忘记密码
+- (IBAction)findBackPassword:(id)sender
+{
+    
 }
 
 #pragma mark- UITableViewDataSource
@@ -158,9 +174,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        
         // 登录
-        _loginView.hidden = NO;
+        [UIView animateWithDuration:0.2 animations:^{
+            _loginView.alpha = 1.0;
+        }];
         
     } else if (indexPath.section == 1 ) {
         
