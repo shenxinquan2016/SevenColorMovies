@@ -17,6 +17,7 @@
 #import "SCSettingVC.h"
 #import "SCLoginView.h"
 #import "SCRegisterVC.h"
+#import "SCForgetPasswordVC.h"
 
 @interface SCMineViewController ()
 
@@ -120,7 +121,9 @@
 // 忘记密码
 - (IBAction)findBackPassword:(id)sender
 {
-    
+    SCForgetPasswordVC *findPasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCForgetPasswordVC");
+    findPasswordVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:findPasswordVC animated:YES];
 }
 
 #pragma mark- UITableViewDataSource
