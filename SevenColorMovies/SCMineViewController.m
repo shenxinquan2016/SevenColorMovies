@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/7/18.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-//
+// 我的
 
 #import "SCMineViewController.h"
 #import "SCMineTopCell.h"
@@ -15,12 +15,15 @@
 #import "SCMyDownloadManagerVC.h"
 #import "SCMessageCenterVC.h"
 #import "SCSettingVC.h"
+#import "SCLoginView.h"
 
 @interface SCMineViewController ()
 
 @property (nonatomic,strong) UIButton *leftBBI; // leftBarItem 商标
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataSource;
+
+@property (nonatomic, strong) SCLoginView *loginView; // 登录页
 
 @end
 
@@ -30,10 +33,13 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    [self setTableView];
+
     // 1.商标
     [self addLeftBBI];
+    // 2.tableView
+    [self setTableView];
+    // 3.登录页
+    [self loadLoginView];
     
 }
 
@@ -67,6 +73,38 @@
     _tableView.backgroundColor = [UIColor colorWithHex:@"#F0F1F2"];
     //    _tableView.scrollEnabled = NO;
     
+}
+
+- (void)loadLoginView
+{
+    _loginView = [[NSBundle mainBundle] loadNibNamed:@"SCLoginView" owner:nil options:nil][0];
+    [self.view addSubview:_loginView];
+    _loginView.hidden = YES;
+    [_loginView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.equalTo(self.view);
+    }];
+}
+
+#pragma mark - Login and Register
+
+
+- (IBAction)hideLoginView:(id)sender
+{
+    _loginView.hidden = YES;
+    self.view.alpha = 1.0;
+    
+    
+}
+
+- (IBAction)login:(id)sender
+{
+    
+   DONG_Log(@"登录");
+}
+
+- (IBAction)registerUserInfo:(id)sender
+{
+   DONG_Log(@"注册");
 }
 
 #pragma mark- UITableViewDataSource
@@ -121,7 +159,8 @@
 {
     if (indexPath.section == 0) {
         
-        
+        // 登录
+        _loginView.hidden = NO;
         
     } else if (indexPath.section == 1 ) {
         
