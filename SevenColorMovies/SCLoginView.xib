@@ -79,11 +79,11 @@
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MyK-Rr-SEV">
                             <rect key="frame" x="20" y="274" width="140" height="50"/>
-                            <color key="backgroundColor" red="0.082352941176470587" green="0.49411764705882355" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="L6J-2e-Zd1"/>
                             </constraints>
-                            <state key="normal" title="登录">
+                            <state key="normal" title="登录" backgroundImage="buttonBG_Blue">
                                 <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -95,7 +95,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="Ld1-x8-eVd"/>
                             </constraints>
-                            <state key="normal" title="注册"/>
+                            <state key="normal" title="注册" backgroundImage="buttonBG"/>
                             <connections>
                                 <action selector="registerUserInfo:" destination="-1" eventType="touchUpInside" id="xXA-cp-lEM"/>
                             </connections>
@@ -176,5 +176,7 @@
     <resources>
         <image name="Delete" width="20" height="20"/>
         <image name="Icon" width="90" height="90"/>
+        <image name="buttonBG" width="127" height="41"/>
+        <image name="buttonBG_Blue" width="127" height="41"/>
     </resources>
 </document>
