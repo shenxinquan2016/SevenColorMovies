@@ -4,7 +4,7 @@
 //
 //  Created by yesdgq on 16/7/18.
 //  Copyright © 2016年 yesdgq. All rights reserved.
-// 我的
+// 我的控制器
 
 #import "SCMineViewController.h"
 #import "SCMineTopCell.h"
@@ -52,7 +52,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 #pragma mark- private methods
@@ -105,7 +105,6 @@
 // 登录
 - (IBAction)login:(id)sender
 {
-    
    DONG_Log(@"登录");
 }
 
