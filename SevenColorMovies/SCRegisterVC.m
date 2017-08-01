@@ -56,7 +56,7 @@
 - (IBAction)sendShortMessage:(id)sender
 {
     
-    
+    [self sendShortMsgNetworkRequest];
 }
 
 // 注册
@@ -64,5 +64,43 @@
 {
     
 }
+
+#pragma mark - Network Request
+
+// 下发短信
+- (void)sendShortMsgNetworkRequest
+{
+    NSDictionary *parameters = @{
+                                 @"phoneNO" : _mobilePhoneTF.text,
+                                 @"appID"   : @"1012",
+                                 @"msg"     : @"尊敬的用户您好，注册验证码为：xxxx，有效期为5分钟, 客服热线96396。"
+                                 };
+    [requestDataManager postRequestJsonDataWithUrl:SendShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        DONG_Log(@"errorObject-->%@", errorObject);
+    }];
+}
+
+// 短信验证
+- (void)verificationShortMsgNetworkRequest
+{
+    NSDictionary *parameters = @{
+                                 @"phoneNO" : _mobilePhoneTF.text,
+                                 @"appID" : @""
+                                 };
+    [requestDataManager postRequestJsonDataWithUrl:VerificaionShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+    } failure:^(id  _Nullable errorObject) {
+        DONG_Log(@"errorObject-->%@", errorObject);
+        
+    }];
+}
+
+
 
 @end

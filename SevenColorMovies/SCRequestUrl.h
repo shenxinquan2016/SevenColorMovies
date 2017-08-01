@@ -112,10 +112,20 @@
 
 
 
+/***************************************计费认证*****************************************/
 
+#define SendShortMsg @"http://125.223.98.233:10015/LJWL_ShortMsg/service/DX/creatRandom" // 下发短信
+#define VerificaionShortMsg @"http://125.223.98.233:10015/LJWL_ShortMsg/service/DX/checkRandom" // 短信校验
+#define RegisterRegister @"http://10.177.4.80:8080/LJWL_BOSSINTER_MT/service/MT/userRegister" // 注册
+#define LoginLogin @"http://10.177.4.80:8080/LJWL_BOSSINTER_MT/service/MT/userLogin" // 登录
+#define ChangePassword @"http://10.177.4.80:8080/LJWL_BOSSINTER_MT/service/MT/modifyPassword" // 修改密码
 
+#define QueryUserInfo @"http://10.177.4.80:8080/LJWL_BOSSINTER_MT/service/MT/queryUserInfo" // 根据注册的手机号查询用户信息查询接口
+#define QureyUserInfoByServiceCode @"http://10.177.4.80:8080/LJWL_BOSSINTER_MT/service/MT/queryInfoByServiceCode" // 根据绑定的服务号码查询用户信息查询接口
+#define QueryProductListByLevel @"http://10.177.4.80:8080/LJWL_BOSSINTER_MT/service/MT/queryProductListByLevel" // 根据用户等级查询赠送产品
+#define OrderProduct @"http://10.177.4.80:8080/LJWL_BOSSINTER_MT/service/MT/productOrder" // 产品订购接口
+#define ChangeBind @"http://10.177.4.80:8080/LJWL_BOSSINTER_MT/service/MT/bindChange" // 绑定变更接口
 
-
-
+#define CustomerFeedback @"http://scc.96396.cn:10013/appjh_mmserver/feedback/addFeedBack.do" // 用户反馈
 
 #endif /* SCRequestUrl_h */

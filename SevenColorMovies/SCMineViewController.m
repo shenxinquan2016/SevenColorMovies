@@ -18,6 +18,7 @@
 #import "SCLoginView.h"
 #import "SCRegisterVC.h"
 #import "SCForgetPasswordVC.h"
+#import "SCCustomerCenterVC.h"
 
 @interface SCMineViewController ()
 
@@ -106,6 +107,7 @@
 - (IBAction)login:(id)sender
 {
    DONG_Log(@"登录");
+    [self loginNetworkRequest];
 }
 
 // 注册
@@ -120,12 +122,19 @@
 // 忘记密码
 - (IBAction)findBackPassword:(id)sender
 {
-    SCForgetPasswordVC *findPasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCForgetPasswordVC");
+    //SCForgetPasswordVC *findPasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCForgetPasswordVC");
+    //findPasswordVC.hidesBottomBarWhenPushed = YES;
+    //[self.navigationController pushViewController:findPasswordVC animated:YES];
+    
+    
+    SCCustomerCenterVC *findPasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCCustomerCenterVC");
     findPasswordVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:findPasswordVC animated:YES];
+
 }
 
 #pragma mark- UITableViewDataSource
+
 -(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tableView
 {
     return self.dataSource.count;
@@ -263,5 +272,74 @@
     return NO;
 }
 
+#pragma mark - Network Request
+
+// 下发短信
+- (void)sendShortMsgNetworkRequest
+{
+    NSDictionary *parameters = @{
+                                 @"phoneNO" : _loginView.mobileTF.text,
+                                 @"appID" : @""
+                                 };
+    [requestDataManager getRequestJsonDataWithUrl:SendShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+}
+
+// 短信验证
+- (void)verificationShortMsgNetworkRequest
+{
+    [requestDataManager getRequestJsonDataWithUrl:VerificaionShortMsg parameters:nil success:^(id  _Nullable responseObject) {
+        
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        
+    }];
+}
+
+// 注册
+- (void)registerNetworkRequest
+{
+    NSDictionary *parameters = @{
+                                 @"mobile" : @"13910409466",
+                                 @"password" : @"aaaaaa",
+                                 @"systemType" : @"1",
+                                 };
+    [CommonFunc showLoadingWithTips:@""];
+
+    [requestDataManager postRequestJsonDataWithUrl:RegisterRegister parameters:parameters success:^(id  _Nullable responseObject) {
+        
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+       [CommonFunc dismiss]; 
+        
+    }];
+}
+
+// 登录
+- (void)loginNetworkRequest
+{
+    NSDictionary *parameters = @{
+                                 @"mobile" : @"13910409466",
+                                 @"password" : @"aaaaaa",
+                                 @"systemType" : @"1",
+                                 };
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager postRequestJsonDataWithUrl:LoginLogin parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@", responseObject);
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        DONG_Log(@"errorObject-->%@", errorObject);
+       [CommonFunc dismiss]; 
+    }];
+}
 
 @end
