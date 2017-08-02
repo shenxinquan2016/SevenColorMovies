@@ -431,7 +431,16 @@
             success(dic);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"------%@》》》》》》", error);
+        
+        NSString *errString = error.localizedFailureReason;
+        DONG_Log(@"error:-->%@\n errString:-->%@", error, errString);
+        
+        if (error.code == -1001) { // 请求超时情况的处理
+            NSData *data = [error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"];
+            errString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            DONG_Log(@"error data:-->%@\n data errString:-->%@", data, errString);
+        }
+        
         if (faild) {
             //数据请求失败
             if (![SCNetHelper isNetConnect]) {
