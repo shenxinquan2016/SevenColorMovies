@@ -106,7 +106,6 @@
 // 登录
 - (IBAction)login:(id)sender
 {
-   DONG_Log(@"登录");
     [self loginNetworkRequest];
 }
 
@@ -122,15 +121,9 @@
 // 忘记密码
 - (IBAction)findBackPassword:(id)sender
 {
-    //SCForgetPasswordVC *findPasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCForgetPasswordVC");
-    //findPasswordVC.hidesBottomBarWhenPushed = YES;
-    //[self.navigationController pushViewController:findPasswordVC animated:YES];
-    
-    
-    SCCustomerCenterVC *findPasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCCustomerCenterVC");
+    SCForgetPasswordVC *findPasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCForgetPasswordVC");
     findPasswordVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:findPasswordVC animated:YES];
-
 }
 
 #pragma mark- UITableViewDataSource
@@ -185,29 +178,38 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        // 登录
-        [UIView animateWithDuration:0.2 animations:^{
-            _loginView.alpha = 1.0;
-        }];
+        UserInfoManager.isLogin = NO;
+        if (UserInfoManager.isLogin) {
+            
+            SCCustomerCenterVC *customerCenterVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCCustomerCenterVC");
+            customerCenterVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:customerCenterVC animated:YES];
+            
+        } else {
+            // 登录
+            [UIView animateWithDuration:0.2 animations:^{
+                _loginView.alpha = 1.0;
+            }];
+        }
         
     } else if (indexPath.section == 1 ) {
         
         switch (indexPath.row) {
-            case 0:{
+            case 0: {
                 SCMyProgramListVC *programListVC = [[SCMyProgramListVC alloc] initWithWithTitle:@"我的节目单"];
                 [programListVC setHidesBottomBarWhenPushed:YES];
                 [self.navigationController pushViewController:programListVC animated:YES];
                 break;
             }
                 
-            case 1:{
+            case 1: {
                 SCMyWatchingHistoryVC *watchHistoryVC = [[SCMyWatchingHistoryVC alloc] initWithWithTitle:@"观看记录"];
                 [watchHistoryVC setHidesBottomBarWhenPushed:YES];
                 [self.navigationController pushViewController:watchHistoryVC animated:YES];
                 break;
             }
                 
-            case 2:{
+            case 2: {
                 SCMyCollectionVC *collectionVC = [[SCMyCollectionVC alloc] initWithWithTitle:@"我的收藏"];
                 [collectionVC setHidesBottomBarWhenPushed:YES];
                 [self.navigationController pushViewController:collectionVC animated:YES];
@@ -274,66 +276,36 @@
 
 #pragma mark - Network Request
 
-// 下发短信
-- (void)sendShortMsgNetworkRequest
-{
-    NSDictionary *parameters = @{
-                                 @"phoneNO" : _loginView.mobileTF.text,
-                                 @"appID" : @""
-                                 };
-    [requestDataManager getRequestJsonDataWithUrl:SendShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
-        
-        DONG_Log(@"responseObject-->%@", responseObject);
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        
-    }];
-}
-
-// 短信验证
-- (void)verificationShortMsgNetworkRequest
-{
-    [requestDataManager getRequestJsonDataWithUrl:VerificaionShortMsg parameters:nil success:^(id  _Nullable responseObject) {
-        
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        
-    }];
-}
-
-// 注册
-- (void)registerNetworkRequest
-{
-    NSDictionary *parameters = @{
-                                 @"mobile" : @"13910409466",
-                                 @"password" : @"aaaaaa",
-                                 @"systemType" : @"1",
-                                 };
-    [CommonFunc showLoadingWithTips:@""];
-
-    [requestDataManager postRequestJsonDataWithUrl:RegisterRegister parameters:parameters success:^(id  _Nullable responseObject) {
-        
-        [CommonFunc dismiss];
-        
-    } failure:^(id  _Nullable errorObject) {
-       [CommonFunc dismiss]; 
-        
-    }];
-}
-
 // 登录
 - (void)loginNetworkRequest
 {
+    if (_loginView.mobileTF.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入手机号！"];
+        return;
+    }
+    if (_loginView.passwordTF.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入手机号！"];
+        return;
+    }
+    
     NSDictionary *parameters = @{
-                                 @"mobile" : @"13910409466",
-                                 @"password" : @"aaaaaa",
+                                 @"mobile" : _loginView.mobileTF.text,
+                                 @"password" : _loginView.passwordTF.text,
                                  @"systemType" : @"1",
                                  };
+    
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager postRequestJsonDataWithUrl:LoginLogin parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
+
+        [UIView animateWithDuration:0.2 animations:^{
+            _loginView.alpha = 0;
+        } completion:^(BOOL finished) {
+            
+            [MBProgressHUD showSuccess:@"登录成功"];
+            [_loginView removeFromSuperview];
+        }];
+        
         [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {

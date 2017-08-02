@@ -929,6 +929,62 @@
 			name = "播放的代理";
 			sourceTree = "<group>";
 		};
+		1116F5D81F31A6B50028C78E /* Regist&Login */ = {
+			isa = PBXGroup;
+			children = (
+				111FFB881F2EC2BE006927E6 /* SCLoginView.h */,
+				111FFB891F2EC2BE006927E6 /* SCLoginView.m */,
+				111FFB8B1F2EC2D2006927E6 /* SCLoginView.xib */,
+				111FFB8D1F2ED9D2006927E6 /* SCRegisterVC.h */,
+				111FFB8E1F2ED9D2006927E6 /* SCRegisterVC.m */,
+				1145D31C1F2F2288006A11DF /* SCForgetPasswordVC.h */,
+				1145D31D1F2F2288006A11DF /* SCForgetPasswordVC.m */,
+			);
+			name = "Regist&Login";
+			sourceTree = "<group>";
+		};
+		1116F5D91F31A6C70028C78E /* 修改绑定 */ = {
+			isa = PBXGroup;
+			children = (
+				1116F5CF1F317DB50028C78E /* SCChangeBindVC.h */,
+				1116F5D01F317DB50028C78E /* SCChangeBindVC.m */,
+			);
+			name = "修改绑定";
+			sourceTree = "<group>";
+		};
+		1116F5DA1F31A6CF0028C78E /* Customer中心 */ = {
+			isa = PBXGroup;
+			children = (
+				118CCA141F3077B500A42E5E /* SCCustomerCenterVC.h */,
+				118CCA151F3077B500A42E5E /* SCCustomerCenterVC.m */,
+				1134C2CC1F3087D700C9E0FE /* SCCostomerCenterCell.h */,
+				1134C2CD1F3087D700C9E0FE /* SCCostomerCenterCell.m */,
+				1134C2CE1F3087D700C9E0FE /* SCCostomerCenterCell.xib */,
+				1116F5D91F31A6C70028C78E /* 修改绑定 */,
+				1116F5DB1F31A70E0028C78E /* 修改密码 */,
+				1116F5DC1F31A7170028C78E /* 用户升级 */,
+			);
+			name = "Customer中心";
+			sourceTree = "<group>";
+		};
+		1116F5DB1F31A70E0028C78E /* 修改密码 */ = {
+			isa = PBXGroup;
+			children = (
+				1116F5D21F31808E0028C78E /* SCChangePasswordVC.h */,
+				1116F5D31F31808E0028C78E /* SCChangePasswordVC.m */,
+			);
+			name = "修改密码";
+			sourceTree = "<group>";
+		};
+		1116F5DC1F31A7170028C78E /* 用户升级 */ = {
+			isa = PBXGroup;
+			children = (
+				1116F5D51F3180EA0028C78E /* SCCustomerUpGradeVC.h */,
+				1116F5D61F3180EA0028C78E /* SCCustomerUpGradeVC.m */,
+			);
+			name = "用户升级";
+			sourceTree = "<group>";
+		};
 		111827891D800AAD005921D6 /* MainBody */ = {
 			isa = PBXGroup;
 			children = (
@@ -968,29 +1024,13 @@
 			name = PhotographView;
 			sourceTree = "<group>";
 		};
-		111FFB871F2EC272006927E6 /* Regist&Login */ = {
+		111FFB871F2EC272006927E6 /* 鉴权计费 */ = {
 			isa = PBXGroup;
 			children = (
-				111FFB881F2EC2BE006927E6 /* SCLoginView.h */,
-				111FFB891F2EC2BE006927E6 /* SCLoginView.m */,
-				111FFB8B1F2EC2D2006927E6 /* SCLoginView.xib */,
-				111FFB8D1F2ED9D2006927E6 /* SCRegisterVC.h */,
-				111FFB8E1F2ED9D2006927E6 /* SCRegisterVC.m */,
-				1145D31C1F2F2288006A11DF /* SCForgetPasswordVC.h */,
-				1145D31D1F2F2288006A11DF /* SCForgetPasswordVC.m */,
-				118CCA141F3077B500A42E5E /* SCCustomerCenterVC.h */,
-				118CCA151F3077B500A42E5E /* SCCustomerCenterVC.m */,
-				1134C2CC1F3087D700C9E0FE /* SCCostomerCenterCell.h */,
-				1134C2CD1F3087D700C9E0FE /* SCCostomerCenterCell.m */,
-				1134C2CE1F3087D700C9E0FE /* SCCostomerCenterCell.xib */,
-				1116F5CF1F317DB50028C78E /* SCChangeBindVC.h */,
-				1116F5D01F317DB50028C78E /* SCChangeBindVC.m */,
-				1116F5D21F31808E0028C78E /* SCChangePasswordVC.h */,
-				1116F5D31F31808E0028C78E /* SCChangePasswordVC.m */,
-				1116F5D51F3180EA0028C78E /* SCCustomerUpGradeVC.h */,
-				1116F5D61F3180EA0028C78E /* SCCustomerUpGradeVC.m */,
+				1116F5D81F31A6B50028C78E /* Regist&Login */,
+				1116F5DA1F31A6CF0028C78E /* Customer中心 */,
 			);
-			name = "Regist&Login";
+			name = "鉴权计费";
 			sourceTree = "<group>";
 		};
 		1122149A1DADDD9300277BD6 /* PastVideoPlayer */ = {
@@ -2145,7 +2185,7 @@
 			isa = PBXGroup;
 			children = (
 				113F8D961D3C706300B12D39 /* MainBody */,
-				111FFB871F2EC272006927E6 /* Regist&Login */,
+				111FFB871F2EC272006927E6 /* 鉴权计费 */,
 				116E0F5F1DB0B6F900E280C6 /* ProgramList */,
 				116E0F611DB0B72E00E280C6 /* WatchingHistory */,
 				116E0F631DB0B77B00E280C6 /* Collection */,

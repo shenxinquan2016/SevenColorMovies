@@ -99,6 +99,7 @@
                                         </state>
                                         <connections>
                                             <action selector="sendShortMessage:" destination="duP-6j-Vt2" eventType="touchUpInside" id="glk-Xq-75n"/>
+                                            <action selector="sendVerificationCode:" destination="M0s-Ll-bfl" eventType="touchUpInside" id="aLu-dU-AeO"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bNd-df-qgq">
@@ -133,25 +134,32 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orl-ML-5sV">
-                                <rect key="frame" x="80" y="210" width="215" height="50"/>
+                                <rect key="frame" x="50" y="210" width="275" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="t6g-gw-0iT"/>
                                 </constraints>
                                 <state key="normal" title="确定绑定" backgroundImage="buttonBG_Blue">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitChanges:" destination="M0s-Ll-bfl" eventType="touchUpInside" id="HSD-2r-ehG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="orl-ML-5sV" secondAttribute="trailing" constant="80" id="4xi-uz-Djc"/>
-                            <constraint firstItem="orl-ML-5sV" firstAttribute="leading" secondItem="TWp-Fe-kC9" secondAttribute="leading" constant="80" id="83g-ua-mIb"/>
+                            <constraint firstAttribute="trailing" secondItem="orl-ML-5sV" secondAttribute="trailing" constant="50" id="4xi-uz-Djc"/>
+                            <constraint firstItem="orl-ML-5sV" firstAttribute="leading" secondItem="TWp-Fe-kC9" secondAttribute="leading" constant="50" id="83g-ua-mIb"/>
                             <constraint firstItem="SM2-yJ-HaW" firstAttribute="leading" secondItem="TWp-Fe-kC9" secondAttribute="leading" id="C0h-4J-lfv"/>
                             <constraint firstItem="SM2-yJ-HaW" firstAttribute="top" secondItem="jU6-Ek-u2L" secondAttribute="bottom" id="beu-dF-J0u"/>
                             <constraint firstAttribute="trailing" secondItem="SM2-yJ-HaW" secondAttribute="trailing" id="cA7-50-3hd"/>
                             <constraint firstItem="orl-ML-5sV" firstAttribute="top" secondItem="SM2-yJ-HaW" secondAttribute="bottom" constant="30" id="vMA-UA-Pcf"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="caCardNoTF" destination="ApT-dJ-Kj5" id="3Z8-jK-0V1"/>
+                        <outlet property="verificationCodeTF" destination="UuV-ec-YD4" id="8bc-yi-CZ5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IsL-X8-uea" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -262,6 +270,7 @@
                                         </state>
                                         <connections>
                                             <action selector="sendShortMessage:" destination="duP-6j-Vt2" eventType="touchUpInside" id="TfQ-1c-8UK"/>
+                                            <action selector="sendVerificationCode:" destination="HsF-Mw-CQi" eventType="touchUpInside" id="AkE-54-cm8"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -297,25 +306,33 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZM-zE-eEG">
-                                <rect key="frame" x="80" y="270" width="215" height="50"/>
+                                <rect key="frame" x="50" y="270" width="275" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Hjb-Re-ro4"/>
                                 </constraints>
                                 <state key="normal" title="确定修改" backgroundImage="buttonBG_Blue">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitChanges:" destination="HsF-Mw-CQi" eventType="touchUpInside" id="WSi-kc-G7R"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="nZM-zE-eEG" firstAttribute="leading" secondItem="IFY-jg-vAI" secondAttribute="leading" constant="80" id="FSs-Jy-3cH"/>
+                            <constraint firstItem="nZM-zE-eEG" firstAttribute="leading" secondItem="IFY-jg-vAI" secondAttribute="leading" constant="50" id="FSs-Jy-3cH"/>
                             <constraint firstItem="dXq-Pg-1Ig" firstAttribute="leading" secondItem="IFY-jg-vAI" secondAttribute="leading" id="OXH-KC-syR"/>
                             <constraint firstItem="nZM-zE-eEG" firstAttribute="top" secondItem="dXq-Pg-1Ig" secondAttribute="bottom" constant="30" id="Rog-UU-uDh"/>
-                            <constraint firstAttribute="trailing" secondItem="nZM-zE-eEG" secondAttribute="trailing" constant="80" id="jDF-XZ-Ruq"/>
+                            <constraint firstAttribute="trailing" secondItem="nZM-zE-eEG" secondAttribute="trailing" constant="50" id="jDF-XZ-Ruq"/>
                             <constraint firstItem="dXq-Pg-1Ig" firstAttribute="top" secondItem="aVa-PP-PMg" secondAttribute="bottom" id="sOO-e5-51L"/>
                             <constraint firstAttribute="trailing" secondItem="dXq-Pg-1Ig" secondAttribute="trailing" id="tZj-A4-U6D"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="confirmPasswordTF" destination="QBu-ZH-0Lj" id="dZJ-gX-3Ky"/>
+                        <outlet property="passwordTF" destination="p4g-br-8bt" id="YVx-bz-ZtH"/>
+                        <outlet property="verificationCodeTF" destination="NTs-5N-jXE" id="Tfe-P8-VyB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1r4-Sd-Esc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -393,25 +410,31 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSR-aV-ulb">
-                                <rect key="frame" x="80" y="170" width="215" height="50"/>
+                                <rect key="frame" x="50" y="170" width="275" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="xgd-7s-3Pc"/>
                                 </constraints>
                                 <state key="normal" title="确定升级" backgroundImage="buttonBG_Blue">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitChanges:" destination="d79-Dj-Rwt" eventType="touchUpInside" id="xgH-o0-JFv"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="TSR-aV-ulb" firstAttribute="leading" secondItem="Lv2-Tk-qFm" secondAttribute="leading" constant="80" id="0kG-qp-9pQ"/>
+                            <constraint firstItem="TSR-aV-ulb" firstAttribute="leading" secondItem="Lv2-Tk-qFm" secondAttribute="leading" constant="50" id="0kG-qp-9pQ"/>
                             <constraint firstAttribute="trailing" secondItem="bmj-sz-4kz" secondAttribute="trailing" id="5bq-0A-OWY"/>
                             <constraint firstItem="bmj-sz-4kz" firstAttribute="leading" secondItem="Lv2-Tk-qFm" secondAttribute="leading" id="IJQ-qg-jmp"/>
                             <constraint firstItem="bmj-sz-4kz" firstAttribute="top" secondItem="Ht9-9B-66W" secondAttribute="bottom" id="Z6f-yv-xNe"/>
-                            <constraint firstAttribute="trailing" secondItem="TSR-aV-ulb" secondAttribute="trailing" constant="80" id="lLa-yc-xtk"/>
+                            <constraint firstAttribute="trailing" secondItem="TSR-aV-ulb" secondAttribute="trailing" constant="50" id="lLa-yc-xtk"/>
                             <constraint firstItem="TSR-aV-ulb" firstAttribute="top" secondItem="bmj-sz-4kz" secondAttribute="bottom" constant="30" id="xk0-Mt-fU0"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="verificationCodeTF" destination="miJ-eB-1oc" id="Vw3-2o-irX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nBI-xf-asV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

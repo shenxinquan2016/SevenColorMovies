@@ -10,6 +10,9 @@
 
 @interface SCChangeBindVC ()
 
+@property (weak, nonatomic) IBOutlet UITextField *caCardNoTF;
+@property (weak, nonatomic) IBOutlet UITextField *verificationCodeTF;
+
 @end
 
 @implementation SCChangeBindVC
@@ -17,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.leftBBI.text = @"绑定变更";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,6 +28,15 @@
     
 }
 
+- (IBAction)sendVerificationCode:(id)sender
+{
+    
+    
+}
 
+- (IBAction)submitChanges:(id)sender
+{
+    
+}
 
 @end
