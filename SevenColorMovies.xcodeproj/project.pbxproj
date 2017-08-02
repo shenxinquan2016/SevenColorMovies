@@ -33,6 +33,9 @@
 		111448261D87D1CE00CB8FA9 /* HLJUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 111448231D87D1CE00CB8FA9 /* HLJUUID.m */; };
 		111448271D87D1CE00CB8FA9 /* UUID使用说明.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 111448241D87D1CE00CB8FA9 /* UUID使用说明.pdf */; };
 		1114482C1D87D31700CB8FA9 /* 域名替换IP说明.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 111448281D87D31700CB8FA9 /* 域名替换IP说明.pdf */; };
+		1116F5D11F317DB50028C78E /* SCChangeBindVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1116F5D01F317DB50028C78E /* SCChangeBindVC.m */; };
+		1116F5D41F31808E0028C78E /* SCChangePasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1116F5D31F31808E0028C78E /* SCChangePasswordVC.m */; };
+		1116F5D71F3180EA0028C78E /* SCCustomerUpGradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1116F5D61F3180EA0028C78E /* SCCustomerUpGradeVC.m */; };
 		1118278E1D800C92005921D6 /* SCFliterOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1118278D1D800C92005921D6 /* SCFliterOptionView.m */; };
 		111827901D800CD3005921D6 /* SCFliterOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1118278F1D800CD3005921D6 /* SCFliterOptionView.xib */; };
 		111FFB8A1F2EC2BE006927E6 /* SCLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 111FFB891F2EC2BE006927E6 /* SCLoginView.m */; };
@@ -346,6 +349,12 @@
 		111448231D87D1CE00CB8FA9 /* HLJUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJUUID.m; sourceTree = "<group>"; };
 		111448241D87D1CE00CB8FA9 /* UUID使用说明.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "UUID使用说明.pdf"; sourceTree = "<group>"; };
 		111448281D87D31700CB8FA9 /* 域名替换IP说明.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "域名替换IP说明.pdf"; sourceTree = "<group>"; };
+		1116F5CF1F317DB50028C78E /* SCChangeBindVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChangeBindVC.h; sourceTree = "<group>"; };
+		1116F5D01F317DB50028C78E /* SCChangeBindVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChangeBindVC.m; sourceTree = "<group>"; };
+		1116F5D21F31808E0028C78E /* SCChangePasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChangePasswordVC.h; sourceTree = "<group>"; };
+		1116F5D31F31808E0028C78E /* SCChangePasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChangePasswordVC.m; sourceTree = "<group>"; };
+		1116F5D51F3180EA0028C78E /* SCCustomerUpGradeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCustomerUpGradeVC.h; sourceTree = "<group>"; };
+		1116F5D61F3180EA0028C78E /* SCCustomerUpGradeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCustomerUpGradeVC.m; sourceTree = "<group>"; };
 		1118278C1D800C92005921D6 /* SCFliterOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFliterOptionView.h; sourceTree = "<group>"; };
 		1118278D1D800C92005921D6 /* SCFliterOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFliterOptionView.m; sourceTree = "<group>"; };
 		1118278F1D800CD3005921D6 /* SCFliterOptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCFliterOptionView.xib; sourceTree = "<group>"; };
@@ -974,6 +983,12 @@
 				1134C2CC1F3087D700C9E0FE /* SCCostomerCenterCell.h */,
 				1134C2CD1F3087D700C9E0FE /* SCCostomerCenterCell.m */,
 				1134C2CE1F3087D700C9E0FE /* SCCostomerCenterCell.xib */,
+				1116F5CF1F317DB50028C78E /* SCChangeBindVC.h */,
+				1116F5D01F317DB50028C78E /* SCChangeBindVC.m */,
+				1116F5D21F31808E0028C78E /* SCChangePasswordVC.h */,
+				1116F5D31F31808E0028C78E /* SCChangePasswordVC.m */,
+				1116F5D51F3180EA0028C78E /* SCCustomerUpGradeVC.h */,
+				1116F5D61F3180EA0028C78E /* SCCustomerUpGradeVC.m */,
 			);
 			name = "Regist&Login";
 			sourceTree = "<group>";
@@ -2908,6 +2923,7 @@
 				11412D181DF5130300AD9B0F /* DONG_BrightnessView.m in Sources */,
 				11458E8E1D45D7E000EBD16D /* SCHomePageFlowLayout.m in Sources */,
 				11E97A051D6320CA00512D10 /* PlayerViewRotate.m in Sources */,
+				1116F5D11F317DB50028C78E /* SCChangeBindVC.m in Sources */,
 				1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */,
 				11CAE45F1F0A4067009EE474 /* UIImage+IMB.m in Sources */,
 				11458E971D45E0D500EBD16D /* SCDiscoveryTableViewCell.m in Sources */,
@@ -2985,6 +3001,7 @@
 				11DE6B8E1EF2628A00F8B07F /* SCLovelyBabyCell.m in Sources */,
 				115A21271D4228750097DE57 /* SCMoiveAllEpisodesVC.m in Sources */,
 				11CAD9F41DED74AD009F3337 /* SCWatchHistoryModel.m in Sources */,
+				1116F5D71F3180EA0028C78E /* SCCustomerUpGradeVC.m in Sources */,
 				11B9837E1D5887A800767E8F /* SCMoiveRecommendationCollectionVC.m in Sources */,
 				11C868BE1EFA0B8700C1F218 /* SCBabyVC.m in Sources */,
 				11B0722B1DD2BAD200DD3FED /* Dong_DownloadManager.m in Sources */,
@@ -3010,6 +3027,7 @@
 				11FEEF1E1D93848300518029 /* HLJDomainNameModel.m in Sources */,
 				11A1D0681D3F433900E2BA0D /* UIView+Addition.m in Sources */,
 				11C868CA1EFA227F00C1F218 /* SCLovelyBabyLoginVC.m in Sources */,
+				1116F5D41F31808E0028C78E /* SCChangePasswordVC.m in Sources */,
 				11C868C11EFA1D5900C1F218 /* SCMyLovelyBabyVC.m in Sources */,
 				110175071D54402D00E43773 /* FileManageCommon.m in Sources */,
 				11C1C1C11D8020A300CEE71C /* SCFliterOptionCell.m in Sources */,

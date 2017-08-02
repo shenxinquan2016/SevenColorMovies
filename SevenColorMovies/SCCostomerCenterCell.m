@@ -8,6 +8,14 @@
 
 #import "SCCostomerCenterCell.h"
 
+@interface SCCostomerCenterCell ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+
+@end
+
 @implementation SCCostomerCenterCell
 
 - (void)awakeFromNib {
@@ -15,7 +23,8 @@
     
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
     
@@ -33,10 +42,11 @@
 
 - (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath
 {
-    if (model && [model isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dict = (NSDictionary *)model;
-        NSString *keyStr = [dict.allKeys objectAtIndex:0];
-        
+    if (model && [model isKindOfClass:[NSArray class]]) {
+        NSArray *dataArray = (NSArray *)model;
+        NSDictionary *dict = [dataArray objectAtIndex:indexPath.row];
+        [_leftImageView setImage:[UIImage imageNamed:dict.allKeys.firstObject]];
+        _titleLabel.text = [dict objectForKey:dict.allKeys.firstObject];
     }
 }
 

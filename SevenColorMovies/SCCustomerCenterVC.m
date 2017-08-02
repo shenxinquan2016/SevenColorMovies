@@ -8,6 +8,10 @@
 
 #import "SCCustomerCenterVC.h"
 #import "SCCostomerCenterCell.h"
+#import "SCChangeBindVC.h"
+#import "SCChangePasswordVC.h"
+#import "SCCustomerUpGradeVC.h"
+
 
 @interface SCCustomerCenterVC ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -49,6 +53,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCCostomerCenterCell *cell = [SCCostomerCenterCell cellWithTableView:tableView];
+    
+    [cell setModel:self.dataArray IndexPath:indexPath];
     return cell;
 }
 
@@ -61,7 +67,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    NSInteger number = indexPath.row;
+    switch (number) {
+        case 0: {
+            SCChangeBindVC *changeBindVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCChangeBindVC");
+            [self.navigationController pushViewController:changeBindVC animated:YES];
+        }
+            break;
+            
+        case 1: {
+            SCChangePasswordVC *changePasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCChangePasswordVC");
+            [self.navigationController pushViewController:changePasswordVC animated:YES];
+        }
+            break;
+            
+        case 2: {
+            SCCustomerUpGradeVC *upGradeVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCCustomerUpGradeVC");
+            [self.navigationController pushViewController:upGradeVC animated:YES];
+        } 
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -80,11 +108,12 @@
 - (NSArray *)dataArray
 {
     if (!_dataArray) {
-        NSArray *array = @[@{@"ChangeBind" : @"修改绑定"},
-                           @{@"ChangePassword" : @"修改密码"},
-                           @{@"CustomerUpgrade" : @"用户升级"}];
-        _dataArray = array;
+        NSArray *dataArray = @[@{@"ChangeBind" : @"修改绑定"},
+                               @{@"ChangePassword" : @"修改密码"},
+                             @{@"CustomerUpgrade" : @"用户升级"}];
+        _dataArray = dataArray;
     }
+    
     return _dataArray;
 }
 
