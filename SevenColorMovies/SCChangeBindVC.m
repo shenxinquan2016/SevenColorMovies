@@ -21,6 +21,8 @@
     [super viewDidLoad];
     
     self.leftBBI.text = @"绑定变更";
+    _caCardNoTF.keyboardType = UIKeyboardTypeNumberPad;
+    _verificationCodeTF.keyboardType = UIKeyboardTypeNumberPad;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,13 +30,96 @@
     
 }
 
+// 下发验证码
 - (IBAction)sendVerificationCode:(id)sender
 {
-    
-    
+    [self sendShortMsgNetworkRequest];
 }
 
+// 提交修改
 - (IBAction)submitChanges:(id)sender
+{
+    [self verificationShortMsgNetworkRequest];
+}
+
+#pragma mark - Network Request
+
+// 下发短信
+- (void)sendShortMsgNetworkRequest
+{
+    NSDictionary *parameters = @{
+                                 @"phoneNO" : UserInfoManager.mobilePhone? UserInfoManager.mobilePhone : @"",
+                                 @"appID"   : @"1012",
+                                 @"msg"     : @"尊敬的用户您好，绑定变更验证码为：xxxx，有效期为5分钟, 客服热线96396。"
+                                 };
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager postRequestJsonDataWithUrl:SendShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        if (resultCode == 0) {
+            [MBProgressHUD showSuccess:@"发送成功！"];
+        } else {
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+        }
+        
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        DONG_Log(@"errorObject-->%@", errorObject);
+        [CommonFunc dismiss];
+    }];
+}
+
+// 短信校验
+- (void)verificationShortMsgNetworkRequest
+{
+    if (_caCardNoTF.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入新绑定的智能卡号！"];
+        return;
+    }
+    if (_verificationCodeTF.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入验证码！"];
+        return;
+    }
+    
+    
+    NSDictionary *parameters = @{
+                                 @"phoneNO" : @"",
+                                 @"appID" : @"1012"
+                                 };
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager postRequestJsonDataWithUrl:VerificaionShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        if (resultCode == 0) {
+            
+            if ([responseObject[@"ResultMessage"] isEqualToString:_verificationCodeTF.text]) {
+                // 注册
+                [self submitChangeBindInfoNetworkRequest];
+                
+            } else {
+                
+                [MBProgressHUD showSuccess:@"输入的验证码错误!"];
+                [CommonFunc dismiss];
+            }
+            
+        } else {
+            
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+            [CommonFunc dismiss];
+        }
+        
+    } failure:^(id  _Nullable errorObject) {
+        DONG_Log(@"errorObject-->%@", errorObject);
+        [CommonFunc dismiss];
+        
+    }];
+}
+
+- (void)submitChangeBindInfoNetworkRequest
 {
     
 }

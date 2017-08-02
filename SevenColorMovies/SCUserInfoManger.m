@@ -10,6 +10,7 @@
 
 #define kIsLogin @"kIsLogin" // 登录状态
 #define kToken @"kToken"  // token
+#define kMobilePhone @"kMobilePhone" // 手机
 #define kLovelyBabyIsLogin @"kLovelyBabyIsLogin" // 萌娃是否登录
 #define kLovelyBabyToken @"kLovelyBabyToken" // 萌娃token
 #define kLovelyBabyMemberId @"kLovelyBabyMemberId" // 萌娃用户id
@@ -38,6 +39,12 @@
 - (NSString *)token
 {
     return [DONG_UserDefaults objectForKey:kToken];
+}
+
+/** 手机号 */
+- (NSString *)mobilePhone
+{
+    return [DONG_UserDefaults objectForKey:kMobilePhone];
 }
 
 /** 萌娃是否登录 */
@@ -95,8 +102,17 @@
 /** 萌娃token */
 - (void)setLovelyBabyToken:(NSString *)lovelyBabyToken
 {
-    if (![lovelyBabyToken isKindOfClass:[NSNull class]] && lovelyBabyToken.length > 0) { // 如果存在保存token
+    if (![lovelyBabyToken isKindOfClass:[NSNull class]] && lovelyBabyToken.length > 0) {
         [DONG_UserDefaults setObject:lovelyBabyToken forKey:kLovelyBabyToken];
+        [DONG_UserDefaults synchronize];
+    }
+}
+
+/** 手机号 */
+- (void)setMobilePhone:(NSString *)mobilePhone
+{
+    if (![mobilePhone isKindOfClass:[NSNull class]] && mobilePhone.length > 0) {
+        [DONG_UserDefaults setObject:mobilePhone forKey:kMobilePhone];
         [DONG_UserDefaults synchronize];
     }
 }
@@ -104,7 +120,7 @@
 /** 萌娃用户id */
 - (void)setLovelyBabyMemberId:(NSString *)lovelyBabyMemberId
 {
-    if (![lovelyBabyMemberId isKindOfClass:[NSNull class]] && lovelyBabyMemberId.length > 0) { // 如果存在保存
+    if (![lovelyBabyMemberId isKindOfClass:[NSNull class]] && lovelyBabyMemberId.length > 0) {
         [DONG_UserDefaults setObject:lovelyBabyMemberId forKey:kLovelyBabyMemberId];
         [DONG_UserDefaults synchronize];
     }

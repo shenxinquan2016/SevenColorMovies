@@ -12,18 +12,14 @@
 
 @interface SCUserInfoManger : NSObject
 
-/** 用户是否登录 */
-@property (nonatomic, assign) BOOL isLogin;
-/** 用户token */
-@property (nonatomic, copy) NSString *token;
-/** 萌娃是否登录 */
-@property (nonatomic, assign) BOOL lovelyBabyIsLogin;
-/** 萌娃token */
-@property (nonatomic, copy) NSString *lovelyBabyToken;
-/** 萌娃用户id */
-@property (nonatomic, copy) NSString *lovelyBabyMemberId;
-/** 萌娃用户手机 */
-@property (nonatomic, copy) NSString *lovelyBabyMobilePhone;
+@property (nonatomic, assign) BOOL isLogin; // 用户是否登录
+@property (nonatomic, copy) NSString *token; // 用户token
+@property (nonatomic, copy) NSString *mobilePhone; // 手机
+
+@property (nonatomic, assign) BOOL lovelyBabyIsLogin; // 萌娃是否登录
+@property (nonatomic, copy) NSString *lovelyBabyToken; // 萌娃token
+@property (nonatomic, copy) NSString *lovelyBabyMemberId; // 萌娃用户id
+@property (nonatomic, copy) NSString *lovelyBabyMobilePhone; // 萌娃用户手机
 
 @property (nonatomic, copy) NSArray *dataCollectionArray;
 

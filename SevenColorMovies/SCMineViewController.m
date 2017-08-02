@@ -178,7 +178,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        UserInfoManager.isLogin = NO;
+        UserInfoManager.isLogin = YES;
         if (UserInfoManager.isLogin) {
             
             SCCustomerCenterVC *customerCenterVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCCustomerCenterVC");
