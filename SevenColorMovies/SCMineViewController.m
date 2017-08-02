@@ -289,15 +289,20 @@
     }
     
     NSDictionary *parameters = @{
-                                 @"mobile" : _loginView.mobileTF.text,
-                                 @"password" : _loginView.passwordTF.text,
-                                 @"systemType" : @"1",
+                                 @"mobile"      : _loginView.mobileTF.text,
+                                 @"password"    : _loginView.passwordTF.text,
+                                 @"systemType"  : @"1",
                                  };
     
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager postRequestJsonDataWithUrl:LoginLogin parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
 
+        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        if (resultCode == 0) {
+            
+        }
+        
         [UIView animateWithDuration:0.2 animations:^{
             _loginView.alpha = 0;
         } completion:^(BOOL finished) {

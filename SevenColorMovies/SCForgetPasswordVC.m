@@ -119,6 +119,7 @@
                                  @"phoneNO" : _mobilePhoneTF.text,
                                  @"appID" : @"1012"
                                  };
+    
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager postRequestJsonDataWithUrl:VerificaionShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
@@ -160,6 +161,12 @@
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager postRequestJsonDataWithUrl:ChangePassword parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
+        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        if (resultCode == 0) {
+            
+        } else {
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+        }
         
         [CommonFunc dismiss];
         

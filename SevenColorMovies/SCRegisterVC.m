@@ -170,13 +170,24 @@
 - (void)submitRegisterInfoNetworkRequest
 {
     NSDictionary *parameters = @{
-                                 @"phoneNO" : _mobilePhoneTF.text,
-                                 @"appID" : @""
+                                 @"mobile"          : _mobilePhoneTF.text,
+                                 @"serialNo"        : @"", // 流水号 可为空
+                                 @"password"        : _passwordTF.text,
+                                 @"bindType"        : @"02", // 02.智能卡(值和BOSS统一，目前不定)
+                                 @"systemType"      : @"1", // 1：APP电视
+                                 @"bindServiceCode" : _caNoTF.text, // 智能卡号
+                                 @"pinCode"         : _documentNoTF.text, // 证件号
                                  };
     
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager postRequestJsonDataWithUrl:RegisterRegister parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
+        
+        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        if (resultCode == 0) {
+            
+        }
+
         
         [CommonFunc dismiss];
         

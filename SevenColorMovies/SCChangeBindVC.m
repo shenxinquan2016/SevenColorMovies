@@ -121,7 +121,28 @@
 
 - (void)submitChangeBindInfoNetworkRequest
 {
+    NSDictionary *parameters = @{
+                                
+                                 @"appID" : @"1012"
+                                 };
     
+    [requestDataManager postRequestJsonDataWithUrl:ChangeBind parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        if (resultCode == 0) {
+           
+        } else {
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+        }
+        
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        DONG_Log(@"errorObject-->%@", errorObject);
+        [CommonFunc dismiss];
+    }];
 }
 
 @end

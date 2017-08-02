@@ -128,7 +128,28 @@
 
 - (void)submitChangePasswordInfoNetworkRequest
 {
+    NSDictionary *parameters = @{
+                                 @"mobile"      : UserInfoManager.mobilePhone,
+                                 @"password"    : _passwordTF.text
+                                 };
     
+    [requestDataManager postRequestJsonDataWithUrl:ChangePassword parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        if (resultCode == 0) {
+            
+        } else {
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+        }
+        
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        DONG_Log(@"errorObject-->%@", errorObject);
+        [CommonFunc dismiss];
+    }];
 }
 
 
