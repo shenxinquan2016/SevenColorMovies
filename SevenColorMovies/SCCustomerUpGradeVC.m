@@ -116,7 +116,6 @@
 - (void)submitCustomerUpGradeInfoNetworkRequest
 {
     NSDictionary *parameters = @{
-                                 @"phoneNO" : _mobilePhoneTF.text,
                                  @"appID" : @"1012"
                                  };
     

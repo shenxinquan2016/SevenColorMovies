@@ -178,7 +178,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        UserInfoManager.isLogin = YES;
+        UserInfoManager.isLogin = NO;
         if (UserInfoManager.isLogin) {
             
             SCCustomerCenterVC *customerCenterVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCCustomerCenterVC");
@@ -308,7 +308,6 @@
         } completion:^(BOOL finished) {
             
             [MBProgressHUD showSuccess:@"登录成功"];
-            [_loginView removeFromSuperview];
         }];
         
         [CommonFunc dismiss];
