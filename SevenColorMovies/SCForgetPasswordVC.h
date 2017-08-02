@@ -7,7 +7,8 @@
 //  忘记密码页
 
 #import <UIKit/UIKit.h>
+#import "SCOtherBaseViewController.h"
 
-@interface SCForgetPasswordVC : UIViewController
+@interface SCForgetPasswordVC : SCOtherBaseViewController
 
 @end

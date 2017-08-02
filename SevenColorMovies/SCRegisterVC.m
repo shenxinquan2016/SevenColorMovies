@@ -70,6 +70,11 @@
 // 下发短信
 - (void)sendShortMsgNetworkRequest
 {
+    if (_mobilePhoneTF.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入手机号！"];
+        return;
+    }
+    
     NSDictionary *parameters = @{
                                  @"phoneNO" : _mobilePhoneTF.text,
                                  @"appID"   : @"1012",
@@ -77,8 +82,14 @@
                                  };
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager postRequestJsonDataWithUrl:SendShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
-        
         DONG_Log(@"responseObject-->%@", responseObject);
+        
+        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        if (resultCode == 0) {
+            [MBProgressHUD showSuccess:@"发送成功！"];
+        } else {
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+        }
         
         [CommonFunc dismiss];
         
@@ -89,7 +100,7 @@
     }];
 }
 
-// 短信验证
+// 短信校验
 - (void)verificationShortMsgNetworkRequest
 {
     if (_mobilePhoneTF.text.length <= 0) {
@@ -123,15 +134,31 @@
     
     NSDictionary *parameters = @{
                                  @"phoneNO" : _mobilePhoneTF.text,
-                                 @"appID" : @""
+                                 @"appID" : @"1012"
                                  };
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager postRequestJsonDataWithUrl:VerificaionShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         
-        // 注册
-        [self submitRegisterInfoNetworkRequest];
-        
+        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        if (resultCode == 0) {
+            
+            if ([responseObject[@"ResultMessage"] isEqualToString:_verificationCodeTF.text]) {
+                // 注册
+                [self submitRegisterInfoNetworkRequest];
+                
+            } else {
+                
+                [MBProgressHUD showSuccess:@"输入的验证码错误!"];
+                [CommonFunc dismiss];
+            }
+            
+        } else {
+            
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+            [CommonFunc dismiss];
+        }
+
     } failure:^(id  _Nullable errorObject) {
         DONG_Log(@"errorObject-->%@", errorObject);
         [CommonFunc dismiss];
