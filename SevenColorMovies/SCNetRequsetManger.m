@@ -255,10 +255,7 @@
         }
         
     }];
-    
-    
-    
-    
+  
 }
 
 
@@ -421,6 +418,48 @@
     // 请求序列化设置
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
 
+    manager.requestSerializer.timeoutInterval = 10;//请求超时时间设置
+    
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            NSError *myError;
+            id dic = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:&myError];
+            success(dic);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSString *errString = error.localizedFailureReason;
+        DONG_Log(@"error:-->%@\n errString:-->%@", error, errString);
+        
+        if (error.code == -1001) { // 请求超时情况的处理
+            NSData *data = [error.userInfo objectForKey:@"com.alamofire.serialization.response.error.data"];
+            errString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            DONG_Log(@"error data:-->%@\n data errString:-->%@", data, errString);
+        }
+        
+        if (faild) {
+            //数据请求失败
+            if (![SCNetHelper isNetConnect]) {
+                faild(@"网络异常，请检查网络设置!");
+            } else {
+                faild(error);
+            }
+        }
+    }];
+}
+
+/** 鉴权计费 POST请求 */
+- (void)requestDataByPostWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild
+{
+    DONG_Log(@"url-->%@", urlString);
+    DONG_Log(@"parameters-->%@", parameters);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    // 响应序列化设置
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",nil];
+    // 请求序列化设置
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     manager.requestSerializer.timeoutInterval = 10;//请求超时时间设置
     
@@ -445,15 +484,13 @@
             //数据请求失败
             if (![SCNetHelper isNetConnect]) {
                 faild(@"网络异常，请检查网络设置!");
-                [MBProgressHUD showError:@"网络异常，请检查网络设置!"];
             } else {
                 faild(error);
-                [MBProgressHUD showError:@"网络访问超时，请检查网络设置!"];
             }
         }
     }];
+    
 }
-
 
 
 
