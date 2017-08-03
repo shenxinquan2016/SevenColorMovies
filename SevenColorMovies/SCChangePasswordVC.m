@@ -42,7 +42,8 @@
 // 短信校验
 - (IBAction)submitChanges:(id)sender
 {
-    [self verificationShortMsgNetworkRequest];
+//    [self verificationShortMsgNetworkRequest];
+    [self submitChangePasswordInfoNetworkRequest];
     
 }
 
@@ -54,15 +55,16 @@
     NSDictionary *parameters = @{
                                  @"phoneNO" : UserInfoManager.mobilePhone? UserInfoManager.mobilePhone : @"",
                                  @"appID"   : @"1012",
-                                 @"msg"     : @"尊敬的用户您好，用户升级验证码为：xxxx，有效期为5分钟, 客服热线96396。"
+                                 @"msg"     : @"尊敬的用户您好，修改密码验证码为：xxxx，有效期为5分钟, 客服热线96396。"
                                  };
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager postRequestJsonDataWithUrl:SendShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataByPostWithUrlString:SendShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         
-        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
-        if (resultCode == 0) {
-            [MBProgressHUD showSuccess:@"发送成功！"];
+        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        
+        if (resultCode == 1) {
+            [MBProgressHUD showSuccess:@"验证码发送成功！"];
         } else {
             [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
         }
@@ -87,24 +89,28 @@
         [MBProgressHUD showError:@"请输入确认密码！"];
         return;
     }
+    if (![_confirmPasswordTF.text isEqualToString:_passwordTF.text]) {
+        [MBProgressHUD showError:@"两次输入的密码不一致！"];
+        return;
+    }
     if (_verificationCodeTF.text.length <= 0) {
         [MBProgressHUD showError:@"请输入验证码！"];
         return;
     }
     
     NSDictionary *parameters = @{
-                                 @"phoneNO" : @"",
-                                 @"appID" : @"1012"
+                                 @"phoneNO" : UserInfoManager.mobilePhone,
+                                 @"appID"   : @"1012"
                                  };
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager postRequestJsonDataWithUrl:VerificaionShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataByPostWithUrlString:VerificaionShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         
-        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        
         if (resultCode == 0) {
-            
             if ([responseObject[@"ResultMessage"] isEqualToString:_verificationCodeTF.text]) {
-                // 注册
+                // 修改密码
                 [self submitChangePasswordInfoNetworkRequest];
                 
             } else {
@@ -133,12 +139,14 @@
                                  @"password"    : _passwordTF.text
                                  };
     
-    [requestDataManager postRequestJsonDataWithUrl:ChangePassword parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataByPostWithUrlString:ChangePassword parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         
-        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        
         if (resultCode == 0) {
-            
+            [self.navigationController popViewControllerAnimated:YES];
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
         } else {
             [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
         }
@@ -147,7 +155,6 @@
         
     } failure:^(id  _Nullable errorObject) {
         
-        DONG_Log(@"errorObject-->%@", errorObject);
         [CommonFunc dismiss];
     }];
 }

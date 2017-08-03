@@ -237,7 +237,7 @@
         [formData appendPartWithFileData:videoData name:@"video" fileName:@"upload.mp4" mimeType:@"video/mp4"];
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+        
         if (success) {
             NSError *myError;
             id dic = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:&myError];
@@ -255,7 +255,7 @@
         }
         
     }];
-  
+    
 }
 
 
@@ -412,13 +412,14 @@
     DONG_Log(@"parameters-->%@", parameters);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    // 请求序列化设置
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.requestSerializer.timeoutInterval = 10; // 请求超时时间设置
+    
     // 响应序列化设置
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",nil];
-    // 请求序列化设置
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    manager.requestSerializer.timeoutInterval = 10;//请求超时时间设置
+    
     
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
@@ -438,7 +439,7 @@
         }
         
         if (faild) {
-            //数据请求失败
+            // 数据请求失败
             if (![SCNetHelper isNetConnect]) {
                 faild(@"网络异常，请检查网络设置!");
             } else {
@@ -449,26 +450,36 @@
 }
 
 /** 鉴权计费 POST请求 */
-- (void)requestDataByPostWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success faild:(void (^)(id _Nullable))faild
+- (void)requestDataByPostWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success failure:(void (^)(id _Nullable))failure
 {
     DONG_Log(@"url-->%@", urlString);
     DONG_Log(@"parameters-->%@", parameters);
     
+    NSDictionary *headers = @{ @"content-type": @"application/x-www-form-urlencoded",
+                               @"cache-control": @"no-cache"
+                               };
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 请求序列化设置
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    [manager.requestSerializer setCachePolicy:NSURLRequestUseProtocolCachePolicy]; // 缓存策略
+    manager.requestSerializer.timeoutInterval = 20; // 请求超时时间设置
+    
+    
     // 响应序列化设置
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",nil];
-    // 请求序列化设置
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    manager.requestSerializer.timeoutInterval = 10;//请求超时时间设置
     
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
         if (success) {
-            NSError *myError;
-            id dic = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:&myError];
+            
+            NSString *xmlString = [NSString stringWithFormat:@"<?xml version=\'1.0\' encoding=\"utf-8\"?> <Data >%@</Data>",operation.responseString];
+            NSDictionary *dic = [NSDictionary dictionaryWithXMLString:xmlString];
             success(dic);
         }
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSString *errString = error.localizedFailureReason;
@@ -480,18 +491,19 @@
             DONG_Log(@"error data:-->%@\n data errString:-->%@", data, errString);
         }
         
-        if (faild) {
-            //数据请求失败
+        if (failure) {
+            // 数据请求失败
             if (![SCNetHelper isNetConnect]) {
-                faild(@"网络异常，请检查网络设置!");
+                failure(@"网络异常，请检查网络设置!");
+                [MBProgressHUD showError:@"网络异常，请检查网络设置!"];
             } else {
-                faild(error);
+                failure(error);
+                [MBProgressHUD showError:@"网络访问超时，请稍后再试!"];
             }
         }
     }];
     
 }
-
 
 
 @end

@@ -62,6 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** 文件上传 */
 - (void)postUploadDataWithUrl:(nullable NSString *)urlStr video:(nullable NSData *)videoData imgData:(nullable NSData *)imgData  parameters:(NSDictionary *)parameters success:(nullable void (^)(id _Nullable responseObject))success fail:(nullable void (^)(id _Nullable errorObject))fail;
 
+/** 鉴权计费 POST请求 */
+- (void)requestDataByPostWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters success:(void (^)(id _Nullable))success failure:(void (^)(id _Nullable))failure;
+
 @end
 
 NS_ASSUME_NONNULL_END

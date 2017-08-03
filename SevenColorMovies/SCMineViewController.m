@@ -178,7 +178,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        UserInfoManager.isLogin = NO;
+        
         if (UserInfoManager.isLogin) {
             
             SCCustomerCenterVC *customerCenterVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCCustomerCenterVC");
@@ -295,20 +295,21 @@
                                  };
     
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager postRequestJsonDataWithUrl:LoginLogin parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataByPostWithUrlString:LoginLogin parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
 
         NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        
         if (resultCode == 0) {
             
+            [UIView animateWithDuration:0.2 animations:^{
+                _loginView.alpha = 0;
+            } completion:^(BOOL finished) {
+                UserInfoManager.isLogin = YES;
+                UserInfoManager.mobilePhone = _loginView.mobileTF.text;
+                [MBProgressHUD showSuccess:@"登录成功"];
+            }];
         }
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            _loginView.alpha = 0;
-        } completion:^(BOOL finished) {
-            
-            [MBProgressHUD showSuccess:@"登录成功"];
-        }];
         
         [CommonFunc dismiss];
         

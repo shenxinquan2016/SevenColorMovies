@@ -81,12 +81,13 @@
                                  @"msg"     : @"尊敬的用户您好，注册验证码为：xxxx，有效期为5分钟, 客服热线96396。"
                                  };
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager postRequestJsonDataWithUrl:SendShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataByPostWithUrlString:SendShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         
-        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
-        if (resultCode == 0) {
-            [MBProgressHUD showSuccess:@"发送成功！"];
+        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        
+        if (resultCode == 1) {
+            [MBProgressHUD showSuccess:@"验证码发送成功！"];
         } else {
             [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
         }
@@ -137,10 +138,11 @@
                                  @"appID" : @"1012"
                                  };
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager postRequestJsonDataWithUrl:VerificaionShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataByPostWithUrlString:VerificaionShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         
-        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        
         if (resultCode == 0) {
             
             if ([responseObject[@"ResultMessage"] isEqualToString:_verificationCodeTF.text]) {
@@ -180,7 +182,7 @@
                                  };
     
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager postRequestJsonDataWithUrl:RegisterRegister parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager requestDataByPostWithUrlString:RegisterRegister parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         
         NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];

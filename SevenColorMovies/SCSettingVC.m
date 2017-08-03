@@ -44,7 +44,7 @@
     
     [self.view addSubview:_tableView];
     
-    if (UserInfoManager.lovelyBabyIsLogin) {
+    if (UserInfoManager.isLogin) {
         UIButton *signOutBtn = [[UIButton alloc] init];
         [signOutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
         [signOutBtn setBackgroundImage:[UIImage imageNamed:@"LoginBtnBG"] forState:UIControlStateNormal];
@@ -69,7 +69,7 @@
     [UIView animateWithDuration:1.f animations:^{
         _signOutBtn.alpha = 0.f;
         [_signOutBtn removeFromSuperview];
-        [MBProgressHUD showSuccess:@"萌娃退出成功！"];
+        [MBProgressHUD showSuccess:@"退出成功！"];
         
     }];
 }
