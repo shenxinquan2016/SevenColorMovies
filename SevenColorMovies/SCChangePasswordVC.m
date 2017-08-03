@@ -42,9 +42,7 @@
 // 短信校验
 - (IBAction)submitChanges:(id)sender
 {
-//    [self verificationShortMsgNetworkRequest];
-    [self submitChangePasswordInfoNetworkRequest];
-    
+    [self verificationShortMsgNetworkRequest]; 
 }
 
 #pragma mark - Network Request

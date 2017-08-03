@@ -46,6 +46,12 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     _loginView.alpha = 0;
@@ -305,9 +311,11 @@
             [UIView animateWithDuration:0.2 animations:^{
                 _loginView.alpha = 0;
             } completion:^(BOOL finished) {
+                
                 UserInfoManager.isLogin = YES;
                 UserInfoManager.mobilePhone = _loginView.mobileTF.text;
                 [MBProgressHUD showSuccess:@"登录成功"];
+                 [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
             }];
         }
         

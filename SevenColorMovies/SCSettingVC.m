@@ -58,7 +58,6 @@
             
         }];
     }
-   
 }
 
 - (void)signOut

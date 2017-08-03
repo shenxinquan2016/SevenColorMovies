@@ -10,6 +10,9 @@
 
 @interface SCMineTopCell()
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rightLabel;
+
 @end
 
 
@@ -17,17 +20,20 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    if (UserInfoManager.isLogin) {
+        _titleLabel.text = UserInfoManager.mobilePhone;
+        _rightLabel.hidden = YES;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
 }
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView {
-    
++ (instancetype)cellWithTableView:(UITableView *)tableView
+{
     static NSString *ID = @"SCMineTopCell";
     SCMineTopCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) cell = [[NSBundle mainBundle] loadNibNamed:ID owner:nil options:nil][0];
@@ -35,7 +41,8 @@
     return cell;
 }
 
-- (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath{
+- (void)setModel:(nonnull id)model IndexPath:(nullable NSIndexPath *)indexPath
+{
     
     
 }
