@@ -171,9 +171,10 @@
 // 提交注册
 - (void)submitRegisterInfoNetworkRequest
 {
+    const NSString *uuidStr = [HLJUUID getUUID];
     NSDictionary *parameters = @{
                                  @"mobile"          : _mobilePhoneTF.text,
-                                 @"serialNo"        : @"", // 流水号 可为空
+                                 @"serialNo"        : uuidStr, // 流水号 可为空
                                  @"password"        : _passwordTF.text,
                                  @"bindType"        : @"02", // 02.智能卡(值和BOSS统一，目前不定)
                                  @"systemType"      : @"1", // 1：APP电视
@@ -185,9 +186,13 @@
     [requestDataManager requestDataByPostWithUrlString:RegisterRegister parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         
-        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        
         if (resultCode == 0) {
-            
+            [self.navigationController popViewControllerAnimated:YES];
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+        } else {
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
         }
 
         

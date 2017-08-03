@@ -53,8 +53,7 @@
 
 - (IBAction)submitInfo:(id)sender
 {
-//    [self verificationShortMsgNetworkRequest];
-    [self submitChangePasswordInfoNetworkRequest];
+    [self verificationShortMsgNetworkRequest];
 }
 
 #pragma mark - Network Request
