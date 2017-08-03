@@ -937,8 +937,6 @@
 				111FFB8B1F2EC2D2006927E6 /* SCLoginView.xib */,
 				111FFB8D1F2ED9D2006927E6 /* SCRegisterVC.h */,
 				111FFB8E1F2ED9D2006927E6 /* SCRegisterVC.m */,
-				1145D31C1F2F2288006A11DF /* SCForgetPasswordVC.h */,
-				1145D31D1F2F2288006A11DF /* SCForgetPasswordVC.m */,
 			);
 			name = "Regist&Login";
 			sourceTree = "<group>";
@@ -972,6 +970,8 @@
 			children = (
 				1116F5D21F31808E0028C78E /* SCChangePasswordVC.h */,
 				1116F5D31F31808E0028C78E /* SCChangePasswordVC.m */,
+				1145D31C1F2F2288006A11DF /* SCForgetPasswordVC.h */,
+				1145D31D1F2F2288006A11DF /* SCForgetPasswordVC.m */,
 			);
 			name = "修改密码";
 			sourceTree = "<group>";

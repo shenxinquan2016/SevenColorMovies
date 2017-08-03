@@ -62,7 +62,6 @@
 
 - (void)signOut
 {
-    UserInfoManager.lovelyBabyIsLogin = NO;
     [UserInfoManager removeUserInfo];
     
     [UIView animateWithDuration:1.f animations:^{

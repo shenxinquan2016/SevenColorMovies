@@ -215,7 +215,7 @@
     [DONG_UserDefaults removeObjectForKey:kLovelyBabyMemberId];
     [DONG_UserDefaults removeObjectForKey:kLovelyBabyMobilePhone];
     
-    
+    [DONG_UserDefaults removeObjectForKey:kMobilePhone];
     
 }
 

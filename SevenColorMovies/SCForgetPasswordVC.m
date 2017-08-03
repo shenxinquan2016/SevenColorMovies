@@ -53,7 +53,8 @@
 
 - (IBAction)submitInfo:(id)sender
 {
-    [self verificationShortMsgNetworkRequest];
+//    [self verificationShortMsgNetworkRequest];
+    [self submitChangePasswordInfoNetworkRequest];
 }
 
 #pragma mark - Network Request
@@ -156,17 +157,17 @@
 - (void)submitChangePasswordInfoNetworkRequest
 {
     NSDictionary *parameters = @{
-                                 @"phoneNO" : _mobilePhoneTF.text,
-                                 @"appID" : @""
+                                 @"mobile"      : _mobilePhoneTF.text,
+                                 @"password"    : _password.text
                                  };
     
-    [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataByPostWithUrlString:ChangePassword parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
         
         if (resultCode == 0) {
-            
+            [self.navigationController popViewControllerAnimated:YES];
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
         } else {
             [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
         }
@@ -174,7 +175,6 @@
         [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
-        DONG_Log(@"errorObject-->%@", errorObject);
         [CommonFunc dismiss];
         
     }];
