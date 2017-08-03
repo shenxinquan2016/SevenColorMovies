@@ -11,6 +11,10 @@
 #define kIsLogin @"kIsLogin" // 登录状态
 #define kToken @"kToken"  // token
 #define kMobilePhone @"kMobilePhone" // 手机
+#define kServiceCode @"kServiceCode" // 用户编码
+#define kCustomerLevel @"kCustomerLevel" // 用户等级
+
+
 #define kLovelyBabyIsLogin @"kLovelyBabyIsLogin" // 萌娃是否登录
 #define kLovelyBabyToken @"kLovelyBabyToken" // 萌娃token
 #define kLovelyBabyMemberId @"kLovelyBabyMemberId" // 萌娃用户id
@@ -46,6 +50,12 @@
 {
     return [DONG_UserDefaults objectForKey:kMobilePhone];
 }
+
+/** 用户编码 */
+
+
+
+
 
 /** 萌娃是否登录 */
 - (BOOL)lovelyBabyIsLogin

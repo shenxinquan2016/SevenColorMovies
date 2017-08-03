@@ -15,6 +15,8 @@
 @property (nonatomic, assign) BOOL isLogin; // 用户是否登录
 @property (nonatomic, copy) NSString *token; // 用户token
 @property (nonatomic, copy) NSString *mobilePhone; // 手机
+@property (nonatomic, copy) NSString *serviceCode; // 用户服务编码（CA卡）
+@property (nonatomic, copy) NSString *customerLevel; // 用户等级
 
 @property (nonatomic, assign) BOOL lovelyBabyIsLogin; // 萌娃是否登录
 @property (nonatomic, copy) NSString *lovelyBabyToken; // 萌娃token
