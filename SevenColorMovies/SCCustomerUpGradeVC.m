@@ -174,6 +174,11 @@
             NSArray *infoArr = [infoStr componentsSeparatedByString:@"^"];
             _oldCustomerLevel = infoArr[infoArr.count-2];
             _serviceCode = infoArr[infoArr.count-3];
+            
+            if (_serviceCode) {
+                UserInfoManager.serviceCode = _serviceCode;
+            }
+            
             // 根据用户等级查询赠送产品
             [self queryProductListByCustomerLevel:_oldCustomerLevel identifier:@"old"];
             
@@ -211,9 +216,6 @@
                
                 // 根据绑定的服务号码查询用户信息查询接口
                 [self queryCustomerInfoByByServiceCode];
-                for (NSDictionary * dict in _oldProductListArr) {
-                    DONG_Log(@"infoStr-->%@", dict);
-                }
                 
             } else if ([identifier isEqualToString:@"new"]) {
                 
@@ -221,10 +223,8 @@
                 _nowProductListArr = [self arrayWithJsonString:responseObject[@"__text"]];
                 
                 // 变更绑定接口
-//                [self submitCustomerUpGradeInfoNetworkRequest];
-                for (NSDictionary * dict in _nowProductListArr) {
-                    DONG_Log(@"infoStr-->%@", dict);
-                }
+                [self submitCustomerUpGradeInfoNetworkRequest];
+
             }
             
         } else {
@@ -232,8 +232,6 @@
             [CommonFunc dismiss];
             [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
         }
-        
-        
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -264,6 +262,10 @@
             _customerId = infoArr[0];
             _nowCustomerLevel = infoArr[3];
             
+            if (_nowCustomerLevel) {
+                UserInfoManager.customerLevel = _nowCustomerLevel;
+            }
+            
             // 2.1 根据用户等级查询赠送产品
             [self queryProductListByCustomerLevel:_nowCustomerLevel identifier:@"new"];
             
@@ -283,22 +285,32 @@
 // 变更绑定接口 --> 升级
 - (void)submitCustomerUpGradeInfoNetworkRequest
 {
+    NSString *uuidStr = [HLJUUID getUUID];
+    NSNumber *subscriberId = [NSNumber numberWithInteger:[_customerId integerValue]];
+    
+    NSMutableArray *oldProductIdArr = [NSMutableArray arrayWithCapacity:0];
+    if (_oldProductListArr.count) {
+        for (NSDictionary *dict in _oldProductListArr) {
+            NSString *productId = [dict objectForKey:@"productId"];
+            [oldProductIdArr addObject:productId];
+        }
+    }
+    
     NSDictionary *parameters = @{
                                  @"mobile"              : UserInfoManager.mobilePhone,
-                                 @"bindType"            : @"02",
                                  @"systemType"          : @"02",
                                  @"oldBindType"         : @"02",
-                                 @"oldBindServiceCode"  : UserInfoManager.serviceCode,
-                                 @"pinCode"             : @"1012",
-                                 @"productList"         : @[
-                                                            @{},
-                                                            @{}
-                                                            ],
-                                 @"oldProductList"      : @[
-                                                            @{},
-                                                            @{}
-                                                            ]
-                                 
+                                 @"oldBindServiceCode"  : _serviceCode,
+                                 @"productList"         : @{
+                                         @"serialNo"        : uuidStr,
+                                         @"subscriberId"    : subscriberId, // 用户id转为number
+                                         @"fee"             : @"0", // 订购费用
+                                         @"isUseBalance"    : @"0", // 是否BOSS扣费
+                                         @"orderChannel"    : @"009602",
+                                         @"saleChannel"     : @"手机电视",
+                                         @"productInfoList" : _nowProductListArr
+                                            },
+                                 @"oldProductList" : oldProductIdArr
                                  };
     
     [requestDataManager requestDataByPostWithUrlString:ChangeBind parameters:parameters success:^(id  _Nullable responseObject) {
@@ -308,10 +320,10 @@
         
         if (resultCode == 0) {
             
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
         } else {
             
             [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
-            
         }
         
         [CommonFunc dismiss];

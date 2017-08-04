@@ -52,9 +52,16 @@
 }
 
 /** 用户编码 */
+- (NSString *)serviceCode
+{
+    return [DONG_UserDefaults objectForKey:kServiceCode];
+}
 
-
-
+/** 用户等级 */
+- (NSString *)customerLevel
+{
+    return [DONG_UserDefaults objectForKey:kCustomerLevel];
+}
 
 
 /** 萌娃是否登录 */
@@ -126,6 +133,25 @@
         [DONG_UserDefaults synchronize];
     }
 }
+
+/** 用户编码 */
+- (void)setServiceCode:(NSString *)serviceCode
+{
+    if (![serviceCode isKindOfClass:[NSNull class]] && serviceCode.length > 0) {
+        [DONG_UserDefaults setObject:serviceCode forKey:kServiceCode];
+        [DONG_UserDefaults synchronize];
+    }
+}
+
+/** 用户等级 */
+- (void)setCustomerLevel:(NSString *)customerLevel
+{
+    if (![customerLevel isKindOfClass:[NSNull class]] && customerLevel.length > 0) {
+        [DONG_UserDefaults setObject:customerLevel forKey:kCustomerLevel];
+        [DONG_UserDefaults synchronize];
+    }
+}
+
 
 /** 萌娃用户id */
 - (void)setLovelyBabyMemberId:(NSString *)lovelyBabyMemberId
