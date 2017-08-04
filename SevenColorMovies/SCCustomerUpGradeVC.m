@@ -46,8 +46,8 @@
 // 短信校验
 - (IBAction)submitChanges:(id)sender
 {
-//    [self verificationShortMsgNetworkRequest];
-    [self queryCustomerInfoByMobilePhone];
+    [self verificationShortMsgNetworkRequest]; // 校验通过-->启动升级步骤
+//    [self queryCustomerInfoByMobilePhone]; // 调试升级接口
 }
 
 // json格式字符串转array：
@@ -177,6 +177,9 @@
             
             if (_serviceCode) {
                 UserInfoManager.serviceCode = _serviceCode;
+            }
+            if (_oldCustomerLevel) {
+                UserInfoManager.customerLevel = _oldCustomerLevel;
             }
             
             // 根据用户等级查询赠送产品
