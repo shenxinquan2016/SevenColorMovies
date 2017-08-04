@@ -24,6 +24,7 @@
     _deleteButton.enlargedEdge = 10.f;
     _mobileTF.keyboardType = UIKeyboardTypePhonePad;
     _passwordTF.keyboardType = UIKeyboardTypeEmailAddress;
+    _passwordTF.secureTextEntry = YES;
 }
 
 @end

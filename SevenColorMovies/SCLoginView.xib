@@ -35,7 +35,7 @@
                             <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ScD-rO-H5P">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ScD-rO-H5P">
                             <rect key="frame" x="82" y="134" width="233" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="TPP-te-NaR"/>
@@ -61,7 +61,7 @@
                             <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KMc-9u-A9M">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KMc-9u-A9M">
                             <rect key="frame" x="82" y="182" width="233" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="Yr9-Wd-o4z"/>
@@ -176,7 +176,7 @@
     <resources>
         <image name="Delete" width="20" height="20"/>
         <image name="Icon" width="90" height="90"/>
-        <image name="buttonBG" width="127" height="41"/>
-        <image name="buttonBG_Blue" width="127" height="41"/>
+        <image name="buttonBG" width="7" height="7"/>
+        <image name="buttonBG_Blue" width="7" height="7"/>
     </resources>
 </document>

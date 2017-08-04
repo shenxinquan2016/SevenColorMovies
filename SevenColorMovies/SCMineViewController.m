@@ -107,6 +107,7 @@
     [UIView animateWithDuration:0.2 animations:^{
         _loginView.alpha = 0;
     }];
+    [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
 
 // 登录
@@ -300,11 +301,12 @@
                                  @"systemType"  : @"1",
                                  };
     
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataByPostWithUrlString:LoginLogin parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
 
-        NSInteger resultCode = [responseObject[@"ResultMessage"] integerValue];
+        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
         
         if (resultCode == 0) {
             
@@ -316,7 +318,16 @@
                 UserInfoManager.mobilePhone = _loginView.mobileTF.text;
                 [MBProgressHUD showSuccess:@"登录成功"];
                  [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                
+                // 登录成功后 查询下用户等级和用户服务码
+                [self queryCustomerInfoByMobilePhone];
+                _loginView.mobileTF.text = @"";
+                _loginView.passwordTF.text = @"";
             }];
+            
+        } else {
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+
         }
         
         [CommonFunc dismiss];
@@ -324,6 +335,45 @@
     } failure:^(id  _Nullable errorObject) {
         DONG_Log(@"errorObject-->%@", errorObject);
        [CommonFunc dismiss]; 
+    }];
+}
+
+// 1. 根据注册的手机号查询用户信息查询接口
+- (void)queryCustomerInfoByMobilePhone
+{
+    NSDictionary *parameters = @{
+                                 @"mobile" : UserInfoManager.mobilePhone,
+                                 @"systemType" : @"1",
+                                 };
+    
+    [requestDataManager requestDataByPostWithUrlString:QueryUserInfo parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        
+        if (resultCode == 0) {
+            // 获取老的用户等级 和 CA卡号
+            NSString *infoStr = responseObject[@"Info"];
+            NSArray *infoArr = [infoStr componentsSeparatedByString:@"^"];
+            NSString *oldCustomerLevel = infoArr[infoArr.count-2];
+            NSString *serviceCode = infoArr[infoArr.count-3];
+            
+            if (serviceCode) {
+                UserInfoManager.serviceCode = serviceCode;
+            }
+            if (oldCustomerLevel) {
+                UserInfoManager.customerLevel = oldCustomerLevel;
+            }
+            
+        } else {
+            
+
+        }
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        DONG_Log(@"errorObject-->%@", errorObject);
+        [CommonFunc dismiss];
     }];
 }
 

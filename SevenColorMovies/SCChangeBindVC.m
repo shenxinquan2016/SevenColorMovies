@@ -16,6 +16,12 @@
 @end
 
 @implementation SCChangeBindVC
+{
+    NSString *_serviceCode; // 服务编码 CA卡号
+    NSString *_nowCustomerLevel; // 新用户等级
+    NSString *_customerId; // 用户id
+    NSString *_idNumber; // 用户身份证号
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,7 +45,8 @@
 // 提交修改
 - (IBAction)submitChanges:(id)sender
 {
-    [self verificationShortMsgNetworkRequest];
+//    [self verificationShortMsgNetworkRequest];
+    [self queryCustomerInfoByMobilePhone];
 }
 
 #pragma mark - Network Request
@@ -85,21 +92,23 @@
         return;
     }
     
-    
     NSDictionary *parameters = @{
-                                 @"phoneNO" : @"",
+                                 @"phoneNO" : UserInfoManager.mobilePhone,
                                  @"appID" : @"1012"
                                  };
+    
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataByPostWithUrlString:VerificaionShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         
         NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        
         if (resultCode == 0) {
             
             if ([responseObject[@"ResultMessage"] isEqualToString:_verificationCodeTF.text]) {
-                // 注册
-                [self submitChangeBindInfoNetworkRequest];
+                // 修改绑定
+                [self queryCustomerInfoByMobilePhone];
                 
             } else {
                 
@@ -120,11 +129,97 @@
     }];
 }
 
+// 1. 根据注册的手机号查询用户信息查询接口
+- (void)queryCustomerInfoByMobilePhone
+{
+    NSDictionary *parameters = @{
+                                 @"mobile" : UserInfoManager.mobilePhone,
+                                 @"systemType" : @"1",
+                                 };
+    
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager requestDataByPostWithUrlString:QueryUserInfo parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        
+        if (resultCode == 0) {
+            // 获取老的用户等级 和 CA卡号
+            NSString *infoStr = responseObject[@"Info"];
+            NSArray *infoArr = [infoStr componentsSeparatedByString:@"^"];
+            _serviceCode = infoArr[3];
+            
+            if (_serviceCode) {
+                UserInfoManager.serviceCode = _serviceCode;
+            }
+            // 2. 根据绑定的服务号码查询用户信息查询接口
+            [self queryCustomerInfoByByServiceCode];
+            
+        } else {
+            
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+            [CommonFunc dismiss];
+        }
+        
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        DONG_Log(@"errorObject-->%@", errorObject);
+        [CommonFunc dismiss];
+    }];
+}
+
+// 2. 根据绑定的服务号码查询用户信息查询接口
+- (void)queryCustomerInfoByByServiceCode
+{
+    NSDictionary *parameters = @{
+                                 @"serviceCode" : _serviceCode,
+                                 @"serviceType"  : @"02",
+                                 };
+    
+    [requestDataManager requestDataByPostWithUrlString:QureyUserInfoByServiceCode parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        
+        if (resultCode == 0) {
+            
+            // 获取新用户等级 和 新用户id
+            NSString *infoStr = responseObject[@"Info"];
+            NSArray *infoArr = [infoStr componentsSeparatedByString:@"^"];
+            _customerId = infoArr[0];
+            _nowCustomerLevel = infoArr[3];
+            _idNumber = infoArr[4];
+            
+            if (_nowCustomerLevel) {
+                UserInfoManager.customerLevel = _nowCustomerLevel;
+            }
+            
+            [self submitChangeBindInfoNetworkRequest];
+            
+        } else {
+            
+            [CommonFunc dismiss];
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+        }
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        DONG_Log(@"errorObject-->%@", errorObject);
+        [CommonFunc dismiss];
+    }];
+}
+
+
 - (void)submitChangeBindInfoNetworkRequest
 {
     NSDictionary *parameters = @{
-                                
-                                 @"appID" : @"1012"
+                                 @"mobile"              : UserInfoManager.mobilePhone,
+                                 @"systemType"          : @"02",
+                                 @"oldBindType"         : @"02",
+                                 @"bindServiceCode"     : _caCardNoTF.text,
+                                 @"oldBindServiceCode"  : _serviceCode, // 老服务编码
+                                 @"pinCode"             : _idNumber
                                  };
     
     [requestDataManager requestDataByPostWithUrlString:ChangeBind parameters:parameters success:^(id  _Nullable responseObject) {
@@ -133,7 +228,10 @@
         NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
         
         if (resultCode == 0) {
-           
+            
+           [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+            [self.navigationController popViewControllerAnimated:YES];
+            
         } else {
             [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
         }

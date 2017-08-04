@@ -121,6 +121,7 @@
                                  @"appID" : @"1012"
                                  };
     
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataByPostWithUrlString:VerificaionShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);

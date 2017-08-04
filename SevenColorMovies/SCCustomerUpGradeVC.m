@@ -46,8 +46,8 @@
 // 短信校验
 - (IBAction)submitChanges:(id)sender
 {
-    [self verificationShortMsgNetworkRequest]; // 校验通过-->启动升级步骤
-//    [self queryCustomerInfoByMobilePhone]; // 调试升级接口
+//    [self verificationShortMsgNetworkRequest]; // 校验通过-->启动升级步骤
+    [self queryCustomerInfoByMobilePhone]; // 调试升级接口
 }
 
 // json格式字符串转array：
@@ -112,6 +112,7 @@
                                  @"appID" : @"1012"
                                  };
     
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataByPostWithUrlString:VerificaionShortMsg parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
@@ -324,6 +325,8 @@
         if (resultCode == 0) {
             
             [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+            [self.navigationController popViewControllerAnimated:YES];
+            
         } else {
             
             [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
