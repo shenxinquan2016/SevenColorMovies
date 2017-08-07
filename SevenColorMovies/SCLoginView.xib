@@ -35,7 +35,7 @@
                             <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ScD-rO-H5P">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ScD-rO-H5P">
                             <rect key="frame" x="82" y="134" width="233" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="TPP-te-NaR"/>
@@ -61,7 +61,7 @@
                             <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KMc-9u-A9M">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KMc-9u-A9M">
                             <rect key="frame" x="82" y="182" width="233" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="Yr9-Wd-o4z"/>
@@ -87,7 +87,7 @@
                                 <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
-                                <action selector="login:" destination="-1" eventType="touchUpInside" id="yOX-oh-gfw"/>
+                                <action selector="login:" destination="dXu-wl-Z6y" eventType="touchUpInside" id="TSU-F5-8XV"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FN4-eD-QYI">
@@ -97,7 +97,7 @@
                             </constraints>
                             <state key="normal" title="注册" backgroundImage="buttonBG"/>
                             <connections>
-                                <action selector="registerUserInfo:" destination="-1" eventType="touchUpInside" id="xXA-cp-lEM"/>
+                                <action selector="registerCustometInfo:" destination="dXu-wl-Z6y" eventType="touchUpInside" id="tB2-UB-UT1"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tIB-IZ-vOw">
@@ -108,7 +108,7 @@
                             </constraints>
                             <state key="normal" backgroundImage="Delete"/>
                             <connections>
-                                <action selector="hideLoginView:" destination="-1" eventType="touchUpInside" id="yZ6-aB-eRa"/>
+                                <action selector="hideLoginView:" destination="dXu-wl-Z6y" eventType="touchUpInside" id="Ovk-x5-40e"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CJ-7b-hpO">
@@ -119,7 +119,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="忘记密码？"/>
                             <connections>
-                                <action selector="findBackPassword:" destination="-1" eventType="touchUpInside" id="VH2-Wg-YPd"/>
+                                <action selector="findBackPassword:" destination="dXu-wl-Z6y" eventType="touchUpInside" id="n6S-0U-HaB"/>
                             </connections>
                         </button>
                     </subviews>

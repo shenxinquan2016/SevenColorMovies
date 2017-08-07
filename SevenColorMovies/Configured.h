@@ -39,6 +39,7 @@
 #import "SCDomaintransformTool.h"// 动态域名转换获取工具
 #import "HLJRequest.h"// ip 转换工具
 #import "HLJUUID.h"
+#import "SCLoginView.h"
 
 
 //@import MJRefresh;
@@ -56,9 +57,9 @@
 
 
 typedef NS_ENUM(NSUInteger, SCLiveProgramState) {
-    HavePast = 0,//回看
-    NowPlaying,//直播
-    WillPlay,//未开始
+    HavePast = 0, // 回看
+    NowPlaying, // 直播
+    WillPlay, // 未开始
 };
 
 typedef NS_ENUM(NSUInteger, SCFilterOptionType) {

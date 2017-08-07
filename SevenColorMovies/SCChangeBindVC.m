@@ -45,7 +45,7 @@
 // 提交修改
 - (IBAction)submitChanges:(id)sender
 {
-//    [self verificationShortMsgNetworkRequest];
+    //    [self verificationShortMsgNetworkRequest];
     [self queryCustomerInfoByMobilePhone];
 }
 
@@ -229,7 +229,7 @@
         
         if (resultCode == 0) {
             
-           [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
             [self.navigationController popViewControllerAnimated:YES];
             
         } else {

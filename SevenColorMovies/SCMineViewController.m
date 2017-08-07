@@ -41,8 +41,6 @@
     [self addLeftBBI];
     // 2.tableView
     [self setTableView];
-    // 3.登录页
-    [self loadLoginView];
     
 }
 
@@ -89,49 +87,6 @@
     
 }
 
-- (void)loadLoginView
-{
-    _loginView = [[NSBundle mainBundle] loadNibNamed:@"SCLoginView" owner:nil options:nil][0];
-    [self.view addSubview:_loginView];
-    _loginView.alpha = 0;
-    [_loginView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.bottom.equalTo(self.view);
-    }];
-}
-
-#pragma mark - Login and Register
-
-// 隐藏
-- (IBAction)hideLoginView:(id)sender
-{
-    [UIView animateWithDuration:0.2 animations:^{
-        _loginView.alpha = 0;
-    }];
-    [[UIApplication sharedApplication].keyWindow endEditing:YES];
-}
-
-// 登录
-- (IBAction)login:(id)sender
-{
-    [self loginNetworkRequest];
-}
-
-// 注册
-- (IBAction)registerUserInfo:(id)sender
-{
-    SCRegisterVC *registerVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCRegisterVC");
-    registerVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:registerVC animated:YES];
-}
-
-
-// 忘记密码
-- (IBAction)findBackPassword:(id)sender
-{
-    SCForgetPasswordVC *findPasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCForgetPasswordVC");
-    findPasswordVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:findPasswordVC animated:YES];
-}
 
 #pragma mark- UITableViewDataSource
 
@@ -193,10 +148,48 @@
             [self.navigationController pushViewController:customerCenterVC animated:YES];
             
         } else {
-            // 登录
-            [UIView animateWithDuration:0.2 animations:^{
-                _loginView.alpha = 1.0;
+            
+            // 读取登录
+            _loginView = [[NSBundle mainBundle] loadNibNamed:@"SCLoginView" owner:nil options:nil][0];
+            [[UIApplication sharedApplication].keyWindow addSubview:_loginView];
+            [_loginView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.top.bottom.equalTo([UIApplication sharedApplication].keyWindow);
             }];
+            
+            // 登录回调
+            DONG_WeakSelf(self);
+            _loginView.loginBlock = ^(NSString *mobile, NSString *password) {
+                if (mobile.length <= 0) {
+                    [MBProgressHUD showError:@"请输入手机号！"];
+                    return;
+                }
+                if (password.length <= 0) {
+                    [MBProgressHUD showError:@"请输入密码！"];
+                    return;
+                }
+                [weakself loginNetworkRequestWithMobilePhone:mobile password:password];
+            };
+            
+            // 注册回调
+            _loginView.registerBlock = ^{
+                
+                    [weakself.loginView removeFromSuperview];
+                    SCRegisterVC *registerVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCRegisterVC");
+                    registerVC.hidesBottomBarWhenPushed = YES;
+                    [weakself.navigationController pushViewController:registerVC animated:YES];
+            
+               
+            };
+            
+            // 找回密码回调
+            _loginView.forgetPasswordBlock = ^{
+        
+                    [weakself.loginView removeFromSuperview];
+                    SCForgetPasswordVC *findPasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCForgetPasswordVC");
+                    findPasswordVC.hidesBottomBarWhenPushed = YES;
+                    [weakself.navigationController pushViewController:findPasswordVC animated:YES];
+            
+            };
         }
         
     } else if (indexPath.section == 1 ) {
@@ -284,20 +277,12 @@
 #pragma mark - Network Request
 
 // 登录
-- (void)loginNetworkRequest
+- (void)loginNetworkRequestWithMobilePhone:(NSString *)mobilePhone password:(NSString *)password
 {
-    if (_loginView.mobileTF.text.length <= 0) {
-        [MBProgressHUD showError:@"请输入手机号！"];
-        return;
-    }
-    if (_loginView.passwordTF.text.length <= 0) {
-        [MBProgressHUD showError:@"请输入手机号！"];
-        return;
-    }
-    
+  
     NSDictionary *parameters = @{
-                                 @"mobile"      : _loginView.mobileTF.text,
-                                 @"password"    : _loginView.passwordTF.text,
+                                 @"mobile"      : mobilePhone,
+                                 @"password"    : password,
                                  @"systemType"  : @"1",
                                  };
     
@@ -315,14 +300,14 @@
             } completion:^(BOOL finished) {
                 
                 UserInfoManager.isLogin = YES;
-                UserInfoManager.mobilePhone = _loginView.mobileTF.text;
+                UserInfoManager.mobilePhone = mobilePhone;
                 [MBProgressHUD showSuccess:@"登录成功"];
                  [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
                 
+                [_loginView removeFromSuperview];
                 // 登录成功后 查询下用户等级和用户服务码
-                [self queryCustomerInfoByMobilePhone];
-                _loginView.mobileTF.text = @"";
-                _loginView.passwordTF.text = @"";
+                [self queryCustomerInfoByMobilePhone:mobilePhone];
+            
             }];
             
         } else {
@@ -339,10 +324,10 @@
 }
 
 // 1. 根据注册的手机号查询用户信息查询接口
-- (void)queryCustomerInfoByMobilePhone
+- (void)queryCustomerInfoByMobilePhone:(NSString *)mobilePhone
 {
     NSDictionary *parameters = @{
-                                 @"mobile" : UserInfoManager.mobilePhone,
+                                 @"mobile" : mobilePhone,
                                  @"systemType" : @"1",
                                  };
     
