@@ -36,7 +36,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHex:@"dddddd"];
     self.automaticallyAdjustsScrollViewInsets = NO;
-
+    
     // 1.商标
     [self addLeftBBI];
     // 2.tableView
@@ -83,7 +83,7 @@
 {
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor colorWithHex:@"#F0F1F2"];
-    //    _tableView.scrollEnabled = NO;
+    //  _tableView.scrollEnabled = NO;
     
 }
 
@@ -173,22 +173,19 @@
             // 注册回调
             _loginView.registerBlock = ^{
                 
-                    [weakself.loginView removeFromSuperview];
-                    SCRegisterVC *registerVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCRegisterVC");
-                    registerVC.hidesBottomBarWhenPushed = YES;
-                    [weakself.navigationController pushViewController:registerVC animated:YES];
-            
-               
+                [weakself.loginView removeFromSuperview];
+                SCRegisterVC *registerVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCRegisterVC");
+                registerVC.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:registerVC animated:YES];
             };
             
             // 找回密码回调
             _loginView.forgetPasswordBlock = ^{
-        
-                    [weakself.loginView removeFromSuperview];
-                    SCForgetPasswordVC *findPasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCForgetPasswordVC");
-                    findPasswordVC.hidesBottomBarWhenPushed = YES;
-                    [weakself.navigationController pushViewController:findPasswordVC animated:YES];
-            
+                
+                [weakself.loginView removeFromSuperview];
+                SCForgetPasswordVC *findPasswordVC = DONG_INSTANT_VC_WITH_ID(@"Mine", @"SCForgetPasswordVC");
+                findPasswordVC.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:findPasswordVC animated:YES];
             };
         }
         
@@ -279,7 +276,7 @@
 // 登录
 - (void)loginNetworkRequestWithMobilePhone:(NSString *)mobilePhone password:(NSString *)password
 {
-  
+    
     NSDictionary *parameters = @{
                                  @"mobile"      : mobilePhone,
                                  @"password"    : password,
@@ -290,7 +287,7 @@
     [CommonFunc showLoadingWithTips:@""];
     [requestDataManager requestDataByPostWithUrlString:LoginLogin parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
-
+        
         NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
         
         if (resultCode == 0) {
@@ -302,24 +299,24 @@
                 UserInfoManager.isLogin = YES;
                 UserInfoManager.mobilePhone = mobilePhone;
                 [MBProgressHUD showSuccess:@"登录成功"];
-                 [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
                 
                 [_loginView removeFromSuperview];
                 // 登录成功后 查询下用户等级和用户服务码
                 [self queryCustomerInfoByMobilePhone:mobilePhone];
-            
+                
             }];
             
         } else {
             [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
-
+            
         }
         
         [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
         DONG_Log(@"errorObject-->%@", errorObject);
-       [CommonFunc dismiss]; 
+        [CommonFunc dismiss];
     }];
 }
 
@@ -352,7 +349,7 @@
             
         } else {
             
-
+            
         }
         
     } failure:^(id  _Nullable errorObject) {

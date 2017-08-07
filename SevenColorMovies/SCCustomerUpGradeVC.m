@@ -46,8 +46,8 @@
 // 短信校验
 - (IBAction)submitChanges:(id)sender
 {
-//    [self verificationShortMsgNetworkRequest]; // 校验通过-->启动升级步骤
-    [self queryCustomerInfoByMobilePhone]; // 调试升级接口
+    [self verificationShortMsgNetworkRequest]; // 校验通过-->启动升级步骤
+    //    [self queryCustomerInfoByMobilePhone]; // 调试升级接口
 }
 
 // json格式字符串转array：
@@ -60,8 +60,8 @@
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *err;
     NSArray *dict = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                         options:NSJSONReadingMutableContainers
-                                                           error:&err];
+                                                    options:NSJSONReadingMutableContainers
+                                                      error:&err];
     if(err) {
         DONG_Log(@"json解析失败：%@",err);
         return nil;
@@ -217,7 +217,7 @@
             if ([identifier isEqualToString:@"old"]) {
                 // 获取老的产品列表
                 _oldProductListArr = [self arrayWithJsonString:responseObject[@"__text"] ] ;
-               
+                
                 // 根据绑定的服务号码查询用户信息查询接口
                 [self queryCustomerInfoByByServiceCode];
                 
@@ -228,7 +228,7 @@
                 
                 // 变更绑定接口
                 [self submitCustomerUpGradeInfoNetworkRequest];
-
+                
             }
             
         } else {
@@ -242,7 +242,7 @@
         DONG_Log(@"errorObject-->%@", errorObject);
         [CommonFunc dismiss];
     }];
- 
+    
 }
 
 // 2.2 根据绑定的服务号码查询用户信息查询接口
@@ -313,7 +313,7 @@
                                          @"orderChannel"    : @"009602",
                                          @"saleChannel"     : @"手机电视",
                                          @"productInfoList" : _nowProductListArr
-                                            },
+                                         },
                                  @"oldProductList" : oldProductIdArr
                                  };
     

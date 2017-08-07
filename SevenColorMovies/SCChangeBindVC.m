@@ -45,8 +45,8 @@
 // 提交修改
 - (IBAction)submitChanges:(id)sender
 {
-    //    [self verificationShortMsgNetworkRequest];
-    [self queryCustomerInfoByMobilePhone];
+    [self verificationShortMsgNetworkRequest];
+    //    [self queryCustomerInfoByMobilePhone];
 }
 
 #pragma mark - Network Request
@@ -210,16 +210,20 @@
     }];
 }
 
-
+// 绑定变更
 - (void)submitChangeBindInfoNetworkRequest
 {
     NSDictionary *parameters = @{
                                  @"mobile"              : UserInfoManager.mobilePhone,
-                                 @"systemType"          : @"02",
+                                 @"bindType"            : @"02",
+                                 @"systemType"          : @"1",
                                  @"oldBindType"         : @"02",
                                  @"bindServiceCode"     : _caCardNoTF.text,
                                  @"oldBindServiceCode"  : _serviceCode, // 老服务编码
-                                 @"pinCode"             : _idNumber
+                                 @"productList"         : @"",
+                                 @"oldProductList"      : @"",
+                                 @"pinCode"             : _idNumber,
+                                 @"otherParas"          : @""
                                  };
     
     [requestDataManager requestDataByPostWithUrlString:ChangeBind parameters:parameters success:^(id  _Nullable responseObject) {
