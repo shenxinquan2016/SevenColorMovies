@@ -158,16 +158,9 @@
             
             // 登录回调
             DONG_WeakSelf(self);
-            _loginView.loginBlock = ^(NSString *mobile, NSString *password) {
-                if (mobile.length <= 0) {
-                    [MBProgressHUD showError:@"请输入手机号！"];
-                    return;
-                }
-                if (password.length <= 0) {
-                    [MBProgressHUD showError:@"请输入密码！"];
-                    return;
-                }
-                [weakself loginNetworkRequestWithMobilePhone:mobile password:password];
+            _loginView.loginSuccessBlock = ^(NSString *mobile, NSString *password) {
+               
+               [weakself.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
             };
             
             // 注册回调
@@ -271,92 +264,6 @@
     return NO;
 }
 
-#pragma mark - Network Request
 
-// 登录
-- (void)loginNetworkRequestWithMobilePhone:(NSString *)mobilePhone password:(NSString *)password
-{
-    
-    NSDictionary *parameters = @{
-                                 @"mobile"      : mobilePhone,
-                                 @"password"    : password,
-                                 @"systemType"  : @"1",
-                                 };
-    
-    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-    [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager requestDataByPostWithUrlString:LoginLogin parameters:parameters success:^(id  _Nullable responseObject) {
-        DONG_Log(@"responseObject-->%@", responseObject);
-        
-        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
-        
-        if (resultCode == 0) {
-            
-            [UIView animateWithDuration:0.2 animations:^{
-                _loginView.alpha = 0;
-            } completion:^(BOOL finished) {
-                
-                UserInfoManager.isLogin = YES;
-                UserInfoManager.mobilePhone = mobilePhone;
-                [MBProgressHUD showSuccess:@"登录成功"];
-                [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-                
-                [_loginView removeFromSuperview];
-                // 登录成功后 查询下用户等级和用户服务码
-                [self queryCustomerInfoByMobilePhone:mobilePhone];
-                
-            }];
-            
-        } else {
-            [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
-            
-        }
-        
-        [CommonFunc dismiss];
-        
-    } failure:^(id  _Nullable errorObject) {
-        DONG_Log(@"errorObject-->%@", errorObject);
-        [CommonFunc dismiss];
-    }];
-}
-
-// 1. 根据注册的手机号查询用户信息查询接口
-- (void)queryCustomerInfoByMobilePhone:(NSString *)mobilePhone
-{
-    NSDictionary *parameters = @{
-                                 @"mobile" : mobilePhone,
-                                 @"systemType" : @"1",
-                                 };
-    
-    [requestDataManager requestDataByPostWithUrlString:QueryUserInfo parameters:parameters success:^(id  _Nullable responseObject) {
-        DONG_Log(@"responseObject-->%@", responseObject);
-        
-        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
-        
-        if (resultCode == 0) {
-            // 获取老的用户等级 和 CA卡号
-            NSString *infoStr = responseObject[@"Info"];
-            NSArray *infoArr = [infoStr componentsSeparatedByString:@"^"];
-            NSString *oldCustomerLevel = infoArr[infoArr.count-2];
-            NSString *serviceCode = infoArr[infoArr.count-3];
-            
-            if (serviceCode) {
-                UserInfoManager.serviceCode = serviceCode;
-            }
-            if (oldCustomerLevel) {
-                UserInfoManager.customerLevel = oldCustomerLevel;
-            }
-            
-        } else {
-            
-            
-        }
-        
-    } failure:^(id  _Nullable errorObject) {
-        
-        DONG_Log(@"errorObject-->%@", errorObject);
-        [CommonFunc dismiss];
-    }];
-}
 
 @end
