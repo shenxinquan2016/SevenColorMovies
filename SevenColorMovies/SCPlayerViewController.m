@@ -2019,7 +2019,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                         NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:play_url];
                         
                         DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-                        //1.拼接新地址
+                        // 1.拼接新地址
                         NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                         self.url = [NSURL URLWithString:playUrl];
                         //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
@@ -2480,170 +2480,170 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                 [strongself constructContentView];
                 
                 
-                NSDictionary *parameters = @{
-                                             @"authIds" : UserInfoManager.productList? UserInfoManager.productList : @"",
-                                             @"assetId" : filmmidStr? filmmidStr : @""
-                                             };
                 
-                // 查询用户是否拥有点播权限
-                [requestDataManager getRequestJsonDataWithUrl:QueryCustomerVODFilmAuthority parameters:parameters success:^(id  _Nullable responseObject) {
-                    DONG_Log(@"responseObject-->%@", responseObject);
+                
+                // 请求播放地址
+                [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
+                    //DONG_Log(@"====responseObject:::%@===",responseObject);
                     
-                    NSString *resultCode = responseObject[@"resultCode"];
+                    // 处理广告信息
+                    NSDictionary *adinfoDic = responseObject[@"adinfo"];
+                    [_advertisementArray removeAllObjects];
                     
-                    if ([resultCode isEqualToString:@"true"]) { // 有播放权限
-                        
-                        // 请求播放地址
-                        [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
-                            //DONG_Log(@"====responseObject:::%@===",responseObject);
+                    if (adinfoDic) {
+                        if ([adinfoDic[@"adpos"] isKindOfClass:[NSArray class]]) {
                             
-                            // 处理广告信息
-                            NSDictionary *adinfoDic = responseObject[@"adinfo"];
-                            [_advertisementArray removeAllObjects];
-                            
-                            if (adinfoDic) {
-                                if ([adinfoDic[@"adpos"] isKindOfClass:[NSArray class]]) {
+                            NSArray *adposArray = adinfoDic[@"adpos"];
+                            if (adposArray.count) {
+                                for (NSDictionary *adUnitDic in adposArray) {
                                     
-                                    NSArray *adposArray = adinfoDic[@"adpos"];
-                                    if (adposArray.count) {
-                                        for (NSDictionary *adUnitDic in adposArray) {
-                                            
-                                            SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adUnitDic];
-                                            
-                                            [_advertisementArray addObject:adPosModel];
-                                            
-                                            DONG_Log(@"adPosModel:%@", adPosModel.adMediaInfo.__text);
-                                        }
-                                    }
-                                    
-                                } else if ([adinfoDic[@"adpos"] isKindOfClass:[NSDictionary class]]) {
-                                    
-                                    SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adinfoDic[@"adpos"]];
+                                    SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adUnitDic];
                                     
                                     [_advertisementArray addObject:adPosModel];
                                     
+                                    DONG_Log(@"adPosModel:%@", adPosModel.adMediaInfo.__text);
                                 }
                             }
                             
-                            NSString *play_url = responseObject[@"play_url"];
-                            DONG_Log(@"play_url:%@",play_url);
-                            // 请求将播放地址域名转换  并拼接最终的播放地址
-                            NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+                        } else if ([adinfoDic[@"adpos"] isKindOfClass:[NSDictionary class]]) {
                             
-                            DONG_Log(@"newVideoUrl:%@",newVideoUrl);
-                            // 1.拼接新地址
-                            NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
-                            strongself.url = [NSURL URLWithString:playUrl];
+                            SCAdvertisemetPosModel *adPosModel = [SCAdvertisemetPosModel mj_objectWithKeyValues:adinfoDic[@"adpos"]];
                             
-                            if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
-                                
-                                // 2.调用播放器播放
-                                strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
-                                strongself.view.frame = [[UIScreen mainScreen] bounds];
-                                strongself.IJKPlayerViewController.view.frame = strongself.view.bounds;
-                                strongself.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
-                                strongself.IJKPlayerViewController.mediaControl.frame = strongself.view.frame;
-                                [strongself.view addSubview:strongself.IJKPlayerViewController.view];
-                                [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
+                            [_advertisementArray addObject:adPosModel];
+                            
+                        }
+                    }
+                    
+                    NSString *play_url = responseObject[@"play_url"];
+                    DONG_Log(@"play_url:%@",play_url);
+                    // 请求将播放地址域名转换  并拼接最终的播放地址
+                    NSString *newVideoUrl = [strongself.hljRequest getNewViedoURLByOriginVideoURL:play_url];
+                    
+                    DONG_Log(@"newVideoUrl:%@",newVideoUrl);
+                    // 1.拼接新地址
+                    NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
+                    strongself.url = [NSURL URLWithString:playUrl];
+                    
+                    if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
+                        
+                        // 2.调用播放器播放
+                        strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                        strongself.view.frame = [[UIScreen mainScreen] bounds];
+                        strongself.IJKPlayerViewController.view.frame = strongself.view.bounds;
+                        strongself.IJKPlayerViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+                        strongself.IJKPlayerViewController.mediaControl.frame = strongself.view.frame;
+                        [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                        [strongself.view bringSubviewToFront:strongself.IJKPlayerViewController.view];
+                        
+                    } else {
+                        
+                        // 2.调用播放器播放
+                        strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
+                        strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
+                        [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                    }
+                    
+                    NSString *filmName;
+                    if (strongself.filmModel.FilmName) {
+                        filmName = strongself.filmModel.FilmName;
+                    } else if (strongself.filmModel.cnname){
+                        filmName = strongself.filmModel.cnname;
+                    }
+                    
+                    strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;
+                    
+                    // 1.全屏锁定回调
+                    strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
+                        DONG_StrongSelf(self);
+                        strongself.fullScreenLock = isFullScreenLock;
+                    };
+                    // 2.添加播放记录的回调
+                    strongself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
+                        DONG_StrongSelf(self);
+                        [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
+                    };
+                    // 3.推屏的回调
+                    strongself.IJKPlayerViewController.pushScreenBlock = ^{
+                        // 未连接设备时要先扫描设备
+                        if (XMPPManager.isConnected) {
+                            NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
+                            NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
+                            //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
+                            [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
+                            
+                        } else {
+                            
+                            [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
+                            
+                            //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                            //[alertView show];
+                            //alertView.delegate = weakself;
+                        }
+                    };
+                    // 4.暂停广告
+                    strongself.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
+                    
+                    for (SCAdvertisemetPosModel *adPosModel in strongself.advertisementArray) {
+                        // 选择暂停广告：706
+                        if ([adPosModel._pos isEqualToString:@"706"]) {
+                            
+                            if (adPosModel.adMediaInfoArray.count) {
+                                // 暂停广告有多条
+                                SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
+                                NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
+                                [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
                                 
                             } else {
                                 
-                                // 2.调用播放器播放
-                                strongself.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:strongself.url];
-                                strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 20, kMainScreenWidth, kMainScreenWidth * 9 / 16);
-                                [strongself.view addSubview:strongself.IJKPlayerViewController.view];
+                                // 暂停广告只一条
+                                NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
+                                [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
+                                
                             }
                             
-                            NSString *filmName;
-                            if (strongself.filmModel.FilmName) {
-                                filmName = strongself.filmModel.FilmName;
-                            } else if (strongself.filmModel.cnname){
-                                filmName = strongself.filmModel.cnname;
+                            break;
+                        }
+                    }
+                    
+                    // 数据采集
+                    [UserInfoManager addCollectionDataWithType:@"Film" filmName:filmName mid:filmmidStr];
+                    
+                    // 查询用户是否拥有点播权限
+                    if (!UserInfoManager.isVODUnrivaled) {
+                        
+                        NSDictionary *parameters = @{
+                                                     @"authIds" : UserInfoManager.productList? UserInfoManager.productList : @"",
+                                                     @"assetId" : filmmidStr? filmmidStr : @""
+                                                     };
+                        
+                        // 查询用户是否拥有点播权限
+                        [requestDataManager getRequestJsonDataWithUrl:QueryCustomerVODFilmAuthority parameters:parameters success:^(id  _Nullable responseObject) {
+                            DONG_Log(@"responseObject-->%@", responseObject);
+                            
+                            NSString *resultCode = responseObject[@"resultCode"];
+                            
+                            if ([resultCode isEqualToString:@"true"]) { // 有播放权限
+                                
+                               // 接着播放去吧
+                                
+                            } else if ([resultCode isEqualToString:@"false"]) { // 没有
+                                
+                                [self.IJKPlayerViewController.player pause];
+                                
+                                [DONG_AlertShowTool presentAlertViewWithTitle:@"提示" message:responseObject[@"msg"] confirmTitle:@"确定" handler:^{
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                }];
+                                
+                            } else if ([resultCode isEqualToString:@"exception"]) { // 异常
+                                
+                                [MBProgressHUD showError:responseObject[@"msg"]];
                             }
-                            
-                            strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;
-                            
-                            // 1.全屏锁定回调
-                            strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
-                                DONG_StrongSelf(self);
-                                strongself.fullScreenLock = isFullScreenLock;
-                            };
-                            // 2.添加播放记录的回调
-                            strongself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
-                                DONG_StrongSelf(self);
-                                [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
-                            };
-                            // 3.推屏的回调
-                            strongself.IJKPlayerViewController.pushScreenBlock = ^{
-                                // 未连接设备时要先扫描设备
-                                if (XMPPManager.isConnected) {
-                                    NSString *toName = [NSString stringWithFormat:@"%@@hljvoole.com/%@", XMPPManager.uid, XMPPManager.hid];
-                                    NSString *xmlString = [weakself getXMLCommandWithFilmModel:weakself.filmModel];
-                                    //[TCPScoketManager socketWriteData:xmlString withTimeout:-1 tag:1001];
-                                    [XMPPManager sendMessageWithBody:xmlString andToName:toName andType:@"text"];
-                                    
-                                } else {
-                                    
-                                    [MBProgressHUD showError:@"设备未绑定，请扫码绑定"];
-                                    
-                                    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"尚未绑定设备，请先扫码绑定设备" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-                                    //[alertView show];
-                                    //alertView.delegate = weakself;
-                                }
-                            };
-                            // 4.暂停广告
-                            strongself.IJKPlayerViewController.mediaControl.advertisementIV.hidden = YES;
-                            
-                            for (SCAdvertisemetPosModel *adPosModel in strongself.advertisementArray) {
-                                // 选择暂停广告：706
-                                if ([adPosModel._pos isEqualToString:@"706"]) {
-                                    
-                                    if (adPosModel.adMediaInfoArray.count) {
-                                        // 暂停广告有多条
-                                        SCAdMediaInfo *adMediaInfo = [adPosModel.adMediaInfoArray firstObject];
-                                        NSURL *imageUrl = [NSURL URLWithString:adMediaInfo.__text];
-                                        [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
-                                        
-                                    } else {
-                                        
-                                        // 暂停广告只一条
-                                        NSURL *imageUrl = [NSURL URLWithString:adPosModel.adMediaInfo.__text];
-                                        [strongself.IJKPlayerViewController.mediaControl.advertisementIV sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@""]];
-                                        
-                                    }
-                                    
-                                    break;
-                                }
-                            }
-                            
-                            // 数据采集
-                            [UserInfoManager addCollectionDataWithType:@"Film" filmName:filmName mid:filmmidStr];
                             
                             [CommonFunc dismiss];
                             
                         } failure:^(id  _Nullable errorObject) {
                             [CommonFunc dismiss];
                         }];
-                        
-                    } else if ([resultCode isEqualToString:@"false"]) { // 没有
-                        
-                        [CommonFunc dismiss];
-                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:responseObject[@"msg"] preferredStyle:UIAlertControllerStyleAlert];
-                        
-                        // creat action
-                        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                            
-                            [self.navigationController popViewControllerAnimated:YES];
-                        }];
-                        
-                        // add acton
-                        [alert addAction:cancelAction];
-                        [self presentViewController:alert animated:YES completion:nil];
-                        
-                    } else if ([resultCode isEqualToString:@"exception"]) { // 异常
-                        
-                        [CommonFunc dismiss];
-                        [MBProgressHUD showError:responseObject[@"msg"]];
                     }
                     
                 } failure:^(id  _Nullable errorObject) {

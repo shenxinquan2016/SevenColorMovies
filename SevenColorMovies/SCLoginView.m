@@ -61,7 +61,7 @@
 
 #pragma mark - Network Request
 
-// 登录
+// 0. 登录
 - (void)loginNetworkRequest
 {
     if (_mobileTF.text.length <= 0) {
@@ -151,7 +151,7 @@
     }];
 }
 
-// 查询用户是否有全部点播播放权限
+// 2. 查询用户是否有全部点播播放权限
 - (void)queryCustomerVODAuthorityByProductList
 {
     NSDictionary *parameters = @{

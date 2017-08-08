@@ -44,6 +44,7 @@
 		1122149D1DADDE6E00277BD6 /* SCHuikanPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122149C1DADDE6E00277BD6 /* SCHuikanPlayerViewController.m */; };
 		1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */; };
 		1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */; };
+		112533D51F39BDBE003BB0A4 /* DONG_AlertShowTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 112533D41F39BDBE003BB0A4 /* DONG_AlertShowTool.m */; };
 		1129A6551DE567DC000328C9 /* SCMessageCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1129A6541DE567DC000328C9 /* SCMessageCenterVC.m */; };
 		1129A6581DE56803000328C9 /* SCSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1129A6571DE56803000328C9 /* SCSettingVC.m */; };
 		112DEFA91EC5A5E0008DD890 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112DEFA81EC5A5E0008DD890 /* Realm.framework */; };
@@ -369,6 +370,8 @@
 		1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
 		1122FF631D4A22E900E6E8A2 /* NSDictionary+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Log.h"; sourceTree = "<group>"; };
 		1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Log.m"; sourceTree = "<group>"; };
+		112533D31F39BDBE003BB0A4 /* DONG_AlertShowTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_AlertShowTool.h; sourceTree = "<group>"; };
+		112533D41F39BDBE003BB0A4 /* DONG_AlertShowTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_AlertShowTool.m; sourceTree = "<group>"; };
 		1129A6531DE567DC000328C9 /* SCMessageCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMessageCenterVC.h; sourceTree = "<group>"; };
 		1129A6541DE567DC000328C9 /* SCMessageCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMessageCenterVC.m; sourceTree = "<group>"; };
 		1129A6561DE56803000328C9 /* SCSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSettingVC.h; sourceTree = "<group>"; };
@@ -1509,27 +1512,12 @@
 				11C21DB71EDEB54100A64A46 /* LaunchAd 启动广告 */,
 				115A21101D41F02F0097DE57 /* IJKPlayer播放器 */,
 				11928FD01D506D2700926011 /* CollectionPage */,
-				116476011D40B9D100A3BC1C /* register */,
-				116476001D40B9C400A3BC1C /* Login */,
+				111FFB871F2EC272006927E6 /* 鉴权计费 */,
 				11BB37BF1D38DB220002D487 /* Tabbar */,
 				11A1D0691D3F4FEA00E2BA0D /* Search */,
 				111C03891F037D49008E2DD1 /* View */,
 			);
 			name = Main;
-			sourceTree = "<group>";
-		};
-		116476001D40B9C400A3BC1C /* Login */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Login;
-			sourceTree = "<group>";
-		};
-		116476011D40B9D100A3BC1C /* register */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = register;
 			sourceTree = "<group>";
 		};
 		116476051D40CA4300A3BC1C /* Cell */ = {
@@ -2129,6 +2117,8 @@
 				11BB37DB1D38F0540002D487 /* Category */,
 				110175051D54402D00E43773 /* FileManageCommon.h */,
 				110175061D54402D00E43773 /* FileManageCommon.m */,
+				112533D31F39BDBE003BB0A4 /* DONG_AlertShowTool.h */,
+				112533D41F39BDBE003BB0A4 /* DONG_AlertShowTool.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -2185,7 +2175,6 @@
 			isa = PBXGroup;
 			children = (
 				113F8D961D3C706300B12D39 /* MainBody */,
-				111FFB871F2EC272006927E6 /* 鉴权计费 */,
 				116E0F5F1DB0B6F900E280C6 /* ProgramList */,
 				116E0F611DB0B72E00E280C6 /* WatchingHistory */,
 				116E0F631DB0B77B00E280C6 /* Collection */,
@@ -2968,6 +2957,7 @@
 				11CAE45F1F0A4067009EE474 /* UIImage+IMB.m in Sources */,
 				11458E971D45E0D500EBD16D /* SCDiscoveryTableViewCell.m in Sources */,
 				11FACB4C1D3F19A000AAC216 /* SCSearchBarView.m in Sources */,
+				112533D51F39BDBE003BB0A4 /* DONG_AlertShowTool.m in Sources */,
 				11BA52DF1DFC41FD0036CF25 /* SCRemoteHelpPageVC.m in Sources */,
 				11052AC51E10FEA800BF795B /* SCHTMLViewController.m in Sources */,
 				11BB37D71D38E6650002D487 /* SCHomePageViewController.m in Sources */,
