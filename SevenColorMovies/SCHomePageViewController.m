@@ -484,10 +484,10 @@ static NSString *const footerId = @"footerId";
         // 综艺栏目cell大小
         SCFilmClassModel *classModel = _filmClassArray[indexPath.section-1];
         if ([classModel._FilmClassName isEqualToString:@"综艺"] || [classModel._FilmClassName isEqualToString:@"潮生活"] || [classModel._FilmClassName isEqualToString:@"专题"]) {
-            return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30};//横版尺寸
+            return (CGSize){(kMainScreenWidth-24-10)/2,((kMainScreenWidth-24-10)/2/1.8)+30}; // 横版尺寸
             
-        }else{
-            return (CGSize){(kMainScreenWidth-24-30)/3,(kMainScreenWidth-24-30)*33/3/24+30};//竖版尺寸
+        } else {
+            return (CGSize){(kMainScreenWidth-24-30)/3,(kMainScreenWidth-24-30)*33/3/24+30}; // 竖版尺寸
         }
     }
 }

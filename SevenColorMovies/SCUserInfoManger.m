@@ -13,6 +13,8 @@
 #define kMobilePhone @"kMobilePhone" // 手机
 #define kServiceCode @"kServiceCode" // 用户编码
 #define kCustomerLevel @"kCustomerLevel" // 用户等级
+#define kProductList @"kProductList" // 产品列表
+#define kIsUnrivaled @"kIsUnrivaled" // 是否有全部点播权限
 
 
 #define kLovelyBabyIsLogin @"kLovelyBabyIsLogin" // 萌娃是否登录
@@ -61,6 +63,18 @@
 - (NSString *)customerLevel
 {
     return [DONG_UserDefaults objectForKey:kCustomerLevel];
+}
+
+/** 用户产品列表 */
+- (NSString *)productList
+{
+    return [DONG_UserDefaults objectForKey:kProductList];
+}
+
+/** 是否有全部点播权限 */
+- (BOOL)isUnrivaled
+{
+    return [DONG_UserDefaults boolForKey:kIsUnrivaled];
 }
 
 
@@ -151,6 +165,24 @@
         [DONG_UserDefaults synchronize];
     }
 }
+
+/** 用户产品列表 */
+- (void)setProductList:(NSString *)productList
+{
+    if (![productList isKindOfClass:[NSNull class]] && productList.length > 0) {
+        [DONG_UserDefaults setObject:productList forKey:kProductList];
+        [DONG_UserDefaults synchronize];
+    }
+}
+
+/** 是否有全部点播权限 */
+- (void)setIsUnrivaled:(BOOL)isUnrivaled
+{
+    [DONG_UserDefaults setBool:isUnrivaled forKey:kIsUnrivaled];
+    [DONG_UserDefaults synchronize];
+}
+
+
 
 
 /** 萌娃用户id */
@@ -252,6 +284,10 @@
     [DONG_UserDefaults removeObjectForKey:kLovelyBabyMobilePhone];
     
     [DONG_UserDefaults removeObjectForKey:kMobilePhone];
+    [DONG_UserDefaults removeObjectForKey:kServiceCode];
+    [DONG_UserDefaults removeObjectForKey:kCustomerLevel];
+    [DONG_UserDefaults removeObjectForKey:kProductList];
+    
     
 }
 
