@@ -286,7 +286,7 @@
     [DONG_UserDefaults removeObjectForKey:kMobilePhone];
     [DONG_UserDefaults removeObjectForKey:kServiceCode];
     [DONG_UserDefaults removeObjectForKey:kCustomerLevel];
-    [DONG_UserDefaults removeObjectForKey:kProductList];
+//    [DONG_UserDefaults removeObjectForKey:kProductList];
     
     
 }

@@ -128,4 +128,7 @@
 
 #define CustomerFeedback @"http://scc.96396.cn:10013/appjh_mmserver/feedback/addFeedBack.do" // 用户反馈
 
+#define QueryCustomerVODAuthority @"http://125.223.98.233:10013/appjh_mmserver/Authority/checkAllPack.do" // 查询用户是否具有全部点播的播放权限
+
+
 #endif /* SCRequestUrl_h */

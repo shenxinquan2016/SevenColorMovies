@@ -41,7 +41,8 @@
 // 登录
 - (IBAction)login:(id)sender
 {
-    [self loginNetworkRequest];
+//    [self loginNetworkRequest];
+    [self jkfdsjkljk];
 }
 
 // 注册
@@ -121,12 +122,17 @@
             NSArray *infoArr = [infoStr componentsSeparatedByString:@"^"];
             NSString *oldCustomerLevel = infoArr[infoArr.count-2];
             NSString *serviceCode = infoArr[infoArr.count-3];
+            NSString *productList = infoArr.lastObject;
+            productList = [productList stringByReplacingOccurrencesOfString:@"|" withString:@","];
             
             if (serviceCode) {
                 UserInfoManager.serviceCode = serviceCode;
             }
             if (oldCustomerLevel) {
                 UserInfoManager.customerLevel = oldCustomerLevel;
+            }
+            if (productList) {
+                UserInfoManager.productList = productList;
             }
             
             [UIView animateWithDuration:0.2 animations:^{
@@ -155,5 +161,34 @@
     }];
 }
 
+- (void)jkfdsjkljk
+{
+    NSDictionary *parameters = @{
+                                 @"authIds" : UserInfoManager.productList? UserInfoManager.productList : @"",
+                                 };
+    
+    [CommonFunc showLoadingWithTips:@""];
+    [requestDataManager requestDataByPostWithUrlString:QueryCustomerVODAuthority parameters:parameters success:^(id  _Nullable responseObject) {
+        DONG_Log(@"responseObject-->%@", responseObject);
+        
+        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        
+        if (resultCode == 0) {
+           
+            
+            
+            
+        } else {
+            
+        }
+        [CommonFunc dismiss];
+        
+    } failure:^(id  _Nullable errorObject) {
+        
+        DONG_Log(@"errorObject-->%@", errorObject);
+        [CommonFunc dismiss];
+    }];
+
+}
 
 @end
