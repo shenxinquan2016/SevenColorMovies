@@ -14,7 +14,7 @@
 #define kServiceCode @"kServiceCode" // 用户编码
 #define kCustomerLevel @"kCustomerLevel" // 用户等级
 #define kProductList @"kProductList" // 产品列表
-#define kIsUnrivaled @"kIsUnrivaled" // 是否有全部点播权限
+#define kIsVODUnrivaled @"kIsVODUnrivaled" // 是否有全部点播权限
 
 
 #define kLovelyBabyIsLogin @"kLovelyBabyIsLogin" // 萌娃是否登录
@@ -72,9 +72,9 @@
 }
 
 /** 是否有全部点播权限 */
-- (BOOL)isUnrivaled
+- (BOOL)isVODUnrivaled
 {
-    return [DONG_UserDefaults boolForKey:kIsUnrivaled];
+    return [DONG_UserDefaults boolForKey:kIsVODUnrivaled];
 }
 
 
@@ -176,9 +176,9 @@
 }
 
 /** 是否有全部点播权限 */
-- (void)setIsUnrivaled:(BOOL)isUnrivaled
+- (void)setIsVODUnrivaled:(BOOL)isVODUnrivaled
 {
-    [DONG_UserDefaults setBool:isUnrivaled forKey:kIsUnrivaled];
+    [DONG_UserDefaults setBool:isVODUnrivaled forKey:kIsVODUnrivaled];
     [DONG_UserDefaults synchronize];
 }
 
@@ -279,6 +279,7 @@
 - (void)removeUserInfo
 {
     UserInfoManager.isLogin = NO;
+    UserInfoManager.isVODUnrivaled = NO;
     [DONG_UserDefaults removeObjectForKey:kLovelyBabyToken];
     [DONG_UserDefaults removeObjectForKey:kLovelyBabyMemberId];
     [DONG_UserDefaults removeObjectForKey:kLovelyBabyMobilePhone];

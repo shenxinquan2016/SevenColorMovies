@@ -8,7 +8,6 @@
 
 #import "SCLoginView.h"
 
-
 @interface SCLoginView ()
 
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
@@ -41,8 +40,7 @@
 // 登录
 - (IBAction)login:(id)sender
 {
-//    [self loginNetworkRequest];
-    [self jkfdsjkljk];
+    [self loginNetworkRequest];
 }
 
 // 注册
@@ -94,6 +92,7 @@
             
         } else {
             [MBProgressHUD showSuccess:responseObject[@"ResultMessage"]];
+            [CommonFunc dismiss];
         }
         
         
@@ -135,24 +134,15 @@
                 UserInfoManager.productList = productList;
             }
             
-            [UIView animateWithDuration:0.2 animations:^{
-                self.alpha = 0;
-            } completion:^(BOOL finished) {
-                
-                UserInfoManager.isLogin = YES;
-                UserInfoManager.mobilePhone = mobilePhone;
-                [MBProgressHUD showSuccess:@"登录成功"];
-                [self removeFromSuperview];
-                if (_loginSuccessBlock) {
-                    _loginSuccessBlock(nil,nil);
-                }
-            }];
-            
-            
+            // 查询用户是否有全部点播播放权限
+            [self queryCustomerVODAuthorityByProductList];
+ 
         } else {
-              
+            
+           [CommonFunc dismiss];
+            [MBProgressHUD showError:responseObject[@"ResultMessage"]];
         }
-        [CommonFunc dismiss];
+        
         
     } failure:^(id  _Nullable errorObject) {
         
@@ -161,26 +151,57 @@
     }];
 }
 
-- (void)jkfdsjkljk
+// 查询用户是否有全部点播播放权限
+- (void)queryCustomerVODAuthorityByProductList
 {
     NSDictionary *parameters = @{
                                  @"authIds" : UserInfoManager.productList? UserInfoManager.productList : @"",
                                  };
     
     [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager requestDataByPostWithUrlString:QueryCustomerVODAuthority parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager getRequestJsonDataWithUrl:QueryCustomerVODAuthority parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         
-        NSInteger resultCode = [responseObject[@"ResultCode"] integerValue];
+        NSString *resultCode = responseObject[@"resultCode"];
         
-        if (resultCode == 0) {
-           
+        if ([resultCode isEqualToString:@"true"]) { // 有
             
+            UserInfoManager.isVODUnrivaled = YES;
+            [UIView animateWithDuration:0.2 animations:^{
+                self.alpha = 0;
+            } completion:^(BOOL finished) {
+                
+                UserInfoManager.isLogin = YES;
+                UserInfoManager.mobilePhone = _mobileTF.text;
+                [MBProgressHUD showSuccess:@"登录成功"];
+                [self removeFromSuperview];
+                if (_loginSuccessBlock) {
+                    _loginSuccessBlock(nil,nil);
+                }
+            }];
             
+        } else if ([resultCode isEqualToString:@"false"]) { // 没有
             
-        } else {
+            UserInfoManager.isVODUnrivaled = NO;
+            [UIView animateWithDuration:0.2 animations:^{
+                self.alpha = 0;
+            } completion:^(BOOL finished) {
+                
+                UserInfoManager.isLogin = YES;
+                UserInfoManager.mobilePhone = _mobileTF.text;
+                [MBProgressHUD showSuccess:@"登录成功"];
+                [self removeFromSuperview];
+                if (_loginSuccessBlock) {
+                    _loginSuccessBlock(nil,nil);
+                }
+            }];
             
+        } else if ([resultCode isEqualToString:@"exception"]) { // 异常
+            
+            UserInfoManager.isVODUnrivaled = NO;
+            [MBProgressHUD showSuccess:@"登录失败"];
         }
+        
         [CommonFunc dismiss];
         
     } failure:^(id  _Nullable errorObject) {
