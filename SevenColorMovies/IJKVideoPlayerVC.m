@@ -80,8 +80,6 @@
     // 2.
     [self installMovieNotificationObservers];
     
-    [self.player prepareToPlay];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -724,6 +722,8 @@
     self.player.view.frame = self.view.bounds;
     self.mediaControl.frame = self.view.bounds;
 }
+
+
 
 
 @end

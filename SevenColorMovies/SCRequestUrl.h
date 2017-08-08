@@ -128,7 +128,7 @@
 
 #define CustomerFeedback @"http://scc.96396.cn:10013/appjh_mmserver/feedback/addFeedBack.do" // 用户反馈
 
-#define QueryCustomerVODAuthority @"http://scc.96396.cn:10013/appjh_mmserver/Authority/checkAllPack.do" // 查询用户是否具有全部点播的播放权限
-
+#define QueryCustomerAllVODAuthority @"http://scc.96396.cn:10013/appjh_mmserver/Authority/checkAllPack.do" // 查询用户是否具有全部点播的播放权限
+#define QueryCustomerVODFilmAuthority @"http://scc.96396.cn:10013/appjh_mmserver/Authority/vodAuth.do" // 查询用户是否拥有点播权限
 
 #endif /* SCRequestUrl_h */

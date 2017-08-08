@@ -158,8 +158,7 @@
                                  @"authIds" : UserInfoManager.productList? UserInfoManager.productList : @"",
                                  };
     
-    [CommonFunc showLoadingWithTips:@""];
-    [requestDataManager getRequestJsonDataWithUrl:QueryCustomerVODAuthority parameters:parameters success:^(id  _Nullable responseObject) {
+    [requestDataManager getRequestJsonDataWithUrl:QueryCustomerAllVODAuthority parameters:parameters success:^(id  _Nullable responseObject) {
         DONG_Log(@"responseObject-->%@", responseObject);
         
         NSString *resultCode = responseObject[@"resultCode"];
