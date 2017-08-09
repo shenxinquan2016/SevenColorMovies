@@ -77,10 +77,10 @@
     // 1.初始化播放器
     [self setupIJKPlayer];
     
-    // 2.
+    // 2.注册观察者
     [self installMovieNotificationObservers];
     
-    [self.player prepareToPlay];
+//    [self.player prepareToPlay]; // 改为详情页查询播放权限后再决定是否播放
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -670,6 +670,7 @@
 }
 
 #pragma mark - Notifications
+
 -(void)installMovieNotificationObservers
 {
     //加载状态改变通知

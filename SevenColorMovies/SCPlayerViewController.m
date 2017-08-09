@@ -2117,7 +2117,43 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                         // 数据采集
                         [UserInfoManager addCollectionDataWithType:@"Film" filmName:[NSString stringWithFormat:@"%@ 第%lu集",_filmModel.FilmName , (unsigned long)_filmModel.jiIndex ] mid:filmmidStr];
                         
-                        [CommonFunc dismiss];
+                        // 查询用户是否拥有点播权限
+                        if (!UserInfoManager.isVODUnrivaled) {
+                            
+                            NSDictionary *parameters = @{
+                                                         @"authIds" : UserInfoManager.productList? UserInfoManager.productList : @"",
+                                                         @"assetId" : filmmidStr? filmmidStr : @""
+                                                         };
+                            
+                            // 查询用户是否拥有点播权限
+                            [requestDataManager getRequestJsonDataWithUrl:QueryCustomerVODFilmAuthority parameters:parameters success:^(id  _Nullable responseObject) {
+                                DONG_Log(@"responseObject-->%@", responseObject);
+                                
+                                NSString *resultCode = responseObject[@"resultCode"];
+                                
+                                if ([resultCode isEqualToString:@"true"]) { // 有播放权限
+                                    
+                                    // 接着播放去吧
+                                    [self.IJKPlayerViewController.player prepareToPlay];
+                                    
+                                } else if ([resultCode isEqualToString:@"false"]) { // 没有
+                                    
+                                    [DONG_AlertShowTool presentAlertViewWithTitle:@"提示" message:responseObject[@"msg"] confirmTitle:@"确定" handler:^{
+                                        [self.IJKPlayerViewController closePlayer];
+                                        [self.navigationController popViewControllerAnimated:YES];
+                                    }];
+                                    
+                                } else if ([resultCode isEqualToString:@"exception"]) { // 异常
+                                    
+                                    [MBProgressHUD showError:responseObject[@"msg"]];
+                                }
+                                
+                                [CommonFunc dismiss];
+                                
+                            } failure:^(id  _Nullable errorObject) {
+                                [CommonFunc dismiss];
+                            }];
+                        }
                         
                     } failure:^(id  _Nullable errorObject) {
                         [CommonFunc dismiss];
@@ -2363,7 +2399,43 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                         // 数据采集
                         [UserInfoManager addCollectionDataWithType:@"Film" filmName:self.filmModel.FilmName mid:filmMidStr];
                         
-                        [CommonFunc dismiss];
+                        // 查询用户是否拥有点播权限
+                        if (!UserInfoManager.isVODUnrivaled) {
+                            
+                            NSDictionary *parameters = @{
+                                                         @"authIds" : UserInfoManager.productList? UserInfoManager.productList : @"",
+                                                         @"assetId" : filmMidStr? filmMidStr : @""
+                                                         };
+                            
+                            // 查询用户是否拥有点播权限
+                            [requestDataManager getRequestJsonDataWithUrl:QueryCustomerVODFilmAuthority parameters:parameters success:^(id  _Nullable responseObject) {
+                                DONG_Log(@"responseObject-->%@", responseObject);
+                                
+                                NSString *resultCode = responseObject[@"resultCode"];
+                                
+                                if ([resultCode isEqualToString:@"true"]) { // 有播放权限
+                                    
+                                    // 接着播放去吧
+                                    [self.IJKPlayerViewController.player prepareToPlay];
+                                    
+                                } else if ([resultCode isEqualToString:@"false"]) { // 没有
+                                    
+                                    [DONG_AlertShowTool presentAlertViewWithTitle:@"提示" message:responseObject[@"msg"] confirmTitle:@"确定" handler:^{
+                                        [self.IJKPlayerViewController closePlayer];
+                                        [self.navigationController popViewControllerAnimated:YES];
+                                    }];
+                                    
+                                } else if ([resultCode isEqualToString:@"exception"]) { // 异常
+                                    
+                                    [MBProgressHUD showError:responseObject[@"msg"]];
+                                }
+                                
+                                [CommonFunc dismiss];
+                                
+                            } failure:^(id  _Nullable errorObject) {
+                                [CommonFunc dismiss];
+                            }];
+                        }
                         
                     } failure:^(id  _Nullable errorObject) {
                         [CommonFunc dismiss];
@@ -2624,16 +2696,15 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                             
                             if ([resultCode isEqualToString:@"true"]) { // 有播放权限
                                 
-                               // 接着播放去吧
+                                // 接着播放去吧
+                                [self.IJKPlayerViewController.player prepareToPlay];
                                 
                             } else if ([resultCode isEqualToString:@"false"]) { // 没有
                                 
-//                                [self.IJKPlayerViewController.player pause];
-                                
-//                                [DONG_AlertShowTool presentAlertViewWithTitle:@"提示" message:responseObject[@"msg"] confirmTitle:@"确定" handler:^{
-////                                    [self.navigationController popViewControllerAnimated:YES];
-//                                    [self.IJKPlayerViewController.player play];
-//                                }];
+                                [DONG_AlertShowTool presentAlertViewWithTitle:@"提示" message:responseObject[@"msg"] confirmTitle:@"确定" handler:^{
+                                    [self.IJKPlayerViewController closePlayer];
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                }];
                                 
                             } else if ([resultCode isEqualToString:@"exception"]) { // 异常
                                 
