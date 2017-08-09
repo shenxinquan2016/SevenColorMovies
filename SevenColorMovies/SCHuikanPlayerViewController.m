@@ -102,7 +102,7 @@
         
         mtype = filmModel._Mtype;
         
-    }else if (filmModel.mtype){
+    } else if (filmModel.mtype){
         
         mtype = filmModel.mtype;
     }
@@ -758,7 +758,8 @@
 }
 
 // 播放搜索回看
-- (void)playFilmWithProgramModel:(SCLiveProgramModel *)programModel{
+- (void)playFilmWithProgramModel:(SCLiveProgramModel *)programModel
+{
     //获取时间戳字符串
     NSString *startTime = [NSString stringWithFormat:@"%lu", (long)[NSDate timeStampFromString:programModel.forecastdate format:@"yyyy-MM-dd HH:mm:ss"]];
     NSString *endTime =  [NSString stringWithFormat:@"%lu", (long)[NSDate timeStampFromString:programModel.endtime?programModel.endtime:programModel.endTime format:@"yyyy-MM-dd HH:mm:ss"]];

@@ -45,6 +45,7 @@
 		1122FF651D4A22E900E6E8A2 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF621D4A22E900E6E8A2 /* NSArray+Log.m */; };
 		1122FF661D4A22E900E6E8A2 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */; };
 		112533D51F39BDBE003BB0A4 /* DONG_AlertShowTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 112533D41F39BDBE003BB0A4 /* DONG_AlertShowTool.m */; };
+		112539A91F3B1BEB003383A5 /* DONG_PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 112539A81F3B1BEB003383A5 /* DONG_PlayerView.m */; };
 		1129A6551DE567DC000328C9 /* SCMessageCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1129A6541DE567DC000328C9 /* SCMessageCenterVC.m */; };
 		1129A6581DE56803000328C9 /* SCSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1129A6571DE56803000328C9 /* SCSettingVC.m */; };
 		112DEFA91EC5A5E0008DD890 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112DEFA81EC5A5E0008DD890 /* Realm.framework */; };
@@ -372,6 +373,8 @@
 		1122FF641D4A22E900E6E8A2 /* NSDictionary+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Log.m"; sourceTree = "<group>"; };
 		112533D31F39BDBE003BB0A4 /* DONG_AlertShowTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_AlertShowTool.h; sourceTree = "<group>"; };
 		112533D41F39BDBE003BB0A4 /* DONG_AlertShowTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_AlertShowTool.m; sourceTree = "<group>"; };
+		112539A71F3B1BEB003383A5 /* DONG_PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DONG_PlayerView.h; sourceTree = "<group>"; };
+		112539A81F3B1BEB003383A5 /* DONG_PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DONG_PlayerView.m; sourceTree = "<group>"; };
 		1129A6531DE567DC000328C9 /* SCMessageCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMessageCenterVC.h; sourceTree = "<group>"; };
 		1129A6541DE567DC000328C9 /* SCMessageCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMessageCenterVC.m; sourceTree = "<group>"; };
 		1129A6561DE56803000328C9 /* SCSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSettingVC.h; sourceTree = "<group>"; };
@@ -1056,6 +1059,15 @@
 			name = "Log(unicode编码)";
 			sourceTree = "<group>";
 		};
+		112539A61F3B1B92003383A5 /* DONG_PlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				112539A71F3B1BEB003383A5 /* DONG_PlayerView.h */,
+				112539A81F3B1BEB003383A5 /* DONG_PlayerView.m */,
+			);
+			name = DONG_PlayerView;
+			sourceTree = "<group>";
+		};
 		112BF95A1E0A5C3900A9C33D /* AudioConvert音频转码 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1509,6 +1521,7 @@
 		116475FF1D40B98600A3BC1C /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				112539A61F3B1B92003383A5 /* DONG_PlayerView */,
 				11C21DB71EDEB54100A64A46 /* LaunchAd 启动广告 */,
 				115A21101D41F02F0097DE57 /* IJKPlayer播放器 */,
 				11928FD01D506D2700926011 /* CollectionPage */,
@@ -3104,6 +3117,7 @@
 				11B983811D588BDD00767E8F /* SCMoiveAllEpisodesCollectionVC.m in Sources */,
 				1111A4281D48C51A00C17B92 /* SCLoadingView.m in Sources */,
 				11C8CFBB1D45157B00C04F38 /* SCCollectionViewPageCell.m in Sources */,
+				112539A91F3B1BEB003383A5 /* DONG_PlayerView.m in Sources */,
 				115F02491DDAF73D00DF911F /* SCDSJDownloadView.m in Sources */,
 				1196A0731D42650A00B3C5EF /* SCMovieEpisodeCell.m in Sources */,
 				11622D6B1ECAA80300A06C31 /* SCFunctionDescriptionVC.m in Sources */,
