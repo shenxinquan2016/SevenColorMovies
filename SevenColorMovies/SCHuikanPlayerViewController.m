@@ -385,7 +385,7 @@
                     NSString *filmName;
                     if (filmModel.FilmName) {
                         filmName = [NSString stringWithFormat:@"%@ 第%@集",filmModel.FilmName,filmModel.filmSetModel._ContentIndex];
-                    }else if (filmModel.cnname){
+                    } else if (filmModel.cnname) {
                         filmName = [NSString stringWithFormat:@"%@ 第%@集",filmModel.cnname,filmModel.filmSetModel._ContentIndex];
                     }
                     self.filmName = filmName;
@@ -720,12 +720,11 @@
                                     [MBProgressHUD showError:responseObject[@"msg"]];
                                 }
                                 
-                                [CommonFunc dismiss];
-                                
                             } failure:^(id  _Nullable errorObject) {
-                                [CommonFunc dismiss];
+                                
                             }];
                         }
+                        [CommonFunc dismiss];
                         
                     } failure:^(NSError *error) {
                         [CommonFunc dismiss];
