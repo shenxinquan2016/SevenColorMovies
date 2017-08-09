@@ -99,6 +99,7 @@ static const CGFloat LabelWidth = 100.f;
 /** 控制记录当前播放时间的时机 */
 @property (nonatomic, assign) BOOL isRecordingCurrentPlayTime;
 
+
 @end
 
 @implementation SCPlayerViewController
@@ -113,6 +114,7 @@ static const CGFloat LabelWidth = 100.f;
 }
 
 #pragma mark - Initialize
+
 - (instancetype)initWithWithFilmType:(NSString *)tpye{
     self = [super init];
     if (self) {
@@ -122,6 +124,7 @@ static const CGFloat LabelWidth = 100.f;
 }
 
 #pragma mark -  ViewLife Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -289,7 +292,7 @@ static const CGFloat LabelWidth = 100.f;
                 [realm addObject: filmModel];
             }];
             
-        }else{
+        } else {
             
             [realm transactionWithBlock:^{
                 [realm addObject: filmModel];
@@ -1319,42 +1322,42 @@ static const CGFloat LabelWidth = 100.f;
         
         if (VODIndex+ ++timesIndexOfVOD < self.filmSetsArr.count) {
             DONG_Log(@"VODIndex:%lu timesIndexOfVOD: %lu",(unsigned long)VODIndex,(unsigned long)timesIndexOfVOD);
-            //-1.关闭正在播放的节目
+            // -1.关闭正在播放的节目
             if ([self.IJKPlayerViewController.player isPlaying]) {
                 [self.IJKPlayerViewController.player pause];
             }
             
-            //0.获取下一个节目的model
+            // 0.获取下一个节目的model
             SCFilmSetModel *filmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD];
             _filmModel.jiIndex = VODIndex + timesIndexOfVOD + 1;
             
             //将filmsetmodel和filmmodel关联起来，便于直接从数据库读取信息后播放
             _filmModel.filmSetModel = [[SCFilmSetModel alloc] initWithValue:filmSetModel];
-            //查询数据库以更新功能区按钮视图
+            // 查询数据库以更新功能区按钮视图
             [self refreshButtonStateFromQueryDatabase];
             
-            //1.获取上一个节目的model
+            // 1.获取上一个节目的model
             SCFilmSetModel *lastFilmSetModel = self.filmSetsArr[VODIndex+timesIndexOfVOD-1];
             
             message = @{@"nextFilmSetModel" : filmSetModel,
                         @"lastFilmSetModel" : lastFilmSetModel};
             [[NSNotificationCenter defaultCenter] postNotificationName:ChangeCellStateWhenPlayNextVODFilm object:message];
             
-            //2.请求播放地址
+            // 2.请求播放地址
             [CommonFunc showLoadingWithTips:@""];
             [requestDataManager requestDataWithUrl:filmSetModel.VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                 //            NSLog(@"====responseObject:::%@===",responseObject);
                 NSString *play_url = responseObject[@"play_url"];
                 DONG_Log(@"responseObject:%@",play_url);
-                //请求将播放地址域名转换  并拼接最终的播放地址
+                // 请求将播放地址域名转换  并拼接最终的播放地址
                 NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                //1.拼接新地址
+                // 1.拼接新地址
                 NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                 self.url = [NSURL URLWithString:playUrl];
-                //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-                //1.移除当前的播放器
+                // self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+                // 1.移除当前的播放器
                 [self.IJKPlayerViewController closePlayer];
-                //2.调用播放器播放
+                // 2.调用播放器播放
                 
                 if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
                     
@@ -1379,17 +1382,17 @@ static const CGFloat LabelWidth = 100.f;
                 }
                 
                 DONG_WeakSelf(self);
-                //1.全屏锁定回调
+                // 1.全屏锁定回调
                 weakself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                     DONG_StrongSelf(self);
                     strongself.fullScreenLock = isFullScreenLock;
                 };
-                //2.添加播放记录的回调
+                // 2.添加播放记录的回调
                 weakself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
                     DONG_StrongSelf(self);
                     [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                 };
-                //3.推屏的回调
+                // 3.推屏的回调
                 weakself.IJKPlayerViewController.pushScreenBlock = ^{
                     // 未连接设备时要先扫描设备
                     if (XMPPManager.isConnected) {
@@ -1441,52 +1444,52 @@ static const CGFloat LabelWidth = 100.f;
     } else if ([_identifier isEqualToString:@"综艺"]) {
         
         if (VODIndex+ ++timesIndexOfVOD < self.filmsArr.count) {
-            //0.获取下一个节目的model
+            // 0.获取下一个节目的model
             SCFilmModel *atrsFilmModel = self.filmsArr[VODIndex+timesIndexOfVOD];
-            //更改属性值为指定单元节目的filmModel 方便存取
+            // 更改属性值为指定单元节目的filmModel 方便存取
             _filmModel = atrsFilmModel;
             _filmModel.jiIndex = VODIndex + timesIndexOfVOD + 1;
             
             //查询数据库以更新功能区按钮视图
             [self refreshButtonStateFromQueryDatabase];
-            //请求播放地址
+            // 请求播放地址
             NSString *urlStr = [atrsFilmModel.SourceURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
-            //1.关闭正在播放的节目
+            // 1.关闭正在播放的节目
             if ([self.IJKPlayerViewController.player isPlaying]) {
                 [self.IJKPlayerViewController.player pause];
             }
             
-            //获取downLoadUrl
+            // 获取downLoadUrl
             [requestDataManager requestDataWithUrl:urlStr parameters:nil success:^(id  _Nullable responseObject) {
                 
                 NSString *downLoadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
                 
-                //获取fid
+                // 获取fid
                 NSString *fidString = [[[[downLoadUrl componentsSeparatedByString:@"?"] lastObject] componentsSeparatedByString:@"&"] firstObject];
-                //base64编码downloadUrl
+                // base64编码downloadUrl
                 NSString *downloadBase64Url = [downLoadUrl stringByBase64Encoding];
-                //视频播放url
+                // 视频播放url
                 NSString *domainUrl = [_domainTransformTool getNewViedoURLByUrlString:VODUrl key:@"vodplayauth"];
                 DONG_Log(@"domainUrl:%@",domainUrl);
                 NSString *replacedUrl = [_hljRequest getNewViedoURLByOriginVideoURL:domainUrl];
                 
                 NSString *VODStreamingUrl = [[[[[[replacedUrl stringByAppendingString:@"&mid="] stringByAppendingString:atrsFilmModel._Mid] stringByAppendingString:@"&"] stringByAppendingString:fidString] stringByAppendingString:@"&ext="] stringByAppendingString:downloadBase64Url];
-                //获取play_url
+                // 获取play_url
                 [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                     //            NSLog(@"====responseObject:::%@===",responseObject);
                     NSString *play_url = responseObject[@"play_url"];
                     DONG_Log(@"responseObject:%@",play_url);
-                    //请求将播放地址域名转换  并拼接最终的播放地址
+                    // 请求将播放地址域名转换  并拼接最终的播放地址
                     NSString *newVideoUrl = [self.hljRequest getNewViedoURLByOriginVideoURL:play_url];
-                    //1.拼接新地址
+                    // 1.拼接新地址
                     NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
                     self.url = [NSURL URLWithString:playUrl];
-                    //self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
-                    //1.移除播放器
+                    // self.url = [NSURL fileURLWithPath:@"/Users/yesdgq/Downloads/IMG_0839.MOV"];
+                    // 1.移除播放器
                     [self.IJKPlayerViewController closePlayer];
                     
-                    //2.调用播放器播放
+                    // 2.调用播放器播放
                     if ([PlayerViewRotate isOrientationLandscape]) { // 全屏时
                         
                         self.IJKPlayerViewController = [IJKVideoPlayerVC initIJKPlayerWithURL:self.url];
@@ -1612,7 +1615,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
         //            NSLog(@"====responseObject:::%@===",responseObject);
         
         NSString *play_url = responseObject[@"play_url"];
-        //-1.请求将播放地址域名转换  并拼接最终的播放地址
+        // -1.请求将播放地址域名转换  并拼接最终的播放地址
         NSString *newVideoUrl = [_hljRequest getNewViedoURLByOriginVideoURL:play_url];
         // 拼接新地址
         NSString *playUrl = [NSString stringWithFormat:@"http://127.0.0.1:5656/play?url='%@'",newVideoUrl];
@@ -1866,7 +1869,7 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
 {
     if (_filmModel._Mid) {
         _mid = _filmModel._Mid;
-    }else if (_filmModel.mid){
+    } else if (_filmModel.mid) {
         _mid = _filmModel.mid;
     }
     
@@ -1889,7 +1892,6 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
             
             DONG_Log(@"newVideoUrl:%@",newVideoUrl);
             
-            
             [requestDataManager requestDataWithUrl:newVideoUrl parameters:parameters success:^(id  _Nullable responseObject) {
                 //DONG_Log(@"====responseObject:::%@===",responseObject);
                 if (responseObject) {
@@ -1899,7 +1901,8 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                     // 介绍页model
                     self.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"Film"]];
                     
-                    if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]){
+                    if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSDictionary class]]) {
+                        
                         SCFilmSetModel *model = [SCFilmSetModel mj_objectWithKeyValues:responseObject[@"ContentSet"][@"Content"]];
                         
                         NSString *downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
@@ -1919,8 +1922,6 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                         
                         model.VODStreamingUrl = VODStreamingUrl;
                         
-                        //NSLog(@">>>>>>>>>>>DownUrl>>>>>>>>>>>>>%@",downloadUrl);
-                        //NSLog(@">>>>>>>>>>>>VODStreamingUrl>>>>>>>>>>>%@",model.VODStreamingUrl);
                         [_filmSetsArr addObject:model];
                         
                     } else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]) {
@@ -2219,13 +2220,13 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                     // 介绍页model
                     strongself.filmIntroduceModel  = [SCFilmIntroduceModel mj_objectWithKeyValues:responseObject[@"ParentFilm"]];
                     
-                    if ([responseObject[@"Film"] isKindOfClass:[NSDictionary class]]){
+                    if ([responseObject[@"Film"] isKindOfClass:[NSDictionary class]]) {
                         
                         SCFilmModel *model = [SCFilmModel mj_objectWithKeyValues:responseObject[@"Film"]];
                         model.onLive = YES;
                         [strongself.filmsArr addObject:model];
                         
-                    } else if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]){
+                    } else if ([responseObject[@"Film"] isKindOfClass:[NSArray class]]) {
                         
                         [responseObject[@"Film"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                             
@@ -2347,17 +2348,17 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                             
                         }
                         
-                        //1.全屏锁定回调
+                        // 1.全屏锁定回调
                         strongself.IJKPlayerViewController.fullScreenLockBlock = ^(BOOL isFullScreenLock){
                             DONG_StrongSelf(self);
                             strongself.fullScreenLock = isFullScreenLock;
                         };
-                        //2.添加播放记录的回调
+                        // 2.添加播放记录的回调
                         strongself.IJKPlayerViewController.addWatchHistoryBlock = ^(void){
                             DONG_StrongSelf(self);
                             [strongself addWatchHistoryWithFilmModel:strongself.filmModel];
                         };
-                        //3.推屏的回调
+                        // 3.推屏的回调
                         strongself.IJKPlayerViewController.pushScreenBlock = ^{
                             // 未连接设备时要先扫描设备
                             if (XMPPManager.isConnected) {

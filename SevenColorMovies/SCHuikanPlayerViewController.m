@@ -113,7 +113,7 @@
         [player playArtAndLifeFilmWithFilmModel:filmModel];
         return player;
         
-    }else {
+    } else {
         
         //电影 电视剧 少儿 少儿剧场 动漫 纪录片 游戏 专题  拉屏时因为没有mType信息，也会走此通道
         SCHuikanPlayerViewController *player = [[SCHuikanPlayerViewController alloc] init];
@@ -226,6 +226,7 @@
 }
 
 #pragma mark - 屏幕旋转的监听
+
 - (void)orientChange:(NSNotification *)noti
 {
     //NSDictionary* ntfDict = [noti userInfo];
@@ -298,14 +299,15 @@
 
 #pragma mark - private method
 // 播放电影 电视剧
-- (void)playFilmWithFilmModel:(SCFilmModel *)filmModel{
+- (void)playFilmWithFilmModel:(SCFilmModel *)filmModel
+{
     [CommonFunc showLoadingWithTips:@""];
     _filmModel = filmModel;
     
     NSString *mid;
     if (filmModel._Mid) {
         mid = filmModel._Mid;
-    }else if (filmModel.mid){
+    } else if (filmModel.mid){
         mid = filmModel.mid;
     }
     
@@ -1080,12 +1082,10 @@
                 //[CommonFunc noDataOrNoNetTipsString:@"数据加载失败，右划返回上一级页面" addView:self.view];
             }];
             
-            
         } failure:^(NSError *error) {
             
             [CommonFunc dismiss];
         }];
-        
         
     } failure:^(id  _Nullable errorObject) {
         
