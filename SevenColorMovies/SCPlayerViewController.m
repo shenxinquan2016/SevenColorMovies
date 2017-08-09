@@ -2552,9 +2552,6 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                 [strongself constructSlideHeaderView];
                 [strongself constructContentView];
                 
-                
-                
-                
                 // 请求播放地址
                 [requestDataManager requestDataWithUrl:VODStreamingUrl parameters:nil success:^(id  _Nullable responseObject) {
                     //DONG_Log(@"====responseObject:::%@===",responseObject);

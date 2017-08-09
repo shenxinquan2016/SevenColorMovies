@@ -274,7 +274,7 @@
         self.addWatchHistoryBlock();
     }
     
-    // 2.如果是单独的播放器窗口(比如从我的下载、我的收藏等进入播放)，需要单独处理返回事物
+    // 2.如果是单独的播放器窗口(比如从我的下载、我的收藏等进入播放)，需要单独处理返回事务
     if (self.isSinglePlayerView) {
         // 先回调使父视图支持旋转才能旋转
         if (self.supportRotationBlock) {
@@ -302,27 +302,27 @@
             
             DONG_Log(@"controller:%@", controller);
             
-            if ([controller isKindOfClass:[SCMyProgramListVC class]]) {//我的节目单
+            if ([controller isKindOfClass:[SCMyProgramListVC class]]) { // 我的节目单
                 
                 [navController popToViewController:controller animated:YES];
                 return;
                 
-            } else if ([controller isKindOfClass:[SCMyCollectionVC class]]) {//我的收藏
+            } else if ([controller isKindOfClass:[SCMyCollectionVC class]]) { // 我的收藏
                 
                 [navController popToViewController:controller animated:YES];
                 return;
                 
-            } else if ([controller isKindOfClass:[SCMyDownloadManagerVC class]]) {//我的下载
+            } else if ([controller isKindOfClass:[SCMyDownloadManagerVC class]]) { // 我的下载
                 
                 [navController popToViewController:controller animated:YES];
                 return;
                 
-            } else if ([controller isKindOfClass:[SCSearchViewController class]]){//搜索控制器
+            } else if ([controller isKindOfClass:[SCSearchViewController class]]){ // 搜索控制器
                 
                 [navController popToViewController:controller animated:YES];
                 return;
                 
-            } else if ([controller isKindOfClass:[SCRemoteControlVC class]]){//遥控器
+            } else if ([controller isKindOfClass:[SCRemoteControlVC class]]){ // 遥控器
                 
                 [navController popToViewController:controller animated:YES];
                 return;

@@ -56,6 +56,8 @@
     player.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = name;//节目名称
     [player.view addSubview:player.IJKPlayerViewController.view];
     
+    [player.IJKPlayerViewController.player prepareToPlay];
+    
     // 3.播放器返回按钮的回调 刷新本页是否支持旋转状态
     DONG_WeakSelf(player);
     player.IJKPlayerViewController.supportRotationBlock = ^(BOOL isProhibitRotate) {
@@ -165,10 +167,12 @@
     player.isProhibitRotate = YES;
     [player shouldAutorotate];
     
+    [player.IJKPlayerViewController.player prepareToPlay];
+
+    
     return player;
     
 }
-
 
 + (instancetype)initPlayerWithPullInFilmModel:(SCFilmModel *)filmModel
 {
@@ -494,30 +498,6 @@
                         [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
                         strongself.isProhibitRotate = YES;
                         
-                        //同时旋转statusBar和navigation才能旋转彻底(使系统视图(音量图标)一起旋转) 但是返回时有问题😅😅😅😅转不回来了
-                        //                    UIInterfaceOrientation orientation = UIInterfaceOrientationLandscapeRight;
-                        //                    [[UIApplication sharedApplication] setStatusBarOrientation:orientation];
-                        //                    //计算旋转角度
-                        //                    float arch;
-                        //                    if (orientation == UIInterfaceOrientationLandscapeLeft)  {
-                        //                        arch = -M_PI_2;
-                        //                    }  else if (orientation == UIInterfaceOrientationLandscapeRight) {
-                        //                        arch = M_PI_2;
-                        //                    } else {
-                        //                        arch = 0;
-                        //                    }
-                        //
-                        //                    [UIView animateWithDuration:0.2 animations:^{
-                        //
-                        //                    //对navigationController.view 进行强制旋转
-                        //                    strongself.navigationController.view.transform = CGAffineTransformMakeRotation(arch);
-                        //                    strongself.navigationController.view.bounds = UIInterfaceOrientationIsLandscape(orientation) ? CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight) : CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
-                        //                    strongself.IJKPlayerViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-                        //                    strongself.IJKPlayerViewController.mediaControl.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
-                        //
-                        //                    }];
-                        
-                        
                         // 名称
                         NSString *filmName;
                         if (filmModel.FilmName) {
@@ -527,7 +507,7 @@
                                 filmName = filmModel.FilmName;
                             }
                             
-                        }else if (filmModel.cnname){
+                        } else if (filmModel.cnname) {
                             if (filmModel.jiIndex > 1) {
                                 filmName = [NSString stringWithFormat:@"%@ 第%ld集",filmModel.cnname, (long)filmModel.jiIndex];
                             } else {
@@ -540,7 +520,50 @@
                         // 数据采集
                         [UserInfoManager addCollectionDataWithType:@"Film" filmName:filmName mid:mid];
                         
-                        [CommonFunc dismiss];
+                        // 查询用户是否拥有点播权限
+                        if (!UserInfoManager.isVODUnrivaled) {
+                            
+                            NSDictionary *parameters = @{
+                                                         @"authIds" : UserInfoManager.productList? UserInfoManager.productList : @"",
+                                                         @"assetId" : filmmidStr? filmmidStr : @""
+                                                         };
+                            
+                            // 查询用户是否拥有点播权限
+                            [requestDataManager getRequestJsonDataWithUrl:QueryCustomerVODFilmAuthority parameters:parameters success:^(id  _Nullable responseObject) {
+                                DONG_Log(@"responseObject-->%@", responseObject);
+                                
+                                NSString *resultCode = responseObject[@"resultCode"];
+                                
+                                if ([resultCode isEqualToString:@"true"]) { // 有播放权限
+                                    
+                                    // 接着播放去吧
+                                    [strongself.IJKPlayerViewController.player prepareToPlay];
+                                    
+                                } else if ([resultCode isEqualToString:@"false"]) { // 没有
+                                    
+                                    [DONG_AlertShowTool presentAlertViewWithTitle:@"提示" message:responseObject[@"msg"] confirmTitle:@"确定" handler:^{
+                                        
+                                        strongself.isProhibitRotate = NO;
+                                        [strongself.IJKPlayerViewController closePlayer];
+                                        strongself.IJKPlayerViewController.isFullScreen = YES;
+                                        
+                                        DONG_MainThread(
+                                                        [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
+                                                        [self.navigationController popViewControllerAnimated:YES];
+                                                        );
+                                    }];
+                                    
+                                } else if ([resultCode isEqualToString:@"exception"]) { // 异常
+                                    
+                                    [MBProgressHUD showError:responseObject[@"msg"]];
+                                }
+                                
+                                [CommonFunc dismiss];
+                                
+                            } failure:^(id  _Nullable errorObject) {
+                                [CommonFunc dismiss];
+                            }];
+                        }
                         
                     } failure:^(id  _Nullable errorObject) {
                         [CommonFunc dismiss];
@@ -573,7 +596,7 @@
     NSString *filmMidStr = nil;
     if (filmModel._Mid) {
         filmMidStr = filmModel._Mid;
-    }else if (filmModel.mid){
+    } else if (filmModel.mid) {
         filmMidStr = filmModel.mid;
     }
     
@@ -656,9 +679,53 @@
                         //strongself.IJKPlayerViewController.mediaControl.programNameLabel.text = filmName;//节目名称
                         strongself.IJKPlayerViewController.mediaControl.programNameRunLabel.titleName = filmName;//节目名称
                         
-                        [CommonFunc dismiss];
                         // 数据采集
                         [UserInfoManager addCollectionDataWithType:@"Film" filmName:filmName mid:filmMidStr];
+                        
+                        // 查询用户是否拥有点播权限
+                        if (!UserInfoManager.isVODUnrivaled) {
+                            
+                            NSDictionary *parameters = @{
+                                                         @"authIds" : UserInfoManager.productList? UserInfoManager.productList : @"",
+                                                         @"assetId" : filmMidStr? filmMidStr : @""
+                                                         };
+                            
+                            // 查询用户是否拥有点播权限
+                            [requestDataManager getRequestJsonDataWithUrl:QueryCustomerVODFilmAuthority parameters:parameters success:^(id  _Nullable responseObject) {
+                                DONG_Log(@"responseObject-->%@", responseObject);
+                                
+                                NSString *resultCode = responseObject[@"resultCode"];
+                                
+                                if ([resultCode isEqualToString:@"true"]) { // 有播放权限
+                                    
+                                    // 接着播放去吧
+                                    [strongself.IJKPlayerViewController.player prepareToPlay];
+                                    
+                                } else if ([resultCode isEqualToString:@"false"]) { // 没有
+                                    
+                                    [DONG_AlertShowTool presentAlertViewWithTitle:@"提示" message:responseObject[@"msg"] confirmTitle:@"确定" handler:^{
+                                        
+                                        strongself.isProhibitRotate = NO;
+                                        [strongself.IJKPlayerViewController closePlayer];
+                                        strongself.IJKPlayerViewController.isFullScreen = YES;
+                                        
+                                        DONG_MainThread(
+                                                        [PlayerViewRotate forceOrientation:UIInterfaceOrientationPortrait];
+                                                        [self.navigationController popViewControllerAnimated:YES];
+                                                        );
+                                    }];
+                                    
+                                } else if ([resultCode isEqualToString:@"exception"]) { // 异常
+                                    
+                                    [MBProgressHUD showError:responseObject[@"msg"]];
+                                }
+                                
+                                [CommonFunc dismiss];
+                                
+                            } failure:^(id  _Nullable errorObject) {
+                                [CommonFunc dismiss];
+                            }];
+                        }
                         
                     } failure:^(NSError *error) {
                         [CommonFunc dismiss];
@@ -763,6 +830,8 @@
                 strongself.IJKPlayerViewController.isFullScreen = YES;
                 strongself.isProhibitRotate = YES;
                 
+                [strongself.IJKPlayerViewController.player prepareToPlay];
+                
                 // 数据采集
                 [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:@"app"];
                 
@@ -841,6 +910,8 @@
                 [PlayerViewRotate forceOrientation:UIInterfaceOrientationLandscapeRight];
                 self.IJKPlayerViewController.isFullScreen = YES;
                 self.isProhibitRotate = YES;
+                
+                [self.IJKPlayerViewController.player prepareToPlay];
                 
                 // 数据采集
                 [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:@"app"];
@@ -932,6 +1003,8 @@
                 self.IJKPlayerViewController.isFullScreen = YES;
                 self.isProhibitRotate = YES;
                 
+                [self.IJKPlayerViewController.player prepareToPlay];
+                
                 // 数据采集
                 [UserInfoManager addCollectionDataWithType:@"FilmClass" filmName:@"直播" mid:@"app"];
                 
@@ -1000,7 +1073,7 @@
                     
                     downloadUrl = responseObject[@"ContentSet"][@"Content"][@"_DownUrl"];
                     
-                }else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
+                } else if ([responseObject[@"ContentSet"][@"Content"] isKindOfClass:[NSArray class]]){
                     
                     downloadUrl = [responseObject[@"ContentSet"][@"Content"] firstObject][@"_DownUrl"];
                 }
