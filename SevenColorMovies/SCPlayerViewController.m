@@ -2628,11 +2628,12 @@ static NSUInteger timesIndexOfVOD = 0; // 标记自动播放下一个节目的�
                                 
                             } else if ([resultCode isEqualToString:@"false"]) { // 没有
                                 
-                                [self.IJKPlayerViewController.player pause];
+//                                [self.IJKPlayerViewController.player pause];
                                 
-                                [DONG_AlertShowTool presentAlertViewWithTitle:@"提示" message:responseObject[@"msg"] confirmTitle:@"确定" handler:^{
-                                    [self.navigationController popViewControllerAnimated:YES];
-                                }];
+//                                [DONG_AlertShowTool presentAlertViewWithTitle:@"提示" message:responseObject[@"msg"] confirmTitle:@"确定" handler:^{
+////                                    [self.navigationController popViewControllerAnimated:YES];
+//                                    [self.IJKPlayerViewController.player play];
+//                                }];
                                 
                             } else if ([resultCode isEqualToString:@"exception"]) { // 异常
                                 

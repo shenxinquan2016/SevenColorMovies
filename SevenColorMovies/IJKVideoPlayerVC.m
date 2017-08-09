@@ -80,6 +80,7 @@
     // 2.
     [self installMovieNotificationObservers];
     
+    [self.player prepareToPlay];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
