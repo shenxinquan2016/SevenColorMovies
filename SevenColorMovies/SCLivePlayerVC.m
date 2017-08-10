@@ -1376,14 +1376,13 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                 // 请求新的时移
                 [weakself requestTimeShiftVideoSignalFlowUrl:positionTime];
             }
-            
         };
         
         [self.IJKPlayerViewController.player prepareToPlay];
         [self.view addSubview:_IJKPlayerViewController.view];
         
-        
         [CommonFunc dismiss];
+        
     } failure:^(id  _Nullable errorObject) {
         
         [CommonFunc dismiss];
