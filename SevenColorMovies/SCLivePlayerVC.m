@@ -144,7 +144,8 @@ static const CGFloat LabelWidth = 55.f;
     NSLog(@"🔴%s 第%d行 \n",__func__, __LINE__);
 }
 
-- (IBAction)goBack:(id)sender {
+- (IBAction)goBack:(id)sender
+{
     // 取出当前的导航控制器
     UITabBarController *tabBarVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     // 当前选择的导航控制器
@@ -248,7 +249,6 @@ static const CGFloat LabelWidth = 55.f;
 /** 进入后台 */
 - (void)gotoBackground
 {
-    
     if ([self.liveStyle isEqualToString:@"回看"] &&_isRecordingCurrentPlayTime) {
         // 允许保存时才记录当前播放时间
         NSInteger currentPlayTime = self.IJKPlayerViewController.player.currentPlaybackTime;
@@ -485,6 +485,7 @@ static const CGFloat LabelWidth = 55.f;
         [self.view addSubview:self.IJKPlayerViewController.view];
     }
     
+    [self.IJKPlayerViewController.player prepareToPlay];
     
 }
 
@@ -631,6 +632,7 @@ static const CGFloat LabelWidth = 55.f;
 }
 
 #pragma mark - UIScrollViewDelegate
+
 /** 滚动结束后调用（代码导致的滚动停止） */
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
@@ -648,7 +650,7 @@ static const CGFloat LabelWidth = 55.f;
     
     if (offsetx < 0) {
         offsetx = 0;
-    }else if (offsetx > offsetMax){
+    } else if (offsetx > offsetMax){
         offsetx = offsetMax;
     }
     
@@ -676,13 +678,14 @@ static const CGFloat LabelWidth = 55.f;
 }
 
 #pragma mark - ScrollToTop
+
 - (void)setScrollToTopWithTableViewIndex:(NSInteger)index
 {
     self.needScrollToTopPage.collectionView.scrollsToTop = NO;
     self.needScrollToTopPage = self.childViewControllers[index];
     self.needScrollToTopPage.collectionView.scrollsToTop = YES;
     
-    //点击切换节目block回调方法
+    // 点击切换节目block回调方法
     [self doIJKPlayerBlock];
 }
 
@@ -709,13 +712,14 @@ static const CGFloat LabelWidth = 55.f;
         labelRight.scale = scaleRight;
     }
     
-    //下划线即时滑动
+    // 下划线即时滑动
     //    float modulus = scrollView.contentOffset.x/_contentScroll.contentSize.width;
     //    _bottomLine.frame = CGRectMake(modulus * _titleScroll.contentSize.width, _titleScroll.frame.size.height-22+StatusBarHeight, LabelWidth, 2);
     
 }
 
 #pragma mark - IJK播放控制器的回调
+
 - (void)doIJKPlayerBlock
 {
     DONG_WeakSelf(self);
@@ -731,11 +735,11 @@ static const CGFloat LabelWidth = 55.f;
             
             [strongself requestProgramHavePastVideoSignalFlowUrlWithModel:model NextProgramModel:nextProgramModel];
             
-        }else if (model.programState == NowPlaying){
+        } else if (model.programState == NowPlaying){
             
             [strongself getLiveVideoSignalFlowUrl];//直播
             
-        }else {
+        } else {
             [MBProgressHUD showError:@"节目未开始"];//未开始
             return;
         }
@@ -900,7 +904,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
     switch (orient) {
         case UIDeviceOrientationPortrait:
             
-            //此方向为正常竖屏方向，当锁定全屏设备旋转至此方向时，屏幕虽然不显示StatusBar，但会留出StatusBar位置，所以调整IJKPlayer的位置
+            // 此方向为正常竖屏方向，当锁定全屏设备旋转至此方向时，屏幕虽然不显示StatusBar，但会留出StatusBar位置，所以调整IJKPlayer的位置
             if (self.fullScreenLock) {
                 [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                 _IJKPlayerViewController.isFullScreen = YES;
@@ -1053,11 +1057,11 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
                                             [[NSUserDefaults standardUserDefaults] setInteger:_index forKey:k_for_Live_selectedCellIndex];//被选中的行
                                             [[NSUserDefaults standardUserDefaults] synchronize];
                                             
-                                        }else{
+                                        } else {
                                             programModel.programState = HavePast;
                                         }
                                     }
-                                }else{
+                                } else {
                                     programModel.programState = WillPlay;
                                 }
                                 
@@ -1226,6 +1230,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             }
             
         };
+        [self.IJKPlayerViewController.player prepareToPlay];
         
         [self.view addSubview:_IJKPlayerViewController.view];
         
@@ -1374,6 +1379,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             
         };
         
+        [self.IJKPlayerViewController.player prepareToPlay];
         [self.view addSubview:_IJKPlayerViewController.view];
         
         
@@ -1383,9 +1389,6 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
         [CommonFunc dismiss];
         
     }];
-    
-    
-    
 }
 
 // 请求时移拉屏视频流
@@ -1524,6 +1527,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             
         };
         
+        [self.IJKPlayerViewController.player prepareToPlay];
         [self.view addSubview:_IJKPlayerViewController.view];
         
         
@@ -1652,6 +1656,7 @@ static NSUInteger timesIndexOfHuikan = 0;//标记自动播放下一个节目的�
             [strongself shouldAutorotate];
         };
         
+        [self.IJKPlayerViewController.player prepareToPlay];
         [self.view addSubview:self.IJKPlayerViewController.view];
         
         [CommonFunc dismiss];

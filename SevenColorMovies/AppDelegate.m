@@ -155,7 +155,6 @@
     NetUrlManager.commonPort = dic[@"commPort"];
     NetUrlManager.interface5 = dic[@"interface5"];
     NetUrlManager.payPort = dic[@"payPort"];
-    
 }
 
 - (void)setAppearance

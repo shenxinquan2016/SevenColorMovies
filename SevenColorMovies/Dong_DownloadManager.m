@@ -173,7 +173,7 @@
                 if (error.userInfo && [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData]) {
                     //self.resumeData = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
                 }
-            } else{
+            } else {
                 // 网络异常
                 task.downloadModel.downloadStatus = kDownloadStateFailed;
                 if (error.userInfo && [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData]) {
