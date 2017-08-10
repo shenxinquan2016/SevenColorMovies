@@ -180,7 +180,6 @@
                     //self.resumeData = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
                 }
             }
-           
         }
     });
 }
